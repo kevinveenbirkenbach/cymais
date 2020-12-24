@@ -1,9 +1,4 @@
 ---
-- name: setup backup servers
-  hosts: backup_servers
-  roles:
-    - native-user-datasafer
-
 - name: setup arch servers
   hosts: arch_servers
   roles:
