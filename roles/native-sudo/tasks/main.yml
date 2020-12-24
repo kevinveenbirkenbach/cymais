@@ -1,0 +1,17 @@
+- name: install sudo
+  pacman: name=sudo state=present
+
+- name: create sudoers
+  template: src=sudoers dest=/etc/sudoers
+
+- name: ensure group "sudo" exists
+  group:
+    name: sudo
+    state: present
+
+- name: set /etc/sudoers
+  file:
+    path: /etc/sudoers
+    owner: root
+    group: root
+    mode: 0440
