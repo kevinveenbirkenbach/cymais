@@ -1,0 +1,19 @@
+- name: recieve {{domain}} certificate
+  command: certbot certonly --agree-tos --email {{administrator_email}} --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{domain}}
+
+- name: configure {{domain}}.conf
+  template: src=roles/native-nginx-docker-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
+  notify: restart nginx
+
+- name: "docker jenkins"
+  docker_compose:
+    project_name: jenkins
+    definition:
+      application:
+        image: jenkins/jenkins:lts
+        restart: always
+        ports:
+          - "{{http_port}}:8080"
+        restart: always
+        volumes:
+          - jenkins_data:/var/jenkins_home

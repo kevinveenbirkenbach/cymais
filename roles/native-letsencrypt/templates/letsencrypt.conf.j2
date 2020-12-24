@@ -1,0 +1,16 @@
+server
+{
+  listen 80;
+  listen [::]:80;
+  location /
+  {
+    return 301 https://$host$request_uri;
+  }
+  #letsencrypt
+  location ^~ /.well-known/acme-challenge/ {
+    allow all;
+    root /var/lib/letsencrypt/;
+    default_type "text/plain";
+    try_files $uri =404;
+  }
+}

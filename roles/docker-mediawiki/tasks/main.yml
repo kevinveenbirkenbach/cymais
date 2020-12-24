@@ -1,0 +1,30 @@
+- name: recieve {{domain}} certificate
+  command: certbot certonly --agree-tos --email {{administrator_email}} --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{domain}}
+
+- name: configure {{domain}}.conf
+  template: src=roles/native-nginx-docker-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
+  notify: restart nginx
+
+- name: "docker mediawiki"
+  docker_compose:
+    project_name: mediawiki
+    definition:
+      application:
+        image: mediawiki
+        restart: always
+        links:
+          - database
+        volumes:
+          - "mediawiki-data:/var/www/html/"
+        ports:
+          - "{{http_port}}:80"
+      database:
+        image: mariadb
+        environment:
+          MYSQL_DATABASE: mediawiki
+          MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+          MYSQL_USER: mediawiki
+          MYSQL_PASSWORD: "{{mediawiki_mysql_user_password}}"
+        volumes:
+          - mediawiki-database:/var/lib/mysql
+        restart: always

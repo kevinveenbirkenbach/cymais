@@ -1,0 +1,3 @@
+dependencies:
+  - native-docker
+  - native-git

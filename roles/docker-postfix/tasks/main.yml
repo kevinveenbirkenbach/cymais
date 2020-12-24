@@ -1,0 +1,36 @@
+---
+- name: recieve {{domain}} certificate
+  command: certbot certonly --agree-tos --email {{administrator_email}} --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{domain}}
+
+- name: configure {{domain}}.conf
+  template: src=roles/native-nginx-docker-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
+  notify: restart nginx
+
+- name: "setup postfix"
+  docker_compose:
+    project_name: postfix
+    definition:
+      application:
+        image: postfixadmin:apache
+        environment:
+          POSTFIXADMIN_DB_TYPE: mysqli
+          POSTFIXADMIN_DB_HOST: "database"
+          POSTFIXADMIN_DB_USER: postfixadmin
+          POSTFIXADMIN_DB_NAME: postfixadmin
+          POSTFIXADMIN_DB_PASSWORD: "{{postfixadmin_database_password}}"
+          POSTFIXADMIN_SETUP_PASSWORD: "{{postfixadmin_setup_password}}"
+        restart: always
+        links:
+          - database
+        ports:
+          - "{{http_port}}:80"
+      database:
+        image: mariadb
+        environment:
+          MYSQL_DATABASE: "postfixadmin"
+          MYSQL_USER: "postfixadmin"
+          MYSQL_PASSWORD: "{{postfixadmin_database_password}}"
+          MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+        volumes:
+          - postfixadmin-database:/var/lib/mysql
+        restart: always

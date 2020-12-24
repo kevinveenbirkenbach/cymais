@@ -1,0 +1,47 @@
+---
+- name: setup backup servers
+  hosts: backup_servers
+  roles:
+    - native-user-datasafer
+
+- name: setup arch servers
+  hosts: arch_servers
+  roles:
+    - native-security
+    - native-pacman
+    - native-wireguard
+    - native-user-alarm
+    - native-user-administrator
+- name: setup webservers
+  hosts: webservers
+  roles:
+   -  role: native-homepage
+      vars:
+        domain: "{{top_domain}}"
+   -  role: docker-nextcloud
+      vars:
+        domain: cloud.{{top_domain}}
+        http_port: 8001
+   -  role: docker-gitea
+      vars:
+        domain: git.{{top_domain}}
+        http_port: 8002
+        ssh_port:  2201
+        run_mode: prod
+   -  role: docker-wordpress
+      vars:
+        domain: www.{{top_domain}}
+        http_port: 8003
+   -  role: docker-mediawiki
+      vars:
+        domain: wiki.{{top_domain}}
+        http_port: 8004
+   -  role: docker-mybb
+      vars:
+        domain: forum.{{top_domain}}
+        http_port: 8005
+   -  role: docker-yourls
+      vars:
+        domain: s.{{top_domain}}
+        http_port: 8006
+   - native-docker-volume-backup

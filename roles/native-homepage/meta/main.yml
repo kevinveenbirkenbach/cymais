@@ -1,0 +1,3 @@
+dependencies:
+- native-https-server
+- native-git

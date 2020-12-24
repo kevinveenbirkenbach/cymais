@@ -1,0 +1,4 @@
+- name: restart certbot service
+  service: name=certbot.service state=restarted enabled=yes
+- name: restart certbot timer
+  service: name=certbot.timer state=restarted enabled=yes

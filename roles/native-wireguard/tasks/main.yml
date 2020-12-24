@@ -1,0 +1,6 @@
+- name: install wireguard
+  pacman: name=wireguard-tools state=present
+
+- name: create /etc/wireguard/wg0.conf
+  template: src={{ inventory_hostname }}.wg0.conf dest=/etc/wireguard/wg0.conf
+  notify: restart wireguard

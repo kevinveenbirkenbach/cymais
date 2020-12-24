@@ -1,0 +1,13 @@
+server
+{
+  server_name {{domain}};
+
+  {% if client_max_body_size is defined %}
+    client_max_body_size {{ client_max_body_size }};
+  {% endif %}
+
+  {% include 'roles/native-letsencrypt/templates/ssl_header.j2' %}
+
+  {% include 'proxy_pass.conf.j2' %}
+
+}

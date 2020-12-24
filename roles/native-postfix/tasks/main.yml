@@ -1,0 +1,4 @@
+- name: install postfix
+  pacman:
+    name: postfix
+    state: present

@@ -1,0 +1,13 @@
+- name: docker-volume-backup git
+  git:
+    repo: "https://github.com/kevinveenbirkenbach/docker-volume-backup.git"
+    dest: "/usr/local/bin/docker-volume-backup"
+    update: yes
+
+- name: configure docker-volume-backup.service.tpl
+  template: src=docker-volume-backup.service dest=/etc/systemd/system/docker-volume-backup.service
+  notify: restart docker-volume-backup service
+
+- name: configure docker-volume-backup.timer.tpl
+  template: src=docker-volume-backup.timer dest=/etc/systemd/system/docker-volume-backup.timer
+  notify: restart docker-volume-backup timer

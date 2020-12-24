@@ -1,0 +1,5 @@
+- name: remove the user alarm
+  user:
+    name: alarm
+    state: absent
+    remove: yes

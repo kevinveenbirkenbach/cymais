@@ -1,0 +1,17 @@
+---
+- name: install nginx
+  pacman: name=nginx state=present
+  notify: restart nginx
+
+- name: set /etc/nginx/conf.d
+  file:
+    path: /etc/nginx/conf.d
+    state: directory
+    mode: 0755
+
+- name: create nginx config file
+  template: src=nginx.conf dest=/etc/nginx/nginx.conf
+  notify: restart nginx
+
+- name: flush nginx service
+  meta: flush_handlers

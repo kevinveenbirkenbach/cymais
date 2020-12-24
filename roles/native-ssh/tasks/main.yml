@@ -1,0 +1,3 @@
+- name: configuring ssh
+  template: src=sshd_config dest=/etc/ssh/
+  notify: sshd restart

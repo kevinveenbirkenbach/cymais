@@ -1,0 +1,6 @@
+- name: create nginx letsencrypt config file
+  template: src=letsencrypt.conf.j2 dest=/etc/nginx/conf.d/letsencrypt.conf
+  notify: restart nginx
+
+- name: flush nginx service
+  meta: flush_handlers

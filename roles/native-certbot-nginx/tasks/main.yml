@@ -1,0 +1,13 @@
+- name: install certbot
+  pacman:
+    name: [certbot,certbot-nginx]
+    state: present
+  notify: restart certbot service
+
+- name: configure certbot.service.tpl
+  template: src=certbot.service dest=/etc/systemd/system/certbot.service
+  notify: restart certbot service
+
+- name: configure certbot.timer.tpl
+  template: src=certbot.timer dest=/etc/systemd/system/certbot.timer
+  notify: restart certbot timer

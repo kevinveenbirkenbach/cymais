@@ -1,0 +1,4 @@
+- name: restart docker-volume-backup service
+  service: name=docker-volume-backup.service state=restarted enabled=yes
+- name: restart docker-volume-backup timer
+  service: name=docker-volume-backup.timer state=restarted enabled=yes

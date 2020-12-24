@@ -1,0 +1,12 @@
+- name: configure {{domain}}.conf
+  template: src=homepage.nginx.conf dest=/etc/nginx/conf.d/{{domain}}.conf
+  notify: restart nginx
+
+- name: recieve {{domain}} certificate
+  command: certbot certonly --agree-tos --email {{administrator_email}} --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{domain}}
+
+- name: homepage repo git
+  git:
+    repo: "{{homepage_repository_address}}"
+    dest: "/usr/share/nginx/homepage"
+    update: yes

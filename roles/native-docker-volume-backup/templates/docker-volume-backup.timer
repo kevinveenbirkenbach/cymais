@@ -1,0 +1,9 @@
+[Unit]
+Description=backups the docker volumes
+
+[Timer]
+OnCalendar=3:00
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target
