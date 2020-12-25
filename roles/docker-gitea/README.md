@@ -3,7 +3,7 @@
 ## database access
 To access the database execute
 ```bash
-  docker exec -it gitea_database_1 /bin/mysql -u nextcloud -p
+  docker exec -it gitea_database_1 /bin/mysql -u gitea -p
 ```
 ## bash in application
 docker exec -it gitea_application_1 /bin/sh
