@@ -26,6 +26,7 @@
           - DOMAIN={{domain}}
           - SSH_DOMAIN={{domain}}
           - RUN_MODE="{{run_mode}}"
+          - ROOT_URL="https://{{domain}}/"
         ports:
           - "{{http_port}}:3000"
           - "{{ssh_port}}:22"
