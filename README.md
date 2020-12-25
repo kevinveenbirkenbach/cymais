@@ -2,15 +2,11 @@
 ## Description
 Ansible script to manage servers.
 
-## Setup
-To use this script execute:
-``bash
-ansible-galaxy install kewlfft.aur
-``
-
 ## Update
+Follow the best [practices for inventories](https://docs.ansible.com/ansible/2.3/playbooks_best_practices.html) and execute ansible via:
+
 ``bash
-ansible-playbook -i hosts site.yml
+ansible-playbook -i ~/your-inventories/inventorie/hosts site.yml
 ``
 
 ## Debug
@@ -19,6 +15,6 @@ ansible-playbook -i hosts site.yml
 docker stop $(docker ps -aq); docker rm $(docker ps -aq); docker volume rm $(docker volume ls -q);
 ``
 
-## topdo
+## todo
 - implement smtp
 - implement administrator mail

@@ -2,5 +2,9 @@
   pacman: name=wireguard-tools state=present
 
 - name: create /etc/wireguard/wg0.conf
-  template: src={{ inventory_hostname }}.wg0.conf dest=/etc/wireguard/wg0.conf
+  copy:
+    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}/etc/wireguard/wg0.conf"
+    dest: /etc/wireguard/wg0.conf
+    owner: root
+    group: root
   notify: restart wireguard
