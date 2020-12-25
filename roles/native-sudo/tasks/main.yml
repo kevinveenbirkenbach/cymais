@@ -4,7 +4,7 @@
 - name: create sudoers
   template: src=sudoers dest=/etc/sudoers
 
-- name: ensure group "sudo" exists
+- name: insure group "sudo" exists
   group:
     name: sudo
     state: present
