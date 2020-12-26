@@ -11,3 +11,7 @@
 - name: configure pull-remote-backups.timer.tpl
   template: src=pull-remote-backups.timer dest=/etc/systemd/system/pull-remote-backups.timer
   notify: restart pull-remote-backups timer
+
+- name: configure pull-remote-backups.sh
+  template: src=pull-remote-backups.sh dest=/usr/local/bin/pull-remote-backup/pull-remote-backups.sh
+  notify: restart pull-remote-backups timer
