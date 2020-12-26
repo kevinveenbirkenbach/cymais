@@ -1,0 +1,6 @@
+[Unit]
+Description=docker volume update
+
+[Service]
+Type=oneshot
+ExecStart=hosts="{{pull_remote_backups_hosts}}";for host in $hosts; do /usr/bin/bash /usr/local/bin/pull-remote-backup/pull-remote-backup.sh $host; done;

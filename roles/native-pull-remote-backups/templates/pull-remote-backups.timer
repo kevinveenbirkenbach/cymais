@@ -1,0 +1,9 @@
+[Unit]
+Description=pulls a remote backup
+
+[Timer]
+OnCalendar=22:00
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target

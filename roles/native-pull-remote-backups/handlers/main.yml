@@ -1,0 +1,4 @@
+- name: restart pull-remote-backups service
+  service: name=pull-remote-backups.service state=restarted enabled=yes
+- name: restart pull-remote-backups timer
+  service: name=pull-remote-backups.timer state=restarted enabled=yes

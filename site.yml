@@ -6,7 +6,10 @@
     - native-pacman
     - native-wireguard
     - native-user-alarm
-    - native-user-administrator
+- name: setup stores of backups
+  hosts: backup_stores
+  roles:
+    - native-pull-remote-backups
 - name: setup webservers
   hosts: webservers
   roles:
