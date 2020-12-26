@@ -3,4 +3,4 @@ Description=docker volume update
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/bash /usr/local/bin/docker-volume-backup/docker-volume-backup.sh administrator
+ExecStart=/usr/bin/bash /usr/local/bin/docker-volume-backup/docker-volume-backup.sh

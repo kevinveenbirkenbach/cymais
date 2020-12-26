@@ -1,4 +1,3 @@
 dependencies:
   - native-docker
   - native-git
-  - native-user-administrator
