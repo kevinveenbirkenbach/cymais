@@ -14,4 +14,3 @@
 
 - name: configure pull-remote-backups.sh
   template: src=pull-remote-backups.sh dest=/usr/local/bin/pull-remote-backup/pull-remote-backups.sh
-  notify: restart pull-remote-backups timer
