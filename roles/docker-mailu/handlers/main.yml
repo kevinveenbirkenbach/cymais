@@ -1,5 +1,5 @@
 ---
-- name: "Restart Mailu"
+- name: "restart mailu"
   systemd:
     name: mailu
     state: restarted
