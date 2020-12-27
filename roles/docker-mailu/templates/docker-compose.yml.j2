@@ -103,7 +103,21 @@ services:
       - "mailu-roundcube-data:/data"
     depends_on:
       - imap
-
+volumes:
+  mailu-redis-data:
+  mailu-nginx-certs:
+  mailu-nginx-overrides:
+  mailu-admin-data:
+  mailu-admin-dkim:
+  mailu-dovecot-mail:
+  mailu-dovecot-overrides:
+  mailu-postfix-overrides:
+  mailu-rspamd-filter:
+  mailu-rspamd-dkim:
+  mailu-rspamd-overrides:
+  mailu-clamav-data:
+  mailu-radicale-data:
+  mailu-roundcube-data:
 networks:
   default:
     driver: bridge
