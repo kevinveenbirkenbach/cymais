@@ -1,6 +1,15 @@
 # role docker-mailu
 
 ## setup
+
+### volumes
+To delete all volumes execute:
+
+```bash
+  docker volume rm $(docker volume ls -q | grep mailu_)
+```
+Be careful!
+
 ### ports
 Keep in mind to change the conflicting ports manual.
 Execute
