@@ -11,7 +11,7 @@ services:
     image: redis:alpine
     restart: always
     volumes:
-      - "redis-data:/data"
+      - "/mailu/redis:/data"
 
   # Core services
   front:
@@ -31,16 +31,16 @@ services:
       - "{{ ip4_address }}:143:143"
       - "{{ ip4_address }}:993:993"
     volumes:
-      - "nginx-certs:/certs"
-      - "nginx-overrides:/overrides"
+      - "/mailu/certs:/certs"
+      - "/mailu/overrides/nginx:/overrides"
 
   admin:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}admin:${MAILU_VERSION:-1.7}
     restart: always
     env_file: mailu.env
     volumes:
-      - "admin-data:/data"
-      - "admin-dkim:/dkim"
+      - "/mailu/data:/data"
+      - "/mailu/dkim:/dkim"
     depends_on:
       - redis
 
@@ -49,8 +49,8 @@ services:
     restart: always
     env_file: mailu.env
     volumes:
-      - "dovecot-mail:/mail"
-      - "dovecot-overrides:/overrides"
+      - "/mailu/mail:/mail"
+      - "/mailu/overrides:/overrides"
     depends_on:
       - front
 
@@ -59,7 +59,7 @@ services:
     restart: always
     env_file: mailu.env
     volumes:
-      - "postfix-overrides:/overrides"
+      - "/mailu/overrides:/overrides"
     depends_on:
       - front
 
@@ -68,9 +68,9 @@ services:
     restart: always
     env_file: mailu.env
     volumes:
-      - "rspamd-filter:/var/lib/rspamd"
-      - "rspamd-dkim:/dkim"
-      - "rspamd-overrides:/etc/rspamd/override.d"
+      - "/mailu/filter:/var/lib/rspamd"
+      - "/mailu/dkim:/dkim"
+      - "/mailu/overrides/rspamd:/etc/rspamd/override.d"
     depends_on:
       - front
 
@@ -80,14 +80,14 @@ services:
     restart: always
     env_file: mailu.env
     volumes:
-      - "clamav-data:/data"
+      - "/mailu/filter:/data"
 
   webdav:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}radicale:${MAILU_VERSION:-1.7}
     restart: always
     env_file: mailu.env
     volumes:
-      - "radicale-data:/data"
+      - "/mailu/dav:/data"
 
   fetchmail:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}fetchmail:${MAILU_VERSION:-1.7}
@@ -100,28 +100,14 @@ services:
     restart: always
     env_file: mailu.env
     volumes:
-      - "roundcube-data:/data"
+      - "/mailu/webmail:/data"
     depends_on:
       - imap
-volumes:
-  redis-data:
-  nginx-certs:
-  nginx-overrides:
-  admin-data:
-  admin-dkim:
-  dovecot-mail:
-  dovecot-overrides:
-  postfix-overrides:
-  rspamd-filter:
-  rspamd-dkim:
-  rspamd-overrides:
-  clamav-data:
-  radicale-data:
-  roundcube-data:
+
 networks:
   default:
     driver: bridge
     ipam:
       driver: default
       config:
-        - subnet: {{mailu_subnet}}
+        - subnet: 192.168.203.0/24
