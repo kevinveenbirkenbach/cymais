@@ -14,7 +14,7 @@
         image: yourls
         restart: always
         ports:
-          - "{{http_port}}:80"
+          - "127.0.0.1:{{http_port}}:80"
         environment:
           YOURLS_DB_HOST: "database:3306"
           YOURLS_DB_USER: "yourls"

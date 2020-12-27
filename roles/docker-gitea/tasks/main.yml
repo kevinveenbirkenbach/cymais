@@ -28,7 +28,7 @@
           - RUN_MODE="{{run_mode}}"
           - ROOT_URL="https://{{domain}}/"
         ports:
-          - "{{http_port}}:3000"
+          - "127.0.0.1:{{http_port}}:3000"
           - "{{ssh_port}}:22"
         links:
           - database

@@ -13,7 +13,7 @@
         image: jenkins/jenkins:lts
         restart: always
         ports:
-          - "{{http_port}}:8080"
+          - "127.0.0.1:{{http_port}}:8080"
         restart: always
         volumes:
           - jenkins_data:/var/jenkins_home

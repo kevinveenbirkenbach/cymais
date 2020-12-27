@@ -18,7 +18,7 @@
         volumes:
           - nextcloud-data:/var/www/html
         ports:
-          - "{{http_port}}:80"
+          - "127.0.0.1:{{http_port}}:80"
         environment:
           MYSQL_DATABASE: "nextcloud"
           MYSQL_USER: "nextcloud"

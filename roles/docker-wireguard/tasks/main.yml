@@ -19,7 +19,7 @@
         image: linuxserver/wireguard
         restart: always
         ports:
-          - "{{http_port}}:80"
+          - "127.0.0.1:{{http_port}}:80"
         cap_add:
           - NET_ADMIN
           - SYS_MODULE

@@ -31,7 +31,7 @@
         image: nginx:mainline
         restart: always
         ports:
-          - "{{http_port}}:80"
+          - "127.0.0.1:{{http_port}}:80"
         volumes:
         - "{{conf_d_docker_path}}:{{conf_d_path}}"
         - "mybb-data:/var/www/html:ro"

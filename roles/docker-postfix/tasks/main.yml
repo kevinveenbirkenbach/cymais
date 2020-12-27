@@ -23,7 +23,7 @@
         links:
           - database
         ports:
-          - "{{http_port}}:80"
+          - "127.0.0.1:{{http_port}}:80"
       database:
         image: mariadb
         environment:
