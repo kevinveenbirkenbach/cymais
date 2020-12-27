@@ -1,0 +1,8 @@
+---
+- name: "Restart Mailu"
+  systemd:
+    name: mailu
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+  become: yes

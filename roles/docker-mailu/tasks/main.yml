@@ -1,0 +1,30 @@
+---
+
+- name: "Create mailu dir"
+  file:
+    path: "/mailu"
+    state: directory
+    mode: 0755
+  become: yes
+
+- name: "Add docker-compose.yml"
+  copy:
+    src: "docker-compose.yml"
+    dest: "{{ inventory_dir }}/files/{{ inventory_hostname }}/mailu/docker-compose.yml"
+    force: no
+  become: yes
+
+- name: "Add mailu.env"
+  copy:
+    src: "mailu.env"
+    dest: "{{ inventory_dir }}/files/{{ inventory_hostname }}/mailu/mailu.env"
+    force: no
+  become: yes
+
+- name: "Install mailu service"
+  copy:
+    src: "mailu.service"
+    dest: "/etc/systemd/system/mailu.service"
+  become: yes
+  notify:
+    - "Restart Mailu"
