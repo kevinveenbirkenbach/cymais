@@ -11,7 +11,7 @@ services:
     image: redis:alpine
     restart: always
     volumes:
-      - "/mailu/redis:/data"
+      - "mailu-redis-data:/data"
 
   # Core services
   front:
@@ -31,16 +31,16 @@ services:
       - "{{ ip4_address }}:143:143"
       - "{{ ip4_address }}:993:993"
     volumes:
-      - "/mailu/certs:/certs"
-      - "/mailu/overrides/nginx:/overrides"
+      - "mailu-nginx-certs:/certs"
+      - "mailu-nginx-overrides:/overrides"
 
   admin:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}admin:${MAILU_VERSION:-1.7}
     restart: always
     env_file: mailu.env
     volumes:
-      - "/mailu/data:/data"
-      - "/mailu/dkim:/dkim"
+      - "mailu-admin-data:/data"
+      - "mailu-admin-dkim:/dkim"
     depends_on:
       - redis
 
@@ -49,8 +49,8 @@ services:
     restart: always
     env_file: mailu.env
     volumes:
-      - "/mailu/mail:/mail"
-      - "/mailu/overrides:/overrides"
+      - "mailu-dovecot-mail:/mail"
+      - "mailu-dovecot-overrides:/overrides"
     depends_on:
       - front
 
@@ -59,7 +59,7 @@ services:
     restart: always
     env_file: mailu.env
     volumes:
-      - "/mailu/overrides:/overrides"
+      - "mailu-postfix-overrides:/overrides"
     depends_on:
       - front
 
@@ -68,9 +68,9 @@ services:
     restart: always
     env_file: mailu.env
     volumes:
-      - "/mailu/filter:/var/lib/rspamd"
-      - "/mailu/dkim:/dkim"
-      - "/mailu/overrides/rspamd:/etc/rspamd/override.d"
+      - "mailu-rspamd-filter:/var/lib/rspamd"
+      - "mailu-rspamd-dkim:/dkim"
+      - "mailu-rspamd-overrides:/etc/rspamd/override.d"
     depends_on:
       - front
 
@@ -80,14 +80,14 @@ services:
     restart: always
     env_file: mailu.env
     volumes:
-      - "/mailu/filter:/data"
+      - "mailu-clamav-data:/data"
 
   webdav:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}radicale:${MAILU_VERSION:-1.7}
     restart: always
     env_file: mailu.env
     volumes:
-      - "/mailu/dav:/data"
+      - "mailu-radicale-data:/data"
 
   fetchmail:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}fetchmail:${MAILU_VERSION:-1.7}
@@ -100,7 +100,7 @@ services:
     restart: always
     env_file: mailu.env
     volumes:
-      - "/mailu/webmail:/data"
+      - "mailu-roundcube-data:/data"
     depends_on:
       - imap
 
