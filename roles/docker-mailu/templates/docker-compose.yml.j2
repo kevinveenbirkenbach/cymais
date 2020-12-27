@@ -21,8 +21,8 @@ services:
     logging:
       driver: json-file
     ports:
-      - "{{ http_port }}:80"
-      - "{{ https_port }}:443"
+      - "127.0.0.1:{{ http_port }}:80"
+      - "127.0.0.1:{{ https_port }}:443"
       - "{{ ip4_address }}:25:25"
       - "{{ ip4_address }}:465:465"
       - "{{ ip4_address }}:587:587"
@@ -110,4 +110,4 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 192.168.203.0/24
+        - subnet: {{mailu_subnet}}
