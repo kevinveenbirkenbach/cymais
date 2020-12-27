@@ -1,26 +1,25 @@
 ---
 
+- name: recieve {{domain}} certificate
+  command: certbot certonly --agree-tos --email {{administrator_email}} --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{domain}}
+
 - name: configure {{domain}}.conf
   template: src=domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
   notify: restart nginx
 
-- name: "Create mailu dir"
+- name: "create mailu dir"
   file:
     path: "/mailu"
     state: directory
     mode: 0755
 
-- name: "Add docker-compose.yml"
-  copy:
-    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}/mailu/docker-compose.yml"
-    dest: "/mailu/docker-compose.yml"
+- name: add docker-compose.yml
+  template: src=docker-compose.yml.j2 dest=/mailu/docker-compose.yml
 
-- name: "Add mailu.env"
-  copy:
-    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}/mailu/mailu.env"
-    dest: "/mailu/mailu.env"
+- name: add mailu.env
+  template: src=mailu.env.j2 dest=/mailu/mailu.env
 
-- name: "Install mailu service"
+- name: "install mailu service"
   copy:
     src: "mailu.service"
     dest: "/etc/systemd/system/mailu.service"

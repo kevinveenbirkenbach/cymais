@@ -42,4 +42,9 @@
       vars:
         domain: s.{{top_domain}}
         http_port: 8006
+   -  role: docker-mailu
+      vars:
+        domain: "mail.{{top_domain}}"
+        http_port: 8007
+        https_port:  4331
    - native-docker-volume-backup
