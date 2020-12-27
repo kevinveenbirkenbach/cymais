@@ -1,30 +1,28 @@
 ---
 
+- name: configure {{domain}}.conf
+  template: src=domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
+  notify: restart nginx
+
 - name: "Create mailu dir"
   file:
     path: "/mailu"
     state: directory
     mode: 0755
-  become: yes
 
 - name: "Add docker-compose.yml"
   copy:
-    src: "docker-compose.yml"
-    dest: "{{ inventory_dir }}/files/{{ inventory_hostname }}/mailu/docker-compose.yml"
-    force: no
-  become: yes
+    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}/mailu/docker-compose.yml"
+    dest: "/mailu/docker-compose.yml"
 
 - name: "Add mailu.env"
   copy:
-    src: "mailu.env"
-    dest: "{{ inventory_dir }}/files/{{ inventory_hostname }}/mailu/mailu.env"
-    force: no
-  become: yes
+    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}/mailu/mailu.env"
+    dest: "/mailu/mailu.env"
 
 - name: "Install mailu service"
   copy:
     src: "mailu.service"
     dest: "/etc/systemd/system/mailu.service"
-  become: yes
   notify:
     - "Restart Mailu"
