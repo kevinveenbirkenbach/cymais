@@ -31,7 +31,7 @@ services:
       - "{{ ip4_address }}:143:143"
       - "{{ ip4_address }}:993:993"
     volumes:
-      - "/mailu/certs:/certs"
+      - "/etc/letsencrypt:/certs/letsencrypt"
       - "/mailu/overrides/nginx:/overrides"
 
   admin:
