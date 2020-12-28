@@ -2,11 +2,11 @@
 
 ## setup
 
-### volumes
+### delete data
 To delete all volumes and data execute:
 
 ```bash
-  rm -vr /mailu/; docker volume rm $(docker volume ls -q | grep mailu_)
+  rm -vr /etc/mailu/; docker volume rm $(docker volume ls -q | grep mailu_)
 ```
 Be careful!
 
@@ -25,10 +25,10 @@ to verify that there aren't port conflicts
 Before you can use Mailu, you must create the primary administrator user account. This should be admin@{{hostname}}. Use the following command, changing PASSWORD to your liking:
 
 ```bash
-  docker-compose -p mailu exec admin flask mailu admin admin {{hostname}} PASSWORD
+  docker-compose -p mailu exec admin flask mailu admin {{admin}} {{hostname}} PASSWORD
 ```
 
-### user management
+### cli user management
 How to manage users is described here: https://mailu.io/master/cli.html
 
 ### Up

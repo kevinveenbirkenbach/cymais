@@ -38,7 +38,7 @@ services:
       - "{{ ip4_address }}:993:993"
     volumes:
       - "/etc/letsencrypt:/certs/letsencrypt:ro"
-      - "/mailu/overrides/nginx:/overrides"
+      - "/etc/mailu/overrides/nginx:/overrides"
       - "front_certs:/certs"
   admin:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}admin:${MAILU_VERSION:-1.8}
@@ -55,7 +55,7 @@ services:
     env_file: mailu.env
     volumes:
       - "dovecot_mail:/mail"
-      - "/mailu/overrides:/overrides"
+      - "/etc/mailu/overrides:/overrides"
     depends_on:
       - front
 
@@ -64,7 +64,7 @@ services:
     restart: always
     env_file: mailu.env
     volumes:
-      - "/mailu/overrides:/overrides"
+      - "/etc/mailu/overrides:/overrides"
       - "smtp_queue:/queue"
     depends_on:
       - front
@@ -76,7 +76,7 @@ services:
     volumes:
       - "filter:/var/lib/rspamd"
       - "dkim:/dkim"
-      - "/mailu/overrides/rspamd:/etc/rspamd/override.d"
+      - "/etc/mailu/overrides/rspamd:/etc/rspamd/override.d"
     depends_on:
       - front
 

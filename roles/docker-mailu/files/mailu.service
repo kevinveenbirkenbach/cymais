@@ -4,7 +4,7 @@ After=network.target docker.service
 
 [Service]
 Type=simple
-WorkingDirectory=/mailu
+WorkingDirectory=/usr/local/bin/mailu
 ExecStart=/bin/docker-compose up
 ExecStop=/bin/docker-compose down
 

@@ -7,18 +7,24 @@
   template: src=domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
   notify: restart nginx
 
-- name: "create mailu dir"
+- name: "create /etc/mailu/"
   file:
-    path: "/mailu"
+    path: "/etc/mailu"
+    state: directory
+    mode: 0755
+
+- name: "create /usr/local/bin/mailu/"
+  file:
+    path: "/usr/local/bin/mailu"
     state: directory
     mode: 0755
 
 - name: add docker-compose.yml
-  template: src=docker-compose.yml.j2 dest=/mailu/docker-compose.yml
+  template: src=docker-compose.yml.j2 dest=/usr/local/bin/mailu/docker-compose.yml
   notify: restart mailu
 
 - name: add mailu.env
-  template: src=mailu.env.j2 dest=/mailu/mailu.env
+  template: src=mailu.env.j2 dest=/usr/local/bin/mailu/mailu.env
   notify: restart mailu
 
 - name: "install mailu service"
