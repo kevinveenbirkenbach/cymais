@@ -3,10 +3,10 @@
 ## setup
 
 ### volumes
-To delete all volumes execute:
+To delete all volumes and data execute:
 
 ```bash
-  docker volume rm $(docker volume ls -q | grep mailu_)
+  rm -vr /mailu/; docker volume rm $(docker volume ls -q | grep mailu_)
 ```
 Be careful!
 
