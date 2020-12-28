@@ -7,7 +7,7 @@ services:
     image: redis:alpine
     restart: always
     volumes:
-      - "/mailu/redis:/data"
+      - "redis_data:/data"
   database:
     image: mariadb
     restart: always
@@ -45,8 +45,8 @@ services:
     restart: always
     env_file: mailu.env
     volumes:
-      - "/mailu/data:/data"
-      - "/mailu/dkim:/dkim"
+      - "admin_data:/data"
+      - "dkim:/dkim"
     depends_on:
       - front
   imap:
@@ -54,7 +54,7 @@ services:
     restart: always
     env_file: mailu.env
     volumes:
-      - "/mailu/mail:/mail"
+      - "dovecot_mail:/mail"
       - "/mailu/overrides:/overrides"
     depends_on:
       - front
@@ -74,8 +74,8 @@ services:
     restart: always
     env_file: mailu.env
     volumes:
-      - "/mailu/filter:/var/lib/rspamd"
-      - "/mailu/dkim:/dkim"
+      - "filter:/var/lib/rspamd"
+      - "dkim:/dkim"
       - "/mailu/overrides/rspamd:/etc/rspamd/override.d"
     depends_on:
       - front
@@ -86,14 +86,14 @@ services:
     restart: always
     env_file: mailu.env
     volumes:
-      - "/mailu/filter:/data"
+      - "filter:/data"
 
   webdav:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}radicale:${MAILU_VERSION:-1.8}
     restart: always
     env_file: mailu.env
     volumes:
-      - "/mailu/dav:/data"
+      - "webdav_data:/data"
 
   fetchmail:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}fetchmail:${MAILU_VERSION:-1.8}
@@ -106,13 +106,20 @@ services:
     restart: always
     env_file: mailu.env
     volumes:
-      - "/mailu/webmail:/data"
+      - "webmail_data:/data"
     depends_on:
       - imap
 volumes:
   database:
   smtp_queue:
   front_certs:
+  admin_data:
+  webdav_data:
+  webmail_data:
+  filter:
+  dkim:
+  dovecot_mail:
+  redis_data:
 networks:
   default:
     driver: bridge
