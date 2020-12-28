@@ -37,9 +37,9 @@ services:
       - "{{ ip4_address }}:143:143"
       - "{{ ip4_address }}:993:993"
     volumes:
-      - "/etc/letsencrypt:/certs/letsencrypt"
+      - "/etc/letsencrypt:/certs/letsencrypt:ro"
       - "/mailu/overrides/nginx:/overrides"
-
+      - "front_certs:/certs"
   admin:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}admin:${MAILU_VERSION:-1.8}
     restart: always
@@ -48,8 +48,7 @@ services:
       - "/mailu/data:/data"
       - "/mailu/dkim:/dkim"
     depends_on:
-      - redis
-
+      - front
   imap:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}dovecot:${MAILU_VERSION:-1.8}
     restart: always
@@ -66,6 +65,7 @@ services:
     env_file: mailu.env
     volumes:
       - "/mailu/overrides:/overrides"
+      - "smtp_queue:/queue"
     depends_on:
       - front
 
@@ -109,9 +109,10 @@ services:
       - "/mailu/webmail:/data"
     depends_on:
       - imap
-      - database
 volumes:
   database:
+  smtp_queue:
+  front_certs:
 networks:
   default:
     driver: bridge
