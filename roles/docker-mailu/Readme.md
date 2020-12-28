@@ -28,13 +28,20 @@ Before you can use Mailu, you must create the primary administrator user account
   docker-compose -p mailu exec admin flask mailu admin admin {{hostname}} PASSWORD
 ```
 
+### user management
+How to manage users is described here: https://mailu.io/master/cli.html
+
 ### Up
 
 ```bash
   docker-compose -p mailu up -d
 ```
 
+## todo
+- https://blog.kuepper.nrw/2019/03/30/roundcube-webmail-mit-zwei-faktor-authentifizierung/
+- https://mailu.io/master/faq.html#i-want-to-integrate-nextcloud-15-and-newer-with-mailu
+- https://docs.nextcloud.com/server/9.0/admin_manual/configuration_user/user_auth_ftp_smb_imap.html
+
 ## See
 - https://gist.github.com/marienfressinaud/f284a59b18aad395eb0de2d22836ae6b
 - https://mailu.io/1.7/compose/setup.html
-- https://mailu.io/master/faq.html#i-want-to-integrate-nextcloud-15-and-newer-with-mailu
