@@ -1,2 +1,6 @@
-- name: restart wireguard
-  service: name=wg-quick@wg0.service state=restarted enabled=yes
+- name: "restart wireguard"
+  systemd:
+    name: wg-quick@wg0.service
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
