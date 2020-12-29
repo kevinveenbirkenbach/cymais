@@ -7,7 +7,6 @@ Type=simple
 WorkingDirectory=/usr/local/bin/mailu
 ExecStart=/bin/docker-compose up
 ExecStop=/bin/docker-compose down
-Requires=docker.service
 
 [Install]
 WantedBy=multi-user.target
