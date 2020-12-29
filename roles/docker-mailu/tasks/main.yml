@@ -21,14 +21,8 @@
 
 - name: add docker-compose.yml
   template: src=docker-compose.yml.j2 dest=/usr/local/bin/mailu/docker-compose.yml
-  notify: restart mailu
+  notify: rescreate mailu
 
 - name: add mailu.env
   template: src=mailu.env.j2 dest=/usr/local/bin/mailu/mailu.env
-  notify: restart mailu
-
-- name: "install mailu service"
-  copy:
-    src: "mailu.service"
-    dest: "/etc/systemd/system/mailu.service"
-  notify: restart mailu
+  notify: rescreate mailu

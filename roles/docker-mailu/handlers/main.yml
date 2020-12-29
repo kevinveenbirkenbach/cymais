@@ -1,8 +1,5 @@
 ---
-- name: "restart mailu"
-  systemd:
-    name: mailu
-    state: restarted
-    enabled: yes
-    daemon_reload: yes
-  become: yes
+- name: rescreate mailu
+  command:
+    cmd: docker-compose -p mailu up -d --force-recreate
+    chdir: /usr/local/bin/mailu/
