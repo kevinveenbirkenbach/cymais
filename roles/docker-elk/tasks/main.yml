@@ -30,16 +30,11 @@
     project_name: elk
     definition:
       elasticsearch:
-        image: elasticsearch
+        image: docker.elastic.co/elasticsearch/elasticsearch:{{ELK_VERSION}}
         restart: always
         volumes:
-          - type: bind
-            source: /etc/docker-elk/elasticsearch.yml
-            target: /usr/share/elasticsearch/config/elasticsearch.yml
-            read_only: true
-          - type: volume
-            source: elasticsearch
-            target: /usr/share/elasticsearch/data
+          - /etc/docker-elk/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+          - elasticsearch:/usr/share/elasticsearch/data
         ports:
           - "9200:9200"
           - "9300:9300"
@@ -50,17 +45,11 @@
           # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
           discovery.type: single-node
       logstash:
-        image: logstash
+        image: docker.elastic.co/logstash/logstash:{{ELK_VERSION}}
         restart: always
         volumes:
-          - type: bind
-            source: /etc/docker-elk/logstash.yml
-            target: /usr/share/logstash/config/logstash.yml
-            read_only: true
-          - type: bind
-            source: /etc/docker-elk/logstash.conf
-            target: /usr/share/logstash/pipeline/logstash.conf
-            read_only: true
+          - /etc/docker-elk/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+          - /etc/docker-elk/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
         ports:
           - "5044:5044"
           - "5000:5000/tcp"
@@ -69,12 +58,9 @@
         environment:
           LS_JAVA_OPTS: "-Xmx256m -Xms256m"
       kibana:
-        image: kibana
+        image: docker.elastic.co/kibana/kibana:{{ELK_VERSION}}
         restart: always
         volumes:
-          - type: bind
-            source: /etc/docker-elk/kibana.yml
-            target: /usr/share/kibana/config/kibana.yml
-            read_only: true
+          - /etc/docker-elk/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
         ports:
           - "5601:5601"
