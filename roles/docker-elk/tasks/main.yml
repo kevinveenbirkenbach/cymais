@@ -7,60 +7,35 @@
   template: src=roles/native-nginx-docker-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
   notify: restart nginx
 
-- name: "create /etc/docker-elk"
+- name: "create {{docker_elk_compose_path}}"
   file:
-    path: "/etc/docker-elk"
+    path: "{{docker_elk_compose_path}}"
     state: directory
     mode: 0755
 
+- name: git pull docker-elk
+  git:
+    repo: "https://github.com/kevinveenbirkenbach/docker-elk.git"
+    dest: "{{docker_elk_compose_path}}"
+    update: yes
+  notify: recreate docker-elk
+
+- name: copy docker-compose.yml
+  template: src=docker-compose.yml.j2 dest={{docker_elk_compose_path}}docker-compose.yml
+  notify: recreate docker-elk
+
 - name: copy elasticsearch.yml
-  template: src=elasticsearch.yml dest=/etc/docker-elk/elasticsearch.yml
+  template: src=elasticsearch.yml.j2 dest={{docker_elk_compose_path}}elasticsearch/config/elasticsearch.yml
+  notify: recreate docker-elk
 
 - name: copy kibana.yml
-  template: src=kibana.yml dest=/etc/docker-elk/kibana.yml
+  template: src=kibana.yml.j2 dest={{docker_elk_compose_path}}kibana/config/kibana.yml
+  notify: recreate docker-elk
 
 - name: copy logstash.yml
-  template: src=logstash.yml dest=/etc/docker-elk/logstash.yml
+  template: src=logstash.yml.j2 dest={{docker_elk_compose_path}}logstash/config/logstash.yml
+  notify: recreate docker-elk
 
 - name: copy logstash.conf
-  template: src=logstash.conf dest=/etc/docker-elk/logstash.conf
-
-- name: "setup elk"
-  docker_compose:
-    project_name: elk
-    definition:
-      elasticsearch:
-        image: docker.elastic.co/elasticsearch/elasticsearch:{{ELK_VERSION}}
-        restart: always
-        volumes:
-          - /etc/docker-elk/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
-          - elasticsearch:/usr/share/elasticsearch/data
-        ports:
-          - "9200:9200"
-          - "9300:9300"
-        environment:
-          ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-          ELASTIC_PASSWORD: changeme
-          # Use single node discovery in order to disable production mode and avoid bootstrap checks.
-          # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
-          discovery.type: single-node
-      logstash:
-        image: docker.elastic.co/logstash/logstash:{{ELK_VERSION}}
-        restart: always
-        volumes:
-          - /etc/docker-elk/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
-          - /etc/docker-elk/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
-        ports:
-          - "5044:5044"
-          - "5000:5000/tcp"
-          - "5000:5000/udp"
-          - "9600:9600"
-        environment:
-          LS_JAVA_OPTS: "-Xmx256m -Xms256m"
-      kibana:
-        image: docker.elastic.co/kibana/kibana:{{ELK_VERSION}}
-        restart: always
-        volumes:
-          - /etc/docker-elk/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
-        ports:
-          - "5601:5601"
+  template: src=logstash.conf.j2 dest={{docker_elk_compose_path}}logstash/pipeline/logstash.conf
+  notify: recreate docker-elk
