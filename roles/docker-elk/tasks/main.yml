@@ -1,0 +1,80 @@
+---
+
+- name: recieve {{domain}} certificate
+  command: certbot certonly --agree-tos --email {{administrator_email}} --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{domain}}
+
+- name: configure {{domain}}.conf
+  template: src=roles/native-nginx-docker-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
+  notify: restart nginx
+
+- name: "create /etc/docker-elk"
+  file:
+    path: "/etc/docker-elk"
+    state: directory
+    mode: 0755
+
+- name: copy elasticsearch.yml
+  template: src=elasticsearch.yml dest=/etc/docker-elk/elasticsearch.yml
+
+- name: copy kibana.yml
+  template: src=kibana.yml dest=/etc/docker-elk/kibana.yml
+
+- name: copy logstash.yml
+  template: src=logstash.yml dest=/etc/docker-elk/logstash.yml
+
+- name: copy logstash.conf
+  template: src=logstash.conf dest=/etc/docker-elk/logstash.conf
+
+- name: "setup elk"
+  docker_compose:
+    project_name: elk
+    definition:
+      elasticsearch:
+        image: elasticsearch
+        restart: always
+        volumes:
+          - type: bind
+            source: /etc/docker-elk/elasticsearch.yml
+            target: /usr/share/elasticsearch/config/elasticsearch.yml
+            read_only: true
+          - type: volume
+            source: elasticsearch
+            target: /usr/share/elasticsearch/data
+        ports:
+          - "9200:9200"
+          - "9300:9300"
+        environment:
+          ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+          ELASTIC_PASSWORD: changeme
+          # Use single node discovery in order to disable production mode and avoid bootstrap checks.
+          # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
+          discovery.type: single-node
+      logstash:
+        image: logstash
+        restart: always
+        volumes:
+          - type: bind
+            source: /etc/docker-elk/logstash.yml
+            target: /usr/share/logstash/config/logstash.yml
+            read_only: true
+          - type: bind
+            source: /etc/docker-elk/logstash.conf
+            target: /usr/share/logstash/pipeline/logstash.conf
+            read_only: true
+        ports:
+          - "5044:5044"
+          - "5000:5000/tcp"
+          - "5000:5000/udp"
+          - "9600:9600"
+        environment:
+          LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+      kibana:
+        image: kibana
+        restart: always
+        volumes:
+          - type: bind
+            source: /etc/docker-elk/kibana.yml
+            target: /usr/share/kibana/config/kibana.yml
+            read_only: true
+        ports:
+          - "5601:5601"
