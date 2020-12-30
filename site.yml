@@ -49,6 +49,6 @@
         https_port:  4431
    -  role: docker-elk
       vars:
-        domain: "kibana.{{top_domain}}"
+        domain: "elk.{{top_domain}}"
         http_port: 8008
    - native-docker-volume-backup
