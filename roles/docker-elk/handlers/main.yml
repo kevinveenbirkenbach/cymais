@@ -1,5 +1,0 @@
----
-- name: recreate docker-elk
-  command:
-    cmd: docker-compose -p docker-elk up -d --force-recreate
-    chdir: /srv/docker-elk
