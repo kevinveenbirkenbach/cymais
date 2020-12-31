@@ -4,6 +4,7 @@
   roles:
     - system-security
     - system-update
+    - native-journalctl
   become: true
 - name: setup wireguard hosts
   hosts: wireguard_hosts
