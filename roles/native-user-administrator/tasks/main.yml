@@ -14,7 +14,7 @@
     group: administrator
     mode: '0644'
 
-- name: grant administrator sudo rights without password
+- name: grant administrator sudo rights with password
   copy:
-    content: '%administrator ALL=(ALL) NOPASSWD: ALL'
-    dest: /etc/sudoers.d/administrator
+    src: "administrator.conf"
+    dest: /etc/sudoers.d/administrator.conf
