@@ -1,0 +1,4 @@
+- name: apt update all packages to their latest version
+  apt:
+    name: "*"
+    state: latest

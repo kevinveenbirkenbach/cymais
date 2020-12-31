@@ -1,12 +1,15 @@
 ---
-- name: setup arch hosts
-  hosts: arch_hosts
+- name: general host setup
+  hosts: all
   roles:
-    - native-security
-    - native-pacman
+    - system-security
+    - system-update
+  become: true
+- name: setup wireguard hosts
+  hosts: wireguard_hosts
+  roles:
     - native-wireguard
-    - native-user-alarm
-- name: setup primary_backup_hosts
+- name: setup primary backup hosts
   hosts: primary_backup_hosts
   pre_tasks:
     - name: "check if docker is installed"
