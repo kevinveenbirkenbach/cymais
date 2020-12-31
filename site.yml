@@ -1,6 +1,6 @@
 ---
-- name: setup arch servers
-  hosts: arch_servers
+- name: setup arch hosts
+  hosts: arch_hosts
   roles:
     - native-security
     - native-pacman
@@ -10,45 +10,71 @@
   hosts: backup_stores
   roles:
     - native-pull-remote-backups
-- name: setup webservers
-  hosts: webservers
+- name: setup homepages
+  hosts: homepage_hosts
   roles:
    -  role: native-homepage
       vars:
         domain: "{{top_domain}}"
+- name: setup nextcloud hosts
+  hosts: nextcloud_hosts
+  roles:
    -  role: docker-nextcloud
       vars:
         domain: cloud.{{top_domain}}
         http_port: 8001
+- name: setup gitea hosts
+  hosts: gitea_hosts
+  roles:
    -  role: docker-gitea
       vars:
         domain: git.{{top_domain}}
         http_port: 8002
         ssh_port:  2201
         run_mode: prod
+- name: setup wordpress hosts
+  hosts: wordpress_hosts
+  roles:
    -  role: docker-wordpress
       vars:
         domain: www.{{top_domain}}
         http_port: 8003
+- name: setup mediawiki hosts
+  hosts: mediawiki_hosts
+  roles:
    -  role: docker-mediawiki
       vars:
         domain: wiki.{{top_domain}}
         http_port: 8004
+- name: setup mybb hosts
+  hosts: mybb_hosts
+  roles:
    -  role: docker-mybb
       vars:
         domain: forum.{{top_domain}}
         http_port: 8005
+- name: setup yourls hosts
+  hosts: yourls_hosts
+  roles:
    -  role: docker-yourls
       vars:
         domain: s.{{top_domain}}
         http_port: 8006
+- name: setup mailu hosts
+  hosts: mailu_hosts
+  roles:
    -  role: docker-mailu
       vars:
         domain: "mail.{{top_domain}}"
         http_port: 8007
         https_port:  4431
+- name: setup elk hosts
+  hosts: elk_hosts
+  roles:
    -  role: docker-elk
       vars:
         domain: "elk.{{top_domain}}"
         http_port: 8008
+- name: docker hosts
+  hosts: docker_hosts
    - native-docker-volume-backup
