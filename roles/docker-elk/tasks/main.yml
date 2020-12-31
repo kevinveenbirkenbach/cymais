@@ -7,6 +7,17 @@
   template: src=roles/native-nginx-docker-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
   notify: restart nginx
 
+- name: create elasticsearch-sysctl.conf
+  copy:
+    src: "elasticsearch-sysctl.conf"
+    dest: /etc/sysctl.d/elasticsearch-sysctl.conf
+    owner: root
+    group: root
+
+- name: set vm.max_map_count=262144
+  command:
+    cmd: sysctl -w vm.max_map_count=262144
+
 - name: "create {{docker_elk_compose_path}}"
   file:
     path: "{{docker_elk_compose_path}}"
