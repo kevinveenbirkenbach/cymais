@@ -19,6 +19,7 @@
     project_name: mybb
     definition:
       application:
+        log_driver: journald
         image: mybb/mybb:latest
         restart: always
         links:
@@ -26,6 +27,7 @@
         volumes:
           - mybb-data:/var/www/html
       server:
+        log_driver: journald
         links:
           - application
         image: nginx:mainline
@@ -36,6 +38,7 @@
         - "{{conf_d_docker_path}}:{{conf_d_path}}"
         - "mybb-data:/var/www/html:ro"
       database:
+        log_driver: journald
         image: mariadb
         environment:
           MYSQL_DATABASE: "mybb"

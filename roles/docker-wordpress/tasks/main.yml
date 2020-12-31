@@ -13,6 +13,7 @@
     project_name: wordpress
     definition:
       application:
+        log_driver: journald
         image: wordpress
         restart: always
         ports:
@@ -27,6 +28,7 @@
         volumes:
           - wordpress-data:/var/www/html
       database:
+        log_driver: journald
         image: mariadb
         restart: always
         environment:

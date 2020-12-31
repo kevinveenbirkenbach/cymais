@@ -13,6 +13,7 @@
       application:
         image: nextcloud
         restart: always
+        log_driver: journald
         links:
           - database
         volumes:
@@ -25,6 +26,7 @@
           MYSQL_PASSWORD: "{{nextcloud_database_password}}"
           MYSQL_HOST: database:3306
       database:
+        log_driver: journald
         image: mariadb
         environment:
           MYSQL_DATABASE: "nextcloud"

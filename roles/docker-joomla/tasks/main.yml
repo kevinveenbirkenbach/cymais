@@ -12,6 +12,7 @@
     definition:
       application:
         image: joomla
+        log_driver: journald
         environment:
           JOOMLA_DB_HOST: "database:3306"
           JOOMLA_DB_USER: "joomla"
@@ -26,6 +27,7 @@
           - "127.0.0.1:{{http_port}}:80"
       database:
         image: mariadb
+        log_driver: journald
         environment:
           MYSQL_DATABASE: "joomla"
           MYSQL_USER: "joomla"

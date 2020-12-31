@@ -13,6 +13,7 @@
       application:
         restart: always
         image: gitea/gitea:latest
+        log_driver: journald
         environment:
           - USER_UID=1000
           - USER_GID=1000
@@ -38,6 +39,7 @@
           - /etc/localtime:/etc/localtime:ro
       database:
         image: mariadb
+        log_driver: journald
         environment:
           MYSQL_DATABASE: "gitea"
           MYSQL_USER: "gitea"

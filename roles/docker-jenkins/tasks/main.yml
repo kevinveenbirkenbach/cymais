@@ -17,3 +17,4 @@
         restart: always
         volumes:
           - jenkins_data:/var/jenkins_home
+        log_driver: journald
