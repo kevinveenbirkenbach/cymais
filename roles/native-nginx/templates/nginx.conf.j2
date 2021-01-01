@@ -9,6 +9,7 @@ http
 {
   include mime.types;
   default_type text/html;
+  access_log /dev/null;
   error_log syslog:server=unix:/dev/log;
   sendfile on;
   keepalive_timeout 65;
