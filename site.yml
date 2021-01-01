@@ -1,18 +1,20 @@
 ---
 - name: general host setup
   hosts: all
+  become: true
   roles:
     - system-security
     - system-update
     - native-journalctl
     - native-hostname
-  become: true
 - name: setup wireguard hosts
   hosts: wireguard_hosts
+  become: true
   roles:
     - native-wireguard
 - name: setup primary backup hosts
   hosts: primary_backup_hosts
+  become: true
   pre_tasks:
     - name: "check if docker is installed"
       shell: pacman -Q docker
@@ -23,20 +25,24 @@
       when: "'error:' not in pacman_q_docker.stderr"
 - name: setup nginx hosts
   hosts: nginx_hosts
+  become: true
   roles:
     - role: native-nginx
 - name: setup replica backup hosts
   hosts: replica_backup_hosts
+  become: true
   roles:
     - role: native-pull-remote-backups
 - name: setup homepages
   hosts: homepage_hosts
+  become: true
   roles:
    -  role: native-homepage
       vars:
         domain: "{{top_domain}}"
 - name: setup nextcloud hosts
   hosts: nextcloud_hosts
+  become: true
   roles:
    -  role: docker-nextcloud
       vars:
@@ -44,6 +50,7 @@
         http_port: 8001
 - name: setup gitea hosts
   hosts: gitea_hosts
+  become: true
   roles:
    -  role: docker-gitea
       vars:
@@ -53,6 +60,7 @@
         run_mode: prod
 - name: setup wordpress hosts
   hosts: wordpress_hosts
+  become: true
   roles:
    -  role: docker-wordpress
       vars:
@@ -60,6 +68,7 @@
         http_port: 8003
 - name: setup mediawiki hosts
   hosts: mediawiki_hosts
+  become: true
   roles:
    -  role: docker-mediawiki
       vars:
@@ -67,6 +76,7 @@
         http_port: 8004
 - name: setup mybb hosts
   hosts: mybb_hosts
+  become: true
   roles:
    -  role: docker-mybb
       vars:
@@ -74,6 +84,7 @@
         http_port: 8005
 - name: setup yourls hosts
   hosts: yourls_hosts
+  become: true
   roles:
    -  role: docker-yourls
       vars:
@@ -81,6 +92,7 @@
         http_port: 8006
 - name: setup mailu hosts
   hosts: mailu_hosts
+  become: true
   roles:
    -  role: docker-mailu
       vars:
@@ -89,6 +101,7 @@
         https_port:  4431
 - name: setup elk hosts
   hosts: elk_hosts
+  become: true
   roles:
    -  role: docker-elk
       vars:
