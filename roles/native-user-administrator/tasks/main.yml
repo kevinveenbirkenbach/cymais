@@ -5,7 +5,7 @@
     ssh_key_bits: 4096
     ssh_key_file: .ssh/id_rsa
     update_password: on_create
-    password: "{{ user_administrator_password | password_hash('sha512') }}"
+    password: "{{ user_administrator_initial_password | password_hash('sha512') }}"
 
 - name: create /home/administrator/.ssh/authorized_keys
   copy:
