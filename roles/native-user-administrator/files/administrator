@@ -1,1 +1,1 @@
-administrator ALL=(ALL:ALL) ALL
+administrator ALL=(ALL) ALL
