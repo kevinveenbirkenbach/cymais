@@ -1,11 +1,4 @@
 - name: install sudo
-  pacman: name=sudo state=present
-
-- name: create sudoers
-  copy:
-    src:  sudoers
-    dest: /etc/sudoers
-    mode: "0440"
-    owner: root
-    group: root
-    backup: yes
+  package:
+    name:   sudo
+    state:  present
