@@ -16,5 +16,8 @@
 
 - name: grant administrator sudo rights with password
   copy:
-    src: "administrator.conf"
-    dest: /etc/sudoers.d/administrator.conf
+    src: "administrator"
+    dest: /etc/sudoers.d/administrator
+    mode: '0644'
+    owner: root
+    group: root

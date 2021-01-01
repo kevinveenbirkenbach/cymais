@@ -26,6 +26,7 @@ You can check the status of the update by typing in:
 If nextcloud stays in the maintenance mode after the update try the following:
 
 ```bash
+  docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:mode --on
   docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ upgrade
   docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:mode --off
 ```
