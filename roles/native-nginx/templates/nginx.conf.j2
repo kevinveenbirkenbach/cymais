@@ -10,7 +10,7 @@ http
   proxy_cache_path /tmp/cache levels=1:2 keys_zone=cache:60m max_size=1G;
   include mime.types;
   default_type text/html;
-  access_log /dev/null;
+  access_log syslog:server=unix:/dev/log;
   error_log syslog:server=unix:/dev/log;
   sendfile on;
   keepalive_timeout 65;
