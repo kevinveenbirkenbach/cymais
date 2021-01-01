@@ -1,6 +1,0 @@
-server
-{
-  server_name {{domain}};
-  {% include 'roles/native-letsencrypt/templates/ssl_header.j2' %}
-  {% include 'roles/native-nginx-docker-proxy/templates/https_proxy_pass.conf.j2'%}
-}
