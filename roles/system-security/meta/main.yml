@@ -1,4 +1,3 @@
 dependencies:
-- native-ssh
 - native-user-alarm
-- native-user-administrator
+- native-sshd
