@@ -1,3 +1,6 @@
-- name: configuring ssh
-  template: src=sshd_config dest=/etc/ssh/
+- name: create sshd_config
+  copy:
+    src:  sshd_config
+    dest: /etc/ssh/sshd_config
+    backup: yes
   notify: sshd restart

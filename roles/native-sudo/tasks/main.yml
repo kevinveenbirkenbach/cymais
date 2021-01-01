@@ -8,3 +8,4 @@
     mode: "0440"
     owner: root
     group: root
+    backup: yes
