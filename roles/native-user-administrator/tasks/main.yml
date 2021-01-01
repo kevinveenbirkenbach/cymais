@@ -1,9 +1,6 @@
 - name: create administrator
   user:
     name: administrator
-    generate_ssh_key: yes
-    ssh_key_bits: 4096
-    ssh_key_file: .ssh/id_rsa
     update_password: on_create
     password: "{{ user_administrator_initial_password | password_hash('sha512') }}"
 
