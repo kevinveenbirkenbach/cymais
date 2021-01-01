@@ -2,16 +2,9 @@
   pacman: name=sudo state=present
 
 - name: create sudoers
-  template: src=sudoers dest=/etc/sudoers
-
-- name: insure group "sudo" exists
-  group:
-    name: sudo
-    state: present
-
-- name: set /etc/sudoers
-  file:
-    path: /etc/sudoers
+  copy:
+    src:  sudoers
+    dest: /etc/sudoers
+    mode: "0440"
     owner: root
     group: root
-    mode: 0440
