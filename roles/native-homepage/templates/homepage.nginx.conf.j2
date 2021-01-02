@@ -1,0 +1,13 @@
+#default
+server
+{
+  server_name {{domain}};
+  
+  {% include 'roles/native-letsencrypt/templates/ssl_header.j2' %}
+
+  location /
+  {
+    root /usr/share/nginx/homepage;
+    index index.html index.htm;
+  }
+}
