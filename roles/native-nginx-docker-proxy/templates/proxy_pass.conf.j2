@@ -9,6 +9,8 @@ location /
   proxy_set_header Host $host;
   proxy_set_header X-Real-IP $remote_addr;
   proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+
+  # timeouts
   proxy_connect_timeout       300;
   proxy_send_timeout          300;
   proxy_read_timeout          300;
@@ -17,7 +19,8 @@ location /
   # general caching
   proxy_cache          cache;
   proxy_cache_key      $host$uri$is_args$args;
-  proxy_cache_valid    any 1m;
+  proxy_cache_valid    any 5m;
+  expires              5m;
 
   # cache media files
   location ~* \.(gif|ico|jpg|jpeg|png|svg|mp4|mp3|pdf)$ {
