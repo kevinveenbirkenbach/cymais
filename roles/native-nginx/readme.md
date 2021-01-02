@@ -4,3 +4,4 @@
 - https://www.nginx.com/blog/tuning-nginx/
 - https://davidwalsh.name/enable-gzip
 - https://www.nginx.com/blog/performance-tuning-tips-tricks/
+- https://medium.com/pixelpoint/best-practices-for-cache-control-settings-for-your-website-ff262b38c5a2

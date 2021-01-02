@@ -14,11 +14,16 @@ http
   error_log syslog:server=unix:/dev/log;
   sendfile on;
   keepalive_timeout 65;
+
+  # gzip
   gzip on;
   gzip_proxied any;
-  gzip_types text/plain text/xml text/css application/x-javascript text/javascript application/xml+rss;
   gzip_vary on;
-  gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+  gzip_disable "MSIE [1-6]\.(?!.*SV1)"; # Disable for Internetexplorer 6
+  gzip_comp_level 4;
+  gzip_min_length 256;
+  gzip_types application/atom+xml application/javascript application/xml+rss application/x-javascript application/json application/ld+json application/manifest+json application/rss+xml application/vnd.geo+json application/vnd.ms-fontobject application/x-font-ttf application/x-web-app-manifest+json application/xhtml+xml application/xml font/opentype image/bmp image/svg+xml image/x-icon text/cache-manifest text/css text/plain text/vcard text/vnd.rim.location.xloc text/vtt text/x-component text/x-cross-domain-policy text/javascript text/xml;
+
   types_hash_max_size 4096;
   include conf.d/*.conf;
 }
