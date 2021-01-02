@@ -2,7 +2,7 @@ listen 443 ssl http2;
 listen [::]:443 ssl http2;
 ssl_session_timeout 1d;
 ssl_session_cache shared:SSL:50m;
-ssl_session_tickets off;
+ssl_session_tickets on;
 ssl_prefer_server_ciphers on;
 add_header Strict-Transport-Security max-age=15768000;
 ssl_stapling on;
