@@ -5,6 +5,7 @@ location /
   {% else %}
     proxy_pass http://127.0.0.1:{{http_port}}/;
   {% endif %}
+
   proxy_set_header Host $host;
   proxy_set_header X-Real-IP $remote_addr;
   proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
@@ -12,7 +13,22 @@ location /
   proxy_send_timeout          300;
   proxy_read_timeout          300;
   send_timeout                300;
-  location ~* \.(html|css|jpg|gif|ico|js)$ {
+
+  # cache images
+  location ~* \.(gif|ico|jpg|jpeg|png|svg)$ {
+    proxy_cache          cache;
+    proxy_cache_key      $host$uri$is_args$args;
+    proxy_cache_valid    200 301 302 365dm;
+    expires 365d;
+    {% if https_port is defined %}
+      proxy_pass https://127.0.0.1:{{https_port}};
+    {% else %}
+      proxy_pass http://127.0.0.1:{{http_port}};
+    {% endif %}
+  }
+
+  # cache content
+  location ~* \.(html|css|js)$ {
     proxy_cache          cache;
     proxy_cache_key      $host$uri$is_args$args;
     proxy_cache_valid    200 301 302 30m;

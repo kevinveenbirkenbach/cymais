@@ -7,11 +7,16 @@ events
 
 http
 {
-  proxy_cache_path /tmp/cache levels=1:2 keys_zone=cache:60m max_size=1G;
   include mime.types;
   default_type text/html;
+
+  # caching
+  proxy_cache_path /tmp/cache levels=1:2 keys_zone=cache:10m max_size=10g inactive=7d use_temp_path=off;
+
+  # logs
   access_log syslog:server=unix:/dev/log;
   error_log syslog:server=unix:/dev/log;
+
   sendfile on;
   keepalive_timeout 65;
 
