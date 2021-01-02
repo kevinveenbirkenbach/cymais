@@ -14,8 +14,8 @@ location /
   proxy_read_timeout          300;
   send_timeout                300;
 
-  # cache images
-  location ~* \.(gif|ico|jpg|jpeg|png|svg)$ {
+  # cache media files
+  location ~* \.(gif|ico|jpg|jpeg|png|svg|mp4|mp3|pdf)$ {
     proxy_cache          cache;
     proxy_cache_key      $host$uri$is_args$args;
     proxy_cache_valid    200 301 302 365dm;

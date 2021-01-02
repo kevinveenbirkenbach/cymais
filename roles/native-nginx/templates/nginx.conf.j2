@@ -11,7 +11,7 @@ http
   default_type text/html;
 
   # caching
-  proxy_cache_path /tmp/cache levels=1:2 keys_zone=cache:10m max_size=10g inactive=7d use_temp_path=off;
+  proxy_cache_path /tmp/cache levels=1:2 keys_zone=cache:20m max_size=20g inactive=14d use_temp_path=off;
 
   # logs
   access_log syslog:server=unix:/dev/log;
