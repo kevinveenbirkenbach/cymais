@@ -95,10 +95,11 @@ services:
     volumes:
       - "webdav_data:/data"
 
-  fetchmail:
-    image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}fetchmail:${MAILU_VERSION:-1.8}
-    restart: always
-    env_file: mailu.env
+  # Deactivated, because service leads to slowing down of nextcloud and mailu webmail
+  #fetchmail:
+  #  image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}fetchmail:${MAILU_VERSION:-1.8}
+  #  restart: always
+  #   env_file: mailu.env
 
   # Webmail
   webmail:
