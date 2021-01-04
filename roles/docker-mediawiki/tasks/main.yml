@@ -2,7 +2,7 @@
   command: certbot certonly --agree-tos --email {{administrator_email}} --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{domain}}
 
 - name: configure {{domain}}.conf
-  template: src=roles/native-nginx-docker-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
+  template: src=roles/native-docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
   notify: restart nginx
 
 - name: "docker mediawiki"

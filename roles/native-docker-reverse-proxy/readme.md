@@ -1,4 +1,6 @@
-# role native-nginx-docker-proxy
+# role native-docker-reverse-proxy
+
+Uses nginx as an [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy) for local docker applications.
 
 ## debug
 ```bash
