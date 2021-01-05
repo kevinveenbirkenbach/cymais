@@ -1,2 +1,3 @@
 dependencies:
   - native-git
+  - native-systemd-email

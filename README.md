@@ -24,6 +24,5 @@ ansible-playbook -i ~/your-inventories/inventorie/hosts site.yml
 docker stop $(docker ps -aq); docker rm $(docker ps -aq); docker volume rm $(docker volume ls -q);
 ``
 
-## todo
-- implement smtp
-- implement administrator mail
+## see
+- https://wiki.archlinux.org/index.php/Ansible
