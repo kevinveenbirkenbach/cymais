@@ -1,0 +1,4 @@
+- name: "restart systemd-email service"
+  systemd:
+    name: systemd-email.service
+    daemon_reload: yes

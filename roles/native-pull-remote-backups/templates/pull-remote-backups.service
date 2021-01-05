@@ -1,7 +1,7 @@
 [Unit]
 Description=pull remote backups
+OnFailure=systemd-email@%n.service
 
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/bash /usr/local/bin/pull-remote-backups.sh
-OnFailure=systemd-email@%n.service
