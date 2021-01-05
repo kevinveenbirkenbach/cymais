@@ -95,8 +95,8 @@ services:
     volumes:
       - "webdav_data:/data"
 
-  # Deactivated, because service leads to slowing down of nextcloud and mailu webmail
-  # @see https://github.com/Mailu/Mailu/issues/1719
+  # Deactivated, because service leads to slowing down of webservices.
+  # Checkout the readme.md for more information
   # fetchmail:
   #  image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}fetchmail:${MAILU_VERSION:-1.8}
   #  restart: always

@@ -1,6 +1,24 @@
 # role docker-mailu
 
 ## setup
+### bugs
+
+#### fetchmail
+Fetchmail doesn't work with big amounts of data.
+For further information see this issue: https://github.com/Mailu/Mailu/issues/1719.
+
+##### deactivation
+If you have fetchmail installed and want to deinstall it keep in mind to delete all fetched accounts from the administration panel before you delete fetchmail.
+
+##### security concerns
+The [german wikipedia tells that there are some security concern with fetchmail](https://de.wikipedia.org/wiki/Fetchmail). If in the future a customer needs to functions of fetchmail, it could be better to write a docker container for [getmail](https://en.wikipedia.org/wiki/Getmail) instead because it should be more secure.
+
+##### workaround
+If you need to receive emails from another account this should help:
+
+- Redirect to your new email account
+- Export all data from your original account
+- Import all data from your original account to your new account
 
 ### delete data
 To delete all volumes and data execute:
