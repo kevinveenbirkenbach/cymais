@@ -6,3 +6,6 @@ A wrong configuration of this role can lead to an lockout of the system which ju
 
 ## PAM
 - https://www.google.com/search?client=firefox-b-d&q=sshd+why+to+deactivate+pam
+
+# see
+- https://man7.org/linux/man-pages/man5/sshd_config.5.html
