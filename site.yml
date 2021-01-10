@@ -23,6 +23,7 @@
   roles:
    -  role: native-docker-volume-backup
       when: "'error:' not in pacman_q_docker.stderr"
+   -  role: native-primary-backup
 - name: setup nginx hosts
   hosts: nginx_hosts
   become: true

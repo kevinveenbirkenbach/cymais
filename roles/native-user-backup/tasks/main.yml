@@ -1,0 +1,33 @@
+- name: create backup user
+  user:
+    name: backup
+    create_home: yes
+
+- name: create .ssh directory
+  file:
+    path: /home/backup/.ssh
+    state: directory
+    owner: backup
+    group: backup
+    mode: '0700'
+
+- name: register hashed_machine_id
+  shell: sha256sum /etc/machine-id | head -c 64
+  register: hashed_machine_id
+
+- name: create /home/backup/.ssh/authorized_keys
+  template:
+    src: "authorized_keys.j2"
+    dest: /home/backup/.ssh/authorized_keys
+    owner: backup
+    group: backup
+    mode: '0644'
+
+- name: grant backup sudo rights with password
+  copy:
+    src: "backup"
+    dest: /etc/sudoers.d/backup
+    mode: '0644'
+    owner: root
+    group: root
+  notify: sshd restart

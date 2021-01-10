@@ -1,16 +1,15 @@
-- name: pull-remote-backups git
-  git:
-    repo: "https://github.com/kevinveenbirkenbach/pull-remote-backup.git"
-    dest: "/usr/local/bin/pull-remote-backup"
-    update: yes
+- name: create pull-remote-backup.sh
+  copy:
+    src: pull-remote-backup.sh
+    dest: "/usr/local/bin/pull-remote-backup.sh"
 
-- name: configure pull-remote-backups.service.tpl
+- name: create pull-remote-backups.service
   template: src=pull-remote-backups.service dest=/etc/systemd/system/pull-remote-backups.service
   notify: restart pull-remote-backups service
 
-- name: configure pull-remote-backups.timer.tpl
+- name: create pull-remote-backups.timer
   template: src=pull-remote-backups.timer dest=/etc/systemd/system/pull-remote-backups.timer
   notify: restart pull-remote-backups timer
 
-- name: configure pull-remote-backups.sh
-  template: src=pull-remote-backups.sh dest=/usr/local/bin/pull-remote-backup/pull-remote-backups.sh
+- name: create pull-remote-backups.sh
+  template: src=pull-remote-backups.sh dest=/usr/local/bin/pull-remote-backups.sh
