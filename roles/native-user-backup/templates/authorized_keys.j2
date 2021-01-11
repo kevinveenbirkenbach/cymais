@@ -1,3 +1,1 @@
-#command="/bin/echo You invoked: $SSH_ORIGINAL_COMMAND" {{authorized_keys}}
-#command='rsync -abvv --delete --delete-excluded --rsync-path="sudo rsync" --log-file="$log_path" --backup-dir="$diff_path" "$remote_source_path" "$latest_path"',no-pty,no-agent-forwarding,no-port-forwarding,no-X11-forwarding {{authorized_keys}}
-{{authorized_keys}}
+command="/home/backup/ssh-wrapper.sh" {{authorized_keys}}

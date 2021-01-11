@@ -23,7 +23,15 @@
     group: backup
     mode: '0644'
 
-- name: grant backup sudo rights with password
+- name: create /home/backup/ssh-wrapper.sh
+  template:
+    src: "ssh-wrapper.sh.j2"
+    dest: /home/backup/ssh-wrapper.sh
+    owner: backup
+    group: backup
+    mode: '0700'
+
+- name: grant backup sudo rights
   copy:
     src: "backup"
     dest: /etc/sudoers.d/backup

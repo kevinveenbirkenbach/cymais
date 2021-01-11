@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# log
+if [ -n "$SSH_ORIGINAL_COMMAND" ]
+then
+  echo "`/bin/date`: $SSH_ORIGINAL_COMMAND" >> $HOME/ssh-command-log
+fi
+
+# filter commands
+case "$SSH_ORIGINAL_COMMAND" in
+	"sha256sum /etc/machine-id")
+		sha256sum /etc/machine-id
+		;;
+	"find /Backups/{{hashed_machine_id.stdout}}/ -maxdepth 1 -type d")
+		find /Backups/{{hashed_machine_id.stdout}}/ -maxdepth 1 -type d
+		;;
+	"sudo rsync --server --sender -blogDtpre.iLsfxCIvu --backup-dir /Backups/{{hashed_machine_id.stdout}}/docker-volume-backup/diffs/current/ . /Backups/{{hashed_machine_id.stdout}}/docker-volume-backup/latest/")
+		sudo rsync --server --sender -blogDtpre.iLsfxCIvu --backup-dir /Backups/{{hashed_machine_id.stdout}}/docker-volume-backup/diffs/current/ . /Backups/{{hashed_machine_id.stdout}}/docker-volume-backup/latest/
+		;;
+	*)
+		echo "This command is not supported."
+		exit 1
+		;;
+esac
