@@ -7,11 +7,16 @@
     - system-update
     - native-journalctl
     - native-hostname
-- name: setup wireguard hosts
+- name: setup standard wireguard hosts
   hosts: wireguard_hosts
   become: true
   roles:
     - native-wireguard
+- name: setup wireguard hosts behind firewall\nat
+  hosts: wireguard_behind_firewall_hosts
+  become: true
+  roles:
+    - native-wireguard-behind-firewall
 - name: setup primary backup hosts
   hosts: primary_backup_hosts
   become: true

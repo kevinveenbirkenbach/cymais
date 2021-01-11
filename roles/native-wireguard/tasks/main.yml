@@ -8,3 +8,9 @@
     owner: root
     group: root
   notify: restart wireguard
+
+- name: enable ipv4-forwarding
+  shell: sysctl net.ipv4.ip_forward=1
+
+- name: enable ipv6-forwarding
+  shell: sysctl net.ipv6.conf.all.forwarding=1
