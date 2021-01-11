@@ -1,4 +1,4 @@
-# role native-pull-remote-backups
+# role native-pull-primary-backups
 
 ## goal
 This script allows to pull backups from a remote server.

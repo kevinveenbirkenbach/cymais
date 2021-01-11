@@ -33,7 +33,7 @@
   hosts: replica_backup_hosts
   become: true
   roles:
-    - role: native-pull-remote-backups
+    - role: native-pull-primary-backups
 - name: setup homepages
   hosts: homepage_hosts
   become: true
