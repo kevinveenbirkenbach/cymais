@@ -1,7 +1,3 @@
-- name: create sshd_config_files directory
-  file:
-    path: /etc/ssh/sshd_config_files
-    state: directory
 - name: create sshd_config
   copy:
     src:  sshd_config

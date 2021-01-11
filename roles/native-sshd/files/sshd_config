@@ -110,9 +110,6 @@ PrintMotd no # pam does that
 # override default of no subsystems
 Subsystem	sftp	/usr/lib/ssh/sftp-server
 
-# Include specific configuration files
-Include /etc/ssh/sshd_config_files/*
-
 # Example of overriding settings on a per-user basis
 #Match User anoncvs
 #	X11Forwarding no
