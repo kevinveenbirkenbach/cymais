@@ -6,16 +6,21 @@ then
   echo "`/bin/date`: $SSH_ORIGINAL_COMMAND" | systemd-cat -t "ssh-wrapper.sh"
 fi
 
+# define executable commands
+hashed_machine_id_command="sha256sum /etc/machine-id";
+find_command="find /Backups/{{hashed_machine_id.stdout}}/ -maxdepth 1 -type d";
+rsync_command="sudo rsync --server --sender -blogDtpre.iLsfxCIvu --backup-dir /Backups/{{hashed_machine_id.stdout}}/docker-volume-backup/diffs/current/ . /Backups/{{hashed_machine_id.stdout}}/docker-volume-backup/latest/"
+
 # filter commands
 case "$SSH_ORIGINAL_COMMAND" in
-	"sha256sum /etc/machine-id")
-		sha256sum /etc/machine-id
+	"$hashed_machine_id_command")
+		$hashed_machine_id_command
 		;;
-	"find /Backups/{{hashed_machine_id.stdout}}/ -maxdepth 1 -type d")
-		find /Backups/{{hashed_machine_id.stdout}}/ -maxdepth 1 -type d
+	"$find_command")
+		$find_command
 		;;
-	"sudo rsync --server --sender -blogDtpre.iLsfxCIvu --backup-dir /Backups/{{hashed_machine_id.stdout}}/docker-volume-backup/diffs/current/ . /Backups/{{hashed_machine_id.stdout}}/docker-volume-backup/latest/")
-		sudo rsync --server --sender -blogDtpre.iLsfxCIvu --backup-dir /Backups/{{hashed_machine_id.stdout}}/docker-volume-backup/diffs/current/ . /Backups/{{hashed_machine_id.stdout}}/docker-volume-backup/latest/
+	"$rsync_command")
+		$rsync_command
 		;;
 	*)
 		echo "This command is not supported."
