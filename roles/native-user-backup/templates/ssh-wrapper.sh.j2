@@ -1,9 +1,9 @@
 #!/bin/sh
 
-# log
+# log command
 if [ -n "$SSH_ORIGINAL_COMMAND" ]
 then
-  echo "`/bin/date`: $SSH_ORIGINAL_COMMAND" >> $HOME/ssh-command-log
+  echo "`/bin/date`: $SSH_ORIGINAL_COMMAND" | systemd-cat -t "ssh-wrapper.sh"
 fi
 
 # filter commands
