@@ -1,4 +1,5 @@
 - name: apt update all packages to their latest version
   apt:
-    name: "*"
-    state: latest
+    update_cache: yes
+    upgrade: dist
+    force_apt_get: yes

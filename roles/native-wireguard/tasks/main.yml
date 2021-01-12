@@ -1,5 +1,10 @@
-- name: install wireguard
+- name: install wireguard for Arch
   pacman: name=wireguard-tools state=present
+  when: ansible_os_family == "Arch"
+
+- name: install wireguard for Ubuntu
+  apt: name=wireguard state=present
+  when: ansible_os_family == "Debian"
 
 - name: create /etc/wireguard/wg0.conf
   copy:

@@ -1,10 +1,23 @@
 # Role Native Wireguard
-Manages wireguard natively on host. More information are available in the [Arch wiki](https://wiki.archlinux.org/index.php/WireGuard#Manual_WireGuard_setup).
+Manages wireguard on host.
 
-## Create Client Key
-``bash
-wg genkey | tee peer_A.key | wg pubkey > peer_A.pub
-``
+## Client
+### Create Client Keys
+```bash
+  wg_private_key="$(wg genkey)"
+  wg_public_key="$(echo "$wg_private_key" | wg pubkey)"
+  echo "PrivateKey: $wg_private_key"
+  echo "PublicKey: $wg_public_key"
+  echo "PresharedKey: $(wg genpsk)"
+```
 
-chown root:systemd-network /etc/systemd/network/99-*.netdev
-chmod 0640 /etc/systemd/network/99-*.netdev
+### Activate Configuration
+```bash
+  cp /path/to/wg0.conf /etc/wireguard/wg0.conf
+  systemctl enable wg-quick@wg0.service --now
+```
+
+## See
+- https://golb.hplar.ch/2019/01/expose-server-vpn.html
+- https://wiki.archlinux.org/index.php/WireGuard
+- https://wireguard.how/server/raspbian/
