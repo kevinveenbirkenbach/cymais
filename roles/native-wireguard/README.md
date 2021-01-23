@@ -2,6 +2,11 @@
 Manages wireguard on host.
 
 ## Client
+### Setup wireguard
+```bash
+  pacman -S wireguard-tools
+```
+
 ### Create Client Keys
 ```bash
   wg_private_key="$(wg genkey)"
@@ -17,7 +22,13 @@ Manages wireguard on host.
   systemctl enable wg-quick@wg0.service --now
 ```
 
+### Check status
+```bash
+  systemctl status wg-quick@wg0.service
+```
+
 ## See
 - https://golb.hplar.ch/2019/01/expose-server-vpn.html
 - https://wiki.archlinux.org/index.php/WireGuard
 - https://wireguard.how/server/raspbian/
+- https://www.scaleuptech.com/de/blog/was-ist-und-wie-funktioniert-subnetting/
