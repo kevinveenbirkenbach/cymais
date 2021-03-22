@@ -1,5 +1,6 @@
 [Unit]
 Description=Let's Encrypt renewal
+OnFailure=systemd-email@%n.service
 
 [Service]
 Type=oneshot
