@@ -1,0 +1,8 @@
+[Unit]
+Description=Let's Encrypt Mailu Deploy
+OnFailure=systemd-email@%n.service
+After=nginx.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bash /usr/local/bin/mailu/deploy-letsencrypt-mailu.sh

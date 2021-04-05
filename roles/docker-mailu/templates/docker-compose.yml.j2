@@ -37,9 +37,8 @@ services:
       - "{{ ip4_address }}:143:143"
       - "{{ ip4_address }}:993:993"
     volumes:
-      - "/etc/letsencrypt:/certs/letsencrypt:ro"
       - "/etc/mailu/overrides/nginx:/overrides"
-      - "front_certs:/certs"
+      - "/etc/mailu/certs:/certs"
   admin:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}admin:${MAILU_VERSION:-1.8}
     restart: always

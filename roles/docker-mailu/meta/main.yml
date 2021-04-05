@@ -1,2 +1,3 @@
 dependencies:
 - native-docker-reverse-proxy
+- native-systemd-email

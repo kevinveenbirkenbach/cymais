@@ -14,6 +14,12 @@
     path: "/etc/mailu"
     state: directory
     mode: 0755
+    
+- name: "create /etc/mailu/certs"
+  file:
+    path: "/etc/mailu/certs"
+    state: directory
+    mode: 0755
 
 - name: "create /usr/local/bin/mailu/"
   file:
@@ -28,3 +34,10 @@
 - name: add mailu.env
   template: src=mailu.env.j2 dest=/usr/local/bin/mailu/mailu.env
   notify: recreate mailu
+
+- name: add deploy-letsencrypt-mailu.sh
+  template: src=deploy-letsencrypt-mailu.sh.j2 dest=/usr/local/bin/mailu/deploy-letsencrypt-mailu.sh
+
+- name: configure deploy-letsencrypt-mailu.service
+  template: src=deploy-letsencrypt-mailu.service.j2 dest=/etc/systemd/system/deploy-letsencrypt-mailu.service
+  notify: restart deploy-letsencrypt-mailu.service
