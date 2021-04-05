@@ -104,7 +104,6 @@
       vars:
         domain: "mail.{{top_domain}}"
         http_port: 8007
-        https_port:  4431
 - name: setup elk hosts
   hosts: elk_hosts
   become: true

@@ -54,6 +54,12 @@ How to manage users is described here: https://mailu.io/master/cli.html
 ```bash
   docker-compose -p mailu up -d
 ```
+## debug
+### mailu_front_1
+
+```bash
+sudo docker container exec -it mailu_front_1 /bin/bash
+```
 
 ## update
 For update instructions follow:
