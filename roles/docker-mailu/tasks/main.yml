@@ -14,7 +14,7 @@
     path: "/etc/mailu"
     state: directory
     mode: 0755
-    
+
 - name: "create /etc/mailu/certs"
   file:
     path: "/etc/mailu/certs"
@@ -41,3 +41,7 @@
 - name: configure deploy-letsencrypt-mailu.service
   template: src=deploy-letsencrypt-mailu.service.j2 dest=/etc/systemd/system/deploy-letsencrypt-mailu.service
   notify: restart deploy-letsencrypt-mailu.service
+
+- name: configure deploy-letsencrypt-mailu.timer
+  template: src=deploy-letsencrypt-mailu.timer.j2 dest=/etc/systemd/system/deploy-letsencrypt-mailu.timer
+  notify: restart deploy-letsencrypt-mailu.timer

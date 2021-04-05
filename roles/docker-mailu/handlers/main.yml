@@ -9,3 +9,9 @@
     state: restarted
     enabled: yes
     daemon_reload: yes
+- name: "restart deploy-letsencrypt-mailu.timer"
+  systemd:
+    name: deploy-letsencrypt-mailu.timer
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
