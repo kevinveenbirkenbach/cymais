@@ -23,8 +23,8 @@
 
 - name: add docker-compose.yml
   template: src=docker-compose.yml.j2 dest=/usr/local/bin/mailu/docker-compose.yml
-  notify: rescreate mailu
+  notify: recreate mailu
 
 - name: add mailu.env
   template: src=mailu.env.j2 dest=/usr/local/bin/mailu/mailu.env
-  notify: rescreate mailu
+  notify: recreate mailu

@@ -1,5 +1,5 @@
 ---
-- name: rescreate mailu
+- name: recreate mailu
   command:
     cmd: docker-compose -p mailu up -d --force-recreate
     chdir: /usr/local/bin/mailu/
