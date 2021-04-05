@@ -55,6 +55,10 @@ How to manage users is described here: https://mailu.io/master/cli.html
   docker-compose -p mailu up -d
 ```
 
+## update
+For update instructions follow:
+- https://mailu.io/master/maintain.html
+
 ## todo
 - https://blog.kuepper.nrw/2019/03/30/roundcube-webmail-mit-zwei-faktor-authentifizierung/
 - https://mailu.io/master/faq.html#i-want-to-integrate-nextcloud-15-and-newer-with-mailu
