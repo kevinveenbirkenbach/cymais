@@ -16,6 +16,8 @@
         ports:
           - "127.0.0.1:{{http_port}}:80"
         environment:
+          DOCKER_CLIENT_TIMEOUT:  120
+          COMPOSE_HTTP_TIMEOUT:   120
           YOURLS_DB_HOST: "database:3306"
           YOURLS_DB_USER: "yourls"
           YOURLS_DB_PASS: "{{yourls_database_password}}"
