@@ -6,7 +6,7 @@
     - system-security
     - system-update
     - native-journalctl
-    - native-hostname
+    #- native-hostname
 - name: setup standard wireguard hosts
   hosts: wireguard_hosts
   become: true
