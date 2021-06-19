@@ -4,8 +4,9 @@ import shutil
 import os
 backup_disk_path = "/media/encrypteddrive-sda/"
 backups_folder_path = os.path.join(backup_disk_path, "Backups/")
-
-while psutil.disk_usage(backup_disk_path).percent > 50:
+deleted = True
+while psutil.disk_usage(backup_disk_path).percent > 50 and deleted:
+    deleted = False
     print("%d %% of disk %s are used. Freeing space..." % (psutil.disk_usage(backup_disk_path).percent,backup_disk_path))
     for primary_directory in os.listdir(backups_folder_path):
         primary_directory = os.path.join(backups_folder_path, primary_directory)
@@ -14,7 +15,11 @@ while psutil.disk_usage(backup_disk_path).percent > 50:
             diffs_directory = os.path.join(application_directory, "diffs/")
             diffs = os.listdir(diffs_directory)
             diffs.sort(reverse=False)
-            delete_diff = diffs_directory + diffs[0]
-            print("Deleting %s..." % (delete_diff))
-            shutil.rmtree(delete_diff)
+            if len(diffs) >= 1:
+                delete_diff = diffs_directory + diffs[0]
+                print("Deleting %s..." % (delete_diff))
+                shutil.rmtree(delete_diff)
+                deleted = True
+if not deleted:
+    print("All diffs had been deleted!")
 print("Cleaning up finished: %d %% of disk %s are used." % (psutil.disk_usage(backup_disk_path).percent,backup_disk_path))
