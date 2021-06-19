@@ -1,0 +1,7 @@
+[Unit]
+Description=delete old backups
+OnFailure=systemd-email@%n.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python /usr/local/bin/backups-cleanup.py

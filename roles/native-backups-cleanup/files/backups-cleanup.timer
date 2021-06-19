@@ -1,0 +1,9 @@
+[Unit]
+Description=starts backups-cleanup.service
+
+[Timer]
+OnCalendar=19:00
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target

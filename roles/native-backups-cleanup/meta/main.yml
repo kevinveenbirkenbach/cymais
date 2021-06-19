@@ -1,2 +1,3 @@
 dependencies:
-- native-python-pip
+  - native-python-pip
+  - native-systemd-email

@@ -2,10 +2,10 @@
 import psutil
 import shutil
 import os
-backup_disk_path = "/media/encrypteddrive-sda/"
+backup_disk_path = "{{backup_disk_path}}"
 backups_folder_path = os.path.join(backup_disk_path, "Backups/")
 deleted = True
-while psutil.disk_usage(backup_disk_path).percent > 50 and deleted:
+while psutil.disk_usage(backup_disk_path).percent > int({{backup_space_percent}}) and deleted:
     deleted = False
     print("%d %% of disk %s are used. Freeing space..." % (psutil.disk_usage(backup_disk_path).percent,backup_disk_path))
     for primary_directory in os.listdir(backups_folder_path):

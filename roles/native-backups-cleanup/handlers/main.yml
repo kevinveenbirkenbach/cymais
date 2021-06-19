@@ -1,0 +1,12 @@
+- name: "restart backups-cleanup.service"
+  systemd:
+    name: backups-cleanup.service
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+- name: "restart backups-cleanup.timer"
+  systemd:
+    name: backups-cleanup.timer
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

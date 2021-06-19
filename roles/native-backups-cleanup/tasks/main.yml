@@ -1,3 +1,18 @@
 - name: install psutil
   pip:
     name: psutil
+
+- name: create backups-cleanup.py
+  template: src=backups-cleanup.py.j2 dest=/usr/local/bin/backups-cleanup.py
+
+- name: create backups-cleanup.service
+  copy:
+    src: backups-cleanup.service
+    dest: "/etc/systemd/system/backups-cleanup.service"
+  notify: restart backups-cleanup.service
+
+- name: create backups-cleanup.timer
+  copy:
+    src: backups-cleanup.timer
+    dest: "/etc/systemd/system/backups-cleanup.timer"
+  notify: restart backups-cleanup.timer
