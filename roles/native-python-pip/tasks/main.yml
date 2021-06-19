@@ -1,0 +1,5 @@
+---
+- name: python pip install
+  pacman:
+    name: python-pip
+    state: present
