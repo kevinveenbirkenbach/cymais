@@ -45,3 +45,7 @@ To use occ run:
   docker exec -it nextcloud_database_1 mysql -u nextcloud -pPASSWORD1234132 -D nextcloud -e "delete from oc_file_locks where 1"
   docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:mode --off
 ```
+
+## further information
+- https://goneuland.de/nextcloud-upgrade-auf-neue-versionen-mittels-docker/
+- https://help.nextcloud.com/t/cant-start-nextcloud-because-the-version-of-the-data-is-higher-than-the-docker-image-version-and-downgrading-is-not-supported/109438
