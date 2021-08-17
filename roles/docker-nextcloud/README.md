@@ -45,3 +45,6 @@ To use occ run:
   docker exec -it nextcloud_database_1 mysql -u nextcloud -pPASSWORD1234132 -D nextcloud -e "delete from oc_file_locks where 1"
   docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:mode --off
 ```
+
+## further information
+- https://github.com/nextcloud/docker/blob/master/.examples/docker-compose/with-nginx-proxy/mariadb/fpm/docker-compose.yml

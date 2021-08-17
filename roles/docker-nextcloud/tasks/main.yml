@@ -6,25 +6,38 @@
   template: src=templates/nextcloud.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
   notify: restart nginx
 
+- name: "create /usr/local/bin/docker-nextcloud/"
+  file:
+    path: "/usr/local/bin/docker-nextcloud"
+    state: directory
+    mode: 0755
+
+- name: configure nginx.conf
+  template: src=templates/nginx.conf.j2 dest=/usr/local/bin/docker-nextcloud/nginx.conf
+  notify: restart nginx
+
 - name: "setup nextcloud"
   docker_compose:
     project_name: nextcloud
     definition:
       application:
-        image: nextcloud
+        image: nextcloud:fpm-alpine
         restart: always
         log_driver: journald
         links:
           - database
         volumes:
           - nextcloud-data:/var/www/html
-        ports:
-          - "127.0.0.1:{{http_port}}:80"
+        # Maybe error in following line 
+        expose:
+          - "9000"
         environment:
           MYSQL_DATABASE: "nextcloud"
           MYSQL_USER: "nextcloud"
           MYSQL_PASSWORD: "{{nextcloud_database_password}}"
           MYSQL_HOST: database:3306
+          DOCKER_CLIENT_TIMEOUT:  120
+          COMPOSE_HTTP_TIMEOUT:   120
       database:
         log_driver: journald
         image: mariadb
@@ -38,3 +51,27 @@
         restart: always
         expose:
           - "3306"
+      web:
+        image: nginx:alpine
+        log_driver: journald
+        restart: always
+        ports:
+          - "127.0.0.1:{{http_port}}:80"
+        links:
+          - application
+        volumes:
+            - /usr/local/bin/docker-nextcloud/nginx.conf:/etc/nginx/nginx.conf:ro
+        volumes_from:
+          - application
+      redis:
+        image: redis:alpine
+        restart: always
+      cron:
+        image: nextcloud:fpm-alpine
+        restart: always
+        volumes:
+          - nextcloud:/var/www/html
+        entrypoint: /cron.sh
+        # depends_on:
+        #   - database
+        #   - redis
