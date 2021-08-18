@@ -21,23 +21,23 @@
     project_name: nextcloud
     definition:
       application:
-        image: nextcloud:fpm-alpine
+        image: "nextcloud:{{nextcloud_version}}-fpm-alpine"
         restart: always
         log_driver: journald
         links:
           - database
         volumes:
           - nextcloud-data:/var/www/html
-        # Maybe error in following line 
+        # Maybe error in following line
         expose:
           - "9000"
         environment:
+          DOCKER_CLIENT_TIMEOUT: 120
+          COMPOSE_HTTP_TIMEOUT: 120
           MYSQL_DATABASE: "nextcloud"
           MYSQL_USER: "nextcloud"
           MYSQL_PASSWORD: "{{nextcloud_database_password}}"
           MYSQL_HOST: database:3306
-          DOCKER_CLIENT_TIMEOUT:  120
-          COMPOSE_HTTP_TIMEOUT:   120
       database:
         log_driver: journald
         image: mariadb

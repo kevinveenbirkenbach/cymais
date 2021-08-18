@@ -48,3 +48,5 @@ To use occ run:
 
 ## further information
 - https://github.com/nextcloud/docker/blob/master/.examples/docker-compose/with-nginx-proxy/mariadb/fpm/docker-compose.yml
+- https://goneuland.de/nextcloud-upgrade-auf-neue-versionen-mittels-docker/
+- https://help.nextcloud.com/t/cant-start-nextcloud-because-the-version-of-the-data-is-higher-than-the-docker-image-version-and-downgrading-is-not-supported/109438
