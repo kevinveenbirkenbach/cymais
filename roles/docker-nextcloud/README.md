@@ -11,11 +11,15 @@ To access the database execute
 To update the nextcloud container execute the following commands on the server:
 
 ```bash
-  docker pull nextcloud
-  docker stop nextcloud_application_1
-  docker rm <your_nextcloud_container>
+  # Requiered:
+  docker stop nextcloud_application_1 && docker rm $(docker ps -aqf "name=nextcloud_application_1") &&
+  # Optional:
+  docker stop nextcloud_web_1 && docker rm $(docker ps -aqf "name=nextcloud_web_1") &&
+  docker stop nextcloud_database_1 && docker rm $(docker ps -aqf "name=nextcloud_database_1") &&
+  docker stop nextcloud_cron_1 && docker rm $(docker ps -aqf "name=nextcloud_cron_1") &&
+  docker stop nextcloud_redis_1 && docker rm $(docker ps -aqf "name=nextcloud_redis_1")
 ```
-Afterwards run the server manager.
+Afterwards update the ***nextcloud_version*** variable to the next version and run the server manager.
 
 You can check the status of the update by typing in:
 
@@ -31,6 +35,19 @@ If nextcloud stays in the maintenance mode after the update try the following:
   docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:mode --off
 ```
 
+If the update process fails execute
+
+```bash
+  docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:repair
+```
+
+and disable the mal functioning apps.
+
+## database debuging
+
+```bash
+  docker exec -it -u www-data nextcloud_database_1 /bin/mysql -u nextcloud -p
+```
 ## occ
 
 To use occ run:
@@ -51,3 +68,6 @@ To use occ run:
 - https://goneuland.de/nextcloud-upgrade-auf-neue-versionen-mittels-docker/
 - https://help.nextcloud.com/t/cant-start-nextcloud-because-the-version-of-the-data-is-higher-than-the-docker-image-version-and-downgrading-is-not-supported/109438
 - https://github.com/nextcloud/docker/issues/1302
+- https://help.nextcloud.com/t/update-to-22-failed-with-database-error-updated/120682
+- https://help.nextcloud.com/t/nc-update-to-21-0-0-beta1-exception-database-error/101124/4
+- https://wolfgang.gassler.org/reset-password-mariadb-mysql-docker/
