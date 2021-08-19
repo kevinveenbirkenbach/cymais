@@ -69,10 +69,10 @@
         image: redis:alpine
         restart: always
       cron:
-        image: nextcloud:fpm-alpine
+        image: "nextcloud:{{nextcloud_version}}-fpm-alpine"
         restart: always
         volumes:
-          - nextcloud:/var/www/html
+          - nextcloud-data:/var/www/html
         entrypoint: /cron.sh
         # depends_on:
         #   - database
