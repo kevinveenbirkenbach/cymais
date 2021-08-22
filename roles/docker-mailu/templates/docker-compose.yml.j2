@@ -38,6 +38,8 @@ services:
     volumes:
       - "/etc/mailu/overrides/nginx:/overrides"
       - "/etc/mailu/certs:/certs"
+    depends_on:
+      - database
   admin:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}admin:${MAILU_VERSION:-1.8}
     restart: always
@@ -56,7 +58,7 @@ services:
       - "/etc/mailu/overrides:/overrides"
     depends_on:
       - front
-      
+
   smtp:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}postfix:${MAILU_VERSION:-1.8}
     restart: always
