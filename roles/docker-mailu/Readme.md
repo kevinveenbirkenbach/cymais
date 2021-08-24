@@ -63,7 +63,7 @@ sudo docker container exec -it mailu_front_1 /bin/bash
 ### restart everything
 
 ```bash
-sudo docker restart mailu_smtp_1 mailu_imap_1 mailu_antispam_1 mailu_redis_1 mailu_webdav_1 mailu_front_1 mailu_database_1 mailu_webmail_1 mailu_admin_1 4431bd9168ae_mailu_antivirus_1
+sudo docker restart mailu_smtp_1 mailu_imap_1 mailu_antispam_1 mailu_redis_1 mailu_webdav_1 mailu_front_1 mailu_database_1 mailu_webmail_1 mailu_admin_1 mailu_antivirus_1
 ```
 
 ## update
