@@ -40,5 +40,3 @@
           MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
         volumes:
           - wordpress-database:/var/lib/mysql
-        expose:
-          - "3306"

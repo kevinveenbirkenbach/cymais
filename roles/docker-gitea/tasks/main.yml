@@ -48,5 +48,3 @@
         volumes:
           - gitea-database:/var/lib/mysql
         restart: always
-        expose:
-          - "3306"

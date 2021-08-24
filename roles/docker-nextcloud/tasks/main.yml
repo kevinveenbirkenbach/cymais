@@ -51,8 +51,6 @@
         volumes:
           - nextcloud-database:/var/lib/mysql
         restart: always
-        expose:
-          - "3306"
       web:
         image: nginx:alpine
         log_driver: journald
