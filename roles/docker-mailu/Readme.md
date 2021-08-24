@@ -73,3 +73,5 @@ For update instructions follow:
 ## See
 - https://gist.github.com/marienfressinaud/f284a59b18aad395eb0de2d22836ae6b
 - https://mailu.io/1.7/compose/setup.html
+- https://github.com/nuxsmin/sysPass/issues/1299
+- https://github.com/Mailu/Mailu/issues/1171
