@@ -71,3 +71,5 @@ To use occ run:
 - https://help.nextcloud.com/t/update-to-22-failed-with-database-error-updated/120682
 - https://help.nextcloud.com/t/nc-update-to-21-0-0-beta1-exception-database-error/101124/4
 - https://wolfgang.gassler.org/reset-password-mariadb-mysql-docker/
+- https://unix.stackexchange.com/questions/478855/ansible-docker-container-and-depends-on
+- https://github.com/gdiepen/docker-convenience-scripts

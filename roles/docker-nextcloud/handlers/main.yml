@@ -1,0 +1,5 @@
+---
+- name: recreate nextcloud
+  command:
+    cmd: docker-compose -p nextcloud up -d --force-recreate
+    chdir: /usr/local/bin/nextcloud/
