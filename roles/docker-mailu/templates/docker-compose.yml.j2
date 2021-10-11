@@ -6,6 +6,7 @@ services:
   redis:
     image: redis:alpine
     restart: always
+    env_file: mailu.env
     volumes:
       - "redis_data:/data"
   database:
