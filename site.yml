@@ -17,18 +17,6 @@
   become: true
   roles:
     - native-wireguard-behind-firewall
-- name: setup primary backup hosts
-  hosts: primary_backup_hosts
-  become: true
-  pre_tasks:
-    - name: "check if docker is installed"
-      shell: pacman -Q docker
-      register: pacman_q_docker
-      ignore_errors: yes
-  roles:
-   -  role: native-docker-volume-backup
-      when: "'error:' not in pacman_q_docker.stderr"
-   -  role: native-primary-backup
 - name: setup replica backup hosts
   hosts: replica_backup_hosts
   become: true
