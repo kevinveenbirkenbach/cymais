@@ -1,4 +1,4 @@
-- name: docker-volume-backup git
+- name: pull docker-volume-backup.git
   git:
     repo: "https://github.com/kevinveenbirkenbach/docker-volume-backup.git"
     dest: "/usr/local/bin/docker-volume-backup"
