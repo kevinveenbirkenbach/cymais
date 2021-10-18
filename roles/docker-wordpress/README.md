@@ -15,3 +15,6 @@ cat > wp-config.php << EOF
 #content
 EOF
 ```
+
+## multiside
+- https://multilingualpress.de/doku/wordpress-multisite-installieren-einrichten/

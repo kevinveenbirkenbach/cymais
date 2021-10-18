@@ -24,3 +24,19 @@
     owner: root
     group: root
   notify: sshd restart
+
+- name: "create /home/administrator/scripts/"
+  file:
+    path: "/home/administrator/scripts"
+    state: directory
+    owner: administrator
+    group: administrator
+    mode: 0700
+
+- name: "create /home/administrator/volumes/"
+  file:
+    path: "/home/administrator/volumes"
+    state: directory
+    owner: administrator
+    group: administrator
+    mode: 0700

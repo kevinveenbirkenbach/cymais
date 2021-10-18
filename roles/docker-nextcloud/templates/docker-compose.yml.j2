@@ -41,7 +41,7 @@ services:
     depends_on:
       - application
     volumes:
-        - /usr/local/bin/docker-nextcloud/nginx.conf:/etc/nginx/nginx.conf:ro
+        - /home/administrator/volumes/docker/nextcloud/nginx.conf:/etc/nginx/nginx.conf:ro
     volumes_from:
       - application
   redis:

@@ -5,5 +5,21 @@
     state: present
   notify: docker restart
 
+- name: "create /home/administrator/docker-compose/"
+  file:
+    path: "/home/administrator/docker-compose"
+    state: directory
+    mode: 0700
+    owner: administrator
+    group: administrator
+
+- name: "create /home/administrator/volumes/docker"
+  file:
+    path: "/home/administrator/volumes/docker"
+    state: directory
+    mode: 0700
+    owner: administrator
+    group: administrator
+
 - name: flush docker service
   meta: flush_handlers

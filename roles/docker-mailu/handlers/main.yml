@@ -2,7 +2,7 @@
 - name: recreate mailu
   command:
     cmd: docker-compose -p mailu up -d --force-recreate
-    chdir: /usr/local/bin/mailu/
+    chdir: /home/administrator/docker-compose/mailu/
 - name: "restart deploy-letsencrypt-mailu.service"
   systemd:
     name: deploy-letsencrypt-mailu.service

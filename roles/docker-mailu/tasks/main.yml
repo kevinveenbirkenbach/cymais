@@ -9,6 +9,18 @@
   template: src=roles/native-docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
   notify: restart nginx
 
+- name: "create /home/administrator/docker-compose/mailu"
+  file:
+    path: "/home/administrator/docker-compose/mailu"
+    state: directory
+    mode: 0755
+
+- name: "create /home/administrator/scripts/mailu"
+  file:
+    path: "/home/administrator/scripts/mailu"
+    state: directory
+    mode: 0755
+
 - name: "create /etc/mailu/"
   file:
     path: "/etc/mailu"
@@ -21,22 +33,16 @@
     state: directory
     mode: 0755
 
-- name: "create /usr/local/bin/mailu/"
-  file:
-    path: "/usr/local/bin/mailu"
-    state: directory
-    mode: 0755
-
 - name: add docker-compose.yml
-  template: src=docker-compose.yml.j2 dest=/usr/local/bin/mailu/docker-compose.yml
+  template: src=docker-compose.yml.j2 dest=/home/administrator/docker-compose/mailu/docker-compose.yml
   notify: recreate mailu
 
 - name: add mailu.env
-  template: src=mailu.env.j2 dest=/usr/local/bin/mailu/mailu.env
+  template: src=mailu.env.j2 dest=/home/administrator/docker-compose/mailu/mailu.env
   notify: recreate mailu
 
 - name: add deploy-letsencrypt-mailu.sh
-  template: src=deploy-letsencrypt-mailu.sh.j2 dest=/usr/local/bin/mailu/deploy-letsencrypt-mailu.sh
+  template: src=deploy-letsencrypt-mailu.sh.j2 dest=/home/administrator/scripts/mailu/deploy-letsencrypt-mailu.sh
 
 - name: configure deploy-letsencrypt-mailu.service
   template: src=deploy-letsencrypt-mailu.service.j2 dest=/etc/systemd/system/deploy-letsencrypt-mailu.service
