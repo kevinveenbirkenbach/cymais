@@ -60,6 +60,13 @@
       vars:
         domains: "{{wordpress_domains}}"
         http_port: 8003
+- name: setup redirect hosts
+  hosts: redirect_hosts
+  become: true
+  roles:
+   -  role: native-https-redirect
+      vars:
+        domain_mappings: "{{redirect_domain_mappings}}"
 - name: setup mediawiki hosts
   hosts: mediawiki_hosts
   become: true

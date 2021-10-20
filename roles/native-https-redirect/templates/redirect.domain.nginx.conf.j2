@@ -1,0 +1,5 @@
+server {
+  server_name {{domain}};
+  {% include 'roles/native-letsencrypt/templates/ssl_header.j2' %}
+  return 301 https://{{target_domain}}$request_uri;
+}
