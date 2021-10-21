@@ -4,8 +4,8 @@
     cmd: docker-compose -p mailu up -d --force-recreate
     chdir: /home/administrator/docker-compose/mailu/
   environment:
-    COMPOSE_HTTP_TIMEOUT: 120
-    DOCKER_CLIENT_TIMEOUT: 120
+    COMPOSE_HTTP_TIMEOUT: 900
+    DOCKER_CLIENT_TIMEOUT: 900
 - name: "restart deploy-letsencrypt-mailu.service"
   systemd:
     name: deploy-letsencrypt-mailu.service
