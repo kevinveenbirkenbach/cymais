@@ -6,7 +6,6 @@
   template: src=templates/nextcloud.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
   notify: restart nginx
 
-# @todo rename
 - name: "create /home/administrator/volumes/docker/nextcloud/"
   file:
     path: "/home/administrator/volumes/docker/nextcloud"
