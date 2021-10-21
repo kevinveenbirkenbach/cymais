@@ -12,6 +12,9 @@
   notify: restart nginx
 
 - name: "setup wordpress"
+  environment:
+    DOCKER_CLIENT_TIMEOUT:  120
+    COMPOSE_HTTP_TIMEOUT:   120
   docker_compose:
     project_name: wordpress
     definition:
@@ -22,8 +25,6 @@
         ports:
           - "127.0.0.1:{{http_port}}:80"
         environment:
-          DOCKER_CLIENT_TIMEOUT:  120
-          COMPOSE_HTTP_TIMEOUT:   120
           WORDPRESS_DB_HOST:      database:3306
           WORDPRESS_DB_USER:      "wordpress"
           WORDPRESS_DB_PASSWORD:  "{{wordpress_database_password}}"

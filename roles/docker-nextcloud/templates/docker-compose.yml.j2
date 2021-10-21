@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   application:
@@ -11,8 +11,6 @@ services:
     volumes:
       - data:/var/www/html
     environment:
-      COMPOSE_HTTP_TIMEOUT: 120
-      DOCKER_CLIENT_TIMEOUT: 120
       MYSQL_DATABASE: "nextcloud"
       MYSQL_USER: "nextcloud"
       MYSQL_PASSWORD: "{{nextcloud_database_password}}"
@@ -22,8 +20,6 @@ services:
       driver: journald
     image: mariadb
     environment:
-      COMPOSE_HTTP_TIMEOUT: 120
-      DOCKER_CLIENT_TIMEOUT: 120
       MYSQL_DATABASE: "nextcloud"
       MYSQL_USER: "nextcloud"
       MYSQL_PASSWORD: "{{nextcloud_database_password}}"

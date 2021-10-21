@@ -17,8 +17,6 @@ services:
       MYSQL_USER: "mailu"
       MYSQL_PASSWORD: "{{mailu_database_password}}"
       MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
-      COMPOSE_HTTP_TIMEOUT: 120
-      DOCKER_CLIENT_TIMEOUT: 120
     volumes:
       - database:/var/lib/mysql
 
