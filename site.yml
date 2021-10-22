@@ -83,6 +83,11 @@
       vars:
         domain: forum.{{top_domain}}
         http_port: 8005
+- name: setup turn server
+  hosts: turn_server_hosts
+  become: true
+  roles:
+   -  role: docker-turn-server
 - name: setup yourls hosts
   hosts: yourls_hosts
   become: true

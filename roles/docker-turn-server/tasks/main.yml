@@ -1,0 +1,9 @@
+---
+- name: recieve {{turn_server_domain}} certificate
+  command: certbot certonly --agree-tos --email {{administrator_email}} --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{turn_server_domain}}
+
+- name: recreate turn server
+  command:
+    cmd: docker run -d --network=host --name "turn_server" instrumentisto/coturn -n --listening-port=3478 --fingerprint --use-auth-secret --static-auth-secret={{turn_server_secret}} --realm={{turn_server_domain}} --total-quota=0 --bps-capacity=0 --stale-nonce --no-multicast-peers 
+#lt-cred-mech # Only on coTURN below v4.5.0.8!
+##no-loopback-peers # Only on coTURN below v4.5.1.0!
