@@ -47,7 +47,7 @@ services:
     image: "nextcloud:{{nextcloud_version}}-fpm-alpine"
     restart: always
     logging:
-      driver: journald
+      driver: journald 
     volumes:
       - data:/var/www/html
     entrypoint: /cron.sh

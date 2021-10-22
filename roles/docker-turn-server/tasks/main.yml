@@ -1,9 +1,18 @@
 ---
-- name: recieve {{turn_server_domain}} certificate
-  command: certbot certonly --agree-tos --email {{administrator_email}} --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{turn_server_domain}}
+#- name: recieve {{turn_server_domain}} certificate
+#  command: certbot certonly --agree-tos --email {{administrator_email}} --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{turn_server_domain}}
+
+- name: "create /home/administrator/volumes/docker/turn-server/"
+  file:
+    path: "/home/administrator/volumes/docker/turn-server"
+    state: directory
+    mode: 0755
+
+- name: configure turnserver.conf
+  template: src=templates/turnserver.conf.j2 dest=/home/administrator/volumes/docker/turn-server/turnserver.conf
 
 - name: recreate turn server
   command:
-    cmd: docker run -d --network=host --name "turn_server" instrumentisto/coturn -n --listening-port=3478 --fingerprint --use-auth-secret --static-auth-secret={{turn_server_secret}} --realm={{turn_server_domain}} --total-quota=0 --bps-capacity=0 --stale-nonce --no-multicast-peers 
-#lt-cred-mech # Only on coTURN below v4.5.0.8!
-##no-loopback-peers # Only on coTURN below v4.5.1.0!
+    cmd: docker run -d -p 3478:3478 -p 3478:3478/udp --name "turn_server" -v "/home/administrator/volumes/docker/turn-server/turnserver.conf:/etc/coturn/turnserver.conf" coturn/coturn
+# --mount type=tmpfs,destination=/var/lib/coturn
+# -p 49152-65535:49152-65535/udp
