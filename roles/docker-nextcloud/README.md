@@ -11,15 +11,16 @@ To access the database execute
 To update the nextcloud container execute the following commands on the server:
 
 ```bash
-  # Requiered:
-  docker stop nextcloud_application_1 && docker rm $(docker ps -aqf "name=nextcloud_application_1") &&
-  # Optional:
-  docker stop nextcloud_web_1 && docker rm $(docker ps -aqf "name=nextcloud_web_1") &&
-  docker stop nextcloud_database_1 && docker rm $(docker ps -aqf "name=nextcloud_database_1") &&
-  docker stop nextcloud_cron_1 && docker rm $(docker ps -aqf "name=nextcloud_cron_1") &&
-  docker stop nextcloud_redis_1 && docker rm $(docker ps -aqf "name=nextcloud_redis_1")
+export COMPOSE_HTTP_TIMEOUT=600
+export DOCKER_CLIENT_TIMEOUT=600
+cd /home/administrator/docker-compose/nextcloud &&
+docker-compose pull &&
+docker-compose up -d
 ```
+
 Afterwards update the ***nextcloud_version*** variable to the next version and run the server manager.
+
+It is only possible to update from one to the next major version at a time
 
 You can check the status of the update by typing in:
 
@@ -42,6 +43,15 @@ If the update process fails execute
 ```
 
 and disable the mal functioning apps.
+
+## recover latest backup
+```bash
+cd /home/administrator/docker-compose/nextcloud &&
+docker-compose down &&
+cd /usr/local/bin/docker-volume-backup &&
+bash ./docker-volume-recover.sh "nextcloud_data" "$(sha256sum /etc/machine-id | head -c 64)" &&
+bash ./docker-volume-recover.sh "nextcloud_database" "$(sha256sum /etc/machine-id | head -c 64)"
+```
 
 ## database debuging
 
@@ -73,3 +83,4 @@ To use occ run:
 - https://wolfgang.gassler.org/reset-password-mariadb-mysql-docker/
 - https://unix.stackexchange.com/questions/478855/ansible-docker-container-and-depends-on
 - https://github.com/gdiepen/docker-convenience-scripts
+- https://techoverflow.net/2021/08/17/how-to-fix-nextcloud-4047-innodb-refuses-to-write-tables-with-row_formatcompressed-or-key_block_size/
