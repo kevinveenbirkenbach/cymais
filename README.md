@@ -1,4 +1,4 @@
-# Server-Manager
+# Server-Playbook
 ## Description
 Ansible script to manage servers.
 
