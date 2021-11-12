@@ -37,11 +37,6 @@
       # browsers
       - chromium
 
-      - firefox
-      - firefox-ublock-origin
-      - firefox-extension-https-everywhere
-      - firefox-dark-reader
-
       # office software
       - ttf-liberation
       - libreoffice-fresh
