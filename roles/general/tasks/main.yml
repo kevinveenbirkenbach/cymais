@@ -1,0 +1,95 @@
+- name: install general software
+  community.general.pacman:
+    name:
+      # programing language interpreters
+      - jdk11-openjdk
+      - python
+      - php
+
+      # description language interpreters
+      - texlive-most
+
+      # compression tools
+      - p7zip
+
+      # administration tools
+      - base-devel
+      - yay
+      - make
+      - gcc
+      - cmake
+      - fdupes
+
+      # network analyze tools
+      - traceroute
+      - wireshark-qt
+      - wireshark-cli
+
+      # security tools
+      - ecryptfs-utils
+      - encfs
+      - keepassxc
+
+      # anonymous
+      - tor
+      - torbrowser-launcher
+
+      # browsers
+      - chromium
+
+      - firefox
+      - firefox-ublock-origin
+      - firefox-extension-https-everywhere
+      - firefox-dark-reader
+
+      # office software
+      - ttf-liberation
+      - libreoffice-fresh
+      - libreoffice-fresh-de
+      - libreoffice-fresh-eo
+      - libreoffice-fresh-es
+      - libreoffice-fresh-nl
+
+      # spelling software
+      - hunspell
+      - hunspell-de
+      - hunspell-es_es
+      - hunspell-en_US
+      - hunspell-nl
+
+      # video/picture manipulation
+      - gimp
+      - blender
+      - obs-studio
+
+      # communication tools
+      - pidgin
+
+      # code quality tools
+      - shellcheck
+
+      # visualization tools
+      - dia
+
+      # ide's
+      - atom
+      - arduino
+      - arduino-docs
+
+      # virtualization tools
+      - qemu
+
+      # containerization tools
+      - docker
+      - docker-compose
+
+      # orchestration tools
+      - ansible
+
+      # entertainment software
+      - rhythmbox
+
+      # cloud
+      - nextcloud-client
+
+    state: present

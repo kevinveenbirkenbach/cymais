@@ -3,6 +3,7 @@
   become: true
   roles:
     - pacman-update
+    - general
 - name: setup gaming hosts
   hosts: gaming_hosts
   become: true
