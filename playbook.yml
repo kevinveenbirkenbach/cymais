@@ -1,0 +1,5 @@
+- name: general host setup
+  hosts: all
+  become: true
+  roles:
+    - native-pacman-update
