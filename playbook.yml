@@ -2,4 +2,9 @@
   hosts: all
   become: true
   roles:
-    - native-pacman-update
+    - pacman-update
+- name: setup gaming hosts
+  hosts: gaming_hosts
+  become: true
+  roles:
+    - games

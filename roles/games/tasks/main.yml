@@ -1,0 +1,15 @@
+- name: Install gaming software
+  community.general.pacman:
+    name:
+      - 0ad
+      - warzone2100
+      - supertuxkart
+      - gnuchess
+      - sauerbraten
+      - assaultcube
+      - minetest
+      - mari0
+      - retroarch
+      - retroarch-assets-xmb
+      - retroarch-assets-ozone
+    state: present
