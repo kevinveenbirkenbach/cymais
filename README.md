@@ -1,8 +1,9 @@
 # Server-Playbook
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 ## Description
 Ansible script to manage servers.
 
-## roles
+## Roles
 The system use the following role namings:
 
 | role prefix | meaning|
@@ -24,5 +25,5 @@ ansible-playbook -i ~/your-inventories/inventorie/hosts site.yml
 docker stop $(docker ps -aq); docker rm $(docker ps -aq); docker volume rm $(docker volume ls -q);
 ``
 
-## see
+## See
 - https://wiki.archlinux.org/index.php/Ansible
