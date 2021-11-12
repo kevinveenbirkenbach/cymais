@@ -24,10 +24,5 @@ ansible-playbook -i ~/your-inventories/inventorie/hosts site.yml
 docker stop $(docker ps -aq); docker rm $(docker ps -aq); docker volume rm $(docker volume ls -q);
 ``
 
-## todo
-- Use docker-compose.yml files instead of the ansible inbuild docker-compose for more flexibility
-- Implement https://jitsi.github.io/handbook/docs/devops-guide/devops-guide-docker
-- Refactor https://stackoverflow.com/questions/44784103/where-should-i-put-docker-compose-yml
-
 ## see
 - https://wiki.archlinux.org/index.php/Ansible
