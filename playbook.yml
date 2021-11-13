@@ -9,3 +9,8 @@
   become: true
   roles:
     - games
+- name: setup libreoffice hosts
+  hosts: libreoffice_hosts
+  become: true
+  roles:
+    - libreoffice

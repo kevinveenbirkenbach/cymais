@@ -37,21 +37,6 @@
       # browsers
       - chromium
 
-      # office software
-      - ttf-liberation
-      - libreoffice-fresh
-      - libreoffice-fresh-de
-      - libreoffice-fresh-eo
-      - libreoffice-fresh-es
-      - libreoffice-fresh-nl
-
-      # spelling software
-      - hunspell
-      - hunspell-de
-      - hunspell-es_es
-      - hunspell-en_US
-      - hunspell-nl
-
       # video/picture manipulation
       - gimp
       - blender
