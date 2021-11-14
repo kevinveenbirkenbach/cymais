@@ -1,0 +1,6 @@
+- name: Install gaming software
+  community.general.pacman:
+    name:
+      - tor
+      - torbrowser-launcher
+    state: present
