@@ -38,14 +38,8 @@
       - blender
       - obs-studio
 
-      # communication tools
-      - pidgin
-
       # code quality tools
       - shellcheck
-
-      # visualization tools
-      - dia
 
       # ide's
       - atom
@@ -54,18 +48,4 @@
 
       # virtualization tools
       - qemu
-
-      # containerization tools
-      - docker
-      - docker-compose
-
-      # orchestration tools
-      - ansible
-
-      # entertainment software
-      - rhythmbox
-
-      # cloud
-      - nextcloud-client
-
     state: present

@@ -1,4 +1,4 @@
-- name: Install gaming software
+- name: Install torbrowser
   community.general.pacman:
     name:
       - tor

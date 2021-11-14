@@ -9,8 +9,28 @@
   become: true
   roles:
     - native-games
+- name: setup torbrowser hosts
+  hosts: torbrowser_hosts
+  become: true
+  roles:
+    - torbrowser-games
 - name: setup libreoffice hosts
   hosts: libreoffice_hosts
   become: true
   roles:
     - native-libreoffice
+- name: setup nextcloud-client
+  hosts: nextcloud_client_hosts
+  become: true
+  roles:
+    - native-nextcloud-client
+- name: setup dia
+  hosts: dia_hosts
+  become: true
+  roles:
+    - native-dia
+- name: setup docker
+  hosts: docker_hosts
+  become: true
+  roles:
+    - native-docker
