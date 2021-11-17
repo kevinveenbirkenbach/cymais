@@ -2,3 +2,18 @@
   community.general.pacman:
     name: nextcloud-client
     state: present
+
+- name: Link homefolders to cloud
+  ansible.builtin.file:
+    src: "{{cloud_directory}}{{item}}"
+    dest: "{{user_home_directory}}{{item}}"
+    owner: "{{client_username}}"
+    group: "{{client_username}}"
+    state: link
+  loop:
+    - Templates
+    - Documents
+    - Videos
+    - Pictures
+    - Music
+    - Desktop

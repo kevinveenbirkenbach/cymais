@@ -13,7 +13,7 @@
   hosts: torbrowser_hosts
   become: true
   roles:
-    - torbrowser-games
+    - native-torbrowser
 - name: setup libreoffice hosts
   hosts: libreoffice_hosts
   become: true
