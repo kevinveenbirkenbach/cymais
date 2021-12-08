@@ -1,0 +1,7 @@
+- name: Install docker
+  community.general.pacman:
+    name:
+      - gnome-shell-extensions
+      - gnome-terminal
+      - intltool # Needed for extension make
+    state: present
