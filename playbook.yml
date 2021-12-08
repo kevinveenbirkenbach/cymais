@@ -19,6 +19,11 @@
   become: true
   roles:
     - native-libreoffice
+- name: setup gnome-clients
+  hosts: gnome_clients
+  become: true
+  roles:
+    - native-gnome
 - name: setup nextcloud-client
   hosts: nextcloud_client_hosts
   become: true
