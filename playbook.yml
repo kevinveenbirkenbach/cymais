@@ -112,3 +112,11 @@
       vars:
         domain: "elk.{{top_domain}}"
         http_port: 8008
+- name: setup akounting hosts
+  hosts: akounting_hosts
+  become: true
+  roles:
+   -  role: docker-akounting
+      vars:
+        domain: akounting.{{top_domain}}
+        http_port: 8080
