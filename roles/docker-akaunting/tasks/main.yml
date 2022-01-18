@@ -14,8 +14,8 @@
 
 - name: configure db.env
   template: src=db.env.j2 dest=/home/administrator/docker-compose/akaunting/env/db.env
-  notify: setup akounting
+  notify: setup akaunting
 
 - name: configure run.env
   template: src=run.env.j2 dest=/home/administrator/docker-compose/akaunting/env/run.env
-  notify: setup akounting
+  notify: setup akaunting

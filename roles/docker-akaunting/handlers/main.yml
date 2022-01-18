@@ -1,7 +1,7 @@
 ---
-- name: setup akounting
+- name: setup akaunting
   command:
     cmd: docker-compose up -d
-    chdir: /home/administrator/docker-compose/akounting/
+    chdir: /home/administrator/docker-compose/akaunting/
   environment:
     AKAUNTING_SETUP: true
