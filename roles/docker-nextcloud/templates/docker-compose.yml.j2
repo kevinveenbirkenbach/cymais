@@ -44,6 +44,8 @@ services:
   redis:
     image: redis:alpine
     restart: always
+    volumes:
+      - redis:/data
   cron:
     image: "nextcloud:{{nextcloud_version}}-fpm-alpine"
     restart: always
@@ -58,6 +60,7 @@ services:
 volumes:
   database:
   data:
+  redis:
 networks:
   default:
     driver: bridge
