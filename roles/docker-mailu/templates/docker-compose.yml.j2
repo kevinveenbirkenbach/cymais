@@ -9,6 +9,11 @@ services:
     env_file: mailu.env
     volumes:
       - "redis_data:/data"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
   database:
     image: mariadb
     restart: always
