@@ -84,3 +84,6 @@ To use occ run:
 - https://unix.stackexchange.com/questions/478855/ansible-docker-container-and-depends-on
 - https://github.com/gdiepen/docker-convenience-scripts
 - https://techoverflow.net/2021/08/17/how-to-fix-nextcloud-4047-innodb-refuses-to-write-tables-with-row_formatcompressed-or-key_block_size/
+- https://www.dba-ninja.com/2020/07/how-to-fix-table-doesnt-exist-in-engine-error-for-mariadb-error-1932.html
+- https://help.nextcloud.com/t/mariadb-mysqldump-fails-because-table-does-not-exist/65881/2
+- https://help.nextcloud.com/t/database-error-after-migration/23584
