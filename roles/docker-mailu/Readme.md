@@ -80,3 +80,4 @@ For update instructions follow:
 - https://mailu.io/1.7/compose/setup.html
 - https://github.com/nuxsmin/sysPass/issues/1299
 - https://github.com/Mailu/Mailu/issues/1171
+- https://support.plesk.com/hc/en-us/articles/115001264814-Unable-to-log-into-RoundCube-Connection-to-storage-server-failed
