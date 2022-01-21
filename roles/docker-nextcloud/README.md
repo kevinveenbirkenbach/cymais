@@ -25,21 +25,21 @@ It is only possible to update from one to the next major version at a time
 You can check the status of the update by typing in:
 
 ```bash
-  docker logs nextcloud-application-1
+  docker logs nextcloud_application_1
 ```
 
 If nextcloud stays in the maintenance mode after the update try the following:
 
 ```bash
-  docker exec -it -u www-data nextcloud-application-1 /var/www/html/occ maintenance:mode --on
-  docker exec -it -u www-data nextcloud-application-1 /var/www/html/occ upgrade
-  docker exec -it -u www-data nextcloud-application-1 /var/www/html/occ maintenance:mode --off
+  docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:mode --on
+  docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ upgrade
+  docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:mode --off
 ```
 
 If the update process fails execute
 
 ```bash
-  docker exec -it -u www-data nextcloud-application-1 /var/www/html/occ maintenance:repair
+  docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:repair
 ```
 
 and disable the mal functioning apps.
@@ -63,14 +63,14 @@ bash ./docker-volume-recover.sh "nextcloud_database" "$(sha256sum /etc/machine-i
 To use occ run:
 
 ```bash
-  docker exec -it -u www-data nextcloud-application-1 /var/www/html/occ
+  docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ
 ```
 
 ## unlock files
 ```bash
-  docker exec -it -u www-data nextcloud-application-1 /var/www/html/occ maintenance:mode --on
+  docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:mode --on
   docker exec -it nextcloud_database_1 mysql -u nextcloud -pPASSWORD1234132 -D nextcloud -e "delete from oc_file_locks where 1"
-  docker exec -it -u www-data nextcloud-application-1 /var/www/html/occ maintenance:mode --off
+  docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:mode --off
 ```
 
 ## further information
