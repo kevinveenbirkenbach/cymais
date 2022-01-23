@@ -18,8 +18,8 @@ services:
   database:
     logging:
       driver: journald
-    image: mariadb
-    command: "--transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1"
+    image: mariadb:10.5
+    command: "--transaction-isolation=READ-COMMITTED --binlog-format=ROW"
     environment:
       MYSQL_DATABASE: "nextcloud"
       MYSQL_USER: "nextcloud"

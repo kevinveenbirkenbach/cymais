@@ -1,12 +1,14 @@
 # role docker-nextcloud
 
-## database access
+## CLI
+
+### database access
 To access the database execute
 ```bash
-  docker exec -it nextcloud_database_1 /bin/mysql -u nextcloud -p
+  docker exec -it nextcloud_database_1 mysql -u nextcloud -p
 ```
 
-## update
+### update
 
 To update the nextcloud container execute the following commands on the server:
 
@@ -44,7 +46,7 @@ If the update process fails execute
 
 and disable the mal functioning apps.
 
-## recover latest backup
+### recover latest backup
 ```bash
 cd /home/administrator/docker-compose/nextcloud &&
 docker-compose down &&
@@ -53,12 +55,12 @@ bash ./docker-volume-recover.sh "nextcloud_data" "$(sha256sum /etc/machine-id | 
 bash ./docker-volume-recover.sh "nextcloud_database" "$(sha256sum /etc/machine-id | head -c 64)"
 ```
 
-## database debuging
+### database debuging
 
 ```bash
-  docker exec -it -u www-data nextcloud_database_1 /bin/mysql -u nextcloud -p
+  docker exec -it nextcloud_database_1 mysql -u nextcloud -p
 ```
-## occ
+### occ
 
 To use occ run:
 
@@ -66,12 +68,20 @@ To use occ run:
   docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ
 ```
 
-## unlock files
+### unlock files
 ```bash
   docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:mode --on
   docker exec -it nextcloud_database_1 mysql -u nextcloud -pPASSWORD1234132 -D nextcloud -e "delete from oc_file_locks where 1"
   docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:mode --off
 ```
+
+## architecture
+### Maria DB
+Until NC24 MariaDB version has to be used.
+
+#### See
+- https://github.com/nextcloud/server/issues/25436
+- https://help.nextcloud.com/t/update-to-next-cloud-21-0-2-has-get-an-error/117028/23?page=2
 
 ## further information
 - https://github.com/nextcloud/docker/blob/master/.examples/docker-compose/with-nginx-proxy/mariadb/fpm/docker-compose.yml
@@ -83,7 +93,3 @@ To use occ run:
 - https://wolfgang.gassler.org/reset-password-mariadb-mysql-docker/
 - https://unix.stackexchange.com/questions/478855/ansible-docker-container-and-depends-on
 - https://github.com/gdiepen/docker-convenience-scripts
-- https://techoverflow.net/2021/08/17/how-to-fix-nextcloud-4047-innodb-refuses-to-write-tables-with-row_formatcompressed-or-key_block_size/
-- https://www.dba-ninja.com/2020/07/how-to-fix-table-doesnt-exist-in-engine-error-for-mariadb-error-1932.html
-- https://help.nextcloud.com/t/mariadb-mysqldump-fails-because-table-does-not-exist/65881/2
-- https://help.nextcloud.com/t/database-error-after-migration/23584
