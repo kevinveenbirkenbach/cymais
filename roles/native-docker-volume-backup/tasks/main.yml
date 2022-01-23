@@ -11,3 +11,10 @@
 - name: configure docker-volume-backup.timer.tpl
   template: src=docker-volume-backup.timer dest=/etc/systemd/system/docker-volume-backup.timer
   notify: restart docker-volume-backup timer
+
+- name: create /usr/local/bin/docker-volume-backup/databases.csv
+  copy:
+    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}/usr/local/bin/docker-volume-backup/databases.csv"
+    dest: /usr/local/bin/docker-volume-backup/databases.csv
+    owner: root
+    group: root
