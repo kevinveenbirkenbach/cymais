@@ -4,4 +4,4 @@ OnFailure=systemd-email@%n.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/bash /usr/local/bin/docker-volume-backup/docker-volume-backup.sh
+ExecStart=/usr/bin/python /usr/local/bin/docker-volume-backup/docker-volume-backup.py
