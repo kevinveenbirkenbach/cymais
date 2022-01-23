@@ -1,3 +1,7 @@
+- name: Install pandas python package
+  pip:
+    name: pandas
+
 - name: pull docker-volume-backup.git
   git:
     repo: "https://github.com/kevinveenbirkenbach/docker-volume-backup.git"
