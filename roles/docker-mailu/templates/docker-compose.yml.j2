@@ -108,10 +108,10 @@ services:
 
   # Deactivated, because service leads to slowing down of webservices.
   # Checkout the readme.md for more information
-  # fetchmail:
-  #  image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}fetchmail:${MAILU_VERSION:-1.8}
-  #  restart: always
-  #   env_file: mailu.env
+  fetchmail:
+    image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}fetchmail:${MAILU_VERSION:-1.8}
+    restart: always
+    env_file: mailu.env
 
   # Webmail
   webmail:
