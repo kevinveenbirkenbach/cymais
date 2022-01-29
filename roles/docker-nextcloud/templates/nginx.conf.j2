@@ -22,7 +22,9 @@ http {
     sendfile        on;
     #tcp_nopush     on;
 
-    keepalive_timeout  65;
+    keepalive_timeout     65;
+    fastcgi_send_timeout  600s;
+    fastcgi_read_timeout  600s;
 
     #gzip  on;
 

@@ -14,7 +14,7 @@
 
 - name: configure nginx.conf
   template: src=templates/nginx.conf.j2 dest=/home/administrator/volumes/docker/nextcloud/nginx.conf
-  notify: restart nginx
+  notify: recreate nextcloud
 
 - name: "create /home/administrator/docker-compose/nextcloud/"
   file:

@@ -79,6 +79,11 @@ To use occ run:
 ### Maria DB
 Until NC24 MariaDB version has to be used.
 
+## performance
+### 504 Gateway Timeout
+- https://serverfault.com/questions/178671/nginx-php-fpm-504-gateway-time-out-error-with-almost-zero-load-on-a-test-se
+- https://help.nextcloud.com/t/solved-manual-lemp-install-php-fpm-timing-out/39070
+
 #### See
 - https://github.com/nextcloud/server/issues/25436
 - https://help.nextcloud.com/t/update-to-next-cloud-21-0-2-has-get-an-error/117028/23?page=2
