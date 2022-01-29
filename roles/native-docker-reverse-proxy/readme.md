@@ -15,3 +15,5 @@ curl -I {{address}}
 - https://serverfault.com/questions/741610/what-is-the-difference-between-proxy-request-buffering-and-proxy-buffering-on-ng
 - https://askubuntu.com/questions/1103626/should-i-enable-client-max-body-size-proxy-request-buffering-and-proxy-bufferin
 - https://serverfault.com/questions/692577/whats-the-difference-between-proxy-buffer-and-proxy-cache-module-in-nginx-confi
+- https://github.com/sissbruecker/linkding/issues/88
+- https://www.bogotobogo.com/DevOps/Docker/Docker-Compose-Nginx-Reverse-Proxy-Multiple-Containers.php
