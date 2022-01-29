@@ -11,3 +11,7 @@ curl -I {{address}}
 ## performance
 - https://stackoverflow.com/questions/33703230/caching-images-on-all-folder-levels-of-nginx-reverse-proxy
 - https://www.tweaked.io/guide/nginx-proxying/
+- https://serverfault.com/questions/796735/nginx-reverse-proxy-is-slow/796740
+- https://serverfault.com/questions/741610/what-is-the-difference-between-proxy-request-buffering-and-proxy-buffering-on-ng
+- https://askubuntu.com/questions/1103626/should-i-enable-client-max-body-size-proxy-request-buffering-and-proxy-bufferin
+- https://serverfault.com/questions/692577/whats-the-difference-between-proxy-buffer-and-proxy-cache-module-in-nginx-confi
