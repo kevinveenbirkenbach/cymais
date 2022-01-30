@@ -1,0 +1,22 @@
+- name: "create /home/administrator/scripts/btrfs-health-check/"
+  file:
+    path: "/home/administrator/scripts/btrfs-health-check"
+    state: directory
+    mode: 0755
+
+- name: create btrfs-health-check.sh
+  copy:
+    src: btrfs-health-check.sh
+    dest: "/home/administrator/scripts/btrfs-health-check/btrfs-health-check.sh"
+
+- name: create btrfs-health-check.service
+  copy:
+    src: btrfs-health-check.service
+    dest: "/etc/systemd/system/btrfs-health-check.service"
+  notify: restart btrfs-health-check.service
+
+- name: create btrfs-health-check.timer
+  copy:
+    src: btrfs-health-check.timer
+    dest: "/etc/systemd/system/btrfs-health-check.timer"
+  notify: restart btrfs-health-check.timer

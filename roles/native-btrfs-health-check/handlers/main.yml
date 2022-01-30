@@ -1,0 +1,12 @@
+- name: "restart btrfs-health-check.service"
+  systemd:
+    name: btrfs-health-check.service
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+- name: "restart btrfs-health-check.timer"
+  systemd:
+    name: btrfs-health-check.timer
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

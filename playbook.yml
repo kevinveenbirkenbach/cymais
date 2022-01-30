@@ -7,6 +7,11 @@
     - system-update
     - native-journalctl
     #- native-hostname
+- name: setup btrfs health check
+  hosts: btrfs_health_check_hosts
+  become: true
+  roles:
+    - native-btrfs-health-check
 - name: setup standard wireguard hosts
   hosts: wireguard_hosts
   become: true
