@@ -67,6 +67,15 @@ To use occ run:
 ```bash
   docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ
 ```
+### app relevant tables
+- oc_appconfig
+- oc_migrations
+
+### initialize duplicates
+
+```bash
+  sudo docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ duplicates:find-all --output
+```
 
 ### unlock files
 ```bash
