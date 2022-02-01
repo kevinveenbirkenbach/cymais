@@ -67,6 +67,15 @@ To use occ run:
 ```bash
   docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ
 ```
+### app relevant tables
+- oc_appconfig
+- oc_migrations
+
+### initialize duplicates
+
+```bash
+  sudo docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ duplicates:find-all --output
+```
 
 ### unlock files
 ```bash
@@ -81,12 +90,17 @@ Until NC24 MariaDB version has to be used.
 
 ## performance
 ### 504 Gateway Timeout
-- https://serverfault.com/questions/178671/nginx-php-fpm-504-gateway-time-out-error-with-almost-zero-load-on-a-test-se
-- https://help.nextcloud.com/t/solved-manual-lemp-install-php-fpm-timing-out/39070
+
+```bash
+  docker logs nextcloud_web_1 --tail 1000 | grep 504
+```
 
 #### See
+- https://support.f5.com/csp/article/K48373902
 - https://github.com/nextcloud/server/issues/25436
 - https://help.nextcloud.com/t/update-to-next-cloud-21-0-2-has-get-an-error/117028/23?page=2
+- https://serverfault.com/questions/178671/nginx-php-fpm-504-gateway-time-out-error-with-almost-zero-load-on-a-test-se
+- https://help.nextcloud.com/t/solved-manual-lemp-install-php-fpm-timing-out/39070
 
 ## further information
 - https://github.com/nextcloud/docker/blob/master/.examples/docker-compose/with-nginx-proxy/mariadb/fpm/docker-compose.yml

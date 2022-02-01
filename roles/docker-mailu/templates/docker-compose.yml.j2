@@ -14,6 +14,8 @@ services:
       interval: 1s
       timeout: 3s
       retries: 30
+    logging:
+      driver: journald
   database:
     image: mariadb
     restart: always
@@ -29,13 +31,16 @@ services:
       interval: 3s
       timeout: 1s
       retries: 5
+    logging:
+      driver: journald
+
   # Core services
   front:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}nginx:${MAILU_VERSION:-1.8}
     restart: always
     env_file: mailu.env
     logging:
-      driver: json-file
+      driver: journald
     ports:
       - "127.0.0.1:{{ http_port }}:80"
       - "{{ ip4_address }}:25:25"
@@ -60,6 +65,8 @@ services:
       - "dkim:/dkim"
     depends_on:
       - front
+    logging:
+      driver: journald
   imap:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}dovecot:${MAILU_VERSION:-1.8}
     restart: always
@@ -69,6 +76,8 @@ services:
       - "/etc/mailu/overrides:/overrides"
     depends_on:
       - front
+    logging:
+      driver: journald
 
   smtp:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}postfix:${MAILU_VERSION:-1.8}
@@ -79,6 +88,8 @@ services:
       - "smtp_queue:/queue"
     depends_on:
       - front
+    logging:
+      driver: journald
 
   antispam:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}rspamd:${MAILU_VERSION:-1.8}
@@ -90,6 +101,8 @@ services:
       - "/etc/mailu/overrides/rspamd:/etc/rspamd/override.d"
     depends_on:
       - front
+    logging:
+      driver: journald
 
   # Optional services
   antivirus:
@@ -98,6 +111,8 @@ services:
     env_file: mailu.env
     volumes:
       - "filter:/data"
+    logging:
+      driver: journald
 
   webdav:
     image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}radicale:${MAILU_VERSION:-1.8}
@@ -105,13 +120,17 @@ services:
     env_file: mailu.env
     volumes:
       - "webdav_data:/data"
+    logging:
+      driver: journald
 
   # Deactivated, because service leads to slowing down of webservices.
   # Checkout the readme.md for more information
-  # fetchmail:
+  #fetchmail:
   #  image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}fetchmail:${MAILU_VERSION:-1.8}
   #  restart: always
-  #   env_file: mailu.env
+  #  env_file: mailu.env
+  #  logging:
+  #    driver: journald
 
   # Webmail
   webmail:
@@ -122,6 +141,8 @@ services:
       - "webmail_data:/data"
     depends_on:
       - imap
+    logging:
+      driver: journald
 volumes:
   database:
   smtp_queue:

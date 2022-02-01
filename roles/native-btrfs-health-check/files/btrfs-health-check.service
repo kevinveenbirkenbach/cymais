@@ -1,0 +1,8 @@
+[Unit]
+Description=Check btrfs status
+OnFailure=systemd-email@%n.service
+OnSuccess=systemd-email@%n.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /home/administrator/scripts/btrfs-health-check/btrfs-health-check.sh

@@ -1,0 +1,8 @@
+[Unit]
+Description=starts btrfs-health-check.service
+
+[Timer]
+OnCalendar=12:00
+
+[Install]
+WantedBy=timers.target
