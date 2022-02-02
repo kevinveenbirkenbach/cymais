@@ -11,36 +11,12 @@
   loop: "{{domains}}"
   notify: restart nginx
 
-- name: "setup wordpress"
-  environment:
-    DOCKER_CLIENT_TIMEOUT:  120
-    COMPOSE_HTTP_TIMEOUT:   120
-  docker_compose:
-    project_name: wordpress
-    definition:
-      application:
-        log_driver: journald
-        image: wordpress
-        restart: always
-        ports:
-          - "127.0.0.1:{{http_port}}:80"
-        environment:
-          WORDPRESS_DB_HOST:      database:3306
-          WORDPRESS_DB_USER:      "wordpress"
-          WORDPRESS_DB_PASSWORD:  "{{wordpress_database_password}}"
-          WORDPRESS_DB_NAME:      "wordpress"
-        links:
-          - database
-        volumes:
-          - wordpress-data:/var/www/html
-      database:
-        log_driver: journald
-        image: mariadb
-        restart: always
-        environment:
-          MYSQL_DATABASE: "wordpress"
-          MYSQL_USER: "wordpress"
-          MYSQL_PASSWORD: "{{wordpress_database_password}}"
-          MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
-        volumes:
-          - wordpress-database:/var/lib/mysql
+- name: "create /home/administrator/docker-compose/wordpress/"
+  file:
+    path: "/home/administrator/docker-compose/wordpress/"
+    state: directory
+    mode: 0755
+
+- name: add docker-compose.yml
+  template: src=docker-compose.yml.j2 dest=/home/administrator/docker-compose/wordpress/docker-compose.yml
+  notify: recreate wordpress

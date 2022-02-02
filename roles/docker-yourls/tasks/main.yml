@@ -6,35 +6,12 @@
   template: src=roles/native-docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
   notify: restart nginx
 
-- name: "setup yourls"
-  environment:
-    DOCKER_CLIENT_TIMEOUT:  120
-    COMPOSE_HTTP_TIMEOUT:   120
-  docker_compose:
-    project_name: yourls
-    definition:
-      application:
-        image: yourls
-        restart: always
-        ports:
-          - "127.0.0.1:{{http_port}}:80"
-        environment:
-          YOURLS_DB_HOST: "database:3306"
-          YOURLS_DB_USER: "yourls"
-          YOURLS_DB_PASS: "{{yourls_database_password}}"
-          YOURLS_DB_NAME: "yourls"
-          YOURLS_SITE: "https://{{domain}}"
-          YOURLS_USER: "{{yourls_user}}"
-          YOURLS_PASS: "{{yourls_user_password}}"
-        links:
-          - database
-      database:
-        image: mariadb
-        restart: always
-        environment:
-          MYSQL_DATABASE: "yourls"
-          MYSQL_USER: "yourls"
-          MYSQL_PASSWORD: "{{yourls_database_password}}"
-          MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
-        volumes:
-          - yourls-database:/var/lib/mysql
+- name: "create /home/administrator/docker-compose/yourls/"
+  file:
+    path: "/home/administrator/docker-compose/yourls/"
+    state: directory
+    mode: 0755
+
+- name: add docker-compose.yml
+  template: src=docker-compose.yml.j2 dest=/home/administrator/docker-compose/yourls/docker-compose.yml
+  notify: recreate yourls

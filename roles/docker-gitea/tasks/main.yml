@@ -6,45 +6,12 @@
   template: src=roles/native-docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
   notify: restart nginx
 
-- name: container present
-  docker_compose:
-    project_name: gitea
-    definition:
-      application:
-        restart: always
-        image: gitea/gitea:latest
-        log_driver: journald
-        environment:
-          - USER_UID=1000
-          - USER_GID=1000
-          - DB_TYPE=mysql
-          - DB_HOST=database:3306
-          - DB_NAME=gitea
-          - DB_USER=gitea
-          - DB_PASSWD={{gitea_database_password}}
-          - SSH_PORT={{ssh_port}}
-          - SSH_LISTEN_PORT=22
-          - DOMAIN={{domain}}
-          - SSH_DOMAIN={{domain}}
-          - RUN_MODE="{{run_mode}}"
-          - ROOT_URL="https://{{domain}}/"
-        ports:
-          - "127.0.0.1:{{http_port}}:3000"
-          - "{{ssh_port}}:22"
-        links:
-          - database
-        volumes:
-          - gitea-data:/data
-          - /etc/timezone:/etc/timezone:ro
-          - /etc/localtime:/etc/localtime:ro
-      database:
-        image: mariadb
-        log_driver: journald
-        environment:
-          MYSQL_DATABASE: "gitea"
-          MYSQL_USER: "gitea"
-          MYSQL_PASSWORD: "{{gitea_database_password}}"
-          MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
-        volumes:
-          - gitea-database:/var/lib/mysql
-        restart: always
+- name: "create /home/administrator/docker-compose/gitea/"
+  file:
+    path: "/home/administrator/docker-compose/gitea/"
+    state: directory
+    mode: 0755
+
+- name: add docker-compose.yml
+  template: src=docker-compose.yml.j2 dest=/home/administrator/docker-compose/gitea/docker-compose.yml
+  notify: recreate gitea
