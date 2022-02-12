@@ -11,23 +11,30 @@ To access the database execute
 ### update
 
 To update the nextcloud container execute the following commands on the server:
-
 ```bash
-export COMPOSE_HTTP_TIMEOUT=600
-export DOCKER_CLIENT_TIMEOUT=600
-cd /home/administrator/docker-compose/nextcloud &&
-docker-compose pull &&
-docker-compose up -d
+  export COMPOSE_HTTP_TIMEOUT=600
+  export DOCKER_CLIENT_TIMEOUT=600
+  docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:mode --on
+  sudo python /usr/local/bin/docker-volume-backup/docker-volume-backup.py
+  cd /home/administrator/docker-compose/nextcloud && docker-compose down
 ```
 
-Afterwards update the ***nextcloud_version*** variable to the next version and run the server manager.
+Afterwards update the ***nextcloud_version*** variable to the next version and run the this repository with this ansible role.
 
 It is only possible to update from one to the next major version at a time
 
-You can check the status of the update by typing in:
+Wait for the update to finish.
+
+You can verify that the update is finished by checking the following logs:
 
 ```bash
-  docker logs nextcloud_application_1
+sudo docker logs nextcloud_application_1
+```
+
+or
+
+```bash
+sudo docker exec -it nextcloud_application_1 top
 ```
 
 If nextcloud stays in the maintenance mode after the update try the following:
@@ -44,7 +51,7 @@ If the update process fails execute
   docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:repair
 ```
 
-and disable the mal functioning apps.
+and disable the not functioning apps.
 
 ### recover latest backup
 ```bash
