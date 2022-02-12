@@ -1,21 +1,13 @@
 # role docker-nextcloud
 
-## CLI
-
-### database access
-To access the database execute
-```bash
-  docker exec -it nextcloud_database_1 mysql -u nextcloud -p
-```
-
-### update
+## update
 
 To update the nextcloud container execute the following commands on the server:
 ```bash
-  export COMPOSE_HTTP_TIMEOUT=600
-  export DOCKER_CLIENT_TIMEOUT=600
   docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:mode --on
   sudo python /usr/local/bin/docker-volume-backup/docker-volume-backup.py
+  export COMPOSE_HTTP_TIMEOUT=600
+  export DOCKER_CLIENT_TIMEOUT=600
   cd /home/administrator/docker-compose/nextcloud && docker-compose down
 ```
 
@@ -28,13 +20,13 @@ Wait for the update to finish.
 You can verify that the update is finished by checking the following logs:
 
 ```bash
-sudo docker logs nextcloud_application_1
+docker logs nextcloud_application_1
 ```
 
-or
+and
 
 ```bash
-sudo docker exec -it nextcloud_application_1 top
+docker exec -it nextcloud_application_1 top
 ```
 
 If nextcloud stays in the maintenance mode after the update try the following:
@@ -53,28 +45,42 @@ If the update process fails execute
 
 and disable the not functioning apps.
 
-### recover latest backup
+## recover latest backup
 ```bash
 cd /home/administrator/docker-compose/nextcloud &&
 docker-compose down &&
+docker exec -i nextcloud_database_1 mysql -u nextcloud -pPASSWORT nextcloud < "/Backups/$(sha256sum /etc/machine-id | head -c 64)/docker-volume-backup/latest/nextcloud_database/sql/backup.sql" &&
 cd /usr/local/bin/docker-volume-backup &&
-bash ./docker-volume-recover.sh "nextcloud_data" "$(sha256sum /etc/machine-id | head -c 64)" &&
-bash ./docker-volume-recover.sh "nextcloud_database" "$(sha256sum /etc/machine-id | head -c 64)"
+bash ./docker-volume-recover.sh "nextcloud_data" "$(sha256sum /etc/machine-id | head -c 64)"
 ```
 
-### database debuging
+## database
+### database access
+To access the database execute
+```bash
+  docker exec -it nextcloud_database_1 mysql -u nextcloud -D nextcloud -p
+```
+
+### recreate database with new volume:
+```bash
+docker run --detach --name nextcloud_database_1 --env MYSQL_USER="nextcloud" --env MYSQL_PASSWORD=PASSWORD --env MYSQL_ROOT_PASSWORD=PASSWORD --env MYSQL_DATABASE="nextcloud" -v nextcloud_database:/var/lib/mysql
+```
+
+The process can be checked with:
 
 ```bash
-  docker exec -it nextcloud_database_1 mysql -u nextcloud -p
+show processlist;
 ```
-### occ
+
+## occ
 
 To use occ run:
 
 ```bash
   docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ
 ```
-### app relevant tables
+
+## app relevant tables
 - oc_appconfig
 - oc_migrations
 
@@ -119,3 +125,4 @@ Until NC24 MariaDB version has to be used.
 - https://wolfgang.gassler.org/reset-password-mariadb-mysql-docker/
 - https://unix.stackexchange.com/questions/478855/ansible-docker-container-and-depends-on
 - https://github.com/gdiepen/docker-convenience-scripts
+- https://help.nextcloud.com/t/several-issues-after-upgrading-to-nextcloud-21/113118/3
