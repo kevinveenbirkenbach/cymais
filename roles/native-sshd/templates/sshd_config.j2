@@ -108,7 +108,11 @@ PrintMotd no # pam does that
 #Banner none
 
 # override default of no subsystems
-Subsystem	sftp	/usr/lib/ssh/sftp-server
+{% if ansible_os_family == "Archlinux" %}
+Subsystem	sftp /usr/lib/ssh/sftp-server
+{% else%}
+Subsystem	sftp /usr/lib/openssh/sftp-server
+{% endif %}
 
 # Example of overriding settings on a per-user basis
 #Match User anoncvs

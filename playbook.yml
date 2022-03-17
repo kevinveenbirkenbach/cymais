@@ -22,16 +22,8 @@
   become: true
   roles:
     - native-wireguard-behind-firewall
-- name: setup replica backup hosts
-  hosts: replica_backup_hosts
-  become: true
-  roles:
-    - role: native-pull-primary-backups
-- name: setup backups cleanup
-  hosts: backups_cleanup
-  become: true
-  roles:
-    - role: native-backups-cleanup
+
+# Native Webserver Roles
 - name: setup homepages
   hosts: homepage_hosts
   become: true
@@ -39,6 +31,15 @@
    -  role: native-homepage
       vars:
         domain: "{{top_domain}}"
+- name: setup redirect hosts
+  hosts: redirect_hosts
+  become: true
+  roles:
+   -  role: native-https-redirect
+      vars:
+        domain_mappings: "{{redirect_domain_mappings}}"
+
+# Docker Roles
 - name: setup nextcloud hosts
   hosts: nextcloud_hosts
   become: true
@@ -65,13 +66,6 @@
       vars:
         domains: "{{wordpress_domains}}"
         http_port: 8003
-- name: setup redirect hosts
-  hosts: redirect_hosts
-  become: true
-  roles:
-   -  role: native-https-redirect
-      vars:
-        domain_mappings: "{{redirect_domain_mappings}}"
 - name: setup mediawiki hosts
   hosts: mediawiki_hosts
   become: true
@@ -125,3 +119,15 @@
       vars:
         domain: akaunting.{{top_domain}}
         http_port: 8080
+
+# Backup Roles
+- name: setup replica backup hosts
+  hosts: replica_backup_hosts
+  become: true
+  roles:
+    - role: native-pull-primary-backups
+- name: setup backups cleanup
+  hosts: backups_cleanup
+  become: true
+  roles:
+    - role: native-backups-cleanup
