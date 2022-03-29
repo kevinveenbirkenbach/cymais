@@ -11,26 +11,35 @@ directories="$(ssh "$source_host" find "$source_path" -maxdepth 1 -type d)" || e
 
 for backup_type_dir in $directories; do
   if [ "$backup_type_dir" != "$source_path" ]; then
-    # this folder is neccessary to make restricted rsync possible:
-    current_version="$backup_type_dir/versions/current/"
-    # this is the folder where the versions will be copied to:
-    diff_store="$backup_type_dir/versions/$(date '+%Y%m%d%H%M%S')/"
-    # this is the folder which contains the actual backup:
-    latest_path="$backup_type_dir/latest/"
+    # folder which contains versions
+    versions_dir="$backup_type_dir/versions/"
+    # link name of last backup
+    latest_version_link="$backup_type_dir/latest"
+    # this folder contains the last backup
+    latest_version_dir="$versions_dir$(date '+%Y%m%d%H%M%S')/"
+    # this is the link name of the previous version
+    previous_version_link="$backup_type_dir/previous"
     # source path of the backup files:
-    remote_source_path="$source_host:$latest_path"
-    # file in which the logs will be saved:
-    log_path="$backup_type_dir/log.txt"
+    remote_source_path="$source_host:$latest_version_link/"
+
+    #identifiy previous version
+    versions=( $(basename -a "$versions_dir"*/ | sort) )|| exit 1
+    last_version="${versions[-1]}" || exit 1
+    previous_version_dir="$versions_dir$last_version/"
 
     # create working folders:
-    mkdir -vp "$latest_path"
-    mkdir -vp "$diff_store"
-    rm -vr "$current_version"
-    mkdir -vp "$current_version"
+    mkdir -vp "$latest_version_dir"
+
+    # delete links
+    rm -v "$latest_version_link"
+    rm -v "$previous_version_link"
+
+    # create links
+    ln -vs "$latest_version_dir" "$latest_version_link" || exit 1
+    ln -vs "$previous_version_dir" "$previous_version_link"|| exit 1
 
     # do backup:
-    rsync -abP --delete --delete-excluded --rsync-path="sudo rsync" --log-file="$log_path" --backup-dir="$current_version" "$remote_source_path" "$latest_path" || ((errors+=1));
-    mv -v "$current_version"* "$diff_store"
+    rsync -abP --delete --delete-excluded --rsync-path="sudo rsync" --link-dest="$previous_version_link" "$remote_source_path" "$latest_version_link" || ((errors+=1));
   fi
 done
 exit $errors;

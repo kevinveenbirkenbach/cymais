@@ -9,7 +9,7 @@ fi
 # define executable commands
 hashed_machine_id_command="sha256sum /etc/machine-id";
 find_command="find /Backups/{{hashed_machine_id.stdout}}/ -maxdepth 1 -type d";
-rsync_command="sudo rsync --server --sender -blogDtpre.iLsfxCIvu --backup-dir /Backups/{{hashed_machine_id.stdout}}/docker-volume-backup/diffs/current/ . /Backups/{{hashed_machine_id.stdout}}/docker-volume-backup/latest/"
+rsync_command="sudo rsync --server --sender -blogDtpre.iLsfxCIvu . /Backups/{{hashed_machine_id.stdout}}/docker-volume-backup/latest"
 
 # filter commands
 case "$SSH_ORIGINAL_COMMAND" in
