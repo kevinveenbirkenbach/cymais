@@ -126,8 +126,3 @@
   become: true
   roles:
     - role: native-pull-primary-backups
-- name: setup backups cleanup
-  hosts: backups_cleanup
-  become: true
-  roles:
-    - role: native-backups-cleanup
