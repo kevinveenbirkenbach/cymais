@@ -1,7 +1,6 @@
 [Unit]
 Description=Check btrfs status
 OnFailure=systemd-email@%n.service
-OnSuccess=systemd-email@%n.service
 
 [Service]
 Type=oneshot
