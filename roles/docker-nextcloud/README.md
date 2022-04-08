@@ -1,10 +1,18 @@
 # role docker-nextcloud
 
+## precondition
+
+Before executing cli commands the following variable needs to be set:
+
+```bash
+NEXTCLOUD_APPLICATION_DOCKER_CONTAINER=nextcloud-application-1
+```
+
 ## update
 
 To update the nextcloud container execute the following commands on the server:
 ```bash
-  docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:mode --on
+  docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ maintenance:mode --on
   sudo python /usr/local/bin/docker-volume-backup/docker-volume-backup.py
   export COMPOSE_HTTP_TIMEOUT=600
   export DOCKER_CLIENT_TIMEOUT=600
@@ -20,27 +28,27 @@ Wait for the update to finish.
 You can verify that the update is finished by checking the following logs:
 
 ```bash
-docker logs nextcloud_application_1
+docker logs $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER
 ```
 
 and
 
 ```bash
-docker exec -it nextcloud_application_1 top
+docker exec -it $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER top
 ```
 
 If nextcloud stays in the maintenance mode after the update try the following:
 
 ```bash
-  docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:mode --on
-  docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ upgrade
-  docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:mode --off
+  docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ maintenance:mode --on
+  docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ upgrade
+  docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ maintenance:mode --off
 ```
 
 If the update process fails execute
 
 ```bash
-  docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:repair
+  docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ maintenance:repair
 ```
 
 and disable the not functioning apps.
@@ -77,7 +85,7 @@ show processlist;
 To use occ run:
 
 ```bash
-  docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ
+  docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ
 ```
 
 ## app relevant tables
@@ -87,14 +95,14 @@ To use occ run:
 ### initialize duplicates
 
 ```bash
-  sudo docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ duplicates:find-all --output
+  sudo docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ duplicates:find-all --output
 ```
 
 ### unlock files
 ```bash
-  docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:mode --on
+  docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ maintenance:mode --on
   docker exec -it nextcloud_database_1 mysql -u nextcloud -pPASSWORD1234132 -D nextcloud -e "delete from oc_file_locks where 1"
-  docker exec -it -u www-data nextcloud_application_1 /var/www/html/occ maintenance:mode --off
+  docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ maintenance:mode --off
 ```
 
 ## architecture
