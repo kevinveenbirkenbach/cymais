@@ -1,12 +1,25 @@
 # role docker-gitea
 
+## set variables
+```bash
+  COMPOSE_HTTP_TIMEOUT=600
+  DOCKER_CLIENT_TIMEOUT=600
+  GITEA_APPLICATION_DOCKER_CONTAINER=gitea_application_1
+  GITEA_DATABASE_DOCKER_CONTAINER=gitea_database_1
+```
+
+## recreate
+```bash
+cd /home/administrator/docker-compose/gitea/ && docker-compose -p gitea up -d --force-recreate
+```
+
 ## database access
 To access the database execute
 ```bash
-  docker exec -it gitea_database_1 /bin/mysql -u gitea -p
+  docker exec -it $GITEA_DATABASE_DOCKER_CONTAINER /bin/mysql -u gitea -p
 ```
 ## bash in application
-docker exec -it gitea_application_1 /bin/sh
+docker exec -it $GITEA_APPLICATION_DOCKER_CONTAINER /bin/sh
 
 ## update app.ini
 ```bash
