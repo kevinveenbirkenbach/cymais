@@ -10,9 +10,4 @@
 
 - name: configure turnserver.conf
   template: src=templates/turnserver.conf.j2 dest=/home/administrator/volumes/docker/turn-server/turnserver.conf
-
-- name: recreate turn server
-  command:
-    cmd: docker run -d -p 3478:3478 -p 3478:3478/udp --name "turn_server" -v "/home/administrator/volumes/docker/turn-server/turnserver.conf:/etc/coturn/turnserver.conf" coturn/coturn
-# --mount type=tmpfs,destination=/var/lib/coturn
-# -p 49152-65535:49152-65535/udp
+  notify: recreate turn server
