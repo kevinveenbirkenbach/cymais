@@ -1,2 +1,2 @@
 user_home_directory: "/home/{{client_username}}/"
-cloud_directory: "{{user_home_directory}}Clouds/{{cloud_fqdn}}/"
+cloud_directory: "{{user_home_directory}}Clouds/{{cloud_fqdn}}/{{client_username}}/"
