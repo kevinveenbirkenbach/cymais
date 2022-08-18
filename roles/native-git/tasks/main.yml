@@ -1,7 +1,7 @@
 - name: Set git user email to {{user_email}}
   ansible.builtin.shell: git config --global user.email "{{user_email}}"
 - name: Set git user name to {{user_full_name}}
-  ansible.builtin.shell: - git config --global user.name "{{user_full_name}}"
+  ansible.builtin.shell: git config --global user.name "{{user_full_name}}"
 - name: install git
   community.general.pacman:
     name: git
