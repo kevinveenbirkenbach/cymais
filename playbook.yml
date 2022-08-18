@@ -5,6 +5,13 @@
     - native-pacman-update
     - native-general
     - native-administrator
+    - native-caffeine
+    - native-non-free-drivers
+- name: GNOME setup
+  hosts: gnome_hosts
+  become: true
+  roles:
+    - native-gnome
 - name: setup gaming hosts
   hosts: gaming_hosts
   become: true
@@ -25,11 +32,6 @@
   become: true
   roles:
     - native-libreoffice
-- name: setup gnome-clients
-  hosts: gnome_clients
-  become: true
-  roles:
-    - native-gnome
 - name: setup nextcloud-client
   hosts: nextcloud_client_hosts
   become: true

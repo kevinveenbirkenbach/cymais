@@ -1,7 +1,15 @@
-- name: Install docker
+- name: Install Gnome Software
   community.general.pacman:
     name:
       - gnome-shell-extensions
+      - gnome-shell-extension-desktop-icons-ng 
       - gnome-terminal
-      - intltool # Needed for extension make
-    state: present
+    state: present 
+
+- name: GNOME Activate Extensions
+  ansible.builtin.shell: gsettings set org.gnome.shell disable-user-extensions false
+  become: false
+
+- name: GNOME Set favorite apps
+  ansible.builtin.shell: gsettings set org.gnome.shell favorite-apps "{{favorite_apps}}"
+  become: false

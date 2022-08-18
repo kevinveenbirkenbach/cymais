@@ -1,0 +1,5 @@
+- name: Install caffeine
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - caffeine-ng
