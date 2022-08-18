@@ -1,0 +1,10 @@
+- name: install administration tools
+  community.general.pacman:
+    name:
+      - base-devel
+      - yay
+      - make
+      - gcc
+      - cmake
+      - fdupes
+    state: present
