@@ -12,6 +12,16 @@
   become: true
   roles:
     - native-gnome
+- name: setup ssh hosts
+  hosts: ssh_hosts
+  become: false
+  roles:
+    - native-ssh
+- name: setup swapfile hosts
+  hosts: swapfile_hosts
+  become: false
+  roles:
+    - role: native-swapfile
 - name: setup gaming hosts
   hosts: gaming_hosts
   become: true

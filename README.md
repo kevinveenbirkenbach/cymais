@@ -1,4 +1,6 @@
 # Client Playbook
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+
 Playbook to setup Manjaro GNOME clients.
 # Setup
 
@@ -11,33 +13,6 @@ ansible-galaxy collection install -r requirements.yml
 - add ssh
 # Refactor
 ```bash
-FSTAB_SWAP_ENTRY="/swapfile none swap defaults 0 0"
-SWAP_FILE="/swapfile"
-FSTAB_FILE="/etc/fstab"
-if grep -q "$FSTAB_SWAP_ENTRY" "$FSTAB_FILE"; then
-	info "Skipping creation of swap partion because entry allready exists in \"$FSTAB_FILE\"!"
-else
-	info "Creating swap partition..." &&
-	sudo fallocate -l 16G "$SWAP_FILE" &&
-	sudo chmod 600 "$SWAP_FILE" &&
-	sudo mkswap "$SWAP_FILE" &&
-	sudo swapon "$SWAP_FILE" &&
-	sudo sh -c "echo \"$FSTAB_SWAP_ENTRY\">>\"$FSTAB_FILE\"" || error "Creation of swap partition failed."
-fi
-
-info "Setup SSH key..."
-ssh_key_path="$HOME/.ssh/id_rsa"
-if [ ! -f "$ssh_key_path" ]; then
-	info "SSH key $ssh_key_path doesn't exists!"
-	if [ ! -f "./data$ssh_key_path" ]; then
-		info "Importing ssh key by copying data..." &&
-		bash "$SCRIPT_PATH""/data/export-to-system.sh" || error "Copying failed."
-	else
-		info "Generating ssh key..." &&
-		ssh-keygen -t rsa -b 4096 -C "$USER@$HOSTNAME" || error "Key generation failed."
-	fi
-fi
-
 info "Setup, configuration and installation of dependencies for installed software..."
 
 if pacman -Qi "arduino" > /dev/null ; then
