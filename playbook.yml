@@ -10,6 +10,11 @@
   become: true
   roles:
     - native-games
+- name: setup multiprinter hosts
+  hosts: epson_multiprinter_hosts
+  become: true
+  roles:
+    - native-epson-multiprinter
 - name: setup torbrowser hosts
   hosts: torbrowser_hosts
   become: true

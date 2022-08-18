@@ -1,0 +1,12 @@
+- name: Install yay packages for epson
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - epson-printer-utility
+      - imagescan-plugin-networkscan
+      - epson-inkjet-printer-escpr
+      - epson-inkjet-printer-escpr2
+- name: install imagescan
+  community.general.pacman:
+    name: imagescan
+    state: present
