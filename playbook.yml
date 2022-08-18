@@ -12,11 +12,16 @@
   become: true
   roles:
     - native-gnome
+- name: setup msi rgb keyboard
+  hosts: msi_perkeyrgb_hosts
+  become: true
+  roles:
+    - native-msi-perkeyrgb
 - name: setup ssh hosts
   hosts: ssh_hosts
   become: false
   roles:
-    - native-ssh
+    - native-msi-perkeyrgb
 - name: setup swapfile hosts
   hosts: swapfile_hosts
   become: false
