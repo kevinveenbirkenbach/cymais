@@ -2,67 +2,73 @@
   hosts: all
   become: true
   roles:
-    - native-pacman-update
-    - native-administrator
-    - native-caffeine
-    - native-non-free-drivers
-- name: native-collection-office
+    - system-pacman
+    - collection-administrator-tools-base
+    - application-caffeine
+    - driver-non-free
+
+- name: collection-office-tools
   hosts: collection_officetools_hosts
   become: true
   roles:
-    - native-collection-office
+    - collection-office-tools
+
 - name: GNOME setup
   hosts: gnome_hosts
   become: true
   roles:
-    - native-gnome
+    - system-gnome
+
 - name: setup msi rgb keyboard
   hosts: msi_perkeyrgb_hosts
   become: true
   roles:
-    - native-msi-perkeyrgb
+    - driver-msi-perkeyrgb
+
 - name: setup ssh hosts
   hosts: ssh_hosts
   become: false
   roles:
-    - native-msi-perkeyrgb
+    - application-ssh
+
 - name: setup swapfile hosts
   hosts: swapfile_hosts
   become: false
   roles:
-    - role: native-swapfile
+    - role: driver-swapfile
+
 - name: setup gaming hosts
   hosts: gaming_hosts
   become: true
   roles:
-    - native-games
+    - collection-games
+
 - name: setup multiprinter hosts
   hosts: epson_multiprinter_hosts
   become: true
   roles:
-    - native-epson-multiprinter
+    - driver-epson-multiprinter
+
 - name: setup torbrowser hosts
   hosts: torbrowser_hosts
   become: true
   roles:
-    - native-torbrowser
-- name: setup libreoffice hosts
-  hosts: libreoffice_hosts
-  become: true
-  roles:
-    - native-libreoffice
+    - application-torbrowser
+
 - name: setup nextcloud-client
   hosts: nextcloud_client_hosts
   become: true
   roles:
-    - native-nextcloud-client
+    - application-nextcloud-client
+
 - name: setup dia
   hosts: dia_hosts
   become: true
   roles:
-    - native-dia
+    - application-dia
+
 - name: setup docker
   hosts: docker_hosts
   become: true
   roles:
-    - native-docker
+    - application-docker
