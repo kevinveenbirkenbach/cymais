@@ -55,11 +55,11 @@
   roles:
     - application-torbrowser
 
-- name: setup nextcloud-client
-  hosts: nextcloud_client_hosts
+- name: setup nextcloud
+  hosts: nextcloud_hosts
   become: true
   roles:
-    - application-nextcloud-client
+    - application-nextcloud
 
 - name: setup dia
   hosts: dia_hosts
