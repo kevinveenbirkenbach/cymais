@@ -10,7 +10,11 @@ ansible-galaxy collection install -r requirements.yml
 ```
 
 # Todo
-- add ssh
+- add native-office-worker
+- add native-graphic-designer
+- add native-developer-basic
+- add native-workspaces
+
 # Refactor
 ```bash
 info "Setup, configuration and installation of dependencies for installed software..."
