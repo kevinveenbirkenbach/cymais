@@ -35,7 +35,7 @@
   hosts: swapfile_hosts
   become: false
   roles:
-    - role: driver-swapfile
+    - system-swapfile
 
 - name: setup gaming hosts
   hosts: gaming_hosts
