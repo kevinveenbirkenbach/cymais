@@ -24,4 +24,4 @@
 - name: Execute CLI GNOME Extension manager script
   ansible.builtin.shell: bash "/home/{{client_username}}/Repositories/github.com/kevinveenbirkenbach/cli-gnome-extension-manager/gnome-extension-manager.sh" "{{ item[0] }}" "{{ item[1] }}" "{{ item[2] }}"
   loop: "{{gnome_extensions}}"
-  become: true
+  become: false
