@@ -1,0 +1,5 @@
+- name: install python developer tools
+  community.general.pacman:
+    name:
+      - python
+    state: present

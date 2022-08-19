@@ -1,0 +1,7 @@
+- name: install administrator network analyze tools
+  community.general.pacman:
+    name:
+      - traceroute
+      - wireshark-qt
+      - wireshark-cli
+    state: present

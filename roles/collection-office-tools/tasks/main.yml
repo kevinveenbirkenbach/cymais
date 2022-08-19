@@ -1,0 +1,6 @@
+- name: install shutter
+  community.general.pacman:
+    name: 
+      - chromium
+      - shutter
+    state: present

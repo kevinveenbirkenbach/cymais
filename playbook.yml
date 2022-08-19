@@ -3,10 +3,14 @@
   become: true
   roles:
     - native-pacman-update
-    - native-general
     - native-administrator
     - native-caffeine
     - native-non-free-drivers
+- name: native-collection-office
+  hosts: collection_officetools_hosts
+  become: true
+  roles:
+    - native-collection-office
 - name: GNOME setup
   hosts: gnome_hosts
   become: true

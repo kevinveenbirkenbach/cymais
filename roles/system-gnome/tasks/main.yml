@@ -1,0 +1,27 @@
+- name: Install Gnome Software
+  community.general.pacman:
+    name:
+      - gnome-shell-extensions
+      - gnome-shell-extension-desktop-icons-ng 
+      - gnome-terminal
+    state: present 
+
+- name: GNOME Activate Extensions
+  ansible.builtin.shell: gsettings set org.gnome.shell disable-user-extensions false
+  become: false
+
+- name: GNOME Set favorite apps
+  ansible.builtin.shell: gsettings set org.gnome.shell favorite-apps "{{favorite_apps}}"
+  become: false
+
+- name: pull CLI GNOME Extension manager script
+  git:
+    repo: "git@github.com:kevinveenbirkenbach/cli-gnome-extension-manager.git"
+    dest: "$HOME/Repositories/github.com/kevinveenbirkenbach/cli-gnome-extension-manager"
+    update: yes
+  become: false
+
+- name: Execute CLI GNOME Extension manager script
+  ansible.builtin.shell: bash "/home/{{client_username}}/Repositories/github.com/kevinveenbirkenbach/cli-gnome-extension-manager/gnome-extension-manager.sh" "{{ item[0] }}" "{{ item[1] }}" "{{ item[2] }}"
+  loop: "{{gnome_extensions}}"
+  become: true
