@@ -3,4 +3,5 @@
     name: 
       - chromium
       - shutter
+      - thunderbird
     state: present
