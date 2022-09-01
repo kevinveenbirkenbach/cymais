@@ -88,6 +88,9 @@ bash docker-volume-recover.sh akaunting_akaunting-db ${machine_id:0:64} "$backup
 
 ```
 
+## todo 
+- implement build when new akaunting version is set
+
 ## Further information
 - https://github.com/akaunting/docker
 - https://akaunting.com/forum/discussion/installation-update/updating-to-300-failed-cant-manually-update-either
