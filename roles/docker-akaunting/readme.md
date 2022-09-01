@@ -1,20 +1,6 @@
 # docker akaunting
 
-## clean up
-
-### delete all containers
-```bash
-export COMPOSE_HTTP_TIMEOUT=600
-export DOCKER_CLIENT_TIMEOUT=600
-cd /home/administrator/docker-compose/akaunting/ && docker-compose down
-```
-
-### delete all volumes
-```bash
-docker volume rm akaunting_akaunting-data akaunting_akaunting-db akaunting_akaunting-modules
-```
-
-## setup
+## new setup
 ```bash
 cd /home/administrator/docker-compose/akaunting/
 export COMPOSE_HTTP_TIMEOUT=600
@@ -28,52 +14,83 @@ Check Webinterface and then execute:
 docker-compose down
 docker-compose -p akaunting up -d
 ```
-## enter akaunting container
 
+## administration
+
+### get logs
+
+```bash
+docker exec -it akaunting tail -n 300 storage/logs/laravel.log 
+```
+
+### enter akaunting container
+
+```bash
 docker exec -it akaunting bash
+```
 
-curl https://getcomposer.org/download/2.4.1/composer.phar --output composer.phar
+### enter database container
+
+```bash
+docker exec -it akaunting-db /bin/mysql -u admin --password=$akaunting_db_password akaunting
+```
 
 ## manuel update
 ```bash
-php /var/www/html/artisan update:all
-php /var/www/html/artisan update:db
+php artisan about
+php artisan cache:clear
+php artisan view:clear
+php artisan migrate:status
+php artisan update:all
+php artisan update:db
 ```
 
 ## composer
-curl http://some.url --output
-
-php composer.phar install
-
-
-## recover
-
-### recover all volumes
-Keep in mind to set the $akaunting_db_password!
-
 ```bash
-cd /usr/local/bin/docker-volume-backup &&
-machine_id="$(sha256sum /etc/machine-id)" &&
-bash docker-volume-recover.sh akaunting_akaunting-modules ${machine_id:0:64} &&
-bash docker-volume-recover.sh akaunting_akaunting-data ${machine_id:0:64} &&
-bash docker-volume-recover.sh akaunting_akaunting-db ${machine_id:0:64} akaunting-db "$akaunting_db_password" akaunting
+curl https://getcomposer.org/download/2.4.1/composer.phar --output composer.phar
 ```
 
-docker exec -it akaunting-db /bin/mysql -u admin --password=$akaunting_db_password akaunting
-
-### rebuild containers
 ```bash
-cd /home/administrator/docker-compose/akaunting/
+php composer.phar install
+```
+
+## full backup routine
+
+```bash
+# DO SET MANUEL VARIABLES >>
+akaunting_db_password=XXXXXXXXX
+backup_version=XXXXXXXXX
+# << DO SET MANUEL VARIABLES
+
+# set automatic variables
+machine_id="$(sha256sum /etc/machine-id)"
 export COMPOSE_HTTP_TIMEOUT=600
 export DOCKER_CLIENT_TIMEOUT=600
-docker-compose down
-docker network prune
-docker-compose -p akaunting up -d --force-recreate
-```
 
+# destroy all containers
+cd /home/administrator/docker-compose/akaunting/ && 
+docker-compose down &&
+docker network prune -f
+
+# delete all volumes
+docker volume rm akaunting_akaunting-data akaunting_akaunting-db akaunting_akaunting-modules
+
+# rebuild containers
+docker-compose pull &&
+docker-compose build &&
+docker-compose -p akaunting up -d --force-recreate
+
+# recover all volumes
+cd /usr/local/bin/docker-volume-backup &&
+bash docker-volume-recover.sh akaunting_akaunting-modules ${machine_id:0:64} "$backup_version" &&
+bash docker-volume-recover.sh akaunting_akaunting-data ${machine_id:0:64} "$backup_version" &&
+bash docker-volume-recover.sh akaunting_akaunting-db ${machine_id:0:64} "$backup_version" akaunting-db "$akaunting_db_password" akaunting
+
+```
 
 ## Further information
 - https://github.com/akaunting/docker
 - https://akaunting.com/forum/discussion/installation-update/updating-to-300-failed-cant-manually-update-either
 - https://akaunting.com/forum/discussion/installation-update/not-able-to-update-core
 - https://akaunting.com/forum/discussion/installation-update/update-to-203-not-able-to-finalize-core-installation
+- https://akaunting.com/forum/discussion/installation-update/how-to-perform-manual-update-v2116
