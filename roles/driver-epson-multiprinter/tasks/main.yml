@@ -1,4 +1,4 @@
-- name: Install yay packages for epson
+- name: install AUR packages for epson
   kewlfft.aur.aur:
     use: yay
     name:

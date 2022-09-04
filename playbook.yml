@@ -13,6 +13,12 @@
   roles:
     - collection-office-tools
 
+- name: collection-bluray-player
+  hosts: collection_bluray_player_hosts
+  become: true
+  roles:
+    - collection-bluray-player
+
 - name: GNOME setup
   hosts: gnome_hosts
   become: true

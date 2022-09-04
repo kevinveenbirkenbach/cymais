@@ -14,7 +14,10 @@ ansible-galaxy collection install -r requirements.yml
 - add native-graphic-designer
 - add native-developer-basic
 - add native-workspaces
-- add shell-extension-manager
+- add https://aur.archlinux.org/packages/displaylink
+- add spotify
+- add backup to tails usb stick
+- https://www.reddit.com/r/ManjaroLinux/comments/cbkblb/guide_run_android_apps_on_manjaro_super_simple/ https://archived.forum.manjaro.org/t/running-android-applications-on-arch-using-anbox/53332
 
 # See
 - https://www.middlewareinventory.com/blog/run-ansible-playbook-locally/
