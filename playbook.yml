@@ -19,6 +19,12 @@
   roles:
     - collection-bluray-player
 
+- name: driver-intel
+  hosts: intel_hosts
+  become: true
+  roles:
+    - driver-intel
+
 - name: GNOME setup
   hosts: gnome_hosts
   become: true
