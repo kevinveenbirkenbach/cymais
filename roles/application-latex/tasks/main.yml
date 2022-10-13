@@ -1,0 +1,7 @@
+- name: install latex software
+  community.general.pacman:
+    name: 
+      - texlive-latexextra 
+      - texlive-lang
+      - texlive-langextra
+    state: present

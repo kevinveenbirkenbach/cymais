@@ -25,6 +25,12 @@
   roles:
     - driver-intel
 
+- name: application-latex
+  hosts: latex_hosts
+  become: true
+  roles:
+    - application-latex
+
 - name: GNOME setup
   hosts: gnome_hosts
   become: true
