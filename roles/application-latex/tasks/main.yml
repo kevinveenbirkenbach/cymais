@@ -4,4 +4,5 @@
       - texlive-latexextra 
       - texlive-lang
       - texlive-langextra
+      - texlive-fontsextra
     state: present
