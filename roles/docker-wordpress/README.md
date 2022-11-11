@@ -23,11 +23,9 @@ docker exec -it wordpress-application-1 /bin/sh
 
 ## update wp-config.php
 ```bash
-cat > wp-config.php << EOF
-<?php
-#content
-EOF
+apt update && apt install nano && nano wp-config.php
 ```
 
 ## multiside
 - https://multilingualpress.de/doku/wordpress-multisite-installieren-einrichten/
+- https://pressable.com/knowledgebase/adding-or-changing-the-domain-on-a-wordpress-multisite/

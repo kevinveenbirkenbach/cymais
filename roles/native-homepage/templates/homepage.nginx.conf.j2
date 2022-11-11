@@ -5,6 +5,8 @@ server
   
   {% include 'roles/native-letsencrypt/templates/ssl_header.j2' %}
 
+  charset utf-8;
+  
   location /
   {
     root /usr/share/nginx/homepage;
