@@ -111,6 +111,15 @@
       vars:
         domain: "elk.{{top_domain}}"
         http_port: 8008
+- name: setup mastodon hosts
+  hosts: mastodon_hosts
+  become: true
+  roles:
+   -  role: docker-mastodon
+      vars:
+        domain: "mastodon.{{top_domain}}"
+        http_port: 8009
+        stream_port: 4001
 - name: setup akaunting hosts
   hosts: akaunting_hosts
   become: true

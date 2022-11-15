@@ -1,0 +1,92 @@
+version: '3'
+services:
+  database:
+    logging:
+      driver: journald
+    image: mariadb:10.5
+    command: "--transaction-isolation=READ-COMMITTED --binlog-format=ROW"
+    environment:
+      MYSQL_DATABASE: "mastodon"
+      MYSQL_USER: "mastodon"
+      MYSQL_PASSWORD: "{{mastodon_database_password}}"
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    volumes:
+      - database:/var/lib/mysql
+    restart: always
+    healthcheck:
+      test: "/usr/bin/mysql --user=mastodon --password={{mastodon_database_password}} --execute \"SHOW DATABASES;\""
+      interval: 3s
+      timeout: 1s
+      retries: 5
+  redis:
+    restart: always
+    image: redis:7-alpine
+    networks:
+      - internal_network
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+    volumes:
+      - redis:/data
+
+  web:
+    build: .
+    image: tootsuite/mastodon:{{mastodon_version}}
+    restart: always
+    env_file: .env.production
+    command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
+    networks:
+      - external_network
+      - internal_network
+    healthcheck:
+      # prettier-ignore
+      test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:3000/health || exit 1']
+    ports:
+      - "127.0.0.1:{{http_port}}:3000"
+    depends_on:
+      - database
+      - redis
+    volumes:
+      - data:/mastodon/public/system
+
+  streaming:
+    build: .
+    image: tootsuite/mastodon:{{mastodon_version}}
+    restart: always
+    env_file: .env.production
+    command: node ./streaming
+    networks:
+      - external_network
+      - internal_network
+    healthcheck:
+      # prettier-ignore
+      test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:4000/api/v1/streaming/health || exit 1']
+    ports:
+      - "127.0.0.1:{{stream_port}}:4000"
+    depends_on:
+      - database
+      - redis
+
+  sidekiq:
+    build: .
+    image: tootsuite/mastodon:{{mastodon_version}}
+    restart: always
+    env_file: .env.production
+    command: bundle exec sidekiq
+    depends_on:
+      - database
+      - redis
+    networks:
+      - external_network
+      - internal_network
+    volumes:
+      - data:/mastodon/public/system
+    healthcheck:
+      test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 6' || false"]
+volumes:
+  database:
+  redis:
+  data:
+networks:
+  external_network:
+  internal_network:
+    internal: true

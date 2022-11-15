@@ -1,0 +1,46 @@
+---
+- name: recieve {{domain}} certificate
+  command: certbot certonly --agree-tos --email {{administrator_email}} --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{domain}}
+
+- name: configure {{domain}}.conf
+  template: src=templates/mastodon.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
+  notify: restart nginx
+
+- name: "create {{docker_compose_mastodon_path}}"
+  file:
+    path: "{{docker_compose_mastodon_path}}"
+    state: directory
+    mode: 0755
+
+- name: register directory
+  stat:
+    path: "{{docker_compose_mastodon_path}}}"
+  register: docker_compose_mastodon_path_register
+
+- name: checkout repository 
+  ansible.builtin.shell: git checkout .
+  become: true
+  args:
+    chdir: "{{docker_compose_mastodon_path}}"
+  when: docker_compose_mastodon_path_register.stat.exists
+  become: true
+
+- name: pull docker repository
+  git:
+    repo: "https://github.com/tootsuite/mastodon.git"
+    dest: "{{docker_compose_mastodon_path}}"
+    update: yes
+  #notify: recreate mastodon
+  become: true
+
+- name: copy docker-compose.yml
+  template: src=docker-compose.yml.j2 dest={{docker_compose_mastodon_path}}docker-compose.yml
+  #notify: recreate mastodon
+
+- name: copy configuration
+  template: src=.env.production.j2 dest={{docker_compose_mastodon_path}}.env.production
+  #notify: recreate mastodon
+
+- name: add docker-compose.yml
+  template: src=docker-compose.yml.j2 dest={{docker_compose_mastodon_path}}docker-compose.yml
+  #notify: recreate mastodon
