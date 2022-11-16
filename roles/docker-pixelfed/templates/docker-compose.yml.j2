@@ -41,11 +41,8 @@ services:
       driver: journald
     image: mariadb
     restart: always
-    environment:
-      MYSQL_DATABASE: "pixelfed"
-      MYSQL_USER: "pixelfed"
-      MYSQL_PASSWORD: "{{pixelfed_database_password}}"
-      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    env_file:
+      - ./env
     volumes:
       - database:/var/lib/mysql
     healthcheck:
