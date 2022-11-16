@@ -30,7 +30,7 @@ services:
     depends_on:
       - database
       - redis
-      - app
+      - application
     healthcheck:
       test: php artisan horizon:status | grep running
       interval: 60s
@@ -56,7 +56,7 @@ services:
     logging:
       driver: journald
     volumes:
-      - redis:/data
+      - redis_data:/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 1s

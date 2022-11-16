@@ -17,5 +17,8 @@
   notify: recreate mastodon
 
 - name: copy configuration
-  template: src=.env.production.j2 dest={{docker_compose_mastodon_path}}.env.production
+  template: 
+    src: .env.production.j2 
+    dest: "{{docker_compose_mastodon_path}}.env.production"
+    force: no
   notify: recreate mastodon
