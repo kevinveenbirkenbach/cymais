@@ -1,0 +1,8 @@
+---
+- name: recreate pixelfed
+  command:
+    cmd: docker-compose -p pixelfed up -d --force-recreate
+    chdir: /home/administrator/docker-compose/pixelfed/
+  environment:
+    COMPOSE_HTTP_TIMEOUT: 600
+    DOCKER_CLIENT_TIMEOUT: 600

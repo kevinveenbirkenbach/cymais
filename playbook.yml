@@ -120,6 +120,14 @@
         domain: "mastodon.{{top_domain}}"
         http_port: 8009
         stream_port: 4001
+- name: setup pixelfed hosts
+  hosts: pixelfed_hosts
+  become: true
+  roles:
+   -  role: docker-pixelfed
+      vars:
+        domain: pixelfed.{{top_domain}}
+        http_port: 8010
 - name: setup akaunting hosts
   hosts: akaunting_hosts
   become: true

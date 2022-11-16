@@ -1,0 +1,22 @@
+---
+- name: recieve pixelfed certificates
+  command: certbot certonly --agree-tos --email {{administrator_email}} --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{item}}
+  loop: "{{domains}}"
+
+- name: configure pixelfed nginx configurations
+  vars:
+    client_max_body_size: "2M"
+    domain: "{{item}}"
+  template: src=roles/native-docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{ item }}.conf
+  loop: "{{domains}}"
+  notify: restart nginx
+
+- name: "create /home/administrator/docker-compose/pixelfed/"
+  file:
+    path: "/home/administrator/docker-compose/pixelfed/"
+    state: directory
+    mode: 0755
+
+- name: add docker-compose.yml
+  template: src=docker-compose.yml.j2 dest=/home/administrator/docker-compose/pixelfed/docker-compose.yml
+  notify: recreate pixelfed
