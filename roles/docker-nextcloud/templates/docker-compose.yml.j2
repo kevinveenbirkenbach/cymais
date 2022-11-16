@@ -49,6 +49,8 @@ services:
   redis:
     image: redis:alpine
     restart: always
+    logging:
+      driver: journald
     volumes:
       - redis:/data
     healthcheck:
