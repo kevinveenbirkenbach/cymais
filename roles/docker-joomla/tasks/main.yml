@@ -32,7 +32,7 @@
           MYSQL_DATABASE: "joomla"
           MYSQL_USER: "joomla"
           MYSQL_PASSWORD: "{{joomla_database_password}}"
-          MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+          MYSQL_ROOT_PASSWORD: "{{joomla_database_password}}"
         volumes:
           - joomla-database:/var/lib/mysql
         restart: always

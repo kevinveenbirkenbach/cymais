@@ -29,7 +29,7 @@ services:
       MYSQL_DATABASE: "yourls"
       MYSQL_USER: "yourls"
       MYSQL_PASSWORD: "{{yourls_database_password}}"
-      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_ROOT_PASSWORD: "{{yourls_database_password}}"
     volumes:
       - database:/var/lib/mysql
     healthcheck:

@@ -40,7 +40,7 @@ services:
       MYSQL_DATABASE: "gitea"
       MYSQL_USER: "gitea"
       MYSQL_PASSWORD: "{{gitea_database_password}}"
-      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_ROOT_PASSWORD: "{{gitea_database_password}}"
     volumes:
       - database:/var/lib/mysql
     healthcheck:

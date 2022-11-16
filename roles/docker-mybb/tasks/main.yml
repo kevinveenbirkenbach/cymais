@@ -44,7 +44,6 @@
           MYSQL_DATABASE: "mybb"
           MYSQL_USER: "mybb"
           MYSQL_PASSWORD: "{{mybb_database_password}}"
-          MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
         volumes:
           - mybb-database:/var/lib/mysql
         restart: always

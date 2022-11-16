@@ -23,7 +23,7 @@ services:
       MYSQL_DATABASE: "mailu"
       MYSQL_USER: "mailu"
       MYSQL_PASSWORD: "{{mailu_database_password}}"
-      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_ROOT_PASSWORD: "{{mailu_database_password}}"
     volumes:
       - database:/var/lib/mysql
     healthcheck:

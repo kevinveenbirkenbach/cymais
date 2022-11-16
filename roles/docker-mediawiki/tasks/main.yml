@@ -24,7 +24,7 @@
         image: mariadb
         environment:
           MYSQL_DATABASE: mediawiki
-          MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+          MYSQL_ROOT_PASSWORD: "{{mediawiki_mysql_user_password}}"
           MYSQL_USER: mediawiki
           MYSQL_PASSWORD: "{{mediawiki_mysql_user_password}}"
         volumes:
