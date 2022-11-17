@@ -1,0 +1,36 @@
+version: "3.3"
+
+services:
+  application:
+    image: chocobozzz/peertube:production-bullseye
+    env_file:
+      - .env
+    ports:
+     - "1935:1935"
+     - "{{http_port}}:9000" 
+    volumes:
+      - assets:/app/client/dist
+      - data:/data
+      - config:/config
+    depends_on:
+      - database
+      - redis
+    restart: "always"
+  database:
+    image: postgres:13-alpine
+    env_file:
+      - .env
+    volumes:
+      - database:/var/lib/postgresql/data
+    restart: "always"
+  redis:
+    image: redis:6-alpine
+    volumes:
+      - redis:/data
+    restart: "always"
+volumes:
+  assets:
+  database:
+  data:
+  redis:
+  config:

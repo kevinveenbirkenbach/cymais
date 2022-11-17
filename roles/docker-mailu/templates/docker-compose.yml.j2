@@ -45,7 +45,7 @@ services:
       - "127.0.0.1:{{ http_port }}:80"
       - "{{ ip4_address }}:25:25"
       - "{{ ip4_address }}:465:465"
-      - "{{ ip4_address }}:587:587"
+      - "{{ ip4_address }}:{{system_email_port}}:{{system_email_port}}"
       - "{{ ip4_address }}:110:110"
       - "{{ ip4_address }}:995:995"
       - "{{ ip4_address }}:143:143"
