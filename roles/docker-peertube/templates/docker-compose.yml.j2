@@ -28,6 +28,8 @@ services:
     volumes:
       - redis:/data
     restart: "always"
+    env_file:
+      - .env
 volumes:
   assets:
   database:
