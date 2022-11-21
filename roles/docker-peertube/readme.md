@@ -1,6 +1,6 @@
 # docker peertube
 
-## track docker volumes
+## track docker container status
 ```bash
 watch -n 2 "docker ps  -a | grep peertube"
 ```
