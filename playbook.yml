@@ -136,6 +136,14 @@
       vars:
         domain: peertube.{{top_domain}}
         http_port: 8011
+- name: setup bigbluebutton hosts
+  hosts: bigbluebutton_hosts
+  become: true
+  roles:
+   -  role: docker-bigbluebutton
+      vars:
+        domain: bbb.{{top_domain}}
+        http_port: 8012
 - name: setup akaunting hosts
   hosts: akaunting_hosts
   become: true

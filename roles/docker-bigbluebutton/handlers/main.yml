@@ -1,0 +1,8 @@
+---
+- name: setup bigbluebutton
+  command:
+    cmd: docker-compose -p bigbluebutton up -d --force-recreate
+    chdir: "{{docker_compose_bigbluebutton_path}}"
+  environment:
+    COMPOSE_HTTP_TIMEOUT: 600
+    DOCKER_CLIENT_TIMEOUT: 600
