@@ -1,1 +1,2 @@
 docker_compose_bigbluebutton_path: "/home/administrator/docker-compose/bigbluebutton/"
+relative_url_root: "/b/"

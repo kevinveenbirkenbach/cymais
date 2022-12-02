@@ -143,7 +143,8 @@
    -  role: docker-bigbluebutton
       vars:
         domain: bbb.{{top_domain}}
-        http_port: 8012
+        http_port_I: 8012
+        http_port_II: 8013
 - name: setup akaunting hosts
   hosts: akaunting_hosts
   become: true

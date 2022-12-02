@@ -1,0 +1,469 @@
+version: '3.6'
+
+# html5 templates
+x-html5-backend: &html5backend
+  build: 
+    context: mod/html5
+    args:
+      BBB_BUILD_TAG: v2022-03-30
+      TAG_HTML5: v2.5.7
+  image: alangecker/bbb-docker-html5:v2.5.7
+  restart: unless-stopped
+  depends_on:
+    - redis
+    - mongodb
+    - etherpad
+  environment: &html5backend-env
+    DOMAIN: ${DOMAIN}
+    CLIENT_TITLE: ${CLIENT_TITLE}
+    LISTEN_ONLY_MODE: ${LISTEN_ONLY_MODE:-true}
+    DISABLE_ECHO_TEST: ${DISABLE_ECHO_TEST:-false}
+    AUTO_SHARE_WEBCAM: ${AUTO_SHARE_WEBCAM:-false}
+    DISABLE_VIDEO_PREVIEW: ${DISABLE_VIDEO_PREVIEW:-false}
+    CHAT_ENABLED: ${CHAT_ENABLED:-true}
+    CHAT_START_CLOSED: ${CHAT_START_CLOSED:-false}
+    BREAKOUTROOM_LIMIT: ${BREAKOUTROOM_LIMIT:-8}
+    DEV_MODE: ${DEV_MODE:-}
+    BBB_HTML5_ROLE: backend
+
+x-html5-frontend: &html5frontend
+    <<: *html5backend
+    volumes:
+      - html5-static:/html5-static:rw
+    environment: &html5frontend-env
+      <<: *html5backend-env
+      BBB_HTML5_ROLE: frontend
+
+services:
+  bbb-web:
+    build: 
+      context: mod/bbb-web
+      args:
+        BBB_BUILD_TAG: v2022-03-30
+        TAG_COMMON_MESSAGE: v2.5.7
+        TAG_BBB_WEB: v2.5.8
+    image: alangecker/bbb-docker-web:v2.5.8
+    restart: unless-stopped
+    depends_on:
+        - redis
+        - etherpad
+    healthcheck:
+      test: wget --no-proxy --no-verbose --tries=1 --spider http://10.7.7.2:8090/bigbluebutton/api || exit 1
+      start_period: 2m
+    environment:
+      DEV_MODE: ${DEV_MODE:-}
+      DOMAIN: ${DOMAIN}
+      ENABLE_RECORDING: ${ENABLE_RECORDING:-false}
+      SHARED_SECRET: ${SHARED_SECRET}
+      WELCOME_MESSAGE: ${WELCOME_MESSAGE:-}
+      WELCOME_FOOTER: ${WELCOME_FOOTER}
+      STUN_SERVER: stun:${STUN_IP}:${STUN_PORT}
+      TURN_SERVER: ${TURN_SERVER:-}
+      TURN_SECRET: ${TURN_SECRET:-}
+      ENABLE_LEARNING_DASHBOARD: ${ENABLE_LEARNING_DASHBOARD:-true}
+      NUMBER_OF_BACKEND_NODEJS_PROCESSES: 2
+    volumes:
+      - bigbluebutton:/var/bigbluebutton
+      - vol-freeswitch:/var/freeswitch/meetings
+    ports:
+      - 127.0.0.1:{{http_port_II}}:8090
+    networks:
+      bbb-net:
+        ipv4_address: 10.7.7.2
+    logging:
+      driver: journald
+
+
+  html5-backend-1:
+    <<: *html5backend
+    environment:
+      <<: *html5backend-env
+      INSTANCE_ID: 1
+      PORT: 4000
+    networks:
+      bbb-net:
+        ipv4_address: 10.7.7.100
+    logging:
+      driver: journald
+
+  html5-backend-2:
+    <<: *html5backend
+    environment:
+      <<: *html5backend-env
+      INSTANCE_ID: 2
+      PORT: 4001
+    logging:
+      driver: journald
+    networks:
+      bbb-net:
+        ipv4_address: 10.7.7.101
+
+
+
+  html5-frontend-1:
+    <<: *html5frontend
+    environment:
+      <<: *html5frontend-env
+      INSTANCE_ID: 1
+      PORT: 4100
+    logging:
+      driver: journald
+    networks:
+      bbb-net:
+        ipv4_address: 10.7.7.200
+
+  html5-frontend-2:
+    <<: *html5frontend
+    environment:
+      <<: *html5frontend-env
+      INSTANCE_ID: 2
+      PORT: 4101
+    networks:
+      bbb-net:
+        ipv4_address: 10.7.7.201
+    logging:
+      driver: journald
+
+  freeswitch:
+    container_name: bbb-freeswitch
+    build: 
+      context: mod/freeswitch
+      args:
+        TAG_FS_CONFIG: v2.5.7
+    image: alangecker/bbb-docker-freeswitch:v2.5.7
+    restart: unless-stopped
+    cap_add:
+      - IPC_LOCK
+      - NET_ADMIN
+      - NET_RAW
+      - NET_BROADCAST
+      - SYS_NICE
+      - SYS_RESOURCE
+    environment:
+      DOMAIN: ${DOMAIN}
+      EXTERNAL_IPv4: ${EXTERNAL_IPv4}
+      EXTERNAL_IPv6: ${EXTERNAL_IPv6:-::1}
+      SIP_IP_ALLOWLIST: ${SIP_IP_ALLOWLIST:-}
+      DISABLE_SOUND_MUTED: ${DISABLE_SOUND_MUTED:-false}
+      DISABLE_SOUND_ALONE: ${DISABLE_SOUND_ALONE:-false}
+      SOUNDS_LANGUAGE: ${SOUNDS_LANGUAGE:-en-us-callie}
+      ESL_PASSWORD: ${FSESL_PASSWORD:-ClueCon}
+    volumes:
+      - ./conf/sip_profiles:/etc/freeswitch/sip_profiles/external
+      - ./conf/dialplan_public:/etc/freeswitch/dialplan/public_docker
+      - vol-freeswitch:/var/freeswitch/meetings
+    network_mode: host
+    logging:
+      driver: journald
+
+  nginx:
+    build:
+      context: mod/nginx
+      args:
+        TAG_LEARNING_DASHBOARD: v2.5.5
+    image: alangecker/bbb-docker-nginx:1.21-v4.0.0-v2.5.5
+    restart: unless-stopped
+    depends_on:
+      - etherpad
+      - webrtc-sfu
+      - html5-backend-1
+    volumes:
+      - bigbluebutton:/var/bigbluebutton
+      - html5-static:/html5-static:ro
+      - ${DEFAULT_PRESENTATION:-/dev/null}:/www/default.pdf
+    network_mode: host
+    extra_hosts:
+      - "host.docker.internal:10.7.7.1"
+      - "bbb-web:10.7.7.2"
+      - "etherpad:10.7.7.4"
+      - "webrtc-sfu:10.7.7.1"
+      - "html5:10.7.7.11"
+    logging:
+      driver: journald
+
+  etherpad:
+    build: mod/etherpad
+    image: alangecker/bbb-docker-etherpad:1.8.18-3
+    restart: unless-stopped
+    logging:
+      driver: journald
+    depends_on:
+      - redis
+    environment:
+      ETHERPAD_API_KEY: ${ETHERPAD_API_KEY}
+    networks:
+      bbb-net:
+        ipv4_address: 10.7.7.4
+
+  bbb-pads:
+    build: mod/bbb-pads
+    image: alangecker/bbb-docker-pads:v1.2.2
+    restart: unless-stopped
+    logging:
+      driver: journald
+    depends_on:
+      - redis
+      - etherpad
+    environment:
+      ETHERPAD_API_KEY: ${ETHERPAD_API_KEY}
+    networks:
+      bbb-net:
+        ipv4_address: 10.7.7.18
+
+  redis:
+    image: redis:7.0-alpine
+    restart: unless-stopped
+    logging:
+      driver: journald
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+    networks:
+      bbb-net:
+        ipv4_address: 10.7.7.5
+
+  mongodb:
+    container_name: bbb-mongodb
+    image: mongo:4.4
+    restart: unless-stopped
+    logging:
+      driver: journald
+    volumes:
+      - ./mod/mongo/mongod.conf:/etc/mongod.conf
+      - ./mod/mongo/init-replica.sh:/docker-entrypoint-initdb.d/init-replica.sh
+    tmpfs:
+      - /data/configdb
+      - /data/db
+    command: mongod --config /etc/mongod.conf --oplogSize 8 --replSet rs0 --noauth
+    healthcheck:
+      test: bash -c "if mongo --eval 'quit(db.runCommand({ ping':' 1 }).ok ? 0 ':' 2)'; then exit 0; fi; exit 1;"
+    networks:
+      bbb-net:
+        ipv4_address: 10.7.7.6
+
+  #  TODO: remove as soon as not required anymore by webrtc-sfu
+  kurento:
+    image: kurento/kurento-media-server:6.18
+    restart: unless-stopped
+    logging:
+      driver: journald
+    network_mode: host
+    volumes:
+      - vol-kurento:/var/kurento
+
+  webrtc-sfu:
+    build: 
+      context: mod/webrtc-sfu
+      args:
+        BBB_BUILD_TAG: v2022-03-30
+    image: alangecker/bbb-docker-webrtc-sfu:v2.8.6
+    restart: unless-stopped
+    logging:
+      driver: journald
+    depends_on:
+      - redis
+      - freeswitch
+    environment:
+      CLIENT_HOST: 10.7.7.1
+      REDIS_HOST: 10.7.7.5
+      FREESWITCH_IP: 10.7.7.1
+      FREESWITCH_SIP_IP: ${EXTERNAL_IPv4}
+      ESL_IP: 10.7.7.1
+      ESL_PASSWORD: ${FSESL_PASSWORD:-ClueCon}
+      # TODO: add mediasoup IPv6
+      # TODO: can listen to 0.0.0.0 for nat support? https://github.com/versatica/mediasoup/issues/487
+    
+      MS_WEBRTC_LISTEN_IPS: '[{"ip":"${EXTERNAL_IPv4}", "announcedIp":"${EXTERNAL_IPv4}"}]'
+    
+      MS_RTP_LISTEN_IP: '{"ip":"0.0.0.0", "announcedIp":"${EXTERNAL_IPv4}"}'
+    volumes:
+      - vol-mediasoup:/var/mediasoup
+    tmpfs:
+      - /var/log/bbb-webrtc-sfu
+    network_mode: host
+
+  fsesl-akka:
+    build: 
+      context: mod/fsesl-akka
+      args:
+        BBB_BUILD_TAG: v2022-03-30
+        TAG_COMMON_MESSAGE: v2.5.7
+        TAG_FSESL_AKKA: v2.5.7
+    image: alangecker/bbb-docker-fsesl-akka:v2.5.7
+    restart: unless-stopped
+    depends_on:
+      - redis
+      - freeswitch
+    environment:
+      FSESL_PASSWORD: ${FSESL_PASSWORD:-ClueCon}
+    networks:
+      bbb-net:
+        ipv4_address: 10.7.7.14
+    logging:
+      driver: journald
+
+  apps-akka:
+    build: 
+      context: mod/apps-akka
+      args:
+        BBB_BUILD_TAG: v2022-03-30
+        TAG_COMMON_MESSAGE: v2.5.7
+        TAG_APPS_AKKA: v2.5.7
+    image: alangecker/bbb-docker-apps-akka:v2.5.7
+    restart: unless-stopped
+    depends_on:
+      - redis
+    environment:
+      DOMAIN: ${DOMAIN}
+      SHARED_SECRET: ${SHARED_SECRET}
+    volumes:
+      - vol-freeswitch:/var/freeswitch/meetings
+    networks:
+      bbb-net:
+        ipv4_address: 10.7.7.15
+    logging:
+      driver: journald
+
+  jodconverter:
+    build: mod/jodconverter
+    image: alangecker/bbb-docker-jodconverter:latest
+    security_opt:
+      - 'no-new-privileges:true'
+    restart: unless-stopped
+    tmpfs:
+      - /tmp
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    networks:
+      bbb-net:
+        ipv4_address: 10.7.7.20
+    logging:
+      driver: journald
+
+  periodic:
+    build: mod/periodic
+    image: alangecker/bbb-docker-periodic:v2.5.0-rc.1
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - bigbluebutton:/var/bigbluebutton
+      - vol-mediasoup:/var/mediasoup
+    tmpfs:
+      - /var/log/bigbluebutton
+    environment:
+      ENABLE_RECORDING: ${ENABLE_RECORDING}
+      REMOVE_OLD_RECORDING: ${REMOVE_OLD_RECORDING}
+      RECORDING_MAX_AGE_DAYS: ${RECORDING_MAX_AGE_DAYS}
+    networks:
+      bbb-net:
+        ipv4_address: 10.7.7.12
+    logging:
+      driver: journald
+
+  # recordings
+  recordings:
+    build: 
+      context: mod/recordings
+      args:
+        BBB_BUILD_TAG: v2022-03-30
+        TAG_RECORDINGS: v2.5.7
+    image: alangecker/bbb-docker-recordings:v2.5.7
+    restart: unless-stopped
+    depends_on:
+      - redis
+      - bbb-pads
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - bigbluebutton:/var/bigbluebutton
+      - vol-freeswitch:/var/freeswitch/meetings
+      - vol-mediasoup:/var/mediasoup
+      - vol-kurento:/var/kurento
+    tmpfs:
+      - /var/log/bigbluebutton
+      - /tmp
+    networks:
+      bbb-net:
+        ipv4_address: 10.7.7.16
+    logging:
+      driver: journald
+
+  # coturn
+  coturn:
+    image: coturn/coturn:4.6-alpine
+    restart: unless-stopped
+    command:
+      - "--external-ip=${EXTERNAL_IPv4}/${EXTERNAL_IPv4}"
+      - "--external-ip=${EXTERNAL_IPv6:-::1}/${EXTERNAL_IPv6:-::1}"
+      - "--static-auth-secret=${TURN_SECRET}"
+    volumes:
+      
+      - ${COTURN_TLS_CERT_PATH}:/tmp/cert.pem
+      - ${COTURN_TLS_KEY_PATH}:/tmp/key.pem
+      
+      - ./mod/coturn/entrypoint.sh:/usr/local/bin/docker-entrypoint.sh
+      - ./mod/coturn/turnserver.conf:/etc/coturn/turnserver.conf
+    environment:
+      ENABLE_HTTPS_PROXY:
+    user: root
+    network_mode: host
+    logging:
+      driver: journald
+
+  # greenlight
+  greenlight:
+    logging:
+      driver: journald
+    image: bigbluebutton/greenlight:v2
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DB_ADAPTER: postgresql
+      DB_HOST: postgres
+      DB_NAME: greenlight
+      DB_USERNAME: postgres
+      DB_PASSWORD: ${POSTGRESQL_SECRET:-password}
+      SAFE_HOSTS: ${DOMAIN}
+      BIGBLUEBUTTON_ENDPOINT: https://${DOMAIN}/
+      BIGBLUEBUTTON_SECRET: ${SHARED_SECRET}
+      SECRET_KEY_BASE: ${RAILS_SECRET}
+    ports:
+      - 127.0.0.1:{{http_port_I}}:80
+  postgres:
+    image: postgres:12-alpine
+    restart: unless-stopped
+    logging:
+      driver: journald
+    environment:
+      POSTGRES_DB: greenlight
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRESQL_SECRET:-password}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - database:/var/lib/postgresql/data
+
+volumes:
+  database:
+  bigbluebutton:
+  vol-freeswitch:
+  vol-kurento:
+  vol-mediasoup:
+  html5-static:
+
+
+networks:
+  bbb-net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.7.7.0/24"

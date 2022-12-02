@@ -2,8 +2,12 @@
 - name: recieve {{domain}} certificate
   command: certbot certonly --agree-tos --email {{administrator_email}} --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{domain}}
 
+#- name: configure {{domain}}.conf
+#  template: src=roles/native-docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
+#  notify: restart nginx
+
 - name: configure {{domain}}.conf
-  template: src=roles/native-docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
+  template: src=templates/nginx-proxy.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
   notify: restart nginx
 
 - name: register directory
@@ -25,19 +29,14 @@
     update: yes
     recursive: yes
     version: main
-#  notify: setup bigbluebutton
+  notify: setup bigbluebutton
   become: true
-#
-#- name: set bigbluebutton version
-#  ansible.builtin.shell: find . -type f -exec sed -i 's/bigbluebutton:latest/bigbluebutton:{{bigbluebutton_version}}/' {} + && find . -type f -exec sed -i 's/version=latest/version={{bigbluebutton_version}}/' {} + 
-#  become: true
-#  args:
-#    chdir: "{{docker_compose_bigbluebutton_path}}"
-#
-#- name: configure db.env
-#  template: src=db.env.j2 dest={{docker_compose_bigbluebutton_path}}/env/db.env
-#  notify: setup bigbluebutton
-#
-#- name: configure run.env
-#  template: src=run.env.j2 dest={{docker_compose_bigbluebutton_path}}/env/run.env
-#  notify: setup bigbluebutton
+
+
+- name: configure .env
+  template: src=env.j2 dest={{docker_compose_bigbluebutton_path}}/.env
+  notify: setup bigbluebutton
+
+- name: configure docker-compose.yml
+  template: src=docker-compose.yml.j2 dest={{docker_compose_bigbluebutton_path}}/docker-compose.yml
+  notify: setup bigbluebutton
