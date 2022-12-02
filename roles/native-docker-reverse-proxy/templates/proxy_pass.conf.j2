@@ -1,10 +1,6 @@
 location /
 {
-  {% if https_port is defined %}
-    proxy_pass https://127.0.0.1:{{https_port}}/;
-  {% else %}
-    proxy_pass http://127.0.0.1:{{http_port}}/;
-  {% endif %}
+  proxy_pass http://127.0.0.1:{{http_port}}/;
 
   # headers
   proxy_set_header Host $host;
