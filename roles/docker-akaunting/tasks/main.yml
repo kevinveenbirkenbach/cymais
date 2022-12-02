@@ -17,7 +17,6 @@
   args:
     chdir: "{{docker_compose_akaunting_path}}"
   when: docker_compose_akaunting_path_register.stat.exists
-  become: true
 
 - name: pull docker repository
   git:
