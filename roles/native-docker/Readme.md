@@ -1,5 +1,17 @@
 # role native-docker
 
+## maintanance
+
+### list unused volumes
+```bash 
+    docker volume ls -q -f "dangling=true"
+```
+
+### remove all unused volumes
+```bash 
+    docker volume rm $(docker volume ls -q -f "dangling=true")
+```
+
 ## performance
 - https://forums.docker.com/t/mysql-slow-performance-in-docker/37179/21
 
