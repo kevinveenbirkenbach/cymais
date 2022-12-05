@@ -1,0 +1,13 @@
+version: "3"
+services:
+  funkwhale:
+    container_name: funkwhale
+    restart: unless-stopped
+    image: funkwhale/all-in-one:{{funkwhale_version}}
+    env_file: env
+    volumes:
+      - data:/data
+    ports:
+      - "127.0.0.1:{{http_port}}:{{http_port}}"
+volumes:
+  data:

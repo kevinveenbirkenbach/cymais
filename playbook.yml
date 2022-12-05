@@ -143,6 +143,14 @@
    -  role: docker-bigbluebutton
       vars:
         domain: bbb.{{top_domain}}
+- name: setup funkwhale hosts
+  hosts: funkwhale_hosts
+  become: true
+  roles:
+   -  role: docker-funkwhale
+      vars:
+        domain: funkwhale.{{top_domain}}
+        http_port: 8012
 - name: setup akaunting hosts
   hosts: akaunting_hosts
   become: true

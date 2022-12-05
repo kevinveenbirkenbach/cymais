@@ -1,0 +1,8 @@
+---
+- name: recreate funkwhale
+  command:
+    cmd: docker-compose -p funkwhale up -d --force-recreate
+    chdir: /home/administrator/docker-compose/funkwhale/
+  environment:
+    COMPOSE_HTTP_TIMEOUT: 600
+    DOCKER_CLIENT_TIMEOUT: 600
