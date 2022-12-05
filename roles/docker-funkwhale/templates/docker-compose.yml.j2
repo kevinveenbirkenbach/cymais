@@ -1,13 +1,74 @@
 version: "3"
+
 services:
-  funkwhale:
-    container_name: funkwhale
+  postgres:
     restart: unless-stopped
-    image: funkwhale/all-in-one:{{funkwhale_version}}
-    env_file: env
+    env_file: .env
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+    image: postgres:15-alpine
     volumes:
-      - data:/data
+      - database:/var/lib/postgresql/data
+
+  redis:
+    restart: unless-stopped
+    env_file: .env
+    image: redis:7-alpine
+    volumes:
+      - redis:/data
+
+  celeryworker:
+    restart: unless-stopped
+    image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
+    depends_on:
+      - postgres
+      - redis
+    env_file: .env
+    command: celery -A funkwhale_api.taskapp worker -l INFO --concurrency=${CELERYD_CONCURRENCY-0}
+    environment:
+      - C_FORCE_ROOT=true
+    volumes:
+      - "data:${MEDIA_ROOT}"
+
+  celerybeat:
+    restart: unless-stopped
+    image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
+    depends_on:
+      - postgres
+      - redis
+    env_file: .env
+    command: celery -A funkwhale_api.taskapp beat --pidfile= -l INFO
+
+  api:
+    restart: unless-stopped
+    image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
+    depends_on:
+      - postgres
+      - redis
+    env_file: .env
+    volumes:
+      - "data:${MEDIA_ROOT}"
+      #- "${STATIC_ROOT}:${STATIC_ROOT}"
     ports:
-      - "127.0.0.1:{{http_port}}:{{http_port}}"
+      - "5000"
+
+  front:
+    restart: unless-stopped
+    image: funkwhale/front:${FUNKWHALE_VERSION:-latest}
+    depends_on:
+      - api
+    env_file:
+      - .env
+    environment:
+      # Override those variables in your .env file if needed
+      - "NGINX_MAX_BODY_SIZE=${NGINX_MAX_BODY_SIZE-100M}"
+    volumes:
+      - "data:${MEDIA_ROOT}:ro"
+      #- "${STATIC_ROOT}:${STATIC_ROOT}:ro"
+    ports:
+      # override those variables in your .env file if needed
+      - "${FUNKWHALE_API_IP}:${FUNKWHALE_API_PORT}:80"
 volumes:
   data:
+  redis:
+  database:

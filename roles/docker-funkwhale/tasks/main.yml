@@ -16,10 +16,10 @@
   template: src=docker-compose.yml.j2 dest={{docker_compose_path}}docker-compose.yml
   notify: recreate funkwhale
 
-- name: add env
+- name: add .env
   template: 
     src: env.j2 
-    dest: "{{docker_compose_path}}env"
+    dest: "{{docker_compose_path}}.env"
     mode: '770'
     force: yes
   notify: recreate funkwhale
