@@ -2,7 +2,7 @@
 
 ## debug
 ```bash 
-journalctl -f -unit=nginx
+journalctl -f -u nginx
 ```
 ## performance
 - https://www.monitis.com/blog/6-best-practices-for-optimizing-your-nginx-performance/
