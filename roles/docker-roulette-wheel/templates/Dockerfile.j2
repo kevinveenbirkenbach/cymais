@@ -1,0 +1,8 @@
+FROM node:latest
+WORKDIR /app
+COPY {{app_path}}package.json ./
+RUN npm install
+COPY {{app_path}} ./
+RUN npm run build
+EXPOSE 8080
+CMD ["npm", "run", "start"]

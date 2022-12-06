@@ -151,6 +151,14 @@
       vars:
         domain: funkwhale.{{top_domain}}
         http_port: 8012
+- name: setup roulette-wheel hosts
+  hosts: roulette_wheel_hosts
+  become: true
+  roles:
+   -  role: docker-roulette-wheel
+      vars:
+        domain: roulette.{{top_domain}}
+        http_port: 8013
 - name: setup akaunting hosts
   hosts: akaunting_hosts
   become: true

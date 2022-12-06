@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+    application:
+        container_name: application
+        build:
+            context: .
+        ports:
+        - 127.0.0.1:{{http_port}}:8080
+        restart: unless-stopped
