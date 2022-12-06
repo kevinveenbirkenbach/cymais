@@ -12,30 +12,18 @@
     state: directory
     mode: 0755
 
-#- name: register directory
-#  stat:
-#    path: "{{docker_compose_path}}"
-#  register: docker_compose_path_register
-#
-#- name: checkout repository 
-#  ansible.builtin.shell: git checkout .
-#  become: true
-#  args:
-#    chdir: "{{docker_compose_path}}"
-#  when: docker_compose_path_register.stat.exists
-
 - name: pull app repository
   git:
-    repo: "https://github.com/p-wojt/roulette-wheel.git"
+    repo: "https://github.com/kevinveenbirkenbach/roulette-wheel.git"
     dest: "{{app_path}}"
     update: yes
-  notify: setup roulette-wheel
+  notify: recreate and build roulette-wheel
   become: true
 
 - name: add docker-compose.yml
   template: src=docker-compose.yml.j2 dest={{docker_compose_path}}docker-compose.yml
-  notify: setup roulette-wheel
+  notify: recreate and build roulette-wheel
 
 - name: add Dockerfile
   template: src=Dockerfile.j2 dest={{docker_compose_path}}Dockerfile
-  notify: setup roulette-wheel
+  notify: recreate and build roulette-wheel

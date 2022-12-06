@@ -1,8 +1,7 @@
 FROM node:latest
 WORKDIR /app
-COPY {{app_path}}package.json ./
+COPY ./app/package.json ./
 RUN npm install
-COPY {{app_path}} ./
+COPY ./app/ ./
 RUN npm run build
-EXPOSE 8080
 CMD ["npm", "run", "start"]
