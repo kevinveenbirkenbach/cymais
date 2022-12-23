@@ -10,6 +10,11 @@ ansible-galaxy collection install -r requirements.yml
 ```
 
 # Todo
+- pacman -S retext
+- add yay -S qbittorrent
+- add yay -S zoom
+- add obs-studios
+- add yay -S drawio-desktop
 - add native-office-worker
 - add native-graphic-designer
 - add native-developer-basic
