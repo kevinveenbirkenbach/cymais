@@ -1,5 +1,5 @@
 [Unit]
-Description=Check docker status
+Description=Checking docker health
 OnFailure=systemd-email@%n.service
 
 [Service]
