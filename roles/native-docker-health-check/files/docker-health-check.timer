@@ -1,0 +1,8 @@
+[Unit]
+Description=starts docker-health-check.service
+
+[Timer]
+OnCalendar=10:00
+
+[Install]
+WantedBy=timers.target

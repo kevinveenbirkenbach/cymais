@@ -1,0 +1,22 @@
+- name: "create /home/administrator/scripts/docker-health-check/"
+  file:
+    path: "/home/administrator/scripts/docker-health-check"
+    state: directory
+    mode: 0755
+
+- name: create docker-health-check.sh
+  copy:
+    src: docker-health-check.sh
+    dest: "/home/administrator/scripts/docker-health-check/docker-health-check.sh"
+
+- name: create docker-health-check.service
+  copy:
+    src: docker-health-check.service
+    dest: "/etc/systemd/system/docker-health-check.service"
+  notify: restart docker-health-check.service
+
+- name: create docker-health-check.timer
+  copy:
+    src: docker-health-check.timer
+    dest: "/etc/systemd/system/docker-health-check.timer"
+  notify: restart docker-health-check.timer

@@ -1,0 +1,7 @@
+[Unit]
+Description=Check docker status
+OnFailure=systemd-email@%n.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /home/administrator/scripts/docker-health-check/docker-health-check.sh

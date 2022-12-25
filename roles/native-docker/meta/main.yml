@@ -1,3 +1,4 @@
 dependencies:
   - native-docker-volume-backup
   - native-user-administrator
+  - native-docker-health-check
