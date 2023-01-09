@@ -3,7 +3,7 @@ version: '2'
 services:
   application:
     image: zknt/pixelfed
-    restart: unless-stopped
+    restart: always
     logging:
       driver: journald
     env_file:
@@ -18,7 +18,7 @@ services:
       - redis
   worker:
     image: zknt/pixelfed
-    restart: unless-stopped
+    restart: always
     logging:
       driver: journald
     env_file:

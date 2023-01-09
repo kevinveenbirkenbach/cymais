@@ -2,7 +2,7 @@ version: "3"
 
 services:
   postgres:
-    restart: unless-stopped
+    restart: always
     env_file: .env
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
@@ -11,14 +11,14 @@ services:
       - database:/var/lib/postgresql/data
 
   redis:
-    restart: unless-stopped
+    restart: always
     env_file: .env
     image: redis:7-alpine
     volumes:
       - redis:/data
 
   celeryworker:
-    restart: unless-stopped
+    restart: always
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
     depends_on:
       - postgres
@@ -31,7 +31,7 @@ services:
       - "data:${MEDIA_ROOT}"
 
   celerybeat:
-    restart: unless-stopped
+    restart: always
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
     depends_on:
       - postgres
@@ -40,7 +40,7 @@ services:
     command: celery -A funkwhale_api.taskapp beat --pidfile= -l INFO
 
   api:
-    restart: unless-stopped
+    restart: always
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
     depends_on:
       - postgres
@@ -53,7 +53,7 @@ services:
       - "5000"
 
   front:
-    restart: unless-stopped
+    restart: always
     image: funkwhale/front:${FUNKWHALE_VERSION:-latest}
     depends_on:
       - api
