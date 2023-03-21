@@ -1,8 +1,0 @@
----
-- name: install MariaDB
-  pacman: name=mariadb state=present
-  notify: mariadb restart
-
-- name: executing installation script
-  command: mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
-  notify: mariadb restart
