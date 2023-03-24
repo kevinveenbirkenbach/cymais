@@ -1,4 +1,0 @@
-- name: Install dia
-  community.general.pacman:
-    name: dia
-    state: present

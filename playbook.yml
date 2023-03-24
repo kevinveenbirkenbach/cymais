@@ -103,12 +103,6 @@
   roles:
     - application-nextcloud
 
-- name: setup dia
-  hosts: dia_hosts
-  become: true
-  roles:
-    - application-dia
-
 - name: setup docker
   hosts: docker_hosts
   become: true

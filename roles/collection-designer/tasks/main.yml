@@ -3,5 +3,11 @@
     name: 
       - gimp
       - blender
-      - drawio-desktop
     state: present
+
+- name: install drawio
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - drawio-desktop
+  become: false
