@@ -20,6 +20,7 @@
     - Software
     - Downloads
     - Workspaces
+    - Books
 
 - name: Link dump folder
   ansible.builtin.file:
