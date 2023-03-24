@@ -1,0 +1,5 @@
+- name: install video conference software
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - zoom

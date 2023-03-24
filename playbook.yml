@@ -3,15 +3,33 @@
   become: true
   roles:
     - system-pacman
-    - collection-administrator-tools-base
+    - collection-administrator-base
     - application-caffeine
     - driver-non-free
 
-- name: collection-office-tools
+- name: collection-office
   hosts: collection_officetools_hosts
   become: true
   roles:
-    - collection-office-tools
+    - collection-office
+
+- name: collection-designer
+  hosts: collection_designer_hosts
+  become: true
+  roles:
+    - collection-designer
+
+- name: collection-torrent
+  hosts: collection_torrent_hosts
+  become: true
+  roles:
+    - collection-torrent
+
+- name: collection-streamer
+  hosts: collection_streamer_hosts
+  become: true
+  roles:
+    - collection-streamer
 
 - name: collection-bluray-player
   hosts: collection_bluray_player_hosts
@@ -60,6 +78,12 @@
   become: true
   roles:
     - collection-games
+
+- name: setup entertainment hosts
+  hosts: entertainment_hosts
+  become: true
+  roles:
+    - collection-entertainment
 
 - name: setup multiprinter hosts
   hosts: epson_multiprinter_hosts

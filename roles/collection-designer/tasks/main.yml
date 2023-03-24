@@ -1,0 +1,7 @@
+- name: install designer tools
+  community.general.pacman:
+    name: 
+      - gimp
+      - blender
+      - drawio-desktop
+    state: present

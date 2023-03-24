@@ -1,7 +1,0 @@
-- name: install shutter
-  community.general.pacman:
-    name: 
-      - chromium
-      - shutter
-      - thunderbird
-    state: present
