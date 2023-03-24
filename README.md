@@ -30,7 +30,7 @@ This software shipts the following tools which are natively setup on the server:
 - [Backups Cleanup](./roles/native-backups-cleanup/README.md) - Cleans up old backups
 - [Btrfs Health Check](./roles/native-btrfs-health-check/README.md) - Checks the health of Btrfs file systems
 - [Docker Health Check](./roles/native-docker-health-check/) - Checks the health of docker containers
-- [Docker Reverse Proxy](./roles/native-docker-reverse-proxy/README.md) - Docker Reverse Proxy Soltuion
+- [Docker Reverse Proxy](./roles/native-docker-reverse-proxy/README.md) - Docker Reverse Proxy Solution
 - [Docker Volume Backup](./roles/native-docker-volume-backup/) - Backup Solution for Docker Volumes
 - [Pull Primary Backups](./roles/native-pull-primary-backups/README.md) - Pulls the backups from another server and stores them
 - [Wireguard](./roles/native-wireguard/README.md) - Integrates the server in an wireguard vpn
