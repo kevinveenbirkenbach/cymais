@@ -11,6 +11,7 @@ ansible-galaxy collection install -r requirements.yml
 
 # Todo
 - pacman -S retext
+- add yay -S calibre
 - add yay -S qbittorrent
 - add yay -S zoom
 - add obs-studios

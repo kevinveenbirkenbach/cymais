@@ -20,3 +20,11 @@
     - Software
     - Downloads
     - Workspaces
+
+- name: Link dump folder
+  ansible.builtin.file:
+    src: "{{cloud_directory}}InstantUpload"
+    dest: "{{user_home_directory}}Dump"
+    owner: "{{client_username}}"
+    group: "{{client_username}}"
+    state: link
