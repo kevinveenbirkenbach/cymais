@@ -2,13 +2,17 @@
   pip:
     name: psutil
 
+- name: "create {{docker_backups_cleanup}}"
+  file:
+    path: "{{docker_backups_cleanup}}"
+    state: directory
+    mode: 0755
+
 - name: create backups-cleanup.py
-  template: src=backups-cleanup.py.j2 dest=/usr/local/bin/backups-cleanup.py
+  template: src=backups-cleanup.py.j2 dest={{docker_backups_cleanup}}backups-cleanup.py
 
 - name: create backups-cleanup.service
-  copy:
-    src: backups-cleanup.service
-    dest: "/etc/systemd/system/backups-cleanup.service"
+  template: src=backups-cleanup.service.j2 dest=/etc/systemd/system/backups-cleanup.service
   notify: restart backups-cleanup.service
 
 - name: create backups-cleanup.timer

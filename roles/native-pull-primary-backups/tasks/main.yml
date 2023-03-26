@@ -1,15 +1,15 @@
 - name: create pull-remote-backup.sh
   copy:
     src: pull-remote-backup.sh
-    dest: "/usr/local/bin/pull-remote-backup.sh"
+    dest: "bash {{docker_pull_primary_backups_folder}}pull-remote-backup.sh"
 
 - name: create pull-remote-backups.service
-  template: src=pull-remote-backups.service dest=/etc/systemd/system/pull-remote-backups.service
-  notify: restart pull-remote-backups service
+  template: src=pull-remote-backups.service.j2 dest=/etc/systemd/system/pull-remote-backups.service
+  notify: restart pull-remote-backups serviceß
 
 - name: create pull-remote-backups.timer
-  template: src=pull-remote-backups.timer dest=/etc/systemd/system/pull-remote-backups.timer
+  template: src=pull-remote-backups.timer.j2 dest=/etc/systemd/system/pull-remote-backups.timer
   notify: restart pull-remote-backups timer
 
 - name: create pull-remote-backups.sh
-  template: src=pull-remote-backups.sh dest=/usr/local/bin/pull-remote-backups.sh
+  template: src=pull-remote-backups.sh.j2 dest=bash {{docker_pull_primary_backups_folder}}pull-remote-backups.sh

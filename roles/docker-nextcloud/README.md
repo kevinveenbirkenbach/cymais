@@ -13,7 +13,7 @@ NEXTCLOUD_APPLICATION_DOCKER_CONTAINER=nextcloud-application-1
 To update the nextcloud container execute the following commands on the server:
 ```bash
   docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ maintenance:mode --on
-  sudo python /usr/local/bin/docker-volume-backup/docker-volume-backup.py
+  sudo python /home/administrator/scripts/docker-volume-backup/docker-volume-backup.py
   export COMPOSE_HTTP_TIMEOUT=600
   export DOCKER_CLIENT_TIMEOUT=600
   cd /home/administrator/docker-compose/nextcloud && docker-compose down
@@ -58,7 +58,7 @@ and disable the not functioning apps.
 cd /home/administrator/docker-compose/nextcloud &&
 docker-compose down &&
 docker exec -i nextcloud_database_1 mysql -u nextcloud -pPASSWORT nextcloud < "/Backups/$(sha256sum /etc/machine-id | head -c 64)/docker-volume-backup/latest/nextcloud_database/sql/backup.sql" &&
-cd /usr/local/bin/docker-volume-backup &&
+cd /home/administrator/scripts/docker-volume-backup &&
 bash ./docker-volume-recover.sh "nextcloud_data" "$(sha256sum /etc/machine-id | head -c 64)"
 ```
 

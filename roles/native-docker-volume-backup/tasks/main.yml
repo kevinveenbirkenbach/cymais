@@ -5,20 +5,20 @@
 - name: pull docker-volume-backup.git
   git:
     repo: "https://github.com/kevinveenbirkenbach/docker-volume-backup.git"
-    dest: "/usr/local/bin/docker-volume-backup"
+    dest: "{{docker_volume_backup_folder}}"
     update: yes
 
 - name: configure docker-volume-backup.service.tpl
-  template: src=docker-volume-backup.service dest=/etc/systemd/system/docker-volume-backup.service
+  template: src=docker-volume-backup.service.j2 dest=/etc/systemd/system/docker-volume-backup.service
   notify: restart docker-volume-backup service
 
 - name: configure docker-volume-backup.timer.tpl
-  template: src=docker-volume-backup.timer dest=/etc/systemd/system/docker-volume-backup.timer
+  template: src=docker-volume-backup.timer.j2 dest=/etc/systemd/system/docker-volume-backup.timer
   notify: restart docker-volume-backup timer
 
-- name: create /usr/local/bin/docker-volume-backup/databases.csv
+- name: create {{docker_volume_backup_folder}}/databases.csv
   copy:
-    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}/usr/local/bin/docker-volume-backup/databases.csv"
-    dest: /usr/local/bin/docker-volume-backup/databases.csv
+    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}{{docker_volume_backup_folder}}/databases.csv"
+    dest: {{docker_volume_backup_folder}}/databases.csv
     owner: root
     group: root
