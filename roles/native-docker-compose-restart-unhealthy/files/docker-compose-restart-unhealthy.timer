@@ -1,0 +1,9 @@
+[Unit]
+Description=starts docker-compose-restart-unhealthy.service
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=1h
+
+[Install]
+WantedBy=timers.target

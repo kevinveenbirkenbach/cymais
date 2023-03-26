@@ -1,0 +1,19 @@
+- name: "create {{docker_docker_compose_restart_unhealthy}}"
+  file:
+    path: "{{docker_docker_compose_restart_unhealthy}}"
+    state: directory
+    mode: 0755
+
+- name: create docker-compose-restart-unhealthy.py
+  template: src=docker-compose-restart-unhealthy.py.j2 dest={{docker_docker_compose_restart_unhealthy}}docker-compose-restart-unhealthy.py
+  notify: restart docker-compose-restart-unhealthy.service
+
+- name: create docker-compose-restart-unhealthy.service
+  template: src=docker-health-check.service.j2 dest=/etc/systemd/system/docker-compose-restart-unhealthy.service
+  notify: restart docker-compose-restart-unhealthy.service
+
+- name: create docker-compose-restart-unhealthy.timer
+  copy:
+    src: docker-compose-restart-unhealthy.timer
+    dest: "/etc/systemd/system/docker-compose-restart-unhealthy.timer"
+  notify: restart docker-compose-restart-unhealthy.timer
