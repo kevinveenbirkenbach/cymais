@@ -11,7 +11,7 @@
     mode: 0755
 
 - name: configure systemd-email.sh
-  template: src=systemd-email.sh.j2 dest={{systemd_email_folder}}bin/systemd-email.sh
+  template: src=systemd-email.sh.j2 dest={{systemd_email_folder}}systemd-email.sh
 
 - name: configure systemd-email.service
   template: src=systemd-email@.service.j2 dest=/etc/systemd/system/systemd-email@.service

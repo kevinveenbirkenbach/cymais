@@ -4,4 +4,4 @@ OnFailure=systemd-email@%n.service
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash {{docker_docker_compose_restart_unhealthy}}docker-compose-restart-unhealthy.py
+ExecStart=/bin/python {{docker_docker_compose_restart_unhealthy}}docker-compose-restart-unhealthy.py

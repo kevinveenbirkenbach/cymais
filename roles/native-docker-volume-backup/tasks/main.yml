@@ -16,9 +16,9 @@
   template: src=docker-volume-backup.timer.j2 dest=/etc/systemd/system/docker-volume-backup.timer
   notify: restart docker-volume-backup timer
 
-- name: create {{docker_volume_backup_folder}}/databases.csv
+- name: create {{docker_volume_backup_folder}}databases.csv
   copy:
-    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}{{docker_volume_backup_folder}}/databases.csv"
-    dest: "{{docker_volume_backup_folder}}/databases.csv"
+    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}{{docker_volume_backup_folder}}databases.csv"
+    dest: "{{docker_volume_backup_folder}}databases.csv"
     owner: root
     group: root
