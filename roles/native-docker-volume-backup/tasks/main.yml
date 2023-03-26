@@ -19,6 +19,6 @@
 - name: create {{docker_volume_backup_folder}}/databases.csv
   copy:
     src: "{{ inventory_dir }}/files/{{ inventory_hostname }}{{docker_volume_backup_folder}}/databases.csv"
-    dest: {{docker_volume_backup_folder}}/databases.csv
+    dest: "{{docker_volume_backup_folder}}/databases.csv"
     owner: root
     group: root
