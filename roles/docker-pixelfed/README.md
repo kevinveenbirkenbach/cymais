@@ -8,16 +8,19 @@ docker volume rm pixelfed_application_data pixelfed_database pixelfed_redis_data
 
 ## update
 ```bash 
-cd /home/administrator/docker-compose/pixelfed/
-docker-compose down
-docker-compose pull
-docker-compose up -d
+cd /home/administrator/docker-compose/pixelfed/ &&
+docker-compose down &&
+docker network prune -f &&
+docker-compose pull &&
+docker-compose build &&
+docker-compose -p pixelfed up -d --force-recreate
 ```
 
 ## inspect 
 
 ```bash
-docker-compose logs
+docker-compose ps -a
+docker-compose logs -f
 ```
 
 ## further information
