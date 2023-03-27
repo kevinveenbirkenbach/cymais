@@ -58,12 +58,12 @@ php composer.phar install
 
 ```bash
 # DO SET MANUEL VARIABLES >>
-akaunting_db_password=XXXXXXXXX
-backup_version=XXXXXXXXX
+export akaunting_db_password=XXXXXXXXX
+export backup_version=XXXXXXXXX
 # << DO SET MANUEL VARIABLES
 
 # set automatic variables
-machine_id="$(sha256sum /etc/machine-id)"
+export machine_id="$(sha256sum /etc/machine-id)"
 export COMPOSE_HTTP_TIMEOUT=600
 export DOCKER_CLIENT_TIMEOUT=600
 
