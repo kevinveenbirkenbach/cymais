@@ -1,6 +1,6 @@
 #!/bin/sh
-docker_ps_grep_unhealthy="$(docker ps --filter health=unhealthy)"
-docker_ps_grep_exited="$(docker ps --filter status=exited)"
+docker_ps_grep_unhealthy="$(docker ps --filter health=unhealthy --format '{{.Names}}')"
+docker_ps_grep_exited="$(docker ps --filter status=exited --format '{{.Names}}')"
 exitcode=0
 if [ ! -z "$docker_ps_grep_unhealthy" ]
 then 
