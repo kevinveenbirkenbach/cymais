@@ -26,14 +26,14 @@ def print_bash(command):
     print(list_to_string(output))
     return output
 
-waiting_time=1800
+waiting_time=600
 backup_running=True
 while backup_running:
-    print("stop program for " + str(waiting_time) + "seconds.")
-    time.sleep(waiting_time)
     try: 
         bash("systemctl is-active --quiet docker-volume-backup.service")
         print("backup is running.")
+        print("trying again in  " + str(waiting_time) + " seconds.")
+        time.sleep(waiting_time)
     except:
         backup_running=False
         print("no backup is running.")
