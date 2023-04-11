@@ -7,6 +7,12 @@
     - application-caffeine
     - driver-non-free
 
+- name: application-wireguard
+  hosts: application_wireguard_hosts
+  become: true
+  roles:
+    - application-wireguard
+
 - name: collection-office
   hosts: collection_officetools_hosts
   become: true

@@ -1,0 +1,18 @@
+- name: install wireguard
+  pacman: 
+    name: wireguard-tools
+    state: present
+
+- name: enable ipv4-forwarding
+  shell: sysctl net.ipv4.ip_forward=1
+
+- name: enable ipv6-forwarding
+  shell: sysctl net.ipv6.conf.all.forwarding=1
+
+- name: create /etc/wireguard/wg0.conf
+  copy:
+    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}/etc/wireguard/wg0.conf"
+    dest: /etc/wireguard/wg0.conf
+    owner: root
+    group: root
+  notify: restart wireguard
