@@ -7,17 +7,23 @@ then
 fi
 
 # define executable commands
-hashed_machine_id_command="sha256sum /etc/machine-id";
-find_command="find /Backups/{{hashed_machine_id.stdout}}/ -maxdepth 1 -type d";
-rsync_command="sudo rsync --server --sender -blogDtpre.iLsfxCIvu . /Backups/{{hashed_machine_id.stdout}}/docker-volume-backup/latest/"
+get_hashed_machine_id="sha256sum /etc/machine-id";
+get_backup_types="find /Backups/{{hashed_machine_id.stdout}}/ -maxdepth 1 -type d -execdir basename {} ';'";
+
+# @todo This configuration is not scalable yet. If other backup services then docker-volume-backup are integrated, this logic needs to be optimized
+get_static_last_version_dir="readlink -f /Backups/{{hashed_machine_id.stdout}}/docker-volume-backup/latest/"
+rsync_command="sudo rsync --server --sender -blogDtpre.iLsfxCIvu . $($get_static_last_version_dir)/"
 
 # filter commands
 case "$SSH_ORIGINAL_COMMAND" in
-	"$hashed_machine_id_command")
-		$hashed_machine_id_command
+	"$get_hashed_machine_id")
+		$get_hashed_machine_id
 		;;
-	"$find_command")
-		$find_command
+	"$get_static_last_version_dir")
+		$get_static_last_version_dir
+		;;
+	"$get_backup_types")
+		$get_backup_types
 		;;
 	"$rsync_command")
 		$rsync_command
