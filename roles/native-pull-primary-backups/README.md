@@ -25,3 +25,4 @@ To track what the service is doing execute the following command:
 ## see
 - https://superuser.com/questions/363444/how-do-i-get-the-output-and-exit-value-of-a-subshell-when-using-bash-e
 - https://gist.github.com/otkrsk/b0ffd4018e8a79b9010c461af298471e
+- https://serverfault.com/questions/304125/rsync-seems-incompatible-with-bashrc-causes-is-your-shell-clean
