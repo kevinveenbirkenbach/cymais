@@ -1,7 +1,7 @@
 # Role Native Wireguard
 Manages wireguard on a client.
 
-### Create Client Keys
+## Create Client Keys
 ```bash
   wg_private_key="$(wg genkey)"
   wg_public_key="$(echo "$wg_private_key" | wg pubkey)"
@@ -10,7 +10,20 @@ Manages wireguard on a client.
   echo "PresharedKey: $(wg genpsk)"
 ```
 
-## See
+## Debug 
+
+### SSH
+
+When the SSH connection over wireguard is buggy try: 
+
+```bash
+ip li set mtu 1400 dev eth0
+ip li set mtu 1400 dev wlo1
+```
+
+This can be connected to the [MTU](https://www.imperva.com/learn/application-security/what-is-mtu-mss/) 
+
+## Other
 - https://golb.hplar.ch/2019/01/expose-server-vpn.html
 - https://wiki.archlinux.org/index.php/WireGuard
 - https://wireguard.how/server/raspbian/
@@ -20,3 +33,5 @@ Manages wireguard on a client.
 - https://unix.stackexchange.com/questions/717172/why-is-ufw-blocking-acces-to-ssh-via-wireguard
 - https://forum.openwrt.org/t/cannot-ssh-to-clients-on-lan-when-accessing-router-via-wireguard-client/132709/3
 - https://serverfault.com/questions/1086297/wireguard-connection-dies-on-ubuntu-peer
+- https://unix.stackexchange.com/questions/624987/ssh-fails-to-start-when-listenaddress-is-set-to-wireguard-vpn-ip
+- https://serverfault.com/questions/210408/cannot-ssh-debug1-expecting-ssh2-msg-kex-dh-gex-reply
