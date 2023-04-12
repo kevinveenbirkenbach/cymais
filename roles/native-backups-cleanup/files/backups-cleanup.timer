@@ -3,7 +3,7 @@ Description=starts backups-cleanup.service
 
 [Timer]
 OnBootSec=1min
-OnUnitActiveSec=12h
+OnUnitActiveSec=3h
 RandomizedDelaySec=1h
 
 [Install]
