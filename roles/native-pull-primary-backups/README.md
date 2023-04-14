@@ -11,11 +11,17 @@ Further information you will find [in this blog post](https://www.veen.world/202
 ## debug
 
 ### live
-To track what the service is doing execute the following command:
+To track what the service is doing execute one of the following commands:
 
+#### systemctl
 ```bash
   watch -n2 "systemctl status pull-remote-backups.service"
 ```
+
+#### journalctl
+```bash
+  journalctl -fu pull-remote-backups.service
+```  
 
 ### history
 ```bash
