@@ -37,7 +37,7 @@ services:
 
   # Core services
   front:
-    image: ${DOCKER_ORG:-ghcr.io/mailu}/${DOCKER_PREFIX:-}nginx:${MAILU_VERSION:-{{mailu_version}}}
+    image: ghcr.io/mailu/nginx:{{mailu_version}}
     restart: always
     env_file: mailu.env
     logging:
@@ -52,13 +52,13 @@ services:
       - "{{ ip4_address }}:143:143"
       - "{{ ip4_address }}:993:993"
     volumes:
-      - "/etc/mailu/overrides/nginx:/overrides"
+      - "/etc/mailu/overrides/nginx:/overrides:ro"
       - "/etc/mailu/certs:/certs"
     depends_on:
       database:
         condition: service_healthy
   admin:
-    image: ${DOCKER_ORG:-ghcr.io/mailu}/${DOCKER_PREFIX:-}admin:${MAILU_VERSION:-{{mailu_version}}}
+    image: ghcr.io/mailu/admin:{{mailu_version}}
     restart: always
     env_file: mailu.env
     volumes:
@@ -70,37 +70,42 @@ services:
     logging:
       driver: journald
   imap:
-    image: ${DOCKER_ORG:-ghcr.io/mailu}/${DOCKER_PREFIX:-}dovecot:${MAILU_VERSION:-{{mailu_version}}}
+    image: ghcr.io/mailu/dovecot:{{mailu_version}}
     restart: always
     env_file: mailu.env
     volumes:
       - "dovecot_mail:/mail"
-      - "/etc/mailu/overrides:/overrides"
+      - "/etc/mailu/overrides:/overrides:ro"
     depends_on:
       - front
     logging:
       driver: journald
 
   smtp:
-    image: ${DOCKER_ORG:-ghcr.io/mailu}/${DOCKER_PREFIX:-}postfix:${MAILU_VERSION:-{{mailu_version}}}
+    image: ghcr.io/mailu/postfix:{{mailu_version}}
     restart: always
     env_file: mailu.env
     volumes:
-      - "/etc/mailu/overrides:/overrides"
+      - "/etc/mailu/overrides:/overrides:ro"
       - "smtp_queue:/queue"
     depends_on:
       - front
     logging:
       driver: journald
 
+  oletools:
+    image: ghcr.io/mailu/oletools:{{mailu_version}}
+    hostname: oletools
+    restart: always
+
   antispam:
-    image: ${DOCKER_ORG:-ghcr.io/mailu}/${DOCKER_PREFIX:-}rspamd:${MAILU_VERSION:-{{mailu_version}}}
+    image: ghcr.io/mailu/rspamd:{{mailu_version}}
     restart: always
     env_file: mailu.env
     volumes:
       - "filter:/var/lib/rspamd"
       - "dkim:/dkim"
-      - "/etc/mailu/overrides/rspamd:/etc/rspamd/override.d"
+      - "/etc/mailu/overrides/rspamd:/overrides:ro"
     depends_on:
       - front
       - redis 
@@ -110,7 +115,7 @@ services:
 
   # Optional services
   antivirus:
-    image: ${DOCKER_ORG:-ghcr.io/mailu}/${DOCKER_PREFIX:-}clamav:${MAILU_VERSION:-{{mailu_version}}}
+    image: ghcr.io/mailu/clamav:{{mailu_version}}
     restart: always
     env_file: mailu.env
     volumes:
@@ -119,7 +124,7 @@ services:
       driver: journald
 
   webdav:
-    image: ${DOCKER_ORG:-ghcr.io/mailu}/${DOCKER_PREFIX:-}radicale:${MAILU_VERSION:-{{mailu_version}}}
+    image: ghcr.io/mailu/radicale:{{mailu_version}}
     restart: always
     env_file: mailu.env
     volumes:
@@ -128,21 +133,28 @@ services:
       driver: journald
 
   fetchmail:
-    image: ${DOCKER_ORG:-ghcr.io/mailu}/${DOCKER_PREFIX:-}fetchmail:${MAILU_VERSION:-{{mailu_version}}}
+    image: ghcr.io/mailu/fetchmail:{{mailu_version}}
+    volumes:
+      - "admin_data:/data"
     restart: always
     env_file: mailu.env
     logging:
       driver: journald
+    depends_on:
+      - admin
+      - smtp
+      - imap
 
   # Webmail
   webmail:
-    image: ${DOCKER_ORG:-ghcr.io/mailu}/${DOCKER_PREFIX:-}roundcube:${MAILU_VERSION:-{{mailu_version}}}
+    image: ghcr.io/mailu/webmail:{{mailu_version}}
     restart: always
     env_file: mailu.env
     volumes:
       - "webmail_data:/data"
     depends_on:
       - imap
+      - front
     logging:
       driver: journald
 volumes:
