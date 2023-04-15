@@ -1,0 +1,6 @@
+- name: "restart journalctl-health-check.timer"
+  systemd:
+    name: journalctl-health-check.timer
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
