@@ -29,6 +29,7 @@ services:
       MYSQL_USER: "wordpress"
       MYSQL_PASSWORD: "{{wordpress_database_password}}"
       MYSQL_ROOT_PASSWORD: "{{wordpress_database_password}}"
+      MARIADB_AUTO_UPGRADE: "1"
     volumes:
       - database:/var/lib/mysql
     healthcheck:

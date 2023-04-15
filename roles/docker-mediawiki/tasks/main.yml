@@ -27,6 +27,7 @@
           MYSQL_ROOT_PASSWORD: "{{mediawiki_mysql_user_password}}"
           MYSQL_USER: mediawiki
           MYSQL_PASSWORD: "{{mediawiki_mysql_user_password}}"
+          MARIADB_AUTO_UPGRADE: "1"
         volumes:
           - mediawiki-database:/var/lib/mysql
         restart: always

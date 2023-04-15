@@ -44,6 +44,7 @@
           MYSQL_DATABASE: "mybb"
           MYSQL_USER: "mybb"
           MYSQL_PASSWORD: "{{mybb_database_password}}"
+          MARIADB_AUTO_UPGRADE: "1"
         volumes:
           - mybb-database:/var/lib/mysql
         restart: always

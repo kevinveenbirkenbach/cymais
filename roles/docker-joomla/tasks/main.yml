@@ -33,6 +33,7 @@
           MYSQL_USER: "joomla"
           MYSQL_PASSWORD: "{{joomla_database_password}}"
           MYSQL_ROOT_PASSWORD: "{{joomla_database_password}}"
+          MARIADB_AUTO_UPGRADE: "1"
         volumes:
           - joomla-database:/var/lib/mysql
         restart: always
