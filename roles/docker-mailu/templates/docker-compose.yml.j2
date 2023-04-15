@@ -36,7 +36,7 @@ services:
 
   # Core services
   front:
-    image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}nginx:${MAILU_VERSION:-1.8}
+    image: ${DOCKER_ORG:-ghcr.io/mailu}/${DOCKER_PREFIX:-}nginx:${MAILU_VERSION:-{{mailu_version}}}
     restart: always
     env_file: mailu.env
     logging:
@@ -57,7 +57,7 @@ services:
       database:
         condition: service_healthy
   admin:
-    image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}admin:${MAILU_VERSION:-1.8}
+    image: ${DOCKER_ORG:-ghcr.io/mailu}/${DOCKER_PREFIX:-}admin:${MAILU_VERSION:-{{mailu_version}}}
     restart: always
     env_file: mailu.env
     volumes:
@@ -65,10 +65,11 @@ services:
       - "dkim:/dkim"
     depends_on:
       - front
+      - redis
     logging:
       driver: journald
   imap:
-    image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}dovecot:${MAILU_VERSION:-1.8}
+    image: ${DOCKER_ORG:-ghcr.io/mailu}/${DOCKER_PREFIX:-}dovecot:${MAILU_VERSION:-{{mailu_version}}}
     restart: always
     env_file: mailu.env
     volumes:
@@ -80,7 +81,7 @@ services:
       driver: journald
 
   smtp:
-    image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}postfix:${MAILU_VERSION:-1.8}
+    image: ${DOCKER_ORG:-ghcr.io/mailu}/${DOCKER_PREFIX:-}postfix:${MAILU_VERSION:-{{mailu_version}}}
     restart: always
     env_file: mailu.env
     volumes:
@@ -92,7 +93,7 @@ services:
       driver: journald
 
   antispam:
-    image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}rspamd:${MAILU_VERSION:-1.8}
+    image: ${DOCKER_ORG:-ghcr.io/mailu}/${DOCKER_PREFIX:-}rspamd:${MAILU_VERSION:-{{mailu_version}}}
     restart: always
     env_file: mailu.env
     volumes:
@@ -101,12 +102,14 @@ services:
       - "/etc/mailu/overrides/rspamd:/etc/rspamd/override.d"
     depends_on:
       - front
+      - redis 
+      - antivirus
     logging:
       driver: journald
 
   # Optional services
   antivirus:
-    image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}clamav:${MAILU_VERSION:-1.8}
+    image: ${DOCKER_ORG:-ghcr.io/mailu}/${DOCKER_PREFIX:-}clamav:${MAILU_VERSION:-{{mailu_version}}}
     restart: always
     env_file: mailu.env
     volumes:
@@ -115,7 +118,7 @@ services:
       driver: journald
 
   webdav:
-    image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}radicale:${MAILU_VERSION:-1.8}
+    image: ${DOCKER_ORG:-ghcr.io/mailu}/${DOCKER_PREFIX:-}radicale:${MAILU_VERSION:-{{mailu_version}}}
     restart: always
     env_file: mailu.env
     volumes:
@@ -124,7 +127,7 @@ services:
       driver: journald
 
   fetchmail:
-    image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}fetchmail:${MAILU_VERSION:-1.8}
+    image: ${DOCKER_ORG:-ghcr.io/mailu}/${DOCKER_PREFIX:-}fetchmail:${MAILU_VERSION:-{{mailu_version}}}
     restart: always
     env_file: mailu.env
     logging:
@@ -132,7 +135,7 @@ services:
 
   # Webmail
   webmail:
-    image: ${DOCKER_ORG:-mailu}/${DOCKER_PREFIX:-}roundcube:${MAILU_VERSION:-1.8}
+    image: ${DOCKER_ORG:-ghcr.io/mailu}/${DOCKER_PREFIX:-}roundcube:${MAILU_VERSION:-{{mailu_version}}}
     restart: always
     env_file: mailu.env
     volumes:
