@@ -13,10 +13,10 @@
   template: 
     src: btrfs-health-check.service.j2
     dest: /etc/systemd/system/btrfs-health-check.service
-  notify: restart btrfs-health-check.service
+  notify: reload btrfs-health-check.service
 
 - name: create btrfs-health-check.timer
-  copy:
-    src: btrfs-health-check.timer
+  template:
+    src: btrfs-health-check.timer.j2
     dest: "/etc/systemd/system/btrfs-health-check.timer"
   notify: restart btrfs-health-check.timer

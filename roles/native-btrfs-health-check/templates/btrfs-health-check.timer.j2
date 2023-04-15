@@ -2,7 +2,7 @@
 Description=starts btrfs-health-check.service
 
 [Timer]
-OnCalendar=12:00
+OnCalendar={{on_calendar_btrfs_health_check}}
 
 [Install]
 WantedBy=timers.target

@@ -10,10 +10,13 @@
     dest: "{{journalctl_health_check_folder}}journalctl-health-check.sh"
 
 - name: create journalctl-health-check.service
-  template: src=journalctl-health-check.service.j2 dest=/etc/systemd/system/journalctl-health-check.service
+  template: 
+    src: journalctl-health-check.service.j2
+    dest: /etc/systemd/system/journalctl-health-check.service
+  notify: reload journalctl-health-check.service
 
 - name: create journalctl-health-check.timer
-  copy:
-    src: journalctl-health-check.timer
-    dest: "/etc/systemd/system/journalctl-health-check.timer"
+  template:
+    src: journalctl-health-check.timer.j2
+    dest: /etc/systemd/system/journalctl-health-check.timer
   notify: restart journalctl-health-check.timer

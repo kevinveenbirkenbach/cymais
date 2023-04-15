@@ -2,8 +2,7 @@
 Description=starts pull remote backup timer
 
 [Timer]
-OnCalendar=22:00
-RandomizedDelaySec=1h
+OnCalendar={{on_calendar_pull_primary_backups}}
 
 [Install]
 WantedBy=timers.target

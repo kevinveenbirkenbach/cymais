@@ -2,8 +2,7 @@
 Description=starts docker-compose-restart-unhealthy.service
 
 [Timer]
-OnBootSec=1min
-OnUnitActiveSec=1h
+OnCalendar={{on_calendar_docker_compose_restart_unhealthy}}
 
 [Install]
 WantedBy=timers.target

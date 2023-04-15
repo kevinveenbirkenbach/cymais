@@ -1,3 +1,9 @@
+- name: "reload journalctl-health-check.service"
+  systemd:
+    name: journalctl-health-check.service
+    state: reloaded
+    enabled: yes
+    daemon_reload: yes
 - name: "restart journalctl-health-check.timer"
   systemd:
     name: journalctl-health-check.timer

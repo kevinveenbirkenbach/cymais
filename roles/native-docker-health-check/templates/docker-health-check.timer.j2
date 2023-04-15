@@ -2,7 +2,7 @@
 Description=starts docker-health-check.service
 
 [Timer]
-OnCalendar=10:00
+OnCalendar={{on_calendar_docker_health_check}}
 
 [Install]
 WantedBy=timers.target

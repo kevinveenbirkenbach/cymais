@@ -12,7 +12,7 @@
 
 - name: create pull-remote-backups.service
   template: src=pull-remote-backups.service.j2 dest=/etc/systemd/system/pull-remote-backups.service
-  notify: restart pull-remote-backups service
+  notify: reload pull-remote-backups service
 
 - name: create pull-remote-backups.timer
   template: src=pull-remote-backups.timer.j2 dest=/etc/systemd/system/pull-remote-backups.timer

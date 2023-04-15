@@ -3,8 +3,7 @@ Description=starts backups-cleanup.service
 
 [Timer]
 OnBootSec=1min
-OnUnitActiveSec=3h
-RandomizedDelaySec=1h
+OnCalendar={{on_calendar_backups_cleanup}}
 
 [Install]
 WantedBy=timers.target

@@ -1,4 +1,4 @@
-- name: "reloaded docker-compose-restart-unhealthy.service"
+- name: "reload docker-compose-restart-unhealthy.service"
   systemd:
     name: docker-compose-restart-unhealthy.service
     state: reloaded

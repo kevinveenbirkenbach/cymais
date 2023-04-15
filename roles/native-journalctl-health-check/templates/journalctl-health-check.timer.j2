@@ -2,7 +2,7 @@
 Description=starts journalctl-health-check.service
 
 [Timer]
-OnCalendar=00:00
+OnCalendar={{on_calendar_journalctl_health_check}}
 
 [Install]
 WantedBy=timers.target

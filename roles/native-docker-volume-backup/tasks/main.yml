@@ -8,9 +8,11 @@
     dest: "{{docker_volume_backup_folder}}"
     update: yes
 
-- name: configure docker-volume-backup.service.tpl
-  template: src=docker-volume-backup.service.j2 dest=/etc/systemd/system/docker-volume-backup.service
-  notify: restart docker-volume-backup service
+- name: configure docker-volume-backup.service
+  template: 
+    src: docker-volume-backup.service.j2
+    dest: /etc/systemd/system/docker-volume-backup.service
+  notify: reload docker-volume-backup service
 
 - name: configure docker-volume-backup.timer.tpl
   template: src=docker-volume-backup.timer.j2 dest=/etc/systemd/system/docker-volume-backup.timer

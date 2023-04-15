@@ -1,7 +1,7 @@
-- name: "restart pull-remote-backups service"
+- name: "reload pull-remote-backups service"
   systemd:
     name: pull-remote-backups.service
-    state: restarted
+    state: reloaded
     enabled: yes
     daemon_reload: yes
 - name: "restart pull-remote-backups timer"

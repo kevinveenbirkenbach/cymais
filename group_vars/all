@@ -1,0 +1,10 @@
+# Server Tact Variables
+# @see https://man.archlinux.org/man/systemd.time.7
+
+on_calendar_btrfs_health_check:               "*-*-* 00:00:00"
+on_calendar_journalctl_health_check:          "*-*-* 00:00:00"
+on_calendar_docker_health_check:              "*-*-* 09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,00,01,02:00:00"
+on_calendar_backups_cleanup:                  "*-*-* 06,12,18,00:30:00"
+on_calendar_docker_volume_backup:             "*-*-* 03:30:00"
+on_calendar_docker_compose_restart_unhealthy: "*-*-* 09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,00,01:30:00"
+on_calendar_pull_primary_backups:             "*-*-* 21:30:00"

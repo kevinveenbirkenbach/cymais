@@ -60,7 +60,7 @@ How to manage users is described here: https://mailu.io/master/cli.html
 ### database access
 To access the database execute
 ```bash
-  docker exec -it nextcloud_database_1 mysql -u nextcloud -D nextcloud -p
+  docker exec -it mailu-database-1 mysql -u root -D mailu -p
 ```
 
 ### mailu_front_1
