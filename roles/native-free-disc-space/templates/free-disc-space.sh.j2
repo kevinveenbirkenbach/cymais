@@ -34,6 +34,7 @@ if [ "$disc_use_percent_number" -gt "$minimum_percent_free_disc_space" ] || [ "$
 
     nextcloud_application_container="nextcloud-application-1"
     if [ "$(docker ps -a -q -f name=$nextcloud_application_container)" ] ; then
+      echo "cleaning up docker nextcloud" &&
       docker exec -it -u www-data $nextcloud_application_container /var/www/html/occ files:cleanup || exit 4
       docker exec -it -u www-data $nextcloud_application_container /var/www/html/occ trashbin:cleanup --all-users || exit 5
       docker exec -it -u www-data $nextcloud_application_container /var/www/html/occ versions:cleanup || exit 6
@@ -45,7 +46,7 @@ if [ "$disc_use_percent_number" -gt "$minimum_percent_free_disc_space" ] || [ "$
   yes | pacman -Sc || exit 7
 
   echo "cleanup finished."
-elif
+else
   echo "Sufficiend disc space available."
   echo "To force the freeing of disc space pass the parameter --force."
 fi

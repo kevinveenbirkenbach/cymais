@@ -1,13 +1,13 @@
-- name: "create {{free_disc_space_folder}"
+- name: "create {{free_disc_space_folder}}"
   file:
-    path: "{{free_disc_space_folder}"
+    path: "{{free_disc_space_folder}}"
     state: directory
     mode: 0755
 
 - name: create free-disc-space.sh
   template:
     src: free-disc-space.sh.j2
-    dest: "{{free_disc_space_folder}free-disc-space.sh"
+    dest: "{{free_disc_space_folder}}free-disc-space.sh"
 
 - name: create free-disc-space.service
   template: 
