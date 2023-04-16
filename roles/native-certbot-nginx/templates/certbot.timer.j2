@@ -1,8 +1,8 @@
 [Unit]
-Description=starts backups-cleanup.service
+Description=Renewal of Let's Encrypt's certificates
 
 [Timer]
-OnCalendar={{on_calendar_backups_cleanup}}
+OnCalendar=0/12:00:00
 RandomizedDelaySec={{randomized_delay_sec}}
 Persistent=true
 

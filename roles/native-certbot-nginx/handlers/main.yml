@@ -1,7 +1,7 @@
-- name: "restart certbot service"
+- name: "reload certbot service"
   systemd:
     name: certbot.service
-    state: restarted
+    state: reloaded
     enabled: yes
     daemon_reload: yes
 - name: "restart certbot timer"

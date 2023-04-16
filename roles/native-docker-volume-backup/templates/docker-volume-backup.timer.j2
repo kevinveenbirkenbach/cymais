@@ -3,6 +3,8 @@ Description=backups the docker volumes
 
 [Timer]
 OnCalendar={{on_calendar_docker_volume_backup}}
+RandomizedDelaySec={{randomized_delay_sec}}
+Persistent=false
 
 [Install]
 WantedBy=timers.target

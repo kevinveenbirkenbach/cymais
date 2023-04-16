@@ -3,6 +3,8 @@ Description=starts docker-compose-restart-unhealthy.service
 
 [Timer]
 OnCalendar={{on_calendar_docker_compose_restart_unhealthy}}
+RandomizedDelaySec={{randomized_delay_sec}}
+Persistent=false
 
 [Install]
 WantedBy=timers.target

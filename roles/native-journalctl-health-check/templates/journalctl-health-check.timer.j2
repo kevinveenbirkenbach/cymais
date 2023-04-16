@@ -3,6 +3,8 @@ Description=starts journalctl-health-check.service
 
 [Timer]
 OnCalendar={{on_calendar_journalctl_health_check}}
+RandomizedDelaySec={{randomized_delay_sec}}
+Persistent=false
 
 [Install]
 WantedBy=timers.target

@@ -2,12 +2,15 @@
   pacman:
     name: [certbot,certbot-nginx]
     state: present
-  notify: restart certbot service
 
 - name: configure certbot.service.tpl
-  template: src=certbot.service dest=/etc/systemd/system/certbot.service
-  notify: restart certbot service
+  template: 
+    src:  certbot.service.j2
+    dest: /etc/systemd/system/certbot.service
+  notify: reload certbot service
 
 - name: configure certbot.timer.tpl
-  template: src=certbot.timer dest=/etc/systemd/system/certbot.timer
+  template:
+    src:  certbot.timer.j2
+    dest: /etc/systemd/system/certbot.timer
   notify: restart certbot timer
