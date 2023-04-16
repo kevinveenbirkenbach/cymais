@@ -1,0 +1,22 @@
+- name: "create {{free_disc_space_folder}"
+  file:
+    path: "{{free_disc_space_folder}"
+    state: directory
+    mode: 0755
+
+- name: create free-disc-space.sh
+  template:
+    src: free-disc-space.sh.j2
+    dest: "{{free_disc_space_folder}free-disc-space.sh"
+
+- name: create free-disc-space.service
+  template: 
+    src: free-disc-space.service.j2
+    dest: /etc/systemd/system/free-disc-space.service
+  notify: reload free-disc-space.service
+
+- name: create free-disc-space.timer
+  template:
+    src: free-disc-space.timer.j2
+    dest: /etc/systemd/system/free-disc-space.timer
+  notify: restart free-disc-space.timer

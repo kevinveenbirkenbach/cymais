@@ -19,3 +19,4 @@ on_calendar_deploy_mailu_certificates:        "*-*-* 12,00:50:00"
 # Space Variables
 size_percent_maximum_backup:                  75
 size_percent_disc_space_warning:              85
+size_percent_free_disc_space:                 90

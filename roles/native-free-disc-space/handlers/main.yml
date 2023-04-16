@@ -1,0 +1,12 @@
+- name: "reload free-disc-space.service"
+  systemd:
+    name: free-disc-space.service
+    state: reloaded
+    enabled: yes
+    daemon_reload: yes
+- name: "restart free-disc-space.timer"
+  systemd:
+    name: free-disc-space.timer
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
