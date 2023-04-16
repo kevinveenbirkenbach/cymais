@@ -4,6 +4,7 @@ import os
 import argparse
 
 # Validating arguments
+parser = argparse.ArgumentParser()
 parser.add_argument('--maximum-backup-size-percent', type=int, dest='maximum_backup_size_percent',required=True, choices=range(0,100), help="The directory from which the data should be encrypted.")
 parser.add_argument('--backups-folder-path',type=str,dest='backups_folder_path',required=True, help="The folder in which the backups are stored")
 args = parser.parse_args()
