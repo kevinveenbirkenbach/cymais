@@ -1,0 +1,7 @@
+[Unit]
+Description=checking disc space
+OnFailure=systemd-email@%n.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash {{disc_space_check_folder}}disc-space-check.sh

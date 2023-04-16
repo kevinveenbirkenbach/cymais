@@ -1,0 +1,12 @@
+- name: "reload disc-space-check.service"
+  systemd:
+    name: disc-space-check.service
+    state: reloaded
+    enabled: yes
+    daemon_reload: yes
+- name: "restart disc-space-check.timer"
+  systemd:
+    name: disc-space-check.timer
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

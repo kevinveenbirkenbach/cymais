@@ -6,6 +6,7 @@
     - system-security
     - system-update
     - native-journalctl
+    - native-disc-space-check
     #- native-hostname
 - name: setup btrfs health check
   hosts: btrfs_health_check_hosts

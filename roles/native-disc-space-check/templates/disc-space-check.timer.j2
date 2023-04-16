@@ -1,0 +1,8 @@
+[Unit]
+Description=starts disc-space-check.service
+
+[Timer]
+OnCalendar={{on_calendar_disc_space_check}}
+
+[Install]
+WantedBy=timers.target
