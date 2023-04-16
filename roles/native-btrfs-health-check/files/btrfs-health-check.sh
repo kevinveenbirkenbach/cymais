@@ -2,7 +2,7 @@
 exit_code=0
 for path in $(btrfs filesystem show | awk '/ path /{print $NF}')
 do
-  echo "Checking healt for $path..."
+  echo "Checking health for $path..."
   result=$(btrfs device stats $path)
   echo "$result"
   regex='\.(.*)_errs(\s*)[1-9]'
