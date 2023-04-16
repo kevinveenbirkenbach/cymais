@@ -4,8 +4,8 @@
     state: directory
     mode: 0755
 
-- copy: create disc-space-check.sh
-  template:
+- name: create disc-space-check.sh
+  copy:
     src: disc-space-check.sh
     dest: "{{disc_space_check_folder}}disc-space-check.sh"
 
