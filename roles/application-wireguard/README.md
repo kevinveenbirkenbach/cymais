@@ -12,6 +12,22 @@ Manages wireguard on a client.
 
 ## Debug 
 
+### RTNETLINK answers: Permission denied
+When ```systemctl restart wg-quick@wg0.service``` returns __RTNETLINK answers: Permission denied__, modify _/etc/sysctl.conf_:
+
+```bash
+net.ipv6.conf.all.disable_ipv6 = 0
+net.ipv6.conf.default.disable_ipv6 = 0
+net.ipv6.conf.lo.disable_ipv6 = 0
+```
+
+Afterwards reload: 
+```bash
+sysctl -p
+systemctl restart wg-quick@wg0.service
+```
+
+
 ### SSH
 
 When the SSH connection over wireguard is buggy try: 
@@ -21,7 +37,7 @@ ip li set mtu 1400 dev eth0
 ip li set mtu 1400 dev wlo1
 ```
 
-This can be connected to the [MTU](https://www.imperva.com/learn/application-security/what-is-mtu-mss/) 
+This can be connected to the [MTU](https://www.imperva.com/learn/application-security/what-is-mtu-mss/)
 
 ## Other
 - https://golb.hplar.ch/2019/01/expose-server-vpn.html
