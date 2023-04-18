@@ -1,5 +1,5 @@
 ---
-- name: create server_docker-compose.yml for bigbluebutton
+- name: create docker-compose.yml for bigbluebutton
   command:
     cmd: bash ./scripts/generate-compose
     chdir: "{{docker_compose_bigbluebutton_path}}"
@@ -9,7 +9,7 @@
   listen: setup bigbluebutton
 - name: docker compose up bigbluebutton
   command:
-    cmd: server_docker-compose -p bigbluebutton up -d --force-recreate
+    cmd: docker-compose -p bigbluebutton up -d --force-recreate
     chdir: "{{docker_compose_bigbluebutton_path}}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600

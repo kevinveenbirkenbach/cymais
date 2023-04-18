@@ -16,12 +16,12 @@
   template: src=templates/nginx.conf.j2 dest=/home/administrator/volumes/docker/nextcloud/nginx.conf
   notify: recreate nextcloud
 
-- name: "create /home/administrator/server_docker-compose/nextcloud/"
+- name: "create /home/administrator/docker-compose/nextcloud/"
   file:
-    path: "/home/administrator/server_docker-compose/nextcloud/"
+    path: "/home/administrator/docker-compose/nextcloud/"
     state: directory
     mode: 0755
 
-- name: add server_docker-compose.yml
-  template: src=server_docker-compose.yml.j2 dest=/home/administrator/server_docker-compose/nextcloud/server_docker-compose.yml
+- name: add docker-compose.yml
+  template: src=docker-compose.yml.j2 dest=/home/administrator/docker-compose/nextcloud/docker-compose.yml
   notify: recreate nextcloud

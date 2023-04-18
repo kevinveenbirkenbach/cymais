@@ -1,2 +1,2 @@
-docker_compose_path: "/home/administrator/server_docker-compose/funkwhale/"
+docker_compose_path: "/home/administrator/docker-compose/funkwhale/"
 client_max_body_size: "512M"

@@ -2,7 +2,7 @@
   community.general.pacman:
     name:
       - docker
-      - server_docker-compose
+      - docker-compose
     state: present
 
 - name: Adding user {{client_username}} to relevant arduino usergroups  

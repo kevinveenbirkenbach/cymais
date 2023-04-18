@@ -1,13 +1,13 @@
 ---
 - name: docker & docker compose install
   pacman:
-    name: ['docker','server_docker-compose']
+    name: ['docker','docker-compose']
     state: present
   notify: docker restart
 
-- name: "create /home/administrator/server_docker-compose/"
+- name: "create /home/administrator/docker-compose/"
   file:
-    path: "/home/administrator/server_docker-compose"
+    path: "/home/administrator/docker-compose"
     state: directory
     mode: 0700
     owner: administrator

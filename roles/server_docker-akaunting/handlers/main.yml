@@ -1,7 +1,7 @@
 ---
 - name: setup akaunting
   command:
-    cmd: server_docker-compose -p akaunting up -d --force-recreate
+    cmd: docker-compose -p akaunting up -d --force-recreate
     chdir: "{{docker_compose_akaunting_path}}"
   environment:
     #AKAUNTING_SETUP: true

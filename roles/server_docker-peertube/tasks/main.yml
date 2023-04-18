@@ -12,8 +12,8 @@
     state: directory
     mode: 0755
 
-- name: copy server_docker-compose.yml
-  template: src=server_docker-compose.yml.j2 dest={{docker_compose_peertube_path}}server_docker-compose.yml
+- name: copy docker-compose.yml
+  template: src=docker-compose.yml.j2 dest={{docker_compose_peertube_path}}docker-compose.yml
   notify: recreate peertube
 
 - name: copy configuration

@@ -5,7 +5,7 @@ Role to deploy [BigBlueButton](https://bigbluebutton.org/).
 
 ### cleanup
 ```bash
-    server_docker-compose down;
+    docker-compose down;
     docker volume rm bigbluebutton_bigbluebutton bigbluebutton_html5-static bigbluebutton_vol-freeswitch bigbluebutton_vol-kurento bigbluebutton_vol-mediasoup bigbluebutton_database
 ```
 

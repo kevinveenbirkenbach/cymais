@@ -2,17 +2,17 @@
 
 ## new setup
 ```bash
-cd /home/administrator/server_docker-compose/akaunting/
+cd /home/administrator/docker-compose/akaunting/
 export COMPOSE_HTTP_TIMEOUT=600
 export DOCKER_CLIENT_TIMEOUT=600
-AKAUNTING_SETUP=true server_docker-compose -p akaunting up -d
+AKAUNTING_SETUP=true docker-compose -p akaunting up -d
 ```
 
 Check Webinterface and then execute: 
 
 ```bash
-server_docker-compose down
-server_docker-compose -p akaunting up -d
+docker-compose down
+docker-compose -p akaunting up -d
 ```
 
 ## administration
@@ -68,17 +68,17 @@ export COMPOSE_HTTP_TIMEOUT=600
 export DOCKER_CLIENT_TIMEOUT=600
 
 # destroy all containers
-cd /home/administrator/server_docker-compose/akaunting/ && 
-server_docker-compose down &&
+cd /home/administrator/docker-compose/akaunting/ && 
+docker-compose down &&
 docker network prune -f
 
 # delete all volumes
 docker volume rm akaunting_akaunting-data akaunting_akaunting-db akaunting_akaunting-modules
 
 # rebuild containers
-server_docker-compose pull &&
-server_docker-compose build &&
-server_docker-compose -p akaunting up -d --force-recreate
+docker-compose pull &&
+docker-compose build &&
+docker-compose -p akaunting up -d --force-recreate
 
 # recover all volumes
 cd /home/administrator/scripts/docker-volume-backup &&

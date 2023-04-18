@@ -43,7 +43,7 @@ to verify that there aren't port conflicts
 Before you can use Mailu, you must create the primary administrator user account. This should be admin@{{hostname}}. Use the following command, changing PASSWORD to your liking:
 
 ```bash
-  server_docker-compose -p mailu exec admin flask mailu admin {{admin}} {{hostname}} PASSWORD
+  docker-compose -p mailu exec admin flask mailu admin {{admin}} {{hostname}} PASSWORD
 ```
 
 ### cli user management
@@ -52,7 +52,7 @@ How to manage users is described here: https://mailu.io/master/cli.html
 ### Up
 
 ```bash
-  server_docker-compose -p mailu up -d
+  docker-compose -p mailu up -d
 ```
 ## debug
 

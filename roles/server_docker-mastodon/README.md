@@ -1,15 +1,15 @@
 # docker mastodon
 ## create configuration
 ```bash
-    server_docker-compose run --rm web bundle exec rake mastodon:setup
+    docker-compose run --rm web bundle exec rake mastodon:setup
 ```
 ## cleanup
 ```bash
-cd /home/administrator/server_docker-compose/mastodon/
-server_docker-compose down
+cd /home/administrator/docker-compose/mastodon/
+docker-compose down
 docker volume rm mastodon_data mastodon_database mastodon_redis
-cd /home/administrator/server_docker-compose/ &&
-rm -vR /home/administrator/server_docker-compose/mastodon
+cd /home/administrator/docker-compose/ &&
+rm -vR /home/administrator/docker-compose/mastodon
 ```
 
 ## access terminal
