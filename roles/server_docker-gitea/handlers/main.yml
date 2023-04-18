@@ -1,8 +1,8 @@
 ---
 - name: recreate gitea
   command:
-    cmd: docker-compose -p gitea up -d --force-recreate
-    chdir: /home/administrator/docker-compose/gitea/
+    cmd: server_docker-compose -p gitea up -d --force-recreate
+    chdir: /home/administrator/server_docker-compose/gitea/
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600

@@ -1,12 +1,12 @@
-- name: "reload docker-health-check.service"
+- name: "reload server_docker-health-check.service"
   systemd:
-    name: docker-health-check.service
+    name: server_docker-health-check.service
     state: reloaded
     enabled: yes
     daemon_reload: yes
-- name: "restart docker-health-check.timer"
+- name: "restart server_docker-health-check.timer"
   systemd:
-    name: docker-health-check.timer
+    name: server_docker-health-check.timer
     state: restarted
     enabled: yes
     daemon_reload: yes

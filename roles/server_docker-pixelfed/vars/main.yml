@@ -1,2 +1,2 @@
-docker_compose_path: "/home/administrator/docker-compose/pixelfed/"
+docker_compose_path: "/home/administrator/server_docker-compose/pixelfed/"
 client_max_body_size: "512M"

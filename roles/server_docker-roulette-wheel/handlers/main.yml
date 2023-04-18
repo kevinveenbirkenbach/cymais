@@ -1,7 +1,7 @@
 ---
 - name: recreate and build roulette-wheel
   command:
-    cmd: docker-compose -p roulette-wheel up -d --force-recreate --build
+    cmd: server_docker-compose -p roulette-wheel up -d --force-recreate --build
     chdir: "{{docker_compose_path}}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600

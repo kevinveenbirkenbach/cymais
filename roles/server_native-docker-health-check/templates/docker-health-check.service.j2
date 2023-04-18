@@ -4,4 +4,4 @@ OnFailure=systemd-email@%n.service
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash {{docker_health_check_folder}}docker-health-check.sh
+ExecStart=/bin/bash {{docker_health_check_folder}}server_docker-health-check.sh

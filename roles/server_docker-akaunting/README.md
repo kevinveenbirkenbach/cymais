@@ -2,17 +2,17 @@
 
 ## new setup
 ```bash
-cd /home/administrator/docker-compose/akaunting/
+cd /home/administrator/server_docker-compose/akaunting/
 export COMPOSE_HTTP_TIMEOUT=600
 export DOCKER_CLIENT_TIMEOUT=600
-AKAUNTING_SETUP=true docker-compose -p akaunting up -d
+AKAUNTING_SETUP=true server_docker-compose -p akaunting up -d
 ```
 
 Check Webinterface and then execute: 
 
 ```bash
-docker-compose down
-docker-compose -p akaunting up -d
+server_docker-compose down
+server_docker-compose -p akaunting up -d
 ```
 
 ## administration
@@ -68,23 +68,23 @@ export COMPOSE_HTTP_TIMEOUT=600
 export DOCKER_CLIENT_TIMEOUT=600
 
 # destroy all containers
-cd /home/administrator/docker-compose/akaunting/ && 
-docker-compose down &&
+cd /home/administrator/server_docker-compose/akaunting/ && 
+server_docker-compose down &&
 docker network prune -f
 
 # delete all volumes
 docker volume rm akaunting_akaunting-data akaunting_akaunting-db akaunting_akaunting-modules
 
 # rebuild containers
-docker-compose pull &&
-docker-compose build &&
-docker-compose -p akaunting up -d --force-recreate
+server_docker-compose pull &&
+server_docker-compose build &&
+server_docker-compose -p akaunting up -d --force-recreate
 
 # recover all volumes
-cd /home/administrator/scripts/docker-volume-backup &&
-bash docker-volume-recover.sh akaunting_akaunting-modules ${machine_id:0:64} "$backup_version" &&
-bash docker-volume-recover.sh akaunting_akaunting-data ${machine_id:0:64} "$backup_version" &&
-bash docker-volume-recover.sh akaunting_akaunting-db ${machine_id:0:64} "$backup_version" akaunting-db "$akaunting_db_password" akaunting
+cd /home/administrator/scripts/server_docker-volume-backup &&
+bash server_docker-volume-recover.sh akaunting_akaunting-modules ${machine_id:0:64} "$backup_version" &&
+bash server_docker-volume-recover.sh akaunting_akaunting-data ${machine_id:0:64} "$backup_version" &&
+bash server_docker-volume-recover.sh akaunting_akaunting-db ${machine_id:0:64} "$backup_version" akaunting-db "$akaunting_db_password" akaunting
 
 ```
 

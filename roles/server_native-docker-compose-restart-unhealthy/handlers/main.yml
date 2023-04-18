@@ -1,12 +1,12 @@
-- name: "reload docker-compose-restart-unhealthy.service"
+- name: "reload server_docker-compose-restart-unhealthy.service"
   systemd:
-    name: docker-compose-restart-unhealthy.service
+    name: server_docker-compose-restart-unhealthy.service
     state: reloaded
     enabled: yes
     daemon_reload: yes
-- name: "restart docker-compose-restart-unhealthy.timer"
+- name: "restart server_docker-compose-restart-unhealthy.timer"
   systemd:
-    name: docker-compose-restart-unhealthy.timer
+    name: server_docker-compose-restart-unhealthy.timer
     state: restarted
     enabled: yes
     daemon_reload: yes

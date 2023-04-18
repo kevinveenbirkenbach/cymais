@@ -1,6 +1,6 @@
 #!/bin/python
 #
-# restart docker-compose configurations who have exited or unhealthy containers
+# restart server_docker-compose configurations who have exited or unhealthy containers
 #
 import subprocess
 import time
@@ -30,7 +30,7 @@ waiting_time=600
 backup_running=True
 while backup_running:
     try: 
-        bash("systemctl is-active --quiet docker-volume-backup.service")
+        bash("systemctl is-active --quiet server_docker-volume-backup.service")
         print("backup is running.")
         print("trying again in  " + str(waiting_time) + " seconds.")
         time.sleep(waiting_time)
@@ -49,6 +49,6 @@ for failed_container in failed_containers:
 filtered_failed_docker_compose_repositories=list(dict.fromkeys(unfiltered_failed_docker_compose_repositories))
 for filtered_failed_docker_compose_repository in filtered_failed_docker_compose_repositories:
     print("restarting unhealthy container: " + filtered_failed_docker_compose_repository)
-    print_bash('cd /home/administrator/docker-compose/' + filtered_failed_docker_compose_repository + '/ && docker-compose restart')
+    print_bash('cd /home/administrator/server_docker-compose/' + filtered_failed_docker_compose_repository + '/ && server_docker-compose restart')
 
 print("finished restart procedure.")

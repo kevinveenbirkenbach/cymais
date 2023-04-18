@@ -4,19 +4,19 @@
     state: directory
     mode: 0755
 
-- name: create docker-compose-restart-unhealthy.py
+- name: create server_docker-compose-restart-unhealthy.py
   copy:
-    src: docker-compose-restart-unhealthy.py
-    dest: "{{docker_docker_compose_restart_unhealthy}}docker-compose-restart-unhealthy.py"
+    src: server_docker-compose-restart-unhealthy.py
+    dest: "{{docker_docker_compose_restart_unhealthy}}server_docker-compose-restart-unhealthy.py"
 
-- name: create docker-compose-restart-unhealthy.service
+- name: create server_docker-compose-restart-unhealthy.service
   template: 
-    src: docker-compose-restart-unhealthy.service.j2 
-    dest: /etc/systemd/system/docker-compose-restart-unhealthy.service
-  notify: reload docker-compose-restart-unhealthy.service
+    src: server_docker-compose-restart-unhealthy.service.j2 
+    dest: /etc/systemd/system/server_docker-compose-restart-unhealthy.service
+  notify: reload server_docker-compose-restart-unhealthy.service
 
-- name: create docker-compose-restart-unhealthy.timer
+- name: create server_docker-compose-restart-unhealthy.timer
   template:
-    src: docker-compose-restart-unhealthy.timer.j2
-    dest: "/etc/systemd/system/docker-compose-restart-unhealthy.timer"
-  notify: restart docker-compose-restart-unhealthy.timer
+    src: server_docker-compose-restart-unhealthy.timer.j2
+    dest: "/etc/systemd/system/server_docker-compose-restart-unhealthy.timer"
+  notify: restart server_docker-compose-restart-unhealthy.timer

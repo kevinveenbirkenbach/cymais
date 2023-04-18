@@ -1,2 +1,2 @@
 ---
-docker_elk_compose_path: "/srv/github.com/kevinveenbirkenbach/docker-elk/"
+docker_elk_compose_path: "/srv/github.com/kevinveenbirkenbach/server_docker-elk/"

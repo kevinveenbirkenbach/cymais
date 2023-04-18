@@ -6,7 +6,7 @@ map $http_upgrade $connection_upgrade {
 server {
   server_name {{domain}};
 
-  {% include 'roles/native-letsencrypt/templates/ssl_header.j2' %}
+  {% include 'roles/server_native-letsencrypt/templates/ssl_header.j2' %}
 
   keepalive_timeout    70;
   sendfile             on;
@@ -23,7 +23,7 @@ server {
 
   add_header Strict-Transport-Security "max-age=31536000";
 
-  {% include 'roles/native-docker-reverse-proxy/templates/proxy_pass.conf.j2' %}
+  {% include 'roles/server_native-docker-reverse-proxy/templates/proxy_pass.conf.j2' %}
 
   location /api/v1/streaming {
     proxy_set_header Host $host;

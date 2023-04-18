@@ -1,4 +1,4 @@
-# role docker-mediawiki
+# role server_docker-mediawiki
 ## Generate LocalSettings.php
 Login to the container:
 

@@ -1,11 +1,11 @@
-# role docker-gitea
+# role server_docker-gitea
 
 ## update
 ```bash 
-cd /home/administrator/docker-compose/gitea/
-docker-compose down
-docker-compose pull
-docker-compose up -d
+cd /home/administrator/server_docker-compose/gitea/
+server_docker-compose down
+server_docker-compose pull
+server_docker-compose up -d
 ```
 Keep in mind to track and to don't interrupt the update process until the migration is done. 
 
@@ -19,7 +19,7 @@ Keep in mind to track and to don't interrupt the update process until the migrat
 
 ## recreate
 ```bash
-cd /home/administrator/docker-compose/gitea/ && docker-compose -p gitea up -d --force-recreate
+cd /home/administrator/server_docker-compose/gitea/ && server_docker-compose -p gitea up -d --force-recreate
 ```
 
 ## database access

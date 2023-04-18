@@ -1,4 +1,4 @@
-# native-systemd-mail
+# server_native-systemd-mail
 
 # see
 - https://wiki.archlinux.org/index.php/Systemd/Timers#MAILTO

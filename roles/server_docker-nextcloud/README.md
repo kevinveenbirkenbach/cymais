@@ -1,4 +1,4 @@
-# role docker-nextcloud
+# role server_docker-nextcloud
 
 ## precondition
 
@@ -13,10 +13,10 @@ NEXTCLOUD_APPLICATION_DOCKER_CONTAINER=nextcloud-application-1
 To update the nextcloud container execute the following commands on the server:
 ```bash
   docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ maintenance:mode --on
-  sudo python /home/administrator/scripts/docker-volume-backup/docker-volume-backup.py
+  sudo python /home/administrator/scripts/server_docker-volume-backup/server_docker-volume-backup.py
   export COMPOSE_HTTP_TIMEOUT=600
   export DOCKER_CLIENT_TIMEOUT=600
-  cd /home/administrator/docker-compose/nextcloud && docker-compose down
+  cd /home/administrator/server_docker-compose/nextcloud && server_docker-compose down
 ```
 
 Afterwards update the ***nextcloud_version*** variable to the next version and run the this repository with this ansible role.
@@ -55,11 +55,11 @@ and disable the not functioning apps.
 
 ## recover latest backup
 ```bash
-cd /home/administrator/docker-compose/nextcloud &&
-docker-compose down &&
-docker exec -i nextcloud_database_1 mysql -u nextcloud -pPASSWORT nextcloud < "/Backups/$(sha256sum /etc/machine-id | head -c 64)/docker-volume-backup/latest/nextcloud_database/sql/backup.sql" &&
-cd /home/administrator/scripts/docker-volume-backup &&
-bash ./docker-volume-recover.sh "nextcloud_data" "$(sha256sum /etc/machine-id | head -c 64)"
+cd /home/administrator/server_docker-compose/nextcloud &&
+server_docker-compose down &&
+docker exec -i nextcloud_database_1 mysql -u nextcloud -pPASSWORT nextcloud < "/Backups/$(sha256sum /etc/machine-id | head -c 64)/server_docker-volume-backup/latest/nextcloud_database/sql/backup.sql" &&
+cd /home/administrator/scripts/server_docker-volume-backup &&
+bash ./server_docker-volume-recover.sh "nextcloud_data" "$(sha256sum /etc/machine-id | head -c 64)"
 ```
 
 ## database
@@ -124,15 +124,15 @@ Until NC24 MariaDB version has to be used.
 - https://help.nextcloud.com/t/solved-manual-lemp-install-php-fpm-timing-out/39070
 
 ## further information
-- https://github.com/nextcloud/docker/blob/master/.examples/docker-compose/with-nginx-proxy/mariadb/fpm/docker-compose.yml
+- https://github.com/nextcloud/docker/blob/master/.examples/server_docker-compose/with-nginx-proxy/mariadb/fpm/server_docker-compose.yml
 - https://goneuland.de/nextcloud-upgrade-auf-neue-versionen-mittels-docker/
-- https://help.nextcloud.com/t/cant-start-nextcloud-because-the-version-of-the-data-is-higher-than-the-docker-image-version-and-downgrading-is-not-supported/109438
+- https://help.nextcloud.com/t/cant-start-nextcloud-because-the-version-of-the-data-is-higher-than-the-server_docker-image-version-and-downgrading-is-not-supported/109438
 - https://github.com/nextcloud/docker/issues/1302
 - https://help.nextcloud.com/t/update-to-22-failed-with-database-error-updated/120682
 - https://help.nextcloud.com/t/nc-update-to-21-0-0-beta1-exception-database-error/101124/4
 - https://wolfgang.gassler.org/reset-password-mariadb-mysql-docker/
-- https://unix.stackexchange.com/questions/478855/ansible-docker-container-and-depends-on
-- https://github.com/gdiepen/docker-convenience-scripts
+- https://unix.stackexchange.com/questions/478855/ansible-server_docker-container-and-depends-on
+- https://github.com/gdiepen/server_docker-convenience-scripts
 - https://help.nextcloud.com/t/several-issues-after-upgrading-to-nextcloud-21/113118/3
-- https://forum.openmediavault.org/index.php?thread/31782-docker-nextcloud-talk-plugin-and-turnserver/
-- https://help.nextcloud.com/t/nextcloud-talk-im-docker-container-turn-server-auf-docker-host-kein-video/84133/10
+- https://forum.openmediavault.org/index.php?thread/31782-server_docker-nextcloud-talk-plugin-and-turnserver/
+- https://help.nextcloud.com/t/nextcloud-talk-im-server_docker-container-turn-server-auf-server_docker-host-kein-video/84133/10

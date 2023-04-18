@@ -6,12 +6,12 @@
 - name: configure {{domain}}.conf
   vars:
     client_max_body_size: "31M"
-  template: src=roles/native-docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
+  template: src=roles/server_native-docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
   notify: restart nginx
 
-- name: "create /home/administrator/docker-compose/mailu"
+- name: "create /home/administrator/server_docker-compose/mailu"
   file:
-    path: "/home/administrator/docker-compose/mailu"
+    path: "/home/administrator/server_docker-compose/mailu"
     state: directory
     mode: 0755
 
@@ -33,12 +33,12 @@
     state: directory
     mode: 0755
 
-- name: add docker-compose.yml
-  template: src=docker-compose.yml.j2 dest=/home/administrator/docker-compose/mailu/docker-compose.yml
+- name: add server_docker-compose.yml
+  template: src=server_docker-compose.yml.j2 dest=/home/administrator/server_docker-compose/mailu/server_docker-compose.yml
   notify: recreate mailu
 
 - name: add mailu.env
-  template: src=mailu.env.j2 dest=/home/administrator/docker-compose/mailu/mailu.env
+  template: src=mailu.env.j2 dest=/home/administrator/server_docker-compose/mailu/mailu.env
   notify: recreate mailu
 
 - name: add deploy-letsencrypt-mailu.sh

@@ -1,1 +1,1 @@
-docker_volume_backup_folder: "/home/administrator/scripts/docker-volume-backup/"
+docker_volume_backup_folder: "/home/administrator/scripts/server_docker-volume-backup/"

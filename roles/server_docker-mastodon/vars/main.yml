@@ -1,1 +1,1 @@
-docker_compose_mastodon_path: "/home/administrator/docker-compose/mastodon/"
+docker_compose_mastodon_path: "/home/administrator/server_docker-compose/mastodon/"

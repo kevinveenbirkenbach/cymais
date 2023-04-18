@@ -1,7 +1,7 @@
 ---
 - name: recreate mastodon
   command:
-    cmd: docker-compose -p mastodon up -d --force-recreate
+    cmd: server_docker-compose -p mastodon up -d --force-recreate
     chdir: "{{docker_compose_mastodon_path}}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600

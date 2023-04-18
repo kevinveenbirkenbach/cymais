@@ -3,7 +3,7 @@
   command: certbot certonly --agree-tos --email {{administrator_email}} --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{domain}}
 
 - name: configure {{domain}}.conf
-  template: src=roles/native-docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
+  template: src=roles/server_native-docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
   notify: restart nginx
 
 - name: "create {{docker_compose_path}}"
@@ -12,8 +12,8 @@
     state: directory
     mode: 0755
 
-- name: add docker-compose.yml
-  template: src=docker-compose.yml.j2 dest={{docker_compose_path}}docker-compose.yml
+- name: add server_docker-compose.yml
+  template: src=server_docker-compose.yml.j2 dest={{docker_compose_path}}server_docker-compose.yml
   notify: recreate funkwhale
 
 - name: add .env

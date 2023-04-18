@@ -9,35 +9,35 @@
   hosts: servers
   become: true
   roles:
-    - system-security
-    - native-journalctl
-    - native-disc-space-check
-    - native-free-disc-space
-    - native-btrfs-health-check
+    - server_system-security
+    - server_native-journalctl
+    - server_native-disc-space-check
+    - server_native-free-disc-space
+    - server_native-btrfs-health-check
 - name: setup standard wireguard hosts
   hosts: wireguard_hosts
   become: true
   roles:
-    - native-wireguard
+    - server_native-wireguard
 - name: setup wireguard hosts behind firewall\nat
   hosts: wireguard_behind_firewall_hosts
   become: true
   roles:
-    - native-wireguard-behind-firewall
+    - server_native-wireguard-behind-firewall
 
 # Native Webserver Roles
 - name: setup homepages
   hosts: homepage_hosts
   become: true
   roles:
-   -  role: native-homepage
+   -  role: server_native-homepage
       vars:
         domain: "{{top_domain}}"
 - name: setup redirect hosts
   hosts: redirect_hosts
   become: true
   roles:
-   -  role: native-https-redirect
+   -  role: server_native-https-redirect
       vars:
         domain_mappings: "{{redirect_domain_mappings}}"
 
@@ -46,7 +46,7 @@
   hosts: nextcloud_hosts
   become: true
   roles:
-   -  role: docker-nextcloud
+   -  role: server_docker-nextcloud
       vars:
         domain: cloud.{{top_domain}}
         http_port: 8001
@@ -54,7 +54,7 @@
   hosts: gitea_hosts
   become: true
   roles:
-   -  role: docker-gitea
+   -  role: server_docker-gitea
       vars:
         domain: git.{{top_domain}}
         http_port: 8002
@@ -64,7 +64,7 @@
   hosts: wordpress_hosts
   become: true
   roles:
-   -  role: docker-wordpress
+   -  role: server_docker-wordpress
       vars:
         domains: "{{wordpress_domains}}"
         http_port: 8003
@@ -72,7 +72,7 @@
   hosts: mediawiki_hosts
   become: true
   roles:
-   -  role: docker-mediawiki
+   -  role: server_docker-mediawiki
       vars:
         domain: wiki.{{top_domain}}
         http_port: 8004
@@ -80,7 +80,7 @@
   hosts: mybb_hosts
   become: true
   roles:
-   -  role: docker-mybb
+   -  role: server_docker-mybb
       vars:
         domain: forum.{{top_domain}}
         http_port: 8005
@@ -88,12 +88,12 @@
   hosts: turn_server_hosts
   become: true
   roles:
-   -  role: docker-turn-server
+   -  role: server_docker-turn-server
 - name: setup yourls hosts
   hosts: yourls_hosts
   become: true
   roles:
-   -  role: docker-yourls
+   -  role: server_docker-yourls
       vars:
         domain: s.{{top_domain}}
         http_port: 8006
@@ -101,7 +101,7 @@
   hosts: mailu_hosts
   become: true
   roles:
-   -  role: docker-mailu
+   -  role: server_docker-mailu
       vars:
         domain: "mail.{{top_domain}}"
         http_port: 8007
@@ -109,7 +109,7 @@
   hosts: elk_hosts
   become: true
   roles:
-   -  role: docker-elk
+   -  role: server_docker-elk
       vars:
         domain: "elk.{{top_domain}}"
         http_port: 8008
@@ -117,7 +117,7 @@
   hosts: mastodon_hosts
   become: true
   roles:
-   -  role: docker-mastodon
+   -  role: server_docker-mastodon
       vars:
         domain: "mastodon.{{top_domain}}"
         http_port: 8009
@@ -126,7 +126,7 @@
   hosts: pixelfed_hosts
   become: true
   roles:
-   -  role: docker-pixelfed
+   -  role: server_docker-pixelfed
       vars:
         domain: pixelfed.{{top_domain}}
         http_port: 8010
@@ -134,7 +134,7 @@
   hosts: peertube_hosts
   become: true
   roles:
-   -  role: docker-peertube
+   -  role: server_docker-peertube
       vars:
         domain: peertube.{{top_domain}}
         http_port: 8011
@@ -142,14 +142,14 @@
   hosts: bigbluebutton_hosts
   become: true
   roles:
-   -  role: docker-bigbluebutton
+   -  role: server_docker-bigbluebutton
       vars:
         domain: bbb.{{top_domain}}
 - name: setup funkwhale hosts
   hosts: funkwhale_hosts
   become: true
   roles:
-   -  role: docker-funkwhale
+   -  role: server_docker-funkwhale
       vars:
         domain: funkwhale.{{top_domain}}
         http_port: 8012
@@ -157,7 +157,7 @@
   hosts: roulette_wheel_hosts
   become: true
   roles:
-   -  role: docker-roulette-wheel
+   -  role: server_docker-roulette-wheel
       vars:
         domain: roulette.{{top_domain}}
         http_port: 8013
@@ -165,7 +165,7 @@
   hosts: akaunting_hosts
   become: true
   roles:
-   -  role: docker-akaunting
+   -  role: server_docker-akaunting
       vars:
         domain: akaunting.{{top_domain}}
         http_port: 8080
@@ -175,7 +175,7 @@
   hosts: replica_backup_hosts
   become: true
   roles:
-    - role: native-pull-primary-backups
+    - role: server_native-pull-primary-backups
 
 ## PC services
 - name: general host setup

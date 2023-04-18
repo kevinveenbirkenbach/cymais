@@ -1,4 +1,4 @@
-# role native-docker-reverse-proxy
+# role server_native-docker-reverse-proxy
 
 Uses nginx as an [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy) for local docker applications.
 
@@ -16,4 +16,4 @@ curl -I {{address}}
 - https://askubuntu.com/questions/1103626/should-i-enable-client-max-body-size-proxy-request-buffering-and-proxy-bufferin
 - https://serverfault.com/questions/692577/whats-the-difference-between-proxy-buffer-and-proxy-cache-module-in-nginx-confi
 - https://github.com/sissbruecker/linkding/issues/88
-- https://www.bogotobogo.com/DevOps/Docker/Docker-Compose-Nginx-Reverse-Proxy-Multiple-Containers.php
+- https://www.bogotobogo.com/DevOps/Docker/server_docker-Compose-Nginx-Reverse-Proxy-Multiple-Containers.php

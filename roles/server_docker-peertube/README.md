@@ -7,10 +7,10 @@ watch -n 2 "docker ps  -a | grep peertube"
 
 ## clean rebuild
 ```bash
-cd /home/administrator/docker-compose/peertube/ &&
-docker-compose down 
+cd /home/administrator/server_docker-compose/peertube/ &&
+server_docker-compose down 
 docker volume rm peertube_assets peertube_config peertube_data peertube_database peertube_redis
-docker-compose up -d 
+server_docker-compose up -d 
 ```
 
 ## access terminal

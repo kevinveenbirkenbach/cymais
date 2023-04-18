@@ -1,26 +1,26 @@
-# role docker-pixelfed
+# role server_docker-pixelfed
 
 ## hard cleanup
 ```bash
-docker-compose down
+server_docker-compose down
 docker volume rm pixelfed_application_data pixelfed_database pixelfed_redis_data
 ```
 
 ## update
 ```bash 
-cd /home/administrator/docker-compose/pixelfed/ &&
-docker-compose down &&
+cd /home/administrator/server_docker-compose/pixelfed/ &&
+server_docker-compose down &&
 docker network prune -f &&
-docker-compose pull &&
-docker-compose build &&
-docker-compose -p pixelfed up -d --force-recreate
+server_docker-compose pull &&
+server_docker-compose build &&
+server_docker-compose -p pixelfed up -d --force-recreate
 ```
 
 ## inspect 
 
 ```bash
-docker-compose ps -a
-docker-compose logs -f
+server_docker-compose ps -a
+server_docker-compose logs -f
 ```
 
 ## further information

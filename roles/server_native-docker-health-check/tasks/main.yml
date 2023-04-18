@@ -4,17 +4,17 @@
     state: directory
     mode: 0755
 
-- name: create docker-health-check.sh
+- name: create server_docker-health-check.sh
   copy:
-    src: docker-health-check.sh
-    dest: "{{docker_health_check_folder}}docker-health-check.sh"
+    src: server_docker-health-check.sh
+    dest: "{{docker_health_check_folder}}server_docker-health-check.sh"
 
-- name: create docker-health-check.service
-  template: src=docker-health-check.service.j2 dest=/etc/systemd/system/docker-health-check.service
-  notify: reload docker-health-check.service
+- name: create server_docker-health-check.service
+  template: src=server_docker-health-check.service.j2 dest=/etc/systemd/system/server_docker-health-check.service
+  notify: reload server_docker-health-check.service
 
-- name: create docker-health-check.timer
+- name: create server_docker-health-check.timer
   template:
-    src: docker-health-check.timer.j2
-    dest: "/etc/systemd/system/docker-health-check.timer"
-  notify: restart docker-health-check.timer
+    src: server_docker-health-check.timer.j2
+    dest: "/etc/systemd/system/server_docker-health-check.timer"
+  notify: restart server_docker-health-check.timer

@@ -1,2 +1,2 @@
 dependencies:
-- native-certbot-nginx
+- server_native-certbot-nginx

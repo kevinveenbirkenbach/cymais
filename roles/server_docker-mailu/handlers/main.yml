@@ -1,8 +1,8 @@
 ---
 - name: recreate mailu
   command:
-    cmd: docker-compose -p mailu up -d --force-recreate
-    chdir: /home/administrator/docker-compose/mailu/
+    cmd: server_docker-compose -p mailu up -d --force-recreate
+    chdir: /home/administrator/server_docker-compose/mailu/
   environment:
     COMPOSE_HTTP_TIMEOUT: 900
     DOCKER_CLIENT_TIMEOUT: 900
