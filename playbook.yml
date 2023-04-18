@@ -15,26 +15,26 @@
     - server_native-free-disc-space
     - server_native-btrfs-health-check
 - name: setup standard wireguard hosts
-  hosts: wireguard_hosts
+  hosts: wireguard
   become: true
   roles:
     - server_native-wireguard
 - name: setup wireguard hosts behind firewall\nat
-  hosts: wireguard_behind_firewall_hosts
+  hosts: wireguard_behind_firewall
   become: true
   roles:
     - server_native-wireguard-behind-firewall
 
 # Native Webserver Roles
 - name: setup homepages
-  hosts: homepage_hosts
+  hosts: homepage
   become: true
   roles:
    -  role: server_native-homepage
       vars:
         domain: "{{top_domain}}"
 - name: setup redirect hosts
-  hosts: redirect_hosts
+  hosts: redirect
   become: true
   roles:
    -  role: server_native-https-redirect
@@ -43,7 +43,7 @@
 
 # Docker Roles
 - name: setup nextcloud hosts
-  hosts: nextcloud_hosts
+  hosts: nextcloud
   become: true
   roles:
    -  role: server_docker-nextcloud
@@ -51,7 +51,7 @@
         domain: cloud.{{top_domain}}
         http_port: 8001
 - name: setup gitea hosts
-  hosts: gitea_hosts
+  hosts: gitea
   become: true
   roles:
    -  role: server_docker-gitea
@@ -61,7 +61,7 @@
         ssh_port:  2201
         run_mode: prod
 - name: setup wordpress hosts
-  hosts: wordpress_hosts
+  hosts: wordpress
   become: true
   roles:
    -  role: server_docker-wordpress
@@ -69,7 +69,7 @@
         domains: "{{wordpress_domains}}"
         http_port: 8003
 - name: setup mediawiki hosts
-  hosts: mediawiki_hosts
+  hosts: mediawiki
   become: true
   roles:
    -  role: server_docker-mediawiki
@@ -77,7 +77,7 @@
         domain: wiki.{{top_domain}}
         http_port: 8004
 - name: setup mybb hosts
-  hosts: mybb_hosts
+  hosts: mybb
   become: true
   roles:
    -  role: server_docker-mybb
@@ -85,12 +85,12 @@
         domain: forum.{{top_domain}}
         http_port: 8005
 - name: setup turn server
-  hosts: turn_server_hosts
+  hosts: turn_server
   become: true
   roles:
    -  role: server_docker-turn-server
 - name: setup yourls hosts
-  hosts: yourls_hosts
+  hosts: yourls
   become: true
   roles:
    -  role: server_docker-yourls
@@ -98,7 +98,7 @@
         domain: s.{{top_domain}}
         http_port: 8006
 - name: setup mailu hosts
-  hosts: mailu_hosts
+  hosts: mailu
   become: true
   roles:
    -  role: server_docker-mailu
@@ -106,7 +106,7 @@
         domain: "mail.{{top_domain}}"
         http_port: 8007
 - name: setup elk hosts
-  hosts: elk_hosts
+  hosts: elk
   become: true
   roles:
    -  role: server_docker-elk
@@ -114,7 +114,7 @@
         domain: "elk.{{top_domain}}"
         http_port: 8008
 - name: setup mastodon hosts
-  hosts: mastodon_hosts
+  hosts: mastodon
   become: true
   roles:
    -  role: server_docker-mastodon
@@ -123,7 +123,7 @@
         http_port: 8009
         stream_port: 4001
 - name: setup pixelfed hosts
-  hosts: pixelfed_hosts
+  hosts: pixelfed
   become: true
   roles:
    -  role: server_docker-pixelfed
@@ -131,7 +131,7 @@
         domain: pixelfed.{{top_domain}}
         http_port: 8010
 - name: setup peertube hosts
-  hosts: peertube_hosts
+  hosts: peertube
   become: true
   roles:
    -  role: server_docker-peertube
@@ -139,14 +139,14 @@
         domain: peertube.{{top_domain}}
         http_port: 8011
 - name: setup bigbluebutton hosts
-  hosts: bigbluebutton_hosts
+  hosts: bigbluebutton
   become: true
   roles:
    -  role: server_docker-bigbluebutton
       vars:
         domain: bbb.{{top_domain}}
 - name: setup funkwhale hosts
-  hosts: funkwhale_hosts
+  hosts: funkwhale
   become: true
   roles:
    -  role: server_docker-funkwhale
@@ -154,7 +154,7 @@
         domain: funkwhale.{{top_domain}}
         http_port: 8012
 - name: setup roulette-wheel hosts
-  hosts: roulette_wheel_hosts
+  hosts: roulette_wheel
   become: true
   roles:
    -  role: server_docker-roulette-wheel
@@ -162,7 +162,7 @@
         domain: roulette.{{top_domain}}
         http_port: 8013
 - name: setup akaunting hosts
-  hosts: akaunting_hosts
+  hosts: akaunting
   become: true
   roles:
    -  role: server_docker-akaunting
@@ -172,7 +172,7 @@
 
 # Backup Roles
 - name: setup replica backup hosts
-  hosts: replica_backup_hosts
+  hosts: replica_backup
   become: true
   roles:
     - role: server_native-pull-primary-backups
@@ -186,109 +186,109 @@
     - pc_driver-non-free
 
 - name: pc_application-wireguard
-  hosts: application_wireguard_hosts
+  hosts: application_wireguard
   become: true
   roles:
     - pc_application-wireguard
 
 - name: pc_collection-office
-  hosts: collection_officetools_hosts
+  hosts: collection_officetools
   become: true
   roles:
     - pc_collection-office
 
 - name: pc_collection-designer
-  hosts: collection_designer_hosts
+  hosts: collection_designer
   become: true
   roles:
     - pc_collection-designer
 
 - name: pc_collection-torrent
-  hosts: collection_torrent_hosts
+  hosts: collection_torrent
   become: true
   roles:
     - pc_collection-torrent
 
 - name: pc_collection-streamer
-  hosts: collection_streamer_hosts
+  hosts: collection_streamer
   become: true
   roles:
     - pc_collection-streamer
 
 - name: pc_collection-bluray-player
-  hosts: collection_bluray_player_hosts
+  hosts: collection_bluray_player
   become: true
   roles:
     - pc_collection-bluray-player
 
 - name: pc_driver-intel
-  hosts: intel_hosts
+  hosts: intel
   become: true
   roles:
     - pc_driver-intel
 
 - name: pc_application-latex
-  hosts: latex_hosts
+  hosts: latex
   become: true
   roles:
     - pc_application-latex
 
 - name: GNOME setup
-  hosts: gnome_hosts
+  hosts: gnome
   become: true
   roles:
     - pc_system-gnome
 
 - name: setup msi rgb keyboard
-  hosts: msi_perkeyrgb_hosts
+  hosts: msi_perkeyrgb
   become: true
   roles:
     - pc_driver-msi-perkeyrgb
 
 - name: setup ssh hosts
-  hosts: ssh_hosts
+  hosts: ssh
   become: false
   roles:
     - pc_application-ssh
 
 - name: setup swapfile hosts
-  hosts: swapfile_hosts
+  hosts: swapfile
   become: false
   roles:
     - system-swapfile
 
 - name: setup gaming hosts
-  hosts: gaming_hosts
+  hosts: gaming
   become: true
   roles:
     - pc_collection-games
 
 - name: setup entertainment hosts
-  hosts: entertainment_hosts
+  hosts: entertainment
   become: true
   roles:
     - pc_collection-entertainment
 
 - name: setup multiprinter hosts
-  hosts: epson_multiprinter_hosts
+  hosts: epson_multiprinter
   become: true
   roles:
     - pc_driver-epson-multiprinter
 
 - name: setup torbrowser hosts
-  hosts: torbrowser_hosts
+  hosts: torbrowser
   become: true
   roles:
     - pc_application-torbrowser
 
 - name: setup nextcloud
-  hosts: nextcloud_hosts
+  hosts: nextcloud
   become: true
   roles:
     - pc_application-nextcloud
 
 - name: setup docker
-  hosts: docker_hosts
+  hosts: docker
   become: true
   roles:
     - pc_application-docker
