@@ -43,7 +43,7 @@
 
 # Docker Roles
 - name: setup nextcloud hosts
-  hosts: nextcloud
+  hosts: nextcloud_server
   become: true
   roles:
    -  role: server_docker-nextcloud
@@ -255,7 +255,7 @@
   hosts: swapfile
   become: false
   roles:
-    - system-swapfile
+    - pc_system-swapfile
 
 - name: setup gaming hosts
   hosts: gaming
@@ -282,7 +282,7 @@
     - pc_application-torbrowser
 
 - name: setup nextcloud
-  hosts: nextcloud
+  hosts: nextcloud_client
   become: true
   roles:
     - pc_application-nextcloud
