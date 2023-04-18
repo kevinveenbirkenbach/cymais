@@ -1,3 +1,0 @@
-dependencies:
-  - { role: native-pacman-update, when: ansible_distribution == 'Archlinux' }
-  - { role: native-apt-update, when: ansible_distribution == "Debian" }

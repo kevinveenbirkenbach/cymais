@@ -1,10 +1,15 @@
 ---
-- name: general host setup
-  hosts: all
+- name:   general setup
+  hosts:  all
+  become: true
+  roles:
+    - independent_system-update
+
+- name: servers host setup
+  hosts: servers
   become: true
   roles:
     - system-security
-    - system-update
     - native-journalctl
     - native-disc-space-check
     - native-free-disc-space
@@ -174,10 +179,9 @@
 
 ## PC services
 - name: general host setup
-  hosts: all
+  hosts: personal_computers
   become: true
   roles:
-    - system-pacman
     - pc_collection-administrator-base
     - pc_driver-non-free
 
