@@ -14,16 +14,25 @@
     - server_native-disc-space-check
     - server_native-free-disc-space
     - server_native-btrfs-health-check
-- name: setup standard wireguard hosts
-  hosts: wireguard
+
+# Wireguard Rollen
+- name: setup standard wireguard
+  hosts: wireguard_server
   become: true
   roles:
-    - server_native-wireguard
-- name: setup wireguard hosts behind firewall\nat
+    - independent-application-wireguard
+
+- name: setup wireguard client behind firewall\nat
   hosts: wireguard_behind_firewall
   become: true
   roles:
-    - server_native-wireguard-behind-firewall
+    - client_application-wireguard-behind-firewall
+
+- name: setup wireguard client
+  hosts: wireguard_client
+  become: true
+  roles:
+    - client_application-wireguard
 
 # Native Webserver Roles
 - name: setup homepages
@@ -184,12 +193,6 @@
   roles:
     - pc_collection-administrator-base
     - pc_driver-non-free
-
-- name: pc_application-wireguard
-  hosts: application_wireguard
-  become: true
-  roles:
-    - pc_application-wireguard
 
 - name: pc_collection-office
   hosts: collection_officetools

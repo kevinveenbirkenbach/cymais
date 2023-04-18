@@ -4,3 +4,6 @@
     state: restarted
     enabled: yes
     daemon_reload: yes
+
+- name: "reload sysctl configuration"
+  shell: "sysctl --load='/etc/sysctl.d/wireguard-ip.conf'"

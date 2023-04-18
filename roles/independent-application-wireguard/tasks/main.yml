@@ -1,10 +1,22 @@
 - name: install wireguard for Arch
-  pacman: name=wireguard-tools state=present
+  pacman: 
+    name:   wireguard-tools
+    state:  present
   when: ansible_os_family == "Archlinux"
 
 - name: install wireguard for Ubuntu
-  apt: name=wireguard state=present
+  apt: 
+    name:   wireguard
+    state:  present
   when: ansible_os_family == "Debian"
+
+- name: create wireguard-ip.conf
+  copy:
+    src: "wireguard-ip.conf"
+    dest: /etc/sysctl.d/wireguard-ip.conf
+    owner: root
+    group: root
+  notify: reload sysctl configuration
 
 - name: create /etc/wireguard/wg0.conf
   copy:
@@ -13,9 +25,3 @@
     owner: root
     group: root
   notify: restart wireguard
-
-- name: enable ipv4-forwarding
-  shell: sysctl net.ipv4.ip_forward=1
-
-- name: enable ipv6-forwarding
-  shell: sysctl net.ipv6.conf.all.forwarding=1
