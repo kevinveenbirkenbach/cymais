@@ -1,0 +1,13 @@
+- name: install designer tools
+  community.general.pacman:
+    name: 
+      - gimp
+      - blender
+    state: present
+
+- name: install drawio
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - drawio-desktop
+  become: false

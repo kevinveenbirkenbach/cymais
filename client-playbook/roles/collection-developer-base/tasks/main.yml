@@ -1,0 +1,5 @@
+- name: install base developer tools
+  community.general.pacman:
+    name:
+      - code
+    state: present

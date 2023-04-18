@@ -1,0 +1,10 @@
+[Unit]
+Description=set MTU 
+Before=wg-quick@wg0.service
+
+[Service]
+Type=oneshot
+ExecStart=set-mtu.sh
+
+[Install]
+RequiredBy=wg-quick@wg0.service

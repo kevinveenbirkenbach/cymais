@@ -1,0 +1,5 @@
+- name: install torrent software
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - qbittorrent

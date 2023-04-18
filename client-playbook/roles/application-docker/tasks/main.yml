@@ -1,0 +1,11 @@
+- name: install docker
+  community.general.pacman:
+    name:
+      - docker
+      - docker-compose
+    state: present
+
+- name: Adding user {{client_username}} to relevant arduino usergroups  
+  user: name={{client_username}}
+        groups=docker
+        append=yes

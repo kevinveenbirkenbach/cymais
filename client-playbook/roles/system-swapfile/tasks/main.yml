@@ -1,0 +1,10 @@
+- name: pull swapfile creating script
+  git:
+    repo: "git@github.com:kevinveenbirkenbach/create-linux-swapfile.git"
+    dest: "$HOME/Repositories/github.com/kevinveenbirkenbach/create-linux-swapfile"
+    update: yes
+  become: false
+
+- name: Execute create swapfile script
+  ansible.builtin.shell: bash "/home/{{client_username}}/Repositories/github.com/kevinveenbirkenbach/create-linux-swapfile/create-linux-swapfile.sh" "{{swapfile_size}}"
+  become: true

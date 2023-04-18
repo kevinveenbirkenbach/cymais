@@ -1,0 +1,9 @@
+- name: Install MSI packages
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      -  msi-perkeyrgb
+
+- name: Change preset of keyboard {{vendor_and_product_id}} to {{preset}}
+  ansible.builtin.shell: sudo msi-perkeyrgb --model GS65 -p "{{preset}}" --id "{{vendor_and_product_id}}"
+  become: true

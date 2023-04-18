@@ -1,0 +1,5 @@
+- name: install entertainment software
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - spotify

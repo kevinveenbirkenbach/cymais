@@ -1,0 +1,6 @@
+- name: pull ssh repository from {{ssh_configuration_repository}}
+  git:
+    repo: "{{ssh_configuration_repository}}"
+    dest: "$HOME/.ssh"
+    update: yes
+  become: false

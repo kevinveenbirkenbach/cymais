@@ -1,0 +1,6 @@
+- name: Install torbrowser
+  community.general.pacman:
+    name:
+      - tor
+      - torbrowser-launcher
+    state: present

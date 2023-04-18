@@ -1,0 +1,10 @@
+- name: install hunspell
+  community.general.pacman:
+    name: hunspell
+    state: present
+
+- name: install hunspell language packages
+  community.general.pacman:
+    name: "hunspell-{{ item }}"
+    state: present
+  loop: "{{hunspell_languages}}"

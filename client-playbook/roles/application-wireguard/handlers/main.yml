@@ -1,0 +1,16 @@
+- name: "restart set-mtu.service"
+  systemd:
+    name: set-mtu.service
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+
+- name: "restart wireguard"
+  systemd:
+    name: wg-quick@wg0.service
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+
+- name: "reload sysctl configuration"
+  shell: "sysctl -p"
