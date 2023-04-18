@@ -4,7 +4,7 @@ Before=wg-quick@wg0.service
 
 [Service]
 Type=oneshot
-ExecStart=set-mtu.sh
+ExecStart=bash /usr/local/bin/set-mtu.sh
 
 [Install]
 RequiredBy=wg-quick@wg0.service
