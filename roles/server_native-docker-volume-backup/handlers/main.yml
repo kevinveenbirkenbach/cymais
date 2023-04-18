@@ -1,12 +1,12 @@
-- name: "reload server_docker-volume-backup service"
+- name: "reload docker-volume-backup.service"
   systemd:
-    name: server_docker-volume-backup.service
+    name: docker-volume-backup.service
     state: reloaded
     enabled: yes
     daemon_reload: yes
-- name: "restart server_docker-volume-backup timer"
+- name: "restart docker-volume-backup.timer"
   systemd:
-    name: server_docker-volume-backup.timer
+    name: docker-volume-backup.timer
     state: restarted
     enabled: yes
     daemon_reload: yes

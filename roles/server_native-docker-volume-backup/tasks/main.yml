@@ -1,22 +1,22 @@
-- name: Install pandas python package
+- name: install pandas python package
   pip:
     name: pandas
 
-- name: pull server_docker-volume-backup.git
+- name: pull docker-volume-backup.git
   git:
-    repo: "https://github.com/kevinveenbirkenbach/server_docker-volume-backup.git"
+    repo: "https://github.com/kevinveenbirkenbach/docker-volume-backup.git"
     dest: "{{docker_volume_backup_folder}}"
     update: yes
 
-- name: configure server_docker-volume-backup.service
+- name: configure docker-volume-backup.service
   template: 
-    src: server_docker-volume-backup.service.j2
-    dest: /etc/systemd/system/server_docker-volume-backup.service
-  notify: reload server_docker-volume-backup service
+    src: docker-volume-backup.service.j2
+    dest: /etc/systemd/system/docker-volume-backup.service
+  notify: reload docker-volume-backup.service
 
-- name: configure server_docker-volume-backup.timer.tpl
-  template: src=server_docker-volume-backup.timer.j2 dest=/etc/systemd/system/server_docker-volume-backup.timer
-  notify: restart server_docker-volume-backup timer
+- name: configure docker-volume-backup.timer.tpl
+  template: src=docker-volume-backup.timer.j2 dest=/etc/systemd/system/docker-volume-backup.timer
+  notify: restart docker-volume-backup.timer
 
 - name: create {{docker_volume_backup_folder}}databases.csv
   copy:
