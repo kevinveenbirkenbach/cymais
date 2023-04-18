@@ -1,12 +1,15 @@
-# Server-Playbook
+# Computer Playbook
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
-Ansible software to setup and administrate applications and docker images on Linux servers. 
-With this tool you can setup all of the following application on an root dedicated server in less then 4 hours. 
+Ansible software to setup and administrate applications and docker images on Linux computers. 
 
-## Included Applications
+With this tool you can setup all of the following application on bare metal servers and personal computers
 
-### Docker Applications
+## Bare Metal Servers
+
+### Included Applications
+
+#### Docker Applications
 
 This software allows to setup the docker following applications:
 
@@ -24,7 +27,7 @@ This software allows to setup the docker following applications:
 - [Media Wiki](./roles/docker-mediawiki/README.md) - Wiki Software
 - [MyBB](./roles/docker-mybb/README.md) - Forum Software
 
-### Native Applications
+#### Native Applications
 
 This software shipts the following tools which are natively setup on the server:
 - [Backups Cleanup](./roles/native-backups-cleanup/README.md) - Cleans up old backups
@@ -35,14 +38,14 @@ This software shipts the following tools which are natively setup on the server:
 - [Pull Primary Backups](./roles/native-pull-primary-backups/README.md) - Pulls the backups from another server and stores them
 - [Wireguard](./roles/native-wireguard/README.md) - Integrates the server in an wireguard vpn
 
-## Server Administration
+### Server Administration
 
-### Cleanup docker
+#### Cleanup docker
 ``bash
 docker stop $(docker ps -aq); docker rm $(docker ps -aq); docker volume rm $(docker volume ls -q);
 ``
 
-### Restart
+#### Restart
 
 To mercifull restart the server and to prevent data lost type in: 
 
@@ -53,12 +56,11 @@ docker stop $(docker ps -a -q) && systemctl stop docker && shutdown -r +2 "The s
 May it's neccessary to restart some of the the docker containers manual afterwards. 
 
 
-# Client Playbook
-[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+## Personal Computers
 
-Playbook to setup Manjaro GNOME clients in integration with a server which is configured with the [Server Playbook Software](https://github.com/kevinveenbirkenbach/server-playbook).
+This playbooks offers the setup of Manjaro GNOME clients.
 
-## Included Applications
+### Included Applications
 - [Basic Linux Administration Tools](./roles/collection-administrator-base/)
 - [Network Analyzes Tools](./roles/collection-administrator-network-analyze/)
 - [Designer Tools](./roles/collection-designer/)
@@ -75,7 +77,7 @@ Playbook to setup Manjaro GNOME clients in integration with a server which is co
 - [Torrent Software](./roles/collection-torrent/)
 - ...
 
-## Setup
+### Setup
 
 Run:
 ```bash
