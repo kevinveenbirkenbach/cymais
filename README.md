@@ -61,20 +61,20 @@ May it's neccessary to restart some of the the docker containers manual afterwar
 This playbooks offers the setup of Manjaro GNOME clients.
 
 ### Included Applications
-- [Basic Linux Administration Tools](./roles/collection-administrator-base/)
-- [Network Analyzes Tools](./roles/collection-administrator-network-analyze/)
-- [Designer Tools](./roles/collection-designer/)
-- [Arduino Developer Tools](./roles/collection-developer-arduino/)
-- [Basic Developer Tools](./roles/collection-developer-base/)
-- [Bash Developer Tools](./roles/collection-developer-bash/)
-- [Java Developer Tools](./roles/collection-developer-java/)
-- [PHP Developer Tools](./roles/collection-developer-php/)
-- [Python Developer Tools](./roles/collection-developer-python/)
-- [Entertainment Software](./roles/collection-entertainment/)
-- [Games](./roles/collection-games/)
-- [Office Tools](./roles/collection-office/)
-- [Streaming Tools](./roles/collection-streamer/)
-- [Torrent Software](./roles/collection-torrent/)
+- [Basic Linux Administration Tools](./roles/pc_collection-administrator-base/)
+- [Network Analyzes Tools](./roles/pc_collection-administrator-network-analyze/)
+- [Designer Tools](./roles/pc_collection-designer/)
+- [Arduino Developer Tools](./roles/pc_collection-developer-arduino/)
+- [Basic Developer Tools](./roles/pc_collection-developer-base/)
+- [Bash Developer Tools](./roles/pc_collection-developer-bash/)
+- [Java Developer Tools](./roles/pc_collection-developer-java/)
+- [PHP Developer Tools](./roles/pc_collection-developer-php/)
+- [Python Developer Tools](./roles/pc_collection-developer-python/)
+- [Entertainment Software](./roles/pc_collection-entertainment/)
+- [Games](./roles/pc_collection-games/)
+- [Office Tools](./roles/pc_collection-office/)
+- [Streaming Tools](./roles/pc_collection-streamer/)
+- [Torrent Software](./roles/pc_collection-torrent/)
 - ...
 
 ### Setup

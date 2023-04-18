@@ -178,74 +178,74 @@
   become: true
   roles:
     - system-pacman
-    - collection-administrator-base
-    - driver-non-free
+    - pc_collection-administrator-base
+    - pc_driver-non-free
 
-- name: application-wireguard
+- name: pc_application-wireguard
   hosts: application_wireguard_hosts
   become: true
   roles:
-    - application-wireguard
+    - pc_application-wireguard
 
-- name: collection-office
+- name: pc_collection-office
   hosts: collection_officetools_hosts
   become: true
   roles:
-    - collection-office
+    - pc_collection-office
 
-- name: collection-designer
+- name: pc_collection-designer
   hosts: collection_designer_hosts
   become: true
   roles:
-    - collection-designer
+    - pc_collection-designer
 
-- name: collection-torrent
+- name: pc_collection-torrent
   hosts: collection_torrent_hosts
   become: true
   roles:
-    - collection-torrent
+    - pc_collection-torrent
 
-- name: collection-streamer
+- name: pc_collection-streamer
   hosts: collection_streamer_hosts
   become: true
   roles:
-    - collection-streamer
+    - pc_collection-streamer
 
-- name: collection-bluray-player
+- name: pc_collection-bluray-player
   hosts: collection_bluray_player_hosts
   become: true
   roles:
-    - collection-bluray-player
+    - pc_collection-bluray-player
 
-- name: driver-intel
+- name: pc_driver-intel
   hosts: intel_hosts
   become: true
   roles:
-    - driver-intel
+    - pc_driver-intel
 
-- name: application-latex
+- name: pc_application-latex
   hosts: latex_hosts
   become: true
   roles:
-    - application-latex
+    - pc_application-latex
 
 - name: GNOME setup
   hosts: gnome_hosts
   become: true
   roles:
-    - system-gnome
+    - pc_system-gnome
 
 - name: setup msi rgb keyboard
   hosts: msi_perkeyrgb_hosts
   become: true
   roles:
-    - driver-msi-perkeyrgb
+    - pc_driver-msi-perkeyrgb
 
 - name: setup ssh hosts
   hosts: ssh_hosts
   become: false
   roles:
-    - application-ssh
+    - pc_application-ssh
 
 - name: setup swapfile hosts
   hosts: swapfile_hosts
@@ -257,34 +257,34 @@
   hosts: gaming_hosts
   become: true
   roles:
-    - collection-games
+    - pc_collection-games
 
 - name: setup entertainment hosts
   hosts: entertainment_hosts
   become: true
   roles:
-    - collection-entertainment
+    - pc_collection-entertainment
 
 - name: setup multiprinter hosts
   hosts: epson_multiprinter_hosts
   become: true
   roles:
-    - driver-epson-multiprinter
+    - pc_driver-epson-multiprinter
 
 - name: setup torbrowser hosts
   hosts: torbrowser_hosts
   become: true
   roles:
-    - application-torbrowser
+    - pc_application-torbrowser
 
 - name: setup nextcloud
   hosts: nextcloud_hosts
   become: true
   roles:
-    - application-nextcloud
+    - pc_application-nextcloud
 
 - name: setup docker
   hosts: docker_hosts
   become: true
   roles:
-    - application-docker
+    - pc_application-docker
