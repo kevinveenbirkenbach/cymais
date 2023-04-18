@@ -10,35 +10,6 @@ Manages wireguard on a client.
   echo "PresharedKey: $(wg genpsk)"
 ```
 
-## Debug 
-
-### RTNETLINK answers: Permission denied
-When ```systemctl restart wg-quick@wg0.service``` returns __RTNETLINK answers: Permission denied__, modify _/etc/sysctl.conf_:
-
-```bash
-net.ipv6.conf.all.disable_ipv6 = 0
-net.ipv6.conf.default.disable_ipv6 = 0
-net.ipv6.conf.lo.disable_ipv6 = 0
-```
-
-Afterwards reload: 
-```bash
-sysctl -p
-systemctl restart wg-quick@wg0.service
-```
-
-
-### SSH
-
-When the SSH connection over wireguard is buggy try: 
-
-```bash
-ip li set mtu 1400 dev eth0
-ip li set mtu 1400 dev wlo1
-```
-
-This can be connected to the [MTU](https://www.imperva.com/learn/application-security/what-is-mtu-mss/)
-
 ## Other
 - https://golb.hplar.ch/2019/01/expose-server-vpn.html
 - https://wiki.archlinux.org/index.php/WireGuard
@@ -51,3 +22,7 @@ This can be connected to the [MTU](https://www.imperva.com/learn/application-sec
 - https://serverfault.com/questions/1086297/wireguard-connection-dies-on-ubuntu-peer
 - https://unix.stackexchange.com/questions/624987/ssh-fails-to-start-when-listenaddress-is-set-to-wireguard-vpn-ip
 - https://serverfault.com/questions/210408/cannot-ssh-debug1-expecting-ssh2-msg-kex-dh-gex-reply
+- https://www.thomas-krenn.com/de/wiki/Linux_ip_Kommando
+- https://wiki.archlinux.org/title/dhcpcd
+- https://wiki.ubuntuusers.de/NetworkManager/Dispatcher/
+- https://askubuntu.com/questions/1024916/how-can-i-launch-a-systemd-service-at-startup-before-another-systemd-service-sta

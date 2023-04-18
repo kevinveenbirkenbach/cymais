@@ -1,2 +1,3 @@
 dependencies:
 - application-git
+- application-caffeine

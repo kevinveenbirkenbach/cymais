@@ -4,7 +4,6 @@
   roles:
     - system-pacman
     - collection-administrator-base
-    - application-caffeine
     - driver-non-free
 
 - name: application-wireguard
