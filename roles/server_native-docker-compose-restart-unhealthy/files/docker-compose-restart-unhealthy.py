@@ -30,7 +30,7 @@ waiting_time=600
 backup_running=True
 while backup_running:
     try: 
-        bash("systemctl is-active --quiet server_docker-volume-backup.service")
+        bash("systemctl is-active --quiet docker-volume-backup.service")
         print("backup is running.")
         print("trying again in  " + str(waiting_time) + " seconds.")
         time.sleep(waiting_time)
