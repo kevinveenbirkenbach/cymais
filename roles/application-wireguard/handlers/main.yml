@@ -11,3 +11,6 @@
     state: restarted
     enabled: yes
     daemon_reload: yes
+
+- name: "reload sysctl configuration"
+  shell: "sysctl -p"
