@@ -18,7 +18,7 @@ while psutil.disk_usage(args.backups_folder_path).percent > args.maximum_backup_
         for application_directory in os.listdir(host_backup_directory_path):
             
             # The directory which contains all backup versions of the application
-            versions_directory = os.path.join(host_backup_directory_path, application_directory)
+            versions_directory = os.path.join(host_backup_directory_path, application_directory) + "/"
                         
             versions = os.listdir(versions_directory)
             versions.sort(reverse=False)
