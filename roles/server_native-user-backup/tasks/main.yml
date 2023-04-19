@@ -11,10 +11,6 @@
     group: backup
     mode: '0700'
 
-- name: register hashed_machine_id
-  shell: sha256sum /etc/machine-id | head -c 64
-  register: hashed_machine_id
-
 - name: create /home/backup/.ssh/authorized_keys
   template:
     src: "authorized_keys.j2"
@@ -24,8 +20,8 @@
     mode: '0644'
 
 - name: create /home/backup/ssh-wrapper.sh
-  template:
-    src: "ssh-wrapper.sh.j2"
+  copy:
+    src: "ssh-wrapper.sh"
     dest: /home/backup/ssh-wrapper.sh
     owner: backup
     group: backup

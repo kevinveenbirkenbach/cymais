@@ -8,19 +8,22 @@ fi
 
 # define executable commands
 get_hashed_machine_id="sha256sum /etc/machine-id";
-get_backup_types="find /Backups/{{hashed_machine_id.stdout}}/ -maxdepth 1 -type d -execdir basename {} ;";
+hashed_machine_id="$($get_hashed_machine_id | head -c 64)"
+get_backup_types="find /Backups/$hashed_machine_id/ -maxdepth 1 -type d -execdir basename {} ;";
+
 
 # @todo This configuration is not scalable yet. If other backup services then docker-volume-backup are integrated, this logic needs to be optimized
-get_static_last_version_dir="readlink -f /Backups/{{hashed_machine_id.stdout}}/docker-volume-backup/latest"
-rsync_command="sudo rsync --server --sender -blogDtpre.iLsfxCIvu . $($get_static_last_version_dir)/"
+get_version_directories="ls -d /Backups/$hashed_machine_id/docker-volume-backup/*"
+last_version_directory="$($get_version_directories | tail -1)"
+rsync_command="sudo rsync --server --sender -blogDtpre.iLsfxCIvu . $last_version_directory/"
 
 # filter commands
 case "$SSH_ORIGINAL_COMMAND" in
 	"$get_hashed_machine_id")
 		$get_hashed_machine_id
 		;;
-	"$get_static_last_version_dir")
-		$get_static_last_version_dir
+	"$get_version_directories")
+		$get_version_directories
 		;;
 	"$get_backup_types")
 		$get_backup_types
