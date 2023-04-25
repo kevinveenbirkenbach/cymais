@@ -46,9 +46,13 @@ for host_backup_directory_name in os.listdir(args.backups_folder_path):
                 print("Directory %s is used by another process. Skipped." % (version_path))
                 continue
              
-            if psutil.disk_usage(args.backups_folder_path).percent > args.maximum_backup_size_percent:
+            old_disc_usage_percent=psutil.disk_usage(args.backups_folder_path).percent
+            if old_disc_usage_percent > args.maximum_backup_size_percent:
                 print("Deleting %s to free space." % (version_path))
                 shutil.rmtree(version_path)
+                new_disc_usage_percent=psutil.disk_usage(args.backups_folder_path).percent
+                difference_percent=old_disc_usage_percent-new_disc_usage_percent
+                print("{:6.2f} %% of drive freed".format(difference_percent))
                 continue
             
             if os.path.exists(version_status_pulling_path):
