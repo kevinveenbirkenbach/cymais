@@ -2,6 +2,12 @@
   pip:
     name: psutil
 
+- name: install lsof
+  community.general.pacman:
+    name:
+      - lsof
+    state: present
+
 - name: "create {{docker_backups_cleanup}}"
   file:
     path: "{{docker_backups_cleanup}}"

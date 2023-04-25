@@ -2,7 +2,7 @@ import psutil
 import shutil
 import os
 import argparse
-import sys
+import subprocess
 
 # Validating arguments
 parser = argparse.ArgumentParser()
@@ -12,8 +12,16 @@ args = parser.parse_args()
 
 def print_used_disc_space():
     print("%d %% of disk %s are used" % (psutil.disk_usage(args.backups_folder_path).percent,args.backups_folder_path))  
-    
-warning_counter=0
+
+def is_directory_used_by_another_process(directory_path):
+    command= "lsof " + directory_path
+    process = subprocess.Popen([command], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    output, error = process.communicate()
+    if error:
+        raise Exception(error.strip())
+    if output:
+        return True
+    return False
 
 for host_backup_directory_name in os.listdir(args.backups_folder_path):
     host_backup_directory_path = os.path.join(args.backups_folder_path, host_backup_directory_name)
@@ -24,27 +32,29 @@ for host_backup_directory_name in os.listdir(args.backups_folder_path):
                     
         versions = os.listdir(versions_directory)
         versions.sort(reverse=False)
-        versions_counter=len(versions)
         
         print_used_disc_space()  
         for version in versions:
             version_path=os.path.join(versions_directory, version)
             version_status_pulling_path=os.path.join(versions_directory, version, ".pulling")
             print("Checking directory %s ..." % (version_path))
+            if version == versions[-1]:
+                print("Directory %s contains the last version of the backup. Skipped." % (version_path))
+                continue
+            
+            if is_directory_used_by_another_process(version_path):
+                print("Directory %s is used by another process. Skipped." % (version_path))
+                continue
+             
             if psutil.disk_usage(args.backups_folder_path).percent > args.maximum_backup_size_percent:
-                if versions_counter >= 1:
-                    print("Deleting %s to free space" % (version_path))
-                    shutil.rmtree(version_path)
-                    versions_counter-=1
-                else:
-                    print("Deletion not possible. There needs to be at least one backup version")
-                    warning_counter+=1
-            elif os.path.exists(version_status_pulling_path):
-                last_version=versions[-1]
-                if last_version != version:
-                    print("Deleting %s due to unfinished pull" % (version_path))
-                    shutil.rmtree(version_path)
-                    versions_counter-=1
+                print("Deleting %s to free space." % (version_path))
+                shutil.rmtree(version_path)
+                continue
+            
+            if os.path.exists(version_status_pulling_path):
+                print("Deleting %s due to unfinished pull." % (version_path))
+                shutil.rmtree(version_path)
+                continue
+            
 print_used_disc_space()            
 print("Cleaning up finished.")
-sys.exit(warning_counter)
