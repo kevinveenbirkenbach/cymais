@@ -184,7 +184,7 @@
   hosts: replica_backup
   become: true
   roles:
-    - role: server_native-pull-primary-backups
+    - role: server_native-backups-consumer
 
 ## PC services
 - name: general host setup

@@ -35,7 +35,7 @@ This software shipts the following tools which are natively setup on the server:
 - [Docker Health Check](./roles/server_native-docker-health-check/) - Checks the health of docker containers
 - [Docker Reverse Proxy](./roles/server_native-docker-reverse-proxy/README.md) - Docker Reverse Proxy Solution
 - [Docker Volume Backup](./roles/server_native-docker-volume-backup/) - Backup Solution for Docker Volumes
-- [Pull Primary Backups](./roles/server_native-pull-primary-backups/README.md) - Pulls the backups from another server and stores them
+- [Pull Primary Backups](./roles/server_native-backups-consumer/README.md) - Pulls the backups from another server and stores them
 - [Wireguard](./roles/server_native-wireguard/README.md) - Integrates the server in an wireguard vpn
 
 ### Server Administration

@@ -45,10 +45,19 @@ for backup_type in $remote_backup_types; do
     echo "creating local backup destination folder..." &&
     mkdir -vp "$local_backup_destination_path" &&
 
+    status_pulling_file="$local_backup_destination_path/.pulling" &&
+    echo "creating:                 $status_pulling_file" &&
+    echo "pulling backup since $(date)" > $status_pulling_file &&
+
     echo "starting backup..." &&
     rsync_command='rsync -abP --delete --delete-excluded --rsync-path="sudo rsync" --link-dest="'$local_previous_version_dir'" "'$remote_source_path'" "'$local_backup_destination_path'"' &&
     echo "executing:                $rsync_command" &&
-    eval "$rsync_command" || ((errors+=1));
+    eval "$rsync_command" &&
+    
+    echo "removing:                $status_pulling_file" &&
+    rm -vf $status_pulling_file
+
+    || ((errors+=1));
   fi
 done
 exit $errors;
