@@ -20,7 +20,7 @@
   hosts: wireguard_server
   become: true
   roles:
-    - independent-application-wireguard
+    - independent_application-wireguard
 
 - name: setup wireguard client behind firewall\nat
   hosts: wireguard_behind_firewall
@@ -290,3 +290,10 @@
   become: true
   roles:
     - pc_application-docker
+
+
+- name: setup backup to swappable
+  hosts: backup_to_swappable
+  become: true
+  roles:
+    - independent_backup-to-swappable

@@ -1,2 +1,3 @@
 dependencies:
 - independent_user-administrator
+- independent_systemd-email

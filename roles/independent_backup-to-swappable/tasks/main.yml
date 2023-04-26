@@ -1,0 +1,27 @@
+- name: "create {{backup_to_swappable_folder}}"
+  file:
+    path: "{{backup_to_swappable_folder}}"
+    state: directory
+    mode: 0755
+
+- name: create backup-to-swappable.rule
+  template:
+    src: backup-to-swappable.rule.j2
+    dest: "/etc/udev/rules.d/backup-to-swappable.rule"
+
+- name: create backup-to-swappable.sh
+  copy:
+    src: backup-to-swappable.sh
+    dest: "{{backup_to_swappable_folder}}backup-to-swappable.sh"
+
+- name: create backup-to-swappable.service
+  template: 
+    src: backup-to-swappable.service.j2
+    dest: /etc/systemd/system/backup-to-swappable.service
+  notify: reload backup-to-swappable.service
+
+- name: create backup-to-swappable.timer
+  template:
+    src: backup-to-swappable.timer.j2
+    dest: /etc/systemd/system/backup-to-swappable.timer
+  notify: restart backup-to-swappable.timer

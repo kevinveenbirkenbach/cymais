@@ -1,2 +1,2 @@
 dependencies:
-  - server_native-systemd-email
+  - independent_systemd-email

@@ -1,0 +1,12 @@
+- name: "reload backup-to-swappable.service"
+  systemd:
+    name: backup-to-swappable.service
+    state: reloaded
+    enabled: yes
+    daemon_reload: yes
+- name: "restart backup-to-swappable.timer"
+  systemd:
+    name: backup-to-swappable.timer
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

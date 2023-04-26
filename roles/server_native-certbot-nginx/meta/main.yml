@@ -1,3 +1,3 @@
 dependencies:
 - server_native-nginx
-- server_native-systemd-email
+- independent_systemd-email

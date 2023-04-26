@@ -1,0 +1,7 @@
+[Unit]
+Description=backing up data
+OnFailure=systemd-email@%n.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bash {{backup_to_swappable_script_path}}

@@ -1,0 +1,1 @@
+ACTION=="add", KERNEL=="sd[a-z]", ENV{ID_SERIAL_SHORT}=="{{backup_to_swappable_serial_short}}", RUN+="systemctl start backup-to-swappable.service"
