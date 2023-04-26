@@ -1,3 +1,2 @@
 backup_to_swappable_folder:           "{{path_administrator_scripts}}backup-to-swappable/"
-backup_to_swappable_destination_path: "{{backup_to_swappable_destination_path}}backup-to-swappable/"
 backup_to_swappable_script_path:      "{{backup_to_swappable_folder}}backup-to-swappable.sh"
