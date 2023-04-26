@@ -55,9 +55,7 @@ for backup_type in $remote_backup_types; do
     eval "$rsync_command" &&
     
     echo "removing:                $status_pulling_file" &&
-    rm -vf $status_pulling_file
-
-    || ((errors+=1));
+    rm -vf $status_pulling_file || ((errors+=1));
   fi
 done
 exit $errors;

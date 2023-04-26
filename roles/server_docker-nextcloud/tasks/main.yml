@@ -8,16 +8,16 @@
     dest: "/etc/nginx/conf.d/{{domain}}.conf"
   notify: restart nginx
 
-- name: "create {{path_volumes_docker}}nextcloud/"
+- name: "create {{path_docker_volumes}}nextcloud/"
   file:
-    path: "{{path_volumes_docker}}nextcloud"
+    path: "{{path_docker_volumes}}nextcloud"
     state: directory
     mode: 0755
 
 - name: configure nginx.conf
   template: 
     src:  "templates/nginx.conf.j2" 
-    dest: "{{path_volumes_docker}}nextcloud/nginx.conf"
+    dest: "{{path_docker_volumes}}nextcloud/nginx.conf"
   notify: recreate nextcloud
 
 - name: "create {{path_docker_compose_files}}nextcloud/"
