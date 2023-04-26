@@ -1,0 +1,10 @@
+[Unit]
+Description=starts usb-auto-backup.service
+
+[Timer]
+OnCalendar={{on_calendar_usb_auto_backup}}
+RandomizedDelaySec={{randomized_delay_sec}}
+Persistent=true
+
+[Install]
+WantedBy=timers.target
