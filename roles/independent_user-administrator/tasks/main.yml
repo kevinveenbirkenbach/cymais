@@ -8,9 +8,9 @@
     ssh_key_type: rsa
     ssh_key_bits: 8192
     
-- name: "create /home/administrator/scripts/"
+- name: "create {{path_administrator_scripts}}"
   file:
-    path: "/home/administrator/scripts"
+    path: "{{path_administrator_home}}scripts"
     state: directory
     owner: administrator
     group: administrator

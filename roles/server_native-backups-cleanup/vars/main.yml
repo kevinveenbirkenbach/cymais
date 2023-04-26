@@ -1,1 +1,1 @@
-docker_backups_cleanup: "/home/administrator/scripts/backups-cleanup/"
+docker_backups_cleanup: "{{path_administrator_scripts}}backups-cleanup/"

@@ -1,1 +1,1 @@
-disc_space_check_folder: "/home/administrator/scripts/disc-space-check/"
+disc_space_check_folder: "{{path_administrator_scripts}}disc-space-check/"

@@ -1,1 +1,1 @@
-docker_pull_primary_backups_folder: "/home/administrator/scripts/pull-primary-backups/"
+docker_pull_primary_backups_folder: "{{path_administrator_scripts}}pull-primary-backups/"

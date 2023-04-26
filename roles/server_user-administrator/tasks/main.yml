@@ -1,7 +1,7 @@
-- name: create /home/administrator/.ssh/authorized_keys
+- name: create {{path_administrator_home}}.ssh/authorized_keys
   copy:
-    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}/home/administrator/.ssh/authorized_keys"
-    dest: /home/administrator/.ssh/authorized_keys
+    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}{{path_administrator_home}}.ssh/authorized_keys"
+    dest: "{{path_administrator_home}}.ssh/authorized_keys"
     owner: administrator
     group: administrator
     mode: '0644'
@@ -15,9 +15,9 @@
     group: root
   notify: sshd restart
 
-- name: "create /home/administrator/volumes/"
+- name: "create {{path_administrator_home}}volumes/"
   file:
-    path: "/home/administrator/volumes"
+    path: "{{path_administrator_home}}volumes"
     state: directory
     owner: administrator
     group: administrator

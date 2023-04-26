@@ -1,1 +1,1 @@
-docker_compose_restart_unhealthy: "/home/administrator/scripts/docker-compose-restart-unhealthy/"
+docker_compose_restart_unhealthy: "{{path_administrator_scripts}}docker-compose-restart-unhealthy/"

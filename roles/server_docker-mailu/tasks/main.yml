@@ -15,9 +15,9 @@
     state: directory
     mode: 0755
 
-- name: "create /home/administrator/scripts/mailu"
+- name: "create {{path_administrator_scripts}}mailu"
   file:
-    path: "/home/administrator/scripts/mailu"
+    path: "{{path_administrator_scripts}}mailu"
     state: directory
     mode: 0755
 
@@ -48,7 +48,7 @@
 - name: add deploy-letsencrypt-mailu.sh
   template: 
     src: "deploy-letsencrypt-mailu.sh.j2" 
-    dest: "/home/administrator/scripts/mailu/deploy-letsencrypt-mailu.sh"
+    dest: "{{path_administrator_scripts}}mailu/deploy-letsencrypt-mailu.sh"
 
 - name: configure deploy-letsencrypt-mailu.service
   template: 

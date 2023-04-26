@@ -1,1 +1,1 @@
-systemd_email_folder: "/home/administrator/scripts/systemd_email/"
+systemd_email_folder: "{{path_administrator_scripts}}systemd_email/"

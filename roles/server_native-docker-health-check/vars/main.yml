@@ -1,1 +1,1 @@
-docker_health_check_folder: "/home/administrator/scripts/server_docker-health-check/"
+docker_health_check_folder: "{{path_administrator_scripts}}server_docker-health-check/"
