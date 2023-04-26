@@ -2,7 +2,7 @@
 
 ## new setup
 ```bash
-cd /home/administrator/docker-compose/akaunting/
+cd {{path_docker_compose_files}}akaunting/
 export COMPOSE_HTTP_TIMEOUT=600
 export DOCKER_CLIENT_TIMEOUT=600
 AKAUNTING_SETUP=true docker-compose -p akaunting up -d
@@ -68,7 +68,7 @@ export COMPOSE_HTTP_TIMEOUT=600
 export DOCKER_CLIENT_TIMEOUT=600
 
 # destroy all containers
-cd /home/administrator/docker-compose/akaunting/ && 
+cd {{path_docker_compose_files}}akaunting/ && 
 docker-compose down &&
 docker network prune -f
 

@@ -9,9 +9,9 @@
   template: src=roles/server_native-docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
   notify: restart nginx
 
-- name: "create /home/administrator/docker-compose/mailu"
+- name: "create {{path_docker_compose_files}}mailu"
   file:
-    path: "/home/administrator/docker-compose/mailu"
+    path: "{{path_docker_compose_files}}mailu"
     state: directory
     mode: 0755
 
@@ -34,20 +34,30 @@
     mode: 0755
 
 - name: add docker-compose.yml
-  template: src=docker-compose.yml.j2 dest=/home/administrator/docker-compose/mailu/docker-compose.yml
+  template: 
+    src:  "docker-compose.yml.j2" 
+    dest: "{{path_docker_compose_files}}mailu/docker-compose.yml"
   notify: recreate mailu
 
 - name: add mailu.env
-  template: src=mailu.env.j2 dest=/home/administrator/docker-compose/mailu/mailu.env
+  template: 
+    src:  "mailu.env.j2" 
+    dest: "{{path_docker_compose_files}}mailu/mailu.env"
   notify: recreate mailu
 
 - name: add deploy-letsencrypt-mailu.sh
-  template: src=deploy-letsencrypt-mailu.sh.j2 dest=/home/administrator/scripts/mailu/deploy-letsencrypt-mailu.sh
+  template: 
+    src: "deploy-letsencrypt-mailu.sh.j2" 
+    dest: "/home/administrator/scripts/mailu/deploy-letsencrypt-mailu.sh"
 
 - name: configure deploy-letsencrypt-mailu.service
-  template: src=deploy-letsencrypt-mailu.service.j2 dest=/etc/systemd/system/deploy-letsencrypt-mailu.service
+  template: 
+    src:  "deploy-letsencrypt-mailu.service.j2"
+    dest: "/etc/systemd/system/deploy-letsencrypt-mailu.service"
   notify: restart deploy-letsencrypt-mailu.service
 
 - name: configure deploy-letsencrypt-mailu.timer
-  template: src=deploy-letsencrypt-mailu.timer.j2 dest=/etc/systemd/system/deploy-letsencrypt-mailu.timer
+  template: 
+    src:  "deploy-letsencrypt-mailu.timer.j2" 
+    dest: "/etc/systemd/system/deploy-letsencrypt-mailu.timer"
   notify: restart deploy-letsencrypt-mailu.timer

@@ -11,12 +11,12 @@
   loop: "{{domains}}"
   notify: restart nginx
 
-- name: "create /home/administrator/docker-compose/wordpress/"
+- name: "create {{path_docker_compose_files}}wordpress/"
   file:
-    path: "/home/administrator/docker-compose/wordpress/"
+    path: "{{path_docker_compose_files}}wordpress/"
     state: directory
     mode: 0755
 
 - name: add docker-compose.yml
-  template: src=docker-compose.yml.j2 dest=/home/administrator/docker-compose/wordpress/docker-compose.yml
+  template: src=docker-compose.yml.j2 dest={{path_docker_compose_files}}wordpress/docker-compose.yml
   notify: recreate wordpress

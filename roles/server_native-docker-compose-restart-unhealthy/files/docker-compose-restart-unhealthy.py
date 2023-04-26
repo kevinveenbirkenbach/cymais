@@ -49,6 +49,6 @@ for failed_container in failed_containers:
 filtered_failed_docker_compose_repositories=list(dict.fromkeys(unfiltered_failed_docker_compose_repositories))
 for filtered_failed_docker_compose_repository in filtered_failed_docker_compose_repositories:
     print("restarting unhealthy container: " + filtered_failed_docker_compose_repository)
-    print_bash('cd /home/administrator/docker-compose/' + filtered_failed_docker_compose_repository + '/ && docker-compose restart')
+    print_bash('cd {{path_docker_compose_files}}' + filtered_failed_docker_compose_repository + '/ && docker-compose restart')
 
 print("finished restart procedure.")

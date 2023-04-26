@@ -5,17 +5,17 @@
     state: present
   notify: docker restart
 
-- name: "create /home/administrator/docker-compose/"
+- name: "create {{path_docker_compose_files}}"
   file:
-    path: "/home/administrator/docker-compose"
+    path: "{{path_docker_compose_files}}"
     state: directory
     mode: 0700
     owner: administrator
     group: administrator
 
-- name: "create /home/administrator/volumes/docker"
+- name: "create {{path_docker_volumes}}"
   file:
-    path: "/home/administrator/volumes/docker"
+    path: "{{path_docker_volumes}}"
     state: directory
     mode: 0700
     owner: administrator

@@ -8,7 +8,7 @@ docker volume rm pixelfed_application_data pixelfed_database pixelfed_redis_data
 
 ## update
 ```bash 
-cd /home/administrator/docker-compose/pixelfed/ &&
+cd {{path_docker_compose_files}}pixelfed/ &&
 docker-compose down &&
 docker network prune -f &&
 docker-compose pull &&

@@ -1,1 +1,1 @@
-docker_compose_bigbluebutton_path: "/home/administrator/docker-compose/bigbluebutton/"
+docker_compose_bigbluebutton_path: "{{path_docker_compose_files}}bigbluebutton/"

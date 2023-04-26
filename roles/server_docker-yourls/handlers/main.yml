@@ -2,7 +2,7 @@
 - name: recreate yourls
   command:
     cmd: docker-compose -p yourls up -d --force-recreate
-    chdir: /home/administrator/docker-compose/yourls/
+    chdir: "{{path_docker_compose_files}}yourls/"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600

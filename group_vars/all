@@ -21,3 +21,7 @@ on_calendar_deploy_mailu_certificates:        "*-*-* 13,01:30:00"
 size_percent_maximum_backup:                  75
 size_percent_disc_space_warning:              85
 size_percent_free_disc_space:                 90
+
+# Path Variables
+path_docker_volumes:                          "/home/administrator/volumes/docker/"
+path_docker_compose_files:                    "/home/administrator/docker-compose/"

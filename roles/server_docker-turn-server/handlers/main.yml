@@ -1,8 +1,0 @@
----
-- name: recreate turn server
-  command:
-    cmd: docker restart -d -p "{{turn_server_listening_port}}:{{turn_server_listening_port}}" -p "{{turn_server_listening_port}}:{{turn_server_listening_port}}/udp" --mount type=tmpfs,destination=/var/lib/coturn --name "turn_server" -v "/home/administrator/volumes/docker/turn-server/turnserver.conf:/etc/coturn/turnserver.conf" coturn/coturn
-# -p 49152-65535:49152-65535/udp
-  environment:
-    COMPOSE_HTTP_TIMEOUT: 600
-    DOCKER_CLIENT_TIMEOUT: 600

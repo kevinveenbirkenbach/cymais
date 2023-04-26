@@ -2,7 +2,7 @@
 - name: recreate nextcloud
   command:
     cmd: docker-compose -p nextcloud up -d --force-recreate
-    chdir: /home/administrator/docker-compose/nextcloud/
+    chdir: "{{path_docker_compose_files}}nextcloud/"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600

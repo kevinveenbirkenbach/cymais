@@ -2,7 +2,7 @@
 - name: recreate wordpress
   command:
     cmd: docker-compose -p wordpress up -d --force-recreate
-    chdir: /home/administrator/docker-compose/wordpress/
+    chdir: "{{path_docker_compose_files}}wordpress/"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600

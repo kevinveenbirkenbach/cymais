@@ -3,25 +3,31 @@
   command: certbot certonly --agree-tos --email {{administrator_email}} --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{domain}}
 
 - name: configure {{domain}}.conf
-  template: src=templates/nextcloud.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
+  template: 
+    src:  "templates/nextcloud.conf.j2" 
+    dest: "/etc/nginx/conf.d/{{domain}}.conf"
   notify: restart nginx
 
-- name: "create /home/administrator/volumes/docker/nextcloud/"
+- name: "create {{path_volumes_docker}}nextcloud/"
   file:
-    path: "/home/administrator/volumes/docker/nextcloud"
+    path: "{{path_volumes_docker}}nextcloud"
     state: directory
     mode: 0755
 
 - name: configure nginx.conf
-  template: src=templates/nginx.conf.j2 dest=/home/administrator/volumes/docker/nextcloud/nginx.conf
+  template: 
+    src:  "templates/nginx.conf.j2" 
+    dest: "{{path_volumes_docker}}nextcloud/nginx.conf"
   notify: recreate nextcloud
 
-- name: "create /home/administrator/docker-compose/nextcloud/"
+- name: "create {{path_docker_compose_files}}nextcloud/"
   file:
-    path: "/home/administrator/docker-compose/nextcloud/"
+    path: "{{path_docker_compose_files}}nextcloud/"
     state: directory
     mode: 0755
 
 - name: add docker-compose.yml
-  template: src=docker-compose.yml.j2 dest=/home/administrator/docker-compose/nextcloud/docker-compose.yml
+  template: 
+    src:  docker-compose.yml.j2 
+    dest: "{{path_docker_compose_files}}nextcloud/docker-compose.yml"
   notify: recreate nextcloud

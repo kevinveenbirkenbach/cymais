@@ -16,7 +16,7 @@ To update the nextcloud container execute the following commands on the server:
   sudo python /home/administrator/scripts/docker-volume-backup/docker-volume-backup.py
   export COMPOSE_HTTP_TIMEOUT=600
   export DOCKER_CLIENT_TIMEOUT=600
-  cd /home/administrator/docker-compose/nextcloud && docker-compose down
+  cd {{path_docker_compose_files}}nextcloud && docker-compose down
 ```
 
 Afterwards update the ***nextcloud_version*** variable to the next version and run the this repository with this ansible role.
@@ -55,7 +55,7 @@ and disable the not functioning apps.
 
 ## recover latest backup
 ```bash
-cd /home/administrator/docker-compose/nextcloud &&
+cd {{path_docker_compose_files}}nextcloud &&
 docker-compose down &&
 docker exec -i nextcloud_database_1 mysql -u nextcloud -pPASSWORT nextcloud < "/Backups/$(sha256sum /etc/machine-id | head -c 64)/docker-volume-backup/latest/nextcloud_database/sql/backup.sql" &&
 cd /home/administrator/scripts/docker-volume-backup &&

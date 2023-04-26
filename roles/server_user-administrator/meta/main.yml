@@ -1,2 +1,3 @@
 dependencies:
 - server_native-sudo
+- independent_user-administrator
