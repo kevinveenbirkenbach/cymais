@@ -1,4 +1,4 @@
-# role server_native-backups-cleanup
+# role independent_backups-cleanup-timer
 
 Cleans up old backups
 

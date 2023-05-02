@@ -1,3 +1,4 @@
 dependencies:
 - independent_user-administrator
 - independent_systemd-email
+- independent_backups-cleanup-service

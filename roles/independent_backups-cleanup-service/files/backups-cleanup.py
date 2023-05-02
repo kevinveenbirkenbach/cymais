@@ -17,11 +17,10 @@ def is_directory_used_by_another_process(directory_path):
     command= "lsof " + directory_path
     process = subprocess.Popen([command], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     output, error = process.communicate()
-    if error:
-        raise Exception(error.strip())
-    if output:
-        return True
-    return False
+    # @See https://stackoverflow.com/questions/29841984/non-zero-exit-code-for-lsof
+    if process.wait() > bool(0):
+        return False
+    return True
 
 for host_backup_directory_name in os.listdir(args.backups_folder_path):
     host_backup_directory_path = os.path.join(args.backups_folder_path, host_backup_directory_name)

@@ -24,9 +24,3 @@
     src:  "backups-cleanup.service.j2"
     dest: "/etc/systemd/system/backups-cleanup.service"
   notify: reload backups-cleanup.service
-
-- name: create backups-cleanup.timer
-  template:
-    src:  "backups-cleanup.timer.j2"
-    dest: "/etc/systemd/system/backups-cleanup.timer"
-  notify: restart backups-cleanup.timer

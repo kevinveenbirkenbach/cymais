@@ -4,9 +4,3 @@
     state: reloaded
     enabled: yes
     daemon_reload: yes
-- name: "restart backups-cleanup.timer"
-  systemd:
-    name: backups-cleanup.timer
-    state: restarted
-    enabled: yes
-    daemon_reload: yes

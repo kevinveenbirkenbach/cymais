@@ -30,7 +30,7 @@ This software allows to setup the docker following applications:
 #### Native Applications
 
 This software shipts the following tools which are natively setup on the server:
-- [Backups Cleanup](./roles/server_native-backups-cleanup/README.md) - Cleans up old backups
+- [Backups Cleanup](./roles/independent_backups-cleanup-timer/README.md) - Cleans up old backups
 - [Btrfs Health Check](./roles/server_native-btrfs-health-check/README.md) - Checks the health of Btrfs file systems
 - [Docker Health Check](./roles/server_native-docker-health-check/) - Checks the health of docker containers
 - [Docker Reverse Proxy](./roles/server_native-docker-reverse-proxy/README.md) - Docker Reverse Proxy Solution
