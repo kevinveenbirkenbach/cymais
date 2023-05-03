@@ -35,7 +35,6 @@ for host_backup_directory_name in os.listdir(args.backups_folder_path):
         print_used_disc_space()  
         for version in versions:
             version_path=os.path.join(versions_directory, version)
-            version_status_pulling_path=os.path.join(versions_directory, version, ".pulling")
             print("Checking directory %s ..." % (version_path))
             if version == versions[-1]:
                 print("Directory %s contains the last version of the backup. Skipped." % (version_path))
@@ -52,11 +51,6 @@ for host_backup_directory_name in os.listdir(args.backups_folder_path):
                 new_disc_usage_percent=psutil.disk_usage(args.backups_folder_path).percent
                 difference_percent=old_disc_usage_percent-new_disc_usage_percent
                 print("{:6.2f} %% of drive freed".format(difference_percent))
-                continue
-            
-            if os.path.exists(version_status_pulling_path):
-                print("Deleting %s due to unfinished pull." % (version_path))
-                shutil.rmtree(version_path)
                 continue
             
 print_used_disc_space()            
