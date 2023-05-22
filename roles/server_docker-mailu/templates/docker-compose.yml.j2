@@ -43,6 +43,10 @@ services:
       - resolver
     dns:
       - 192.168.203.254
+    networks:
+      - default
+      - webmail
+      - radicale
 
   # Core services
   resolver:
