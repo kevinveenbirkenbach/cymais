@@ -90,3 +90,4 @@ For update instructions follow:
 - https://github.com/Mailu/Mailu/issues/1171
 - https://support.plesk.com/hc/en-us/articles/115001264814-Unable-to-log-into-RoundCube-Connection-to-storage-server-failed
 - https://github.com/Mailu/Mailu
+- https://github.com/Mailu/Mailu/issues/2135

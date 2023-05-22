@@ -16,6 +16,11 @@ services:
       retries: 30
     logging:
       driver: journald
+    depends_on:
+      - resolver
+    dns:
+      - 192.168.203.254
+  
   database:
     image: mariadb
     restart: always
@@ -34,8 +39,22 @@ services:
       retries: 5
     logging:
       driver: journald
+    depends_on:
+      - resolver
+    dns:
+      - 192.168.203.254
 
   # Core services
+  resolver:
+    image: ghcr.io/mailu/unbound:{{mailu_version}}
+    env_file: mailu.env
+    restart: always
+    networks:
+      default:
+        ipv4_address: 192.168.203.254
+    logging:
+      driver: journald
+
   front:
     image: ghcr.io/mailu/nginx:{{mailu_version}}
     restart: always
@@ -55,8 +74,17 @@ services:
       - "/etc/mailu/overrides/nginx:/overrides:ro"
       - "/etc/mailu/certs:/certs"
     depends_on:
+      resolver:
+        condition: service_started
       database:
         condition: service_healthy
+    networks:
+      - default
+      - webmail
+      - radicale
+    dns:
+      - 192.168.203.254
+      
   admin:
     image: ghcr.io/mailu/admin:{{mailu_version}}
     restart: always
@@ -65,10 +93,14 @@ services:
       - "admin_data:/data"
       - "dkim:/dkim"
     depends_on:
+      - resolver
       - front
       - redis
+      - database
     logging:
       driver: journald
+    dns:
+      - 192.168.203.254
   imap:
     image: ghcr.io/mailu/dovecot:{{mailu_version}}
     restart: always
@@ -78,6 +110,9 @@ services:
       - "/etc/mailu/overrides:/overrides:ro"
     depends_on:
       - front
+      - resolver
+    dns:
+      - 192.168.203.254
     logging:
       driver: journald
 
@@ -90,6 +125,9 @@ services:
       - "smtp_queue:/queue"
     depends_on:
       - front
+      - resolver
+    dns:
+      - 192.168.203.254
     logging:
       driver: journald
 
@@ -97,6 +135,12 @@ services:
     image: ghcr.io/mailu/oletools:{{mailu_version}}
     hostname: oletools
     restart: always
+    depends_on:
+      - resolver
+    dns:
+      - 192.168.203.254
+    networks:
+      - noinet
 
   antispam:
     image: ghcr.io/mailu/rspamd:{{mailu_version}}
@@ -110,6 +154,12 @@ services:
       - front
       - redis 
       - antivirus
+      - resolver
+    dns:
+      - 192.168.203.254
+    networks:
+      - default
+      - noinet
     logging:
       driver: journald
 
@@ -120,6 +170,10 @@ services:
     env_file: mailu.env
     volumes:
       - "filter:/data"
+    depends_on:
+      - resolver
+    dns:
+      - 192.168.203.254
     logging:
       driver: journald
 
@@ -131,6 +185,12 @@ services:
       - "webdav_data:/data"
     logging:
       driver: journald
+    networks:
+      - radicale
+    depends_on:
+      - resolver
+    dns:
+      - 192.168.203.254
 
   fetchmail:
     image: ghcr.io/mailu/fetchmail:{{mailu_version}}
@@ -144,8 +204,10 @@ services:
       - admin
       - smtp
       - imap
+      - resolver
+    dns:
+      - 192.168.203.254
 
-  # Webmail
   webmail:
     image: ghcr.io/mailu/webmail:{{mailu_version}}
     restart: always
@@ -155,8 +217,14 @@ services:
     depends_on:
       - imap
       - front
+      - resolver
     logging:
       driver: journald
+    networks:
+      - webmail
+    dns:
+      - 192.168.203.254
+
 volumes:
   database:
   smtp_queue:
@@ -174,3 +242,10 @@ networks:
       driver: default
       config:
         - subnet: {{mailu_subnet}}
+  radicale:
+    driver: bridge
+  webmail:
+    driver: bridge
+  noinet:
+    driver: bridge
+    internal: true
