@@ -74,6 +74,11 @@ sudo docker container exec -it mailu_front_1 /bin/bash
 sudo docker restart mailu_smtp_1 mailu_imap_1 mailu_antispam_1 mailu_redis_1 mailu_webdav_1 mailu_front_1 mailu_database_1 mailu_webmail_1 mailu_admin_1 mailu_antivirus_1
 ```
 
+## resend queued mails
+```bash
+docker-compose exec -it smtp postqueue -f
+```
+
 ## update
 For update instructions follow:
 - https://mailu.io/master/maintain.html
@@ -91,3 +96,4 @@ For update instructions follow:
 - https://support.plesk.com/hc/en-us/articles/115001264814-Unable-to-log-into-RoundCube-Connection-to-storage-server-failed
 - https://github.com/Mailu/Mailu
 - https://github.com/Mailu/Mailu/issues/2135
+- https://github.com/Mailu/Mailu/issues/2827
