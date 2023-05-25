@@ -165,6 +165,14 @@
       vars:
         domain: roulette.{{top_domain}}
         http_port: 8013
+- name: setup joomla hosts
+  hosts: joomla
+  become: true
+  roles:
+   -  role: server_docker-joomla
+      vars:
+        domain: "joomla.{{top_domain}}"
+        http_port: 8014
 - name: setup akaunting hosts
   hosts: akaunting
   become: true

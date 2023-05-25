@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  application:
+    image: joomla
+    logging:
+      driver: journald
+    environment:
+      JOOMLA_DB_HOST: "database:3306"
+      JOOMLA_DB_USER: "joomla"
+      JOOMLA_DB_PASSWORD: "{{joomla_database_password}}"
+      JOOMLA_DB_NAME: "joomla"
+    restart: always
+    links:
+      - database
+    volumes:
+      - data:/var/www/html
+    ports:
+      - "127.0.0.1:{{http_port}}:80"
+  database:
+    image: mariadb
+    logging:
+      driver: journald
+    environment:
+      MYSQL_DATABASE: "joomla"
+      MYSQL_USER: "joomla"
+      MYSQL_PASSWORD: "{{joomla_database_password}}"
+      MYSQL_ROOT_PASSWORD: "{{joomla_database_password}}"
+      MARIADB_AUTO_UPGRADE: "1"
+    volumes:
+      - database:/var/lib/mysql
+    restart: always
+volumes:
+  database:
+  data:

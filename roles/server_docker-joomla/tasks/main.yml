@@ -6,34 +6,12 @@
   template: src=roles/server_native-docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
   notify: restart nginx
 
-- name: "setup joomla"
-  docker_compose:
-    project_name: joomla
-    definition:
-      application:
-        image: joomla
-        log_driver: journald
-        environment:
-          JOOMLA_DB_HOST: "database:3306"
-          JOOMLA_DB_USER: "joomla"
-          JOOMLA_DB_PASSWORD: "{{joomla_database_password}}"
-          JOOMLA_DB_NAME: "joomla"
-        restart: always
-        links:
-          - database
-        volumes:
-          - joomla-data:/var/www/html
-        ports:
-          - "127.0.0.1:{{http_port}}:80"
-      database:
-        image: mariadb
-        log_driver: journald
-        environment:
-          MYSQL_DATABASE: "joomla"
-          MYSQL_USER: "joomla"
-          MYSQL_PASSWORD: "{{joomla_database_password}}"
-          MYSQL_ROOT_PASSWORD: "{{joomla_database_password}}"
-          MARIADB_AUTO_UPGRADE: "1"
-        volumes:
-          - joomla-database:/var/lib/mysql
-        restart: always
+- name: "create {{path_docker_compose_folder}}"
+  file:
+    path: "{{path_docker_compose_folder}}"
+    state: directory
+    mode: 0755
+
+- name: add docker-compose.yml
+  template: src=docker-compose.yml.j2 dest={{path_docker_compose_folder}}docker-compose.yml
+  notify: recreate joomla
