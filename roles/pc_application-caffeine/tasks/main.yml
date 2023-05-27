@@ -4,12 +4,6 @@
     name:
       - caffeine-ng
 
-- name: Check if caffeine is installed
-  command: command -v caffeine
-  register: caffeine_installed
-  changed_when: False
-  failed_when: caffeine_installed.rc != 0
-
 - name: Copy caffeine systemd service file
   template:
     src: caffeine.service.j2

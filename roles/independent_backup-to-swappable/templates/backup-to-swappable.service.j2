@@ -1,9 +1,0 @@
-[Unit]
-Description=backing up data
-OnFailure=systemd-email@%n.service
-ConditionPathExists={{backup_to_swappable_destination_path}}
-Wants=backups-cleanup.service
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/bash {{backup_to_swappable_script_path}} {{backup_to_swappable_destination_path}} {{backup_to_swappable_source_path}}

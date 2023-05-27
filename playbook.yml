@@ -301,7 +301,7 @@
 
 
 - name: setup backup to swappable
-  hosts: backup_to_swappable
+  hosts: backup_to_usb
   become: true
   roles:
-    - independent_backup-to-swappable
+    - independent_backup-to-usb

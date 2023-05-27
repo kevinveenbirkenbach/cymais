@@ -1,0 +1,4 @@
+---
+mount_point: "/mnt/usbstick_{{ backup_to_usb_serial_short }}"
+backup_to_usb_script_path: "/usr/local/sbin/backup-to-usb.sh"
+backups_folder_path: "{{mount_point}}{{backup_to_usb_subdirectory}}"

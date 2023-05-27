@@ -16,7 +16,6 @@ on_calendar_docker_compose_restart_unhealthy: "*-*-* 09,10,11,12,13,14,15,16,17,
 on_calendar_pull_primary_backups:             "*-*-* 21:30:00"
 on_calendar_renew_lets_encrypt_certificates:  "*-*-* 12,00:30:00"
 on_calendar_deploy_mailu_certificates:        "*-*-* 13,01:30:00"
-on_calendar_backup_to_swappable:              "hourly"
 
 # Space Variables
 size_percent_maximum_backup:                  75

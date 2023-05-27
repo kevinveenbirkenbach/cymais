@@ -1,0 +1,1 @@
+ACTION=="add", SUBSYSTEM=="block", ENV{ID_SERIAL_SHORT}=="{{ backup_to_usb_serial_short }}", RUN+="/usr/bin/systemd-mount --no-block $devnode {{ mount_point }}", SYMLINK+="backup_usb"

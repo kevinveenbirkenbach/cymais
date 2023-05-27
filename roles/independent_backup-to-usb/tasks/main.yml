@@ -1,0 +1,28 @@
+---
+- name: Copy udev rule to the rules directory
+  template:
+    src: 99-usbstick.rules.j2
+    dest: /etc/udev/rules.d/
+  notify: Reload udev rules
+
+- name: Copy backup script to the scripts directory
+  template:
+    src: backup-to-usb.sh.j2
+    dest: "{{ backup_to_usb_script_path }}"
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Copy systemd service to systemd directory
+  template:
+    src: backup-to-usb.service.j2
+    dest: /etc/systemd/system/backup-to-usb.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Enable and start service
+  systemd:
+    name: backup-to-usb
+    enabled: yes
+    state: started

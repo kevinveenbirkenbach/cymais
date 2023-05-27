@@ -1,0 +1,10 @@
+[Unit]
+Description=Backup to USB when it's plugged in
+After=local-fs.target
+OnFailure=systemd-email@%n.service
+
+[Service]
+ExecStart={{ backup_to_usb_script_path }} {{ mount_point }}/{{ backup_to_usb_subdirectory }} {{ backup_to_usb_source_path }}
+
+[Install]
+WantedBy=multi-user.target
