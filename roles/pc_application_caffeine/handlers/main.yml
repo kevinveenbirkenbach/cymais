@@ -1,0 +1,10 @@
+# handlers file for caffeine_auto_start
+- name: reload systemd
+  command: systemctl daemon-reload
+
+- name: enable and start caffeine
+  systemd:
+    name: caffeine.service
+    state: started
+    enabled: yes
+    daemon_reload: yes

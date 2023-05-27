@@ -1,0 +1,8 @@
+[Unit]
+Description=Caffeine auto start
+
+[Service]
+ExecStart={{ caffeine_executable_path }}
+
+[Install]
+WantedBy=multi-user.target
