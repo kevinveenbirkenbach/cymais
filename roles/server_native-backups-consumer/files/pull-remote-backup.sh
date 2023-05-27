@@ -45,10 +45,41 @@ for backup_type in $remote_backup_types; do
     echo "creating local backup destination folder..." &&
     mkdir -vp "$local_backup_destination_path" &&
 
-    echo "starting backup..." &&
-    rsync_command='rsync -abP --delete --delete-excluded --rsync-path="sudo rsync" --link-dest="'$local_previous_version_dir'" "'$remote_source_path'" "'$local_backup_destination_path'"' &&
-    echo "executing:                $rsync_command" &&
-    eval "$rsync_command" || ((errors+=1));
+    echo "starting backup..."
+    rsync_command='rsync -abP --delete --delete-excluded --rsync-path="sudo rsync" --link-dest="'$local_previous_version_dir'" "'$remote_source_path'" "'$local_backup_destination_path'"'
+
+    echo "executing:                $rsync_command"
+
+    retry_count=0
+    max_retries=3
+    retry_delay=300  # Retry delay in seconds (5 minutes)
+    last_retry_start=0
+    max_retry_duration=43200  # Maximum duration for a single retry attempt (12 hours)
+
+    while [[ $retry_count -lt $max_retries ]]; do
+      echo "Retry attempt: $((retry_count + 1))"
+      if [[ $retry_count -gt 0 ]]; then
+        current_time=$(date +%s)
+        last_retry_duration=$((current_time - last_retry_start))
+        if [[ $last_retry_duration -ge $max_retry_duration ]]; then
+          echo "Last retry took more than 12 hours, increasing max retries to 12."
+          max_retries=12
+        fi
+      fi
+      last_retry_start=$(date +%s)
+      eval "$rsync_command"
+      rsync_exit_code=$?
+      if [[ $rsync_exit_code -eq 0 ]]; then
+        break
+      fi
+      retry_count=$((retry_count + 1))
+      sleep $retry_delay
+    done
+
+    if [[ $rsync_exit_code -ne 0 ]]; then
+      echo "Error: rsync failed after $max_retries attempts"
+      ((errors += 1))
+    fi
   fi
 done
 exit $errors;
