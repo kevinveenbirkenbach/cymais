@@ -3,4 +3,11 @@
     repo: "{{ssh_configuration_repository}}"
     dest: "$HOME/.ssh"
     update: yes
+  register: git_result
+  ignore_errors: true
   become: false
+
+- name: Warn if repo is not reachable
+  debug:
+    msg: "Warning: Repository is not reachable."
+  when: git_result.failed

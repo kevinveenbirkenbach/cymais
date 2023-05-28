@@ -19,7 +19,14 @@
     repo: "git@github.com:kevinveenbirkenbach/cli-gnome-extension-manager.git"
     dest: "$HOME/Repositories/github.com/kevinveenbirkenbach/cli-gnome-extension-manager"
     update: yes
+  register: git_result
+  ignore_errors: true
   become: false
+
+- name: Warn if repo is not reachable
+  debug:
+    msg: "Warning: Repository is not reachable."
+  when: git_result.failed
 
 - name: Execute CLI GNOME Extension manager script
   ansible.builtin.shell: bash "/home/{{client_username}}/Repositories/github.com/kevinveenbirkenbach/cli-gnome-extension-manager/gnome-extension-manager.sh" "{{ item[0] }}" "{{ item[1] }}" "{{ item[2] }}"

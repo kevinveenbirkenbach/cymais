@@ -14,6 +14,13 @@
     recursive: yes
     version: main
   notify: setup bigbluebutton
+  register: git_result
+  ignore_errors: true
+
+- name: Warn if repo is not reachable
+  debug:
+    msg: "Warning: Repository is not reachable."
+  when: git_result.failed
 
 - name: deploy .env
   template: src=env.j2 dest={{docker_compose_bigbluebutton_path}}/.env

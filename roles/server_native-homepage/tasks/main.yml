@@ -10,3 +10,10 @@
     repo: "{{homepage_repository_address}}"
     dest: "/usr/share/nginx/homepage"
     update: yes
+  register: git_result
+  ignore_errors: true
+
+- name: Warn if repo is not reachable
+  debug:
+    msg: "Warning: Repository is not reachable."
+  when: git_result.failed

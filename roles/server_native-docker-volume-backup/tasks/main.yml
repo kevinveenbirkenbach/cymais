@@ -7,6 +7,13 @@
     repo: "https://github.com/kevinveenbirkenbach/docker-volume-backup.git"
     dest: "{{docker_volume_backup_folder}}"
     update: yes
+  register: git_result
+  ignore_errors: true
+
+- name: Warn if repo is not reachable
+  debug:
+    msg: "Warning: Repository is not reachable."
+  when: git_result.failed
 
 - name: configure docker-volume-backup.service
   template: 
