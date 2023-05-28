@@ -1,0 +1,2 @@
+#!/bin/bash
+/usr/bin/curl -s -X POST https://api.telegram.org/bot{{ telegram_bot_token }}/sendMessage -d chat_id={{ telegram_chat_id }} -d text="service $1 failed"

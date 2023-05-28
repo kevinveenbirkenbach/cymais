@@ -1,6 +1,6 @@
 [Unit]
 Description=restart unhealthy docker containers
-OnFailure=systemd-email@%n.service
+OnFailure=systemd-notifier@%n.service
 
 [Service]
 Type=oneshot

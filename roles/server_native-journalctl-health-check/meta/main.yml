@@ -1,2 +1,2 @@
 dependencies:
-  - independent_systemd-email
+  - systemd_notifier

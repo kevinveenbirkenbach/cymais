@@ -1,5 +1,6 @@
 [Unit]
 Description=Keyboard Color Service
+OnFailure=systemd-notifier@%n.service
 
 [Service]
 Type=oneshot

@@ -1,0 +1,1 @@
+systemd_notifier_email_folder: "{{path_administrator_scripts}}systemd_notifier_email/"

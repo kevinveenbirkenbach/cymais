@@ -2,7 +2,7 @@
 Description=Backup to USB when mounted to {{ backup_to_usb_mount }}
 Wants={{systemctl_mount_service_name}}
 After={{systemctl_mount_service_name}}
-OnFailure=systemd-email@%n.service
+OnFailure=systemd-notifier@%n.service
 Requires=backups-cleanup.service
 After=backups-cleanup.service
 

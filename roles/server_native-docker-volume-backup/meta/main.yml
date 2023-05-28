@@ -1,4 +1,4 @@
 dependencies:
   - server_native-git
   - server_native-backups-provider
-  - independent_systemd-email
+  - systemd_notifier

@@ -1,0 +1,8 @@
+[Unit]
+Description=Notifier for %i
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl start systemd_notifier_telegram@%i.service systemd_notifier_email@%i.service
+User=root
+Group=systemd-journal

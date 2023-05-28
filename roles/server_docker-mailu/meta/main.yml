@@ -1,3 +1,3 @@
 dependencies:
 - server_native-docker-reverse-proxy
-- independent_systemd-email
+- systemd_notifier

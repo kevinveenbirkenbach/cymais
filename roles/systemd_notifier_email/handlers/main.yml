@@ -1,0 +1,4 @@
+- name: "restart systemd_notifier_email service"
+  systemd:
+    name: systemd_notifier_email.service
+    daemon_reload: yes

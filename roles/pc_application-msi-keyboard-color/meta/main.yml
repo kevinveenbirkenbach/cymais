@@ -7,5 +7,6 @@ galaxy_info:
     - name: Linux
       versions:
         - all
-  dependencies:
-    - pc_system-aur-helper
+dependencies:
+  - pc_system-aur-helper
+  - systemd_notifier

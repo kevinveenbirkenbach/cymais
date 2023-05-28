@@ -1,0 +1,4 @@
+- name: "restart systemd-notifier service"
+  systemd:
+    name: systemd-notifier.service
+    daemon_reload: yes

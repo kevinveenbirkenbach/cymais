@@ -1,6 +1,6 @@
 - name: pull swapfile creating script
   git:
-    repo: "git@github.com:kevinveenbirkenbach/create-linux-swapfile.git"
+    repo: "https://github.com/kevinveenbirkenbach/create-linux-swapfile.git"
     dest: "$HOME/Repositories/github.com/kevinveenbirkenbach/create-linux-swapfile"
     update: yes
   become: false
