@@ -1,0 +1,8 @@
+---
+- name: Copy keyboard_color.sh script
+  copy:
+    src: keyboard_color.sh
+    dest: /opt/keyboard_color.sh
+    mode: 0755
+  tags:
+    - keyboard-color

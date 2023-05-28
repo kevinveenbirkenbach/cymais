@@ -1,0 +1,9 @@
+---
+- name: Install MSI packages
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - msi-perkeyrgb
+
+- include_tasks: setup_script.yml
+- include_tasks: setup_timers.yml

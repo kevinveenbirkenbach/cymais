@@ -249,7 +249,7 @@
   hosts: msi_perkeyrgb
   become: true
   roles:
-    - pc_driver-msi-perkeyrgb
+    - pc_application-msi-keyboard-color
 
 - name: setup ssh hosts
   hosts: ssh

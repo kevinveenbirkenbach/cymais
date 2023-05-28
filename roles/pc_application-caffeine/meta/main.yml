@@ -1,2 +1,16 @@
+---
 dependencies:
-- pc_system-aur-helper
+  - pc_system-aur-helper
+galaxy_info:
+  author: Kevin Veen-Birkenbach
+  description: Ansible role for installing caffeine-ng and setting it to start at user login.
+  license: AGPL 3
+  min_ansible_version: 2.4
+  platforms:
+  - name: Archlinux
+    versions:
+    - all
+  galaxy_tags:
+    - caffeine
+    - autostart
+    - archlinux

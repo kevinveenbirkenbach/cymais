@@ -1,0 +1,9 @@
+[Unit]
+Description=Keyboard Color Service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/keyboard_color.sh {{ vendor_and_product_id }}
+
+[Install]
+WantedBy=default.target

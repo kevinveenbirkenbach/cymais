@@ -1,13 +1,16 @@
-- name: install caffeine
+---
+- name: Install caffeine
   kewlfft.aur.aur:
     use: yay
     name:
       - caffeine-ng
 
-- name: Copy caffeine systemd service file
+- name: Create autostart directory if it doesn't exist
+  file:
+    path: "{{ ansible_env.HOME }}/.config/autostart"
+    state: directory
+
+- name: Copy caffeine.desktop file to autostart directory
   template:
-    src: caffeine.service.j2
-    dest: /etc/systemd/system/caffeine.service
-  notify: 
-    - reload systemd
-    - enable and start caffeine
+    src: caffeine.desktop.j2
+    dest: "{{ ansible_env.HOME }}/.config/autostart/caffeine.desktop"
