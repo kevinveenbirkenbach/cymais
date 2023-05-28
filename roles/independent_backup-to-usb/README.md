@@ -4,22 +4,18 @@ This Ansible role automates the process of performing backups to a swappable USB
 
 ## Features
 
-- Automatically starts the backup process when a specific USB device is plugged in.
-- Provides a systemd service to run the backup script at boot if the USB device is already connected.
-- Supports customization of the backup source path and mount point.
+- Automatically starts the backup process when mounted to a specific destination.
+- Supports customization of the backup source path and destination.
+- Provides a systemd service to run the backup script.
 
-## Configuration
+## Author
 
-The following variables can be customized in the `vars/main.yml` file:
+This role was created and is maintained by Kevin Veen-Birkenbach.
 
-- `mount_point`: The mount point where the USB device will be mounted.
-- `backup_to_usb_script_path`: The path to the backup script that will be executed when the USB device is connected.
+## License
+
+This code is released under the AGPL v3 license. Please refer to the [LICENSE](LICENSE) file for more details.
 
 ## Credits
 
-This role was created and maintained by Kevin Veen-Birkenbach.
-Contact: kevin@veen.world
-
-## More Information
-
-For more details on how the `independent_backup-to-usb` role works, please refer to the Ansible documentation and the role's source code.
+This software was created with the assistance of [OpenAI ChatGPT](https://chat.openai.com/share/a75ca771-d8a4-4b75-9912-c515ba371ae4).

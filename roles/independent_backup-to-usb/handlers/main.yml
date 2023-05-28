@@ -1,3 +1,6 @@
----
-- name: Reload udev rules
-  command: udevadm control --reload-rules && udevadm trigger
+- name: "reload backup-to-usb.service"
+  systemd:
+    name: backup-to-usb.service
+    state: reloaded
+    enabled: yes
+    daemon_reload: yes
