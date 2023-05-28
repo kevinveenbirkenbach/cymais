@@ -51,7 +51,7 @@ for backup_type in $remote_backup_types; do
     echo "executing:                $rsync_command"
 
     retry_count=0
-    max_retries=3
+    max_retries=12
     retry_delay=300  # Retry delay in seconds (5 minutes)
     last_retry_start=0
     max_retry_duration=43200  # Maximum duration for a single retry attempt (12 hours)
