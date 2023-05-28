@@ -13,11 +13,16 @@ fi
 vendor_and_product_id=$1
 
 # Define the color transition parameters
-sunset_color="ff0000"
-dawn_color="ff0000"
-sunrise_color="0000ff"
-noon_color="ffffff"
-twilight_color="ff00ff"
+morning_blue_color="5bc0eb" # Morning Blue Color
+dawn_color="ff7f00" # Dawn Color
+morning_golden_hour_color="f9c80e" # Morning Golden Hour Color
+sunrise_color="ffd700" # Sunrise Color
+noon_color="ffffff" # Noon Color
+twilight_color="ff6f61" # Twilight Color
+evening_golden_hour_color="fdbe51" # Evening Golden Hour Color
+evening_blue_color="0000ff" # Evening Blue Color
+sunset_color="ff4500" # Sunset Color
+night_color="990000" # Night Color
 
 # Function to calculate the color based on the transition ratio
 calculate_color() {
@@ -44,36 +49,66 @@ calculate_color() {
 current_time=$(date +%H:%M)
 
 # Calculate the transition ratio based on the current time
-if [[ "$current_time" > "21:00" || "$current_time" < "06:00" ]]; then
-    # Transition from sunset to dawn (21:00 to 06:00)
-    color_start="ff0000"
-    color_end="ff0000"
+if [[ "$current_time" > "22:00" || "$current_time" < "04:00" ]]; then
+    # Night (22:00 to 04:00)
+    color_start="$night_color"
+    color_end="$night_color"
+    color_start_time="22:00"
+    color_end_time="04:00"
+elif [[ "$current_time" > "21:00" ]]; then
+    # Evening Blue Hour to Night (21:00 to 22:00)
+    color_start="$evening_blue_color"
+    color_end="$night_color"
     color_start_time="21:00"
-    color_end_time="06:00"
-elif [[ "$current_time" > "06:00" && "$current_time" < "09:00" ]]; then
-    # Transition from dawn to sunrise (06:00 to 09:00)
-    color_start="ff0000"
-    color_end="00e4ff"
-    color_start_time="06:00"
-    color_end_time="09:00"
-elif [[ "$current_time" > "09:00" && "$current_time" < "12:00" ]]; then
-    # Transition from sunrise to noon (09:00 to 12:00)
-    color_start="00e4ff"
-    color_end="ffffff"
-    color_start_time="09:00"
-    color_end_time="12:00"
-elif [[ "$current_time" > "12:00" && "$current_time" < "18:00" ]]; then
-    # Transition from noon to twilight (12:00 to 18:00)
-    color_start="ffffff"
-    color_end="ff00a8"
-    color_start_time="12:00"
-    color_end_time="18:00"
-else
-    # Transition from twilight to sunset (18:00 to 21:00)
-    color_start="ff00a8"
-    color_end="ff0000"
-    color_start_time="18:00"
+    color_end_time="22:00"
+elif [[ "$current_time" > "20:00" ]]; then
+    # Evening Golden Hour to Evening Blue Hour (20:00 to 21:00)
+    color_start="$evening_golden_hour_color"
+    color_end="$evening_blue_color"
+    color_start_time="20:00"
     color_end_time="21:00"
+elif [[ "$current_time" > "19:30" ]]; then
+    # Sunset to Evening Golden Hour (19:30 to 20:00)
+    color_start="$sunset_color"
+    color_end="$evening_golden_hour_color"
+    color_start_time="19:30"
+    color_end_time="20:00"
+elif [[ "$current_time" > "12:00" ]]; then
+    # Noon to Sunset (12:00 to 19:30)
+    color_start="$noon_color"
+    color_end="$sunset_color"
+    color_start_time="12:00"
+    color_end_time="19:30"
+elif [[ "$current_time" > "07:30" ]]; then
+    # Sunrise to Noon (07:30 to 12:00)
+    color_start="$sunrise_color"
+    color_end="$noon_color"
+    color_start_time="07:30"
+    color_end_time="12:00"
+elif [[ "$current_time" > "07:00" ]]; then
+    # Morning Golden Hour to Sunrise (07:00 to 07:30)
+    color_start="$morning_golden_hour_color"
+    color_end="$sunrise_color"
+    color_start_time="07:00"
+    color_end_time="07:30"
+elif [[ "$current_time" > "06:00" ]]; then
+    # Dawn to Morning Golden Hour (06:00 to 07:00)
+    color_start="$dawn_color"
+    color_end="$morning_golden_hour_color"
+    color_start_time="06:00"
+    color_end_time="07:00"
+elif [[ "$current_time" > "05:00" ]]; then
+    # Morning Blue Hour to Dawn (05:00 to 06:00)
+    color_start="$morning_blue_color"
+    color_end="$dawn_color"
+    color_start_time="05:00"
+    color_end_time="06:00"
+elif [[ "$current_time" > "04:00" ]]; then
+    # Night to Morning Blue Hour (22:00 to 04:00)
+    color_start="$night_color"
+    color_end="$morning_blue_color"
+    color_start_time="04:00"
+    color_end_time="05:00"
 fi
 
 # Get the current date in YYYY-MM-DD format
@@ -92,7 +127,7 @@ transition_ratio=$(awk "BEGIN { ratio = ($current_timestamp - $start_timestamp) 
 # Calculate the current color based on the transition ratio
 current_color=$(calculate_color "$color_start" "$color_end" "$transition_ratio")
 
-echo "changing keyboard color to #$current_color."
+echo "Changing keyboard color to #$current_color."
 
 # Set the color using msi-perkeyrgb
 msi-perkeyrgb --model GS65 -s "$current_color" --id "$vendor_and_product_id"
