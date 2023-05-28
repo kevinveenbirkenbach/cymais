@@ -38,12 +38,6 @@ else
         r=$(awk "BEGIN { value = 255 - 255 * $transition_ratio; printf(\"%.0f\", value) }")
         g=0
         b=0
-
-        # Convert the RGB values to hexadecimal format
-        current_color=$(printf '%02x%02x%02x' $r $g $b)
-
-        # Set the color using msi-perkeyrgb
-        sudo msi-perkeyrgb --model GS65 -s "$current_color" --id "$vendor_and_product_id"
     else
         # Calculate the transition ratio based on the time of day
         start_seconds=$(date -d "$transition_end" +%s)
@@ -55,11 +49,10 @@ else
         r=$(awk "BEGIN { value = 255 * $transition_ratio; printf(\"%.0f\", value) }")
         g=$(awk "BEGIN { value = 0 + (255 - 0) * $transition_ratio; printf(\"%.0f\", value) }")
         b=$(awk "BEGIN { value = 0 + (255 - 0) * $transition_ratio; printf(\"%.0f\", value) }")
-
-        # Convert the RGB values to hexadecimal format
-        current_color=$(printf '%02x%02x%02x' $r $g $b)
-
-        # Set the color using msi-perkeyrgb
-        sudo msi-perkeyrgb --model GS65 -s "$current_color" --id "$vendor_and_product_id"
     fi
+    # Convert the RGB values to hexadecimal format
+    current_color=$(printf '%02x%02x%02x' $r $g $b)
+
+    # Set the color using msi-perkeyrgb
+    msi-perkeyrgb --model GS65 -s "$current_color" --id "$vendor_and_product_id"
 fi

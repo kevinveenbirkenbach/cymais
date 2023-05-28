@@ -1,7 +1,7 @@
 ---
 - name: Copy keyboard-color.timer file
   template:
-    src: keyboard-color.timer
+    src: keyboard-color.timer.j2
     dest: /etc/systemd/system/keyboard-color.j2
     mode: 0644
   tags:
@@ -24,7 +24,7 @@
 - name: Enable and start keyboard-color.timer
   systemd:
     name: keyboard-color.timer
-    state: started
+    state: restarted
     enabled: yes
   tags:
     - keyboard-color
