@@ -7,10 +7,10 @@
 
 - name: Create autostart directory if it doesn't exist
   file:
-    path: "{{ ansible_env.HOME }}/.config/autostart"
+    path: "{{auto_start_directory}}"
     state: directory
 
 - name: Copy caffeine.desktop file to autostart directory
   template:
     src: caffeine.desktop.j2
-    dest: "{{ ansible_env.HOME }}/.config/autostart/caffeine.desktop"
+    dest: "{{auto_start_directory}}caffeine.desktop"
