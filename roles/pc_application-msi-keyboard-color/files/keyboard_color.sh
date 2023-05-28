@@ -13,11 +13,11 @@ fi
 vendor_and_product_id=$1
 
 # Define the color transition parameters
-noon_color="ffffff"
-twilight_color="ff00a8"
 sunset_color="ff0000"
 dawn_color="ff0000"
-sunrise_color="00e4ff"
+sunrise_color="0000ff"
+noon_color="ffffff"
+twilight_color="ff00ff"
 
 # Function to calculate the color based on the transition ratio
 calculate_color() {
@@ -25,12 +25,19 @@ calculate_color() {
     local color_end=$2
     local transition_ratio=$3
 
-    local start_value=$((16#${color_start}))
-    local end_value=$((16#${color_end}))
+    local start_r=$((16#${color_start:0:2}))
+    local start_g=$((16#${color_start:2:2}))
+    local start_b=$((16#${color_start:4:2}))
 
-    local current_value=$(awk "BEGIN { value = ${start_value} + (${end_value} - ${start_value}) * ${transition_ratio}; printf(\"%.0f\", value) }")
+    local end_r=$((16#${color_end:0:2}))
+    local end_g=$((16#${color_end:2:2}))
+    local end_b=$((16#${color_end:4:2}))
 
-    printf "%06x" "${current_value}"
+    local current_r=$(awk "BEGIN { r = ${start_r} + (${end_r} - ${start_r}) * ${transition_ratio}; printf(\"%.0f\", r) }")
+    local current_g=$(awk "BEGIN { g = ${start_g} + (${end_g} - ${start_g}) * ${transition_ratio}; printf(\"%.0f\", g) }")
+    local current_b=$(awk "BEGIN { b = ${start_b} + (${end_b} - ${start_b}) * ${transition_ratio}; printf(\"%.0f\", b) }")
+
+    printf "%02x%02x%02x" "$current_r" "$current_g" "$current_b"
 }
 
 # Get the current time in HH:MM format
@@ -42,7 +49,7 @@ if [[ "$current_time" > "21:00" || "$current_time" < "06:00" ]]; then
     color_start="ff0000"
     color_end="ff0000"
     color_start_time="21:00"
-    color_end_time="00:00"
+    color_end_time="06:00"
 elif [[ "$current_time" > "06:00" && "$current_time" < "09:00" ]]; then
     # Transition from dawn to sunrise (06:00 to 09:00)
     color_start="ff0000"
