@@ -1,0 +1,3 @@
+---
+docker_compose_attendize_path:  "{{path_docker_compose_files}}attendize/"
+mail_interface_domain:          "mail.{{domain}}"

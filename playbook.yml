@@ -173,6 +173,15 @@
       vars:
         domain: "joomla.{{top_domain}}"
         http_port: 8014
+- name: setup attendize
+  hosts: attendize
+  become: true
+  roles:
+   -  role: server_docker-attendize
+      vars:
+        domain: "tickets.{{top_domain}}"
+        http_port: 8015
+        mail_interface_http_port: 8016
 - name: setup akaunting hosts
   hosts: akaunting
   become: true

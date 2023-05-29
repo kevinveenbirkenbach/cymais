@@ -1,0 +1,52 @@
+version: '3.2'
+services:
+  web:
+    image: attendize_web:latest
+    ports:
+    - "{{http_port}}:80"
+    #- "8081:443"
+    volumes:
+      - .:/usr/share/nginx/html
+      - .:/var/www
+    depends_on:
+      - database
+      - maildev
+      - redis
+      - worker
+    env_file:
+      - ./.env
+  worker:
+    image: attendize_worker:latest
+    depends_on:
+      - database
+      - maildev
+      - redis
+    volumes:
+      - .:/usr/share/nginx/html
+      - .:/var/www
+  database:
+    logging:
+      driver: journald
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: "attendize"
+      MYSQL_USER: "attendize"
+      MYSQL_PASSWORD: "{{attendize_database_password}}"
+      MYSQL_ROOT_PASSWORD: "{{attendize_database_password}}"
+      MARIADB_AUTO_UPGRADE: "1"
+    volumes:
+      - database:/var/lib/mysql
+    healthcheck:
+      test: "/usr/bin/mysql --user=attendize --password={{attendize_database_password}} --execute \"SHOW DATABASES;\""
+      interval: 3s
+      timeout: 1s
+      retries: 5
+  maildev:
+    image: maildev/maildev
+    ports:
+      - "{{ mail_interface_http_port }}:1080"
+  redis:
+    image: redis
+volumes:
+  database:
