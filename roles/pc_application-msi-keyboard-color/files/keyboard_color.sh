@@ -42,6 +42,17 @@ calculate_color() {
     local current_g=$(awk "BEGIN { g = ${start_g} + (${end_g} - ${start_g}) * ${transition_ratio}; printf(\"%.0f\", g) }")
     local current_b=$(awk "BEGIN { b = ${start_b} + (${end_b} - ${start_b}) * ${transition_ratio}; printf(\"%.0f\", b) }")
 
+    # Set value to ff if value is 100
+    if [ "$current_r" -eq 100 ]; then
+        current_r="ff"
+    fi
+    if [ "$current_g" -eq 100 ]; then
+        current_g="ff"
+    fi
+    if [ "$current_b" -eq 100 ]; then
+        current_b="ff"
+    fi
+
     printf "%02x%02x%02x" "$current_r" "$current_g" "$current_b"
 }
 
