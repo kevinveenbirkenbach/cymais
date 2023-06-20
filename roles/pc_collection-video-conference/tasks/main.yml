@@ -3,3 +3,4 @@
     use: yay
     name:
       - zoom
+  become: false
