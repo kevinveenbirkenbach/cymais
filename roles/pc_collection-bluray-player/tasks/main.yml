@@ -5,10 +5,10 @@
       - libaacs
       - libbluray
     state: present
-- name: install AUR packages to play blu ray
-  kewlfft.aur.aur:
-    use: yay
-    name:
-      - aacskeys
-      - libbdplus
-  become: false
+#- name: install AUR packages to play blu ray
+#  kewlfft.aur.aur:
+#    use: yay
+#    name:
+#      - aacskeys
+#      - libbdplus
+#  become: false
