@@ -12,11 +12,10 @@ NEXTCLOUD_APPLICATION_DOCKER_CONTAINER=nextcloud-application-1
 
 To update the nextcloud container execute the following commands on the server:
 ```bash
-  docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ maintenance:mode --on
-  sudo python {{path_administrator_scripts}}docker-volume-backup/docker-volume-backup.py
-  export COMPOSE_HTTP_TIMEOUT=600
-  export DOCKER_CLIENT_TIMEOUT=600
-  cd {{path_docker_compose_files}}nextcloud && docker-compose down
+  docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ maintenance:mode --on &&
+  export COMPOSE_HTTP_TIMEOUT=600 &&
+  export DOCKER_CLIENT_TIMEOUT=600 &&
+  docker-compose down
 ```
 
 Afterwards update the ***nextcloud_version*** variable to the next version and run the this repository with this ansible role.
