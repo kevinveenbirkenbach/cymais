@@ -30,7 +30,7 @@ services:
       - database:/var/lib/mysql
     restart: always
     healthcheck:
-      test: "/usr/bin/mysql --user=nextcloud --password={{nextcloud_database_password}} --execute \"SHOW DATABASES;\""
+      test: "/usr/bin/mariadb --user=nextcloud --password={{nextcloud_database_password}} --execute \"SHOW DATABASES;\""
       interval: 3s
       timeout: 1s
       retries: 5
