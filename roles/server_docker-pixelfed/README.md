@@ -1,5 +1,10 @@
 # role server_docker-pixelfed
 
+## Go into application container
+```bash
+sudo docker-compose exec -it application bash
+```
+
 ## hard cleanup
 ```bash
 docker-compose down
