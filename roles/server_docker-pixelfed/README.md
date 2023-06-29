@@ -1,8 +1,28 @@
 # role server_docker-pixelfed
 
-## Go into application container
+## access application
 ```bash
-sudo docker-compose exec -it application bash
+docker-compose exec -it application bash
+```
+
+## access database
+```bash
+docker-compose exec -it database mariadb -u pixelfed -p
+```
+
+## cleanup instagram imports
+### mysql
+```bash
+DELETE from import_posts WHERE 1;
+DELETE from import_jobs WHERE 1;
+DELETE from import_datas WHERE 1;
+DELETE from statuses where created_at < "2022-12-01 22:15:39";
+DELETE from media where deleted_at >= "2023-07-28 14:39:05";
+```
+### files
+```bash
+docker-compose exec -u "www-data" application rm -rv "/var/www/storage/app/imports/1"
+docker-compose exec -u "www-data" application php artisan schedule:run
 ```
 
 ## hard cleanup
