@@ -79,6 +79,10 @@ sudo docker restart mailu_smtp_1 mailu_imap_1 mailu_antispam_1 mailu_redis_1 mai
 docker-compose exec -it smtp postqueue -f
 ```
 
+## test
+- https://de.ssl-tools.net/mailservers/
+- http://testemail.de/
+
 ## update
 For update instructions follow:
 - https://mailu.io/master/maintain.html
