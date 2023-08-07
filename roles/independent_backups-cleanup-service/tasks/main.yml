@@ -1,11 +1,8 @@
-- name: install psutil
-  pip:
-    name: psutil
-
-- name: install lsof
+- name: install lsof and python-psutil
   community.general.pacman:
     name:
       - lsof
+      - python-psutil
     state: present
 
 - name: "create {{docker_backups_cleanup}}"
