@@ -203,110 +203,110 @@
   hosts: personal_computers
   become: true
   roles:
-    - pc_collection-administrator-base
-    - pc_driver-non-free
+    - collection-administrator-base
+    - driver-non-free
 
-- name: pc_collection-office
+- name: collection-office
   hosts: collection_officetools
   become: true
   roles:
-    - pc_collection-office
+    - collection-office
 
-- name: pc_collection-designer
+- name: collection-designer
   hosts: collection_designer
   become: true
   roles:
-    - pc_collection-designer
+    - collection-designer
 
-- name: pc_collection-torrent
+- name: collection-torrent
   hosts: collection_torrent
   become: true
   roles:
-    - pc_collection-torrent
+    - collection-torrent
 
-- name: pc_collection-streamer
+- name: collection-streamer
   hosts: collection_streamer
   become: true
   roles:
-    - pc_collection-streamer
+    - collection-streamer
 
-- name: pc_collection-bluray-player
+- name: collection-bluray-player
   hosts: collection_bluray_player
   become: true
   roles:
-    - pc_collection-bluray-player
+    - collection-bluray-player
 
-- name: pc_driver-intel
+- name: driver-intel
   hosts: intel
   become: true
   roles:
-    - pc_driver-intel
+    - driver-intel
 
-- name: pc_application-latex
+- name: application-latex
   hosts: latex
   become: true
   roles:
-    - pc_application-latex
+    - application-latex
 
 - name: GNOME setup
   hosts: gnome
   become: true
   roles:
-    - pc_system-gnome
+    - system-gnome
 
 - name: setup msi rgb keyboard
   hosts: msi_perkeyrgb
   become: true
   roles:
-    - pc_application-msi-keyboard-color
+    - application-msi-keyboard-color
 
 - name: setup ssh hosts
   hosts: ssh
   become: false
   roles:
-    - pc_application-ssh
+    - application-ssh
 
 - name: setup swapfile hosts
   hosts: swapfile
   become: false
   roles:
-    - pc_system-swapfile
+    - system-swapfile
 
 - name: setup gaming hosts
   hosts: gaming
   become: true
   roles:
-    - pc_collection-games
+    - collection-games
 
 - name: setup entertainment hosts
   hosts: entertainment
   become: true
   roles:
-    - pc_collection-entertainment
+    - collection-entertainment
 
 - name: setup multiprinter hosts
   hosts: epson_multiprinter
   become: true
   roles:
-    - pc_driver-epson-multiprinter
+    - driver-epson-multiprinter
 
 - name: setup torbrowser hosts
   hosts: torbrowser
   become: true
   roles:
-    - pc_application-torbrowser
+    - application-torbrowser
 
 - name: setup nextcloud
   hosts: nextcloud_client
   become: true
   roles:
-    - pc_application-nextcloud
+    - application-nextcloud
 
 - name: setup docker
   hosts: docker
   become: true
   roles:
-    - pc_application-docker
+    - application-docker
 
 
 - name: setup backup to swappable
