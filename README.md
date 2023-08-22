@@ -84,6 +84,9 @@ Run:
 ansible-galaxy collection install -r requirements.yml
 ```
 
+## todo 
+- implement: https://archlinux.org/packages/extra/x86_64/signal-desktop/
+
 ## See
 - https://www.middlewareinventory.com/blog/run-ansible-playbook-locally/
 - https://stackoverflow.com/questions/30533372/run-an-ansible-task-only-when-the-hostname-contains-a-string

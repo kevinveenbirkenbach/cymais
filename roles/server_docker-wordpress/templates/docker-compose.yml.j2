@@ -33,7 +33,7 @@ services:
     volumes:
       - database:/var/lib/mysql
     healthcheck:
-      test: "/usr/bin/mysql --user=wordpress --password={{wordpress_database_password}} --execute \"SHOW DATABASES;\""
+      test: "/usr/bin/mariadb --user=wordpress --password={{wordpress_database_password}} --execute \"SHOW DATABASES;\""
       interval: 3s
       timeout: 1s
       retries: 5

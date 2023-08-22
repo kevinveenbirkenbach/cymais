@@ -1,6 +1,9 @@
-- name: install pandas python package
-  pip:
-    name: pandas
+- name: install pandas system wide
+  community.general.pacman:
+    name:
+      - lsof
+      - python-pandas
+    state: present
 
 - name: pull docker-volume-backup.git
   git:
