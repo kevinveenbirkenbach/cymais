@@ -1,4 +1,4 @@
-# role server_docker-nextcloud
+# role docker-nextcloud
 
 ## precondition
 
@@ -58,7 +58,7 @@ cd {{path_docker_compose_files}}nextcloud &&
 docker-compose down &&
 docker exec -i nextcloud_database_1 mysql -u nextcloud -pPASSWORT nextcloud < "/Backups/$(sha256sum /etc/machine-id | head -c 64)/docker-volume-backup/latest/nextcloud_database/sql/backup.sql" &&
 cd {{path_administrator_scripts}}docker-volume-backup &&
-bash ./server_docker-volume-recover.sh "nextcloud_data" "$(sha256sum /etc/machine-id | head -c 64)"
+bash ./docker-volume-recover.sh "nextcloud_data" "$(sha256sum /etc/machine-id | head -c 64)"
 ```
 
 ## database
@@ -125,13 +125,13 @@ Until NC24 MariaDB version has to be used.
 ## further information
 - https://github.com/nextcloud/docker/blob/master/.examples/docker-compose/with-nginx-proxy/mariadb/fpm/docker-compose.yml
 - https://goneuland.de/nextcloud-upgrade-auf-neue-versionen-mittels-docker/
-- https://help.nextcloud.com/t/cant-start-nextcloud-because-the-version-of-the-data-is-higher-than-the-server_docker-image-version-and-downgrading-is-not-supported/109438
+- https://help.nextcloud.com/t/cant-start-nextcloud-because-the-version-of-the-data-is-higher-than-the-docker-image-version-and-downgrading-is-not-supported/109438
 - https://github.com/nextcloud/docker/issues/1302
 - https://help.nextcloud.com/t/update-to-22-failed-with-database-error-updated/120682
 - https://help.nextcloud.com/t/nc-update-to-21-0-0-beta1-exception-database-error/101124/4
 - https://wolfgang.gassler.org/reset-password-mariadb-mysql-docker/
-- https://unix.stackexchange.com/questions/478855/ansible-server_docker-container-and-depends-on
-- https://github.com/gdiepen/server_docker-convenience-scripts
+- https://unix.stackexchange.com/questions/478855/ansible-docker-container-and-depends-on
+- https://github.com/gdiepen/docker-convenience-scripts
 - https://help.nextcloud.com/t/several-issues-after-upgrading-to-nextcloud-21/113118/3
-- https://forum.openmediavault.org/index.php?thread/31782-server_docker-nextcloud-talk-plugin-and-turnserver/
-- https://help.nextcloud.com/t/nextcloud-talk-im-server_docker-container-turn-server-auf-server_docker-host-kein-video/84133/10
+- https://forum.openmediavault.org/index.php?thread/31782-docker-nextcloud-talk-plugin-and-turnserver/
+- https://help.nextcloud.com/t/nextcloud-talk-im-docker-container-turn-server-auf-docker-host-kein-video/84133/10

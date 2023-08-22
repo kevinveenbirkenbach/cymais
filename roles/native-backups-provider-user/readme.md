@@ -1,4 +1,4 @@
-# role server_native-backups-provider-user
+# role native-backups-provider-user
 User for backups
 
 ## todo

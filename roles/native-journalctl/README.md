@@ -1,4 +1,4 @@
-# role server_native-journalctl
+# role native-journalctl
 
 # live monitoring
 

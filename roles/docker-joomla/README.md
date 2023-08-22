@@ -1,4 +1,4 @@
-# role server_docker-joomla
+# role docker-joomla
 ## delete all data
 ```bash
 docker stop joomla_application_1;  docker rm -f joomla_application_1; docker volume rm -f joomla-data;

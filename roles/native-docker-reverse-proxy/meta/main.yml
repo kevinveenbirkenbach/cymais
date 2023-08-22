@@ -1,3 +1,3 @@
 dependencies:
-- server_native-docker
-- server_native-https-server
+- native-docker
+- native-https-server

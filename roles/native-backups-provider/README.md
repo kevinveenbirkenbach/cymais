@@ -1,4 +1,4 @@
-# role server_native-backups-provider-host
+# role native-backups-provider-host
 
 ## todo
 - add full system backup

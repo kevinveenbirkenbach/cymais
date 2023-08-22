@@ -1,4 +1,4 @@
 dependencies:
-  - server_native-git
-  - server_native-backups-provider
+  - native-git
+  - native-backups-provider
   - systemd_notifier

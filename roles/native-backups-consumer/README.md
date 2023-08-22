@@ -1,4 +1,4 @@
-# role server_native-backups-consumer
+# role native-backups-consumer
 
 ## goal
 This script allows to pull backups from a remote server.

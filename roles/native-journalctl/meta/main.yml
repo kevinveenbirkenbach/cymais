@@ -1,2 +1,2 @@
 dependencies:
-  - server_native-journalctl-health-check
+  - native-journalctl-health-check

@@ -1,4 +1,4 @@
-# Role: server_docker-attendize
+# Role: docker-attendize
 
 This Ansible role sets up Attendize, an open-source ticket selling and event management platform.
 

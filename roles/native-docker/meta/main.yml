@@ -1,5 +1,5 @@
 dependencies:
-  - server_native-docker-volume-backup
-  - server_user-administrator
-  - server_native-docker-health-check
-  - server_native-docker-compose-restart-unhealthy
+  - native-docker-volume-backup
+  - user-administrator
+  - native-docker-health-check
+  - native-docker-compose-restart-unhealthy

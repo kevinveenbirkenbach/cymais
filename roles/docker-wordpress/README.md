@@ -1,4 +1,4 @@
-# role server_docker-wordpress
+# role docker-wordpress
 
 ## database 
 

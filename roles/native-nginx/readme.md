@@ -1,4 +1,4 @@
-# role server_native-nginx
+# role native-nginx
 
 ## debug
 ```bash 
@@ -11,4 +11,4 @@ journalctl -f -u nginx
 - https://www.nginx.com/blog/performance-tuning-tips-tricks/
 - https://medium.com/pixelpoint/best-practices-for-cache-control-settings-for-your-website-ff262b38c5a2
 - https://www.nginx.com/blog/nginx-caching-guide/
-- https://meta.discourse.org/t/using-nginx-as-proxy-server-is-very-slow-but-it-is-very-fast-if-using-nginx-in-server_docker-why/168972
+- https://meta.discourse.org/t/using-nginx-as-proxy-server-is-very-slow-but-it-is-very-fast-if-using-nginx-in-docker-why/168972

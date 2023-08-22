@@ -1,4 +1,4 @@
-# role server_docker-yourls
+# role docker-yourls
 
 ## database
 

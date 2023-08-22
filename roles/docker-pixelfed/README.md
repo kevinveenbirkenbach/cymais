@@ -1,6 +1,6 @@
 # Pixelfed Docker Server Role
 
-This README details the steps to manage your Pixelfed instance running in a Docker container. This setup is part of the server_docker-pixelfed role within Kevin Veen-Birkenbach's computer-playbook located at [this GitHub repository](https://github.com/kevinveenbirkenbach/computer-playbook/tree/master/roles/server_docker-pixelfed). 
+This README details the steps to manage your Pixelfed instance running in a Docker container. This setup is part of the docker-pixelfed role within Kevin Veen-Birkenbach's computer-playbook located at [this GitHub repository](https://github.com/kevinveenbirkenbach/computer-playbook/tree/master/roles/docker-pixelfed). 
 
 ## Accessing Services
 
