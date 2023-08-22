@@ -1,6 +1,6 @@
 ---
 dependencies:
-  - pc_system-aur-helper
+  - system-aur-helper
 galaxy_info:
   author: Kevin Veen-Birkenbach
   description: Ansible role for installing caffeine-ng and setting it to start at user login.

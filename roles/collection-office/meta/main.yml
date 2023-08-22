@@ -1,3 +1,3 @@
 dependencies:
-- pc_application-libreoffice
-- pc_collection-video-conference
+- application-libreoffice
+- collection-video-conference

@@ -1,4 +1,4 @@
-# pc_collection-blu-ray-player
+# collection-blu-ray-player
 
 ## further information
 - https://wiki.archlinux.org/title/Blu-ray#Using_aacskeys

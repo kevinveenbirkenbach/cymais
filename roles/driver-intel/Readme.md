@@ -1,1 +1,1 @@
-# pc_driver-intel
+# driver-intel
