@@ -65,6 +65,22 @@ docker-compose ps -a
 docker-compose logs -f
 ```
 
+## Debug
+To debug the system set APP_DEBUG to true, like descriped [here](https://docs.pixelfed.org/technical-documentation/config/).
+
+```bash
+nano config/app.php
+php artisan cache:clear
+php artisan route:cache
+php artisan view:clear
+php artisan config:cache
+```
+
+## Modifying files
+```bash
+apt update && apt upgrade && apt install nano
+```
+
 ## Further Reading
 For additional information, refer to these resources:
 - [Docker image on Docker Hub](https://hub.docker.com/r/zknt/pixelfed)
