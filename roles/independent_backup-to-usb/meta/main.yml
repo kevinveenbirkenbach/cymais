@@ -1,3 +1,0 @@
----
-dependencies:
-  - role: independent_backups-cleanup-service

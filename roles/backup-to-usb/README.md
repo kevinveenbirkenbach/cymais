@@ -1,4 +1,4 @@
-# independent_backup-to-usb
+# backup-to-usb
 
 This Ansible role automates the process of performing backups to a swappable USB device.
 

@@ -1,4 +1,4 @@
 dependencies:
   - native-git
   - systemd_notifier
-  - independent_backups-cleanup-timer
+  - backups-cleanup-timer

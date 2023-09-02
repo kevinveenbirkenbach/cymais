@@ -3,7 +3,7 @@
   hosts:  all
   become: true
   roles:
-    - independent_system-update
+    - system-update
 
 - name: servers host setup
   hosts: servers
@@ -20,7 +20,7 @@
   hosts: wireguard_server
   become: true
   roles:
-    - independent_application-wireguard
+    - application-wireguard
 
 - name: setup wireguard client behind firewall\nat
   hosts: wireguard_behind_firewall
@@ -313,4 +313,4 @@
   hosts: backup_to_usb
   become: true
   roles:
-    - independent_backup-to-usb
+    - backup-to-usb
