@@ -84,6 +84,16 @@ Run:
 ansible-galaxy collection install -r requirements.yml
 ```
 
+## Author
+
+Kevin Veen-Birkenbach  
+- 📧 Email: [kevin@veen.world](mailto:kevin@veen.world)
+- 🌍 Website: [https://www.veen.world/](https://www.veen.world/)
+
+## License
+
+This project is licensed under the GNU Affero General Public License v3.0. The full license text is available in the `LICENSE` file of this repository.
+
 ## todo 
 - implement: https://archlinux.org/packages/extra/x86_64/signal-desktop/
 
