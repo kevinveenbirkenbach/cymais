@@ -1,0 +1,1 @@
+docker_compose_path: "{{path_docker_compose_files}}baserow/"

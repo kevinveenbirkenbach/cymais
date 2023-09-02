@@ -182,6 +182,14 @@
         domain: "tickets.{{top_domain}}"
         http_port: 8015
         mail_interface_http_port: 8016
+- name: setup baserow hosts
+  hosts: baserow
+  become: true
+  roles:
+   -  role: docker-baserow
+      vars:
+        domain: baserow.{{top_domain}}
+        http_port: 8017
 - name: setup akaunting hosts
   hosts: akaunting
   become: true

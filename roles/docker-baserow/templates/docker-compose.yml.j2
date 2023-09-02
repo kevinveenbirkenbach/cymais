@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  baserow:
+    image: baserow/baserow:1.19.1
+    restart: always
+    logging:
+      driver: journald
+    env_file:
+      - ./env
+    volumes:
+      - baserow_data:/baserow/data
+    ports:
+      - "{{http_port}}:80"
+volumes:
+  baserow_data:

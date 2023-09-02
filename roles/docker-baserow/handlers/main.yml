@@ -1,0 +1,8 @@
+---
+- name: recreate baserow
+  command:
+    cmd: docker-compose -p baserow up -d --force-recreate
+    chdir: "{{path_docker_compose_files}}baserow/"
+  environment:
+    COMPOSE_HTTP_TIMEOUT: 600
+    DOCKER_CLIENT_TIMEOUT: 600
