@@ -1,0 +1,5 @@
+dependencies:
+  - docker-volume-backup
+  - user-administrator
+  - docker-health-check
+  - docker-compose-restart-unhealthy

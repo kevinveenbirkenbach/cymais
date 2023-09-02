@@ -10,10 +10,10 @@
   become: true
   roles:
     - system-security
-    - native-journalctl
-    - native-disc-space-check
-    - native-free-disc-space
-    - native-btrfs-health-check
+    - journalctl
+    - disc-space-check
+    - free-disc-space
+    - btrfs-health-check
 
 # Wireguard Rollen
 - name: setup standard wireguard
@@ -39,14 +39,14 @@
   hosts: homepage
   become: true
   roles:
-   -  role: native-homepage
+   -  role: homepage
       vars:
         domain: "{{top_domain}}"
 - name: setup redirect hosts
   hosts: redirect
   become: true
   roles:
-   -  role: native-https-redirect
+   -  role: https-redirect
       vars:
         domain_mappings: "{{redirect_domain_mappings}}"
 
@@ -196,7 +196,7 @@
   hosts: replica_backup
   become: true
   roles:
-    - role: native-backups-consumer
+    - role: backups-consumer
 
 ## PC services
 - name: general host setup

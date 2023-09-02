@@ -1,2 +1,2 @@
 dependencies:
-- native-docker-reverse-proxy
+- docker-reverse-proxy

@@ -1,4 +1,0 @@
-dependencies:
-  - native-git
-  - native-backups-provider
-  - systemd_notifier

@@ -1,0 +1,4 @@
+dependencies:
+  - git
+  - systemd_notifier
+  - backups-cleanup-timer

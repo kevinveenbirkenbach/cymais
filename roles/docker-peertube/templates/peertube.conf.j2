@@ -6,7 +6,7 @@ upstream backend {
 server {
   server_name {{domain}};
 
-  {% include 'roles/native-letsencrypt/templates/ssl_header.j2' %}
+  {% include 'roles/letsencrypt/templates/ssl_header.j2' %}
 
   ##
   # Application

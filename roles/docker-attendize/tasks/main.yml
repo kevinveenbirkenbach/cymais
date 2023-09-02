@@ -7,13 +7,13 @@
 
 - name: configure {{domain}}.conf
   template: 
-    src: roles/native-docker-reverse-proxy/templates/domain.conf.j2 
+    src: roles/docker-reverse-proxy/templates/domain.conf.j2 
     dest: /etc/nginx/conf.d/{{domain}}.conf
   notify: restart nginx
 
 #- name: configure {{ mail_interface_domain }}.conf
 #  template: 
-#    src: roles/native-docker-reverse-proxy/templates/domain.conf.j2 
+#    src: roles/docker-reverse-proxy/templates/domain.conf.j2 
 #    dest: /etc/nginx/conf.d/{{ mail_interface_domain }}.conf
 #  vars:
 #    http_port: "{{ mail_interface_http_port }}"

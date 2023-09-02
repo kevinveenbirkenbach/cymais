@@ -1,3 +1,0 @@
-dependencies:
-- native-nginx
-- systemd_notifier
