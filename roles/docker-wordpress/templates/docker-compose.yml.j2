@@ -4,7 +4,9 @@ services:
   application:
     logging:
       driver: journald
-    image: wordpress
+    image: custom_wordpress
+    build:
+      context: .
     restart: always
     ports:
       - "127.0.0.1:{{http_port}}:80"

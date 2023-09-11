@@ -1,8 +1,15 @@
 ---
+- name: rebuild wordpress container
+  command:
+    cmd: docker build --no-cache -t custom_wordpress .
+    chdir: "{{docker_compose_wordpress_path}}"
+  environment:
+    COMPOSE_HTTP_TIMEOUT: 600
+    DOCKER_CLIENT_TIMEOUT: 600
 - name: recreate wordpress
   command:
     cmd: docker-compose -p wordpress up -d --force-recreate
-    chdir: "{{path_docker_compose_files}}wordpress/"
+    chdir: "{{docker_compose_wordpress_path}}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600
