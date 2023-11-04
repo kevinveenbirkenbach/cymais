@@ -7,6 +7,9 @@ server
   # Remove X-Powered-By, which is an information leak
   fastcgi_hide_header X-Powered-By;
 
+  # Set X-Robots-Tag to noindex, nofollow on all responses
+  add_header X-Robots-Tag "noindex, nofollow";
+
   # set max upload size
   client_max_body_size 10G;
   client_body_buffer_size 400M;

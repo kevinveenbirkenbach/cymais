@@ -1,18 +1,21 @@
 # role docker-nextcloud
 
-## precondition
-
-Before executing cli commands the following variable needs to be set:
-
+## modify config
+Enter container:
 ```bash
-NEXTCLOUD_APPLICATION_DOCKER_CONTAINER=nextcloud-application-1
+  docker-compose exec -it application /bin/sh
+```
+
+Afterwards modify config:
+```bash
+apk add --no-cache nano && nano config/config.php
 ```
 
 ## update
 
 To update the nextcloud container execute the following commands on the server:
 ```bash
-  docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ maintenance:mode --on &&
+  docker-compose exec -it -u www-data application /var/www/html/occ maintenance:mode --on &&
   export COMPOSE_HTTP_TIMEOUT=600 &&
   export DOCKER_CLIENT_TIMEOUT=600 &&
   docker-compose down
@@ -27,27 +30,27 @@ Wait for the update to finish.
 You can verify that the update is finished by checking the following logs:
 
 ```bash
-docker logs $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER
+docker-compose logs application
 ```
 
 and
 
 ```bash
-docker exec -it $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER top
+docker-compose exec -it application top
 ```
 
 If nextcloud stays in the maintenance mode after the update try the following:
 
 ```bash
-  docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ maintenance:mode --on
-  docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ upgrade
-  docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ maintenance:mode --off
+  docker-compose exec -it -u www-data application /var/www/html/occ maintenance:mode --on
+  docker-compose exec -it -u www-data application /var/www/html/occ upgrade
+  docker-compose exec -it -u www-data application /var/www/html/occ maintenance:mode --off
 ```
 
 If the update process fails execute
 
 ```bash
-  docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ maintenance:repair
+  docker-compose exec -it -u www-data application /var/www/html/occ maintenance:repair
 ```
 
 and disable the not functioning apps.
@@ -56,7 +59,7 @@ and disable the not functioning apps.
 ```bash
 cd {{path_docker_compose_files}}nextcloud &&
 docker-compose down &&
-docker exec -i nextcloud_database_1 mysql -u nextcloud -pPASSWORT nextcloud < "/Backups/$(sha256sum /etc/machine-id | head -c 64)/docker-volume-backup/latest/nextcloud_database/sql/backup.sql" &&
+docker-compose exec -i database mysql -u nextcloud -pPASSWORT nextcloud < "/Backups/$(sha256sum /etc/machine-id | head -c 64)/docker-volume-backup/latest/nextcloud_database/sql/backup.sql" &&
 cd {{path_administrator_scripts}}docker-volume-backup &&
 bash ./docker-volume-recover.sh "nextcloud_data" "$(sha256sum /etc/machine-id | head -c 64)"
 ```
@@ -65,12 +68,12 @@ bash ./docker-volume-recover.sh "nextcloud_data" "$(sha256sum /etc/machine-id | 
 ### database access
 To access the database execute
 ```bash
-  docker exec -it nextcloud_database_1 mysql -u nextcloud -D nextcloud -p
+  docker-compose exec -it database mysql -u nextcloud -D nextcloud -p
 ```
 
 ### recreate database with new volume:
 ```bash
-docker run --detach --name nextcloud_database_1 --env MYSQL_USER="nextcloud" --env MYSQL_PASSWORD=PASSWORD --env MYSQL_ROOT_PASSWORD=PASSWORD --env MYSQL_DATABASE="nextcloud" -v nextcloud_database:/var/lib/mysql
+docker-compose run --detach --name database --env MYSQL_USER="nextcloud" --env MYSQL_PASSWORD=PASSWORD --env MYSQL_ROOT_PASSWORD=PASSWORD --env MYSQL_DATABASE="nextcloud" -v nextcloud_database:/var/lib/mysql
 ```
 
 The process can be checked with:
@@ -84,7 +87,7 @@ show processlist;
 To use occ run:
 
 ```bash
-  docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ
+  docker-compose exec -it -u www-data application /var/www/html/occ
 ```
 
 ## app relevant tables
@@ -94,14 +97,14 @@ To use occ run:
 ### initialize duplicates
 
 ```bash
-  sudo docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ duplicates:find-all --output
+  docker-compose exec -it -u www-data application /var/www/html/occ duplicates:find-all --output
 ```
 
 ### unlock files
 ```bash
-  docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ maintenance:mode --on
-  docker exec -it nextcloud_database_1 mysql -u nextcloud -pPASSWORD1234132 -D nextcloud -e "delete from oc_file_locks where 1"
-  docker exec -it -u www-data $NEXTCLOUD_APPLICATION_DOCKER_CONTAINER /var/www/html/occ maintenance:mode --off
+  docker-compose exec -it -u www-data application /var/www/html/occ maintenance:mode --on
+  docker-compose exec -it nextcloud_database_1 mysql -u nextcloud -pPASSWORD1234132 -D nextcloud -e "delete from oc_file_locks where 1"
+  docker-compose exec -it -u www-data application /var/www/html/occ maintenance:mode --off
 ```
 
 ## architecture
@@ -112,7 +115,7 @@ Until NC24 MariaDB version has to be used.
 ### 504 Gateway Timeout
 
 ```bash
-  docker logs nextcloud_web_1 --tail 1000 | grep 504
+  docker-compose logs web --tail 1000 | grep 504
 ```
 
 #### See
