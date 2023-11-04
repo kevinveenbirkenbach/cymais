@@ -1,12 +1,11 @@
 - name: "reload pull-remote-backups service"
   systemd:
     name: pull-remote-backups.service
-    state: reloaded
     enabled: yes
     daemon_reload: yes
 - name: "restart pull-remote-backups timer"
   systemd:
     name: pull-remote-backups.timer
-    state: restarted
+    state: started
     enabled: yes
     daemon_reload: yes
