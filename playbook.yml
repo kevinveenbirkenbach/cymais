@@ -3,7 +3,7 @@
   hosts:  all
   become: true
   roles:
-    - system-update
+    - update
 
 - name: servers host setup
   hosts: servers

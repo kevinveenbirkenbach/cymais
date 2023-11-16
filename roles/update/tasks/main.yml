@@ -1,0 +1,20 @@
+---
+- name: "Check if {{ path_docker_compose_files }} directory exists"
+  stat:
+    path: "{{ path_docker_compose_files }}"
+  register: docker_compose_directory_stat
+
+- name: "Update with pacman"
+  include_role:
+    name: update-pacman
+  when: ansible_distribution == 'Archlinux' and docker_compose_directory_stat.stat.exists
+
+- name: "Update with apt"
+  include_role:
+    name: update-apt
+  when: ansible_distribution == "Debian" and docker_compose_directory_stat.stat.exists
+
+- name: "Update Docker Images"
+  include_role:
+    name: update-docker
+  when: docker_compose_directory_stat.stat.exists

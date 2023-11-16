@@ -27,16 +27,17 @@ def print_bash(command):
     return output
 
 waiting_time=600
-backup_running=True
-while backup_running:
+blocker_running=True
+while blocker_running:
     try: 
         bash("systemctl is-active --quiet docker-volume-backup.service")
+        bash("systemctl is-active --quiet update-docker.service")
         print("backup is running.")
         print("trying again in  " + str(waiting_time) + " seconds.")
         time.sleep(waiting_time)
     except:
-        backup_running=False
-        print("no backup is running.")
+        blocker_running=False
+        print("No blocking service is running.")
 
 unhealthy_container_names=print_bash('docker ps --filter health=unhealthy --format \'{{.Names}}\'')
 exited_container_names=print_bash('docker ps --filter status=exited --format \'{{.Names}}\'')
