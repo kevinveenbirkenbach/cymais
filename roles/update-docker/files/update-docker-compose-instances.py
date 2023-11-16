@@ -20,10 +20,25 @@ def git_pull(directory):
         run_command("git pull")
     else:
         print("Repository is already up to date.")
+        
+def get_image_digests():
+    images_output = subprocess.check_output('docker-compose images --digests', shell=True).decode().strip()
+    image_lines = images_output.splitlines()
+    return {line.split()[0]: line.split()[2] for line in image_lines if line}
 
 def update_docker(directory):
-    print("Pulling docker images and rebuilding containers.")
-    run_command("docker-compose pull && docker-compose up -d --build --force-recreate")
+    print(f"Checking for updates to Docker images in {directory}.")
+    os.chdir(directory)
+    before_digests = get_image_digests()
+    print("Pulling docker images.")
+    run_command("docker-compose pull")
+    after_digests = get_image_digests()
+
+    if before_digests != after_digests:
+        print("Changes detected in image digests. Rebuilding containers.")
+        run_command("docker-compose up -d --build --force-recreate")
+    else:
+        print("Docker images are up to date. No rebuild necessary.")
 
 def update_nextcloud(directory):
     print("Updating Nextcloud apps.")
