@@ -1,6 +1,6 @@
-- name: "restart backups-cleanup.timer"
+- name: "restart cleanup-backups.timer"
   systemd:
-    name: backups-cleanup.timer
+    name: cleanup-backups.timer
     state: restarted
     enabled: yes
     daemon_reload: yes

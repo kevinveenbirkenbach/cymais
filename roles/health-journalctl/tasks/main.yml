@@ -19,4 +19,6 @@
   template:
     src: health-journalctl.timer.j2
     dest: /etc/systemd/system/health-journalctl.timer
+  register: health_journalctl_timer
+  changed_when: health_journalctl_timer.changed or activate_all_timers | default(false) | bool
   notify: restart health-journalctl.timer

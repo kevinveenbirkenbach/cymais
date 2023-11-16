@@ -11,13 +11,13 @@
     state: directory
     mode: 0755
 
-- name: create backups-cleanup.py
+- name: create cleanup-backups.py
   copy: 
-    src:  "backups-cleanup.py"
-    dest: "{{docker_backups_cleanup}}backups-cleanup.py"
+    src:  "cleanup-backups.py"
+    dest: "{{docker_backups_cleanup}}cleanup-backups.py"
 
-- name: create backups-cleanup.service
+- name: create cleanup-backups.service
   template: 
-    src:  "backups-cleanup.service.j2"
-    dest: "/etc/systemd/system/backups-cleanup.service"
-  notify: reload backups-cleanup.service
+    src:  "cleanup-backups.service.j2"
+    dest: "/etc/systemd/system/cleanup-backups.service"
+  notify: reload cleanup-backups.service

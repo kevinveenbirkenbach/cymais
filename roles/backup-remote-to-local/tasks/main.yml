@@ -16,6 +16,8 @@
 
 - name: create backup-remote-to-local.timer
   template: src=backup-remote-to-local.timer.j2 dest=/etc/systemd/system/backup-remote-to-local.timer
+  register: backup_remote_to_local_timer
+  changed_when: backup_remote_to_local_timer.changed or activate_all_timers | default(false) | bool
   notify: restart backup-remote-to-local timer
 
 - name: create backup-remote-to-local.sh

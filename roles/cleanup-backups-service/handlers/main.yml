@@ -1,6 +1,6 @@
-- name: "reload backups-cleanup.service"
+- name: "reload cleanup-backups.service"
   systemd:
-    name: backups-cleanup.service
+    name: cleanup-backups.service
     state: reloaded
     enabled: yes
     daemon_reload: yes
