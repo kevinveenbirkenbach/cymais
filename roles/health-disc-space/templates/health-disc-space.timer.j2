@@ -1,0 +1,10 @@
+[Unit]
+Description=starts health-disc-space.service
+
+[Timer]
+OnCalendar={{on_calendar_disc_space_check}}
+RandomizedDelaySec={{randomized_delay_sec}}
+Persistent=true
+
+[Install]
+WantedBy=timers.target

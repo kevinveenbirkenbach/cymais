@@ -1,7 +1,0 @@
-[Unit]
-Description=checking journalctl health
-OnFailure=systemd-notifier@%n.service
-
-[Service]
-Type=oneshot
-ExecStart=/bin/bash {{journalctl_health_check_folder}}journalctl-health-check.sh

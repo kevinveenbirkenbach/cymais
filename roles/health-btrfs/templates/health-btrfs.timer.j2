@@ -1,0 +1,10 @@
+[Unit]
+Description=starts health-btrfs.service
+
+[Timer]
+OnCalendar={{on_calendar_btrfs_health_check}}
+RandomizedDelaySec={{randomized_delay_sec}}
+Persistent=false
+
+[Install]
+WantedBy=timers.target

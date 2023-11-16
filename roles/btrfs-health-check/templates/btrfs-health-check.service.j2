@@ -1,7 +1,0 @@
-[Unit]
-Description=Check btrfs status
-OnFailure=systemd-notifier@%n.service
-
-[Service]
-Type=oneshot
-ExecStart=/bin/bash {{docker_btrfs_health_check_folder}}btrfs-health-check.sh

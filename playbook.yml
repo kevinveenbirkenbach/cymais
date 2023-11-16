@@ -11,9 +11,9 @@
   roles:
     - system-security
     - journalctl
-    - disc-space-check
+    - health-disc-space
     - free-disc-space
-    - btrfs-health-check
+    - health-btrfs
 
 # Wireguard Rollen
 - name: setup standard wireguard

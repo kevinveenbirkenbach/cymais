@@ -1,2 +1,2 @@
 dependencies:
-  - journalctl-health-check
+  - health-journalctl

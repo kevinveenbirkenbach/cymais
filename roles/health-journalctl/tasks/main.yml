@@ -1,0 +1,22 @@
+- name: "create {{journalctl_health_check_folder}}"
+  file:
+    path: "{{journalctl_health_check_folder}}"
+    state: directory
+    mode: 0755
+
+- name: create health-journalctl.sh
+  copy:
+    src: health-journalctl.sh
+    dest: "{{journalctl_health_check_folder}}health-journalctl.sh"
+
+- name: create health-journalctl.service
+  template: 
+    src: health-journalctl.service.j2
+    dest: /etc/systemd/system/health-journalctl.service
+  notify: reload health-journalctl.service
+
+- name: create health-journalctl.timer
+  template:
+    src: health-journalctl.timer.j2
+    dest: /etc/systemd/system/health-journalctl.timer
+  notify: restart health-journalctl.timer

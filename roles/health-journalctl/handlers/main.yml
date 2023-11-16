@@ -1,0 +1,13 @@
+- name: "reload health-journalctl.service"
+  systemd:
+    name: health-journalctl.service
+    state: reloaded
+    enabled: yes
+    daemon_reload: yes
+    ignore_errors: true
+- name: "restart health-journalctl.timer"
+  systemd:
+    name: health-journalctl.timer
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

@@ -1,0 +1,22 @@
+- name: "create {{docker_btrfs_health_check_folder}}"
+  file:
+    path: "{{docker_btrfs_health_check_folder}}"
+    state: directory
+    mode: 0755
+
+- name: create health-btrfs.sh
+  copy:
+    src: health-btrfs.sh
+    dest: "{{docker_btrfs_health_check_folder}}health-btrfs.sh"
+
+- name: create health-btrfs.service
+  template: 
+    src: health-btrfs.service.j2
+    dest: /etc/systemd/system/health-btrfs.service
+  notify: reload health-btrfs.service
+
+- name: create health-btrfs.timer
+  template:
+    src: health-btrfs.timer.j2
+    dest: "/etc/systemd/system/health-btrfs.timer"
+  notify: restart health-btrfs.timer

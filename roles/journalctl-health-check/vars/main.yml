@@ -1,1 +1,0 @@
-journalctl_health_check_folder: "{{path_administrator_scripts}}journalctl-health-check/"

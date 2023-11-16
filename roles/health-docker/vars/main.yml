@@ -1,0 +1,1 @@
+docker_health_check_folder: "{{path_administrator_scripts}}health-docker/"

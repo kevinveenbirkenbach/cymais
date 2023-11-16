@@ -1,7 +1,0 @@
-[Unit]
-Description=checking disc space
-OnFailure=systemd-notifier@%n.service
-
-[Service]
-Type=oneshot
-ExecStart=/bin/bash {{disc_space_check_folder}}disc-space-check.sh {{size_percent_disc_space_warning}}

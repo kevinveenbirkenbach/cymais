@@ -1,1 +1,0 @@
-docker_btrfs_health_check_folder: "{{path_administrator_scripts}}btrfs-health-check/"
