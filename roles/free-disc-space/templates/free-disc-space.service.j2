@@ -1,7 +1,0 @@
-[Unit]
-Description=freeing disc space
-OnFailure=systemd-notifier@%n.service
-
-[Service]
-Type=oneshot
-ExecStart=/bin/bash {{free_disc_space_folder}}free-disc-space.sh {{size_percent_free_disc_space}}

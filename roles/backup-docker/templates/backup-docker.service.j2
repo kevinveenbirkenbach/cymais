@@ -1,7 +1,0 @@
-[Unit]
-Description=docker volume backup
-OnFailure=systemd-notifier@%n.service backup-docker-cleanup.service
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/python {{docker_volume_backup_folder}}backup-docker.py

@@ -1,0 +1,36 @@
+- name: install pandas system wide
+  community.general.pacman:
+    name:
+      - lsof
+      - python-pandas
+    state: present
+
+- name: pull backup-docker-to-local.git
+  git:
+    repo: "https://github.com/kevinveenbirkenbach/backup-docker-to-local.git"
+    dest: "{{docker_volume_backup_folder}}"
+    update: yes
+  register: git_result
+  ignore_errors: true
+
+- name: Warn if repo is not reachable
+  debug:
+    msg: "Warning: Repository is not reachable."
+  when: git_result.failed
+
+- name: configure backup-docker-to-local.service
+  template: 
+    src: backup-docker-to-local.service.j2
+    dest: /etc/systemd/system/backup-docker-to-local.service
+  notify: reload backup-docker-to-local.service
+
+- name: configure backup-docker-to-local.timer.tpl
+  template: src=backup-docker-to-local.timer.j2 dest=/etc/systemd/system/backup-docker-to-local.timer
+  notify: restart backup-docker-to-local.timer
+
+- name: create {{docker_volume_backup_folder}}databases.csv
+  copy:
+    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}{{docker_volume_backup_folder}}databases.csv"
+    dest: "{{docker_volume_backup_folder}}databases.csv"
+    owner: root
+    group: root

@@ -30,7 +30,7 @@ waiting_time=600
 blocker_running=True
 while blocker_running:
     try: 
-        bash("systemctl is-active --quiet backup-docker.service")
+        bash("systemctl is-active --quiet backup-docker-to-local.service")
         bash("systemctl is-active --quiet update-docker.service")
         print("backup is running.")
         print("trying again in  " + str(waiting_time) + " seconds.")

@@ -1,0 +1,5 @@
+- name: "reload cleanup-failed-docker-backups.service daemon"
+  systemd:
+    name: cleanup-failed-docker-backups.service
+    enabled: yes
+    daemon_reload: yes

@@ -1,5 +1,0 @@
-dependencies:
-  - git
-  - backups-provider
-  - systemd_notifier
-  - backup-docker-cleanup

@@ -30,11 +30,11 @@ This software allows to setup the docker following applications:
 #### Native Applications
 
 This software shipts the following tools which are natively setup on the server:
-- [Backups Cleanup](./roles/backups-cleanup-timer/README.md) - Cleans up old backups
+- [Backups Cleanup](./roles/cleanup-backups-timer/README.md) - Cleans up old backups
 - [Btrfs Health Check](./roles/health-btrfs/README.md) - Checks the health of Btrfs file systems
 - [Docker Health Check](./roles/health-docker/) - Checks the health of docker containers
 - [Docker Reverse Proxy](./roles/docker-reverse-proxy/README.md) - Docker Reverse Proxy Solution
-- [Docker Volume Backup](./roles/backup-docker/) - Backup Solution for Docker Volumes
+- [Docker Volume Backup](./roles/backup-docker-to-local/) - Backup Solution for Docker Volumes
 - [Pull Primary Backups](./roles/backups-consumer/README.md) - Pulls the backups from another server and stores them
 - [Wireguard](./roles/wireguard/README.md) - Integrates the server in an wireguard vpn
 

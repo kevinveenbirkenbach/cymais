@@ -1,0 +1,22 @@
+- name: "create {{free_disc_space_folder}}"
+  file:
+    path: "{{free_disc_space_folder}}"
+    state: directory
+    mode: 0755
+
+- name: create cleanup-disc-space.sh
+  template:
+    src: cleanup-disc-space.sh.j2
+    dest: "{{free_disc_space_folder}}cleanup-disc-space.sh"
+
+- name: create cleanup-disc-space.service
+  template: 
+    src: cleanup-disc-space.service.j2
+    dest: /etc/systemd/system/cleanup-disc-space.service
+  notify: reload cleanup-disc-space.service
+
+- name: create cleanup-disc-space.timer
+  template:
+    src: cleanup-disc-space.timer.j2
+    dest: /etc/systemd/system/cleanup-disc-space.timer
+  notify: restart cleanup-disc-space.timer

@@ -12,7 +12,7 @@
     - system-security
     - journalctl
     - health-disc-space
-    - free-disc-space
+    - cleanup-disc-space
     - health-btrfs
 
 # Wireguard Rollen
@@ -321,4 +321,4 @@
   hosts: backup_to_usb
   become: true
   roles:
-    - backup-to-usb
+    - backup-data-to-usb

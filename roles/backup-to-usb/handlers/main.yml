@@ -1,6 +1,0 @@
-- name: "reload backup-to-usb.service"
-  systemd:
-    name: backup-to-usb.service
-    state: reloaded
-    enabled: yes
-    daemon_reload: yes
