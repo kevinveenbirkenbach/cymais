@@ -1,0 +1,22 @@
+- name: "create {{docker_compose_restart_unhealthy}}"
+  file:
+    path: "{{docker_compose_restart_unhealthy}}"
+    state: directory
+    mode: 0755
+
+- name: create heal-docker.py
+  copy:
+    src: heal-docker.py
+    dest: "{{docker_compose_restart_unhealthy}}heal-docker.py"
+
+- name: create heal-docker.service
+  template: 
+    src: heal-docker.service.j2 
+    dest: /etc/systemd/system/heal-docker.service
+  notify: reload heal-docker.service
+
+- name: create heal-docker.timer
+  template:
+    src: heal-docker.timer.j2
+    dest: "/etc/systemd/system/heal-docker.timer"
+  notify: restart heal-docker.timer

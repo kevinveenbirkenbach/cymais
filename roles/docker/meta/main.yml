@@ -2,4 +2,4 @@ dependencies:
   - backup-docker-to-local
   - user-administrator
   - health-docker
-  - docker-compose-restart-unhealthy
+  - heal-docker

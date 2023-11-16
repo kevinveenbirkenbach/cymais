@@ -1,1 +1,0 @@
-docker_compose_restart_unhealthy: "{{path_administrator_scripts}}docker-compose-restart-unhealthy/"

@@ -1,2 +1,2 @@
-# docker-compose-restart-unhealthy
+# heal-docker
 docker-compose restart for containers which are unhealty or excited
