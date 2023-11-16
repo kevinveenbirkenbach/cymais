@@ -1,0 +1,1 @@
+update_docker_script: "{{path_administrator_scripts}}/update-docker.py"

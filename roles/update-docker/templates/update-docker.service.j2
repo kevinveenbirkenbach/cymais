@@ -1,0 +1,7 @@
+[Unit]
+Description=Updates Docker Instances
+OnFailure=systemd-notifier@%n.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c '/usr/bin/python {{update_docker_script}} {{docker_volume_backup_cleanup_trigger_directory}}'

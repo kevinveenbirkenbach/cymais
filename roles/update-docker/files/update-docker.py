@@ -3,11 +3,16 @@ import subprocess
 import sys
 
 def run_command(command):
-    try:
-        subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
-    except subprocess.CalledProcessError as e:
-        print(e.output.decode())
-        sys.exit(e.returncode)
+    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    
+    # Iterate over the output lines
+    for line in iter(process.stdout.readline, b''):
+        sys.stdout.write(line.decode())
+
+    process.stdout.close()
+    return_code = process.wait()
+    if return_code:
+        raise subprocess.CalledProcessError(return_code, command)
 
 def git_pull(directory):
     os.chdir(directory)
@@ -34,9 +39,17 @@ def update_docker(directory):
     os.chdir(directory)
     before_digests = get_image_digests(directory)
     print("Pulling docker images.")
-    run_command("docker-compose pull")
-    after_digests = get_image_digests(directory)
+    
+    try:
+        run_command("docker-compose pull")
+    except subprocess.CalledProcessError as e:
+        if "pull access denied" in e.output.decode() or "must be built from source" in e.output.decode():
+            print("Need to build the image from source.")
+        else:
+            print("Failed to pull images with unexpected error.")
+            raise
 
+    after_digests = get_image_digests(directory)
     if before_digests != after_digests:
         print("Changes detected in image digests. Rebuilding containers.")
         run_command("docker-compose up -d --build --force-recreate")
