@@ -1,9 +1,16 @@
-- name: configure docker-volume-backup-cleanup.service
-  template: 
-    src: docker-volume-backup-cleanup.service.j2
-    dest: /etc/systemd/system/docker-volume-backup-cleanup.service
-
 - name: create {{update_docker_script}}
   copy:
     src: update-docker.py
     dest: "{{update_docker_script}}"
+
+- name: configure update-docker.service
+  template: 
+    src: update-docker.service
+    dest: /etc/systemd/system/update-docker.service
+
+- name: "reload update-docker.service"
+  systemd:
+    name: update-docker.service
+    state: reloaded
+    enabled: yes
+    daemon_reload: yes
