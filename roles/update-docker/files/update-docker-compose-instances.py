@@ -21,18 +21,21 @@ def git_pull(directory):
     else:
         print("Repository is already up to date.")
         
-def get_image_digests():
-    images_output = subprocess.check_output('docker-compose images --digests', shell=True).decode().strip()
-    image_lines = images_output.splitlines()
-    return {line.split()[0]: line.split()[2] for line in image_lines if line}
+def get_image_digests(directory):
+    compose_project = os.path.basename(directory)
+    images_output = subprocess.check_output(
+        f'docker images --format "{{{{.Repository}}}}:{{{{.Tag}}}}@{{{{.Digest}}}}" | grep {compose_project}', 
+        shell=True
+    ).decode().strip()
+    return dict(line.split('@') for line in images_output.splitlines() if line)
 
 def update_docker(directory):
     print(f"Checking for updates to Docker images in {directory}.")
     os.chdir(directory)
-    before_digests = get_image_digests()
+    before_digests = get_image_digests(directory)
     print("Pulling docker images.")
     run_command("docker-compose pull")
-    after_digests = get_image_digests()
+    after_digests = get_image_digests(directory)
 
     if before_digests != after_digests:
         print("Changes detected in image digests. Rebuilding containers.")
