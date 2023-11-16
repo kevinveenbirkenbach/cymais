@@ -82,9 +82,9 @@ docker-compose -p akaunting up -d --force-recreate
 
 # recover all volumes
 cd {{path_administrator_scripts}}backup-docker-to-local &&
-bash docker-volume-recover.sh akaunting_akaunting-modules ${machine_id:0:64} "$backup_version" &&
-bash docker-volume-recover.sh akaunting_akaunting-data ${machine_id:0:64} "$backup_version" &&
-bash docker-volume-recover.sh akaunting_akaunting-db ${machine_id:0:64} "$backup_version" akaunting-db "$akaunting_db_password" akaunting
+bash recover-docker-from-local.sh akaunting_akaunting-modules ${machine_id:0:64} "$backup_version" &&
+bash recover-docker-from-local.sh akaunting_akaunting-data ${machine_id:0:64} "$backup_version" &&
+bash recover-docker-from-local.sh akaunting_akaunting-db ${machine_id:0:64} "$backup_version" akaunting-db "$akaunting_db_password" akaunting
 
 ```
 
