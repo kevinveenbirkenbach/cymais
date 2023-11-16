@@ -7,12 +7,12 @@
 - name: "Update with pacman"
   include_role:
     name: update-pacman
-  when: ansible_distribution == 'Archlinux' and docker_compose_directory_stat.stat.exists
-
+  when: ansible_distribution == 'Archlinux'
+  
 - name: "Update with apt"
   include_role:
     name: update-apt
-  when: ansible_distribution == "Debian" and docker_compose_directory_stat.stat.exists
+  when: ansible_distribution == "Debian"
 
 - name: "Update Docker Images"
   include_role:
