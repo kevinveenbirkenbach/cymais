@@ -4,15 +4,21 @@ import sys
 
 def run_command(command):
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    
+    output = []
+
     # Iterate over the output lines
     for line in iter(process.stdout.readline, b''):
-        sys.stdout.write(line.decode())
+        decoded_line = line.decode()
+        output.append(decoded_line)
+        sys.stdout.write(decoded_line)
 
     process.stdout.close()
     return_code = process.wait()
     if return_code:
-        raise subprocess.CalledProcessError(return_code, command)
+        # Join the output list to create a single string
+        full_output = ''.join(output)
+        raise subprocess.CalledProcessError(return_code, command, output=full_output.encode())
+
 
 def git_pull(directory):
     os.chdir(directory)
