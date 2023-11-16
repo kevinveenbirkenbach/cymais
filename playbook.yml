@@ -20,19 +20,19 @@
   hosts: wireguard_server
   become: true
   roles:
-    - application-wireguard
+    - wireguard
 
 - name: setup wireguard client behind firewall\nat
   hosts: wireguard_behind_firewall
   become: true
   roles:
-    - client_application-wireguard-behind-firewall
+    - client-wireguard-behind-firewall
 
 - name: setup wireguard client
   hosts: wireguard_client
   become: true
   roles:
-    - client_application-wireguard
+    - client-wireguard
 
 # Native Webserver Roles
 - name: setup homepages
@@ -260,7 +260,7 @@
   hosts: gnome
   become: true
   roles:
-    - system-gnome
+    - desktop-gnome
 
 - name: setup msi rgb keyboard
   hosts: msi_perkeyrgb
@@ -272,7 +272,7 @@
   hosts: ssh
   become: false
   roles:
-    - application-ssh
+    - client-ssh
 
 - name: setup swapfile hosts
   hosts: swapfile
@@ -302,13 +302,13 @@
   hosts: torbrowser
   become: true
   roles:
-    - application-torbrowser
+    - desktop-torbrowser
 
 - name: setup nextcloud
   hosts: nextcloud_client
   become: true
   roles:
-    - application-nextcloud
+    - client-nextcloud
 
 - name: setup docker
   hosts: docker

@@ -92,13 +92,4 @@ Kevin Veen-Birkenbach
 
 ## License
 
-This project is licensed under the GNU Affero General Public License v3.0. The full license text is available in the `LICENSE` file of this repository.
-
-## todo 
-- implement: https://archlinux.org/packages/extra/x86_64/signal-desktop/
-
-## See
-- https://www.middlewareinventory.com/blog/run-ansible-playbook-locally/
-- https://stackoverflow.com/questions/30533372/run-an-ansible-task-only-when-the-hostname-contains-a-string
-- https://archived.forum.manjaro.org/t/running-android-applications-on-arch-using-anbox/53332
-- https://www.reddit.com/r/ManjaroLinux/comments/cbkblb/guide_run_android_apps_on_manjaro_super_simple/ 
+This project is licensed under the GNU Affero General Public License v3.0. The full license text is available in the `LICENSE` file of this repository. 
