@@ -1,5 +1,0 @@
-- name: "reload docker-volume-backup-cleanup.service daemon"
-  systemd:
-    name: docker-volume-backup-cleanup.service
-    enabled: yes
-    daemon_reload: yes

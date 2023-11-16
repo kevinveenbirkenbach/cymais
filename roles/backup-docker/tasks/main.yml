@@ -5,9 +5,9 @@
       - python-pandas
     state: present
 
-- name: pull docker-volume-backup.git
+- name: pull backup-docker.git
   git:
-    repo: "https://github.com/kevinveenbirkenbach/docker-volume-backup.git"
+    repo: "https://github.com/kevinveenbirkenbach/backup-docker.git"
     dest: "{{docker_volume_backup_folder}}"
     update: yes
   register: git_result
@@ -18,15 +18,15 @@
     msg: "Warning: Repository is not reachable."
   when: git_result.failed
 
-- name: configure docker-volume-backup.service
+- name: configure backup-docker.service
   template: 
-    src: docker-volume-backup.service.j2
-    dest: /etc/systemd/system/docker-volume-backup.service
-  notify: reload docker-volume-backup.service
+    src: backup-docker.service.j2
+    dest: /etc/systemd/system/backup-docker.service
+  notify: reload backup-docker.service
 
-- name: configure docker-volume-backup.timer.tpl
-  template: src=docker-volume-backup.timer.j2 dest=/etc/systemd/system/docker-volume-backup.timer
-  notify: restart docker-volume-backup.timer
+- name: configure backup-docker.timer.tpl
+  template: src=backup-docker.timer.j2 dest=/etc/systemd/system/backup-docker.timer
+  notify: restart backup-docker.timer
 
 - name: create {{docker_volume_backup_folder}}databases.csv
   copy:

@@ -59,8 +59,8 @@ and disable the not functioning apps.
 ```bash
 cd {{path_docker_compose_files}}nextcloud &&
 docker-compose down &&
-docker-compose exec -i database mysql -u nextcloud -pPASSWORT nextcloud < "/Backups/$(sha256sum /etc/machine-id | head -c 64)/docker-volume-backup/latest/nextcloud_database/sql/backup.sql" &&
-cd {{path_administrator_scripts}}docker-volume-backup &&
+docker-compose exec -i database mysql -u nextcloud -pPASSWORT nextcloud < "/Backups/$(sha256sum /etc/machine-id | head -c 64)/backup-docker/latest/nextcloud_database/sql/backup.sql" &&
+cd {{path_administrator_scripts}}backup-docker &&
 bash ./docker-volume-recover.sh "nextcloud_data" "$(sha256sum /etc/machine-id | head -c 64)"
 ```
 

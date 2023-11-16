@@ -2,4 +2,4 @@ dependencies:
   - git
   - backups-provider
   - systemd_notifier
-  - docker-volume-backup-cleanup
+  - backup-docker-cleanup

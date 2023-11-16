@@ -1,6 +1,6 @@
 [Unit]
 Description=pull remote backups
-OnFailure=systemd-notifier@%n.service docker-volume-backup-cleanup.service
+OnFailure=systemd-notifier@%n.service backup-docker-cleanup.service
 
 [Service]
 Type=oneshot
