@@ -34,11 +34,17 @@ def git_pull(directory):
         
 def get_image_digests(directory):
     compose_project = os.path.basename(directory)
-    images_output = subprocess.check_output(
-        f'docker images --format "{{{{.Repository}}}}:{{{{.Tag}}}}@{{{{.Digest}}}}" | grep {compose_project}', 
-        shell=True
-    ).decode().strip()
-    return dict(line.split('@') for line in images_output.splitlines() if line)
+    try:
+        images_output = subprocess.check_output(
+            f'docker images --format "{{{{.Repository}}}}:{{{{.Tag}}}}@{{{{.Digest}}}}" | grep {compose_project}', 
+            shell=True
+        ).decode().strip()
+        return dict(line.split('@') for line in images_output.splitlines() if line)
+    except subprocess.CalledProcessError as e:
+        if e.returncode == 1:  # grep no match found
+            return {}
+        else:
+            raise  # Other errors are still raised
 
 def update_docker(directory):
     print(f"Checking for updates to Docker images in {directory}.")
