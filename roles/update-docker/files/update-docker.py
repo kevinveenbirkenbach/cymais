@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+import time
 
 def run_command(command):
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -46,6 +47,18 @@ def get_image_digests(directory):
         else:
             raise  # Other errors are still raised
 
+def is_any_service_up(directory):
+    os.chdir(directory)
+    process = subprocess.Popen("docker-compose ps -q", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    output, _ = process.communicate()
+    service_ids = output.decode().strip().splitlines()
+
+    # Check if there are any service containers up
+    if not service_ids:
+        return False  # No services are up
+    return True  # At least one service is up
+
+
 def update_docker(directory):
     print(f"Checking for updates to Docker images in {directory}.")
     os.chdir(directory)
@@ -66,18 +79,38 @@ def update_docker(directory):
 
     
     after_digests = get_image_digests(directory)
-    if before_digests != after_digest:
+    if before_digests != after_digests:
         print("Changes detected in image digests. Rebuilding containers.")
         need_to_build=True
         
     if need_to_build:
-        run_command("docker-compose up -d --build --force-recreate")
+        run_command("docker-compose build")
+        start_docker(directory)
     else:
         print("Docker images are up to date. No rebuild necessary.")
 
 def update_nextcloud(directory):
     print("Updating Nextcloud apps.")
-    run_command("docker-compose exec -T -u www-data application /var/www/html/occ app:update --all")
+    max_attempts = 3
+    for attempt in range(max_attempts):
+        try:
+            run_command("docker-compose exec -T -u www-data application /var/www/html/occ app:update --all")
+            break  # If the command succeeds, exit the loop
+        except subprocess.CalledProcessError as e:
+            if attempt < max_attempts - 1:  # Check if it's not the last attempt
+                print(f"Attempt {attempt + 1} failed, retrying in 60 seconds...")
+                time.sleep(60)  # Wait for 60 seconds before retrying
+            else:
+                print("All attempts to update Nextcloud apps have failed.")
+                raise  # Re-raise the last exception after all attempts fail
+
+
+def start_docker(directory):
+    if is_any_service_up(directory):
+        print(f"Restarting containers in {directory}.")
+        run_command("docker-compose up -d --force-recreate")
+    else:
+        print(f"Skipped starting. No service is up in {directory}.")
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
