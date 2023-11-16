@@ -4,7 +4,6 @@
     state: reloaded
     enabled: yes
     daemon_reload: yes
-    ignore_errors: true
 - name: "restart health-journalctl.timer"
   systemd:
     name: health-journalctl.timer
