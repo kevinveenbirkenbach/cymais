@@ -4,22 +4,23 @@ import sys
 import time
 
 def run_command(command):
-    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    output = []
+    process = None
+    try:
+        process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        output = []
 
-    # Iterate over the output lines
-    for line in iter(process.stdout.readline, b''):
-        decoded_line = line.decode()
-        output.append(decoded_line)
-        sys.stdout.write(decoded_line)
+        for line in iter(process.stdout.readline, b''):
+            decoded_line = line.decode()
+            output.append(decoded_line)
+            sys.stdout.write(decoded_line)
 
-    process.stdout.close()
-    return_code = process.wait()
-    if return_code:
-        # Join the output list to create a single string
-        full_output = ''.join(output)
-        raise subprocess.CalledProcessError(return_code, command, output=full_output.encode())
-
+        return_code = process.wait()
+        if return_code:
+            full_output = ''.join(output)
+            raise subprocess.CalledProcessError(return_code, command, output=full_output.encode())
+    finally:
+        if process and process.stdout:
+            process.stdout.close()
 
 def git_pull(directory):
     os.chdir(directory)
