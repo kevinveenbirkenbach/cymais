@@ -46,18 +46,25 @@ def update_docker(directory):
     before_digests = get_image_digests(directory)
     print("Pulling docker images.")
     
+    need_to_build=False
+    
     try:
         run_command("docker-compose pull")
     except subprocess.CalledProcessError as e:
         if "pull access denied" in e.output.decode() or "must be built from source" in e.output.decode():
             print("Need to build the image from source.")
+            need_to_build=True
         else:
             print("Failed to pull images with unexpected error.")
             raise
 
+    
     after_digests = get_image_digests(directory)
-    if before_digests != after_digests:
+    if before_digests != after_digest:
         print("Changes detected in image digests. Rebuilding containers.")
+        need_to_build=True
+        
+    if need_to_build:
         run_command("docker-compose up -d --build --force-recreate")
     else:
         print("Docker images are up to date. No rebuild necessary.")
