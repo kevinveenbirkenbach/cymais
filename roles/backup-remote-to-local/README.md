@@ -1,4 +1,4 @@
-# role backups-consumer
+# role backup-remote-to-local
 
 ## goal
 This script allows to pull backups from a remote server.
@@ -15,17 +15,17 @@ To track what the service is doing execute one of the following commands:
 
 #### systemctl
 ```bash
-  watch -n2 "systemctl status pull-remote-backups.service"
+  watch -n2 "systemctl status backup-remote-to-local.service"
 ```
 
 #### journalctl
 ```bash
-  journalctl -fu pull-remote-backups.service
+  journalctl -fu backup-remote-to-local.service
 ```  
 
 ### history
 ```bash
-  sudo journalctl -u pull-remote-backups
+  sudo journalctl -u backup-remote-to-local
 ```
 
 ## see

@@ -204,7 +204,7 @@
   hosts: replica_backup
   become: true
   roles:
-    - role: backups-consumer
+    - role: backup-remote-to-local
 
 ## PC services
 - name: general host setup
