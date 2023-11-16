@@ -1,3 +1,0 @@
-dependencies:
-  - { role: system-pacman, when: ansible_distribution == 'Archlinux' }
-  - { role: system-apt-update, when: ansible_distribution == "Debian" }

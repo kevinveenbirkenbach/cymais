@@ -1,4 +1,26 @@
 ---
+- name: Wait in a loop until the service update-docker.service is inactive
+  block:
+    - name: Check the status of update-docker.service
+      command: systemctl is-active update-docker.service
+      register: service_status
+      changed_when: false
+      failed_when: service_status.stdout == 'active'
+
+    - name: Pause for 60 seconds if the service is still active
+      pause:
+        seconds: 60
+      when: service_status.stdout == 'active'
+  become: true
+  until: service_status.stdout != 'active'
+  retries: 720
+  delay: 10
+
+- name: Abort if the service is still active after the maximum attempts
+  fail:
+    msg: "The update-docker.service is still active after the maximum number of attempts."
+  when: service_status.stdout == 'active' and service_status.attempts == 10
+
 - name: docker & docker compose install
   pacman:
     name: ['docker','docker-compose']
