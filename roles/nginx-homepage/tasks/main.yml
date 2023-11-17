@@ -5,10 +5,10 @@
 - name: recieve {{domain}} certificate
   command: certbot certonly --agree-tos --email {{administrator_email}} --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{domain}}
 
-- name: homepage repo git
+- name: nginx-homepage repo git
   git:
-    repo: "{{homepage_repository_address}}"
-    dest: "/usr/share/nginx/homepage"
+    repo: "{{nginx_homepage_repository_address}}"
+    dest: "{{nginx_homepage_root}}"
     update: yes
   register: git_result
   ignore_errors: true

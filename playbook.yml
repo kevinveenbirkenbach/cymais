@@ -35,11 +35,11 @@
     - client-wireguard
 
 # Native Webserver Roles
-- name: setup homepages
-  hosts: homepage
+- name: setup nginx-homepages
+  hosts: nginx-homepage
   become: true
   roles:
-   -  role: homepage
+   -  role: nginx-homepage
       vars:
         domain: "{{top_domain}}"
 - name: setup redirect hosts
