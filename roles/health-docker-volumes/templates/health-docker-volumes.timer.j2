@@ -1,0 +1,10 @@
+[Unit]
+Description=starts health-docker-volumes.service
+
+[Timer]
+OnCalendar={{on_calendar_health_docker_volumes}}
+RandomizedDelaySec={{randomized_delay_sec}}
+Persistent=false
+
+[Install]
+WantedBy=timers.target

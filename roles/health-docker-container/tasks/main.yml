@@ -1,0 +1,22 @@
+- name: "create {{health_docker_container_folder}}"
+  file:
+    path: "{{health_docker_container_folder}}"
+    state: directory
+    mode: 0755
+
+- name: create health-docker-container.sh
+  copy:
+    src: health-docker-container.sh
+    dest: "{{health_docker_container_folder}}health-docker-container.sh"
+
+- name: create health-docker-container.service
+  template: src=health-docker-container.service.j2 dest=/etc/systemd/system/health-docker-container.service
+  notify: reload health-docker-container.service
+
+- name: create health-docker-container.timer
+  template:
+    src: health-docker-container.timer.j2
+    dest: "/etc/systemd/system/health-docker-container.timer"
+  register: health_docker_container_timer
+  changed_when: health_docker_container_timer.changed or activate_all_timers | default(false) | bool
+  notify: restart health-docker-container.timer

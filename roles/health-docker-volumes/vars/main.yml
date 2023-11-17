@@ -1,0 +1,1 @@
+health_docker_volumes_folder: "{{path_administrator_scripts}}health-docker-volumes/"

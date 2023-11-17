@@ -1,0 +1,11 @@
+- name: "reload health-docker-volumes.service"
+  systemd:
+    name: health-docker-volumes.service
+    enabled: yes
+    daemon_reload: yes
+- name: "restart health-docker-volumes.timer"
+  systemd:
+    name: health-docker-volumes.timer
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

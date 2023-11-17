@@ -18,6 +18,8 @@ services:
       - database
     depends_on:
       - database
+    volumes:
+      - data:/var/www/html
   database:
     logging:
       driver: journald
@@ -38,6 +40,7 @@ services:
       retries: 5
 volumes:
   database:
+  data:
 networks:
   default:
     driver: bridge

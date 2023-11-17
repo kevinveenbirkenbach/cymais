@@ -32,7 +32,7 @@ This software allows to setup the docker following applications:
 This software shipts the following tools which are natively setup on the server:
 - [Backups Cleanup](./roles/cleanup-backups-timer/README.md) - Cleans up old backups
 - [Btrfs Health Check](./roles/health-btrfs/README.md) - Checks the health of Btrfs file systems
-- [Docker Health Check](./roles/health-docker/) - Checks the health of docker containers
+- [Docker Health Check](./roles/health-docker-container/) - Checks the health of docker containers
 - [Docker Reverse Proxy](./roles/docker-reverse-proxy/README.md) - Docker Reverse Proxy Solution
 - [Docker Volume Backup](./roles/backup-docker-to-local/) - Backup Solution for Docker Volumes
 - [Pull Primary Backups](./roles/backup-remote-to-local/README.md) - Pulls the backups from another server and stores them

@@ -1,5 +1,6 @@
 dependencies:
   - backup-docker-to-local
   - user-administrator
-  - health-docker
+  - health-docker-container
+  - health-docker-volumes
   - heal-docker
