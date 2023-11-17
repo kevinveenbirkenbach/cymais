@@ -20,9 +20,9 @@
   changed_when: backup_backup_remote_to_local_timer.changed or activate_all_timers | default(false) | bool
   notify: restart backup-remote-to-local timer
 
-- name: create backup-remote-to-local.sh
+- name: create backups-remote-to-local.sh
   template: 
-    src: backup-remote-to-local.sh.j2 
-    dest: "{{docker_backup_remote_to_local_folder}}backup-remote-to-local.sh"
+    src: backups-remote-to-local.sh.j2 
+    dest: "{{docker_backup_remote_to_local_folder}}backups-remote-to-local.sh"
     mode: 0755
 

@@ -4,4 +4,4 @@ OnFailure=systemd-notifier@%n.service cleanup-failed-docker-backups.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/bash {{docker_backup_remote_to_local_folder}}backup-remote-to-local.sh
+ExecStart=/usr/bin/bash {{docker_backup_remote_to_local_folder}}backups-remote-to-local.sh
