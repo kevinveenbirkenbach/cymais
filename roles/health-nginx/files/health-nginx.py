@@ -1,6 +1,7 @@
 import os
 import requests
 import sys
+import re
 
 # Define the path to the nginx configuration directory
 config_path = '/etc/nginx/conf.d/'
@@ -8,9 +9,12 @@ config_path = '/etc/nginx/conf.d/'
 # Initialize the error counter
 error_counter = 0
 
+# Regex pattern to match domain.tld or subdomain.domain.tld
+pattern = re.compile(r"^(?:[\w-]+\.)?[\w-]+\.[\w-]+\.conf$")
+
 # Iterate over each file in the configuration directory
 for filename in os.listdir(config_path):
-    if filename.endswith('.conf'):
+    if filename.endswith('.conf') and pattern.match(filename):
         # Extract the domain and subdomain from the filename
         name = filename.replace('.conf', '')
         parts = name.split('.')
@@ -19,13 +23,16 @@ for filename in os.listdir(config_path):
         url = f"http://{name}"
         
         # Determine expected status codes based on subdomain
-        if parts[0] == 'www':
-            expected_statuses = [301]
-        elif parts[0] == 's':
+        if len(parts) == 3 and parts[0] == 'www':
+            expected_statuses = [200,301]
+        elif len(parts) == 3 and parts[0] == 's':
             expected_statuses = [403]
-        else:
+        elif len(parts) <= 3:
             # For domain.tld where no specific subdomain is present
             expected_statuses = [200, 301]
+        else:
+            # Skip files that don't match the schema
+            continue
 
         try:
             # Send a HEAD request to get only the response header
