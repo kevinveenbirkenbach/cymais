@@ -1,13 +1,13 @@
-- name: "create {{docker_compose_restart_unhealthy}}"
+- name: "create {{heal_docker}}"
   file:
-    path: "{{docker_compose_restart_unhealthy}}"
+    path: "{{heal_docker}}"
     state: directory
     mode: 0755
 
 - name: create heal-docker.py
   copy:
     src: heal-docker.py
-    dest: "{{docker_compose_restart_unhealthy}}heal-docker.py"
+    dest: "{{heal_docker}}heal-docker.py"
 
 - name: create heal-docker.service
   template: 

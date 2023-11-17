@@ -1,1 +1,1 @@
-docker_btrfs_health_check_folder: "{{path_administrator_scripts}}health-btrfs/"
+docker_health_btrfs_folder: "{{path_administrator_scripts}}health-btrfs/"

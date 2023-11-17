@@ -1,13 +1,13 @@
-- name: "create {{docker_pull_primary_backups_folder}}"
+- name: "create {{docker_backup_remote_to_local_folder}}"
   file:
-    path: "{{docker_pull_primary_backups_folder}}"
+    path: "{{docker_backup_remote_to_local_folder}}"
     state: directory
     mode: 0755
 
 - name: create backup-remote-to-local.sh
   copy:
     src: backup-remote-to-local.sh
-    dest: "{{docker_pull_primary_backups_folder}}backup-remote-to-local.sh"
+    dest: "{{docker_backup_remote_to_local_folder}}backup-remote-to-local.sh"
     mode: 0755
 
 - name: create backup-remote-to-local.service
@@ -16,13 +16,13 @@
 
 - name: create backup-remote-to-local.timer
   template: src=backup-remote-to-local.timer.j2 dest=/etc/systemd/system/backup-remote-to-local.timer
-  register: backup_remote_to_local_timer
-  changed_when: backup_remote_to_local_timer.changed or activate_all_timers | default(false) | bool
+  register: backup_backup_remote_to_local_timer
+  changed_when: backup_backup_remote_to_local_timer.changed or activate_all_timers | default(false) | bool
   notify: restart backup-remote-to-local timer
 
 - name: create backup-remote-to-local.sh
   template: 
     src: backup-remote-to-local.sh.j2 
-    dest: "{{docker_pull_primary_backups_folder}}backup-remote-to-local.sh"
+    dest: "{{docker_backup_remote_to_local_folder}}backup-remote-to-local.sh"
     mode: 0755
 

@@ -2,8 +2,8 @@
 # @param $1 mimimum free disc space
 # @param $2 --force to for execution indepentend on how much disc space is free
 
-execute_free_disc_space=0
-minimum_percent_free_disc_space="$1"
+execute_cleanup_disc_space=0
+minimum_percent_cleanup_disc_space="$1"
 force_freeing=false
 echo "Checking free disc space..."
 df
@@ -14,12 +14,12 @@ fi
 for disc_use_percent in $(df --output=pcent | sed 1d)
 do
     disc_use_percent_number=$(echo "$disc_use_percent" | sed "s/%//")
-    if [ "$disc_use_percent_number" -gt "$minimum_percent_free_disc_space" ]; then
+    if [ "$disc_use_percent_number" -gt "$minimum_percent_cleanup_disc_space" ]; then
       echo "WARNING: $disc_use_percent_number exceeds the limit of {{size_percent_disc_space_warning}}%."
-      execute_free_disc_space+=1;
+      execute_cleanup_disc_space+=1;
     fi
 done
-if [ "$disc_use_percent_number" -gt "$minimum_percent_free_disc_space" ] || [ "$force_freeing" = true ]; then
+if [ "$disc_use_percent_number" -gt "$minimum_percent_cleanup_disc_space" ] || [ "$force_freeing" = true ]; then
   echo "cleaning up /tmp" &&
   find /tmp -type f -atime +10 -delete || exit 1
   

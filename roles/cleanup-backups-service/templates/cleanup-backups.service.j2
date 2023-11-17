@@ -4,4 +4,4 @@ OnFailure=systemd-notifier@%n.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/python {{docker_backups_cleanup}}cleanup-backups.py --backups-folder-path {{backups_folder_path}} --maximum-backup-size-percent {{size_percent_maximum_backup}}
+ExecStart=/usr/bin/python {{docker_cleanup_backups}}cleanup-backups.py --backups-folder-path {{backups_folder_path}} --maximum-backup-size-percent {{size_percent_maximum_backup}}

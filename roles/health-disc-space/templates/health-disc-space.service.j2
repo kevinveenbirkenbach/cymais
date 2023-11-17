@@ -4,4 +4,4 @@ OnFailure=systemd-notifier@%n.service
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash {{disc_space_check_folder}}health-disc-space.sh {{size_percent_disc_space_warning}}
+ExecStart=/bin/bash {{health_disc_space_folder}}health-disc-space.sh {{size_percent_disc_space_warning}}

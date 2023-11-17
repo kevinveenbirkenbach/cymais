@@ -1,1 +1,1 @@
-free_disc_space_folder: "{{path_administrator_scripts}}cleanup-disc-space/"
+cleanup_disc_space_folder: "{{path_administrator_scripts}}cleanup-disc-space/"

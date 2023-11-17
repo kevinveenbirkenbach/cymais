@@ -1,1 +1,1 @@
-nginx_health_check_folder: "{{ path_administrator_scripts }}health-nginx/"
+health_nginx_folder: "{{ path_administrator_scripts }}health-nginx/"

@@ -1,7 +1,7 @@
 - name: pull cleanup-failed-docker-backups.git
   git:
     repo: "https://github.com/kevinveenbirkenbach/cleanup-failed-docker-backups.git"
-    dest: "{{docker_volume_backup_cleanup_folder}}"
+    dest: "{{backup_docker_to_local_cleanup_folder}}"
     update: yes
   register: git_result
   ignore_errors: true

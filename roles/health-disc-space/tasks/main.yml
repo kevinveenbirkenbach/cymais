@@ -1,13 +1,13 @@
-- name: "create {{disc_space_check_folder}}"
+- name: "create {{health_disc_space_folder}}"
   file:
-    path: "{{disc_space_check_folder}}"
+    path: "{{health_disc_space_folder}}"
     state: directory
     mode: 0755
 
 - name: create health-disc-space.sh
   copy:
     src: health-disc-space.sh
-    dest: "{{disc_space_check_folder}}health-disc-space.sh"
+    dest: "{{health_disc_space_folder}}health-disc-space.sh"
 
 - name: create health-disc-space.service
   template: 

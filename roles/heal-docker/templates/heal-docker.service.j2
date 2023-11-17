@@ -4,4 +4,4 @@ OnFailure=systemd-notifier@%n.service
 
 [Service]
 Type=oneshot
-ExecStart=/bin/python {{docker_compose_restart_unhealthy}}heal-docker.py
+ExecStart=/bin/python {{heal_docker}}heal-docker.py

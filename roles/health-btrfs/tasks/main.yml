@@ -1,13 +1,13 @@
-- name: "create {{docker_btrfs_health_check_folder}}"
+- name: "create {{docker_health_btrfs_folder}}"
   file:
-    path: "{{docker_btrfs_health_check_folder}}"
+    path: "{{docker_health_btrfs_folder}}"
     state: directory
     mode: 0755
 
 - name: create health-btrfs.sh
   copy:
     src: health-btrfs.sh
-    dest: "{{docker_btrfs_health_check_folder}}health-btrfs.sh"
+    dest: "{{docker_health_btrfs_folder}}health-btrfs.sh"
 
 - name: create health-btrfs.service
   template: 

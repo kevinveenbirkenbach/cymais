@@ -1,1 +1,1 @@
-docker_volume_backup_folder: "{{path_administrator_scripts}}backup-docker-to-local/"
+backup_docker_to_local_folder: "{{path_administrator_scripts}}backup-docker-to-local/"

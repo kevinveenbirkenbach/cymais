@@ -1,1 +1,1 @@
-docker_health_check_folder: "{{path_administrator_scripts}}health-docker/"
+health_docker_folder: "{{path_administrator_scripts}}health-docker/"

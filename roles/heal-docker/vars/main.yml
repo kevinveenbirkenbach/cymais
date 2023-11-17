@@ -1,1 +1,1 @@
-docker_compose_restart_unhealthy: "{{path_administrator_scripts}}heal-docker/"
+heal_docker: "{{path_administrator_scripts}}heal-docker/"

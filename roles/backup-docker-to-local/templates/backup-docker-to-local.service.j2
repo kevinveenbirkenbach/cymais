@@ -4,4 +4,4 @@ OnFailure=systemd-notifier@%n.service cleanup-failed-docker-backups.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/python {{docker_volume_backup_folder}}backup-docker-to-local.py
+ExecStart=/usr/bin/python {{backup_docker_to_local_folder}}backup-docker-to-local.py

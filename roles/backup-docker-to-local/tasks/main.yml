@@ -8,7 +8,7 @@
 - name: pull backup-docker-to-local.git
   git:
     repo: "https://github.com/kevinveenbirkenbach/backup-docker-to-local.git"
-    dest: "{{docker_volume_backup_folder}}"
+    dest: "{{backup_docker_to_local_folder}}"
     update: yes
   register: git_result
   ignore_errors: true
@@ -30,9 +30,9 @@
   changed_when: backup_docker_to_local_timer.changed or activate_all_timers | default(false) | bool
   notify: restart backup-docker-to-local.timer
 
-- name: create {{docker_volume_backup_folder}}databases.csv
+- name: create {{backup_docker_to_local_folder}}databases.csv
   copy:
-    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}{{docker_volume_backup_folder}}databases.csv"
-    dest: "{{docker_volume_backup_folder}}databases.csv"
+    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}{{backup_docker_to_local_folder}}databases.csv"
+    dest: "{{backup_docker_to_local_folder}}databases.csv"
     owner: root
     group: root

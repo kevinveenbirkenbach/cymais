@@ -5,16 +5,16 @@
       - python-psutil
     state: present
 
-- name: "create {{docker_backups_cleanup}}"
+- name: "create {{docker_cleanup_backups}}"
   file:
-    path: "{{docker_backups_cleanup}}"
+    path: "{{docker_cleanup_backups}}"
     state: directory
     mode: 0755
 
 - name: create cleanup-backups.py
   copy: 
     src:  "cleanup-backups.py"
-    dest: "{{docker_backups_cleanup}}cleanup-backups.py"
+    dest: "{{docker_cleanup_backups}}cleanup-backups.py"
 
 - name: create cleanup-backups.service
   template: 
