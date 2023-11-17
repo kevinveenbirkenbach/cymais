@@ -190,6 +190,14 @@
       vars:
         domain: baserow.{{top_domain}}
         http_port: 8017
+- name: setup matomo hosts
+  hosts: matomo
+  become: true
+  roles:
+   -  role: docker-matomo
+      vars:
+        domain: matomo.{{top_domain}}
+        http_port: 8018
 - name: setup akaunting hosts
   hosts: akaunting
   become: true

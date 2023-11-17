@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  application:
+    logging:
+      driver: journald
+    image: matomo
+    restart: always
+    ports:
+      - "127.0.0.1:{{http_port}}:80"
+    environment:
+      MATOMO_DATABASE_HOST: "database:3306"
+      MATOMO_DATABASE_ADAPTER: "mysql"
+      MATOMO_DATABASE_USERNAME: "matomo"
+      MATOMO_DATABASE_PASSWORD: "{{matomo_database_password}}"
+      MATOMO_DATABASE_DBNAME: "matomo"
+    links:
+      - database
+    depends_on:
+      - database
+  database:
+    logging:
+      driver: journald
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: "matomo"
+      MYSQL_USER: "matomo"
+      MYSQL_PASSWORD: "{{matomo_database_password}}"
+      MYSQL_ROOT_PASSWORD: "{{matomo_database_password}}"
+      MARIADB_AUTO_UPGRADE: "1"
+    volumes:
+      - database:/var/lib/mysql
+    healthcheck:
+      test: "/usr/bin/mariadb --user=matomo --password={{matomo_database_password}} --execute \"SHOW DATABASES;\""
+      interval: 3s
+      timeout: 1s
+      retries: 5
+volumes:
+  database:
+networks:
+  default:
+    driver: bridge

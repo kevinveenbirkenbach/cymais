@@ -1,0 +1,8 @@
+---
+- name: recreate matomo
+  command:
+    cmd: docker-compose -p matomo up -d --force-recreate
+    chdir: "{{path_docker_compose_files}}matomo/"
+  environment:
+    COMPOSE_HTTP_TIMEOUT: 600
+    DOCKER_CLIENT_TIMEOUT: 600
