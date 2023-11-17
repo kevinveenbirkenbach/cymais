@@ -7,7 +7,7 @@ This Ansible role configures an Nginx server to serve a static homepage. It hand
 - Ansible 2.9 or higher
 - Nginx installed on the target machine
 - Git installed on the target machine (if cloning a repo)
-- `https-server` and `git` roles available or configured if they are used as dependencies
+- `nginx-https` and `git` roles available or configured if they are used as dependencies
 
 ## Role Variables
 
@@ -18,7 +18,7 @@ This Ansible role configures an Nginx server to serve a static homepage. It hand
 
 ## Dependencies
 
-- `https-server`: A role for setting up an HTTPS server
+- `nginx-https`: A role for setting up an HTTPS server
 - `git`: A role for installing Git
 
 ## Example Playbook

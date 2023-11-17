@@ -46,7 +46,7 @@
   hosts: redirect
   become: true
   roles:
-   -  role: https-redirect
+   -  role: nginx-redirect
       vars:
         domain_mappings: "{{redirect_domain_mappings}}"
 
