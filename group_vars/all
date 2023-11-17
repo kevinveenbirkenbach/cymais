@@ -4,10 +4,11 @@
 
 randomized_delay_sec:                         "15min"
 
-on_calendar_btrfs_health_check:               "*-*-* 00:00:00"
+on_calendar_btrfs_health_check:               "*-*-* 00:00:00" 
 on_calendar_journalctl_health_check:          "*-*-* 00:00:00"
 on_calendar_disc_space_check:                 "*-*-* 06,12,18,00:00:00"
 on_calendar_docker_health_check:              "*-*-* 09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,00,01,02:00:00"
+on_calendar_nginx_health_check:               "*-*-* 09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,00,01,02:15:00"
 
 on_calendar_backups_cleanup:                  "*-*-* 06,12,18,00:30:00"
 on_calendar_free_disc_space:                  "*-*-* 07,13,19,01:30:00"

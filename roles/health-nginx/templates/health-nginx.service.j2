@@ -1,0 +1,7 @@
+[Unit]
+Description=Check nginx configuration status
+OnFailure=systemd-notifier@%n.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 {{ nginx_health_check_folder }}health-nginx.py

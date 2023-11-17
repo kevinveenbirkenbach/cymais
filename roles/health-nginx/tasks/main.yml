@@ -1,0 +1,28 @@
+- name: Install required Python modules
+  pip:
+    name: requests
+
+- name: "create {{ nginx_health_check_folder }}"
+  file:
+    path: "{{ nginx_health_check_folder }}"
+    state: directory
+    mode: 0755
+
+- name: create health-nginx.py
+  copy:
+    src: health-nginx.py
+    dest: "{{ nginx_health_check_folder }}health-nginx.py"
+
+- name: create health-nginx.service
+  template: 
+    src: health-nginx.service.j2
+    dest: /etc/systemd/system/health-nginx.service
+  notify: reload health-nginx.service
+
+- name: create health-nginx.timer
+  template:
+    src: health-nginx.timer.j2
+    dest: "/etc/systemd/system/health-nginx.timer"
+  register: health_nginx_timer
+  changed_when: health_nginx_timer.changed or activate_all_timers | default(false) | bool
+  notify: restart health-nginx.timer
