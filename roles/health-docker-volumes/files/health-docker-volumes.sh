@@ -1,17 +1,29 @@
 #!/bin/bash
 
+status=0
+
+# The first argument is a space-separated list of whitelisted volume IDs
+whitelist=$1
+whitelisted_volumes=($whitelist)  # Split into an array
+
 anonymous_volumes=$(docker volume ls --format "{{.Name}}" | grep -E '^[a-f0-9]{64}$')
 
 if [ -z "$anonymous_volumes" ]; then
     echo "No anonymous volumes found."
-    exit 0
+    exit $status
 fi
 
 echo "Anonymous volumes found:"
 
 for volume in $anonymous_volumes; do
-    container_ids=$(docker ps -aq --filter volume=$volume)
+    # Check if the volume is in the whitelist
+    if printf '%s\n' "${whitelisted_volumes[@]}" | grep -q "^$volume$"; then
+        echo "Volume $volume is whitelisted and will be skipped."
+        continue
+    fi
 
+    status=1
+    container_ids=$(docker ps -aq --filter volume=$volume)
     if [ -z "$container_ids" ]; then
         echo "Volume $volume is not used by any running containers."
         continue
@@ -29,4 +41,4 @@ for volume in $anonymous_volumes; do
     done
 done
 
-exit 1
+exit $status
