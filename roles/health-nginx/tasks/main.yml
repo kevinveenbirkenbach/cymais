@@ -1,6 +1,7 @@
 - name: Install required Python modules
-  pip:
-    name: requests
+  pacman:
+    name: python-requests
+    state: present
 
 - name: "create {{ nginx_health_check_folder }}"
   file:
