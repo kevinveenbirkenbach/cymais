@@ -1,7 +1,6 @@
 - name: "reload health-journalctl.service"
   systemd:
     name: health-journalctl.service
-    state: reloaded
     enabled: yes
     daemon_reload: yes
 - name: "restart health-journalctl.timer"

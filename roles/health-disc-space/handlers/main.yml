@@ -1,7 +1,6 @@
 - name: "reload health-disc-space.service"
   systemd:
     name: health-disc-space.service
-    state: reloaded
     enabled: yes
     daemon_reload: yes
 - name: "restart health-disc-space.timer"

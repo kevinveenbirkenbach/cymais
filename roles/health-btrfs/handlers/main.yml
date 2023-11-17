@@ -1,7 +1,6 @@
 - name: "reload health-btrfs.service"
   systemd:
     name: health-btrfs.service
-    state: reloaded
     enabled: yes
     daemon_reload: yes
 - name: "restart health-btrfs.timer"
