@@ -30,3 +30,8 @@ path_administrator_home:                      "/home/administrator/"
 path_administrator_scripts:                   "{{path_administrator_home}}scripts/"
 path_docker_volumes:                          "{{path_administrator_home}}volumes/docker/"
 path_docker_compose_files:                    "{{path_administrator_home}}docker-compose/"
+
+# Runtime Variables
+activate_all_timers (bool):     false   # Activates all timers, independend if the handlers had been triggered
+nginx_matomo_tracking_active:   false   # Activates matomo tracking on all html pages
+execute_updates:                true    # Executes updates

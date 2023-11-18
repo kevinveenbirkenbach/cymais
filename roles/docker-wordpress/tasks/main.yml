@@ -7,7 +7,7 @@
   vars:
     client_max_body_size: "{{wordpress_max_upload_size}}"
     domain: "{{item}}"
-  template: src=roles/docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{ item }}.conf
+  template: src=roles/nginx-docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{ item }}.conf
   loop: "{{domains}}"
   notify: restart nginx
 

@@ -1,0 +1,38 @@
+- name: Check if site already exists in Matomo
+  uri:
+    url: "https://{{matomo_domain}}/index.php?module=API&method=SitesManager.getSitesIdFromSiteUrl&url=https://{{base_domain}}&format=json&token_auth={{matomo_auth_token}}"
+    method: GET
+    return_content: yes
+    status_code: 200
+    validate_certs: yes
+  register: site_check
+
+- name: Set fact for site ID if site already exists
+  set_fact:
+    matomo_site_id: "{{ site_check.json[0].idsite }}"
+  when: "(site_check.json | length) > 0"
+
+- name: Add site to Matomo and get ID if not exists
+  uri:
+    url: "https://{{ matomo_domain }}/index.php"
+    method: POST
+    body: "module=API&method=SitesManager.addSite&siteName={{ base_domain }}&urls=https://{{ base_domain }}&token_auth={{ matomo_auth_token }}&format=json"
+    body_format: form-urlencoded
+    status_code: 200
+    return_content: yes
+    validate_certs: yes
+  register: add_site
+  when: "matomo_site_id is not defined"
+
+- name: Set fact for site ID if site was added
+  set_fact:
+    matomo_site_id: "{{ add_site.json.value }}"
+  when: "matomo_site_id is not defined"
+
+- name: Set the Matomo tracking code from a template file
+  set_fact:
+    matomo_tracking_code: "{{ lookup('template', 'matomo-tracking.js.j2') }}"
+
+- name: Set the tracking code as a one-liner
+  set_fact:
+    matomo_tracking_code_one_liner: "{{ matomo_tracking_code | regex_replace('\\n', '') | regex_replace('\\s+', ' ') }}"

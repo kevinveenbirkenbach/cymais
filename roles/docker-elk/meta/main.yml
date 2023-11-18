@@ -1,2 +1,2 @@
 dependencies:
-- docker-reverse-proxy
+- nginx-docker-reverse-proxy

@@ -1,9 +1,11 @@
 ---
-- name:   general setup
+- name: general setup
   hosts:  all
   become: true
+  tasks:
   roles:
-    - update
+    - role: update
+      when: execute_updates is true
 
 - name: servers host setup
   hosts: servers
@@ -36,7 +38,7 @@
 
 # Native Webserver Roles
 - name: setup nginx-homepages
-  hosts: nginx-homepage
+  hosts: homepage
   become: true
   roles:
    -  role: nginx-homepage

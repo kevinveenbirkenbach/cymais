@@ -33,28 +33,10 @@ This software shipts the following tools which are natively setup on the server:
 - [Backups Cleanup](./roles/cleanup-backups-timer/README.md) - Cleans up old backups
 - [Btrfs Health Check](./roles/health-btrfs/README.md) - Checks the health of Btrfs file systems
 - [Docker Health Check](./roles/health-docker-container/) - Checks the health of docker containers
-- [Docker Reverse Proxy](./roles/docker-reverse-proxy/README.md) - Docker Reverse Proxy Solution
+- [Docker Reverse Proxy](./roles/nginx-docker-reverse-proxy/README.md) - Docker Reverse Proxy Solution
 - [Docker Volume Backup](./roles/backup-docker-to-local/) - Backup Solution for Docker Volumes
 - [Pull Primary Backups](./roles/backup-remote-to-local/README.md) - Pulls the backups from another server and stores them
 - [Wireguard](./roles/wireguard/README.md) - Integrates the server in an wireguard vpn
-
-### Server Administration
-
-#### Cleanup docker
-``bash
-docker stop $(docker ps -aq); docker rm $(docker ps -aq); docker volume rm $(docker volume ls -q);
-``
-
-#### Restart
-
-To mercifull restart the server and to prevent data lost type in: 
-
-``bash
-docker stop $(docker ps -a -q) && systemctl stop docker && shutdown -r +2 "The system will shutdown in 2 minutes"
-``
-
-May it's neccessary to restart some of the the docker containers manual afterwards. 
-
 
 ## Personal Computers
 
@@ -83,6 +65,13 @@ Run:
 ```bash
 ansible-galaxy collection install -r requirements.yml
 ```
+
+## Addidional Parameters
+
+- activate_all_timers (bool): Activates matomo tracking on all html pages
+- nginx_matomo_tracking_active (bool): Activates matomo tracking on all html pages
+
+The role specific parameters are descriped in the readme.md of the roles
 
 ## Author
 

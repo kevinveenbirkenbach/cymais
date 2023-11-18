@@ -2,6 +2,11 @@ server
 {
   server_name {{domain}};
 
+  {% if nginx_matomo_tracking_active | default(False) %}
+    {% include 'roles/nginx-matomo-tracking/templates/matomo-tracking.conf.j2' %}
+  {% endif %}
+
+
   {% if client_max_body_size is defined %}
     client_max_body_size {{ client_max_body_size }};
   {% endif %}

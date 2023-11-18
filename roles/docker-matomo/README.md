@@ -18,7 +18,7 @@ This Ansible role deploys a Matomo analytics platform instance using Docker.
 
 ## Dependencies
 
-- `docker-reverse-proxy`: An Ansible role for configuring the reverse proxy.
+- `nginx-docker-reverse-proxy`: An Ansible role for configuring the reverse proxy.
 
 ## Example Playbook
 
