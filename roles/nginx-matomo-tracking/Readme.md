@@ -13,8 +13,8 @@ This Ansible role automates the integration of Matomo tracking code into Nginx-s
 
 ## Role Variables
 - `matomo_domain`: The domain of your Matomo installation.
-- `base_domain`: The base domain of the website you wish to track.
-- `matomo_site_id`: The site ID configured in your Matomo dashboard.
+- `domain`: The domain of the website you wish to track.
+- `matomo_auth_token`: Matomo auth token
 
 ## Dependencies
 - None. This role is designed to be included in Nginx server block configurations.

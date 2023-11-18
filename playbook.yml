@@ -74,11 +74,16 @@
 - name: setup wordpress hosts
   hosts: wordpress
   become: true
-  roles:
-   -  role: docker-wordpress
+  tasks:
+    - name: Include docker-wordpress role for each domain
+      include_role:
+        name: docker-wordpress
       vars:
-        domains: "{{wordpress_domains}}"
+        domain: "{{ item }}"
         http_port: 8003
+      loop: "{{ wordpress_domains }}"
+      loop_control:
+        loop_var: item
 - name: setup mediawiki hosts
   hosts: mediawiki
   become: true
