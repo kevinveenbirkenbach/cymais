@@ -1,5 +1,8 @@
+# Add CSP header
+more_set_headers "Content-Security-Policy: default-src 'self'; img-src 'self' https://matomo.{{top_domain}}; script-src 'self' 'unsafe-inline' https://matomo.{{top_domain}};";
+
+
 # sub filters to integrate matomo tracking code in nginx websites
 sub_filter '</head>' '<script>{{matomo_tracking_code_one_liner}}</script></head>';
-sub_filter '</body>' '<noscript><p><img src="//matomo.veen.world/matomo.php?idsite={{matomo_site_id}}&rec=1" style="border:0;" alt="" /></p></noscript></body>';
+sub_filter '</body>' '<noscript><p><img src="//matomo.{{top_domain}}/matomo.php?idsite={{matomo_site_id}}&rec=1" style="border:0;" alt="" /></p></noscript></body>';
 sub_filter_once off;
-# sub_filter_types text/html; This is standart
