@@ -14,7 +14,7 @@ rm -vR {{path_docker_compose_files}}mastodon
 
 ## access terminal
 ```bash
-docker exec -it mastodon-web-1 /bin/bash
+docker-compose exec -it web /bin/bash
 ```
 
 ## set rights
@@ -22,7 +22,7 @@ docker exec -it mastodon-web-1 /bin/bash
 After setting up mastodon you need to give the rights 
 
 ```bash
-docker exec -it -u root mastodon-web-1 chown -R 991:991 public
+docker-compose exec -it -u root web chown -R 991:991 public
 ```
 
 ## further information

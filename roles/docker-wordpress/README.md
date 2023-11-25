@@ -5,13 +5,13 @@
 ## access database
 To access the database execute
 ```bash
-  docker exec -it wordpress-database-1 /bin/mysql -u wordpress -p
+  docker-compose exec -it database /bin/mysql -u wordpress -p
 ```
 
 ## upgrade database
 To upgrade the database execute
 ```bash
-  docker exec -it wordpress-database-1 /bin/mysql_upgrade --user=root --password=
+  docker-compose exec -it database /bin/mysql_upgrade --user=root --password=
 ```
 
 ## change database root password
@@ -19,7 +19,7 @@ To upgrade the database execute
 - https://www.digitalocean.com/community/tutorials/how-to-reset-your-mysql-or-mariadb-root-password
 
 ## bash in application
-docker exec -it wordpress-application-1 /bin/sh
+docker-compose exec -it wordpress-application-1 /bin/sh
 
 ## update wp-config.php
 ```bash

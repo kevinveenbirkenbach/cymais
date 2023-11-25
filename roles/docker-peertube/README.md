@@ -15,7 +15,7 @@ docker-compose up -d
 
 ## access terminal
 ```bash
-docker exec -it peertube-application-1 /bin/bash
+docker-compose exec -it application /bin/bash
 ```
 
 ## update config

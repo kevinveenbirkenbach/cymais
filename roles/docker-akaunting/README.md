@@ -20,19 +20,19 @@ docker-compose -p akaunting up -d
 ### get logs
 
 ```bash
-docker exec -it akaunting tail -n 300 storage/logs/laravel.log 
+docker-compose exec -it akaunting tail -n 300 storage/logs/laravel.log 
 ```
 
 ### enter akaunting container
 
 ```bash
-docker exec -it akaunting bash
+docker-compose exec -it akaunting bash
 ```
 
 ### enter database container
 
 ```bash
-docker exec -it akaunting-db /bin/mysql -u admin --password=$akaunting_db_password akaunting
+docker-compose exec -it akaunting-db /bin/mysql -u admin --password=$akaunting_db_password akaunting
 ```
 
 ## manuel update

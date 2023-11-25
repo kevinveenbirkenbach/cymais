@@ -3,7 +3,7 @@
 Login to the container:
 
 ```bash
-docker exec -it mediawiki_application_1 /bin/sh
+docker-compose exec -it application /bin/sh
 ```
 
 Seed the LocalSettings.php:

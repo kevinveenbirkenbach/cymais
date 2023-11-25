@@ -13,8 +13,6 @@ Keep in mind to track and to don't interrupt the update process until the migrat
 ```bash
   COMPOSE_HTTP_TIMEOUT=600
   DOCKER_CLIENT_TIMEOUT=600
-  GITEA_APPLICATION_DOCKER_CONTAINER=gitea_application_1
-  GITEA_DATABASE_DOCKER_CONTAINER=gitea_database_1
 ```
 
 ## recreate
@@ -25,10 +23,10 @@ cd {{path_docker_compose_folder}} && docker-compose -p gitea up -d --force-recre
 ## database access
 To access the database execute
 ```bash
-  docker exec -it $GITEA_DATABASE_DOCKER_CONTAINER /bin/mysql -u gitea -p
+  docker-compose exec -it database /bin/mysql -u gitea -p
 ```
 ## bash in application
-docker exec -it $GITEA_APPLICATION_DOCKER_CONTAINER /bin/sh
+docker-compose exec -it application /bin/sh
 
 ## update app.ini
 ```bash
