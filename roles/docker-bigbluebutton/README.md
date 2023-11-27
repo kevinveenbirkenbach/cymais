@@ -14,6 +14,11 @@ Role to deploy [BigBlueButton](https://bigbluebutton.org/).
 watch -n 2 "docker ps -a | grep bigbluebutton"
 ```
 
+### database access
+```bash
+ sudo docker-compose exec -it postgres psql -U postgres
+```
+
 ## further information
 - https://github.com/bigbluebutton/docker
 - https://docs.bigbluebutton.org/greenlight/gl-install.html#setting-bigbluebutton-credentials
