@@ -90,12 +90,16 @@ def update_docker(directory):
     else:
         print("Docker images are up to date. No rebuild necessary.")
 
-def update_nextcloud(directory):
-    print("Updating Nextcloud apps.")
+def update_nextcloud():
+    print("Start Nextcloud update procedure.")
+    update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ app:update --all")
+    
+# This procedure waits until the container is up
+def update_procedure(command):
     max_attempts = 3
     for attempt in range(max_attempts):
         try:
-            run_command("docker-compose exec -T -u www-data application /var/www/html/occ app:update --all")
+            run_command(command)
             break  # If the command succeeds, exit the loop
         except subprocess.CalledProcessError as e:
             if attempt < max_attempts - 1:  # Check if it's not the last attempt
@@ -130,4 +134,4 @@ if __name__ == "__main__":
             update_docker(dir_path)
             
             if os.path.basename(dir_path) == "nextcloud":
-                update_nextcloud(dir_path)
+                update_nextcloud()
