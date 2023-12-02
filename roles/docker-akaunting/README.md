@@ -1,41 +1,63 @@
-# docker akaunting
+# Docker Akaunting Setup Guide
 
-## new setup
-```bash
-cd {{path_docker_compose_files}}akaunting/
-export COMPOSE_HTTP_TIMEOUT=600
-export DOCKER_CLIENT_TIMEOUT=600
-AKAUNTING_SETUP=true docker-compose -p akaunting up -d
-```
+## Introduction
+This guide details the process of setting up Akaunting, a free and online accounting software, using Docker. It's tailored to help you deploy and manage an Akaunting instance efficiently using Docker and Docker Compose.
 
-Check Webinterface and then execute: 
+## Better Alternatives to Akaunting
 
-```bash
-docker-compose down
-docker-compose -p akaunting up -d
-```
+Due to license issues, bugs and that in the past after an akaunting update your functions get reduced, I recommend the use of other finance software.
+[GNUCASH](https://www.gnucash.org/) offers more functions for SMB's, allows tracking of bank and trading accounts and in combination with Nextcloud it's a very good tool for smal companies to manage there finances.
 
-## administration
+## Prerequisites
+- Docker and Docker Compose installed.
+- Basic understanding of Docker concepts.
+- Access to the command line or terminal.
 
-### get logs
+## Installation Steps
 
-```bash
-docker-compose exec -it akaunting tail -n 300 storage/logs/laravel.log 
-```
+### New Manual Setup
+1. **Navigate to Docker Compose Directory**: Change to the directory containing your Docker Compose files for Akaunting.
 
-### enter akaunting container
+    ```bash
+    cd {{path_docker_compose_files}}akaunting/
+    ```
 
-```bash
-docker-compose exec -it akaunting bash
-```
+2. **Set Environment Variables**: These are necessary to prevent timeouts during long operations.
 
-### enter database container
+    ```bash
+    export COMPOSE_HTTP_TIMEOUT=600
+    export DOCKER_CLIENT_TIMEOUT=600
+    ```
 
-```bash
-docker-compose exec -it akaunting-db /bin/mariadb -u admin --password=$akaunting_db_password akaunting
-```
+3. **Start Akaunting Service**: This command will initialize the Akaunting setup.
 
-## manuel update
+    ```bash
+    AKAUNTING_SETUP=true docker-compose -p akaunting up -d
+    ```
+
+4. **Check Web Interface**: Ensure the web interface is operational.
+
+5. **Restart Services**: To finalize the setup, restart the services.
+
+    ```bash
+    docker-compose down
+    docker-compose -p akaunting up -d
+    ```
+
+### Administration
+- **View Logs**: To check the latest logs of Akaunting.
+
+    ```bash
+    docker-compose exec -it akaunting tail -n 300 storage/logs/laravel.log 
+    ```
+
+- **Access Containers**: For troubleshooting or configuration.
+  - Akaunting Container: `docker-compose exec -it akaunting bash`
+  - Database Container: `docker-compose exec -it akaunting-db /bin/mariadb -u admin --password=$akaunting_db_password akaunting`
+
+### Manual Update
+Execute PHP artisan commands in the following order for updating Akaunting:
+
 ```bash
 php artisan about
 php artisan cache:clear
@@ -45,55 +67,39 @@ php artisan update:all
 php artisan update:db
 ```
 
-## composer
-```bash
-curl https://getcomposer.org/download/2.4.1/composer.phar --output composer.phar
-```
+### Composer
+To install Composer, a PHP dependency management tool:
 
 ```bash
+curl https://getcomposer.org/download/2.4.1/composer.phar --output composer.phar
 php composer.phar install
 ```
 
-## full backup routine
+### Full Backup Routine
+Detailed steps for backing up your Akaunting instance, including setting manual and automatic variables, destroying containers, removing volumes, and rebuilding and recovering volumes. (Refer to the full backup routine script in the original README).
 
-```bash
-# DO SET MANUEL VARIABLES >>
-export akaunting_db_password=XXXXXXXXX
-export backup_version=XXXXXXXXX
-# << DO SET MANUEL VARIABLES
+### Setting Variables
+Variables are crucial in configuring your Akaunting setup. Ensure you set the following variables correctly in your environment:
 
-# set automatic variables
-export machine_id="$(sha256sum /etc/machine-id)"
-export COMPOSE_HTTP_TIMEOUT=600
-export DOCKER_CLIENT_TIMEOUT=600
+- `docker_compose_akaunting_path`: Set this variable to the path where your Docker Compose files for Akaunting are located.
+- `akaunting_db_password`, `akaunting_version`, `akaunting_company_name`, `akaunting_company_email`, `akaunting_setup_admin_email`, and `akaunting_setup_admin_password`: These should be set in your `.env` files as per your requirements.
 
-# destroy all containers
-cd {{path_docker_compose_files}}akaunting/ && 
-docker-compose down &&
-docker network prune -f
+### Additional Configuration
+- **SSL Certificate**: The guide includes steps to receive a certificate for your domain.
+- **Nginx Configuration**: Necessary steps to configure Nginx as a reverse proxy for Akaunting.
+- **Database and Runtime Environment**: Instructions on how to set up the `db.env` and `run.env` files for database and runtime configurations.
 
-# delete all volumes
-docker volume rm akaunting_akaunting-data akaunting_akaunting-db akaunting_akaunting-modules
+## Further Information
+For more details, visit the [Akaunting Docker Repository](https://github.com/akaunting/docker) and the [Akaunting Forums](https://akaunting.com/forum).
 
-# rebuild containers
-docker-compose pull &&
-docker-compose build &&
-docker-compose -p akaunting up -d --force-recreate
+## Contribution and Feedback
 
-# recover all volumes
-cd {{path_administrator_scripts}}backup-docker-to-local &&
-bash recover-docker-from-local.sh akaunting_akaunting-modules ${machine_id:0:64} "$backup_version" &&
-bash recover-docker-from-local.sh akaunting_akaunting-data ${machine_id:0:64} "$backup_version" &&
-bash recover-docker-from-local.sh akaunting_akaunting-db ${machine_id:0:64} "$backup_version" akaunting-db "$akaunting_db_password" akaunting
+Your contributions and feedback are welcome. Please reach out for support or queries at kevin@veen.world.
 
-```
+## License
 
-## todo 
-- implement build when new akaunting version is set
+This project is licensed under the GNU Affero General Public License v3.0.
 
-## Further information
-- https://github.com/akaunting/docker
-- https://akaunting.com/forum/discussion/installation-update/updating-to-300-failed-cant-manually-update-either
-- https://akaunting.com/forum/discussion/installation-update/not-able-to-update-core
-- https://akaunting.com/forum/discussion/installation-update/update-to-203-not-able-to-finalize-core-installation
-- https://akaunting.com/forum/discussion/installation-update/how-to-perform-manual-update-v2116
+## Author
+
+This script is developed by Kevin Veen-Birkenbach. You can reach out to him at kevin@veen.world or visit his website at https://www.veen.world.
