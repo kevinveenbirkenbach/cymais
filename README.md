@@ -1,10 +1,18 @@
 # CyMaIS - Cyber Master Infrastructure Solution
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
-This playbook, powered by Ansible, is designed to streamline the setup and administration of a wide range of applications and Docker images on Linux-based systems. It's a versatile tool for configuring both bare metal servers and personal computers, offering solutions for base system setup, administration tools, backup solutions, system monitoring, updates, driver management, security enhancements, VPN configurations, and more. Whether for desktop computing, development environments, server management, or Docker containerization, this playbook provides comprehensive and customizable Ansible roles for efficient system management.
+## Solution Overview 
+<img src="https://cybermaster.space/wp-content/uploads/sites/7/2023/12/logo_cymais.png" width="300" style="float: right; margin-left: 10px;">
 
-## CyMaIS Implementation
-If you're seeking professional implementation of the **CyMaIS - Cyber Master Infrastructure Solution** and its components, look no further. I offer tailored software development, infrastructure setup, and security solutions, particularly for small and medium-sized businesses. My expertise spans various areas, including server administration, digital corporate infrastructure, custom software development, and information security. With a strong focus on Open Source solutions, I ensure that your IT infrastructure aligns with the highest industry standards. For more detailed information about my services and how I can assist in optimizing your IT environment, please visit [CyberMaster.Space](https://cybermaster.space).
+CyMaIS, powered by Ansible, is designed to streamline the setup and administration of a wide range of applications and Docker images on Linux-based systems. 
+
+It's a versatile tool for configuring both bare metal servers and personal computers, offering solutions for base system setup, administration tools, backup solutions, system monitoring, updates, driver management, security enhancements, VPN configurations, and more. 
+
+Whether for desktop computing, development environments, server management, or Docker containerization, this playbook provides comprehensive and customizable Ansible roles for efficient system management.
+
+It is designed to allow a super fast setup of small, medium and large business IT infrastructure, following the highest security standards.
+
+For detailed information about implementation services and more, visit [CyberMaster.Space](https://cybermaster.space).
 
 ## Integrated Solutions
 
@@ -163,25 +171,39 @@ Dedicated to Docker container setups and application management, offering a wide
 - **[Docker Wordpress](./roles/docker-wordpress/)**: Wordpress blog and website platform setup.
 - **[Docker YOURLS](./roles/docker-yourls/)**: Setup for YOURLS, a URL shortening service.
 
-### Setup
+## Key Advantages of CyMaIS
+**CyMaIS - Cyber Master Infrastructure Solution** is a comprehensive and agile tool designed for efficient IT infrastructure management and deployment. Here are its key advantages and unique selling points (USP):
 
-Run:
-```bash
-ansible-galaxy collection install -r requirements.yml
-```
+1. **Versatile Automation**: Powered by Ansible, CyMaIS offers streamlined setup and administration across a wide range of applications and Docker images, suitable for both Linux-based servers and personal computers.
 
-## Addidional Parameters
+2. **Comprehensive Configuration Suite**: The solution includes a full spectrum of IT infrastructure components – from basic system setup and administration tools to advanced features like VPN configurations and Docker containerization.
 
-- activate_all_timers (bool): Activates matomo tracking on all html pages
-- nginx_matomo_tracking_active (bool): Activates matomo tracking on all html pages
+3. **Customizable for Varied Needs**: Whether it's for desktop computing, server management, development environments, or personal computing, CyMaIS provides customizable Ansible roles, ensuring flexibility and adaptability to different requirements.
 
-The role specific parameters are descriped in the README.md of the roles
+4. **Efficient System Monitoring and Updates**: Incorporates roles for system event notifications and health monitoring, ensuring optimal performance and reliability. It also covers automated system updates, keeping the infrastructure current and secure.
 
-## Author
+5. **Security and Backup Solutions**: With a strong focus on security, CyMaIS includes roles for enhanced system security, driver management, and comprehensive backup solutions, ensuring data integrity and protection against threats.
 
-Kevin Veen-Birkenbach  
-- 📧 Email: [kevin@veen.world](mailto:kevin@veen.world)
-- 🌍 Website: [https://www.veen.world/](https://www.veen.world/)
+6. **Ease of Use**: Its user-friendly approach, combined with detailed documentation, makes system management accessible even for those with limited technical expertise.
+
+7. **Open Source Advantage**: Licensed under the GNU Affero General Public License v3.0, CyMaIS aligns with the ethos of open-source software, promoting transparency, community-driven development, and security.
+
+CyMaIS stands out for its all-encompassing approach to IT infrastructure management, offering a one-stop solution for diverse IT needs, particularly catering to small and medium-sized businesses. 
+
+## Professional CyMaIS Implementation
+<img src="https://cybermaster.space/wp-content/uploads/sites/7/2023/11/FVG_8364BW-scaled.jpg" width="300" style="float: right; margin-left: 30px;">
+
+My name is Kevin Veen-Birkenbach and I'm glad to assist you in the implementation of your secure and scalable IT infrastrucutre solution with CyMaIS.
+
+My expertise in server administration, digital corporate infrastructure, custom software, and information security, all underpinned by a commitment to Open Source solutions, guarantees that your IT setup meets the highest industry standards.
+
+Discover how CyMaIS can transform your IT landscape. 
+
+Contact me for more details:
+
+🌍 Website: [www.CyberMaster.Space](https://cybermaster.space)<br />
+📧 Email: [kevin@veen.world](mailto:kevin@veen.world)<br />
+☎️ Phone: [+ 49 178 179 80 23](tel:00491781798023)
 
 ## License
 
