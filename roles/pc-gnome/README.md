@@ -1,7 +1,7 @@
 # PC-Gnome Role
 
 ## Overview
-Welcome to the `pc-gnome` role, a key part of the `computer-playbook` repository. This role is dedicated to setting up and configuring the GNOME desktop environment on personal computers.
+Welcome to the `pc-gnome` role, a key part of the `cymais` repository. This role is dedicated to setting up and configuring the GNOME desktop environment on personal computers.
 
 ## Role Details
 The `pc-gnome` role includes several tasks for installing GNOME software, managing GNOME extensions, and customizing the GNOME desktop experience:
@@ -41,7 +41,7 @@ The `pc-gnome` role is ideal for users who prefer the GNOME desktop environment 
 
 ## Running the Role
 To use this role:
-1. Clone the `computer-playbook` repository.
+1. Clone the `cymais` repository.
 2. Navigate to the `roles/pc-gnome` directory.
 3. Run the role using Ansible, ensuring you have the necessary permissions for installations and configurations.
 
@@ -49,4 +49,4 @@ To use this role:
 You can customize this role by modifying the GNOME software packages, favorite apps, and GNOME extensions in the respective tasks.
 
 ## Support and Contributions
-For support, feedback, or contributions, such as adding more GNOME-related configurations or tools, open an issue or submit a pull request in the `computer-playbook` repository. Contributions that enhance the GNOME environment setup are highly encouraged.
+For support, feedback, or contributions, such as adding more GNOME-related configurations or tools, open an issue or submit a pull request in the `cymais` repository. Contributions that enhance the GNOME environment setup are highly encouraged.

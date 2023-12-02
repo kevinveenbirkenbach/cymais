@@ -1,7 +1,7 @@
 # PC-TorBrowser Role
 
 ## Overview
-This README document is for the `pc-torbrowser` role, a crucial component of the `computer-playbook` repository. This role is specifically designed for the installation and setup of Tor Browser on personal computers.
+This README document is for the `pc-torbrowser` role, a crucial component of the `cymais` repository. This role is specifically designed for the installation and setup of Tor Browser on personal computers.
 
 ## Role Tasks
 The `main.yml` file under the `pc-torbrowser` role encompasses tasks for installing the Tor Browser:
@@ -20,7 +20,7 @@ The `pc-torbrowser` role is tailored for users who value privacy and anonymity o
 
 ## Running the Role
 To use this role:
-1. Clone the `computer-playbook` repository.
+1. Clone the `cymais` repository.
 2. Navigate to the `roles/pc-torbrowser` directory.
 3. Run the role using Ansible, ensuring you have the necessary permissions for software installation.
 
@@ -28,4 +28,4 @@ To use this role:
 While this role primarily focuses on installing Tor and the Tor Browser Launcher, you can customize it to include additional privacy-focused tools or configurations based on your needs.
 
 ## Support and Contributions
-For support, feedback, or contributions, such as enhancing the role with more privacy tools or improving the installation process, please open an issue or submit a pull request in the `computer-playbook` repository. Contributions that enhance the privacy and security aspects of this role are highly encouraged.
+For support, feedback, or contributions, such as enhancing the role with more privacy tools or improving the installation process, please open an issue or submit a pull request in the `cymais` repository. Contributions that enhance the privacy and security aspects of this role are highly encouraged.

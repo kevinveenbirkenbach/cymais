@@ -1,7 +1,7 @@
 # LaTeX Role
 
 ## Overview
-Welcome to the LaTeX role within the `computer-playbook` repository. It focuses on setting up a comprehensive LaTeX environment on Arch Linux-based systems, catering to the needs of users who require an advanced document preparation system.
+Welcome to the LaTeX role within the `cymais` repository. It focuses on setting up a comprehensive LaTeX environment on Arch Linux-based systems, catering to the needs of users who require an advanced document preparation system.
 
 ## Role Contents
 The `main.yml` file in this role automates the installation of key LaTeX packages:
@@ -25,7 +25,7 @@ For an extensive list of available LaTeX packages and customization options, you
 
 ## Running the Role
 To execute this role:
-1. Ensure the `computer-playbook` repository is cloned to your system.
+1. Ensure the `cymais` repository is cloned to your system.
 2. Navigate to the `roles/latex` directory within the repository.
 3. Run the role using the appropriate Ansible commands.
 
@@ -33,4 +33,4 @@ To execute this role:
 You can customize this role by adjusting the list of LaTeX packages in `main.yml` to meet your specific needs.
 
 ## Support and Contributions
-For support, feedback, or contributions, feel free to open an issue or a pull request in the `computer-playbook` repository. Contributions that enhance or extend the role's capabilities are always welcome.
+For support, feedback, or contributions, feel free to open an issue or a pull request in the `cymais` repository. Contributions that enhance or extend the role's capabilities are always welcome.

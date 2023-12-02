@@ -1,7 +1,7 @@
 # PC-Developer-Tools-Python Role
 
 ## Overview
-This README accompanies the `pc-developer-tools-python` role, which is part of the `computer-playbook` repository. The role is dedicated to setting up Python development tools on personal computers.
+This README accompanies the `pc-developer-tools-python` role, which is part of the `cymais` repository. The role is dedicated to setting up Python development tools on personal computers.
 
 ## Role Contents
 The `main.yml` file under the `pc-developer-tools-python` role includes the following task:
@@ -23,7 +23,7 @@ The `pc-developer-tools-python` role is specifically designed for developers who
 
 ## Running the Role
 To use this role:
-1. Clone the `computer-playbook` repository to your machine.
+1. Clone the `cymais` repository to your machine.
 2. Navigate to the `roles/pc-developer-tools-python` directory within the repository.
 3. Execute the role using Ansible, ensuring you have the appropriate permissions to install software packages.
 
@@ -31,4 +31,4 @@ To use this role:
 You can customize this role by adding more Python-related tools, libraries, or frameworks to suit your specific development needs.
 
 ## Support and Contributions
-For support, feedback, or contributions, such as adding additional Python development tools or enhancing the existing setup, please open an issue or submit a pull request in the `computer-playbook` repository. Contributions that improve the Python development environment are highly encouraged.
+For support, feedback, or contributions, such as adding additional Python development tools or enhancing the existing setup, please open an issue or submit a pull request in the `cymais` repository. Contributions that improve the Python development environment are highly encouraged.

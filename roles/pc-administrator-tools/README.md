@@ -1,7 +1,7 @@
 # PC-Bluray-Player-Tools Role
 
 ## Overview
-Welcome to the `pc-bluray-player-tools` role, a part of the `computer-playbook` repository. This role is dedicated to setting up software required for Blu-ray playback on personal computers. It focuses on installing necessary packages to enable the use of Blu-ray media with VLC player and other compatible software.
+Welcome to the `pc-bluray-player-tools` role, a part of the `cymais` repository. This role is dedicated to setting up software required for Blu-ray playback on personal computers. It focuses on installing necessary packages to enable the use of Blu-ray media with VLC player and other compatible software.
 
 ## Role Contents
 The `main.yml` file in this role consists of tasks that automate the installation of the following packages:
@@ -28,7 +28,7 @@ This role depends on the `java` role, which ensures the Java runtime is availabl
 
 ## Running the Role
 To utilize this role:
-1. Clone the `computer-playbook` repository.
+1. Clone the `cymais` repository.
 2. Navigate to the `roles/pc-bluray-player-tools` directory.
 3. Execute the role using Ansible, with appropriate permissions for installing packages.
 
@@ -36,4 +36,4 @@ To utilize this role:
 You can customize this role by enabling or adding additional tasks for other AUR packages related to Blu-ray playback as needed.
 
 ## Support and Contributions
-For support, feedback, or contributions to enhance the role's capabilities, please open an issue or submit a pull request in the `computer-playbook` repository. Contributions that improve Blu-ray playback support or compatibility are highly appreciated.
+For support, feedback, or contributions to enhance the role's capabilities, please open an issue or submit a pull request in the `cymais` repository. Contributions that improve Blu-ray playback support or compatibility are highly appreciated.

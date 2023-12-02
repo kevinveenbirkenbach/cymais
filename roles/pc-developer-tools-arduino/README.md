@@ -1,7 +1,7 @@
 # PC-Developer-Tools-Arduino Role
 
 ## Overview
-This README file is for the `pc-developer-tools-arduino` role, a specialized component of the `computer-playbook` repository. This role is specifically crafted for setting up Arduino development tools on personal computers.
+This README file is for the `pc-developer-tools-arduino` role, a specialized component of the `cymais` repository. This role is specifically crafted for setting up Arduino development tools on personal computers.
 
 ## Role Details
 The `main.yml` file in the `pc-developer-tools-arduino` role encompasses tasks crucial for Arduino developers:
@@ -27,7 +27,7 @@ The `pc-developer-tools-arduino` role is tailored for developers and hobbyists w
 
 ## Running the Role
 To utilize this role:
-1. Clone the `computer-playbook` repository.
+1. Clone the `cymais` repository.
 2. Navigate to the `roles/pc-developer-tools-arduino` directory.
 3. Execute the role using Ansible, ensuring you replace `{{client_username}}` with the actual username and have the necessary system permissions.
 
@@ -35,4 +35,4 @@ To utilize this role:
 This role can be customized to include additional Arduino-related packages or tools, depending on the user's requirements.
 
 ## Support and Contributions
-For support, suggestions, or contributions (like adding more Arduino-related tools or improving the setup), please raise an issue or submit a pull request in the `computer-playbook` repository. Contributions that enhance the Arduino development environment setup are highly encouraged.
+For support, suggestions, or contributions (like adding more Arduino-related tools or improving the setup), please raise an issue or submit a pull request in the `cymais` repository. Contributions that enhance the Arduino development environment setup are highly encouraged.

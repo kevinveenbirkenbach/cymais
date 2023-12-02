@@ -1,7 +1,7 @@
 # PC-Developer-Tools-Java Role
 
 ## Overview
-Welcome to the `pc-developer-tools-java` role, a part of the `computer-playbook` repository. This role is specifically designed for setting up Java development tools on personal computers. It is an essential component for Java developers, providing the necessary tools and dependencies for efficient Java development.
+Welcome to the `pc-developer-tools-java` role, a part of the `cymais` repository. This role is specifically designed for setting up Java development tools on personal computers. It is an essential component for Java developers, providing the necessary tools and dependencies for efficient Java development.
 
 ## Role Dependencies
 This role has dependencies on two other roles within the playbook:
@@ -17,7 +17,7 @@ The `pc-developer-tools-java` role is tailored to meet the needs of Java develop
 
 ## Running the Role
 To utilize this role:
-1. Ensure the `computer-playbook` repository is cloned to your machine.
+1. Ensure the `cymais` repository is cloned to your machine.
 2. Verify that the dependencies (`java` and `pc-developer-tools`) are correctly set up and configured in your playbook.
 3. Navigate to the directory containing the `pc-developer-tools-java` role.
 4. Execute the role using Ansible. Ensure that you have the appropriate permissions and environment for installing and configuring the development tools.
@@ -26,4 +26,4 @@ To utilize this role:
 You may customize this role by adding additional Java development tools or adjusting configurations to better suit your specific development needs.
 
 ## Support and Contributions
-For support, feedback, or contributions to this role, such as adding more Java-related tools or enhancing the setup process, please open an issue or submit a pull request in the `computer-playbook` repository. Contributions that improve the Java development environment setup are highly encouraged.
+For support, feedback, or contributions to this role, such as adding more Java-related tools or enhancing the setup process, please open an issue or submit a pull request in the `cymais` repository. Contributions that improve the Java development environment setup are highly encouraged.

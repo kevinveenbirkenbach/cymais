@@ -1,7 +1,7 @@
 # PC-Network-Analyze-Tools Role
 
 ## Overview
-This README accompanies the `pc-network-analyze-tools` role within the `computer-playbook` repository. This role is dedicated to installing key network analysis tools on personal computers.
+This README accompanies the `pc-network-analyze-tools` role within the `cymais` repository. This role is dedicated to installing key network analysis tools on personal computers.
 
 ## Role Contents
 The `main.yml` file in the `pc-network-analyze-tools` role includes tasks for installing essential network analysis tools:
@@ -25,7 +25,7 @@ The `pc-network-analyze-tools` role is tailored for network administrators, IT p
 
 ## Running the Role
 To utilize this role:
-1. Clone the `computer-playbook` repository.
+1. Clone the `cymais` repository.
 2. Navigate to the `roles/pc-network-analyze-tools` directory.
 3. Run the role using Ansible, making sure you have the necessary permissions for software installation.
 
@@ -33,4 +33,4 @@ To utilize this role:
 You can customize this role by adding or removing network analysis tools in the `main.yml` file, based on your specific needs or preferences.
 
 ## Support and Contributions
-For support, feedback, or contributions, such as adding more tools or enhancing the current setup, please open an issue or submit a pull request in the `computer-playbook` repository. Contributions that improve the network analysis capabilities of this role are highly encouraged.
+For support, feedback, or contributions, such as adding more tools or enhancing the current setup, please open an issue or submit a pull request in the `cymais` repository. Contributions that improve the network analysis capabilities of this role are highly encouraged.

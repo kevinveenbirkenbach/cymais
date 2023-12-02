@@ -1,7 +1,7 @@
 # PC-LibreOffice Role
 
 ## Overview
-This README is for the `pc-libreoffice` role, part of the `computer-playbook` repository. This role focuses on installing LibreOffice, a powerful and free office suite, along with necessary fonts and language packages.
+This README is for the `pc-libreoffice` role, part of the `cymais` repository. This role focuses on installing LibreOffice, a powerful and free office suite, along with necessary fonts and language packages.
 
 ## Role Contents
 The `main.yml` file under the `pc-libreoffice` role includes tasks for installing LibreOffice and its components:
@@ -27,7 +27,7 @@ The `pc-libreoffice` role is ideal for users who need a comprehensive, free offi
 
 ## Running the Role
 To use this role:
-1. Clone the `computer-playbook` repository.
+1. Clone the `cymais` repository.
 2. Navigate to the `roles/pc-libreoffice` directory.
 3. Define the `libreoffice_languages` variable with the desired language codes.
 4. Run the role using Ansible, ensuring you have the necessary permissions for software installation.
@@ -36,4 +36,4 @@ To use this role:
 You can customize this role by adjusting the `libreoffice_languages` variable to include the language packs you need, or by adding additional LibreOffice-related packages as required.
 
 ## Support and Contributions
-For support, feedback, or contributions, such as adding more functionality or enhancing the existing setup, please open an issue or submit a pull request in the `computer-playbook` repository. Contributions that improve the LibreOffice setup and user experience are highly welcomed.
+For support, feedback, or contributions, such as adding more functionality or enhancing the existing setup, please open an issue or submit a pull request in the `cymais` repository. Contributions that improve the LibreOffice setup and user experience are highly welcomed.

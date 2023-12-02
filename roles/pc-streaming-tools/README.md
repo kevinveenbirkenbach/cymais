@@ -1,7 +1,7 @@
 # PC-Streaming-Tools Role
 
 ## Overview
-This README is associated with the `pc-streaming-tools` role, part of the `computer-playbook` repository. This role is focused on setting up essential tools for live streaming and video recording on personal computers.
+This README is associated with the `pc-streaming-tools` role, part of the `cymais` repository. This role is focused on setting up essential tools for live streaming and video recording on personal computers.
 
 ## Role Tasks
 The `main.yml` file in the `pc-streaming-tools` role includes a task for installing a key streaming software:
@@ -19,7 +19,7 @@ The `pc-streaming-tools` role is designed for content creators, gamers, educator
 
 ## Running the Role
 To use this role:
-1. Clone the `computer-playbook` repository.
+1. Clone the `cymais` repository.
 2. Navigate to the `roles/pc-streaming-tools` directory.
 3. Run the role using Ansible, ensuring you have the necessary permissions for software installation.
 
@@ -27,4 +27,4 @@ To use this role:
 This role primarily focuses on installing OBS Studio, but you can customize it by adding additional streaming or video recording tools as per your requirements.
 
 ## Support and Contributions
-For support, feedback, or contributions, such as adding more streaming tools or enhancing the existing setup, please open an issue or submit a pull request in the `computer-playbook` repository. Contributions that enhance the streaming capabilities of this role are highly welcome.
+For support, feedback, or contributions, such as adding more streaming tools or enhancing the existing setup, please open an issue or submit a pull request in the `cymais` repository. Contributions that enhance the streaming capabilities of this role are highly welcome.

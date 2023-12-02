@@ -1,7 +1,7 @@
 # PC-Designer-Tools Role
 
 ## Overview
-This README is associated with the `pc-designer-tools` role, part of the `computer-playbook` repository. This role focuses on setting up a suite of essential design tools on personal computers, catering specifically to the needs of graphic designers, illustrators, and digital artists.
+This README is associated with the `pc-designer-tools` role, part of the `cymais` repository. This role focuses on setting up a suite of essential design tools on personal computers, catering specifically to the needs of graphic designers, illustrators, and digital artists.
 
 ## Role Contents
 The `main.yml` file in the `pc-designer-tools` role encompasses tasks for installing popular design software:
@@ -25,7 +25,7 @@ The `pc-designer-tools` role is intended for users who require a robust set of t
 
 ## Running the Role
 To use this role:
-1. Clone the `computer-playbook` repository.
+1. Clone the `cymais` repository.
 2. Navigate to the `roles/pc-designer-tools` directory.
 3. Execute the role using Ansible, ensuring you have the necessary permissions for software installation.
 
@@ -33,4 +33,4 @@ To use this role:
 This role can be customized by adding or removing software packages in the `main.yml` file to match the specific needs of the user.
 
 ## Support and Contributions
-For support, feedback, or contributions, such as adding more tools or improving the existing setup, please open an issue or submit a pull request in the `computer-playbook` repository. Contributions that enhance the role for designers are greatly appreciated.
+For support, feedback, or contributions, such as adding more tools or improving the existing setup, please open an issue or submit a pull request in the `cymais` repository. Contributions that enhance the role for designers are greatly appreciated.

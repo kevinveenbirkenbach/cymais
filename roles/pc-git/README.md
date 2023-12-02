@@ -1,7 +1,7 @@
 # PC-Git Role
 
 ## Overview
-Welcome to the `pc-git` role documentation, part of the `computer-playbook` repository. This role is focused on setting up Git, a widely-used version control system, on personal computers. The role includes tasks for installing Git and configuring global user details.
+Welcome to the `pc-git` role documentation, part of the `cymais` repository. This role is focused on setting up Git, a widely-used version control system, on personal computers. The role includes tasks for installing Git and configuring global user details.
 
 ## Role Tasks
 The `main.yml` file in the `pc-git` role consists of the following key tasks:
@@ -21,7 +21,7 @@ The `pc-git` role is essential for developers, IT professionals, and anyone who 
 
 ## Running the Role
 To use this role:
-1. Clone the `computer-playbook` repository.
+1. Clone the `cymais` repository.
 2. Navigate to the `roles/pc-git` directory.
 3. Make sure to define the `user_email` and `user_full_name` variables before running the role.
 4. Execute the role using Ansible, ensuring you have the required permissions for software installation and configuration.
@@ -30,4 +30,4 @@ To use this role:
 You can customize this role by modifying the variables for user email and name or by adding additional Git configuration tasks as needed.
 
 ## Support and Contributions
-For support, feedback, or contributions to this role, such as adding more Git-related configurations or tools, please open an issue or submit a pull request in the `computer-playbook` repository. Contributions that enhance Git setup and configuration are highly encouraged.
+For support, feedback, or contributions to this role, such as adding more Git-related configurations or tools, please open an issue or submit a pull request in the `cymais` repository. Contributions that enhance Git setup and configuration are highly encouraged.

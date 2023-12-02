@@ -1,7 +1,7 @@
 # PC-Games Role
 
 ## Overview
-This README is for the `pc-games` role, a part of the `computer-playbook` repository. This role is designed to install a variety of popular open-source and freely available games on personal computers.
+This README is for the `pc-games` role, a part of the `cymais` repository. This role is designed to install a variety of popular open-source and freely available games on personal computers.
 
 ## Role Contents
 The `main.yml` file within the `pc-games` role automates the installation of several gaming titles using the `community.general.pacman` module. The games included are:
@@ -27,7 +27,7 @@ The `pc-games` role is perfect for gamers who wish to have a variety of gaming e
 
 ## Running the Role
 To utilize this role:
-1. Clone the `computer-playbook` repository.
+1. Clone the `cymais` repository.
 2. Navigate to the `roles/pc-games` directory.
 3. Execute the role using Ansible, ensuring you have the necessary permissions for software installation.
 
@@ -35,4 +35,4 @@ To utilize this role:
 You can customize this role by adding or removing games in the `main.yml` file based on your preferences or the requirements of your system.
 
 ## Support and Contributions
-For support, feedback, or contributions, such as adding more games or enhancing the setup process, please open an issue or submit a pull request in the `computer-playbook` repository. Contributions that expand the gaming options or improve the installation process are highly welcomed.
+For support, feedback, or contributions, such as adding more games or enhancing the setup process, please open an issue or submit a pull request in the `cymais` repository. Contributions that expand the gaming options or improve the installation process are highly welcomed.

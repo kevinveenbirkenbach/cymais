@@ -140,6 +140,6 @@ For instructions on updating your Mailu setup, follow the official [Mailu mainte
 - [Plesk support article on RoundCube connection issue](https://support.plesk.com/hc/en-us/articles/115001264814-Unable-to-log-into-RoundCube-Connection-to-storage-server-failed)
 - [Gist by marienfressinaud](https://gist.github.com/marienfressinaud/f284a59b18aad395eb0de2d22836ae6b)
 
-For more information about this role, visit the [GitHub repository](https://github.com/kevinveenbirkenbach/computer-playbook/tree/master/roles/docker-mailu).
+For more information about this role, visit the [GitHub repository](https://github.com/kevinveenbirkenbach/cymais/tree/master/roles/docker-mailu).
 
 This README.md was optimized with [Chat-GPT](https://chat.openai.com/share/d1ad5ce7-3aa1-4a14-a959-63393b39374a)

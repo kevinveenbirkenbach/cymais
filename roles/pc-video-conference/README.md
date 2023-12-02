@@ -1,7 +1,7 @@
 # PC-Video-Conference Role
 
 ## Overview
-Welcome to the `pc-video-conference` role documentation, a part of the `computer-playbook` repository. This role is focused on installing video conferencing software on Linux systems, specifically tailored for personal use and remote work requirements.
+Welcome to the `pc-video-conference` role documentation, a part of the `cymais` repository. This role is focused on installing video conferencing software on Linux systems, specifically tailored for personal use and remote work requirements.
 
 ## Role Tasks
 The `main.yml` file in the `pc-video-conference` role includes tasks for setting up video conferencing tools:
@@ -25,7 +25,7 @@ The `pc-video-conference` role is particularly useful for professionals, educato
 
 ## Running the Role
 To utilize this role:
-1. Clone the `computer-playbook` repository.
+1. Clone the `cymais` repository.
 2. Navigate to the `roles/pc-video-conference` directory.
 3. Run the role using Ansible, ensuring you have appropriate system permissions for software installation.
 
@@ -33,4 +33,4 @@ To utilize this role:
 You can customize this role by adding or modifying the video conferencing tools installed. For example, if there's a need for other applications like Skype or Google Meet, these can be included in the task list.
 
 ## Support and Contributions
-For support, feedback, or contributions, such as adding support for additional video conferencing tools or improving existing configurations, please open an issue or submit a pull request in the `computer-playbook` repository. Contributions that enhance the role's functionality are highly welcome.
+For support, feedback, or contributions, such as adding support for additional video conferencing tools or improving existing configurations, please open an issue or submit a pull request in the `cymais` repository. Contributions that enhance the role's functionality are highly welcome.

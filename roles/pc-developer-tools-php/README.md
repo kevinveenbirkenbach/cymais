@@ -1,7 +1,7 @@
 # PC-Developer-Tools-PHP Role
 
 ## Overview
-This README document is for the `pc-developer-tools-php` role within the `computer-playbook` repository. This role is specifically designed to facilitate the setup of PHP development tools on personal computing environments.
+This README document is for the `pc-developer-tools-php` role within the `cymais` repository. This role is specifically designed to facilitate the setup of PHP development tools on personal computing environments.
 
 ## Role Contents
 The `main.yml` file under the `pc-developer-tools-php` role is centered around the installation of essential PHP development tools:
@@ -23,7 +23,7 @@ The `pc-developer-tools-php` role is tailored for web developers and programmers
 
 ## Running the Role
 To use this role:
-1. Clone the `computer-playbook` repository to your system.
+1. Clone the `cymais` repository to your system.
 2. Navigate to the `roles/pc-developer-tools-php` directory within the repository.
 3. Run the role using Ansible, ensuring you have the necessary permissions for installing packages.
 
@@ -31,4 +31,4 @@ To use this role:
 This role can be customized by adding more PHP-related packages or tools, depending on the specific needs of the user or the project.
 
 ## Support and Contributions
-For support, feedback, or contributions, such as adding additional tools for PHP development or enhancing the existing setup, please open an issue or submit a pull request in the `computer-playbook` repository. Contributions that enhance the PHP development environment are highly welcomed.
+For support, feedback, or contributions, such as adding additional tools for PHP development or enhancing the existing setup, please open an issue or submit a pull request in the `cymais` repository. Contributions that enhance the PHP development environment are highly welcomed.

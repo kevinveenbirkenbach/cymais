@@ -1,7 +1,7 @@
 # PC-Office Role
 
 ## Overview
-This README document is for the `pc-office` role, a component of the `computer-playbook` repository. This role is designed to install a suite of office-related software on personal computers, providing a comprehensive set of tools for various office tasks.
+This README document is for the `pc-office` role, a component of the `cymais` repository. This role is designed to install a suite of office-related software on personal computers, providing a comprehensive set of tools for various office tasks.
 
 ## Role Tasks
 The `main.yml` file within the `pc-office` role comprises tasks for installing a range of office software:
@@ -28,7 +28,7 @@ The `pc-office` role is ideal for users who require a full-fledged office setup 
 
 ## Running the Role
 To utilize this role:
-1. Clone the `computer-playbook` repository.
+1. Clone the `cymais` repository.
 2. Navigate to the `roles/pc-office` directory.
 3. Run the role using Ansible, ensuring you have the necessary permissions for software installation.
 
@@ -36,4 +36,4 @@ To utilize this role:
 This role can be customized by adding or removing software packages in the `main.yml` file, depending on your specific office and productivity needs.
 
 ## Support and Contributions
-For support, feedback, or contributions, such as adding more office tools or enhancing the current setup, please open an issue or submit a pull request in the `computer-playbook` repository. Contributions that improve the office and productivity environment are highly welcomed.
+For support, feedback, or contributions, such as adding more office tools or enhancing the current setup, please open an issue or submit a pull request in the `cymais` repository. Contributions that improve the office and productivity environment are highly welcomed.

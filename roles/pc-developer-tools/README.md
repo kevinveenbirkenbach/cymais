@@ -1,7 +1,7 @@
 # PC-Developer-Tools Role
 
 ## Overview
-This README document is for the `pc-developer-tools` role within the `computer-playbook` repository. The role is designed to streamline the setup of essential development tools on personal computers, particularly for software development environments.
+This README document is for the `pc-developer-tools` role within the `cymais` repository. The role is designed to streamline the setup of essential development tools on personal computers, particularly for software development environments.
 
 ## Role Contents
 The `main.yml` file under the `pc-developer-tools` role includes tasks focused on the installation of key development tools:
@@ -23,7 +23,7 @@ The `pc-developer-tools` role is tailored for developers who need a quick and ef
 
 ## Running the Role
 To utilize this role:
-1. Clone the `computer-playbook` repository.
+1. Clone the `cymais` repository.
 2. Navigate to the `roles/pc-developer-tools` directory.
 3. Run the role using Ansible, making sure you have the necessary privileges for package installation.
 
@@ -31,4 +31,4 @@ To utilize this role:
 Users can customize this role by adding more development tools or editors according to their specific needs in the `main.yml` file.
 
 ## Support and Contributions
-For support, feedback, or contributions (such as adding more developer tools or enhancing the existing setup), please open an issue or submit a pull request in the `computer-playbook` repository. Contributions that improve the development environment setup are highly welcomed.
+For support, feedback, or contributions (such as adding more developer tools or enhancing the existing setup), please open an issue or submit a pull request in the `cymais` repository. Contributions that improve the development environment setup are highly welcomed.

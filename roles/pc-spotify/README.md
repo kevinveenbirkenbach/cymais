@@ -1,7 +1,7 @@
 # PC-Spotify Role
 
 ## Overview
-This README is for the `pc-spotify` role, part of the `computer-playbook` repository. This role is dedicated to installing Spotify, a popular digital music streaming service, on personal computers.
+This README is for the `pc-spotify` role, part of the `cymais` repository. This role is dedicated to installing Spotify, a popular digital music streaming service, on personal computers.
 
 ## Role Tasks
 The `main.yml` file in the `pc-spotify` role includes the following task:
@@ -22,7 +22,7 @@ The `pc-spotify` role is tailored for users who enjoy streaming music and wish t
 
 ## Running the Role
 To use this role:
-1. Clone the `computer-playbook` repository.
+1. Clone the `cymais` repository.
 2. Navigate to the `roles/pc-spotify` directory.
 3. Execute the role using Ansible, ensuring you have the necessary system permissions for package installation.
 
@@ -30,4 +30,4 @@ To use this role:
 While this role is primarily focused on installing Spotify, it can be customized to include additional entertainment or media software as per user requirements.
 
 ## Support and Contributions
-For support, feedback, or contributions, such as adding more features or enhancing the role, please open an issue or submit a pull request in the `computer-playbook` repository. Contributions that improve the entertainment software setup, including Spotify, are highly welcomed.
+For support, feedback, or contributions, such as adding more features or enhancing the role, please open an issue or submit a pull request in the `cymais` repository. Contributions that improve the entertainment software setup, including Spotify, are highly welcomed.

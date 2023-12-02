@@ -1,7 +1,7 @@
 # README for PC-Docker Playbook
 
 ## Overview
-This playbook, `pc-docker`, is part of a larger collection housed within the `computer-playbook` repository. It is specifically tailored for setting up Docker and Docker Compose on personal computers (PCs) used for development purposes. The primary goal is to facilitate a development environment on individual workstations rather than configuring servers for hosting or distributing Docker images.
+This playbook, `pc-docker`, is part of a larger collection housed within the `cymais` repository. It is specifically tailored for setting up Docker and Docker Compose on personal computers (PCs) used for development purposes. The primary goal is to facilitate a development environment on individual workstations rather than configuring servers for hosting or distributing Docker images.
 
 ## Contents
 The `main.yml` file in the `pc-docker` role consists of two primary tasks:
@@ -19,7 +19,7 @@ The playbook is designed for developers who require Docker in their local develo
 
 ## Running the Playbook
 To run this playbook:
-1. Clone the `computer-playbook` repository.
+1. Clone the `cymais` repository.
 2. Navigate to the `roles/pc-docker` directory.
 3. Run the playbook using the appropriate Ansible commands, ensuring that you have the necessary privileges.
 
@@ -29,4 +29,4 @@ To run this playbook:
 - **Security Considerations**: While adding a user to the Docker group provides ease of use, be aware of the security implications. It grants the user elevated privileges which, if misused, can affect the entire system.
 
 ## Support & Contribution
-For support, suggestions, or contributions, please raise an issue or a pull request in the `computer-playbook` repository. This project welcomes contributions from the developer community.
+For support, suggestions, or contributions, please raise an issue or a pull request in the `cymais` repository. This project welcomes contributions from the developer community.
