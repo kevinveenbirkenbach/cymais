@@ -43,20 +43,20 @@ This software shipts the following tools which are natively setup on the server:
 This playbooks offers the setup of Manjaro GNOME clients.
 
 ### Included Applications
-- [Basic Linux Administration Tools](./roles/collection-administrator-base/)
-- [Network Analyzes Tools](./roles/collection-administrator-network-analyze/)
-- [Designer Tools](./roles/collection-designer/)
-- [Arduino Developer Tools](./roles/collection-developer-arduino/)
-- [Basic Developer Tools](./roles/collection-developer-base/)
-- [Bash Developer Tools](./roles/collection-developer-bash/)
-- [Java Developer Tools](./roles/collection-developer-java/)
-- [PHP Developer Tools](./roles/collection-developer-php/)
-- [Python Developer Tools](./roles/collection-developer-python/)
-- [Entertainment Software](./roles/collection-entertainment/)
-- [Games](./roles/collection-games/)
-- [Office Tools](./roles/collection-office/)
-- [Streaming Tools](./roles/collection-streamer/)
-- [Torrent Software](./roles/collection-torrent/)
+- [Basic Linux Administration Tools](./roles/pc-administrator-tools/)
+- [Network Analyzes Tools](./roles/pc-network-analyze-tools/)
+- [Designer Tools](./roles/pc-designer-tools/)
+- [Arduino Developer Tools](./roles/pc-developer-tools-arduino/)
+- [Basic Developer Tools](./roles/pc-developer-tools/)
+- [Bash Developer Tools](./roles/pc-developer-tools-bash/)
+- [Java Developer Tools](./roles/pc-developer-tools-java/)
+- [PHP Developer Tools](./roles/pc-developer-tools-php/)
+- [Python Developer Tools](./roles/pc-developer-tools-python/)
+- [Entertainment Software](./roles/pc-spotify/)
+- [Games](./roles/pc-games/)
+- [Office Tools](./roles/pc-office/)
+- [Streaming Tools](./roles/pc-streaming-tools/)
+- [Torrent Software](./roles/pc-qbittorrent/)
 - ...
 
 ### Setup

@@ -226,38 +226,38 @@
   hosts: personal_computers
   become: true
   roles:
-    - collection-administrator-base
+    - pc-administrator-tools
     - driver-non-free
 
-- name: collection-office
+- name: pc-office
   hosts: collection_officetools
   become: true
   roles:
-    - collection-office
+    - pc-office
 
-- name: collection-designer
+- name: pc-designer-tools
   hosts: collection_designer
   become: true
   roles:
-    - collection-designer
+    - pc-designer-tools
 
-- name: collection-torrent
+- name: pc-qbittorrent
   hosts: collection_torrent
   become: true
   roles:
-    - collection-torrent
+    - pc-qbittorrent
 
-- name: collection-streamer
+- name: pc-streaming-tools
   hosts: collection_streamer
   become: true
   roles:
-    - collection-streamer
+    - pc-streaming-tools
 
-- name: collection-bluray-player
+- name: pc-bluray-player-tools
   hosts: collection_bluray_player
   become: true
   roles:
-    - collection-bluray-player
+    - pc-bluray-player-tools
 
 - name: driver-intel
   hosts: intel
@@ -265,29 +265,29 @@
   roles:
     - driver-intel
 
-- name: application-latex
+- name: latex
   hosts: latex
   become: true
   roles:
-    - application-latex
+    - latex
 
 - name: GNOME setup
   hosts: gnome
   become: true
   roles:
-    - desktop-gnome
+    - pc-gnome
 
 - name: setup msi rgb keyboard
   hosts: msi_perkeyrgb
   become: true
   roles:
-    - application-msi-keyboard-color
+    - driver-msi-keyboard-color
 
 - name: setup ssh hosts
   hosts: ssh
   become: false
   roles:
-    - client-ssh
+    - pc-ssh
 
 - name: setup swapfile hosts
   hosts: swapfile
@@ -299,13 +299,13 @@
   hosts: gaming
   become: true
   roles:
-    - collection-games
+    - pc-games
 
 - name: setup entertainment hosts
   hosts: entertainment
   become: true
   roles:
-    - collection-entertainment
+    - pc-spotify
 
 - name: setup multiprinter hosts
   hosts: epson_multiprinter
@@ -317,13 +317,13 @@
   hosts: torbrowser
   become: true
   roles:
-    - desktop-torbrowser
+    - pc-torbrowser
 
 - name: setup nextcloud
   hosts: nextcloud_client
   become: true
   roles:
-    - client-nextcloud
+    - pc-nextcloud
 
 - name: setup docker
   hosts: docker
