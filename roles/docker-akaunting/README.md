@@ -32,7 +32,7 @@ docker-compose exec -it akaunting bash
 ### enter database container
 
 ```bash
-docker-compose exec -it akaunting-db /bin/mysql -u admin --password=$akaunting_db_password akaunting
+docker-compose exec -it akaunting-db /bin/mariadb -u admin --password=$akaunting_db_password akaunting
 ```
 
 ## manuel update
