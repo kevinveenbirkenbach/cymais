@@ -20,42 +20,42 @@ For detailed information about implementation services and more, visit [CyberMas
 
 Provides essential configurations for system initialization, including hostname setting, systemd journal management, locale configurations, and swapfile handling.
 
-- **[Hostname](./roles/hostname/README.md)**: Sets the system's hostname.
-- **[Journalctl](./roles/journalctl/README.md)**: Configures systemd journal settings.
-- **[Locales](./roles/locales/README.md)**: Configures system locales.
-- **[System-Swapfile](./roles/system-swapfile/README.md)**: Configures swapfile creation and management.
+- **[Hostname](./roles/hostname/)**: Sets the system's hostname.
+- **[Journalctl](./roles/journalctl/)**: Configures systemd journal settings.
+- **[Locales](./roles/locales/)**: Configures system locales.
+- **[System-Swapfile](./roles/system-swapfile/)**: Configures swapfile creation and management.
 
 ### Administration Tools
 
 Includes necessary tools for effective system administration, such as Git setup, Linux admin tools, and sudo configuration.
 
 - **[Git](./roles/git/)**: Basic Git version control system setup.
-- **[PC-Administrator-Tools](./roles/pc-administrator-tools/README.md)**: Installs basic Linux administration tools.
-- **[Sudo](./roles/sudo/README.md)**: Installs and configures sudo.
+- **[PC-Administrator-Tools](./roles/pc-administrator-tools/)**: Installs basic Linux administration tools.
+- **[Sudo](./roles/sudo/)**: Installs and configures sudo.
 
 ### Backup Solutions
 Focuses on comprehensive backup strategies and cleanup procedures, encompassing data backups, remote server backups, and maintenance of backup storage efficiency.
 
 #### Backups
-- **[backup-data-to-usb](./roles/backup-data-to-usb/README.md)**: Automates data backup to USB devices.
-- **[backup-docker-to-local](./roles/backup-docker-to-local/README.md)**: Backs up Docker volumes to local storage.
-- **[backup-remote-to-local](./roles/backup-remote-to-local/README.md)**: Pulls backups from remote servers for local storage.
-- **[backups-provider](./roles/backups-provider/README.md)**: Manages backup processes and storage solutions.
-- **[backups-provider-user](./roles/backups-provider-user/README.md)**: Creates and configures users for backup processes.
+- **[backup-data-to-usb](./roles/backup-data-to-usb/)**: Automates data backup to USB devices.
+- **[backup-docker-to-local](./roles/backup-docker-to-local/)**: Backs up Docker volumes to local storage.
+- **[backup-remote-to-local](./roles/backup-remote-to-local/)**: Pulls backups from remote servers for local storage.
+- **[backups-provider](./roles/backups-provider/)**: Manages backup processes and storage solutions.
+- **[backups-provider-user](./roles/backups-provider-user/)**: Creates and configures users for backup processes.
 
 #### Backups Cleanup
-- **[cleanup-backups-service](./roles/cleanup-backups-service/README.md)**: Service to clean up old backups automatically.
-- **[cleanup-backups-timer](./roles/cleanup-backups-timer/README.md)**: Timer for scheduling the backup cleanup service.
-- **[cleanup-disc-space](./roles/cleanup-disc-space/README.md)**: Manages and frees up disk space on the system.
-- **[cleanup-failed-docker-backups](./roles/cleanup-failed-docker-backups/README.md)**: Cleans up failed Docker backups.
+- **[cleanup-backups-service](./roles/cleanup-backups-service/)**: Service to clean up old backups automatically.
+- **[cleanup-backups-timer](./roles/cleanup-backups-timer/)**: Timer for scheduling the backup cleanup service.
+- **[cleanup-disc-space](./roles/cleanup-disc-space/)**: Manages and frees up disk space on the system.
+- **[cleanup-failed-docker-backups](./roles/cleanup-failed-docker-backups/)**: Cleans up failed Docker backups.
 
 ### Monitoring
 
 #### Notifier
 Introduces roles for setting up system event notifications, with options for email and Telegram alerts.
-- **[Systemd-Notifier](./roles/systemd-notifier/README.md)**: Notifier service for systemd.
-- **[Systemd-Notifier-Email](./roles/systemd-notifier-email/README.md)**: Email notifications for systemd services.
-- **[Systemd-Notifier-Telegram](./roles/systemd-notifier-telegram/README.md)**: Telegram notifications for systemd services.
+- **[Systemd-Notifier](./roles/systemd-notifier/)**: Notifier service for systemd.
+- **[Systemd-Notifier-Email](./roles/systemd-notifier-email/)**: Email notifications for systemd services.
+- **[Systemd-Notifier-Telegram](./roles/systemd-notifier-telegram/)**: Telegram notifications for systemd services.
 
 #### Server Health
 Addresses server maintenance and health monitoring, ensuring optimal performance and reliability of the server infrastructure.
@@ -69,17 +69,17 @@ Addresses server maintenance and health monitoring, ensuring optimal performance
 
 ### Update
 Covers automated updates and maintenance for the system and its components, including package managers and Docker containers.
-- **[update](./roles/update/README.md)**: Automates the process of system updates.
-- **[update-apt](./roles/update-apt/README.md)**: Updates system packages using apt (for Debian-based systems).
-- **[update-docker](./roles/update-docker/README.md)**: Keeps Docker containers up to date.
-- **[update-pacman](./roles/update-pacman/README.md)**: Updates system packages using Pacman (for Arch-based systems).
+- **[update](./roles/update/)**: Automates the process of system updates.
+- **[update-apt](./roles/update-apt/)**: Updates system packages using apt (for Debian-based systems).
+- **[update-docker](./roles/update-docker/)**: Keeps Docker containers up to date.
+- **[update-pacman](./roles/update-pacman/)**: Updates system packages using Pacman (for Arch-based systems).
 
 ### Driver
 Deals with the installation and configuration of various hardware drivers, catering to a range of devices and needs.
-- **[driver-epson-multiprinter](./roles/driver-epson-multiprinter/README.md)**: Installs drivers for Epson multi-function printers.
-- **[driver-intel](./roles/driver-intel/README.md)**: Installs Intel drivers, typically for graphics and other hardware.
-- **[driver-msi-keyboard-color](./roles/driver-msi-keyboard-color/README.md)**: Configures MSI keyboard color settings.
-- **[driver-non-free](./roles/driver-non-free/README.md)**: Installs non-free drivers, generally for specific hardware needs.
+- **[driver-epson-multiprinter](./roles/driver-epson-multiprinter/)**: Installs drivers for Epson multi-function printers.
+- **[driver-intel](./roles/driver-intel/)**: Installs Intel drivers, typically for graphics and other hardware.
+- **[driver-msi-keyboard-color](./roles/driver-msi-keyboard-color/)**: Configures MSI keyboard color settings.
+- **[driver-non-free](./roles/driver-non-free/)**: Installs non-free drivers, generally for specific hardware needs.
 
 ### Security
 Enhances system security through roles focused on security measures, swap file management, user configurations, and SSH settings.
@@ -88,13 +88,13 @@ Enhances system security through roles focused on security measures, swap file m
 - **[User Administrator](./roles/user-administrator/)**: Setup for system administrator user.
 - **[User Alarm](./roles/user-alarm/)**: Manages the alarm user.
 - **[PC SSH](./roles/pc-ssh/)**: Configuration of SSH for secure remote access.
-- **[SSHD](./roles/sshd/README.md)**: Configures SSH daemon settings.
+- **[SSHD](./roles/sshd/)**: Configures SSH daemon settings.
 
 ### Virtual Private Network (VPN)
 Centers on VPN configurations, specifically for Wireguard, providing secure and efficient network connectivity.
-- **[client-wireguard](./roles/client-wireguard/README.md)**: Configures Wireguard VPN client.
-- **[client-wireguard-behind-firewall](./roles/client-wireguard-behind-firewall/README.md)**: Sets up Wireguard client functionality behind a firewall.
-- **[wireguard](./roles/wireguard/README.md)**: Installs and configures Wireguard for secure VPN connections.
+- **[client-wireguard](./roles/client-wireguard/)**: Configures Wireguard VPN client.
+- **[client-wireguard-behind-firewall](./roles/client-wireguard-behind-firewall/)**: Sets up Wireguard client functionality behind a firewall.
+- **[wireguard](./roles/wireguard/)**: Installs and configures Wireguard for secure VPN connections.
 
 
 ### Desktop and Personal Computing
@@ -126,23 +126,23 @@ Targets software developers with tools and environments for various programming 
 
 ### Other
 Encompasses miscellaneous essential tools and systems, including AUR helper, spellchecking, typesetting, and package management.
-- **[System-Aur-Helper](./roles/system-aur-helper/README.md)**: Installs and configures AUR helper (yay).
+- **[System-Aur-Helper](./roles/system-aur-helper/)**: Installs and configures AUR helper (yay).
 - **[Hunspell](./roles/hunspell/)**: Installation of Hunspell spellchecker.
 - **[Latex](./roles/latex/)**: Installation of LaTeX typesetting system.
-- **[Java](./roles/java/README.md)**: Installs Java Development Kit (JDK).
+- **[Java](./roles/java/)**: Installs Java Development Kit (JDK).
 - **[Python Pip](./roles/python-pip/)**: Installation of Python Pip package manager.
 
 ## Server
 
 ### Webserver
 Focuses on web server roles and applications, covering SSL certificates, Nginx configurations, reverse proxies, and email services.
-- **[Letsencrypt](./roles/letsencrypt/README.md)**: Configures Let's Encrypt for SSL certificates.
-- **[Nginx](./roles/nginx/README.md)**: Installs and configures Nginx web server.
-- **[Nginx-Docker-Reverse-Proxy](./roles/nginx-docker-reverse-proxy/README.md)**: Sets up a reverse proxy for Docker containers.
-- **[Nginx-Homepage](./roles/nginx-homepage/README.md)**: Configures a homepage for Nginx.
-- **[Nginx-Https](./roles/nginx-https/README.md)**: Enables HTTPS configuration for Nginx.
-- **[Nginx-Matomo-Tracking](./roles/nginx-matomo-tracking/README.md)**: Integrates Matomo tracking with Nginx.
-- **[Nginx-Redirect](./roles/nginx-redirect/README.md)**: Manages URL redirects in Nginx.
+- **[Letsencrypt](./roles/letsencrypt/)**: Configures Let's Encrypt for SSL certificates.
+- **[Nginx](./roles/nginx/)**: Installs and configures Nginx web server.
+- **[Nginx-Docker-Reverse-Proxy](./roles/nginx-docker-reverse-proxy/)**: Sets up a reverse proxy for Docker containers.
+- **[Nginx-Homepage](./roles/nginx-homepage/)**: Configures a homepage for Nginx.
+- **[Nginx-Https](./roles/nginx-https/)**: Enables HTTPS configuration for Nginx.
+- **[Nginx-Matomo-Tracking](./roles/nginx-matomo-tracking/)**: Integrates Matomo tracking with Nginx.
+- **[Nginx-Redirect](./roles/nginx-redirect/)**: Manages URL redirects in Nginx.
 - **[Certbot Nginx](./roles/certbot-nginx/)**: Integrates Certbot with Nginx for SSL certificates.
 - **[Postfix](./roles/postfix/)**: Setup for the Postfix mail transfer agent.
 
