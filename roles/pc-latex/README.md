@@ -7,7 +7,7 @@ Welcome to the LaTeX role within the `cymais` repository. It focuses on setting 
 The `main.yml` file in this role automates the installation of key LaTeX packages:
 
 1. **Install LaTeX Software**: This task uses the `community.general.pacman` module to install a range of LaTeX packages, ensuring a robust setup for LaTeX users. The packages include:
-   - `texlive-latexextra`: Offers additional LaTeX packages.
+   - `texlive-pc-latexextra`: Offers additional LaTeX packages.
    - `texlive-lang`: Provides language support.
    - `texlive-langextra`: Includes extra language packs.
    - `texlive-fontsextra`: Adds a comprehensive collection of fonts.
@@ -26,7 +26,7 @@ For an extensive list of available LaTeX packages and customization options, you
 ## Running the Role
 To execute this role:
 1. Ensure the `cymais` repository is cloned to your system.
-2. Navigate to the `roles/latex` directory within the repository.
+2. Navigate to the `roles/pc-latex` directory within the repository.
 3. Run the role using the appropriate Ansible commands.
 
 ## Customization

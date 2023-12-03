@@ -184,7 +184,7 @@ Dedicated to Docker container setups and application management, offering a wide
 Encompasses miscellaneous essential tools and systems, including AUR helper, spellchecking, typesetting, and package management.
 - **[System-Aur-Helper](./roles/system-aur-helper/)**: Installs and configures AUR helper (yay).
 - **[Hunspell](./roles/hunspell/)**: Installation of Hunspell spellchecker.
-- **[Latex](./roles/latex/)**: Installation of LaTeX typesetting system.
+- **[Latex](./roles/pc-latex/)**: Installation of LaTeX typesetting system.
 - **[Java](./roles/java/)**: Installs Java Development Kit (JDK).
 - **[Python Pip](./roles/python-pip/)**: Installation of Python Pip package manager.
 

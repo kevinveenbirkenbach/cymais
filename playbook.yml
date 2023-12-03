@@ -271,11 +271,11 @@
   roles:
     - driver-intel
 
-- name: latex
+- name: pc-latex
   hosts: latex
   become: true
   roles:
-    - latex
+    - pc-latex
 
 - name: GNOME setup
   hosts: gnome

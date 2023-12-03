@@ -5,5 +5,5 @@
       - texlive-lang
       - texlive-langextra
       - texlive-fontsextra
-      - texlive-most
+      - texlive
     state: present
