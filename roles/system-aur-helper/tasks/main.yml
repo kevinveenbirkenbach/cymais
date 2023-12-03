@@ -17,10 +17,3 @@
     line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
     create: yes
     validate: 'visudo -cf %s'
-
-- name: Upgrade the system using yay, only act on AUR packages.
-  become: false
-  kewlfft.aur.aur:
-    upgrade: yes
-    use: yay
-    aur_only: yes

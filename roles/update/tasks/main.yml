@@ -18,3 +18,14 @@
   include_role:
     name: update-docker
   when: docker_compose_directory_stat.stat.exists
+
+- name: "Check if yay is installed"
+  command: which yay
+  ignore_errors: yes
+  register: yay_installed
+  changed_when: false
+
+- name: "Update with yay"
+  include_role:
+    name: update-yay
+  when: yay_installed.rc == 0
