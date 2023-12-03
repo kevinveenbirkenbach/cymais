@@ -73,6 +73,7 @@ Covers automated updates and maintenance for the system and its components, incl
 - **[update-apt](./roles/update-apt/)**: Updates system packages using apt (for Debian-based systems).
 - **[update-docker](./roles/update-docker/)**: Keeps Docker containers up to date.
 - **[update-pacman](./roles/update-pacman/)**: Updates system packages using Pacman (for Arch-based systems).
+- **[update-yay](./roles/update-yay/)**: Updates system packages using yay.
 
 ### Driver
 Deals with the installation and configuration of various hardware drivers, catering to a range of devices and needs.
