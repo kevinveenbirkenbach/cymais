@@ -235,6 +235,12 @@
   roles:
     - pc-office
 
+- name: personal computer for business
+  hosts: business_personal_computer
+  become: true
+  roles:
+    - pc-gnucash
+
 - name: pc-designer-tools
   hosts: collection_designer
   become: true

@@ -99,23 +99,32 @@ Centers on VPN configurations, specifically for Wireguard, providing secure and 
 
 ### Desktop and Personal Computing
 Offers a range of tools and software to enhance the personal computing experience on desktops and laptops, covering multimedia, productivity, and virtualization.
-- **[PC Bluray Player Tools](./roles/pc-bluray-player-tools/)**: Software for playing Blu-ray media on personal computers.
-- **[PC Caffeine](./roles/pc-caffeine/)**: Utility to keep your computer awake.
-- **[PC Designer Tools](./roles/pc-designer-tools/)**: Graphic design and 3D modeling software.
-- **[PC Games](./roles/pc-games/)**: Installation of various computer games.
-- **[PC Gnome](./roles/pc-gnome/)**: Installation and configuration of Gnome desktop environment.
-- **[PC LibreOffice](./roles/pc-libreoffice/)**: Installation of the LibreOffice suite.
-- **[PC Network Analyze Tools](./roles/pc-network-analyze-tools/)**: Network analysis and troubleshooting utilities.
-- **[PC Nextcloud](./roles/pc-nextcloud/)**: Client setup for Nextcloud cloud storage service.
-- **[PC Office](./roles/pc-office/)**: Various office productivity tools.
-- **[PC Qbittorrent](./roles/pc-qbittorrent/)**: Installation of qBittorrent for file sharing.
-- **[PC Spotify](./roles/pc-spotify/)**: Installation of Spotify for music streaming.
-- **[PC Streaming Tools](./roles/pc-streaming-tools/)**: Software for video streaming and recording.
-- **[PC Torbrowser](./roles/pc-torbrowser/)**: Installation of Tor Browser for anonymous browsing.
-- **[PC Video Conference](./roles/pc-video-conference/)**: Video conferencing software setup.
-- **[PC Virtual Box](./roles/pc-virtual-box/)**: VirtualBox setup for creating virtual machines.
 
-### Development Environment
+#### Desktop
+- **[PC Caffeine](./roles/pc-caffeine/)**: Utility to keep your computer awake.
+- **[PC Gnome](./roles/pc-gnome/)**: Installation and configuration of Gnome desktop environment.
+
+#### Entertainment
+- **[PC Bluray Player Tools](./roles/pc-bluray-player-tools/)**: Software for playing Blu-ray media on personal computers.
+- **[PC Spotify](./roles/pc-spotify/)**: Installation of Spotify for music streaming.
+- **[PC Games](./roles/pc-games/)**: Installation of various computer games.
+
+#### Office
+- **[PC LibreOffice](./roles/pc-libreoffice/)**: Installation of the LibreOffice suite.
+- **[PC Office](./roles/pc-office/)**: Various office productivity tools.
+- **[PC Video Conference](./roles/pc-video-conference/)**: Video conferencing software setup.
+- **[PC Nextcloud](./roles/pc-nextcloud/)**: Client setup for Nextcloud cloud storage service.
+- **[PC GnuCash](./roles/pc-gnucash/)**: Software to manage finances
+
+#### Anonymization
+- **[PC Qbittorrent](./roles/pc-qbittorrent/)**: Installation of qBittorrent for file sharing.
+- **[PC Torbrowser](./roles/pc-torbrowser/)**: Installation of Tor Browser for anonymous browsing.
+
+#### Content Creation
+- **[PC Streaming Tools](./roles/pc-streaming-tools/)**: Software for video streaming and recording.
+- **[PC Designer Tools](./roles/pc-designer-tools/)**: Graphic design and 3D modeling software.
+
+#### Development Environment
 Targets software developers with tools and environments for various programming languages and development needs.
 - **[PC Developer Tools](./roles/pc-developer-tools/)**: Basic developer tools setup.
 - **[PC Developer Tools Arduino](./roles/pc-developer-tools-arduino/)**: Setup for Arduino development.
@@ -123,18 +132,12 @@ Targets software developers with tools and environments for various programming 
 - **[PC Developer Tools Java](./roles/pc-developer-tools-java/)**: Java development environment setup.
 - **[PC Developer Tools PHP](./roles/pc-developer-tools-php/)**: PHP development environment setup.
 - **[PC Developer Tools Python](./roles/pc-developer-tools-python/)**: Python development environment setup.
+- **[PC Virtual Box](./roles/pc-virtual-box/)**: VirtualBox setup for creating virtual machines.
+- **[PC Network Analyze Tools](./roles/pc-network-analyze-tools/)**: Network analysis and troubleshooting utilities.
 
-### Other
-Encompasses miscellaneous essential tools and systems, including AUR helper, spellchecking, typesetting, and package management.
-- **[System-Aur-Helper](./roles/system-aur-helper/)**: Installs and configures AUR helper (yay).
-- **[Hunspell](./roles/hunspell/)**: Installation of Hunspell spellchecker.
-- **[Latex](./roles/latex/)**: Installation of LaTeX typesetting system.
-- **[Java](./roles/java/)**: Installs Java Development Kit (JDK).
-- **[Python Pip](./roles/python-pip/)**: Installation of Python Pip package manager.
+### Server
 
-## Server
-
-### Webserver
+#### Webserver
 Focuses on web server roles and applications, covering SSL certificates, Nginx configurations, reverse proxies, and email services.
 - **[Letsencrypt](./roles/letsencrypt/)**: Configures Let's Encrypt for SSL certificates.
 - **[Nginx](./roles/nginx/)**: Installs and configures Nginx web server.
@@ -146,7 +149,7 @@ Focuses on web server roles and applications, covering SSL certificates, Nginx c
 - **[Certbot Nginx](./roles/certbot-nginx/)**: Integrates Certbot with Nginx for SSL certificates.
 - **[Postfix](./roles/postfix/)**: Setup for the Postfix mail transfer agent.
 
-### Docker and Containerization
+#### Docker and Containerization
 Dedicated to Docker container setups and application management, offering a wide array of software deployment options.
 - **[Docker](./roles/docker/)**: Basic Docker and Docker Compose setup.
 - **[Docker Akaunting](./roles/docker-akaunting/)**: Deployment of the Akaunting finance software.
@@ -170,6 +173,14 @@ Dedicated to Docker container setups and application management, offering a wide
 - **[Docker Roulette Wheel](./roles/docker-roulette-wheel/)**: Setup for a custom roulette wheel application.
 - **[Docker Wordpress](./roles/docker-wordpress/)**: Wordpress blog and website platform setup.
 - **[Docker YOURLS](./roles/docker-yourls/)**: Setup for YOURLS, a URL shortening service.
+
+### Other
+Encompasses miscellaneous essential tools and systems, including AUR helper, spellchecking, typesetting, and package management.
+- **[System-Aur-Helper](./roles/system-aur-helper/)**: Installs and configures AUR helper (yay).
+- **[Hunspell](./roles/hunspell/)**: Installation of Hunspell spellchecker.
+- **[Latex](./roles/latex/)**: Installation of LaTeX typesetting system.
+- **[Java](./roles/java/)**: Installs Java Development Kit (JDK).
+- **[Python Pip](./roles/python-pip/)**: Installation of Python Pip package manager.
 
 ## Key Advantages of CyMaIS
 **CyMaIS - Cyber Master Infrastructure Solution** is a comprehensive and agile tool designed for efficient IT infrastructure management and deployment. Here are its key advantages and unique selling points (USP):

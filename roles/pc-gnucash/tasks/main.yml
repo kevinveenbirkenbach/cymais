@@ -1,0 +1,5 @@
+- name: Install GnuCash
+  community.general.pacman:
+    name:
+      - gnucash
+    state: present
