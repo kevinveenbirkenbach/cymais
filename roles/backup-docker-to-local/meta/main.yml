@@ -1,5 +1,5 @@
 dependencies:
   - git
   - backups-provider
-  - systemd_notifier
+  - systemd-notifier
   - cleanup-failed-docker-backups

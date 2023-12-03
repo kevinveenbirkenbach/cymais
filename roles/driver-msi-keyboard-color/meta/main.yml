@@ -9,4 +9,4 @@ galaxy_info:
         - all
 dependencies:
   - system-aur-helper
-  - systemd_notifier
+  - systemd-notifier

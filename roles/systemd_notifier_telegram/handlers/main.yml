@@ -1,4 +1,0 @@
-- name: "restart systemd_notifier_telegram service"
-  systemd:
-    name: systemd_notifier_telegram.service
-    daemon_reload: yes

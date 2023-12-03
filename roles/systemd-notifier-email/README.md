@@ -1,17 +1,17 @@
-# systemd_notifier_email Ansible Role
+# systemd-notifier-email Ansible Role
 
 Author: Kevin Veen-Birkenbach (kevin@veen.world)
 
 ## Description
 
-This Ansible role installs the necessary components for sending email notifications through systemd when any service fails. It configures the `systemd_notifier_email` service and handles the setup of email parameters and templates.
+This Ansible role installs the necessary components for sending email notifications through systemd when any service fails. It configures the `systemd-notifier-email` service and handles the setup of email parameters and templates.
 
 Features include:
 
 - Installation and configuration of an email sending service.
 - Customizable email templates for service failure notifications.
 
-This role is part of the `systemd_notifier` suite, which provides a comprehensive solution for service failure notifications in a systemd environment.
+This role is part of the `systemd-notifier` suite, which provides a comprehensive solution for service failure notifications in a systemd environment.
 
 This role was created as part of a conversation with OpenAI's ChatGPT and can be found [here](https://chat.openai.com/share/96e4ca12-0888-41c0-9cfc-29c0180f0dba).
 
@@ -30,7 +30,7 @@ The following variables can be customized in the role's `vars/main.yml` file:
 
 ## Usage
 
-To use this role, include it as a dependency in your playbook or role that requires email notifications. Ensure that the `systemd_notifier_email` role is correctly referenced and configured.
+To use this role, include it as a dependency in your playbook or role that requires email notifications. Ensure that the `systemd-notifier-email` role is correctly referenced and configured.
 
 ## License
 

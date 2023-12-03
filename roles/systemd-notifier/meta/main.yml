@@ -1,0 +1,4 @@
+---
+dependencies:
+  - role: systemd-notifier-telegram
+  - role: systemd-notifier-email

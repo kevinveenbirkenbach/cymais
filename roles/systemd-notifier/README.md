@@ -1,15 +1,15 @@
-# systemd_notifier Ansible Role
+# systemd-notifier Ansible Role
 
 Author: Kevin Veen-Birkenbach (kevin@veen.world)
 
 ## Description
 
-This Ansible role installs a systemd service that sends notifications via both `systemd_notifier_telegram` and `systemd_notifier_email` when any service fails.
+This Ansible role installs a systemd service that sends notifications via both `systemd-notifier-telegram` and `systemd-notifier-email` when any service fails.
 
 Features include:
 
 - Configuration of a systemd service for notification.
-- Dependency management for the `systemd_notifier_telegram` and `systemd_notifier_email` roles.
+- Dependency management for the `systemd-notifier-telegram` and `systemd-notifier-email` roles.
 
 This role was created as part of a conversation with OpenAI's ChatGPT and can be found [here](https://chat.openai.com/share/96e4ca12-0888-41c0-9cfc-29c0180f0dba).
 
@@ -21,8 +21,8 @@ This Ansible role is licensed under the AGPL v3 License. See the LICENSE file fo
 
 This role has the following dependencies:
 
-- `systemd_notifier_telegram`
-- `systemd_notifier_email`
+- `systemd-notifier-telegram`
+- `systemd-notifier-email`
 
 ## Features
 

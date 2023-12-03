@@ -1,2 +1,0 @@
-systemd_telegram_folder: "/opt/ansible-roles/systemd_notifier_telegram/"
-systemd_telegram_script: "{{systemd_telegram_folder}}systemd_notifier_telegram.sh"
