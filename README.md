@@ -1,7 +1,6 @@
 # CyMaIS - Cyber Master Infrastructure Solution
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
-## Solution Overview 
 <img src="https://cybermaster.space/wp-content/uploads/sites/7/2023/12/logo_cymais.png" width="300" style="float: right; margin-left: 10px;">
 
 CyMaIS, powered by Ansible, is designed to streamline the setup and administration of a wide range of applications and Docker images on Linux-based systems. 
