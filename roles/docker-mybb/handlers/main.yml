@@ -1,0 +1,8 @@
+---
+- name: recreate mybb
+  command:
+    cmd: docker-compose -p mybb up -d --force-recreate
+    chdir: "{{path_docker_compose_files}}mybb/"
+  environment:
+    COMPOSE_HTTP_TIMEOUT: 600
+    DOCKER_CLIENT_TIMEOUT: 600
