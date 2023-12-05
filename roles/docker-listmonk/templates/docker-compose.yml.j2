@@ -4,7 +4,7 @@
 
 version: "3.7"
 
-x-app-defaults: &app-defaults
+x-application-defaults: &application-defaults
   restart: unless-stopped
   image: listmonk/listmonk:latest
   ports:
@@ -14,7 +14,7 @@ x-app-defaults: &app-defaults
   environment:
     - TZ=Etc/UTC
 
-x-db-defaults: &db-defaults
+x-database-defaults: &database-defaults
   image: postgres:13-alpine
   ports:
     - "9432:5432"
@@ -32,19 +32,19 @@ x-db-defaults: &db-defaults
     retries: 6
 
 services:
-  db:
-    <<: *db-defaults
-    container_name: listmonk_db
+  database:
+    <<: *database-defaults
+    container_name: database
     volumes:
       - type: volume
         source: listmonk-data
         target: /var/lib/postgresql/data
 
-  app:
-    <<: *app-defaults
-    container_name: listmonk_app
+  application:
+    <<: *application-defaults
+    container_name: listmonk_application
     depends_on:
-      - db
+      - database
     volumes:
       - ./config.toml:/listmonk/config.toml
 
