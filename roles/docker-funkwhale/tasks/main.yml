@@ -6,20 +6,20 @@
   template: src=roles/nginx-docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
   notify: restart nginx
 
-- name: "create {{docker_compose_path}}"
+- name: "create {{docker_compose_instance_directory}}"
   file:
-    path: "{{docker_compose_path}}"
+    path: "{{docker_compose_instance_directory}}"
     state: directory
     mode: 0755
 
 - name: add docker-compose.yml
-  template: src=docker-compose.yml.j2 dest={{docker_compose_path}}docker-compose.yml
+  template: src=docker-compose.yml.j2 dest={{docker_compose_instance_directory}}docker-compose.yml
   notify: recreate funkwhale
 
 - name: add .env
   template: 
     src: env.j2 
-    dest: "{{docker_compose_path}}.env"
+    dest: "{{docker_compose_instance_directory}}.env"
     mode: '770'
     force: yes
   notify: recreate funkwhale

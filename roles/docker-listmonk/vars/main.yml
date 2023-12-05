@@ -1,1 +1,1 @@
-path_docker_compose_folder: "{{path_docker_compose_files}}listmonk/"
+docker_compose_instance_directory: "{{path_docker_compose_files}}listmonk/"

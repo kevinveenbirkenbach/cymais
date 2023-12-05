@@ -2,7 +2,7 @@
 - name: recreate peertube
   command:
     cmd: docker-compose -p peertube up -d --force-recreate
-    chdir: "{{docker_compose_peertube_path}}"
+    chdir: "{{docker_compose_instance_directory}}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600

@@ -13,28 +13,28 @@
   template: src=roles/nginx-docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{ domain }}.conf
   notify: restart nginx
 
-- name: "create {{docker_compose_wordpress_path}}"
+- name: "create {{docker_compose_instance_directory}}"
   file:
-    path: "{{docker_compose_wordpress_path}}"
+    path: "{{docker_compose_instance_directory}}"
     state: directory
     mode: 0755
 
-- name: "Transfering upload.ini to {{docker_compose_wordpress_path}}"
+- name: "Transfering upload.ini to {{docker_compose_instance_directory}}"
   template:
     src: upload.ini.j2
-    dest: "{{docker_compose_wordpress_path}}upload.ini"
+    dest: "{{docker_compose_instance_directory}}upload.ini"
   notify: 
     - recreate wordpress
     - rebuild wordpress container
 
-- name: "Transfering Dockerfile to {{docker_compose_wordpress_path}}"
+- name: "Transfering Dockerfile to {{docker_compose_instance_directory}}"
   copy:
     src: Dockerfile
-    dest: "{{docker_compose_wordpress_path}}Dockerfile"
+    dest: "{{docker_compose_instance_directory}}Dockerfile"
   notify:
     - recreate wordpress
     - rebuild wordpress container
 
-- name: "add docker-compose.yml to {{docker_compose_wordpress_path}}"
-  template: src=docker-compose.yml.j2 dest={{docker_compose_wordpress_path}}docker-compose.yml
+- name: "add docker-compose.yml to {{docker_compose_instance_directory}}"
+  template: src=docker-compose.yml.j2 dest={{docker_compose_instance_directory}}docker-compose.yml
   notify: recreate wordpress

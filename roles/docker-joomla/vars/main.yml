@@ -1,1 +1,1 @@
-path_docker_compose_folder: "{{path_docker_compose_files}}joomla/"
+docker_compose_instance_directory: "{{path_docker_compose_files}}joomla/"

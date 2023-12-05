@@ -22,20 +22,20 @@
 
 - name: register directory
   stat:
-    path: "{{docker_compose_attendize_path}}"
-  register: docker_compose_attendize_path_register
+    path: "{{docker_compose_instance_directory}}"
+  register: docker_compose_instance_directory_register
 
 - name: checkout repository 
   ansible.builtin.shell: git checkout .
   become: true
   args:
-    chdir: "{{docker_compose_attendize_path}}"
-  when: docker_compose_attendize_path_register.stat.exists
+    chdir: "{{docker_compose_instance_directory}}"
+  when: docker_compose_instance_directory_register.stat.exists
 
 - name: checkout Attendize repository 
   ansible.builtin.git: 
     repo: "https://github.com/Attendize/Attendize.git"
-    dest: "{{docker_compose_attendize_path}}"
+    dest: "{{docker_compose_instance_directory}}"
     version: master
   become: true
 
@@ -47,5 +47,5 @@
 - name: create docker-compose.yml file from template
   template:
     src: docker-compose.yml.j2
-    dest: "{{docker_compose_attendize_path}}/docker-compose.yml"
+    dest: "{{docker_compose_instance_directory}}/docker-compose.yml"
     mode: 0644

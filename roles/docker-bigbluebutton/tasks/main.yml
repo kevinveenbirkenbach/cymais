@@ -9,7 +9,7 @@
 - name: pull docker repository
   git:
     repo: "https://github.com/bigbluebutton/docker.git"
-    dest: "{{docker_compose_bigbluebutton_path}}"
+    dest: "{{docker_compose_instance_directory}}"
     update: yes
     recursive: yes
     version: main
@@ -23,5 +23,5 @@
   when: git_result.failed
 
 - name: deploy .env
-  template: src=env.j2 dest={{docker_compose_bigbluebutton_path}}/.env
+  template: src=env.j2 dest={{docker_compose_instance_directory}}/.env
   notify: setup bigbluebutton

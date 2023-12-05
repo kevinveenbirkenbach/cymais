@@ -1,1 +1,1 @@
-mailu_front_container_name: "mailu-front-1"
+docker_compose_instance_directory: "{{path_docker_compose_files}}mailu/"

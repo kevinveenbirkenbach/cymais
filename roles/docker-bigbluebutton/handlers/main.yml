@@ -2,7 +2,7 @@
 - name: create docker-compose.yml for bigbluebutton
   command:
     cmd: bash ./scripts/generate-compose
-    chdir: "{{docker_compose_bigbluebutton_path}}"
+    chdir: "{{docker_compose_instance_directory}}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600
@@ -10,7 +10,7 @@
 - name: docker compose up bigbluebutton
   command:
     cmd: docker-compose -p bigbluebutton up -d --force-recreate
-    chdir: "{{docker_compose_bigbluebutton_path}}"
+    chdir: "{{docker_compose_instance_directory}}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600

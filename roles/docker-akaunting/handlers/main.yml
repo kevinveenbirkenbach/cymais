@@ -2,7 +2,7 @@
 - name: setup akaunting
   command:
     cmd: docker-compose -p akaunting up -d --force-recreate
-    chdir: "{{docker_compose_akaunting_path}}"
+    chdir: "{{docker_compose_instance_directory}}"
   environment:
     #AKAUNTING_SETUP: true
     COMPOSE_HTTP_TIMEOUT: 600

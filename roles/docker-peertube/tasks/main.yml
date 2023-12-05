@@ -6,18 +6,18 @@
   template: src=templates/peertube.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
   notify: restart nginx
 
-- name: "create {{docker_compose_peertube_path}}"
+- name: "create {{docker_compose_instance_directory}}"
   file:
-    path: "{{docker_compose_peertube_path}}"
+    path: "{{docker_compose_instance_directory}}"
     state: directory
     mode: 0755
 
 - name: copy docker-compose.yml
-  template: src=docker-compose.yml.j2 dest={{docker_compose_peertube_path}}docker-compose.yml
+  template: src=docker-compose.yml.j2 dest={{docker_compose_instance_directory}}docker-compose.yml
   notify: recreate peertube
 
 - name: copy configuration
   template: 
     src: env.j2 
-    dest: "{{docker_compose_peertube_path}}.env"
+    dest: "{{docker_compose_instance_directory}}.env"
   notify: recreate peertube

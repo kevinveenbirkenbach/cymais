@@ -6,12 +6,12 @@
   template: src=roles/nginx-docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
   notify: restart nginx
 
-- name: "create {{path_docker_compose_folder}}"
+- name: "create {{docker_compose_instance_directory}}"
   file:
-    path: "{{path_docker_compose_folder}}"
+    path: "{{docker_compose_instance_directory}}"
     state: directory
     mode: 0755
 
 - name: add docker-compose.yml
-  template: src=docker-compose.yml.j2 dest={{path_docker_compose_folder}}docker-compose.yml
+  template: src=docker-compose.yml.j2 dest={{docker_compose_instance_directory}}docker-compose.yml
   notify: recreate joomla

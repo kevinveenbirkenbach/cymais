@@ -2,7 +2,7 @@
 - name: recreate joomla
   command:
     cmd: docker-compose -p joomla up -d --force-recreate
-    chdir: "{{path_docker_compose_folder}}"
+    chdir: "{{docker_compose_instance_directory}}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600

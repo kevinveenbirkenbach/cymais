@@ -2,7 +2,7 @@
 - name: recreate funkwhale
   command:
     cmd: docker-compose -p funkwhale up -d --force-recreate
-    chdir: "{{docker_compose_path}}"
+    chdir: "{{docker_compose_instance_directory}}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600
