@@ -4,18 +4,24 @@
 
 - name: configure {{domain}}.conf
   template: 
-    src:  "roles/docker-reverse-proxy/templates/domain.conf.j2"
+    src:  "roles/nginx-docker-reverse-proxy/templates/domain.conf.j2"
     dest: "/etc/nginx/conf.d/{{domain}}.conf"
   notify: restart nginx
 
-- name: "create {{path_docker_compose_files}}listmonk/"
+- name: "create {{path_docker_compose_folder}}"
   file:
-    path: "{{path_docker_compose_files}}listmonk/"
+    path: "{{path_docker_compose_folder}}"
     state: directory
     mode: 0755
 
 - name: add docker-compose.yml
   template: 
     src:  "docker-compose.yml.j2" 
-    dest: "{{path_docker_compose_files}}listmonk/docker-compose.yml"
+    dest: "{{path_docker_compose_folder}}docker-compose.yml"
+  notify: recreate listmonk
+
+- name: add config.toml
+  template: 
+    src:  "config.toml.j2" 
+    dest: "{{path_docker_compose_folder}}config.toml"
   notify: recreate listmonk

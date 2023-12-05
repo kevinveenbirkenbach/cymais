@@ -8,20 +8,20 @@ x-app-defaults: &app-defaults
   restart: unless-stopped
   image: listmonk/listmonk:latest
   ports:
-    - "9000:9000"
+    - "127.0.0.1:{{http_port}}:9000"
   networks:
     - listmonk
   environment:
     - TZ=Etc/UTC
 
 x-db-defaults: &db-defaults
-  image: postgres:13
+  image: postgres:13-alpine
   ports:
     - "9432:5432"
   networks:
     - listmonk
   environment:
-    - POSTGRES_PASSWORD=listmonk
+    - POSTGRES_PASSWORD={{listmonk_database_password}}
     - POSTGRES_USER=listmonk
     - POSTGRES_DB=listmonk
   restart: unless-stopped
@@ -47,6 +47,7 @@ services:
       - db
     volumes:
       - ./config.toml:/listmonk/config.toml
+
 networks:
   listmonk:
 

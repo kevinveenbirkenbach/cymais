@@ -205,6 +205,14 @@
       vars:
         domain: matomo.{{top_domain}}
         http_port: 8018
+- name: setup listmonk
+  hosts: listmonk
+  become: true
+  roles:
+   -  role: docker-listmonk
+      vars:
+        domain: listmonk.{{top_domain}}
+        http_port: 8019
 - name: setup akaunting hosts
   hosts: akaunting
   become: true
