@@ -1,4 +1,4 @@
-Sure, here's a new `README.md` for your Docker List# Docker Listmonk Role
+# Docker Listmonk Role
 
 This role deploys the Listmonk application using Docker. Listmonk is a high performance, self-hosted newsletter and mailing list manager with a modern dashboard.
 
