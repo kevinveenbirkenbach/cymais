@@ -1,14 +1,16 @@
 services:
   application:
-    log_driver: journald
+    logging:
+      driver: journald
     image: mybb/mybb:latest
     restart: always
     links:
       - database
     volumes:
-      - mybb-data:/var/www/html
+      - data:/var/www/html
   server:
-    log_driver: journald
+    logging:
+      driver: journald
     links:
       - application
     image: nginx:mainline
@@ -16,15 +18,17 @@ services:
     ports:
       - "127.0.0.1:{{http_port}}:80"
     volumes:
-    - "{{conf_d_docker_path}}:{{conf_d_path}}"
-    - "mybb-data:/var/www/html:ro"
+    - "{{conf_d_server_directory}}:{{conf_d_docker_directory}}:ro"
+    - "data:/var/www/html:ro"
   database:
-    log_driver: journald
+    logging:
+      driver: journald
     image: mariadb
     environment:
       MYSQL_DATABASE: "mybb"
       MYSQL_USER: "mybb"
       MYSQL_PASSWORD: "{{mybb_database_password}}"
+      MARIADB_ROOT_PASSWORD: "{{mybb_database_password}}"
       MARIADB_AUTO_UPGRADE: "1"
     volumes:
       - database:/var/lib/mysql
