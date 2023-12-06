@@ -1,10 +1,9 @@
 ---
-- name: recieve {{domain}} certificate
-  command: certbot certonly --agree-tos --email {{administrator_email}} --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{domain}}
-
-- name: configure {{domain}}.conf
-  template: src=roles/nginx-docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
-  notify: restart nginx
+- name: "include tasks nginx-docker-proxy-domain.yml"
+  include_tasks: nginx-docker-proxy-domain.yml
+  loop: "{{ domains }}"
+  loop_control:
+    loop_var: domain
 
 - name: "create {{docker_compose_instance_directory}}"
   file:

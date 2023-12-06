@@ -1,10 +1,6 @@
 ---
-- name: recieve {{domain}} certificate
-  command: certbot certonly --agree-tos --email {{administrator_email}} --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{domain}}
-
-- name: configure {{domain}}.conf
-  template: src=templates/peertube.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
-  notify: restart nginx
+- name: "include task certbot-matomo.yml"
+  include_tasks: certbot-matomo.yml
 
 - name: "create {{docker_compose_instance_directory}}"
   file:

@@ -1,19 +1,12 @@
 ---
-- name: "include task receive certbot certificate"
-  include_tasks: recieve-certbot-certificate.yml
-  vars:
-    domain: "{{ item }}"
-  loop: "{{ wordpress_domains }}"
-  loop_control:
-    loop_var: item
 
-- name: "include task create wordpress nginx"
-  include_tasks: create-wordpress-nginx.yml
-  vars:
-    domain: "{{ item }}"
-  loop: "{{ wordpress_domains }}"
+- name: "include tasks nginx-docker-proxy-domain.yml"
+  include_tasks: nginx-docker-proxy-domain.yml
+  loop: "{{ domains }}"
   loop_control:
-    loop_var: item
+    loop_var: domain
+  vars:
+    client_max_body_size: "{{wordpress_max_upload_size}}"
 
 - name: "create {{docker_compose_instance_directory}}"
   file:

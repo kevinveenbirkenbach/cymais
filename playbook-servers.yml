@@ -55,6 +55,7 @@
   roles:
   - role: docker-wordpress
     vars:
+      domains: "{{wordpress_domains}}"
       http_port: 8003
 
 - name: setup mediawiki hosts
@@ -161,7 +162,7 @@
   roles:
    -  role: docker-joomla
       vars:
-        domain: "joomla.{{top_domain}}"
+        domain: "{{joomla_domains}}"
         http_port: 8014
 
 - name: setup attendize
