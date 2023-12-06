@@ -1,0 +1,10 @@
+- name: Activate NGINX matomo tracking for {{domain}}
+  include_role:
+    name: nginx-matomo-tracking
+  when: nginx_matomo_tracking_active
+
+- name: configure wordpress nginx configurations
+  vars:
+    client_max_body_size: "{{wordpress_max_upload_size}}"
+  template: src=roles/nginx-docker-reverse-proxy/templates/domain.conf.j2 dest=/etc/nginx/conf.d/{{ domain }}.conf
+  notify: restart nginx
