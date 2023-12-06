@@ -1,11 +1,6 @@
 ---
-- name: general setup
-  hosts:  all
-  become: true
-  tasks:
-  roles:
-    - role: update
-      when: execute_updates is true
+
+- import_playbook: playbook-common.yml
 
 - name: servers host setup
   hosts: servers
@@ -16,25 +11,6 @@
     - health-disc-space
     - cleanup-disc-space
     - health-btrfs
-
-# Wireguard Rollen
-- name: setup standard wireguard
-  hosts: wireguard_server
-  become: true
-  roles:
-    - wireguard
-
-- name: setup wireguard client behind firewall\nat
-  hosts: wireguard_behind_firewall
-  become: true
-  roles:
-    - client-wireguard-behind-firewall
-
-- name: setup wireguard client
-  hosts: wireguard_client
-  become: true
-  roles:
-    - client-wireguard
 
 # Native Webserver Roles
 - name: setup nginx-homepages
@@ -61,6 +37,7 @@
       vars:
         domain: cloud.{{top_domain}}
         http_port: 8001
+
 - name: setup gitea hosts
   hosts: gitea
   become: true
@@ -71,13 +48,13 @@
         http_port: 8002
         ssh_port:  2201
         run_mode: prod
+
 - name: setup wordpress hosts
   hosts: wordpress
   become: true
   roles:
   - role: docker-wordpress
     vars:
-      domain: "{{ item }}"
       http_port: 8003
 
 - name: setup mediawiki hosts
@@ -88,14 +65,16 @@
       vars:
         domain: wiki.{{top_domain}}
         http_port: 8004
+
 - name: setup mybb hosts
   hosts: mybb
   become: true
   roles:
    -  role: docker-mybb
       vars:
-        domain: forum.{{top_domain}}
+        domains: "{{mybb_domains}}"
         http_port: 8005
+
 - name: setup yourls hosts
   hosts: yourls
   become: true
@@ -104,6 +83,7 @@
       vars:
         domain: s.{{top_domain}}
         http_port: 8006
+
 - name: setup mailu hosts
   hosts: mailu
   become: true
@@ -112,6 +92,7 @@
       vars:
         domain: "mail.{{top_domain}}"
         http_port: 8007
+
 - name: setup elk hosts
   hosts: elk
   become: true
@@ -120,6 +101,7 @@
       vars:
         domain: "elk.{{top_domain}}"
         http_port: 8008
+
 - name: setup mastodon hosts
   hosts: mastodon
   become: true
@@ -129,6 +111,7 @@
         domain: "mastodon.{{top_domain}}"
         http_port: 8009
         stream_port: 4001
+
 - name: setup pixelfed hosts
   hosts: pixelfed
   become: true
@@ -137,6 +120,7 @@
       vars:
         domain: pixelfed.{{top_domain}}
         http_port: 8010
+
 - name: setup peertube hosts
   hosts: peertube
   become: true
@@ -145,6 +129,7 @@
       vars:
         domain: peertube.{{top_domain}}
         http_port: 8011
+
 - name: setup bigbluebutton hosts
   hosts: bigbluebutton
   become: true
@@ -160,6 +145,7 @@
       vars:
         domain: funkwhale.{{top_domain}}
         http_port: 8012
+
 - name: setup roulette-wheel hosts
   hosts: roulette_wheel
   become: true
@@ -168,6 +154,7 @@
       vars:
         domain: roulette.{{top_domain}}
         http_port: 8013
+
 - name: setup joomla hosts
   hosts: joomla
   become: true
@@ -176,6 +163,7 @@
       vars:
         domain: "joomla.{{top_domain}}"
         http_port: 8014
+
 - name: setup attendize
   hosts: attendize
   become: true
@@ -185,6 +173,7 @@
         domain: "tickets.{{top_domain}}"
         http_port: 8015
         mail_interface_http_port: 8016
+
 - name: setup baserow hosts
   hosts: baserow
   become: true
@@ -193,6 +182,7 @@
       vars:
         domain: baserow.{{top_domain}}
         http_port: 8017
+
 - name: setup matomo hosts
   hosts: matomo
   become: true
@@ -201,6 +191,7 @@
       vars:
         domain: matomo.{{top_domain}}
         http_port: 8018
+
 - name: setup listmonk
   hosts: listmonk
   become: true
@@ -209,6 +200,7 @@
       vars:
         domain: listmonk.{{top_domain}}
         http_port: 8019
+
 - name: setup akaunting hosts
   hosts: akaunting
   become: true
@@ -217,133 +209,3 @@
       vars:
         domain: akaunting.{{top_domain}}
         http_port: 8080
-
-# Backup Roles
-- name: setup replica backup hosts
-  hosts: replica_backup
-  become: true
-  roles:
-    - role: backup-remote-to-local
-
-## PC services
-- name: general host setup
-  hosts: personal_computers
-  become: true
-  roles:
-    - pc-administrator-tools
-    - driver-non-free
-
-- name: pc-office
-  hosts: collection_officetools
-  become: true
-  roles:
-    - pc-office
-
-- name: personal computer for business
-  hosts: business_personal_computer
-  become: true
-  roles:
-    - pc-gnucash
-
-- name: pc-designer-tools
-  hosts: collection_designer
-  become: true
-  roles:
-    - pc-designer-tools
-
-- name: pc-qbittorrent
-  hosts: collection_torrent
-  become: true
-  roles:
-    - pc-qbittorrent
-
-- name: pc-streaming-tools
-  hosts: collection_streamer
-  become: true
-  roles:
-    - pc-streaming-tools
-
-- name: pc-bluray-player-tools
-  hosts: collection_bluray_player
-  become: true
-  roles:
-    - pc-bluray-player-tools
-
-- name: driver-intel
-  hosts: intel
-  become: true
-  roles:
-    - driver-intel
-
-- name: pc-latex
-  hosts: latex
-  become: true
-  roles:
-    - pc-latex
-
-- name: GNOME setup
-  hosts: gnome
-  become: true
-  roles:
-    - pc-gnome
-
-- name: setup msi rgb keyboard
-  hosts: msi_perkeyrgb
-  become: true
-  roles:
-    - driver-msi-keyboard-color
-
-- name: setup ssh hosts
-  hosts: ssh
-  become: false
-  roles:
-    - pc-ssh
-
-- name: setup swapfile hosts
-  hosts: swapfile
-  become: false
-  roles:
-    - system-swapfile
-
-- name: setup gaming hosts
-  hosts: gaming
-  become: true
-  roles:
-    - pc-games
-
-- name: setup entertainment hosts
-  hosts: entertainment
-  become: true
-  roles:
-    - pc-spotify
-
-- name: setup multiprinter hosts
-  hosts: epson_multiprinter
-  become: true
-  roles:
-    - driver-epson-multiprinter
-
-- name: setup torbrowser hosts
-  hosts: torbrowser
-  become: true
-  roles:
-    - pc-torbrowser
-
-- name: setup nextcloud
-  hosts: nextcloud_client
-  become: true
-  roles:
-    - pc-nextcloud
-
-- name: setup docker
-  hosts: docker
-  become: true
-  roles:
-    - pc-docker
-
-
-- name: setup backup to swappable
-  hosts: backup_to_usb
-  become: true
-  roles:
-    - backup-data-to-usb

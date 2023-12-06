@@ -1,0 +1,61 @@
+---
+# general setup
+- name: general setup
+  hosts:  all
+  become: true
+  tasks:
+  roles:
+    - role: update
+      when: execute_updates is true
+
+- name: setup standard wireguard
+  hosts: wireguard_server
+  become: true
+  roles:
+    - wireguard
+
+# vpn setup
+- name: setup wireguard client behind firewall\nat
+  hosts: wireguard_behind_firewall
+  become: true
+  roles:
+    - client-wireguard-behind-firewall
+
+- name: setup wireguard client
+  hosts: wireguard_client
+  become: true
+  roles:
+    - client-wireguard
+
+## backup setup
+- name: setup replica backup hosts
+  hosts: replica_backup
+  become: true
+  roles:
+    - role: backup-remote-to-local
+
+- name: setup backup to swappable
+  hosts: backup_to_usb
+  become: true
+  roles:
+    - backup-data-to-usb
+
+## driver setup
+- name: driver-intel
+  hosts: intel
+  become: true
+  roles:
+    - driver-intel
+
+- name: setup multiprinter hosts
+  hosts: epson_multiprinter
+  become: true
+  roles:
+    - driver-epson-multiprinter
+
+## system setup 
+- name: setup swapfile hosts
+  hosts: swapfile
+  become: false
+  roles:
+    - system-swapfile

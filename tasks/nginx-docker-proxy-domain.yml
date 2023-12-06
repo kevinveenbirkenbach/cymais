@@ -1,0 +1,8 @@
+- name: "include task receive certbot certificate"
+  include_tasks: recieve-certbot-certificate.yml
+
+- name: "include task implement-matomo-tracking.yml"
+  include_tasks: implement-matomo-tracking.yml
+
+- name: "include task create-domain-conf.yml"
+  include_tasks: create-domain-conf.yml

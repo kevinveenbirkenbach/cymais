@@ -1,0 +1,4 @@
+- name: Activate NGINX matomo tracking
+  include_role:
+    name: nginx-matomo-tracking
+  when: nginx_matomo_tracking_active and domain is defined

@@ -1,0 +1,5 @@
+- name: configure {{domain}}.conf
+  template: 
+    src:  "roles/nginx-docker-reverse-proxy/templates/domain.conf.j2" 
+    dest: "/etc/nginx/conf.d/{{domain}}.conf"
+  notify: restart nginx

@@ -1,0 +1,102 @@
+---
+
+- import_playbook: playbook-common.yml
+
+## pc applications
+- name: general host setup
+  hosts: personal_computers
+  become: true
+  roles:
+    - pc-administrator-tools
+    - driver-non-free
+
+- name: pc-office
+  hosts: collection_officetools
+  become: true
+  roles:
+    - pc-office
+
+- name: personal computer for business
+  hosts: business_personal_computer
+  become: true
+  roles:
+    - pc-gnucash
+
+- name: pc-designer-tools
+  hosts: collection_designer
+  become: true
+  roles:
+    - pc-designer-tools
+
+- name: pc-qbittorrent
+  hosts: collection_torrent
+  become: true
+  roles:
+    - pc-qbittorrent
+
+- name: pc-streaming-tools
+  hosts: collection_streamer
+  become: true
+  roles:
+    - pc-streaming-tools
+
+- name: pc-bluray-player-tools
+  hosts: collection_bluray_player
+  become: true
+  roles:
+    - pc-bluray-player-tools
+
+- name: pc-latex
+  hosts: latex
+  become: true
+  roles:
+    - pc-latex
+
+- name: GNOME setup
+  hosts: gnome
+  become: true
+  roles:
+    - pc-gnome
+
+- name: setup ssh client
+  hosts: ssh
+  become: false
+  roles:
+    - pc-ssh
+
+- name: setup gaming hosts
+  hosts: gaming
+  become: true
+  roles:
+    - pc-games
+
+- name: setup entertainment hosts
+  hosts: entertainment
+  become: true
+  roles:
+    - pc-spotify
+
+- name: setup torbrowser hosts
+  hosts: torbrowser
+  become: true
+  roles:
+    - pc-torbrowser
+
+- name: setup nextcloud
+  hosts: nextcloud_client
+  become: true
+  roles:
+    - pc-nextcloud
+
+- name: setup docker
+  hosts: docker
+  become: true
+  roles:
+    - pc-docker
+
+# driver 
+- name: setup msi rgb keyboard
+  hosts: msi_perkeyrgb
+  become: true
+  roles:
+    - driver-msi-keyboard-color
