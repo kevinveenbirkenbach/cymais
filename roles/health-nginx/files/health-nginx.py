@@ -20,19 +20,19 @@ for filename in os.listdir(config_path):
         parts = name.split('.')
         
         # Prepare the URL and expected status codes
-        url = f"http://{name}"
+        url = f"https://{name}"
+        
+        # Default: Expect status code 200 for a domain
+        expected_statuses = [200]
         
         # Determine expected status codes based on subdomain
-        if len(parts) == 3 and parts[0] == 'www':
-            expected_statuses = [200,301]
-        elif len(parts) == 3 and parts[0] == 's':
-            expected_statuses = [403]
-        elif len(parts) <= 3:
-            # For domain.tld where no specific subdomain is present
-            expected_statuses = [200, 301]
-        else:
-            # Skip files that don't match the schema
-            continue
+        if len(parts) == 3:
+            if parts[0] == 'listmonk':
+                expected_statuses = [401]
+            elif parts[0] == 'www':
+                expected_statuses = [200,301]
+            elif parts[0] == 's':
+                expected_statuses = [403]
 
         try:
             # Send a HEAD request to get only the response header
