@@ -1,7 +1,7 @@
 ---
-- name: "include tasks nginx-docker-proxy-domain.yml"
-  include_tasks: nginx-docker-proxy-domain.yml
-  loop: "{{ domains }}"
+- name: "include tasks mybb-proxy-domain.yml"
+  include_tasks: mybb-proxy-domain.yml
+  loop: "{{ domains + [mybb_main_domain] }}"
   loop_control:
     loop_var: domain
 

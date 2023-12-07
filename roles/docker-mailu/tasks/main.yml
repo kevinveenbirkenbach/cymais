@@ -2,7 +2,7 @@
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
   vars:
-    client_max_body_size: "31M"
+    nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size 31M;"
 
 - name: "create {{path_docker_compose_instances}}mailu"
   file:

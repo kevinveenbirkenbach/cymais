@@ -1,2 +1,2 @@
 docker_compose_instance_directory: "{{path_docker_compose_instances}}funkwhale/"
-client_max_body_size: "512M"
+nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size 512M;"

@@ -1,0 +1,7 @@
+- name: "include task certbot-matomo.yml"
+  include_tasks: certbot-matomo.yml
+
+- name: "include task create-domain-conf.yml"
+  include_tasks: create-domain-conf.yml
+  vars: 
+    nginx_docker_reverse_proxy_extra_configuration: "sub_filter '{{mybb_main_domain}}' '{{domain}}';"

@@ -3,20 +3,13 @@
 ## Dependencies
 - nginx-docker-reverse-proxy
 
-## Variables
-- `docker_compose_instance_directory`: The directory where Docker Compose files for MyBB are stored.
-- `target_mount_conf_d_directory`: Directory for Docker Nginx configuration.
-- `default_conf_docker_file`: The default Nginx configuration file for the server.
-- `docker_compose_instance_confd_directory`: The Nginx server's configuration directory.
-
-## Tasks
-1. **Domain Certificate Retrieval:** Automates the process of obtaining SSL certificates for the specified domain using Certbot.
-2. **Nginx Configuration:** Handles the configuration of Nginx for the MyBB domain.
-3. **Directory Creation:** Ensures the creation of necessary directories including parent directories as required.
-4. **MyBB and Nginx Configuration:** Manages the configuration for MyBB and Nginx, including setting up the `default.conf` file.
-5. **Docker Compose Setup:** Adds and manages the `docker-compose.yml` file necessary for running MyBB with Docker.
-
 ## Usage
+
+### Multi Domain Installation
+If you want to access your mybb over multiple domains, keep the following in mind:
+- Set Cookie Domain to nothing
+- Access mybb for installation via mybb.<top_domain> 
+- Set the Board Url to mybb.<top_domain>
 
 ### Manual Installation of MyBB Plugins
 
