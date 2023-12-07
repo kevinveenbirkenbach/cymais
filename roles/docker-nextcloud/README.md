@@ -57,7 +57,7 @@ and disable the not functioning apps.
 
 ## recover latest backup
 ```bash
-cd {{path_docker_compose_files}}nextcloud &&
+cd {{docker_compose_instances_directory}}nextcloud &&
 docker-compose down &&
 docker-compose exec -i database mysql -u nextcloud -pPASSWORT nextcloud < "/Backups/$(sha256sum /etc/machine-id | head -c 64)/backup-docker-to-local/latest/nextcloud_database/sql/backup.sql" &&
 cd {{path_administrator_scripts}}backup-docker-to-local &&

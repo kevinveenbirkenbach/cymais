@@ -6,9 +6,9 @@
     state: present
   notify: docker restart
 
-- name: "create {{path_docker_compose_files}}"
+- name: "create {{docker_compose_instances_directory}}"
   file:
-    path: "{{path_docker_compose_files}}"
+    path: "{{docker_compose_instances_directory}}"
     state: directory
     mode: 0700
     owner: administrator

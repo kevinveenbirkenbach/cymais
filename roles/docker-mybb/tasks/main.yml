@@ -5,17 +5,17 @@
   loop_control:
     loop_var: domain
 
-- name: "create {{conf_d_server_directory}} and parent directories"
+- name: "create {{docker_compose_instance_confd_directory}} and parent directories"
   file:
-    path: "{{conf_d_server_directory}}"
+    path: "{{docker_compose_instance_confd_directory}}"
     state: directory
     mode: 0755
     recurse: yes
 
-- name: "create {{default_conf_server_file}}"
+- name: "create {{docker_compose_instance_confd_defaultconf_file}}"
   template: 
     src:  "default.conf"
-    dest: "{{default_conf_server_file}}"
+    dest: "{{docker_compose_instance_confd_defaultconf_file}}"
   notify: recreate mybb
 
 - name: add docker-compose.yml

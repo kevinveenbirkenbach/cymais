@@ -4,4 +4,4 @@ OnFailure=systemd-notifier@%n.service
 
 [Service]
 Type=oneshot
-ExecStart=/bin/sh -c '/usr/bin/python {{update_docker_script}} {{path_docker_compose_files}}'
+ExecStart=/bin/sh -c '/usr/bin/python {{update_docker_script}} {{docker_compose_instances_directory}}'

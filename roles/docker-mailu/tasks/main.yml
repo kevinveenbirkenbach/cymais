@@ -4,9 +4,9 @@
   vars:
     client_max_body_size: "31M"
 
-- name: "create {{path_docker_compose_files}}mailu"
+- name: "create {{docker_compose_instances_directory}}mailu"
   file:
-    path: "{{path_docker_compose_files}}mailu"
+    path: "{{docker_compose_instances_directory}}mailu"
     state: directory
     mode: 0755
 

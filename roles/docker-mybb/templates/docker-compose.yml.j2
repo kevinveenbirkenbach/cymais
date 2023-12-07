@@ -23,7 +23,7 @@ services:
     ports:
       - "127.0.0.1:{{http_port}}:80"
     volumes:
-    - "{{conf_d_server_directory}}:{{conf_d_docker_directory}}:ro"
+    - "{{docker_compose_instance_confd_directory}}:{{target_mount_conf_d_directory}}:ro"
     - "data:/var/www/html:ro"
   database:
     logging:
@@ -36,7 +36,7 @@ services:
       POSTGRES_USER: mybb
     image: postgres:14-alpine
     volumes:
-    - ${PWD}/postgres/data:/var/lib/postgresql/data:rw
+    - database:/var/lib/postgresql/data:rw
     restart: always
 volumes:
   database:
