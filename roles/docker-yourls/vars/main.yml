@@ -1,1 +1,1 @@
-docker_compose_instance_directory: "{{docker_compose_instances_directory}}yourls/"
+docker_compose_instance_directory: "{{path_docker_compose_instances}}yourls/"

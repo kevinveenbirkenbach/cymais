@@ -1,2 +1,2 @@
-docker_compose_instance_directory: "{{docker_compose_instances_directory}}funkwhale/"
+docker_compose_instance_directory: "{{path_docker_compose_instances}}funkwhale/"
 client_max_body_size: "512M"

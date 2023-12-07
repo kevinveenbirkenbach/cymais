@@ -1,5 +1,5 @@
 ---
-docker_compose_instance_directory: "{{docker_compose_instances_directory}}mybb/"
+docker_compose_instance_directory: "{{path_docker_compose_instances}}mybb/"
 docker_compose_instance_confd_directory: "{{docker_compose_instance_directory}}conf.d/"
 docker_compose_instance_confd_defaultconf_file: "{{docker_compose_instance_confd_directory}}default.conf"
 target_mount_conf_d_directory: "/etc/nginx/conf.d/"

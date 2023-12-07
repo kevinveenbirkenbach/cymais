@@ -1,2 +1,2 @@
-docker_compose_instance_directory: "{{docker_compose_instances_directory}}wordpress/"
+docker_compose_instance_directory: "{{path_docker_compose_instances}}wordpress/"
 wordpress_max_upload_size: "64M"
