@@ -202,6 +202,15 @@
         domain: listmonk.{{top_domain}}
         http_port: 8019
 
+- name: setup discourse
+  hosts: discourse
+  become: true
+  roles:
+   -  role: docker-discourse
+      vars:
+        domain: discourse.{{top_domain}}
+        http_port: 8020
+
 - name: setup akaunting hosts
   hosts: akaunting
   become: true
