@@ -23,7 +23,8 @@ This Ansible role configures Nginx to perform 301 redirects from one domain to a
 ```yaml
 - hosts: servers
   roles:
-    - { role: nginx-redirect, domain_mappings: [ {source: 'example.com', target: 'newdomain.com'} ] }
+    - { role: nginx-domain-redirect, domain_mappings: [ {source: 'example.com', target: 'newdomain.com'} ] }
+``````
 
 ## Author Information
 This role was created in 2023 by Kevin Veen Birkenbach.
