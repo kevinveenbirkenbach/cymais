@@ -45,8 +45,8 @@
     mode: '700'
     state: directory
 
-- name: "copy configuration to {{docker_compose_instance_directory}}containers/discourse_application.yml"
+- name: "copy configuration to {{docker_compose_instance_directory}}containers/app.yml"
   template: 
-    src: discourse_application.yml.j2
-    dest: "{{docker_compose_instance_directory}}containers/discourse_application.yml"
+    src: app.yml.j2
+    dest: "{{docker_compose_instance_directory}}containers/app.yml"
   notify: recreate discourse
