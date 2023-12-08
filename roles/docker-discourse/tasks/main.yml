@@ -39,15 +39,14 @@
     msg: "Warning: Repository is not reachable."
   when: git_result.failed
 
-- name: set chmod 700 for {{docker_compose_instance_directory}}/containers
+- name: set chmod 700 for {{docker_compose_instance_directory}}containers
   ansible.builtin.file:
     path: "{{docker_compose_instance_directory}}/containers"
     mode: '700'
     state: directory
 
-- name: copy configuration
+- name: "copy configuration {{docker_compose_instance_directory}}containers/app.yml"
   template: 
     src: app.yml.j2
-    dest: "{{docker_compose_instance_directory}}/containers/app.yml"
-    force: no
+    dest: "{{docker_compose_instance_directory}}containers/app.yml"
   notify: recreate discourse
