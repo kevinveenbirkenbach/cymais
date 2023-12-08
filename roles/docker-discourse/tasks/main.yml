@@ -1,0 +1,52 @@
+---
+- name: "include tasks nginx-docker-proxy-domain.yml"
+  include_tasks: nginx-docker-proxy-domain.yml
+
+- name: "create {{docker_compose_instance_directory}}"
+  file:
+    path: "{{docker_compose_instance_directory}}"
+    state: directory
+    mode: 0755
+
+#- name: add docker-compose.yml
+#  template: src=docker-compose.yml.j2 dest={{docker_compose_instance_directory}}docker-compose.yml
+#  notify: recreate discourse
+
+- name: register directory
+  stat:
+    path: "{{docker_compose_instance_directory}}"
+  register: docker_compose_instance_directory_register
+
+- name: checkout repository 
+  ansible.builtin.shell: git checkout .
+  become: true
+  args:
+    chdir: "{{docker_compose_instance_directory}}"
+  when: docker_compose_instance_directory_register.stat.exists
+
+- name: pull docker repository
+  git:
+    repo: "https://github.com/discourse/discourse_docker.git"
+    dest: "{{docker_compose_instance_directory}}"
+    update: yes
+  notify: recreate discourse
+  become: true
+  register: git_result
+  ignore_errors: true
+
+- name: Warn if repo is not reachable
+  debug:
+    msg: "Warning: Repository is not reachable."
+  when: git_result.failed
+
+- name: set chmod 700 for {{docker_compose_instance_directory}}containers
+  ansible.builtin.file:
+    path: "{{docker_compose_instance_directory}}/containers"
+    mode: '700'
+    state: directory
+
+- name: "copy configuration {{docker_compose_instance_directory}}containers/app.yml"
+  template: 
+    src: app.yml.j2
+    dest: "{{docker_compose_instance_directory}}containers/app.yml"
+  notify: recreate discourse

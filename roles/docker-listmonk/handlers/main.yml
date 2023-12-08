@@ -2,7 +2,7 @@
 - name: recreate listmonk
   command:
     cmd: docker-compose -p listmonk up -d --force-recreate
-    chdir: "{{path_docker_compose_files}}listmonk/"
+    chdir: "{{path_docker_compose_instances}}listmonk/"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600

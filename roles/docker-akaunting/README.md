@@ -19,7 +19,7 @@ Due to license issues, bugs and that in the past after an akaunting update your 
 1. **Navigate to Docker Compose Directory**: Change to the directory containing your Docker Compose files for Akaunting.
 
     ```bash
-    cd {{path_docker_compose_files}}akaunting/
+    cd {{path_docker_compose_instances}}akaunting/
     ```
 
 2. **Set Environment Variables**: These are necessary to prevent timeouts during long operations.

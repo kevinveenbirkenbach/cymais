@@ -5,11 +5,11 @@
 ```
 ## cleanup
 ```bash
-cd {{path_docker_compose_files}}mastodon/
+cd {{path_docker_compose_instances}}mastodon/
 docker-compose down
 docker volume rm mastodon_data mastodon_database mastodon_redis
-cd {{path_docker_compose_files}} &&
-rm -vR {{path_docker_compose_files}}mastodon
+cd {{path_docker_compose_instances}} &&
+rm -vR {{path_docker_compose_instances}}mastodon
 ```
 
 ## access terminal

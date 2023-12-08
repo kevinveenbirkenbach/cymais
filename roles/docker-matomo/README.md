@@ -12,7 +12,7 @@ This Ansible role deploys a Matomo analytics platform instance using Docker.
 
 - `domain`: The domain where Matomo will be accessible.
 - `administrator_email`: The email used for SSL certificate registration.
-- `path_docker_compose_files`: Path to store Docker Compose files.
+- `path_docker_compose_instances`: Path to store Docker Compose files.
 - `http_port`: The host port that Matomo will be accessible on.
 - `matomo_database_password`: Password for the Matomo database.
 

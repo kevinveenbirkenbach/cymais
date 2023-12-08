@@ -1,2 +1,2 @@
-docker_compose_instance_directory: "{{path_docker_compose_files}}roulette-wheel/"
-app_path: "{{path_docker_compose_files}}roulette-wheel/app/"
+docker_compose_instance_directory: "{{path_docker_compose_instances}}roulette-wheel/"
+app_path: "{{path_docker_compose_instances}}roulette-wheel/app/"

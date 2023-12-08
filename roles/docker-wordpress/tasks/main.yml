@@ -6,7 +6,7 @@
   loop_control:
     loop_var: domain
   vars:
-    client_max_body_size: "{{wordpress_max_upload_size}}"
+    nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size {{wordpress_max_upload_size}};"
 
 - name: "create {{docker_compose_instance_directory}}"
   file:

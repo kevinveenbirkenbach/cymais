@@ -1,2 +1,2 @@
-docker_compose_instance_directory: "{{path_docker_compose_files}}pixelfed/"
-client_max_body_size: "512M"
+docker_compose_instance_directory: "{{path_docker_compose_instances}}pixelfed/"
+nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size 512M;"

@@ -2,13 +2,14 @@ server
 {
   server_name {{domain}};
 
+  # Include Matomo Tracking Code
   {% if nginx_matomo_tracking_active | default(False) %}
     {% include 'roles/nginx-matomo-tracking/templates/matomo-tracking.conf.j2' %}
   {% endif %}
 
-
-  {% if client_max_body_size is defined %}
-    client_max_body_size {{ client_max_body_size }};
+  # Additional Domain Specific Configuration
+  {% if nginx_docker_reverse_proxy_extra_configuration is defined %}
+    {{nginx_docker_reverse_proxy_extra_configuration}}
   {% endif %}
 
   {% include 'roles/letsencrypt/templates/ssl_header.j2' %}

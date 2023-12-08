@@ -3,26 +3,61 @@
 ## Dependencies
 - nginx-docker-reverse-proxy
 
-## Variables
-- `docker_compose_instance_directory`: The directory where Docker Compose files for MyBB are stored.
-- `conf_d_docker_directory`: Directory for Docker Nginx configuration.
-- `default_conf_server_file`: The default Nginx configuration file for the server.
-- `conf_d_server_directory`: The Nginx server's configuration directory.
-
-## Tasks
-1. **Domain Certificate Retrieval:** Automates the process of obtaining SSL certificates for the specified domain using Certbot.
-2. **Nginx Configuration:** Handles the configuration of Nginx for the MyBB domain.
-3. **Directory Creation:** Ensures the creation of necessary directories including parent directories as required.
-4. **MyBB and Nginx Configuration:** Manages the configuration for MyBB and Nginx, including setting up the `default.conf` file.
-5. **Docker Compose Setup:** Adds and manages the `docker-compose.yml` file necessary for running MyBB with Docker.
-
 ## Usage
 
-### Install Plugins 
-To install MyBB plugins, extract them to a mounted volume and sync using the provided `docker run` command
-```bash
-docker run --rm -v mybb-data:/target/ -v /mnt/:/origin/ "kevinveenbirkenbach/alpine-rsync" sh -c "rsync -avv /origin/inc/plugins/ /target/"
-```
+### Multi Domain Installation
+If you want to access your mybb over multiple domains, keep the following in mind:
+- Set Cookie Domain to nothing
+- Access mybb for installation via mybb.<top_domain> 
+- Set the Board Url to mybb.<top_domain>
+
+### Manual Installation of MyBB Plugins
+
+This guide describes the process of manually installing MyBB plugins in your Docker-MyBB environment. This can be useful if you want to quickly test plugins or do not wish to execute the Ansible role.
+
+#### Steps for Manual Installation
+
+
+1. **Prepare Plugin Files:**
+   - Download the desired MyBB plugin zip files.
+
+2. **Copy plugin to host:**
+    - ```bash scp <plugin> administrator@<server>:/home/administrator/docker-compose/mybb/plugins```
+
+3. **Unzip Plugin Files on the Host:**
+   - Unzip the plugin zip files in the host's plugin directory:
+     ```bash
+     unzip /home/administrator/docker-compose/mybb/plugins/<plugin-file>.zip -d /home/administrator/docker-compose/mybb/plugins/
+     ```
+   - Replace `<plugin-file>.zip` with the name of the plugin zip file.
+   - Repeat this step for each plugin.
+
+4. **Access the Docker Container:**
+   - Open a terminal or SSH session on the server where the Docker container is running.
+
+5. **Copy Unzipped Plugin Files to the Container:**
+   - Copy the unzipped plugin files from the host directory to the Docker container:
+     ```bash
+     docker compose cp /home/administrator/docker-compose/mybb/plugins/<unzipped-plugin-folder> application:/var/www/html/inc/plugins/
+     ```
+   - Replace `<unzipped-plugin-folder>` with the name of the unzipped plugin folder.
+
+6. **Restart the Container:**
+   - Execute the following command to restart the MyBB container:
+     ```bash
+     docker-compose -p mybb up -d --force-recreate
+     ```
+   - This ensures all changes take effect.
+
+7. **Activate Plugins in the MyBB Admin Panel:**
+   - Open the MyBB admin panel in your web browser.
+   - Navigate to the plugin settings and activate the newly installed plugins.
+
+#### Important Notes
+
+- Ensure you use the correct paths and filenames.
+- Do not forget to regularly back up your MyBB database and files before making changes.
+- If encountering issues, refer to the MyBB documentation or specific instructions from the plugin author.
 
 ### Running the Role
 Execute the Ansible playbook containing this role to set up MyBB in a Docker environment.
