@@ -15,6 +15,7 @@
   become: true
   roles:
     - pc-office
+    - pc-jrnl
 
 - name: personal computer for business
   hosts: business_personal_computer

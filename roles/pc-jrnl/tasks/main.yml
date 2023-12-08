@@ -1,0 +1,5 @@
+- name: install jrnl
+  community.general.pacman:
+    name: 
+      - jrnl
+    state: present

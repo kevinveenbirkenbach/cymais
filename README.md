@@ -118,6 +118,7 @@ This segment caters to professional productivity needs. It encompasses a range o
 - **[PC Video Conference](./roles/pc-video-conference/)**: Video conferencing software setup.
 - **[PC Nextcloud](./roles/pc-nextcloud/)**: Client setup for Nextcloud cloud storage service.
 - **[PC GnuCash](./roles/pc-gnucash/)**: Software to manage finances
+- **[PC Jrnl](./roles/pc-jrnl/)**: Software to manage finances
 
 #### Anonymization
 Focusing on privacy and security, the Anonymization section offers tools for secure file sharing and anonymous web browsing. It includes software solutions that prioritize user privacy, ensuring secure online activities and data protection.
