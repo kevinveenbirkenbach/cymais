@@ -1,7 +1,7 @@
 ## this is the all-in-one, standalone Discourse Docker container template
 ##
 ## After making changes to this file, you MUST rebuild
-## /var/discourse/launcher rebuild app
+## /var/discourse/launcher rebuild discourse_application
 ##
 ## BE *VERY* CAREFUL WHEN EDITING!
 ## YAML FILES ARE SUPER SUPER SENSITIVE TO MISTAKES IN WHITESPACE OR ALIGNMENT!
@@ -50,7 +50,7 @@ env:
 
   ## TODO: The domain name this Discourse instance will respond to
   ## Required. Discourse will not work with a bare IP number.
-  DISCOURSE_HOSTNAME: localhost
+  DISCOURSE_HOSTNAME: {{domain}}
 
   ## Uncomment if you want the container to be started with the same
   ## hostname (-h option) as specified above (default "$hostname-$config")
@@ -85,7 +85,7 @@ env:
 ## The Docker container is stateless; all data is stored in /shared
 volumes:
   - volume:
-      host: /var/discourse/shared/standalone
+      host: discourse_application_data
       guest: /shared
   - volume:
       host: /var/discourse/shared/standalone/log/var-log

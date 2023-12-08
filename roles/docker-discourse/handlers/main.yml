@@ -8,5 +8,5 @@
 #    DOCKER_CLIENT_TIMEOUT: 600
 - name: recreate discourse
   command:
-    cmd: ./launcher rebuild app
+    cmd: ./launcher rebuild discourse_application
     chdir: "{{docker_compose_instance_directory}}"
