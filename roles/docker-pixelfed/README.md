@@ -16,6 +16,57 @@ To access the MariaDB instance in the database container, run the following comm
 docker-compose exec -it database mariadb -u pixelfed -p
 ```
 
+### User Management via CLI in Pixelfed Docker Setup
+To manage users in your Pixelfed instance running in a Docker container, as configured in Kevin Veen-Birkenbach's docker-pixelfed role, you can follow these steps via the Command Line Interface (CLI):
+
+1. **Access the Application Container:** First, gain shell access to the Pixelfed application container. Use the command provided in the README:
+
+   ```bash
+   docker-compose exec -it application bash
+   ```
+
+   This command lets you access the bash shell inside the `application` Docker container where Pixelfed is running.
+
+2. **Navigate to Pixelfed Directory:** Once inside the container, navigate to the Pixelfed directory. This is typically the root directory where Pixelfed is installed.
+
+3. **Use Artisan Commands:** Pixelfed is built on Laravel, so you'll use Laravel's Artisan CLI for user management. Here are some common tasks:
+
+   - **Create a New User:**
+     ```bash
+     php artisan user:create
+     ```
+     This command will prompt you to enter the user's details like username, email, and password.
+
+   - **List Users:**
+     ```bash
+     php artisan user:list
+     ```
+     This command displays a list of all users.
+
+   - **Delete a User:**
+     ```bash
+     php artisan user:delete {username}
+     ```
+     Replace `{username}` with the actual username of the user you wish to delete.
+
+   - **Reset Password:**
+     ```bash
+     php artisan user:reset-password {username}
+     ```
+     This will initiate a password reset process for the specified user.
+
+4. **Verify and Validate:** Depending on your Pixelfed's configuration, especially if email verification is required, you might need to perform additional steps to verify new accounts or modify user details.
+
+5. **Exit the Container:** After completing your user management tasks, exit the Docker container shell by typing `exit`.
+
+### Note:
+
+- **Commands Variability:** The available Artisan commands can vary based on your version of Pixelfed and Laravel. Always refer to the specific documentation for your version.
+- **Permissions:** Ensure you have the necessary permissions and rights within the Docker container to perform these actions.
+- **Environment Specifics:** The exact paths and commands may vary based on your Docker and Pixelfed setup, as defined in your `docker-compose.yml` and other configuration files.
+
+This process provides a streamlined way to manage Pixelfed users directly from the CLI in a Dockerized environment, ensuring that you can efficiently administer your Pixelfed instance without needing to access the Pixelfed web interface.
+
 ## Instagram Import Cleanup
 
 If you have imported posts from Instagram, you can clean up the imported data and files as follows:
@@ -86,6 +137,10 @@ For additional information, refer to these resources:
 - [Docker image on Docker Hub](https://hub.docker.com/r/zknt/pixelfed)
 - [Blog Post about running Pixelfed in Docker](https://blog.pixelfed.de/2020/05/29/pixelfed-in-docker/)
 
+--- 
+
 Author: Kevin Veen-Birkenbach, [https://www.veen.world](https://www.veen.world), [kevin@veen.world](mailto:kevin@veen.world)
 
-This README was optimized with the help of OpenAI's ChatGPT. You can view the conversation [here](https://chat.openai.com/share/3daea33f-2e30-46e9-a709-a9c93e823ed9).
+This README was optimized with the help of OpenAI's ChatGPT. You can view the conversation here:
+- https://chat.openai.com/share/3daea33f-2e30-46e9-a709-a9c93e823ed9
+- https://chat.openai.com/share/17f4cf36-feb7-4e7d-bb61-2732475f8a37
