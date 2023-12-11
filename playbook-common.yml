@@ -6,7 +6,7 @@
   tasks:
   roles:
     - role: update
-      when: execute_updates is true
+      when: execute_updates | default(false) | bool
 
 - name: setup standard wireguard
   hosts: wireguard_server

@@ -12,22 +12,6 @@
     - cleanup-disc-space
     - health-btrfs
 
-# Native Webserver Roles
-- name: setup nginx-homepages
-  hosts: homepage
-  become: true
-  roles:
-   -  role: nginx-homepage
-      vars:
-        domain: "{{top_domain}}"
-- name: setup redirect hosts
-  hosts: redirect
-  become: true
-  roles:
-   -  role: nginx-domain-redirect
-      vars:
-        domain_mappings: "{{redirect_domain_mappings}}"
-
 # Docker Roles
 - name: setup nextcloud hosts
   hosts: nextcloud_server
@@ -220,3 +204,27 @@
       vars:
         domain: akaunting.{{top_domain}}
         http_port: 8080
+
+# Native Webserver Roles
+- name: setup nginx-homepages
+  hosts: homepage
+  become: true
+  roles:
+   -  role: nginx-homepage
+      vars:
+        domain: "{{top_domain}}"
+
+- name: setup redirect hosts
+  hosts: redirect
+  become: true
+  roles:
+   -  role: nginx-domain-redirect
+      vars:
+        domain_mappings: "{{redirect_domain_mappings}}"
+
+- name: setup www redirect 
+  hosts: all
+  become: true
+  roles:
+   -  role: nginx-www-redirect
+      when: nginx_www_redirect | bool

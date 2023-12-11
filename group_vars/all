@@ -32,6 +32,7 @@ path_docker_volumes:                          "{{path_administrator_home}}volume
 path_docker_compose_instances:                "{{path_administrator_home}}docker-compose/"
 
 # Runtime Variables
-activate_all_timers (bool):     false   # Activates all timers, independend if the handlers had been triggered
-nginx_matomo_tracking_active:   false   # Activates matomo tracking on all html pages
-execute_updates:                true    # Executes updates
+activate_all_timers:                   false   # Activates all timers, independend if the handlers had been triggered
+nginx_matomo_tracking:                 false   # Activates matomo tracking on all html pages
+nginx_www_redirect:                    true    # Implements an redirect from all www. domains to the main domain 
+execute_updates:                       true    # Executes updates

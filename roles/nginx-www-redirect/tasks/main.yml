@@ -1,0 +1,31 @@
+---
+- name: Find all .conf
+  ansible.builtin.find:
+    paths: "/etc/nginx/conf.d/"
+    patterns: '*.*.conf'
+  register: conf_files
+
+- name: Print conf_files domains
+  debug:
+    var: conf_files
+
+- name: Filter domain names and remove .conf extension and path
+  set_fact:
+    filtered_domains: "{{ conf_files.files | map(attribute='path') | map('regex_search', domain_regex) | select('string') | map('regex_replace', '^/etc/nginx/conf.d/', '') | map('regex_replace', '.conf$', '') | list }}"
+  vars:
+    domain_regex: '^/etc/nginx/conf.d/(?!www\.)[^/]+\.conf$'
+
+
+- name: Print filtered domains
+  debug:
+    var: filtered_domains
+
+- name: Prepare redirect domain mappings
+  set_fact:
+    redirect_domain_mappings: "{{ filtered_domains | map('regex_replace', '^(.*)$', '{ source: \"www.\\1\", target: \"\\1\" }') | map('from_yaml') | list }}"
+
+- name: Include nginx-domain-redirect role with dynamic domain mappings
+  include_role:
+    name: nginx-domain-redirect
+  vars:
+    domain_mappings: "{{ redirect_domain_mappings }}"
