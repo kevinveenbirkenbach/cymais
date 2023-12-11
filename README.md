@@ -162,6 +162,7 @@ Dedicated to Docker container setups and application management, offering a wide
 - **[Docker Attendize](./roles/docker-attendize/)**: Setup for the Attendize event management tool.
 - **[Docker Baserow](./roles/docker-baserow/)**: Deployment of Baserow, an open-source no-code database tool.
 - **[Docker BigBlueButton](./roles/docker-bigbluebutton/)**: Setup for the BigBlueButton video conferencing tool.
+- **[Docker Discourse](./roles/docker-discourse/)**: Setup of Discouse a forum and community platform. 
 - **[Docker ELK](./roles/docker-elk/)**: Elasticsearch, Logstash, and Kibana (ELK) stack setup.
 - **[Docker Funkwhale](./roles/docker-funkwhale/)**: Deployment of Funkwhale, a federated music streaming server.
 - **[Docker Gitea](./roles/docker-gitea/)**: Setup for the Gitea git server.

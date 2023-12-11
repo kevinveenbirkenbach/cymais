@@ -10,6 +10,7 @@ services:
       - ./env
     volumes:
       - "application_data:/var/www/storage"
+      - "bootstrap:/var/www/bootstrap"
       - "./env:/var/www/.env"
     ports:
       - "{{http_port}}:80"
@@ -25,6 +26,7 @@ services:
       - ./env
     volumes:
       - "application_data:/var/www/storage"
+      - "bootstrap:/var/www/bootstrap"
       - "./env:/var/www/.env"
     entrypoint: /worker-entrypoint.sh
     depends_on:
@@ -66,3 +68,4 @@ volumes:
   database:
   redis_data:
   application_data:
+  bootstrap:
