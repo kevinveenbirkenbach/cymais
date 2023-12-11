@@ -23,6 +23,15 @@ def run_command(command):
             process.stdout.close()
 
 def git_pull(directory):
+    """
+    Checks whether the Git repository in the specified directory is up to date and performs a git pull if necessary.
+
+    Args:
+        directory (str): The path to the directory of the Git repository.
+
+    Returns:
+        bool: True if a git pull was performed, otherwise False.
+    """
     os.chdir(directory)
     print(f"Checking if the git repository in {directory} is up to date.")
     local = subprocess.check_output("git rev-parse @", shell=True).decode().strip()
@@ -31,8 +40,10 @@ def git_pull(directory):
     if local != remote:
         print("Repository is not up to date. Performing git pull.")
         run_command("git pull")
-    else:
-        print("Repository is already up to date.")
+        return True;
+    
+    print("Repository is already up to date.")
+    return False;
         
 def get_image_digests(directory):
     compose_project = os.path.basename(directory)
@@ -94,6 +105,11 @@ def update_nextcloud():
     print("Start Nextcloud update procedure.")
     update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ app:update --all")
     
+def update_discourse(directory):
+    os.chdir(directory)
+    print("Start Discourse update procedure.")
+    update_procedure("./launcher rebuild app")
+    
 # This procedure waits until the container is up
 def update_procedure(command):
     max_attempts = 3
@@ -129,9 +145,16 @@ if __name__ == "__main__":
             print(f"Checking for updates in: {dir_path}")
             
             if os.path.isdir(os.path.join(dir_path, ".git")):
-                git_pull(dir_path)
+                git_repository_was_pulled = git_pull(dir_path)
             
-            update_docker(dir_path)
-            
-            if os.path.basename(dir_path) == "nextcloud":
-                update_nextcloud()
+            # Discourse is an exception and uses own update command instead of docker compose
+            if os.path.basename(dir_path) == "discourse":
+                if git_repository_was_pulled:
+                    update_discourse(dir_path)
+                else:
+                    print("Discourse update skipped. No changes in git repository.")
+            else:
+                update_docker(dir_path)
+                # Nextcloud needs additional update procedures
+                if os.path.basename(dir_path) == "nextcloud":
+                    update_nextcloud()
