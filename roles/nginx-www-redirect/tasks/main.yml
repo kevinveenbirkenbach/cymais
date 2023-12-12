@@ -7,9 +7,10 @@
 
 - name: Filter domain names and remove .conf extension and path
   set_fact:
-    filtered_domains: "{{ conf_files.files | map(attribute='path') | map('regex_search', domain_regex) | select('string') | map('regex_replace', '^{{nginx_servers_directory}}', '') | map('regex_replace', '.conf$', '') | list }}"
+    filtered_domains: "{{ conf_files.files | map(attribute='path') | map('regex_search', domain_regex) | select('string') | map('regex_replace', path_regex, '') | map('regex_replace', '.conf$', '') | list }}"
   vars:
-    domain_regex: '^{{nginx_servers_directory}}(?!www\.)[^/]+\.conf$'
+    domain_regex: "^{{ nginx_servers_directory }}(?!www\\.)[^/]+\\.conf$"
+    path_regex: "^{{ nginx_servers_directory }}"
 
 - name: The domains for which a www. redirect will be implemented
   debug:
