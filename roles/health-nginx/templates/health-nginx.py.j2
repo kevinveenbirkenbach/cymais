@@ -3,13 +3,8 @@ import requests
 import sys
 import re
 
-# Set up argument parser
-parser = argparse.ArgumentParser(description='Check if domains of nginx configuration files respond with the correct status code.')
-parser.add_argument('config_path', help='Path to the nginx configuration directory')
-args = parser.parse_args()
-
-# Use the provided argument for the config path
-config_path = args.config_path
+# file in which fqdn server configs are deposit
+config_path = {{nginx_servers_directory}}
 
 # Initialize the error counter
 error_counter = 0
@@ -32,11 +27,13 @@ for filename in os.listdir(config_path):
         
         # Determine expected status codes based on subdomain
         if len(parts) == 3:
-            if parts[0] == 'listmonk':
+            if parts[0] == '{{domain_listmonk}}':
                 expected_statuses = [401]
-            elif parts[0] == 'www':
+        {% if nginx_matomo_tracking | bool %}
+            elif parts[0] == '{{nginx_www_redirect}}':
                 expected_statuses = [200,301]
-            elif parts[0] == 's':
+        {% endif %}
+            elif parts[0] == '{{domain_yourls}}':
                 expected_statuses = [403]
 
         try:

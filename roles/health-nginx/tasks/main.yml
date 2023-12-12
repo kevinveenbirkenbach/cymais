@@ -12,8 +12,8 @@
   when: run_once_health_nginx is not defined
 
 - name: create health-nginx.py
-  copy:
-    src: health-nginx.py
+  template:
+    src: health-nginx.py.j2
     dest: "{{ health_nginx_folder }}health-nginx.py"
   when: run_once_health_nginx is not defined
 

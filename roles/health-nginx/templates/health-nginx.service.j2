@@ -4,4 +4,4 @@ OnFailure=systemd-notifier@%n.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/python3 {{ health_nginx_folder }}health-nginx.py {{nginx_servers_directory}}
+ExecStart=/usr/bin/python3 {{ health_nginx_folder }}health-nginx.py

@@ -52,7 +52,7 @@ domains_mastodon_alternates:    []
 domain_matomo:                  "matomo.{{top_domain}}"
 domain_mediawiki:               "wiki.{{top_domain}}"
 domain_nextcloud:               "cloud.{{top_domain}}"
-domain_pixelfed:               "pictures.{{top_domain}}"
+domain_pixelfed:                "pictures.{{top_domain}}"
 domains_pixelfed:               []
 domain_peertube:                "videos.{{top_domain}}"
 domains_peertube:               []
