@@ -1,0 +1,28 @@
+server_name: "{{domain}}"
+pid_file: /data/homeserver.pid
+listeners:
+  - port: 8008
+    tls: false
+    type: http
+    x_forwarded: true
+    resources:
+      - names: [client, federation]
+        compress: false
+database:
+  name: psycopg2
+  args:
+    user: matrix
+    password: {{matrix_database_password}}
+    database: matrix
+    host: database
+    cp_min: 5
+    cp_max: 10
+log_config:                     "/data/{{domain}}.log.config"
+media_store_path:               /data/media_store
+registration_shared_secret:     "{{matrix_registration_shared_secret}}"
+report_stats:                   true
+macaroon_secret_key:            "{{matrix_macaroon_secret_key}}"
+form_secret:                    "{{matrix_form_secret}}"
+signing_key_path:               "/data/{{domain}}.signing.key"
+trusted_key_servers:
+  - server_name: "matrix.org"

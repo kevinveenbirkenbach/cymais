@@ -17,14 +17,19 @@ services:
       - redis
     restart: "always"
   database:
-    image: postgres:13-alpine
+    image: postgres:alpine
     env_file:
       - .env
     volumes:
       - database:/var/lib/postgresql/data
     restart: "always"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U peertube"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
   redis:
-    image: redis:6-alpine
+    image: redis:alpine
     volumes:
       - redis:/data
     restart: "always"

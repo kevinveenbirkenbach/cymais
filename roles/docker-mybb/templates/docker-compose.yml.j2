@@ -34,10 +34,15 @@ services:
       POSTGRES_DB: mybb
       POSTGRES_PASSWORD: "{{mybb_database_password}}"
       POSTGRES_USER: mybb
-    image: postgres:14-alpine
+    image: postgres:alpine
     volumes:
     - database:/var/lib/postgresql/data:rw
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mybb"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
 volumes:
   database:
   data:

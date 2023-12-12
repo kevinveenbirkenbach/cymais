@@ -50,6 +50,7 @@ domain_mailu:                   "mail.{{top_domain}}"
 domain_mastodon:                "microblog.{{top_domain}}"
 domains_mastodon_alternates:    []
 domain_matomo:                  "matomo.{{top_domain}}"
+domain_matrix:                  "chat.{{top_domain}}"
 domain_mediawiki:               "wiki.{{top_domain}}"
 domain_nextcloud:               "cloud.{{top_domain}}"
 domain_pixelfed:                "pictures.{{top_domain}}"
@@ -73,6 +74,7 @@ redirect_domain_mappings:
 - { source: "peertube.{{top_domain}}", target: "videos.{{top_domain}}" }
 - { source: "funkwhale.{{top_domain}}", target: "music.{{top_domain}}" }
 - { source: "pixelfed.{{top_domain}}", target: "pictures.{{top_domain}}" }
+- { source: "matrix.{{top_domain}}", target: "chat.{{top_domain}}" }
 
 nginx_configuration_directory:  "/etc/nginx/conf.d/"
 nginx_servers_directory:        "{{nginx_configuration_directory}}servers/"

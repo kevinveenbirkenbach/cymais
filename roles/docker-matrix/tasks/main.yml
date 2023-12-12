@@ -1,0 +1,33 @@
+---
+- name: "include tasks nginx-docker-proxy-domain.yml"
+  include_tasks: nginx-docker-proxy-domain.yml
+
+- name: "create {{docker_compose_instance_directory}}"
+  file:
+    path: "{{docker_compose_instance_directory}}"
+    state: directory
+    mode: 0755
+
+- name: add homeserver.yaml
+  template: 
+    src:  "homeserver.yaml.j2" 
+    dest: "{{docker_compose_instance_directory}}homeserver.yaml"
+  notify: recreate matrix
+
+- name: add log.config
+  template: 
+    src:  "log.config.j2" 
+    dest: "{{docker_compose_instance_directory}}{{domain}}.log.config"
+  notify: recreate matrix
+
+# https://github.com/matrix-org/synapse/issues/6303
+- name: set correct folder permissions
+  command:
+    cmd: "docker run --rm --mount type=volume,src=matrix_data,dst=/data -e SYNAPSE_SERVER_NAME={{domain}} -e SYNAPSE_REPORT_STATS=no --entrypoint /bin/sh matrixdotorg/synapse:latest -c 'chown -vR 991:991 /data'"
+    chdir: "{{path_docker_compose_instances}}baserow/"
+
+- name: add docker-compose.yml
+  template: 
+    src:  "docker-compose.yml.j2" 
+    dest: "{{docker_compose_instance_directory}}docker-compose.yml"
+  notify: recreate matrix

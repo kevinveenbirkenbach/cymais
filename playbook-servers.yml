@@ -200,6 +200,15 @@
         domains:  "{{domains_discourse}}"
         http_port: 8020
 
+- name: setup matrix
+  hosts: matrix
+  become: true
+  roles:
+   -  role: docker-matrix
+      vars:
+        domain:   "{{domain_matrix}}"
+        http_port: 8021
+
 - name: setup akaunting hosts
   hosts: akaunting
   become: true

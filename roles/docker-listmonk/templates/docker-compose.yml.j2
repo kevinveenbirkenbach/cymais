@@ -1,7 +1,3 @@
-# NOTE: This docker-compose.yml is meant to be just an example guideline
-# on how you can achieve the same. It is not intented to run out of the box
-# and you must edit the below configurations to suit your needs.
-
 version: "3.7"
 
 x-application-defaults: &application-defaults
@@ -15,7 +11,7 @@ x-application-defaults: &application-defaults
     - TZ=Etc/UTC
 
 x-database-defaults: &database-defaults
-  image: postgres:13-alpine
+  image: postgres:alpine
   ports:
     - "9432:5432"
   networks:
