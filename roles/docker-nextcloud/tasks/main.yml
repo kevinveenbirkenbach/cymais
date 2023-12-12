@@ -5,7 +5,7 @@
 - name: configure {{domain}}.conf
   template: 
     src:  "templates/nextcloud.conf.j2" 
-    dest: "/etc/nginx/conf.d/{{domain}}.conf"
+    dest: "{{nginx_servers_directory}}{{domain}}.conf"
   notify: restart nginx
 
 - name: "create {{path_docker_volumes}}nextcloud/"

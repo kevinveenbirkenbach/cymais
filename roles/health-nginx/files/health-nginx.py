@@ -4,7 +4,7 @@ import sys
 import re
 
 # Define the path to the nginx configuration directory
-config_path = '/etc/nginx/conf.d/'
+config_path = '{{nginx_servers_directory}}'
 
 # Initialize the error counter
 error_counter = 0

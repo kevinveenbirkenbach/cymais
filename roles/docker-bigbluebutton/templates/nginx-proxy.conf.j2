@@ -1,12 +1,3 @@
-map $http_upgrade $connection_upgrade {
-    default upgrade;
-    '' close;
-}
-map $remote_addr $endpoint_addr {
-    "~:"    [::1];
-    default    127.0.0.1;
-}
-
 server {
   listen 443 ssl http2 default_server;
   listen [::]:443 ssl http2 default_server;

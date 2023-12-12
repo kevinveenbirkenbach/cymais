@@ -1,5 +1,5 @@
 - name: create nginx letsencrypt config file
-  template: src=letsencrypt.conf.j2 dest=/etc/nginx/conf.d/letsencrypt.conf
+  template: src=letsencrypt.conf.j2 dest={{nginx_servers_directory}}letsencrypt.conf
   notify: restart nginx
 
 - name: flush nginx service

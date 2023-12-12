@@ -3,7 +3,7 @@ server
   server_name {{domain}};
 
   # Include Matomo Tracking Code
-  {% if nginx_matomo_tracking | default(False) %}
+  {% if nginx_matomo_tracking | bool %}
     {% include 'roles/nginx-matomo-tracking/templates/matomo-tracking.conf.j2' %}
   {% endif %}
 

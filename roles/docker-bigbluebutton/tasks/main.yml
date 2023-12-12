@@ -3,7 +3,15 @@
   include_tasks: certbot-matomo.yml
 
 - name: configure {{domain}}.conf
-  template: src=templates/nginx-proxy.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
+  template: 
+    src:  "nginx-proxy.conf.j2"
+    dest: "{{nginx_servers_directory}}{{domain}}.conf"
+  notify: restart nginx
+
+- name: configure websocket_upgrade.conf
+  copy: 
+    src:  "websocket_upgrade.conf"
+    dest: "{{nginx_maps_directory}}websocket_upgrade.conf"
   notify: restart nginx
 
 - name: pull docker repository

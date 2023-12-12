@@ -7,6 +7,6 @@
   vars:
     domain: "{{item.source}}"
     target_domain: "{{item.target}}"
-  template: src=redirect.domain.nginx.conf.j2 dest=/etc/nginx/conf.d/{{ domain }}.conf
+  template: src=redirect.domain.nginx.conf.j2 dest={{nginx_servers_directory}}{{ domain }}.conf
   loop: "{{domain_mappings}}"
   notify: restart nginx

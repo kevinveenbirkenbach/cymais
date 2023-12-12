@@ -73,3 +73,8 @@ redirect_domain_mappings:
 - { source: "peertube.{{top_domain}}", target: "videos.{{top_domain}}" }
 - { source: "funkwhale.{{top_domain}}", target: "music.{{top_domain}}" }
 - { source: "pixelfed.{{top_domain}}", target: "pictures.{{top_domain}}" }
+
+nginx_configuration_directory:  "/etc/nginx/conf.d/"
+nginx_servers_directory:        "{{nginx_configuration_directory}}servers/"
+nginx_maps_directory:           "{{nginx_configuration_directory}}maps/"
+nginx_upstreams_directory:      "{{nginx_configuration_directory}}upstreams/"

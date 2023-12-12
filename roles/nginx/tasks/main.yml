@@ -3,11 +3,15 @@
   pacman: name=nginx state=present
   notify: restart nginx
 
-- name: set /etc/nginx/conf.d
+- name: Ensure nginx configuration directories are present
   file:
-    path: /etc/nginx/conf.d
+    path: "{{ item }}"
     state: directory
-    mode: 0755
+    mode: '0755'
+  loop:
+    - "{{nginx_servers_directory}}"
+    - "{{nginx_maps_directory}}"
+    - "{{nginx_upstreams_directory}}"
 
 - name: create nginx config file
   template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
