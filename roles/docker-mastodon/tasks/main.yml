@@ -1,10 +1,9 @@
 ---
-- name: "include task certbot-matomo.yml"
-  include_tasks: certbot-matomo.yml
-
-- name: configure {{domain}}.conf
-  template: src=templates/mastodon.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
-  notify: restart nginx
+- name: "include create-domains.yml"
+  include_tasks: create-domains.yml
+  loop: "{{ domains }}"
+  loop_control:
+    loop_var: domain
 
 - name: "create {{docker_compose_instance_directory}}"
   file:
@@ -20,5 +19,4 @@
   template: 
     src: .env.production.j2 
     dest: "{{docker_compose_instance_directory}}.env.production"
-    force: no
   notify: recreate mastodon

@@ -32,7 +32,44 @@ path_docker_volumes:                          "{{path_administrator_home}}volume
 path_docker_compose_instances:                "{{path_administrator_home}}docker-compose/"
 
 # Runtime Variables
-activate_all_timers:                   false   # Activates all timers, independend if the handlers had been triggered
-nginx_matomo_tracking:                 false   # Activates matomo tracking on all html pages
-nginx_www_redirect:                    true    # Implements an redirect from all www. domains to the main domain 
-execute_updates:                       true    # Executes updates
+activate_all_timers:    false   # Activates all timers, independend if the handlers had been triggered
+nginx_matomo_tracking:  false   # Activates matomo tracking on all html pages
+nginx_www_redirect:     true    # Implements an redirect from all www. domains to the main domain 
+execute_updates:        true    # Executes updates
+
+# Domain Names
+domain_akaunting:               "akaunting.{{top_domain}}"
+domain_baserow:                 "baserow.{{top_domain}}"
+domain_bigbluebutton:           "meet.{{top_domain}}"
+domain_elk:                     "elk.{{top_domain}}"
+domain_discourse:               "forum.{{top_domain}}"
+domain_funkwhale:               "music.{{top_domain}}"
+domain_gitea:                   "git.{{top_domain}}"
+domain_listmonk:                "newsletter.{{top_domain}}"
+domain_mailu:                   "mail.{{top_domain}}"
+domain_mastodon:                "microblog.{{top_domain}}"
+domains_mastodon_alternates:    []
+domain_matomo:                  "matomo.{{top_domain}}"
+domain_mediawiki:               "wiki.{{top_domain}}"
+domain_nextcloud:               "cloud.{{top_domain}}"
+domain_pixelfed:               "pictures.{{top_domain}}"
+domains_pixelfed:               []
+domain_peertube:                "videos.{{top_domain}}"
+domains_peertube:               []
+domain_roulette:                "roulette.{{top_domain}}"
+domain_attendize:               "tickets.{{top_domain}}"
+domain_yourls:                  "s.{{top_domain}}"
+
+
+# Routings
+redirect_domain_mappings:
+- { source: "nextcloud.{{top_domain}}", target: "cloud.{{top_domain}}" }
+- { source: "gitea.{{top_domain}}", target: "git.{{top_domain}}" }
+- { source: "listmonk.{{top_domain}}", target: "newsletter.{{top_domain}}" }
+- { source: "discourse.{{top_domain}}", target: "forum.{{top_domain}}" }
+- { source: "bbb.{{top_domain}}", target: "meet.{{top_domain}}" }
+- { source: "short.{{top_domain}}", target: "s.{{top_domain}}" }
+- { source: "mastodon.{{top_domain}}", target: "microblog.{{top_domain}}" }
+- { source: "peertube.{{top_domain}}", target: "videos.{{top_domain}}" }
+- { source: "funkwhale.{{top_domain}}", target: "music.{{top_domain}}" }
+- { source: "pixelfed.{{top_domain}}", target: "pictures.{{top_domain}}" }

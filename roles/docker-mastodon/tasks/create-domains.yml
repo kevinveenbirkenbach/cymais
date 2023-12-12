@@ -1,0 +1,6 @@
+- name: "include task certbot-matomo.yml"
+  include_tasks: certbot-matomo.yml
+
+- name: configure {{domain}}.conf
+  template: src=templates/mastodon.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf
+  notify: restart nginx

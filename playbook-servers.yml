@@ -19,7 +19,7 @@
   roles:
    -  role: docker-nextcloud
       vars:
-        domain: cloud.{{top_domain}}
+        domain: "{{domain_nextcloud}}"
         http_port: 8001
 
 - name: setup gitea hosts
@@ -28,7 +28,7 @@
   roles:
    -  role: docker-gitea
       vars:
-        domain: git.{{top_domain}}
+        domain: "{{domain_gitea}}"
         http_port: 8002
         ssh_port:  2201
         run_mode: prod
@@ -48,7 +48,7 @@
   roles:
    -  role: docker-mediawiki
       vars:
-        domain: wiki.{{top_domain}}
+        domain: "{{domain_mediawiki}}"
         http_port: 8004
 
 - name: setup mybb hosts
@@ -57,7 +57,7 @@
   roles:
    -  role: docker-mybb
       vars:
-        domains: "{{mybb_domains}}"
+        domains: "{{domains_mybb}}"
         http_port: 8005
 
 - name: setup yourls hosts
@@ -66,7 +66,7 @@
   roles:
    -  role: docker-yourls
       vars:
-        domain: s.{{top_domain}}
+        domain: "{{domain_yourls}}"
         http_port: 8006
 
 - name: setup mailu hosts
@@ -75,7 +75,7 @@
   roles:
    -  role: docker-mailu
       vars:
-        domain: "mail.{{top_domain}}"
+        domain: "{{domain_mailu}}"
         http_port: 8007
 
 - name: setup elk hosts
@@ -84,7 +84,7 @@
   roles:
    -  role: docker-elk
       vars:
-        domain: "elk.{{top_domain}}"
+        domain: "{{domain_elk}}"
         http_port: 8008
 
 - name: setup mastodon hosts
@@ -93,7 +93,8 @@
   roles:
    -  role: docker-mastodon
       vars:
-        domain: "mastodon.{{top_domain}}"
+        domain: "{{domain_mastodon}}"
+        domains:  "{{ [domain] + domains_mastodon_alternates }}"
         http_port: 8009
         stream_port: 4001
 
@@ -103,7 +104,8 @@
   roles:
    -  role: docker-pixelfed
       vars:
-        domain: pixelfed.{{top_domain}}
+        domain: "{{domain_pixelfed}}"
+        domains: "{{ [domain] + domains_pixelfed }}"
         http_port: 8010
 
 - name: setup peertube hosts
@@ -112,7 +114,8 @@
   roles:
    -  role: docker-peertube
       vars:
-        domain: peertube.{{top_domain}}
+        domain: "{{domain_peertube}}"
+        domains: "{{ [domain] + domains_peertube }}"
         http_port: 8011
 
 - name: setup bigbluebutton hosts
@@ -121,14 +124,15 @@
   roles:
    -  role: docker-bigbluebutton
       vars:
-        domain: bbb.{{top_domain}}
+        domain: "{{domain_bigbluebutton}}"
+
 - name: setup funkwhale hosts
   hosts: funkwhale
   become: true
   roles:
    -  role: docker-funkwhale
       vars:
-        domain: funkwhale.{{top_domain}}
+        domain: "{{domain_funkwhale}}"
         http_port: 8012
 
 - name: setup roulette-wheel hosts
@@ -137,7 +141,7 @@
   roles:
    -  role: docker-roulette-wheel
       vars:
-        domain: roulette.{{top_domain}}
+        domain: "{{domain_roulette}}"
         http_port: 8013
 
 - name: setup joomla hosts
@@ -155,7 +159,7 @@
   roles:
    -  role: docker-attendize
       vars:
-        domain: "tickets.{{top_domain}}"
+        domain: "{{domain_attendize}}"
         http_port: 8015
         mail_interface_http_port: 8016
 
@@ -165,7 +169,7 @@
   roles:
    -  role: docker-baserow
       vars:
-        domain: baserow.{{top_domain}}
+        domain: "{{domain_baserow}}"
         http_port: 8017
 
 - name: setup matomo hosts
@@ -174,7 +178,7 @@
   roles:
    -  role: docker-matomo
       vars:
-        domain: matomo.{{top_domain}}
+        domain: "{{domain_matomo}}"
         http_port: 8018
 
 - name: setup listmonk
@@ -183,7 +187,7 @@
   roles:
    -  role: docker-listmonk
       vars:
-        domain: listmonk.{{top_domain}}
+        domain: "{{domain_newsletter}}"
         http_port: 8019
 
 - name: setup discourse
@@ -192,8 +196,8 @@
   roles:
    -  role: docker-discourse
       vars:
-        domain:   forum.{{top_domain}}
-        domains:  "{{discourse_domains}}"
+        domain:   "{{domain_discourse}}"
+        domains:  "{{domains_discourse}}"
         http_port: 8020
 
 - name: setup akaunting hosts
@@ -202,7 +206,7 @@
   roles:
    -  role: docker-akaunting
       vars:
-        domain: akaunting.{{top_domain}}
+        domain: "{{domain_akaunting}}"
         http_port: 8080
 
 # Native Webserver Roles
