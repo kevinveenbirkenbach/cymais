@@ -2,23 +2,27 @@
   pacman:
     name: python-requests
     state: present
+  when: run_once_health_nginx is not defined
 
 - name: "create {{ health_nginx_folder }}"
   file:
     path: "{{ health_nginx_folder }}"
     state: directory
     mode: 0755
+  when: run_once_health_nginx is not defined
 
 - name: create health-nginx.py
   copy:
     src: health-nginx.py
     dest: "{{ health_nginx_folder }}health-nginx.py"
+  when: run_once_health_nginx is not defined
 
 - name: create health-nginx.service
   template: 
     src: health-nginx.service.j2
     dest: /etc/systemd/system/health-nginx.service
   notify: reload health-nginx.service
+  when: run_once_health_nginx is not defined
 
 - name: create health-nginx.timer
   template:
@@ -27,3 +31,10 @@
   register: health_nginx_timer
   changed_when: health_nginx_timer.changed or activate_all_timers | default(false) | bool
   notify: restart health-nginx.timer
+  when: run_once_health_nginx is not defined
+
+- name: run the health_nginx tasks once
+  set_fact:
+    run_once_health_nginx: true
+  when: run_once_health_nginx is not defined
+

@@ -7,6 +7,7 @@
     generate_ssh_key: yes
     ssh_key_type: rsa
     ssh_key_bits: 8192
+  when: run_once_user_administrator is not defined
     
 - name: "create {{path_administrator_scripts}}"
   file:
@@ -15,6 +16,7 @@
     owner: administrator
     group: administrator
     mode: 0700
+  when: run_once_user_administrator is not defined
     
 - name: create {{path_administrator_home}}.ssh/authorized_keys
   copy:
@@ -23,6 +25,7 @@
     owner: administrator
     group: administrator
     mode: '0644'
+  when: run_once_user_administrator is not defined
 
 - name: grant administrator sudo rights with password
   copy:
@@ -32,6 +35,7 @@
     owner: root
     group: root
   notify: sshd restart
+  when: run_once_user_administrator is not defined
 
 - name: "create {{path_administrator_home}}volumes/"
   file:
@@ -40,3 +44,9 @@
     owner: administrator
     group: administrator
     mode: 0700
+  when: run_once_user_administrator is not defined
+
+- name: run the user_administrator tasks once
+  set_fact:
+    run_once_user_administrator: true
+  when: run_once_user_administrator is not defined

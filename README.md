@@ -152,7 +152,7 @@ Focuses on web server roles and applications, covering SSL certificates, Nginx c
 - **[Nginx-Https](./roles/nginx-https/)**: Enables HTTPS configuration for Nginx.
 - **[Nginx-Matomo-Tracking](./roles/nginx-matomo-tracking/)**: Integrates Matomo tracking with Nginx.
 - **[Nginx-Redirect](./roles/nginx-domain-redirect/)**: Manages URL redirects in Nginx.
-- **[Certbot Nginx](./roles/certbot-nginx/)**: Integrates Certbot with Nginx for SSL certificates.
+- **[Certbot Nginx](./roles/nginx-certbot/)**: Integrates Certbot with Nginx for SSL certificates.
 - **[Postfix](./roles/postfix/)**: Setup for the Postfix mail transfer agent.
 
 #### Docker and Containerization

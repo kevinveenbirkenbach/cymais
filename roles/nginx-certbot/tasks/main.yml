@@ -2,12 +2,14 @@
   pacman:
     name: [certbot,certbot-nginx]
     state: present
+  when: run_once_nginx_certbot is not defined
 
 - name: configure certbot.service.tpl
   template: 
     src:  certbot.service.j2
     dest: /etc/systemd/system/certbot.service
   notify: reload certbot service
+  when: run_once_nginx_certbot is not defined
 
 - name: configure certbot.timer.tpl
   template:
@@ -16,3 +18,9 @@
   register: certbot_timer
   changed_when: certbot_timer.changed or activate_all_timers | default(false) | bool
   notify: restart certbot timer
+  when: run_once_nginx_certbot is not defined
+
+- name: run the nginx_certbot tasks once
+  set_fact:
+    run_once_nginx_certbot: true
+  when: run_once_nginx_certbot is not defined

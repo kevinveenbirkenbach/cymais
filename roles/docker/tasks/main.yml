@@ -5,6 +5,7 @@
     name: ['docker','docker-compose']
     state: present
   notify: docker restart
+  when: run_once_docker is not defined
 
 - name: "create {{path_docker_compose_instances}}"
   file:
@@ -13,6 +14,7 @@
     mode: 0700
     owner: administrator
     group: administrator
+  when: run_once_docker is not defined
 
 - name: "create {{path_docker_volumes}}"
   file:
@@ -21,6 +23,13 @@
     mode: 0700
     owner: administrator
     group: administrator
+  when: run_once_docker is not defined
 
 - name: flush docker service
   meta: flush_handlers
+  when: run_once_docker is not defined
+
+- name: run the docker tasks once
+  set_fact:
+    run_once_docker: true
+  when: run_once_docker is not defined

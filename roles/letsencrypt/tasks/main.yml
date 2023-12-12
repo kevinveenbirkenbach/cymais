@@ -1,6 +1,13 @@
 - name: create nginx letsencrypt config file
   template: src=letsencrypt.conf.j2 dest={{nginx_servers_directory}}letsencrypt.conf
   notify: restart nginx
+  when: run_once_letsencrypt is not defined
 
 - name: flush nginx service
   meta: flush_handlers
+  when: run_once_letsencrypt is not defined
+
+- name: run the letsencrypt logic just once
+  set_fact:
+    run_once_letsencrypt: true
+  when: run_once_letsencrypt is not defined

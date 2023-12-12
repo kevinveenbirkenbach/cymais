@@ -1,18 +1,28 @@
 - name: install smtp-forwarder
   pacman: name=smtp-forwarder state=present
+  when: run_once_systemd_notifier_email is not defined
 
 - name: configure msmtprc.conf.j2
   template: src=msmtprc.conf.j2 dest=/root/.msmtprc
+  when: run_once_systemd_notifier_email is not defined
 
 - name: "create {{systemd_notifier_email_folder}}"
   file:
     path: "{{systemd_notifier_email_folder}}"
     state: directory
     mode: 0755
+  when: run_once_systemd_notifier_email is not defined
 
 - name: configure systemd-notifier-email.sh
   template: src=systemd-notifier-email.sh.j2 dest={{systemd_notifier_email_folder}}systemd-notifier-email.sh
+  when: run_once_systemd_notifier_email is not defined
 
 - name: configure systemd-notifier-email.service
   template: src=systemd-notifier-email@.service.j2 dest=/etc/systemd/system/systemd-notifier-email@.service
   notify: restart systemd-notifier-email service
+  when: run_once_systemd_notifier_email is not defined
+
+- name: run the systemd_notifier_email tasks once
+  set_fact:
+    run_once_systemd_notifier_email: true
+  when: run_once_systemd_notifier_email is not defined

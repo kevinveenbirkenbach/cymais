@@ -2,3 +2,9 @@
   package:
     name:   sudo
     state:  present
+  when: run_once_sudo is not defined
+
+- name: run the sudo tasks once
+  set_fact:
+    run_once_sudo: true
+  when: run_once_sudo is not defined

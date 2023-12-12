@@ -4,3 +4,9 @@
     src: systemd-notifier@.service.j2 
     dest: "/etc/systemd/system/systemd-notifier@.service"
   notify: "restart systemd-notifier service"
+  when: run_once_systemd_notifier_service is not defined
+
+- name: run the systemd_notifier_service tasks once
+  set_fact:
+    run_once_systemd_notifier_service: true
+  when: run_once_systemd_notifier_service is not defined

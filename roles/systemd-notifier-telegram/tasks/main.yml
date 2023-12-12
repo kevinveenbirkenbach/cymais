@@ -2,20 +2,29 @@
   pacman: 
     name: curl
     state: present
+  when: run_once_systemd_notifier_telegram is not defined
 
 - name: Create a directory with a subdirectory
   ansible.builtin.file:
     path: "{{systemd_telegram_folder}}"
     state: directory
     mode: '0755'
+  when: run_once_systemd_notifier_telegram is not defined
 
 - name: configure systemd-notifier-telegram.sh
   template: 
     src: systemd-notifier-telegram.sh.j2 
     dest: "{{ systemd_telegram_script }}"
+  when: run_once_systemd_notifier_telegram is not defined  
 
 - name: configure systemd-notifier-telegram.service
   template: 
     src: systemd-notifier-telegram@.service.j2 
     dest: "/etc/systemd/system/systemd-notifier-telegram@.service"
   notify: "restart systemd-notifier-telegram service"
+  when: run_once_systemd_notifier_telegram is not defined
+
+- name: run the systemd_notifier_telegram tasks once
+  set_fact:
+    run_once_systemd_notifier_telegram: true
+  when: run_once_systemd_notifier_telegram is not defined

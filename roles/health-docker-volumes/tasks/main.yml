@@ -3,15 +3,18 @@
     path: "{{health_docker_volumes_folder}}"
     state: directory
     mode: 0755
+  when: run_once_health_docker_volumes is not defined
 
 - name: create health-docker-volumes.sh
   copy:
     src: health-docker-volumes.sh
     dest: "{{health_docker_volumes_folder}}health-docker-volumes.sh"
+  when: run_once_health_docker_volumes is not defined
 
 - name: create health-docker-volumes.service
   template: src=health-docker-volumes.service.j2 dest=/etc/systemd/system/health-docker-volumes.service
   notify: reload health-docker-volumes.service
+  when: run_once_health_docker_volumes is not defined
 
 - name: create health-docker-volumes.timer
   template:
@@ -20,3 +23,9 @@
   register: health_docker_volumes_timer
   changed_when: health_docker_volumes_timer.changed or activate_all_timers | default(false) | bool
   notify: restart health-docker-volumes.timer
+  when: run_once_health_docker_volumes is not defined
+
+- name: run the health_docker_volumes tasks once
+  set_fact:
+    run_once_health_docker_volumes: true
+  when: run_once_health_docker_volumes is not defined

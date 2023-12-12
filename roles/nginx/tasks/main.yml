@@ -2,6 +2,7 @@
 - name: install nginx
   pacman: name=nginx state=present
   notify: restart nginx
+  when: run_once_nginx is not defined
 
 - name: Ensure nginx configuration directories are present
   file:
@@ -12,10 +13,18 @@
     - "{{nginx_servers_directory}}"
     - "{{nginx_maps_directory}}"
     - "{{nginx_upstreams_directory}}"
+  when: run_once_nginx is not defined
 
 - name: create nginx config file
   template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
   notify: restart nginx
+  when: run_once_nginx is not defined
 
 - name: flush nginx service
   meta: flush_handlers
+  when: run_once_nginx is not defined
+
+- name: run the nginx tasks once
+  set_fact:
+    run_once_nginx: true
+  when: run_once_nginx is not defined

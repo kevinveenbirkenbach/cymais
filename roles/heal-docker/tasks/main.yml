@@ -3,17 +3,20 @@
     path: "{{heal_docker}}"
     state: directory
     mode: 0755
+  when: run_once_heal_docker is not defined
 
 - name: create heal-docker.py
   copy:
     src: heal-docker.py
     dest: "{{heal_docker}}heal-docker.py"
+  when: run_once_heal_docker is not defined
 
 - name: create heal-docker.service
   template: 
     src: heal-docker.service.j2 
     dest: /etc/systemd/system/heal-docker.service
   notify: reload heal-docker.service
+  when: run_once_heal_docker is not defined
 
 - name: create heal-docker.timer
   template:
@@ -22,3 +25,9 @@
   register: heal_docker_timer
   changed_when: heal_docker_timer.changed or activate_all_timers | default(false) | bool
   notify: restart heal-docker.timer
+  when: run_once_heal_docker is not defined
+
+- name: run the heal_docker tasks once
+  set_fact:
+    run_once_heal_docker: true
+  when: run_once_heal_docker is not defined

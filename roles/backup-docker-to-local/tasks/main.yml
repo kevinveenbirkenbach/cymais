@@ -4,6 +4,7 @@
       - lsof
       - python-pandas
     state: present
+  when: run_once_backup_docker_to_local is not defined
 
 - name: pull backup-docker-to-local.git
   git:
@@ -12,23 +13,26 @@
     update: yes
   register: git_result
   ignore_errors: true
+  when: run_once_backup_docker_to_local is not defined
 
 - name: Warn if repo is not reachable
   debug:
     msg: "Warning: Repository is not reachable."
-  when: git_result.failed
+  when: git_result is defined and git_result.failed is defined and run_once_cleanup_failed_docker_backups is not defined
 
 - name: configure backup-docker-to-local.service
   template: 
     src: backup-docker-to-local.service.j2
     dest: /etc/systemd/system/backup-docker-to-local.service
   notify: reload backup-docker-to-local.service
+  when: run_once_backup_docker_to_local is not defined
 
 - name: configure backup-docker-to-local.timer.tpl
   template: src=backup-docker-to-local.timer.j2 dest=/etc/systemd/system/backup-docker-to-local.timer
   register: backup_docker_to_local_timer
   changed_when: backup_docker_to_local_timer.changed or activate_all_timers | default(false) | bool
   notify: restart backup-docker-to-local.timer
+  when: run_once_backup_docker_to_local is not defined
 
 - name: create {{backup_docker_to_local_folder}}databases.csv
   copy:
@@ -36,3 +40,9 @@
     dest: "{{backup_docker_to_local_folder}}databases.csv"
     owner: root
     group: root
+  when: run_once_backup_docker_to_local is not defined
+
+- name: run the backup_docker_to_local tasks once
+  set_fact:
+    run_once_backup_docker_to_local: true
+  when: run_once_backup_docker_to_local is not defined

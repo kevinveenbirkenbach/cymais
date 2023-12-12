@@ -1,2 +1,8 @@
 - name: install git
   pacman: name=git state=present
+  when: run_once_git is not defined
+
+- name: run the git tasks once
+  set_fact:
+    run_once_git: true
+  when: run_once_git is not defined

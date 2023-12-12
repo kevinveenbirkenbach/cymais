@@ -5,3 +5,9 @@
   register: cleanup_backups_timer
   changed_when: cleanup_backups_timer.changed or activate_all_timers | default(false) | bool
   notify: restart cleanup-backups.timer
+  when: run_once_cleanup_backups_timer is not defined
+
+- name: run the cleanup_backups_timer tasks once
+  set_fact:
+    run_once_cleanup_backups_timer: true
+  when: run_once_cleanup_backups_timer is not defined

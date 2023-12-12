@@ -5,14 +5,21 @@
     update: yes
   register: git_result
   ignore_errors: true
+  when: run_once_cleanup_failed_docker_backups is not defined
 
 - name: Warn if repo is not reachable
   debug:
     msg: "Warning: Repository is not reachable."
-  when: git_result.failed
+  when: git_result is defined and git_result.failed is defined and run_once_cleanup_failed_docker_backups is not defined
 
 - name: configure cleanup-failed-docker-backups.service
   template: 
     src: cleanup-failed-docker-backups.service.j2
     dest: /etc/systemd/system/cleanup-failed-docker-backups.service
   notify: reload cleanup-failed-docker-backups.service daemon
+  when: run_once_cleanup_failed_docker_backups is not defined
+
+- name: run the cleanup_failed_docker_backups tasks once
+  set_fact:
+    run_once_cleanup_failed_docker_backups: true
+  when: run_once_cleanup_failed_docker_backups is not defined
