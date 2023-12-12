@@ -98,7 +98,7 @@ docker-compose exec -it front /bin/bash
 To restart all services, use the following command:
 
 ```bash
-docker-compose -t 3600 restart 
+docker-compose restart 
 ```
 
 ### Resending Queued Mails
