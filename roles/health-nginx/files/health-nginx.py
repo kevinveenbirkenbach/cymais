@@ -3,8 +3,13 @@ import requests
 import sys
 import re
 
-# Define the path to the nginx configuration directory
-config_path = '{{nginx_servers_directory}}'
+# Set up argument parser
+parser = argparse.ArgumentParser(description='Check if domains of nginx configuration files respond with the correct status code.')
+parser.add_argument('config_path', help='Path to the nginx configuration directory')
+args = parser.parse_args()
+
+# Use the provided argument for the config path
+config_path = args.config_path
 
 # Initialize the error counter
 error_counter = 0

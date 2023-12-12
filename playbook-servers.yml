@@ -187,7 +187,7 @@
   roles:
    -  role: docker-listmonk
       vars:
-        domain: "{{domain_newsletter}}"
+        domain: "{{domain_listmonk}}"
         http_port: 8019
 
 - name: setup discourse
