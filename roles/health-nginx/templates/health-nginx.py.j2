@@ -4,52 +4,57 @@ import sys
 import re
 
 # file in which fqdn server configs are deposit
-config_path = {{nginx_servers_directory}}
+config_path = '{{nginx_servers_directory}}'
 
 # Initialize the error counter
 error_counter = 0
 
-# Regex pattern to match domain.tld or subdomain.domain.tld
-pattern = re.compile(r"^(?:[\w-]+\.)?[\w-]+\.[\w-]+\.conf$")
+# Regex pattern to match domain.tld or *.domain.tld
+pattern = re.compile(r"^(?:[\w-]+\.)*[\w-]+\.[\w-]+\.conf$")
 
 # Iterate over each file in the configuration directory
 for filename in os.listdir(config_path):
     if filename.endswith('.conf') and pattern.match(filename):
         # Extract the domain and subdomain from the filename
-        name = filename.replace('.conf', '')
-        parts = name.split('.')
+        domain = filename.replace('.conf', '')
+        parts = domain.split('.')
         
         # Prepare the URL and expected status codes
-        url = f"https://{name}"
+        url = f"https://{domain}"
         
-        # Default: Expect status code 200 for a domain
-        expected_statuses = [200]
+        # Default: Expect status code 200 or 302 for a domain
+        expected_statuses = [200,302]
         
-        # Determine expected status codes based on subdomain
-        if len(parts) == 3:
-            if parts[0] == '{{domain_listmonk}}':
-                expected_statuses = [401]
-        {% if nginx_matomo_tracking | bool %}
-            elif parts[0] == '{{nginx_www_redirect}}':
-                expected_statuses = [200,301]
-        {% endif %}
-            elif parts[0] == '{{domain_yourls}}':
-                expected_statuses = [403]
+        redirected_domains = [domain['source'] for domain in {{redirect_domain_mappings}}]
+        redirected_domains.append("{{domain_mailu}}")
+
+        # Determine expected status codes based on the domain
+        if domain == '{{domain_listmonk}}':
+            expected_statuses = [401]
+{% if nginx_matomo_tracking | bool %}
+        elif parts[0] == 'www' or domain in redirected_domains:
+            expected_statuses = [301]
+{% endif %}
+        elif domain == '{{domain_yourls}}':
+            expected_statuses = [403]
 
         try:
             # Send a HEAD request to get only the response header
-            response = requests.head(url, allow_redirects=True)
+            response = requests.head(url)
 
             # Check if the status code matches the expected statuses
             if response.status_code in expected_statuses:
-                print(f"{name}: ok")
+                print(f"{domain}: OK")
             else:
-                print(f"{name}: error")
+                print(f"{domain}: ERROR: Expected {expected_statuses}. Got {response.status_code}.")
                 error_counter += 1
         except requests.RequestException as e:
             # Handle exceptions for requests like connection errors
-            print(f"{name}: error due to {e}")
+            print(f"{domain}: error due to {e}")
             error_counter += 1
+
+if error_counter > 0:
+    print(f"Warning: {error_counter} domains responded with an unexpected https status code.")
 
 # Exit the script with the number of errors as the exit code
 sys.exit(error_counter)

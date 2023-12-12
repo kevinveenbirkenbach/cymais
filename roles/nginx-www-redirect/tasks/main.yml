@@ -16,12 +16,8 @@
   debug:
     var: filtered_domains
 
-- name: Prepare redirect domain mappings
-  set_fact:
-    redirect_domain_mappings: "{{ filtered_domains | map('regex_replace', '^(.*)$', '{ source: \"www.\\1\", target: \"\\1\" }') | map('from_yaml') | list }}"
-
 - name: Include nginx-domain-redirect role with dynamic domain mappings
   include_role:
     name: nginx-domain-redirect
   vars:
-    domain_mappings: "{{ redirect_domain_mappings }}"
+    domain_mappings: "{{ filtered_domains | map('regex_replace', '^(.*)$', '{ source: \"www.\\1\", target: \"\\1\" }') | map('from_yaml') | list }}"
