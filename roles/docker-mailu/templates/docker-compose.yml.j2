@@ -218,6 +218,7 @@ services:
     env_file: mailu.env
     volumes:
       - "webmail_data:/data"
+      - "/etc/mailu/overrides:/overrides:ro"
     depends_on:
       - imap
       - front
