@@ -3,3 +3,4 @@ dependencies:
   - backups-provider
   - systemd-notifier
   - cleanup-failed-docker-backups
+  - system-maintenance-service-freezer

@@ -1,4 +1,2 @@
 dependencies:
-  - python-pip
-  - systemd-notifier
   - system-maintenance-service-freezer

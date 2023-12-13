@@ -3,6 +3,7 @@
   copy:
     src: system-maintenance-service-freezer.py
     dest: "{{path_system_maintenance_service_freezer_script}}"
+  when: run_once_system_maintenance_service_freeze is not defined
 
 - name: Configure system-maintenance-service for each action
   loop:
@@ -11,10 +12,22 @@
   template:
     src: system-maintenance-service-freezer.service.j2
     dest: "/etc/systemd/system/system-maintenance-service-{{ item }}.service"
-  notify: "restart system-maintenance-service-{{ item }} service"
-  when: run_once_systemd_freezer is not defined
+  notify: "reload system-maintenance-service-{{ item }} service"
+  when: run_once_system_maintenance_service_freeze is not defined
 
 - name: run the system_maintenance_service_freezer tasks once
   set_fact:
-    run_once_systemd_freezer: true
-  when: run_once_systemd_freezer is not defined
+    run_once_system_maintenance_service_freeze: true
+  when: run_once_system_maintenance_service_freeze is not defined
+
+- name: "restart system-maintenance-service.service"
+  systemd:
+    name: system-maintenance-service-{{system_maintenance_service_freeze_action}}.service
+    state: restart
+    enabled: yes
+    daemon_reload: yes
+  when: maintenance_service_freeze_action_last is not defined or maintenance_service_freeze_action_last != system_maintenance_service_freeze_action
+
+- name: "set variable to prevent loading when action status didn't change"
+  set_fact:
+    maintenance_service_freeze_action_last: "{{system_maintenance_service_freeze_action}}"

@@ -101,3 +101,5 @@
   become: true
   roles:
     - driver-msi-keyboard-color
+
+- import_playbook: destructor.yml

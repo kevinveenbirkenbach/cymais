@@ -1,0 +1,8 @@
+---
+- name: call destructor method
+  hosts: all
+  become: true
+  roles:
+   -  role: system-maintenance-service-freezer
+      vars:
+        system_maintenance_service_freeze_action:   "defrost"

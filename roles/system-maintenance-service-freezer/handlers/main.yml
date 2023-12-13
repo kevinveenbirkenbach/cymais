@@ -1,9 +1,9 @@
-- name: "restart system-maintenance-service-freeze.service"
+- name: "reload system-maintenance-service-freeze.service"
   systemd:
     name: system-maintenance-service-freeze.service
     daemon_reload: yes
 
-- name: "restart system-maintenance-service-defrost.service"
+- name: "reload system-maintenance-service-defrost.service"
   systemd:
     name: system-maintenance-service-defrost.service
     daemon_reload: yes

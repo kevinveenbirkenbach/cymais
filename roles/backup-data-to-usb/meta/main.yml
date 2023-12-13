@@ -1,3 +1,4 @@
 ---
 dependencies:
   - role: cleanup-backups-service
+  - role: system-maintenance-service-freezer

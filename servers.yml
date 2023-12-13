@@ -1,6 +1,6 @@
 ---
 
-- import_playbook: playbook-common.yml
+- import_playbook: constructor.yml
 
 - name: servers host setup
   hosts: servers
@@ -241,3 +241,5 @@
   roles:
    -  role: nginx-www-redirect
       when: nginx_www_redirect | bool
+
+- import_playbook: destructor.yml

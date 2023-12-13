@@ -1,3 +1,4 @@
 dependencies:
   - git
   - systemd-notifier
+  - system-maintenance-service-freezer
