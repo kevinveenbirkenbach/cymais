@@ -4,4 +4,6 @@ OnFailure=systemd-notifier@%n.service
 
 [Service]
 Type=oneshot
+ExecStartPre=/bin/sh -c '/usr/bin/python {{ path_system_maintenance_service_freezer_script }} freeze "{{ system_maintenance_services | reject('equalto', "cleanup-backups") | join(',') }}"'
 ExecStart=/usr/bin/python {{docker_cleanup_backups}}cleanup-backups.py --backups-folder-path {{backups_folder_path}} --maximum-backup-size-percent {{size_percent_maximum_backup}}
+ExecStartPost=/bin/sh -c 'systemctl start system-maintenance-service-defrost.service'

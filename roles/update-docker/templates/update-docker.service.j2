@@ -4,4 +4,6 @@ OnFailure=systemd-notifier@%n.service
 
 [Service]
 Type=oneshot
+ExecStartPre=/bin/sh -c '/usr/bin/python {{ path_system_maintenance_service_freezer_script }} freeze "{{ system_maintenance_services | reject('equalto', "update-docker") | join(',') }}"'
 ExecStart=/bin/sh -c '/usr/bin/python {{update_docker_script}} {{path_docker_compose_instances}}'
+ExecStartPost=/bin/sh -c 'systemctl start system-maintenance-service-defrost.service'

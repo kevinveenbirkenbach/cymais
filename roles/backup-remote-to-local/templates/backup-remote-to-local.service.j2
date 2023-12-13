@@ -4,4 +4,6 @@ OnFailure=systemd-notifier@%n.service cleanup-failed-docker-backups.service
 
 [Service]
 Type=oneshot
+ExecStartPre=/bin/sh -c '/usr/bin/python {{ path_system_maintenance_service_freezer_script }} freeze "{{ system_maintenance_services | reject('equalto', "backup-remote-to-local") | join(',') }}"'
 ExecStart=/usr/bin/bash {{docker_backup_remote_to_local_folder}}backups-remote-to-local.sh
+ExecStartPost=/bin/sh -c 'systemctl start system-maintenance-service-defrost.service'

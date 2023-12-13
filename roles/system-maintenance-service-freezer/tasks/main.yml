@@ -1,8 +1,8 @@
 ---
-- name: create {{freezer_script}}
+- name: create {{path_system_maintenance_service_freezer_script}}
   copy:
     src: system-maintenance-service-freezer.py
-    dest: "{{freezer_script}}"
+    dest: "{{path_system_maintenance_service_freezer_script}}"
 
 - name: Configure system-maintenance-service for each action
   loop:
