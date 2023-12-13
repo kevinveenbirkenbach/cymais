@@ -33,10 +33,11 @@ path_docker_compose_instances:                  "{{path_administrator_home}}dock
 path_system_maintenance_service_freezer_script: "{{path_administrator_scripts}}system-maintenance-service-freezer.py"
 
 # Runtime Variables
-activate_all_timers:    false   # Activates all timers, independend if the handlers had been triggered
-nginx_matomo_tracking:  false   # Activates matomo tracking on all html pages
-nginx_www_redirect:     true    # Implements an redirect from all www. domains to the main domain 
-execute_updates:        true    # Executes updates
+activate_all_timers:          false   # Activates all timers, independend if the handlers had been triggered
+nginx_matomo_tracking:        false   # Activates matomo tracking on all html pages
+nginx_www_redirect:           true    # Implements an redirect from all www. domains to the main domain 
+execute_updates:              true    # Executes updates
+force_backup_before_update:   true    # Activates the backup before the update procedure
 
 # Domain Names
 domain_akaunting:               "akaunting.{{top_domain}}"
