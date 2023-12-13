@@ -50,7 +50,7 @@ services:
 
   # Core services
   resolver:
-    image: ghcr.io/mailu/unbound:{{mailu_version}}
+    image: ghcr.io/mailu/unbound:{{version_mailu}}
     env_file: mailu.env
     restart: always
     networks:
@@ -60,7 +60,7 @@ services:
       driver: journald
 
   front:
-    image: ghcr.io/mailu/nginx:{{mailu_version}}
+    image: ghcr.io/mailu/nginx:{{version_mailu}}
     restart: always
     env_file: mailu.env
     logging:
@@ -90,7 +90,7 @@ services:
       - 192.168.203.254
       
   admin:
-    image: ghcr.io/mailu/admin:{{mailu_version}}
+    image: ghcr.io/mailu/admin:{{version_mailu}}
     restart: always
     env_file: mailu.env
     volumes:
@@ -106,7 +106,7 @@ services:
     dns:
       - 192.168.203.254
   imap:
-    image: ghcr.io/mailu/dovecot:{{mailu_version}}
+    image: ghcr.io/mailu/dovecot:{{version_mailu}}
     restart: always
     env_file: mailu.env
     volumes:
@@ -121,7 +121,7 @@ services:
       driver: journald
 
   smtp:
-    image: ghcr.io/mailu/postfix:{{mailu_version}}
+    image: ghcr.io/mailu/postfix:{{version_mailu}}
     restart: always
     env_file: mailu.env
     volumes:
@@ -136,7 +136,7 @@ services:
       driver: journald
 
   oletools:
-    image: ghcr.io/mailu/oletools:{{mailu_version}}
+    image: ghcr.io/mailu/oletools:{{version_mailu}}
     hostname: oletools
     restart: always
     depends_on:
@@ -147,7 +147,7 @@ services:
       - noinet
 
   antispam:
-    image: ghcr.io/mailu/rspamd:{{mailu_version}}
+    image: ghcr.io/mailu/rspamd:{{version_mailu}}
     restart: always
     env_file: mailu.env
     volumes:
@@ -169,7 +169,7 @@ services:
 
   # Optional services
   antivirus:
-    image: ghcr.io/mailu/clamav:{{mailu_version}}
+    image: ghcr.io/mailu/clamav:{{version_mailu}}
     restart: always
     env_file: mailu.env
     volumes:
@@ -182,7 +182,7 @@ services:
       driver: journald
 
   webdav:
-    image: ghcr.io/mailu/radicale:{{mailu_version}}
+    image: ghcr.io/mailu/radicale:{{version_mailu}}
     restart: always
     env_file: mailu.env
     volumes:
@@ -197,7 +197,7 @@ services:
       - 192.168.203.254
 
   fetchmail:
-    image: ghcr.io/mailu/fetchmail:{{mailu_version}}
+    image: ghcr.io/mailu/fetchmail:{{version_mailu}}
     volumes:
       - "admin_data:/data"
     restart: always
@@ -213,7 +213,7 @@ services:
       - 192.168.203.254
 
   webmail:
-    image: ghcr.io/mailu/webmail:{{mailu_version}}
+    image: ghcr.io/mailu/webmail:{{version_mailu}}
     restart: always
     env_file: mailu.env
     volumes:
