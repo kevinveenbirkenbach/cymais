@@ -1,64 +1,82 @@
 import argparse
 import subprocess
 import time
+import os
 
+def service_file_exists(service_name, service_type="service"):
+    """Check if a systemd service file exists."""
+    # Paths where service files can be stored
+    path = "/etc/systemd/system/"
+    service_file_name = service_name + "." + service_type
+    full_path = os.path.join(path, service_file_name)
+    
+    print(f"Checking {full_path}")  # Added debug output
+    if os.path.isfile(full_path):
+        return True
+    else:
+        print(f"File not found.")  # Debug output if file is not found
 
 def check_service_active(service_name):
-    """Check if a service is active."""
+    """Check if a service is active or activating."""
     result = subprocess.run(['systemctl', 'is-active', service_name], stdout=subprocess.PIPE)
-    return result.stdout.decode('utf-8').strip() == 'active'
+    service_status = result.stdout.decode('utf-8').strip()
+    return service_status in ['active', 'activating', 'deactivating', 'reloading']
 
-def service_exists(service_name):
-    """Check if a service exists."""
-    result = subprocess.run(['systemctl', 'status', service_name], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    return result.returncode == 0
+#def service_exists(service_name):
+#    """Check if a service exists."""
+#    result = subprocess.run(['systemctl', 'status', service_name], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+#    return result.returncode == 0
 
 def freeze(services_to_wait_for, ignored_services):
     # Filter services that exist and are not in the ignored list
-    active_services = [service for service in services_to_wait_for if service_exists(service) and service not in ignored_services]
-
-    while active_services:
-        for service in active_services:
-            if not check_service_active(service):
-                print(f"{service} stopped.")
-                # Disable the service
-                subprocess.run(['systemctl', 'disable', service])
-                print(f"{service} disabled.")
-
+    for service in services_to_wait_for:
+        print(f"\nFreezing: {service}")
+        if service in ignored_services:
+            print(f"{service} will be ignored.")
+        else:
+            service_active = check_service_active(service)
+            while not service_active:
                 # Stop and disable the corresponding timer, if it exists
-                timer_name = service + ".timer"
-                timer_check = subprocess.run(['systemctl', 'list-timers', '--all', timer_name], stdout=subprocess.PIPE)
-                if timer_name in timer_check.stdout.decode():
+                if service_file_exists(service,"timer"):
+                    timer_name = service + ".timer"
                     subprocess.run(['systemctl', 'stop', timer_name])
                     subprocess.run(['systemctl', 'disable', timer_name])
                     print(f"{timer_name} stopped and disabled.")
-                active_services.remove(service)
-            else:
-                print(f"Waiting for {service} to stop...")
-        time.sleep(5)
-    print("All required services have stopped.")
+                else:
+                    print(f"Skipped.")
+
+                if not service_active:
+                    print(f"Waiting for 5 seconds for {service} to stop...")
+                    time.sleep(5)
+                    service_active = check_service_active(service)
+    print("\nAll required services have stopped.")
 
 def defrost(services_to_wait_for, ignored_services):
     for service in services_to_wait_for:
-        if service not in ignored_services and service_exists(service):
-            # Enable the service
-            subprocess.run(['systemctl', 'enable', service])
-            print(f"{service} enabled.")
-
+        print(f"\nUnfreezing: {service}")
+        if service in ignored_services:
+            print(f"{service} will be ignored.")
+        elif service_file_exists(service,"timer"):
             # Start and enable the corresponding timer, if it exists
             timer_name = service + ".timer"
-            timer_check = subprocess.run(['systemctl', 'list-timers', '--all', timer_name], stdout=subprocess.PIPE)
-            if timer_name in timer_check.stdout.decode():
-                subprocess.run(['systemctl', 'start', timer_name])
-                subprocess.run(['systemctl', 'enable', timer_name])
-                print(f"{timer_name} started and enabled.")
+            subprocess.run(['systemctl', 'start', timer_name])
+            subprocess.run(['systemctl', 'enable', timer_name])
+            print(f"{timer_name} started and enabled.")
+        else:
+            print(f"Skipped.")
+    print("\nAll required services are started.")
 
 def main(services_to_wait_for, ignored_services, action):
+    print(f"Services to wait for: {services_to_wait_for}")
+    print(f"Services to ignore: {ignored_services}")
     if action == 'freeze':
-        # Code to handle freeze action
+        print("Freezing services.");
         freeze(services_to_wait_for, ignored_services)
     elif action == 'defrost':
+        print("Unfreezing services.");
         defrost(services_to_wait_for, ignored_services)
+    print('\nOverview:')
+    subprocess.run(['systemctl', 'list-timers'])
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='freezes and defrost systemctl services and timers')

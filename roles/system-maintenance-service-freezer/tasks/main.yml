@@ -12,7 +12,7 @@
   template:
     src: system-maintenance-service-freezer.service.j2
     dest: "/etc/systemd/system/system-maintenance-service-{{ item }}.service"
-  notify: "reload system-maintenance-service-{{ item }} service"
+  notify: "reload system-maintenance-service-{{ item }}.service"
   when: run_once_system_maintenance_service_freeze is not defined
 
 - name: run the system_maintenance_service_freezer tasks once
@@ -23,7 +23,7 @@
 - name: "restart system-maintenance-service.service"
   systemd:
     name: system-maintenance-service-{{system_maintenance_service_freeze_action}}.service
-    state: restart
+    state: restarted
     enabled: yes
     daemon_reload: yes
   when: maintenance_service_freeze_action_last is not defined or maintenance_service_freeze_action_last != system_maintenance_service_freeze_action
