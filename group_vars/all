@@ -62,9 +62,8 @@ domain_attendize:               "tickets.{{top_domain}}"
 domain_yourls:                  "s.{{top_domain}}"
 
 # Software versions
-version_nextcloud:  "latest"  # Nextcloud can't skipp major version updates.
+version_nextcloud:  "production"  # Nextcloud can't skipp major version updates.
 version_mailu:      "2.0"
-version_akaunting:  "latest"
 version_akaunting:  "latest"
 version_mastodon:   "latest"
 
