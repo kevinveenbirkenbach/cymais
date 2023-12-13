@@ -1,0 +1,7 @@
+[Unit]
+Description={{item}} systemctl maintanance services
+OnFailure=systemd-notifier@%n.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c '/usr/bin/python {{ freezer_script }} {{item}} {{ system_maintenance_services | join(",") }}'

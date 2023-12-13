@@ -1,0 +1,20 @@
+---
+- name: create {{freezer_script}}
+  copy:
+    src: system-maintenance-service-freezer.py
+    dest: "{{freezer_script}}"
+
+- name: Configure system-maintenance-service for each action
+  loop:
+    - freeze
+    - defrost
+  template:
+    src: system-maintenance-service-freezer.service.j2
+    dest: "/etc/systemd/system/system-maintenance-service-{{ item }}.service"
+  notify: "restart system-maintenance-service-{{ item }} service"
+  when: run_once_systemd_freezer is not defined
+
+- name: run the system_maintenance_service_freezer tasks once
+  set_fact:
+    run_once_systemd_freezer: true
+  when: run_once_systemd_freezer is not defined

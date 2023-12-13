@@ -67,6 +67,17 @@ version_mailu:      "2.0"
 version_akaunting:  "latest"
 version_mastodon:   "latest"
 
+# Services which modify the system:
+system_maintenance_services:
+  - "backup-docker-to-local"
+  - "backup-remote-to-local"
+  - "backup-data-to-usb"
+  - "cleanup-backups"
+  - "cleanup-disc-space"
+  - "cleanup-failed-docker-backups"
+  - "heal-docker"
+  - "update-docker"
+
 # Routings
 redirect_domain_mappings:
 - { source: "nextcloud.{{top_domain}}", target: "cloud.{{top_domain}}" }
