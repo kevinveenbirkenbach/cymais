@@ -22,11 +22,6 @@ def check_service_active(service_name):
     service_status = result.stdout.decode('utf-8').strip()
     return service_status in ['active', 'activating', 'deactivating', 'reloading']
 
-#def service_exists(service_name):
-#    """Check if a service exists."""
-#    result = subprocess.run(['systemctl', 'status', service_name], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-#    return result.returncode == 0
-
 def freeze(services_to_wait_for, ignored_services):
     # Filter services that exist and are not in the ignored list
     for service in services_to_wait_for:
@@ -34,21 +29,20 @@ def freeze(services_to_wait_for, ignored_services):
         if service in ignored_services:
             print(f"{service} will be ignored.")
         else:
-            service_active = check_service_active(service)
-            while not service_active:
-                # Stop and disable the corresponding timer, if it exists
-                if service_file_exists(service,"timer"):
-                    timer_name = service + ".timer"
-                    subprocess.run(['systemctl', 'stop', timer_name])
-                    subprocess.run(['systemctl', 'disable', timer_name])
-                    print(f"{timer_name} stopped and disabled.")
-                else:
-                    print(f"Skipped.")
-
-                if not service_active:
-                    print(f"Waiting for 5 seconds for {service} to stop...")
-                    time.sleep(5)
-                    service_active = check_service_active(service)
+            
+            while check_service_active(service):
+                print(f"Waiting for 5 seconds for {service} to stop...")
+                time.sleep(5)
+                    
+            # Stop and disable the corresponding timer, if it exists
+            if service_file_exists(service,"timer"):
+                timer_name = service + ".timer"
+                subprocess.run(['systemctl', 'stop', timer_name])
+                subprocess.run(['systemctl', 'disable', timer_name])
+                print(f"{timer_name} stopped and disabled.")
+            else:
+                print(f"Skipped.")
+                
     print("\nAll required services have stopped.")
 
 def defrost(services_to_wait_for, ignored_services):
