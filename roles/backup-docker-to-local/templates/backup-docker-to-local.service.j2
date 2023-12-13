@@ -1,5 +1,5 @@
 [Unit]
-Description=docker volume backup
+Description=backup docker volumes to local folder
 OnFailure=systemd-notifier@%n.service cleanup-failed-docker-backups.service
 
 [Service]
