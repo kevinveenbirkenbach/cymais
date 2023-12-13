@@ -2,13 +2,13 @@ version: '3.1'
 
 services:
   
-  application:
+  synapse:
     image: matrixdotorg/synapse:latest
     restart: unless-stopped
     logging:
       driver: journald
     volumes:
-      - data:/data
+      - synapse_data:/data
       - ./homeserver.yaml:/data/homeserver.yaml:ro
       - ./{{domain}}.log.config:/data/{{domain}}.log.config:ro
     environment:
@@ -37,9 +37,42 @@ services:
       timeout: 5s
       retries: 6
 
+  # bridges
+  #mautrix-telegram:
+  #  container_name: mautrix-telegram
+  #  image: dock.mau.dev/mautrix/telegram:<version>
+  #  restart: unless-stopped
+  #  volumes:
+  #  - telegram_bridge_data:/data
+
+  #mautrix-whatsapp:
+  #  container_name: mautrix-whatsapp
+  #  image: dock.mau.dev/mautrix/whatsapp:<version>
+  #  restart: unless-stopped
+  #  volumes:
+  #  - whatsapp_bridge_data:/data
+
+  #mautrix-facebook:
+  #  container_name: mautrix-facebook
+  #  image: dock.mau.dev/mautrix/facebook:<version>
+  #  restart: unless-stopped
+  #  volumes:
+  #  - facebook_bridge_data:/data
+
+  #mautrix-instagram:
+  #  container_name: mautrix-instagram
+  #  image: dock.mau.dev/mautrix/instagram:<version>
+  #  restart: unless-stopped
+  #  volumes:
+  #  - instagram_bridge_data:/data  
+
 volumes:
   database:
-  data:
+  synapse_data:
+  #telegram_bridge_data:
+  #whatsapp_bridge_data:
+  #facebook_bridge_data:
+  #instagram_bridge_data:
 networks:
   default:
     driver: bridge
