@@ -1,0 +1,10 @@
+[Unit]
+Description=starts system-maintenance-service-defrost.service
+
+[Timer]
+OnCalendar={{on_calendar_defrost}}
+RandomizedDelaySec={{randomized_delay_sec}}
+Persistent=false
+
+[Install]
+WantedBy=timers.target

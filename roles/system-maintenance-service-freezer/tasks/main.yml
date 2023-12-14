@@ -21,3 +21,12 @@
 - name: "set variable to prevent loading when action status didn't change"
   set_fact:
     maintenance_service_freeze_action_last: "{{system_maintenance_service_freeze_action}}"
+
+- name: create system-maintenance-service-defrost.timer
+  template:
+    src: system-maintenance-service-defrost.timer.j2
+    dest: "/etc/systemd/system/system-maintenance-service-defrost.timer"
+  register: system_maintenance_service_defrost_timer
+  changed_when: system_maintenance_service_defrost_timer.changed or activate_all_timers | bool
+  notify: restart system-maintenance-service-defrost.timer
+  when: run_once_system_maintenance_service_freeze is not defined

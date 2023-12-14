@@ -1,15 +1,18 @@
 # Server Tact Variables 
 
+## Ours in which the server is 100% working. Rest of the time is reserved for maintanance
+hours_server_awake: "{{ range(9, 24) | list + range(0, 3) | list }}"
+
 ## Random delay for systemd timers to avoid peak loads.
-randomized_delay_sec:                         "15min" 
+randomized_delay_sec:                         "5min" 
 
 ## Schedule for Health Checks
 on_calendar_health_btrfs:                     "*-*-* 00:00:00" 
 on_calendar_health_journalctl:                "*-*-* 00:00:00"
 on_calendar_health_disc_space:                "*-*-* 06,12,18,00:00:00"
-on_calendar_health_docker_container:          "*-*-* 09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,00,01,02:00:00"
-on_calendar_health_docker_volumes:            "*-*-* 09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,00,01,02:15:00"
-on_calendar_health_nginx:                     "*-*-* 09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,00,01,02:45:00"
+on_calendar_health_docker_container:          "*-*-* {{ hours_server_awake | join(',') }}:00:00"
+on_calendar_health_docker_volumes:            "*-*-* {{ hours_server_awake | join(',') }}:15:00"
+on_calendar_health_nginx:                     "*-*-* {{ hours_server_awake | join(',') }}:45:00"
 
 ## Schedule for Cleanup Tasks
 on_calendar_cleanup_backups:                  "*-*-* 06,12,18,00:30:00"
@@ -20,7 +23,8 @@ on_calendar_backup_docker_to_local:           "*-*-* 03:30:00"
 on_calendar_backup_remote_to_local:           "*-*-* 21:30:00"
 
 ## Schedule for Maintenance Tasks
-on_calendar_heal_docker:                      "*-*-* 09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,00,01:30:00"
+on_calendar_heal_docker:                      "*-*-* {{ hours_server_awake | join(',') }}:30:00"
+on_calendar_defrost:                          "*-*-* 00:00:00"
 on_calendar_renew_lets_encrypt_certificates:  "*-*-* 12,00:30:00"
 on_calendar_deploy_mailu_certificates:        "*-*-* 13,01:30:00"
 on_calendar_msi_keyboard_color:               "*-*-* *:*:00"
