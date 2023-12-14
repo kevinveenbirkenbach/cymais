@@ -17,7 +17,7 @@ services:
       - redis
     restart: "always"
   database:
-    image: postgres:alpine
+    image: postgres:13-alpine
     env_file:
       - .env
     volumes:

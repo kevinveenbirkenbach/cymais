@@ -11,7 +11,7 @@ x-application-defaults: &application-defaults
     - TZ=Etc/UTC
 
 x-database-defaults: &database-defaults
-  image: postgres:alpine
+  image: postgres:13-alpine
   ports:
     - "9432:5432"
   networks:

@@ -28,21 +28,21 @@ services:
   database:
     logging:
       driver: journald
-      options:
-        tag: "mybb_database"
-    environment:
-      POSTGRES_DB: mybb
-      POSTGRES_PASSWORD: "{{mybb_database_password}}"
-      POSTGRES_USER: mybb
-    image: postgres:alpine
-    volumes:
-    - database:/var/lib/postgresql/data:rw
+    image: mariadb
     restart: always
+    environment:
+      MYSQL_DATABASE: "mybb"
+      MYSQL_USER: "mybb"
+      MYSQL_PASSWORD: "{{mybb_database_password}}"
+      MYSQL_ROOT_PASSWORD: "{{mybb_database_password}}"
+      MARIADB_AUTO_UPGRADE: "1"
+    volumes:
+      - database:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U mybb"]
-      interval: 10s
-      timeout: 5s
-      retries: 6
+      test: "/usr/bin/mariadb --user=mybb --password={{mybb_database_password}} --execute \"SHOW DATABASES;\""
+      interval: 3s
+      timeout: 1s
+      retries: 5
 volumes:
   database:
   data:
