@@ -1,9 +1,9 @@
-# Server Tact Variables
-# validate timers via:  systemctl list-timers
-# more information:     https://man.archlinux.org/man/systemd.time.7
+# Server Tact Variables 
 
-randomized_delay_sec:                         "15min"
+## Random delay for systemd timers to avoid peak loads.
+randomized_delay_sec:                         "15min" 
 
+## Schedule for Health Checks
 on_calendar_health_btrfs:                     "*-*-* 00:00:00" 
 on_calendar_health_journalctl:                "*-*-* 00:00:00"
 on_calendar_health_disc_space:                "*-*-* 06,12,18,00:00:00"
@@ -11,34 +11,93 @@ on_calendar_health_docker_container:          "*-*-* 09,10,11,12,13,14,15,16,17,
 on_calendar_health_docker_volumes:            "*-*-* 09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,00,01,02:15:00"
 on_calendar_health_nginx:                     "*-*-* 09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,00,01,02:45:00"
 
+## Schedule for Cleanup Tasks
 on_calendar_cleanup_backups:                  "*-*-* 06,12,18,00:30:00"
 on_calendar_cleanup_disc_space:               "*-*-* 07,13,19,01:30:00"
+
+## Schedule for Backup Tasks
 on_calendar_backup_docker_to_local:           "*-*-* 03:30:00"
 on_calendar_backup_remote_to_local:           "*-*-* 21:30:00"
+
+## Schedule for Maintenance Tasks
 on_calendar_heal_docker:                      "*-*-* 09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,00,01:30:00"
 on_calendar_renew_lets_encrypt_certificates:  "*-*-* 12,00:30:00"
 on_calendar_deploy_mailu_certificates:        "*-*-* 13,01:30:00"
 on_calendar_msi_keyboard_color:               "*-*-* *:*:00"
 
-# Space Variables
-size_percent_maximum_backup:                  75
-size_percent_disc_space_warning:              85
-size_percent_cleanup_disc_space:              90
 
-# Path Variables
+# Storage Space-Related Configurations          
+size_percent_maximum_backup:                  75  # Maximum storage space in percent for backups
+size_percent_disc_space_warning:              85  # Warning threshold in percent for free disk space
+size_percent_cleanup_disc_space:              90  # Threshold for triggering cleanup actions
+
+
+# Path Variables for Key Directories and Scripts
 path_administrator_home:                        "/home/administrator/"
 path_administrator_scripts:                     "{{path_administrator_home}}scripts/"
 path_docker_volumes:                            "{{path_administrator_home}}volumes/docker/"
 path_docker_compose_instances:                  "{{path_administrator_home}}docker-compose/"
 path_system_maintenance_service_freezer_script: "{{path_administrator_scripts}}system-maintenance-service-freezer.py"
 
-# Runtime Variables
+
+# Runtime Variables for Process Control
 activate_all_timers:          false   # Activates all timers, independend if the handlers had been triggered
 nginx_matomo_tracking:        false   # Activates matomo tracking on all html pages
 execute_updates:              true    # Executes updates
 force_backup_before_update:   true    # Activates the backup before the update procedure
 
-# Domain Names
+
+# System Maintanance Services
+
+## Defined Services for Backup Tasks
+system_maintanance_backup_services:
+  - "backup-docker-to-local"
+  - "backup-remote-to-local"
+  - "backup-data-to-usb"
+
+## Defined Services for System Cleanup
+system_maintanance_cleanup_services:
+  - "cleanup-backups"
+  - "cleanup-disc-space"
+  - "cleanup-failed-docker-backups"
+
+## Services that Manipulate the System
+system_maintanance_manipulation_services:
+  - "heal-docker"
+  - "update-docker"
+  
+## Total System Maintenance Services
+system_maintenance_services: "{{ system_maintanance_backup_services + system_maintanance_cleanup_services + system_maintanance_manipulation_services }}"
+
+## First default freezer action to apply when freezer service get triggered during play
+system_maintenance_service_freeze_action: 'freeze'  # Valid Values: freeze, defrost
+
+
+# Webserver Configuration
+
+## Nginx-Specific Path Configurations
+nginx_configuration_directory:  "/etc/nginx/conf.d/"                            # General configuration dir
+nginx_servers_directory:        "{{nginx_configuration_directory}}servers/"     # Contains server blogs
+nginx_maps_directory:           "{{nginx_configuration_directory}}maps/"        # Contains mappins
+nginx_upstreams_directory:      "{{nginx_configuration_directory}}upstreams/"   # Contains upstream configurations
+
+# Routing Configurations for Domain Redirections
+redirect_domain_mappings:
+- { source: "nextcloud.{{top_domain}}", target: "cloud.{{top_domain}}" }
+- { source: "gitea.{{top_domain}}", target: "git.{{top_domain}}" }
+- { source: "listmonk.{{top_domain}}", target: "newsletter.{{top_domain}}" }
+- { source: "discourse.{{top_domain}}", target: "forum.{{top_domain}}" }
+- { source: "bbb.{{top_domain}}", target: "meet.{{top_domain}}" }
+- { source: "short.{{top_domain}}", target: "s.{{top_domain}}" }
+- { source: "mastodon.{{top_domain}}", target: "microblog.{{top_domain}}" }
+- { source: "peertube.{{top_domain}}", target: "videos.{{top_domain}}" }
+- { source: "funkwhale.{{top_domain}}", target: "music.{{top_domain}}" }
+- { source: "pixelfed.{{top_domain}}", target: "pictures.{{top_domain}}" }
+- { source: "matrix.{{top_domain}}", target: "chat.{{top_domain}}" }
+
+## Docker Applications
+
+### Domain Names for Various Services
 domain_akaunting:               "akaunting.{{top_domain}}"
 domain_baserow:                 "baserow.{{top_domain}}"
 domain_bigbluebutton:           "meet.{{top_domain}}"
@@ -62,43 +121,11 @@ domain_roulette:                "roulette.{{top_domain}}"
 domain_attendize:               "tickets.{{top_domain}}"
 domain_yourls:                  "s.{{top_domain}}"
 
-# Software versions
-version_nextcloud:  "production"  # Nextcloud can't skipp major version updates.
+### Software Versions for Specific Applications
+version_nextcloud:  "production"  # Danger: Nextcloud can't skipp major version updates.
 version_mailu:      "2.0"
 version_akaunting:  "latest"
 version_mastodon:   "latest"
 
-# Services which modify the system:
-system_maintenance_services:
-  - "backup-docker-to-local"
-  - "backup-remote-to-local"
-  - "backup-data-to-usb"
-  - "cleanup-backups"
-  - "cleanup-disc-space"
-  - "cleanup-failed-docker-backups"
-  - "heal-docker"
-  - "update-docker"
-
-system_maintenance_service_freeze_action: 'freeze'  # Valid Values: freeze, defrost
-
-# Routings
-redirect_domain_mappings:
-- { source: "nextcloud.{{top_domain}}", target: "cloud.{{top_domain}}" }
-- { source: "gitea.{{top_domain}}", target: "git.{{top_domain}}" }
-- { source: "listmonk.{{top_domain}}", target: "newsletter.{{top_domain}}" }
-- { source: "discourse.{{top_domain}}", target: "forum.{{top_domain}}" }
-- { source: "bbb.{{top_domain}}", target: "meet.{{top_domain}}" }
-- { source: "short.{{top_domain}}", target: "s.{{top_domain}}" }
-- { source: "mastodon.{{top_domain}}", target: "microblog.{{top_domain}}" }
-- { source: "peertube.{{top_domain}}", target: "videos.{{top_domain}}" }
-- { source: "funkwhale.{{top_domain}}", target: "music.{{top_domain}}" }
-- { source: "pixelfed.{{top_domain}}", target: "pictures.{{top_domain}}" }
-- { source: "matrix.{{top_domain}}", target: "chat.{{top_domain}}" }
-
-nginx_configuration_directory:  "/etc/nginx/conf.d/"
-nginx_servers_directory:        "{{nginx_configuration_directory}}servers/"
-nginx_maps_directory:           "{{nginx_configuration_directory}}maps/"
-nginx_upstreams_directory:      "{{nginx_configuration_directory}}upstreams/"
-
-# Role specific configuration
+### Role specific configuration
 pixelfed_app_name:  "Pictures"
