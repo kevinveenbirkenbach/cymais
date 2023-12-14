@@ -24,7 +24,7 @@ on_calendar_backup_remote_to_local:           "*-*-* 21:30:00"
 
 ## Schedule for Maintenance Tasks
 on_calendar_heal_docker:                      "*-*-* {{ hours_server_awake | join(',') }}:30:00"
-on_calendar_defrost:                          "*-*-* *:00:00"
+on_calendar_defrost:                          "*-*-* *:00,15,30,45:00"
 on_calendar_renew_lets_encrypt_certificates:  "*-*-* 12,00:30:00"
 on_calendar_deploy_mailu_certificates:        "*-*-* 13,01:30:00"
 on_calendar_msi_keyboard_color:               "*-*-* *:*:00"
