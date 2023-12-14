@@ -51,6 +51,8 @@ def stop_timer(service):
     """
     Stop and disable a systemd timer for a service if it exists.
     """
+    if service == "system-maintenance-service-defrost":
+        print(f"Ignoring {service}. It's the initializer of freezer.")
     if service_file_exists(service, "timer"):
         timer_name = f"{service}.timer"
         subprocess.run(['systemctl', 'stop', timer_name])
