@@ -70,6 +70,10 @@ system_maintenance_cleanup_services:
   - "cleanup-disc-space"
   - "cleanup-failed-docker-backups"
 
+### Freeze services (wait until they are finished to be sure that nobody else is doing stuff in the fridge)
+  - "system-maintenance-service-freeze"
+  - "system-maintenance-service-defrost"
+
 ### Services that Manipulate the System
 system_maintenance_manipulation_services:
   - "heal-docker"

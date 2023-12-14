@@ -28,34 +28,54 @@ def check_service_active(service_name):
     """Check if a service is active or activating."""
     result = subprocess.run(['systemctl', 'is-active', service_name], stdout=subprocess.PIPE)
     service_status = result.stdout.decode('utf-8').strip()
-    return service_status in ['active', 'activating']
+    return_value=service_status in ['active', 'activating']
+    if return_value:
+        print(f"Service {service} is active.");
+    else:
+        print(f"Service {service} is not active.");
+    return return_value
 
+def check_any_service_active(services):
+    """Check if any service in the list is active or activating."""
+    for service in services:
+        if check_service_active(service_name):
+            return True
+    return False
+    
 def freeze(services_to_wait_for, ignored_services, timeout_sec):
     break_time_sec=5
     attempt=0
     max_attempts=timeout_sec/break_time_sec
-    # Filter services that exist and are not in the ignored list
-    for service in services_to_wait_for:
-        print(f"\nFreezing: {service}")
-        if service in ignored_services:
-            print(f"{service} will be ignored.")
-        else:
-            while check_service_active(service):
-                current_time_iso = datetime.now().isoformat()
-                attempt += 1
-                print(f"{current_time_iso}#{attempt}/{max_attempts}: Waiting for {break_time_sec} seconds for {service} to stop...")
-                time.sleep(break_time_sec)
-                if attempt > max_attempts:
-                    raise Exception(f"Error: Maximum attempts ({max_attempts}) reached. Exit.")
-                    
-            # Stop and disable the corresponding timer, if it exists
-            if service_file_exists(service,"timer"):
-                timer_name = service + ".timer"
-                subprocess.run(['systemctl', 'stop', timer_name])
-                subprocess.run(['systemctl', 'disable', timer_name])
-                print(f"{timer_name} stopped and disabled.")
+    any_service_active=True
+    
+    print("Checking if any services is active.")
+    # This guaranties that no service will be started in the between time
+    while any_service_active:
+        # Filter services that exist and are not in the ignored list
+        for service in services_to_wait_for:
+            print(f"\nFreezing: {service}")
+            if service in ignored_services:
+                print(f"{service} will be ignored.")
             else:
-                print(f"Skipped.")
+                while check_service_active(service):
+                    current_time_iso = datetime.now().isoformat()
+                    attempt += 1
+                    print(f"{current_time_iso}#{attempt}/{max_attempts}: Waiting for {break_time_sec} seconds for {service} to stop...")
+                    time.sleep(break_time_sec)
+                    if attempt > max_attempts:
+                        raise Exception(f"Error: Maximum attempts ({max_attempts}) reached. Exit.")
+                        
+                # Stop and disable the corresponding timer, if it exists
+                if service_file_exists(service,"timer"):
+                    timer_name = service + ".timer"
+                    subprocess.run(['systemctl', 'stop', timer_name])
+                    subprocess.run(['systemctl', 'disable', timer_name])
+                    print(f"{timer_name} stopped and disabled.")
+                else:
+                    print(f"No timer to stop.")
+        print("Checking if any of the previous deactivated services is active.")
+        any_service_active=check_any_service_active(services_to_wait_for)
+        
     print("\nAll required services have stopped.")
 
 def defrost(services_to_wait_for, ignored_services):
