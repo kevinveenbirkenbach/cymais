@@ -236,10 +236,9 @@
         domain_mappings: "{{redirect_domain_mappings}}"
 
 - name: setup www redirect 
-  hosts: all
+  hosts: www_redirect
   become: true
   roles:
    -  role: nginx-www-redirect
-      when: nginx_www_redirect | bool
 
 - import_playbook: destructor.yml
