@@ -58,7 +58,7 @@ system_maintenance_timeout_cleanup_services:  "15min"
 system_maintenance_timeout_backup_services:   "1h"
 system_maintenance_timeout_heal_docker:       "30min"
 system_maintenance_timeout_update_docker:     "5min"
-system_maintenance_timeout_defrost_docker:    "10min"
+system_maintenance_timeout_defroster:    "10min"
 
 ## Services
 
