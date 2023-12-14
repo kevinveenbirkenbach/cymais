@@ -5,16 +5,6 @@
     dest: "{{path_system_maintenance_service_freezer_script}}"
   when: run_once_system_maintenance_service_freeze is not defined
 
-- name: Configure system-maintenance-service for each action
-  loop:
-    - freeze
-    - defrost
-  template:
-    src: system-maintenance-service-freezer.service.j2
-    dest: "/etc/systemd/system/system-maintenance-service-{{ item }}.service"
-  notify: "reload system-maintenance-service-{{ item }}.service"
-  when: run_once_system_maintenance_service_freeze is not defined
-
 - name: run the system_maintenance_service_freezer tasks once
   set_fact:
     run_once_system_maintenance_service_freeze: true
