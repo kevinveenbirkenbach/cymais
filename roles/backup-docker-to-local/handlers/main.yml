@@ -1,7 +1,6 @@
 - name: "reload backup-docker-to-local.service"
   systemd:
     name: backup-docker-to-local.service
-    enabled: yes
     daemon_reload: yes
 
 - name: "restart backup-docker-to-local.timer"

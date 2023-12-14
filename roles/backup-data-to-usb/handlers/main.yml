@@ -2,5 +2,4 @@
   systemd:
     name: backup-data-to-usb.service
     state: reloaded
-    enabled: yes
     daemon_reload: yes
