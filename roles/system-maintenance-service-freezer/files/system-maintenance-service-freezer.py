@@ -20,7 +20,7 @@ def check_service_active(service_name):
     """Check if a service is active or activating."""
     result = subprocess.run(['systemctl', 'is-active', service_name], stdout=subprocess.PIPE)
     service_status = result.stdout.decode('utf-8').strip()
-    return service_status in ['active', 'activating', 'deactivating', 'reloading']
+    return service_status in ['active', 'activating']
 
 def freeze(services_to_wait_for, ignored_services):
     # Filter services that exist and are not in the ignored list
