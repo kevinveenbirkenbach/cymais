@@ -4,6 +4,6 @@ OnFailure=systemd-notifier@%n.service
 
 [Service]
 Type=oneshot
-ExecStartPre=/bin/sh -c '/usr/bin/python {{ path_system_maintenance_service_freezer_script }} freeze "{{ system_maintenance_services | reject('equalto', "cleanup-failed-docker-backups") | join(',') }}"'
+ExecStartPre=/bin/sh -c '/usr/bin/python {{ path_system_maintenance_service_freezer_script }} freeze "{{ system_maintenance_services }}" --ignore "{{system_maintenance_cleanup_services}}" --timeout "{{system_maintenance_timeout_backup_services}}"'
 ExecStart=/bin/sh -c '/usr/bin/yes | /usr/bin/bash {{backup_docker_to_local_cleanup_folder}}cleanup.sh {{backup_docker_to_local_cleanup_machine_id}} {{backup_docker_to_local_cleanup_trigger_directory}}'
 ExecStartPost=/bin/sh -c 'systemctl start system-maintenance-service-defrost.service'

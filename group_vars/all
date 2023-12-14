@@ -47,27 +47,36 @@ execute_updates:              true    # Executes updates
 force_backup_before_update:   true    # Activates the backup before the update procedure
 
 
-# System Maintanance Services
+# System maintenance Services
 
-## Defined Services for Backup Tasks
-system_maintanance_backup_services:
+## Timeouts to wait for other services to stop
+system_maintenance_timeout_cleanup_services:  "15min"
+system_maintenance_timeout_backup_services:   "1h"
+system_maintenance_timeout_heal_docker:       "30min"
+system_maintenance_timeout_update_docker:     "5min"
+
+
+## Services
+
+### Defined Services for Backup Tasks
+system_maintenance_backup_services:
   - "backup-docker-to-local"
   - "backup-remote-to-local"
   - "backup-data-to-usb"
 
-## Defined Services for System Cleanup
-system_maintanance_cleanup_services:
+### Defined Services for System Cleanup
+system_maintenance_cleanup_services:
   - "cleanup-backups"
   - "cleanup-disc-space"
   - "cleanup-failed-docker-backups"
 
-## Services that Manipulate the System
-system_maintanance_manipulation_services:
+### Services that Manipulate the System
+system_maintenance_manipulation_services:
   - "heal-docker"
   - "update-docker"
   
 ## Total System Maintenance Services
-system_maintenance_services: "{{ system_maintanance_backup_services + system_maintanance_cleanup_services + system_maintanance_manipulation_services }}"
+system_maintenance_services: "{{ system_maintenance_backup_services + system_maintenance_cleanup_services + system_maintenance_manipulation_services }}"
 
 ## First default freezer action to apply when freezer service get triggered during play
 system_maintenance_service_freeze_action: 'freeze'  # Valid Values: freeze, defrost

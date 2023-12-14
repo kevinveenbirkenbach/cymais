@@ -1,6 +1,6 @@
 # role docker
 
-## maintanance
+## maintenance
 
 ### list unused volumes
 ```bash 

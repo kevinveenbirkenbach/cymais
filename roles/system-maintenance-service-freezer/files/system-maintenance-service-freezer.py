@@ -3,6 +3,14 @@ import subprocess
 import time
 import os
 
+def parse_time_to_seconds(time_str):
+    """Convert time string to seconds."""
+    units = {"s": 1, "min": 60, "h": 3600}
+    number, unit = time_str[:-1], time_str[-1]
+    if unit not in units:
+        raise ValueError("Invalid time unit")
+    return int(number) * units[unit]
+
 def service_file_exists(service_name, service_type="service"):
     """Check if a systemd service file exists."""
     # Paths where service files can be stored
@@ -22,18 +30,20 @@ def check_service_active(service_name):
     service_status = result.stdout.decode('utf-8').strip()
     return service_status in ['active', 'activating']
 
-def freeze(services_to_wait_for, ignored_services, max_attempts):
+def freeze(services_to_wait_for, ignored_services, timeout_sec):
+    break_time_sec=5
+    attempt=0
+    max_attempts=timeout_sec/break_time_sec
     # Filter services that exist and are not in the ignored list
     for service in services_to_wait_for:
         print(f"\nFreezing: {service}")
         if service in ignored_services:
             print(f"{service} will be ignored.")
         else:
-            attempt=0
-            break_time_sec=5
             while check_service_active(service):
+                current_time_iso = datetime.now().isoformat()
                 attempt += 1
-                print(f"({attempt}/{max_attempts}) Waiting for {break_time_sec} seconds for {service} to stop...")
+                print(f"{current_time_iso}#{attempt}/{max_attempts}: Waiting for {break_time_sec} seconds for {service} to stop...")
                 time.sleep(break_time_sec)
                 if attempt > max_attempts:
                     raise Exception(f"Error: Maximum attempts ({max_attempts}) reached. Exit.")
@@ -46,7 +56,6 @@ def freeze(services_to_wait_for, ignored_services, max_attempts):
                 print(f"{timer_name} stopped and disabled.")
             else:
                 print(f"Skipped.")
-                
     print("\nAll required services have stopped.")
 
 def defrost(services_to_wait_for, ignored_services):
@@ -64,12 +73,12 @@ def defrost(services_to_wait_for, ignored_services):
             print(f"Skipped.")
     print("\nAll required services are started.")
 
-def main(services_to_wait_for, ignored_services, action, max_attempts):
+def main(services_to_wait_for, ignored_services, action, timeout_sec):
     print(f"Services to wait for: {services_to_wait_for}")
     print(f"Services to ignore: {ignored_services}")
     if action == 'freeze':
         print("Freezing services.");
-        freeze(services_to_wait_for, ignored_services, max_attempts)
+        freeze(services_to_wait_for, ignored_services, timeout_sec)
     elif action == 'defrost':
         print("Unfreezing services.");
         defrost(services_to_wait_for, ignored_services)
@@ -79,12 +88,12 @@ def main(services_to_wait_for, ignored_services, action, max_attempts):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='freezes and defrost systemctl services and timers')
     parser.add_argument('action', choices=['freeze', 'defrost'], help='Action to perform: freeze or defrost services.')
-    parser.add_argument('services', help='Comma-separated list of services to apply the action to')
-    parser.add_argument('--ignore', help='Comma-separated list of services to ignore in the action', default='')
-    parser.add_argument('--max_attempts', type=int, default=60, help='Maximum number of attempts for freezing services')
+    parser.add_argument('services', nargs='+', help='List of services to apply the action to')
+    parser.add_argument('--ignore', nargs='*', help='List of services to ignore in the action', default=[])
+    parser.add_argument('--timeout', help='Timeout for freezing services (e.g., 1h, 30min, 45s)', default='1h')
 
     args = parser.parse_args()
-    services_to_wait_for = args.services.split(',')
-    ignored_services = args.ignore.split(',') if args.ignore else []
-    max_attempts = args.max_attempts
-    main(services_to_wait_for, ignored_services,args.action,max_attempts)
+    services_to_wait_for = args.services
+    ignored_services = args.ignore if args.ignore else []
+    timeout_seconds = parse_time_to_seconds(args.timeout)
+    main(services_to_wait_for, ignored_services, args.action, timeout_seconds)
