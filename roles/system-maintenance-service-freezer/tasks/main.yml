@@ -5,9 +5,14 @@
     dest: "{{path_system_maintenance_service_freezer_script}}"
   when: run_once_system_maintenance_service_freeze is not defined
 
-- name: run the system_maintenance_service_freezer tasks once
-  set_fact:
-    run_once_system_maintenance_service_freeze: true
+- name: Configure system-maintenance-service for each action
+  loop:
+    - freeze
+    - defrost
+  template:
+    src: system-maintenance-service-freezer.service.j2
+    dest: "/etc/systemd/system/system-maintenance-service-{{ item }}.service"
+  notify: "reload system-maintenance-service-{{ item }}.service"
   when: run_once_system_maintenance_service_freeze is not defined
 
 - name: "restart system-maintenance-service.service"
@@ -18,10 +23,6 @@
     daemon_reload: yes
   when: maintenance_service_freeze_action_last is not defined or maintenance_service_freeze_action_last != system_maintenance_service_freeze_action
 
-- name: "set variable to prevent loading when action status didn't change"
-  set_fact:
-    maintenance_service_freeze_action_last: "{{system_maintenance_service_freeze_action}}"
-
 - name: create system-maintenance-service-defrost.timer
   template:
     src: system-maintenance-service-defrost.timer.j2
@@ -30,3 +31,14 @@
   changed_when: system_maintenance_service_defrost_timer.changed or activate_all_timers | bool
   notify: restart system-maintenance-service-defrost.timer
   when: run_once_system_maintenance_service_freeze is not defined
+
+## Runtime Variable Setting
+
+- name: run the system_maintenance_service_freezer tasks once
+  set_fact:
+    run_once_system_maintenance_service_freeze: true
+  when: run_once_system_maintenance_service_freeze is not defined
+
+- name: "set variable to prevent loading when action status didn't change"
+  set_fact:
+    maintenance_service_freeze_action_last: "{{system_maintenance_service_freeze_action}}"
