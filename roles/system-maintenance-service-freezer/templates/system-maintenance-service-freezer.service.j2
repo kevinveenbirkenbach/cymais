@@ -4,5 +4,5 @@ OnFailure=systemd-notifier@%n.service
 
 [Service]
 Type=oneshot
-ExecPreStart=/bin/sh -c '/usr/bin/python {{ path_system_maintenance_service_freezer_script }} {{item}} "{{ system_maintenance_services + [item] }}"'
+ExecPreStart=/bin/sh -c '/usr/bin/python {{ path_system_maintenance_service_freezer_script }} {{item}} "{{ system_maintenance_services + [item] }}" --timeout "{{system_maintenance_timeout_defrost_docker}}"'
 ExecStart=/bin/sh -c '/usr/bin/python {{ path_system_maintenance_service_freezer_script }} {{item}} "{{ system_maintenance_services }}"'
