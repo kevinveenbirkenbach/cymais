@@ -6,5 +6,4 @@ OnFailure=systemd-notifier@%n.service
 Type=oneshot
 {% if force_backup_before_update | bool %}ExecStartPre=/bin/sh -c 'systemctl start backup-docker-to-local.service'{% endif %}
 ExecStartPre=/bin/sh -c '/usr/bin/python {{ path_system_maintenance_service_freezer_script }} freeze "{{ system_maintenance_services }}" --ignore "{{system_maintenance_cleanup_services +  ['update-docker'] }}" --timeout "{{system_maintenance_heal_docker}}"'
-ExecStart=/bin/sh -c '/usr/bin/python {{update_docker_script}} {{path_docker_compose_instances}}'
-ExecStartPost=/bin/sh -c 'systemctl start system-maintenance-service-defrost.service'
+ExecStart=/bin/sh -c '/usr/bin/python {{update_docker_script}} {{path_docker_compose_instances}} && systemctl start system-maintenance-service-defrost.service'

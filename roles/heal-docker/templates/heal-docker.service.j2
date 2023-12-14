@@ -5,5 +5,4 @@ OnFailure=systemd-notifier@%n.service
 [Service]
 Type=oneshot
 ExecStartPre=/bin/sh -c '/usr/bin/python {{ path_system_maintenance_service_freezer_script }} freeze "{{ system_maintenance_services }}" --ignore "{{system_maintenance_cleanup_services}}" --timeout "{{system_maintenance_heal_docker}}"'
-ExecStart=/bin/python {{heal_docker}}heal-docker.py
-ExecStartPost=/bin/sh -c 'systemctl start system-maintenance-service-defrost.service'
+ExecStart=/bin/sh -c '/bin/python {{heal_docker}}heal-docker.py && systemctl start system-maintenance-service-defrost.service'
