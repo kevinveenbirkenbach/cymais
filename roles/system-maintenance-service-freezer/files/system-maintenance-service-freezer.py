@@ -22,17 +22,21 @@ def check_service_active(service_name):
     service_status = result.stdout.decode('utf-8').strip()
     return service_status in ['active', 'activating']
 
-def freeze(services_to_wait_for, ignored_services):
+def freeze(services_to_wait_for, ignored_services, max_attempts):
     # Filter services that exist and are not in the ignored list
     for service in services_to_wait_for:
         print(f"\nFreezing: {service}")
         if service in ignored_services:
             print(f"{service} will be ignored.")
         else:
-            
+            attempt=0
+            break_time_sec=5
             while check_service_active(service):
-                print(f"Waiting for 5 seconds for {service} to stop...")
-                time.sleep(5)
+                attempt += 1
+                print(f"({attempt}/{max_attempts}) Waiting for {break_time_sec} seconds for {service} to stop...")
+                time.sleep(break_time_sec)
+                if attempt > max_attempts:
+                    raise Exception(f"Error: Maximum attempts ({max_attempts}) reached. Exit.")
                     
             # Stop and disable the corresponding timer, if it exists
             if service_file_exists(service,"timer"):
@@ -60,12 +64,12 @@ def defrost(services_to_wait_for, ignored_services):
             print(f"Skipped.")
     print("\nAll required services are started.")
 
-def main(services_to_wait_for, ignored_services, action):
+def main(services_to_wait_for, ignored_services, action, max_attempts):
     print(f"Services to wait for: {services_to_wait_for}")
     print(f"Services to ignore: {ignored_services}")
     if action == 'freeze':
         print("Freezing services.");
-        freeze(services_to_wait_for, ignored_services)
+        freeze(services_to_wait_for, ignored_services, max_attempts)
     elif action == 'defrost':
         print("Unfreezing services.");
         defrost(services_to_wait_for, ignored_services)
@@ -77,7 +81,10 @@ if __name__ == "__main__":
     parser.add_argument('action', choices=['freeze', 'defrost'], help='Action to perform: freeze or defrost services.')
     parser.add_argument('services', help='Comma-separated list of services to apply the action to')
     parser.add_argument('--ignore', help='Comma-separated list of services to ignore in the action', default='')
+    parser.add_argument('--max_attempts', type=int, default=60, help='Maximum number of attempts for freezing services')
+
     args = parser.parse_args()
     services_to_wait_for = args.services.split(',')
     ignored_services = args.ignore.split(',') if args.ignore else []
-    main(services_to_wait_for, ignored_services,args.action)
+    max_attempts = args.max_attempts
+    main(services_to_wait_for, ignored_services,args.action,max_attempts)
