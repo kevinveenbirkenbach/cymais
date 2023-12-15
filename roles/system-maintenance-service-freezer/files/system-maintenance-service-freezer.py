@@ -104,6 +104,11 @@ def defrost(filtered_services):
     """
     Defrost services by starting and enabling their timers.
     """
+    break_time_sec = 5
+    attempt = 0
+    max_attempts = timeout_sec / break_time_sec
+    wait_for_all_services_to_stop(filtered_services, max_attempts, attempt, break_time_sec)
+
     for service in filtered_services:
         print(f"Unfreezing: {service}")
         if service_file_exists(service, "timer"):
@@ -135,7 +140,7 @@ def main(services, ignored_services, action, timeout_sec):
         freeze(filtered_services, timeout_sec)
     elif action == 'defrost':
         print("Unfreezing services.")
-        defrost(filtered_services)
+        defrost(filtered_services, timeout_sec)
     print("Overview:")
     subprocess.run(['systemctl', 'list-timers'])
 
