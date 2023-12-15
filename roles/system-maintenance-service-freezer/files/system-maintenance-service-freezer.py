@@ -179,7 +179,7 @@ if __name__ == "__main__":
     parser.add_argument('action', choices=['freeze', 'defrost'], help='Action to perform: freeze or defrost services.')
     parser.add_argument('services', nargs='+', help='List of services to apply the action to.')
     parser.add_argument('--ignore', nargs='*', help='List of services to ignore in the action.', default=[])
-    parser.add_argument('--timeout', help='Timeout for freezing services (e.g., 1h, 30min, 45s).', default='1h')
+    parser.add_argument('--timeout', help='Timeout for freezer actions (e.g., 1h, 30min, 45s).', default='1min')
     args = parser.parse_args()
     services = args.services
     ignored_services = args.ignore if args.ignore else []
