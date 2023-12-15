@@ -100,7 +100,7 @@ def freeze(filtered_services, timeout_sec):
         attempt = wait_for_all_services_to_stop(filtered_services, max_attempts, attempt, break_time_sec)
     print("All required services have stopped.")
 
-def defrost(filtered_services):
+def defrost(filtered_services,timeout_sec):
     """
     Defrost services by starting and enabling their timers.
     """
