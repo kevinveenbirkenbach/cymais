@@ -3,11 +3,11 @@ import datetime
 import subprocess
 
 def hex_to_rgb(hex_color):
-    """Konvertiert Hex-Farbe in RGB-Tupel."""
+    """Converts Hex color to an RGB tuple."""
     return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
 
 def calculate_color(start_color, end_color, ratio):
-    """Berechnet interpolierte Farbe zwischen zwei Farben basierend auf Übergangsverhältnis."""
+    """Calculates an interpolated color between two colors based on a transition ratio."""
     start_rgb = hex_to_rgb(start_color)
     end_rgb = hex_to_rgb(end_color)
     current_rgb = [round(start + (end - start) * ratio) for start, end in zip(start_rgb, end_rgb)]
@@ -15,60 +15,60 @@ def calculate_color(start_color, end_color, ratio):
 
 def get_current_period(current_time, color_times):
     """
-    Ermittelt die aktuelle Zeitperiode und gibt die zugehörigen Farben zurück.
+    Determines the current time period and returns the corresponding colors.
 
     Args:
-    current_time (datetime.time): Die aktuelle Uhrzeit.
-    color_times (dict): Ein Wörterbuch, das Zeitperioden (als String im Format 'HH:MM') 
-                        mit Farbpaaren verbindet.
+    current_time (datetime.time): The current time.
+    color_times (dict): A dictionary linking time periods (as a string in 'HH:MM' format)
+                        with pairs of colors.
 
     Returns:
-    tuple: Ein Tupel der Start- und Endfarbe (als Hex-Codes) für die aktuelle Periode.
+    tuple: A tuple of the start and end color (as hex codes) for the current period.
     """
-    # Liste der Zeitperioden sortieren
+    # Sort the list of time periods
     sorted_periods = sorted(color_times.items())
 
-    # Über die sortierten Perioden iterieren, um die aktuelle Periode zu finden
+    # Iterate over the sorted periods to find the current period
     for i, (period_start_str, colors) in enumerate(sorted_periods):
         period_start_time = datetime.datetime.strptime(period_start_str, "%H:%M").time()
 
-        # Wenn die aktuelle Zeit vor dem Beginn der nächsten Periode liegt
+        # If the current time is before the start of the next period
         if current_time < period_start_time:
-            # Wenn wir uns in der ersten Periode befinden, ist die vorherige Periode die letzte des Tages
+            # If we are in the first period, the previous period is the last of the day
             previous_period_index = i - 1 if i > 0 else -1
             return sorted_periods[previous_period_index][1]
 
-    # Falls die aktuelle Zeit nach der letzten definierten Periode liegt,
-    # verwende die Farben der ersten Periode als Standard
+    # If the current time is after the last defined period,
+    # use the colors of the first period as default
     return sorted_periods[0][1]
 
 def calculate_transition_ratio(current_time, start_time, end_time):
     """
-    Berechnet das Übergangsverhältnis für eine Farbtransition.
+    Calculates the transition ratio for a color transition.
 
     Args:
-    current_time (datetime.time): Die aktuelle Uhrzeit.
-    start_time (datetime.time): Die Startzeit der aktuellen Farbperiode.
-    end_time (datetime.time): Die Endzeit der aktuellen Farbperiode.
+    current_time (datetime.time): The current time.
+    start_time (datetime.time): The start time of the current color period.
+    end_time (datetime.time): The end time of the current color period.
 
     Returns:
-    float: Das Übergangsverhältnis zwischen 0 und 1.
+    float: The transition ratio between 0 and 1.
     """
-    # Aktuelles Datum für die Zeitstempelberechnung verwenden
+    # Use the current date for timestamp calculation
     today = datetime.datetime.now().date()
 
-    # Zeitstempel für den Beginn und das Ende der aktuellen Periode berechnen
+    # Calculate timestamps for the start and end of the current period
     start_timestamp = datetime.datetime.combine(today, start_time).timestamp()
     end_timestamp = datetime.datetime.combine(today, end_time).timestamp()
 
-    # Aktuellen Zeitstempel berechnen
+    # Calculate the current timestamp
     current_timestamp = datetime.datetime.combine(today, current_time).timestamp()
 
-    # Übergangsverhältnis berechnen
+    # Calculate the transition ratio
     transition_duration = end_timestamp - start_timestamp
     time_since_start = current_timestamp - start_timestamp
 
-    # Verhältnis als Anteil der vergangenen Zeit an der gesamten Übergangsdauer
+    # Ratio as the proportion of time elapsed in the total transition duration
     return time_since_start / transition_duration
 
 
