@@ -107,9 +107,11 @@ redirect_domain_mappings:
 - { source: "bbb.{{top_domain}}", target: "meet.{{top_domain}}" }
 - { source: "short.{{top_domain}}", target: "s.{{top_domain}}" }
 - { source: "mastodon.{{top_domain}}", target: "microblog.{{top_domain}}" }
-- { source: "peertube.{{top_domain}}", target: "videos.{{top_domain}}" }
+- { source: "peertube.{{top_domain}}", target: "video.{{top_domain}}" }
+- { source: "videos.{{top_domain}}", target: "video.{{top_domain}}" }
 - { source: "funkwhale.{{top_domain}}", target: "music.{{top_domain}}" }
-- { source: "pixelfed.{{top_domain}}", target: "pictures.{{top_domain}}" }
+- { source: "pixelfed.{{top_domain}}", target: "picture.{{top_domain}}" }
+- { source: "pictures.{{top_domain}}", target: "picture.{{top_domain}}" }
 - { source: "matrix.{{top_domain}}", target: "chat.{{top_domain}}" }
 
 ## Docker Applications
@@ -130,9 +132,9 @@ domain_matomo:                  "matomo.{{top_domain}}"
 domain_matrix:                  "chat.{{top_domain}}"
 domain_mediawiki:               "wiki.{{top_domain}}"
 domain_nextcloud:               "cloud.{{top_domain}}"
-domain_pixelfed:                "pictures.{{top_domain}}"
+domain_pixelfed:                "picture.{{top_domain}}"
 domains_pixelfed:               []
-domain_peertube:                "videos.{{top_domain}}"
+domain_peertube:                "video.{{top_domain}}"
 domains_peertube:               []
 domain_roulette:                "roulette.{{top_domain}}"
 domain_attendize:               "tickets.{{top_domain}}"
