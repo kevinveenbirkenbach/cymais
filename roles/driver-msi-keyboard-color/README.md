@@ -38,5 +38,8 @@ This role was created by [Kevin Veen-Birkenbach](https://github.com/kevinveenbir
 
 ## Chat Conversation
 
-To see how this role was developed, you can refer to the [Chat Conversation](https://chat.openai.com/share/41c47fdb-a92d-466d-9e92-5a894fe6bec3) that produced this software.
+To see how this role was developed, you can refer to the following ChatGPT Conversation that produced this software:
+- https://chat.openai.com/share/1f1dde28-3fb2-4df7-be89-4f7ffe67e5c7
+- https://chat.openai.com/share/41c47fdb-a92d-466d-9e92-5a894fe6bec3
+- https://chat.openai.com/share/e45d186a-f2e1-4c96-9390-36269e274193
 

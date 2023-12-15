@@ -4,4 +4,4 @@ OnFailure=systemd-notifier@%n.service
 
 [Service]
 Type=oneshot
-ExecStart=/opt/keyboard_color.sh {{ vendor_and_product_id }}
+ExecStart=/bin/python /opt/keyboard_color.py {{ vendor_and_product_id }}

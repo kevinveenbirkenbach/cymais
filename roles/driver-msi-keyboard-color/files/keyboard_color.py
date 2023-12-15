@@ -69,6 +69,10 @@ def calculate_transition_ratio(current_time, start_time, end_time):
     start_timestamp = datetime.datetime.combine(today, start_time).timestamp()
     end_timestamp = datetime.datetime.combine(today, end_time).timestamp()
 
+    # If start and end times are the same, return 0 to indicate no transition
+    if start_timestamp == end_timestamp:
+        return 0
+    
     # Calculate the current timestamp
     current_timestamp = datetime.datetime.combine(today, current_time).timestamp()
 
@@ -107,11 +111,7 @@ def main(vendor_and_product_id):
         "05:00": ("5bc0eb", "ff7f00"),  # Morning Blue to Dawn
         "04:00": ("990000", "5bc0eb"),  # Night to Blue
     }
-
-    # Ensure 24-hour coverage
-    if "00:00" not in color_times:
-        raise ValueError("Time periods must cover the full 24-hour cycle.")
-
+    
     current_time = datetime.datetime.now().time()
     start_color, end_color = get_current_period(current_time, color_times)
 
