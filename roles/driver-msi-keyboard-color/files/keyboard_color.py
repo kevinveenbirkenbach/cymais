@@ -6,14 +6,17 @@ def hex_to_rgb(hex_color):
     return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
 
 def calculate_color(start_color, end_color, ratio):
-    start_r, start_g, start_b = hex_to_rgb(start_color)
-    end_r, end_g, end_b = hex_to_rgb(end_color)
+    start_rgb = hex_to_rgb(start_color)
+    end_rgb = hex_to_rgb(end_color)
+    current_rgb = [round(start + (end - start) * ratio) for start, end in zip(start_rgb, end_rgb)]
+    return ''.join(f"{value:02x}" for value in current_rgb)
 
-    current_r = round(start_r + (end_r - start_r) * ratio)
-    current_g = round(start_g + (end_g - start_g) * ratio)
-    current_b = round(start_b + (end_b - start_b) * ratio)
-
-    return f"{current_r:02x}{current_g:02x}{current_b:02x}"
+def get_time_period(current_time, color_times):
+    for period_start, colors in sorted(color_times.items()):
+        period_start_time = datetime.datetime.strptime(period_start, "%H:%M").time()
+        if current_time < period_start_time:
+            return colors
+    return next(iter(color_times.values()))  # Fallback to first item if no match
 
 def main(vendor_and_product_id):
     color_times = {
@@ -30,23 +33,17 @@ def main(vendor_and_product_id):
     }
 
     current_time = datetime.datetime.now().time()
-    for start_time, (start_color, end_color) in sorted(color_times.items()):
-        start_time_obj = datetime.datetime.strptime(start_time, "%H:%M").time()
-        if current_time >= start_time_obj:
-            break
-
-    next_time, next_colors = next(iter(color_times.items()))
-    next_start_time_obj = datetime.datetime.strptime(next_time, "%H:%M").time()
-
-    start_timestamp = datetime.datetime.combine(datetime.datetime.now().date(), start_time_obj).timestamp()
-    end_timestamp = datetime.datetime.combine(datetime.datetime.now().date(), next_start_time_obj).timestamp()
-    current_timestamp = datetime.datetime.now().timestamp()
+    start_color, end_color = get_time_period(current_time, color_times)
 
     transition_ratio = (current_timestamp - start_timestamp) / (end_timestamp - start_timestamp)
     current_color = calculate_color(start_color, end_color, transition_ratio)
 
     print(f"Changing keyboard color to #{current_color}.")
-    subprocess.run(["msi-perkeyrgb", "--model", "GS65", "-s", current_color, "--id", vendor_and_product_id])
+    try:
+        subprocess.run(["msi-perkeyrgb", "--model", "GS65", "-s", current_color, "--id", vendor_and_product_id], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error setting keyboard color: {e}")
+        exit(1)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
