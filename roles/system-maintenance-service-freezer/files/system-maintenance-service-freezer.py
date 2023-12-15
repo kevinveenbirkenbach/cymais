@@ -109,7 +109,7 @@ def defrost(filtered_services,timeout_sec):
     max_attempts = timeout_sec / break_time_sec
     wait_for_all_services_to_stop(filtered_services, max_attempts, attempt, break_time_sec)
 
-    for service in filtered_services:
+    for service in filtered_services + [f"system-maintenance-service-{action}"]:
         print(f"Unfreezing: {service}")
         if service_file_exists(service, "timer"):
             timer_name = f"{service}.timer"
