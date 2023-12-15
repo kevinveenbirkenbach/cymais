@@ -64,14 +64,16 @@ def manage_timer(service, action):
         raise ValueError("Invalid action specified for manage_timer")
 
     timer_name = f"{service}.timer"
-    subprocess.run(['systemctl', action, timer_name])
-    if action == 'start':
-        subprocess.run(['systemctl', 'enable', timer_name])
-    elif action == 'stop':
-        subprocess.run(['systemctl', 'disable', timer_name])
-
-    print(f"{timer_name} {action}ed and {'enabled' if action == 'start' else 'disabled'}.")
-
+    try:
+        subprocess.run(['systemctl', action, timer_name], check=True)
+        if action == 'start':
+            subprocess.run(['systemctl', 'enable', timer_name], check=True)
+        elif action == 'stop':
+            subprocess.run(['systemctl', 'disable', timer_name], check=True)
+        print(f"{timer_name} {action}ed and {'enabled' if action == 'start' else 'disabled'}.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error managing timer {timer_name}: {e}")
+        exit(1)
 
 def stop_timer(service):
     """
