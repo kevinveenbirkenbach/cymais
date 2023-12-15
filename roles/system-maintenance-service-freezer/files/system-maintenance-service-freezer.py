@@ -55,6 +55,24 @@ def check_any_service_active(services):
     """
     return any(check_service_active(service) for service in services)
 
+def manage_timer(service, action):
+    """
+    Manage a systemd timer for a service.
+    action can be 'start' or 'stop'.
+    """
+    if action not in ['start', 'stop']:
+        raise ValueError("Invalid action specified for manage_timer")
+
+    timer_name = f"{service}.timer"
+    subprocess.run(['systemctl', action, timer_name])
+    if action == 'start':
+        subprocess.run(['systemctl', 'enable', timer_name])
+    elif action == 'stop':
+        subprocess.run(['systemctl', 'disable', timer_name])
+
+    print(f"{timer_name} {action}ed and {'enabled' if action == 'start' else 'disabled'}.")
+
+
 def stop_timer(service):
     """
     Stop and disable a systemd timer for a service if it exists.
@@ -62,12 +80,9 @@ def stop_timer(service):
     if service == f"{FREEZER_SERVICES_PREFIX}defrost":
         print(f"Ignoring {service}. It's the initializer of freezer.")
     if service_file_exists(service, "timer"):
-        timer_name = f"{service}.timer"
-        subprocess.run(['systemctl', 'stop', timer_name])
-        subprocess.run(['systemctl', 'disable', timer_name])
-        print(f"{timer_name} stopped and disabled.")
+        manage_timer(service, 'stop')
     else:
-        print("No timer to stop for service.")
+        print(f"Timer {service}.timer does not exist.")
 
 def filter_services(services, ignored_services):
     """
@@ -107,12 +122,6 @@ def freeze(filtered_services, timeout_sec):
         attempt = wait_for_all_services_to_stop(filtered_services, max_attempts, attempt)
     print("All required services have stopped.")
 
-def start_timer(service):
-    timer_name = f"{service}.timer"
-    subprocess.run(['systemctl', 'start', timer_name])
-    subprocess.run(['systemctl', 'enable', timer_name])
-    print(f"{timer_name} started and enabled.")
-
 def get_max_attempts(timeout_sec):
     return timeout_sec // BREAK_TIME_SECONDS
 
@@ -120,7 +129,7 @@ def defrost(filtered_services,timeout_sec):
     """
     Defrost services by starting and enabling their timers.
     """
-    running_service = f"{FREEZER_SERVICES_PREFIX}{action}"
+    running_service = f"{FREEZER_SERVICES_PREFIX}defrost"
     attempt = 0
     max_attempts = get_max_attempts(timeout_sec)
     try:
@@ -128,13 +137,13 @@ def defrost(filtered_services,timeout_sec):
     except AttemptException as e:
         print(e)
         print("Defrosting was not possible. The execution of other services took to long.")
-        start_timer(running_service)
+        manage_timer(running_service, "stop")
         exit(0)
 
     for service in filtered_services + [running_service]:
         print(f"Unfreezing: {service}")
         if service_file_exists(service, "timer"):
-            start_timer(service)
+            manage_timer(service, "start")
         else:
             print("No timer to activate for service.")
     print("All required services are started.")
