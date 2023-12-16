@@ -239,5 +239,3 @@
   become: true
   roles:
    -  role: nginx-www-redirect
-
-- import_playbook: destructor.yml
