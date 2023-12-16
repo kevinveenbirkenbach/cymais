@@ -1,33 +1,33 @@
 # Server Tact Variables 
 
 ## Ours in which the server is 100% working. Rest of the time is reserved for maintanance
-hours_server_awake: "{{ range(9, 24) | list + range(0, 3) | list }}"
+hours_server_awake: "0..2,9..23"
 
 ## Random delay for systemd timers to avoid peak loads.
 randomized_delay_sec:                         "5min" 
 
 ## Schedule for Health Checks
-on_calendar_health_btrfs:                     "*-*-* 00:00:00" 
-on_calendar_health_journalctl:                "*-*-* 00:00:00"
-on_calendar_health_disc_space:                "*-*-* 06,12,18,00:00:00"
-on_calendar_health_docker_container:          "*-*-* {{ hours_server_awake | join(',') }}:00:00"
-on_calendar_health_docker_volumes:            "*-*-* {{ hours_server_awake | join(',') }}:15:00"
-on_calendar_health_nginx:                     "*-*-* {{ hours_server_awake | join(',') }}:45:00"
+on_calendar_health_btrfs:                     "*-*-* 00:00:00"                        # Check once per day the btrfs for errors
+on_calendar_health_journalctl:                "*-*-* 00:00:00"                        # Check once per day the journalctl for errors
+on_calendar_health_disc_space:                "*-*-* 06,12,18,00:00:00"               # Check four times per day if there is sufficient disc space 
+on_calendar_health_docker_container:          "*-*-* {{ hours_server_awake }}:00:00"  # Check once per hour if the docker containers are healthy
+on_calendar_health_docker_volumes:            "*-*-* {{ hours_server_awake }}:15:00"  # Check once per hour if the docker volumes are healthy
+on_calendar_health_nginx:                     "*-*-* {{ hours_server_awake }}:45:00"
 
 ## Schedule for Cleanup Tasks
-on_calendar_cleanup_backups:                  "*-*-* 06,12,18,00:30:00"
-on_calendar_cleanup_disc_space:               "*-*-* 07,13,19,01:30:00"
+on_calendar_cleanup_backups:                  "*-*-* 00,06,12,18:30:00"               # Cleanup backups every 6 hours, MUST be called before disc space cleanup
+on_calendar_cleanup_disc_space:               "*-*-* 07,13,19,01:30:00"               # Cleanup disc space every 6 hours
 
 ## Schedule for Backup Tasks
 on_calendar_backup_docker_to_local:           "*-*-* 03:30:00"
 on_calendar_backup_remote_to_local:           "*-*-* 21:30:00"
 
 ## Schedule for Maintenance Tasks
-on_calendar_heal_docker:                      "*-*-* {{ hours_server_awake | join(',') }}:30:00"
-on_calendar_defrost:                          "*-*-* *:00,15,30,45:00"
-on_calendar_renew_lets_encrypt_certificates:  "*-*-* 12,00:30:00"
-on_calendar_deploy_mailu_certificates:        "*-*-* 13,01:30:00"
-on_calendar_msi_keyboard_color:               "*-*-* *:*:00"
+on_calendar_heal_docker:                      "*-*-* {{ hours_server_awake }}:30:00"  # Heal unhealthy docker instances once per hour
+on_calendar_defrost:                          "*:0/5"                                 # Defrost every 5min
+on_calendar_renew_lets_encrypt_certificates:  "*-*-* 12,00:30:00"                     # Renew Mailu certificates twice per day
+on_calendar_deploy_mailu_certificates:        "*-*-* 13,01:30:00"                     # Deploy Mailu certificates twice per day
+on_calendar_msi_keyboard_color:               "*-*-* *:*:00"                          # Change the keyboard color every minute
 
 
 # Storage Space-Related Configurations          
