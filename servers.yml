@@ -105,7 +105,6 @@
    -  role: docker-pixelfed
       vars:
         domain: "{{domain_pixelfed}}"
-        domains: "{{ [domain] + domains_pixelfed }}"
         http_port: 8010
 
 - name: setup peertube hosts

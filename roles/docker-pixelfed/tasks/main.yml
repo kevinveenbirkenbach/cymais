@@ -1,10 +1,7 @@
 ---
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
-  loop: "{{ domains }}"
-  loop_control:
-    loop_var: domain
-
+  
 - name: "create {{docker_compose_instance_directory}}"
   file:
     path: "{{docker_compose_instance_directory}}"

@@ -133,7 +133,6 @@ domain_matrix:                  "chat.{{top_domain}}"
 domain_mediawiki:               "wiki.{{top_domain}}"
 domain_nextcloud:               "cloud.{{top_domain}}"
 domain_pixelfed:                "picture.{{top_domain}}"
-domains_pixelfed:               []
 domain_peertube:                "video.{{top_domain}}"
 domains_peertube:               []
 domain_roulette:                "roulette.{{top_domain}}"
