@@ -3,6 +3,12 @@
 ## Overview
 This Ansible role is designed to manage system services through freezing (disabling) and defrosting (enabling) actions. It automates the process of managing crucial system services, especially useful for maintenance tasks like backups, cleanups, and updates.
 
+## Monitoring
+To monitor the sucess of the script and the status of systemctl timers execute:
+
+```bash
+watch -n 2 systemctl list-timers
+```
 
 ## Role Variables
 - `system_maintenance_services`: List of services to be managed by this role.

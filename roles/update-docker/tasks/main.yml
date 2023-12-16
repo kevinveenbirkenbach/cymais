@@ -1,3 +1,9 @@
+- name: "start backup-docker-to-local.service"
+  systemd:
+    name: backup-docker-to-local.service
+    state: started
+  when: force_backup_before_update | bool
+
 - name: create {{update_docker_script}}
   copy:
     src: update-docker.py
