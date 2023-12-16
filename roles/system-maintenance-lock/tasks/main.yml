@@ -1,0 +1,20 @@
+---
+- name: create {{path_system_lock_script}}
+  copy:
+    src: system-maintenance-lock.py
+    dest: "{{path_system_lock_script}}"
+  when: run_once_system-maintenance_lock is not defined
+
+- name: Configure system-maintenance-service for each action
+  template:
+    src: system-maintenance-lock.service.j2
+    dest: "/etc/systemd/system/system-maintenance-lock.service"
+  notify: "reload system-maintenance-lock.service"
+  when: run_once_system-maintenance_lock is not defined
+
+## Runtime Variable Setting
+
+- name: run the system_maintenance_service_freezer tasks once
+  set_fact:
+    run_once_system-maintenance_lock: true
+  when: run_once_system-maintenance_lock is not defined

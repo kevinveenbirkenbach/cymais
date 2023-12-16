@@ -40,7 +40,7 @@ Enhances system security with roles focused on security measures, user configura
 - **[User Alarm](./roles/user-alarm/)**: Manages the alarm user.
 - **[PC SSH](./roles/pc-ssh/)**: Configuration of SSH for secure remote access.
 - **[SSHD](./roles/sshd/)**: Configures SSH daemon settings.
-- **[System Maintenance Service Freezer](./roles/system-maintenance-service-freezer)**: Freezes and defrost maintenance services to prevent dangerous inteactions between services
+- **[System Maintanance Lock](./roles/system-maintenance-lock)**: Locks maintenance services to prevent dangerous inteactions between services
 
 ## Virtual Private Network (VPN)
 Centers on VPN configurations for secure and efficient network connectivity, particularly crucial for remote server access and end-users needing secure connections.

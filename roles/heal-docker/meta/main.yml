@@ -1,2 +1,2 @@
 dependencies:
-  - system-maintenance-service-freezer
+  - system-maintenance-lock

@@ -24,7 +24,6 @@ on_calendar_backup_remote_to_local:           "*-*-* 21:30:00"
 
 ## Schedule for Maintenance Tasks
 on_calendar_heal_docker:                      "*-*-* {{ hours_server_awake }}:30:00"  # Heal unhealthy docker instances once per hour
-on_calendar_defrost:                          "*:0/5"                                 # Defrost every 5min
 on_calendar_renew_lets_encrypt_certificates:  "*-*-* 12,00:30:00"                     # Renew Mailu certificates twice per day
 on_calendar_deploy_mailu_certificates:        "*-*-* 13,01:30:00"                     # Deploy Mailu certificates twice per day
 on_calendar_msi_keyboard_color:               "*-*-* *:*:00"                          # Change the keyboard color every minute
@@ -37,11 +36,11 @@ size_percent_cleanup_disc_space:              90  # Threshold for triggering cle
 
 
 # Path Variables for Key Directories and Scripts
-path_administrator_home:                        "/home/administrator/"
-path_administrator_scripts:                     "{{path_administrator_home}}scripts/"
-path_docker_volumes:                            "{{path_administrator_home}}volumes/docker/"
-path_docker_compose_instances:                  "{{path_administrator_home}}docker-compose/"
-path_system_maintenance_service_freezer_script: "{{path_administrator_scripts}}system-maintenance-service-freezer.py"
+path_administrator_home:        "/home/administrator/"
+path_administrator_scripts:     "{{path_administrator_home}}scripts/"
+path_docker_volumes:            "{{path_administrator_home}}volumes/docker/"
+path_docker_compose_instances:  "{{path_administrator_home}}docker-compose/"
+path_system_lock_script:        "{{path_administrator_scripts}}system-maintenance-lock.py"
 
 
 # Runtime Variables for Process Control
@@ -54,11 +53,10 @@ force_backup_before_update:   true    # Activates the backup before the update p
 # System maintenance Services
 
 ## Timeouts to wait for other services to stop
-system_maintenance_timeout_cleanup_services:  "15min"
-system_maintenance_timeout_backup_services:   "1h"
-system_maintenance_timeout_heal_docker:       "30min"
-system_maintenance_timeout_update_docker:     "5min"
-system_maintenance_timeout_freezer_action:    "2min"
+sytem_maintenance_lock_timeoutcleanup_services:  "15min"
+sytem_maintenance_lock_timeoutbackup_services:   "1h"
+sytem_maintenance_lock_timeoutheal_docker:       "30min"
+sytem_maintenance_lock_timeoutupdate_docker:     "2min"
 
 ## Services
 
@@ -74,10 +72,6 @@ system_maintenance_cleanup_services:
   - "cleanup-disc-space"
   - "cleanup-failed-docker-backups"
 
-### Freeze services (wait until they are finished to be sure that nobody else is doing stuff in the fridge)
-  - "system-maintenance-service-freeze"
-  - "system-maintenance-service-defrost"
-
 ### Services that Manipulate the System
 system_maintenance_manipulation_services:
   - "heal-docker"
@@ -85,10 +79,6 @@ system_maintenance_manipulation_services:
   
 ## Total System Maintenance Services
 system_maintenance_services: "{{ system_maintenance_backup_services + system_maintenance_cleanup_services + system_maintenance_manipulation_services }}"
-
-## First default freezer action to apply when freezer service get triggered during play
-system_maintenance_service_freeze_action: 'freeze'  # Valid Values: freeze, defrost
-
 
 # Webserver Configuration
 
