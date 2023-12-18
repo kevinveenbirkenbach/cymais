@@ -27,6 +27,7 @@ on_calendar_heal_docker:                      "*-*-* {{ hours_server_awake }}:30
 on_calendar_renew_lets_encrypt_certificates:  "*-*-* 12,00:30:00"                     # Renew Mailu certificates twice per day
 on_calendar_deploy_mailu_certificates:        "*-*-* 13,01:30:00"                     # Deploy Mailu certificates twice per day
 on_calendar_msi_keyboard_color:               "*-*-* *:*:00"                          # Change the keyboard color every minute
+on_calendar_cleanup_failed_docker:            "*-*-* 12:00:00"                        # Clean up failed docker backups every noon
 
 
 # Storage Space-Related Configurations          

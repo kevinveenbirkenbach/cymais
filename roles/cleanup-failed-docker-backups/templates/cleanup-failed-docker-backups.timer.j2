@@ -1,0 +1,10 @@
+[Unit]
+Description=starts cleanup-failed-docker-backups.service
+
+[Timer]
+OnCalendar={{on_calendar_cleanup_failed_docker}}
+RandomizedDelaySec={{randomized_delay_sec}}
+Persistent=true
+
+[Install]
+WantedBy=timers.target
