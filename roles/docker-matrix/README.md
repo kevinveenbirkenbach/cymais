@@ -23,7 +23,7 @@ Matrix is an open-source project that provides a protocol for secure, decentrali
 
 - **Create Matrix Users**: 
   ```
-  docker exec -it [Container-ID] register_new_matrix_user -u [Username] -p [Password] -a -c /data/homeserver.yaml http://localhost:8008
+  docker compose exec -it synapse register_new_matrix_user -u [Username] -p [Password] -a -c /data/homeserver.yaml http://localhost:8008
   ```
 - **Execute Docker-Compose Commands**:
   - Restart services: 
