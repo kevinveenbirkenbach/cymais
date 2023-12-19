@@ -29,3 +29,18 @@ public_baseurl:                 "https://{{synapse_domain}}"
 trusted_key_servers:
   - server_name: "matrix.org"
 admin_contact: 'mailto:{{administrator_email}}'
+
+email:
+  smtp_host:                    "{{system_email_host}}"
+  smtp_port:                    "{{system_email_smtp_port}}"
+  smtp_user:                    "{{system_email_username}}"
+  smtp_pass:                    "{{system_email_password}}"
+  #force_tls:                    true
+  #require_transport_security:   true
+  enable_tls:                   "{{ system_email_tls | upper }}"
+  notif_from:                   "Your Friendly %(app)s homeserver <{{system_email}}>"
+  app_name:                     "Matrix on {{top_domain}}"
+  enable_notifs:                true
+  notif_for_new_users:          false
+  client_base_url:              "{{domain_matrix_synapse}}"
+  validation_token_lifetime:    15m

@@ -1,13 +1,17 @@
 # Set default values for all following accounts.
 defaults
 auth           on
+logfile        ~/.msmtp.log
+{% if system_email_tls %}
 tls            on
 tls_trust_file /etc/ssl/certs/ca-certificates.crt
-logfile        ~/.msmtp.log
+{% else %}
+tls            off
+{% endif %}
 
 account        system_email
 host           {{system_email_host}}
-port           {{system_email_port}}
+port           {{system_email_smtp_port}}
 from           {{system_email}}
 user           {{system_email_username}}
 password       {{system_email_password}}
