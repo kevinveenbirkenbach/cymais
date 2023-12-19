@@ -9,7 +9,7 @@ listeners:
       - names: [client, federation]
         compress: false
 database:
-  name: mysql
+  name: psycopg2
   args:
     user: matrix
     password: {{matrix_database_password}}

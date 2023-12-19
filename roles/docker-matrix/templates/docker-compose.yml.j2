@@ -21,21 +21,20 @@ services:
   database:
     logging:
       driver: journald
-    image: mariadb
-    restart: always
-    environment:
-      MYSQL_DATABASE: "matrix"
-      MYSQL_USER: "matrix"
-      MYSQL_PASSWORD: "{{matrix_database_password}}"
-      MYSQL_ROOT_PASSWORD: "{{matrix_database_password}}"
-      MARIADB_AUTO_UPGRADE: "1"
+    image: postgres:16
+    restart: unless-stopped
     volumes:
-      - database:/var/lib/mysql
+      - database:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=matrix
+      - POSTGRES_USER=matrix
+      - POSTGRES_PASSWORD={{matrix_database_password}}
+      - POSTGRES_INITDB_ARGS=--encoding=UTF8 --locale=C
     healthcheck:
-      test: "/usr/bin/mariadb --user=matrix --password={{matrix_database_password}} --execute \"SHOW DATABASES;\""
-      interval: 3s
-      timeout: 1s
-      retries: 5
+      test: ["CMD-SHELL", "pg_isready -U matrix"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
 
   # bridges
   #mautrix-telegram:
