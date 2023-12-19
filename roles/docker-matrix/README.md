@@ -37,7 +37,7 @@ Matrix is an open-source project that provides a protocol for secure, decentrali
 ## Sources
 
 ### Guides
-
+- https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html
 - https://cyberhost.uk/element-matrix-setup/
 - https://www.linode.com/docs/guides/how-to-install-the-element-chat-app/
 - https://hub.docker.com/r/vectorim/element-web
