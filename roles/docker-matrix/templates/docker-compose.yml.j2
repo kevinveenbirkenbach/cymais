@@ -10,12 +10,12 @@ services:
     volumes:
       - synapse_data:/data
       - ./homeserver.yaml:/data/homeserver.yaml:ro
-      - ./{{domain}}.log.config:/data/{{domain}}.log.config:ro
+      - ./{{synapse_domain}}.log.config:/data/{{synapse_domain}}.log.config:ro
     environment:
-      - SYNAPSE_SERVER_NAME={{domain}}
+      - SYNAPSE_SERVER_NAME={{synapse_domain}}
       - SYNAPSE_REPORT_STATS=no
     ports:
-      - "127.0.0.1:{{http_port}}:8008"
+      - "127.0.0.1:{{synapse_http_port}}:8008"
     depends_on:
       - database
   database:
@@ -35,6 +35,13 @@ services:
       interval: 10s
       timeout: 5s
       retries: 6
+  element:
+    image: vectorim/element-web:latest
+    restart: unless-stopped
+    volumes:
+      - ./element-config.json:/app/config.json
+    ports:
+      - "127.0.0.1:{{element_http_port}}:80"
 
   # bridges
   #mautrix-telegram:

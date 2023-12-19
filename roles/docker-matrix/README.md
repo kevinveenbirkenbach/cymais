@@ -34,6 +34,13 @@ Matrix is an open-source project that provides a protocol for secure, decentrali
     ```
     docker-compose logs
     ```
+## Sources
+
+### Guides
+
+- https://cyberhost.uk/element-matrix-setup/
+- https://www.linode.com/docs/guides/how-to-install-the-element-chat-app/
+- https://hub.docker.com/r/vectorim/element-web
 
 ## Links to ChatGPT Conversations
 

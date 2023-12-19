@@ -103,7 +103,7 @@ redirect_domain_mappings:
 - { source: "funkwhale.{{top_domain}}", target: "music.{{top_domain}}" }
 - { source: "pixelfed.{{top_domain}}", target: "picture.{{top_domain}}" }
 - { source: "pictures.{{top_domain}}", target: "picture.{{top_domain}}" }
-- { source: "matrix.{{top_domain}}", target: "chat.{{top_domain}}" }
+- { source: "element.{{top_domain}}", target: "chat.{{top_domain}}" }
 
 ## Docker Applications
 
@@ -120,7 +120,8 @@ domain_mailu:                   "mail.{{top_domain}}"
 domain_mastodon:                "microblog.{{top_domain}}"
 domains_mastodon_alternates:    []
 domain_matomo:                  "matomo.{{top_domain}}"
-domain_matrix:                  "chat.{{top_domain}}"
+domain_matrix_synapse:          "matrix.{{top_domain}}"
+domain_matrix_element:          "chat.{{top_domain}}"
 domain_mediawiki:               "wiki.{{top_domain}}"
 domain_nextcloud:               "cloud.{{top_domain}}"
 domain_pixelfed:                "picture.{{top_domain}}"
@@ -138,3 +139,5 @@ version_mastodon:   "latest"
 
 ### Role specific configuration
 pixelfed_app_name:  "Pictures"
+
+top_domain:         "localhost"
