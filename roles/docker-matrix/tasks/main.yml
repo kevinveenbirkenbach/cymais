@@ -17,6 +17,18 @@
     state: directory
     mode: 0755
 
+- name: "create {{docker_compose_instance_directory}}mautrix_whatsapp"
+  file:
+    path: "{{docker_compose_instance_directory}}mautrix_whatsapp"
+    state: directory
+    mode: 0755
+
+- name: add whatsapp-bridge-config.yml
+  template: 
+    src:  "whatsapp-bridge-config.yml.j2" 
+    dest: "{{docker_compose_instance_directory}}mautrix_whatsapp/config.yml"
+  notify: recreate matrix
+
 - name: add element-config.json
   template: 
     src:  "element-config.json.j2" 
