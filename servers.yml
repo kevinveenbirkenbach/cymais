@@ -205,10 +205,12 @@
   roles:
    -  role: docker-matrix
       vars:
-        synapse_domain:   "{{domain_matrix_synapse}}"
-        synapse_http_port: 8021
+        domains:
+          - "{{domain_matrix_element}}"
+          - "{{domain_matrix_synapse}}"
         element_domain:   "{{domain_matrix_element}}"
-        element_http_port: 8022
+        synapse_domain:   "{{domain_matrix_synapse}}"
+        http_port: 8021
 
 - name: setup akaunting hosts
   hosts: akaunting

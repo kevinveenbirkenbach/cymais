@@ -1,59 +1,108 @@
 ---
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
-  vars:
-    domain:     "{{synapse_domain}}"
-    http_port:  "{{synapse_http_port}}"
-        
-- name: "include tasks nginx-docker-proxy-domain.yml"
-  include_tasks: nginx-docker-proxy-domain.yml
-  vars:        
-    domain:     "{{element_domain}}"
-    http_port:  "{{element_http_port}}"
+  loop: "{{ domains }}"
+  loop_control:
+    loop_var: domain
 
-- name: "create {{docker_compose_instance_directory}}"
-  file:
-    path: "{{docker_compose_instance_directory}}"
+- name: Clone the git repository
+  git:
+    repo: https://github.com/spantaleev/matrix-docker-ansible-deploy.git
+    dest: "{{ local_repository_directory }}"
+    update: yes
+  delegate_to: localhost
+  become: false
+
+- name: create temporary inventory directory
+  tempfile:
     state: directory
-    mode: 0755
+  register: matrix_inventory_tmp_dir
+  delegate_to: localhost
+  become: false
 
-- name: "create {{docker_compose_instance_directory}}mautrix_whatsapp"
+- name: protect inventory directory
   file:
-    path: "{{docker_compose_instance_directory}}mautrix_whatsapp"
-    state: directory
-    mode: 0755
+    path: "{{ matrix_inventory_tmp_dir.path }}"
+    mode: '0700'  # Nur der Besitzer kann lesen, schreiben und ausführen
+  delegate_to: localhost
+  become: false
 
-- name: add whatsapp-bridge-config.yml
+- name: set the hosts path
+  set_fact:
+    hosts_path: "{{ matrix_inventory_tmp_dir.path }}/hosts.yml"
+
+- name: create hosts.yml
   template: 
-    src:  "whatsapp-bridge-config.yml.j2" 
-    dest: "{{docker_compose_instance_directory}}mautrix_whatsapp/config.yml"
-  notify: recreate matrix
+    src:  "hosts.yml.j2" 
+    dest: "{{hosts_path}}"
+  become: false
+  delegate_to: localhost
 
-- name: add element-config.json
-  template: 
-    src:  "element-config.json.j2" 
-    dest: "{{docker_compose_instance_directory}}element-config.json"
-  notify: recreate matrix
+- name: show variable information
+  debug:
+    msg: "hosts_path: {{hosts_path}}\nmatrix_inventory_tmp_dir:{{ matrix_inventory_tmp_dir }}"
+  when: verbose | bool
 
-- name: add homeserver.yaml
-  template: 
-    src:  "homeserver.yaml.j2" 
-    dest: "{{docker_compose_instance_directory}}homeserver.yaml"
-  notify: recreate matrix
+- name: install requirements
+  local_action: command just roles
+  args:
+    chdir: "{{ local_repository_directory }}"
+  become: false
 
-- name: add log.config
-  template: 
-    src:  "log.config.j2" 
-    dest: "{{docker_compose_instance_directory}}{{synapse_domain}}.log.config"
-  notify: recreate matrix
+#- name: delete inventory directory
+#  file:
+#    path: "{{ matrix_inventory_tmp_dir.path }}"
+#    state: absent
+#  delegate_to: localhost
+#  become: false
+#
 
-# https://github.com/matrix-org/synapse/issues/6303
-- name: set correct folder permissions
-  command:
-    cmd: "docker run --rm --mount type=volume,src=matrix_synapse_data,dst=/data -e SYNAPSE_SERVER_NAME={{synapse_domain}} -e SYNAPSE_REPORT_STATS=no --entrypoint /bin/sh matrixdotorg/synapse:latest -c 'chown -vR 991:991 /data'"
 
-- name: add docker-compose.yml
-  template: 
-    src:  "docker-compose.yml.j2" 
-    dest: "{{docker_compose_instance_directory}}docker-compose.yml"
-  notify: recreate matrix
+
+
+#- name: "create {{docker_compose_instance_directory}}"
+#  file:
+#    path: "{{docker_compose_instance_directory}}"
+#    state: directory
+#    mode: 0755
+#
+#- name: "create {{docker_compose_instance_directory}}mautrix_whatsapp"
+#  file:
+#    path: "{{docker_compose_instance_directory}}mautrix_whatsapp"
+#    state: directory
+#    mode: 0755
+#
+#- name: add whatsapp-bridge-config.yml
+#  template: 
+#    src:  "whatsapp-bridge-config.yml.j2" 
+#    dest: "{{docker_compose_instance_directory}}mautrix_whatsapp/config.yml"
+#  notify: recreate matrix
+#
+#- name: add element-config.json
+#  template: 
+#    src:  "element-config.json.j2" 
+#    dest: "{{docker_compose_instance_directory}}element-config.json"
+#  notify: recreate matrix
+#
+#- name: add homeserver.yaml
+#  template: 
+#    src:  "homeserver.yaml.j2" 
+#    dest: "{{docker_compose_instance_directory}}homeserver.yaml"
+#  notify: recreate matrix
+#
+#- name: add log.config
+#  template: 
+#    src:  "log.config.j2" 
+#    dest: "{{docker_compose_instance_directory}}{{synapse_domain}}.log.config"
+#  notify: recreate matrix
+#
+## https://github.com/matrix-org/synapse/issues/6303
+#- name: set correct folder permissions
+#  command:
+#    cmd: "docker run --rm --mount type=volume,src=matrix_synapse_data,dst=/data -e SYNAPSE_SERVER_NAME={{synapse_domain}} -e SYNAPSE_REPORT_STATS=no --entrypoint /bin/sh matrixdotorg/synapse:latest -c 'chown -vR 991:991 /data'"
+#
+#- name: add docker-compose.yml
+#  template: 
+#    src:  "docker-compose.yml.j2" 
+#    dest: "{{docker_compose_instance_directory}}docker-compose.yml"
+#  notify: recreate matrix

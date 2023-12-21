@@ -1,2 +1,2 @@
 ---
-docker_compose_instance_directory: "{{path_docker_compose_instances}}matrix/"
+local_repository_directory: "{{role_path}}/matrix-docker-ansible-deploy"

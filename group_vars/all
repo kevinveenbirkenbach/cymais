@@ -141,3 +141,6 @@ version_mastodon:   "latest"
 pixelfed_app_name:  "Pictures"
 
 top_domain:         "localhost"
+
+# Prints well formated debug information
+verbose:            false
