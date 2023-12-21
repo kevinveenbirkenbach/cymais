@@ -143,4 +143,8 @@ pixelfed_app_name:  "Pictures"
 top_domain:         "localhost"
 
 # Prints well formated debug information
-verbose:            false
+verbose:                false
+
+# Tags used by the matrix playbook
+# For the initial update use: install-all,ensure-matrix-users-created,start
+matrix_playbook_tags:   "setup-all,start"

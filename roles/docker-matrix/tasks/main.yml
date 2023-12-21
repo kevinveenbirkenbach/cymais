@@ -23,11 +23,13 @@
 - name: protect inventory directory
   file:
     path: "{{ matrix_inventory_tmp_dir.path }}"
-    mode: '0700'  # Nur der Besitzer kann lesen, schreiben und ausführen
+    mode: '0700'
   delegate_to: localhost
   become: false
 
-- name: set the hosts path
+# Host file
+
+- name: set the hosts files path
   set_fact:
     hosts_path: "{{ matrix_inventory_tmp_dir.path }}/hosts.yml"
 
@@ -37,6 +39,31 @@
     dest: "{{hosts_path}}"
   become: false
   delegate_to: localhost
+
+# Vars file
+
+- name: set the vars folder path
+  set_fact:
+    vars_folder_path: "{{ matrix_inventory_tmp_dir.path }}/host_vars/{{inventory_hostname}}/"
+
+- name: create vars directory
+  file:
+    path: "{{vars_folder_path}}"
+    mode: '0700'
+  delegate_to: localhost
+  become: false
+
+- name: set the vars path
+  set_fact:
+    vars_file_path: "{{ vars_folder_path }}vars.yml"
+
+- name: create vars.yml
+  template: 
+    src:  "vars.yml.j2" 
+    dest: "{{vars_file_path}}"
+  become: false
+  delegate_to: localhost
+
 
 - name: show variable information
   debug:
@@ -49,6 +76,12 @@
     chdir: "{{ local_repository_directory }}"
   become: false
 
+- name: play matrix-docker-ansible-deploy
+  local_action: "command ansible-playbook -i {{hosts_path}} {{local_repository_directory}}/setup.yml -vvv --tags={{matrix_playbook_tags}}"
+  become: false
+
+
+  
 #- name: delete inventory directory
 #  file:
 #    path: "{{ matrix_inventory_tmp_dir.path }}"
