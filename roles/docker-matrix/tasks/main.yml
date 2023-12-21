@@ -49,7 +49,8 @@
 - name: create vars directory
   file:
     path: "{{vars_folder_path}}"
-    mode: '0700'
+    state: directory
+    recurse: yes
   delegate_to: localhost
   become: false
 
