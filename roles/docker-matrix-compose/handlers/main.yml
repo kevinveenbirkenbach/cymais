@@ -1,0 +1,8 @@
+---
+- name: recreate matrix
+  command:
+    cmd: docker-compose up -d --force-recreate
+    chdir: "{{docker_compose_instance_directory}}"
+  environment:
+    COMPOSE_HTTP_TIMEOUT: 600
+    DOCKER_CLIENT_TIMEOUT: 600

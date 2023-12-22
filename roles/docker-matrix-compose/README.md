@@ -49,3 +49,6 @@ Matrix is an open-source project that provides a protocol for secure, decentrali
 - https://chat.openai.com/share/11690964-9997-4e44-b63f-3c384a5ddc1d
 - https://chat.openai.com/share/6f537c30-7337-47ed-8c85-19306e0eb74b
 - https://chat.openai.com/share/31974492-2950-4dbc-8a83-edd7e1569bec
+
+##  Alternativ Matrix Setup Role
+An alternativ role to deploy Matrix you will find [here](../docker-matrix-ansible/).

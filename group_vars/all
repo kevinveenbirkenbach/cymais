@@ -144,6 +144,6 @@ top_domain:         "localhost"
 # Prints well formated debug information
 verbose:                false
 
-# Tags used by the matrix playbook
-# For the initial update use: install-all,ensure-matrix-users-created,start
-matrix_playbook_tags:   "setup-all,start"
+# Matrix configuration
+matrix_playbook_tags:   "setup-all,start" # For the initial update use: install-all,ensure-matrix-users-created,start
+matrix_role:            "ansible"         # Role to setup Matrix. Valid values: ansible, compose

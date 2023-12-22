@@ -199,11 +199,11 @@
         domains:  "{{domains_discourse}}"
         http_port: 8020
 
-- name: setup matrix
+- name: setup matrix via ansible
   hosts: matrix
   become: true
   roles:
-   -  role: docker-matrix
+   -  role: docker-matrix-ansible
       vars:
         domains:
           - "{{domain_matrix_element}}"
@@ -211,6 +211,19 @@
         element_domain:   "{{domain_matrix_element}}"
         synapse_domain:   "{{domain_matrix_synapse}}"
         http_port: 8021
+  when: matrix_role == 'ansible'
+
+- name: setup matrix via docker compose
+  hosts: matrix
+  become: true
+  roles:
+   -  role: docker-matrix-compose
+      vars:
+        element_domain:   "{{domain_matrix_element}}"
+        synapse_domain:   "{{domain_matrix_synapse}}"
+        synapse_http_port: 8021
+        element_http_port: 8022
+  when: matrix_role == 'docker'
 
 - name: setup akaunting hosts
   hosts: akaunting
