@@ -8,5 +8,13 @@ Matrix is an open-source project that provides a protocol for secure, decentrali
 
 This software uses https://github.com/spantaleev/matrix-docker-ansible-deploy as a base. 
 
+## DANGER: Manuell deativation and deletion
+Be carefull what you do. This code you can execute:
+```
+systemctl list-units --type=service | grep 'matrix' | awk '{print $1}' | xargs -I {} systemctl disable {} &&
+systemctl list-units --type=service | grep 'matrix' | awk '{print $1}' | xargs -I {} systemctl stop {} &&
+rm -rv /a
+```
+
 ##  Alternativ Matrix Setup Role
 An alternativ role to deploy Matrix you will find [here](../docker-matrix-compose/)
