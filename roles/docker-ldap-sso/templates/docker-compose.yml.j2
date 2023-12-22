@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  openldap:
+    image: osixia/openldap:1.2.4
+    environment:
+      - LDAP_ORGANISATION=MeineFirma
+      - LDAP_DOMAIN=meinefirma.de
+      - LDAP_ADMIN_PASSWORD=admin
+    ports:
+      - "389:389"
+      - "636:636"
+    volumes:
+      - ./ldap:/var/lib/ldap
+      - ./ldap-slapd:/etc/ldap/slapd.d
+
+  keycloak:
+    image: jboss/keycloak:latest
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+      - DB_VENDOR=h2
+    ports:
+      - "8080:8080"
+    depends_on:
+      - openldap
