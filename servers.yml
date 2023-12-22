@@ -204,6 +204,7 @@
   become: true
   roles:
    -  role: docker-matrix-ansible
+      when: matrix_role == 'ansible'
       vars:
         domains:
           - "{{domain_matrix_element}}"
@@ -211,14 +212,13 @@
         element_domain:   "{{domain_matrix_element}}"
         synapse_domain:   "{{domain_matrix_synapse}}"
         http_port: 8021
-        when: matrix_role == 'ansible'
    -  role: docker-matrix-compose
+      when: matrix_role == 'compose'
       vars:
         element_domain:   "{{domain_matrix_element}}"
         synapse_domain:   "{{domain_matrix_synapse}}"
         synapse_http_port: 8021
         element_http_port: 8022
-        when: matrix_role == 'compose'
 
 - name: setup open project instances
   hosts: openproject
