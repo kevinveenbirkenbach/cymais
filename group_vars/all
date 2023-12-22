@@ -1,3 +1,7 @@
+# General
+verbose:      false       # Prints well formated debug information
+top_domain:   "localhost"
+
 # Server Tact Variables 
 
 ## Ours in which the server is 100% working. Rest of the time is reserved for maintanance
@@ -89,21 +93,6 @@ nginx_servers_directory:        "{{nginx_configuration_directory}}servers/"     
 nginx_maps_directory:           "{{nginx_configuration_directory}}maps/"        # Contains mappins
 nginx_upstreams_directory:      "{{nginx_configuration_directory}}upstreams/"   # Contains upstream configurations
 
-# Routing Configurations for Domain Redirections
-redirect_domain_mappings:
-- { source: "nextcloud.{{top_domain}}", target: "cloud.{{top_domain}}" }
-- { source: "gitea.{{top_domain}}", target: "git.{{top_domain}}" }
-- { source: "listmonk.{{top_domain}}", target: "newsletter.{{top_domain}}" }
-- { source: "discourse.{{top_domain}}", target: "forum.{{top_domain}}" }
-- { source: "bbb.{{top_domain}}", target: "meet.{{top_domain}}" }
-- { source: "short.{{top_domain}}", target: "s.{{top_domain}}" }
-- { source: "mastodon.{{top_domain}}", target: "microblog.{{top_domain}}" }
-- { source: "peertube.{{top_domain}}", target: "video.{{top_domain}}" }
-- { source: "videos.{{top_domain}}", target: "video.{{top_domain}}" }
-- { source: "funkwhale.{{top_domain}}", target: "music.{{top_domain}}" }
-- { source: "pixelfed.{{top_domain}}", target: "picture.{{top_domain}}" }
-- { source: "pictures.{{top_domain}}", target: "picture.{{top_domain}}" }
-
 ## Docker Applications
 
 ### Domain Names for Various Services
@@ -129,21 +118,41 @@ domains_peertube:               []
 domain_roulette:                "roulette.{{top_domain}}"
 domain_attendize:               "tickets.{{top_domain}}"
 domain_yourls:                  "s.{{top_domain}}"
+domain_openproject:             "project.{{top_domain}}"
 
-### Software Versions for Specific Applications
-version_nextcloud:  "production"  # Danger: Nextcloud can't skipp major version updates.
-version_mailu:      "2.0"
-version_akaunting:  "latest"
-version_mastodon:   "latest"
+### Docker Role Specific Parameters
 
-### Role specific configuration
-pixelfed_app_name:  "Pictures"
+#### Pixelfed
+pixelfed_app_name:      "Pictures"
 
-top_domain:         "localhost"
-
-# Prints well formated debug information
-verbose:                false
-
-# Matrix configuration
+#### Matrix
 matrix_playbook_tags:   "setup-all,start" # For the initial update use: install-all,ensure-matrix-users-created,start
 matrix_role:            "ansible"         # Role to setup Matrix. Valid values: ansible, compose
+
+#### Mastodon
+version_mastodon:       "latest"
+
+#### Akaunting
+version_akaunting:      "latest"
+
+#### Mailu
+version_mailu:          "2.0"
+
+#### Nextcloud
+version_nextcloud:      "production"  # Danger: Nextcloud can't skipp major version updates.
+
+# Routing Configurations for Domain Redirections
+redirect_domain_mappings:
+- { source: "bbb.{{top_domain}}",         target: "{{domain_bigbluebutton}}" }
+- { source: "discourse.{{top_domain}}",   target: "{{domain_discourse}}" }
+- { source: "funkwhale.{{top_domain}}",   target: "{{domain_funkwhale}}" }
+- { source: "gitea.{{top_domain}}",       target: "{{domain_gitea}}" }
+- { source: "listmonk.{{top_domain}}",    target: "{{domain_listmonk}}" }
+- { source: "mastodon.{{top_domain}}",    target: "{{domain_mastodon}}" }
+- { source: "nextcloud.{{top_domain}}",   target: "{{domain_nextcloud}}" }
+- { source: "openproject.{{top_domain}}", target: "{{domain_openproject}}" }
+- { source: "peertube.{{top_domain}}",    target: "{{domain_peertube}}" }
+- { source: "pictures.{{top_domain}}",    target: "{{domain_pixelfed}}" }
+- { source: "pixelfed.{{top_domain}}",    target: "{{domain_pixelfed}}" }
+- { source: "short.{{top_domain}}",       target: "{{domain_yourls}}" }
+- { source: "videos.{{top_domain}}",      target: "{{domain_peertube}}" }

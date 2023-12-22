@@ -1,12 +1,15 @@
 # Docker Akaunting Setup Guide
 
+## !!!DANGER!!!
+
+**AKAUNTING CONTAINS VERY MUCH PROPERITARY COMPONENTS. IT IS ALMOST IMPOSSIBLE TO USE THIS SOFTWARE FOR FREE IN A PRODUCTIVE ENVIRONMENT. UPDATES MAY BREAK YOUR INSTALLATION. IN THE PAST UPDATES LEADED TO THE REDUCTION OF FREE FEATURES AND INSTEAD THEY BECOME PAYD FEATURES. THIS LEADED TO THAT USERS COULD NOT MAINTAINE THERE COMPANIES IN AKAUNTING ANYMORE**
+
+I recommend to use instead [Open Project](../docker-openproject/) and/or [GNUCash](../pc-gnucash/).
+
+This role still exist in case, that you want to setup Akaunting and you're willing to pay, but I recommend to don't use akaunting.  
+
 ## Introduction
 This guide details the process of setting up Akaunting, a free and online accounting software, using Docker. It's tailored to help you deploy and manage an Akaunting instance efficiently using Docker and Docker Compose.
-
-## Better Alternatives to Akaunting
-
-Due to license issues, bugs and that in the past after an akaunting update your functions get reduced, I recommend the use of other finance software.
-[GNUCASH](https://www.gnucash.org/) offers more functions for SMB's, allows tracking of bank and trading accounts and in combination with Nextcloud it's a very good tool for smal companies to manage there finances.
 
 ## Prerequisites
 - Docker and Docker Compose installed.

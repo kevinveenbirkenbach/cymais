@@ -1,0 +1,2 @@
+repository_directory: "{{ path_docker_compose_instances }}openproject/"
+docker_compose_instance_directory: "{{repository_directory}}compose/"
