@@ -2,18 +2,6 @@
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
 
-- name: register repository_directory_register
-  stat:
-    path: "{{repository_directory}}"
-  register: repository_directory_register
-
-- name: checkout repository 
-  ansible.builtin.shell: git checkout .
-  become: true
-  args:
-    chdir: "{{repository_directory}}"
-  when: repository_directory_register.stat.exists
-
 - name: "backup docker-compose.yml if it exists"
   command: >
     mv "{{ docker_compose_file_path }}" "{{ docker_compose_backup_path }}"
@@ -26,6 +14,7 @@
     repo: "https://github.com/opf/openproject-deploy"
     dest: "{{ repository_directory }}"
     update: yes
+    force: yes
   notify: recreate openproject
   become: true
   register: git_result

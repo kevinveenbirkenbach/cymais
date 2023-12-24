@@ -28,6 +28,7 @@ x-op-app: &app
     IMAP_ENABLED: "${IMAP_ENABLED:-false}"
   volumes:
     - "${OPDATA}:/var/openproject/assets"
+    - "${PGDATA}:/var/openproject/pgdata"
 
 services:
   db:
@@ -60,7 +61,10 @@ services:
       - web
     networks:
       - frontend
-
+    volumes:
+      - "${OPDATA}:/var/openproject/assets"
+      - "${PGDATA}:/var/openproject/pgdata"
+  
   web:
     <<: *app
     command: "./docker/prod/web"
