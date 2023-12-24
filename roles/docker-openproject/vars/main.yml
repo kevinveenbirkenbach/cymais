@@ -1,2 +1,4 @@
 repository_directory: "{{ path_docker_compose_instances }}openproject/"
 docker_compose_instance_directory: "{{repository_directory}}compose/"
+docker_compose_file_path: "{{docker_compose_instance_directory}}docker-compose.yml"
+docker_compose_backup_path: "/tmp/openproject-docker-compose-backup.yml"
