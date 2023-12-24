@@ -64,7 +64,8 @@ for filtered_failed_docker_compose_repository in filtered_failed_docker_compose_
     
     if compose_file_path:
         print("Restarting unhealthy container in:", compose_file_path)
-        print_bash(f'cd {os.path.dirname(compose_file_path)} && docker-compose restart')
+        # Propably the cd is not necessary. But in rare cases it could be. To lazzy to test it now.
+        print_bash(f'cd {os.path.dirname(compose_file_path)} && docker-compose -p "{filtered_failed_docker_compose_repository}" restart')
     else:
         print("Error: Docker Compose file not found for:", filtered_failed_docker_compose_repository)
         errors += 1
