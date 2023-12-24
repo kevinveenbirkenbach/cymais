@@ -4,6 +4,9 @@
 #
 import subprocess
 import time
+import os
+
+errors = 0
 
 def bash(command):
     print(command)
@@ -25,6 +28,13 @@ def print_bash(command):
     output = bash(command)
     print(list_to_string(output))
     return output
+
+def find_docker_compose_file(directory):
+    for root, _, files in os.walk(directory):
+        for file in files:
+            if file == 'docker-compose.yml':
+                return os.path.join(root, file)
+    return None
 
 waiting_time=600
 blocker_running=True
@@ -48,8 +58,16 @@ for failed_container in failed_containers:
     unfiltered_failed_docker_compose_repositories.append(failed_container.split('-')[0])
 
 filtered_failed_docker_compose_repositories=list(dict.fromkeys(unfiltered_failed_docker_compose_repositories))
+
 for filtered_failed_docker_compose_repository in filtered_failed_docker_compose_repositories:
-    print("restarting unhealthy container: " + filtered_failed_docker_compose_repository)
-    print_bash('cd /home/administrator/docker-compose/' + filtered_failed_docker_compose_repository + '/ && docker-compose restart')
+    compose_file_path = find_docker_compose_file('/home/administrator/docker-compose/' + filtered_failed_docker_compose_repository)
+    
+    if compose_file_path:
+        print("Restarting unhealthy container in:", compose_file_path)
+        print_bash(f'cd {os.path.dirname(compose_file_path)} && docker-compose restart')
+    else:
+        print("Error: Docker Compose file not found for:", filtered_failed_docker_compose_repository)
+        errors += 1
 
 print("finished restart procedure.")
+exit(errors)
