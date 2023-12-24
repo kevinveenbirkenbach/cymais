@@ -10,7 +10,7 @@ anonymous_volumes=$(docker volume ls --format "{{.Name}}" | grep -E '^[a-f0-9]{6
 
 if [ -z "$anonymous_volumes" ]; then
     echo "No anonymous volumes found."
-    exit $status
+    exit
 fi
 
 echo "Anonymous volumes found:"
@@ -40,5 +40,13 @@ for volume in $anonymous_volumes; do
         fi
     done
 done
+
+# Additional warning for dangling volumes
+dangling_volumes=$(docker volume ls -f dangling=true --format "{{.Name}}")
+if [ -n "$dangling_volumes" ]; then
+    status=2
+    echo "The following dangling volumes were found:"
+    echo "$dangling_volumes"
+fi
 
 exit $status
