@@ -27,7 +27,7 @@ x-op-app: &app
     # set to true to enable the email receiving feature. See ./docker/cron for more options
     IMAP_ENABLED: "${IMAP_ENABLED:-false}"
   volumes:
-    - "${OPDATA:-opdata}:/var/openproject/assets"
+    - "${OPDATA}:/var/openproject/assets"
 
 services:
   db:
@@ -35,9 +35,9 @@ services:
     <<: *restart_policy
     stop_grace_period: "3s"
     volumes:
-      - "${PGDATA:-pgdata}:/var/lib/postgresql/data"
+      - "${PGDATA}:/var/lib/postgresql/data"
     environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-p4ssw0rd}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: openproject
     networks:
       - backend
