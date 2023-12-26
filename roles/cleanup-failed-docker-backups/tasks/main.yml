@@ -19,11 +19,6 @@
   notify: reload cleanup-failed-docker-backups.service daemon
   when: run_once_cleanup_failed_docker_backups is not defined
 
-- name: run the cleanup_failed_docker_backups tasks once
-  set_fact:
-    run_once_cleanup_failed_docker_backups: true
-  when: run_once_cleanup_failed_docker_backups is not defined
-
 - name: create cleanup-failed-docker-backups.timer
   template:
     src: cleanup-failed-docker-backups.timer.j2
@@ -31,3 +26,9 @@
   register: cleanup_failed_docker_backups_timer
   changed_when: cleanup_failed_docker_backups_timer.changed or activate_all_timers | bool
   notify: restart cleanup-failed-docker-backups.timer
+  when: run_once_cleanup_failed_docker_backups is not defined
+
+- name: run the cleanup_failed_docker_backups tasks once
+  set_fact:
+    run_once_cleanup_failed_docker_backups: true
+  when: run_once_cleanup_failed_docker_backups is not defined
