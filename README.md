@@ -1,5 +1,4 @@
 # CyMaIS - Cyber Master Infrastructure Solution
-[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
 <img src="https://cybermaster.space/wp-content/uploads/sites/7/2023/12/logo_cymais.png" width="300" style="float: right; margin-left: 10px;">
 
@@ -78,4 +77,4 @@ The following list showcases the extensive range of solutions that CyMaIS incorp
 
 ## License
 
-This project is licensed under the GNU Affero General Public License v3.0. The full license text is available in the [LICENSE file](./LICENSE.txt) of this repository. 
+This project is licensed from Kevin Veen-Birkenbach. The full license is available in the [LICENSE.md](./LICENSE.md) of this repository. 

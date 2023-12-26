@@ -28,8 +28,5 @@ An example of how to use this role in your playbook:
     - pc-gnucash
 ```
 
-## License
-This playbook is licensed under the terms of the [GNU Affero General Public License v3.0](https://www.gnu.org/licenses/agpl-3.0).
-
 ## Author Information
 This role was created by [Kevin Veen-Birkenbach](https://cybermaster.space).

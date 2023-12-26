@@ -32,10 +32,6 @@ The following variables can be customized in the role's `vars/main.yml` file:
 
 To use this role, include it as a dependency in your playbook or role that requires email notifications. Ensure that the `systemd-notifier-email` role is correctly referenced and configured.
 
-## License
-
-This Ansible role is licensed under the AGPL v3 License. See the LICENSE file for the full license text.
-
 ## Contact Information
 
 For any questions or feedback, please contact the author:

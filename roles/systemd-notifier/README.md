@@ -13,10 +13,6 @@ Features include:
 
 This role was created as part of a conversation with OpenAI's ChatGPT and can be found [here](https://chat.openai.com/share/96e4ca12-0888-41c0-9cfc-29c0180f0dba).
 
-## License
-
-This Ansible role is licensed under the AGPL v3 License. See the LICENSE file for the full license text.
-
 ## Role Dependencies
 
 This role has the following dependencies:

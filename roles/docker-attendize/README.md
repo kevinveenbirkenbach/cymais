@@ -7,7 +7,3 @@ This Ansible role sets up Attendize, an open-source ticket selling and event man
 ```bash
 bash ./Makefile setup
 ```
-
-## Author and License
-
-This role was created by Kevin Veen-Birkenbach (kevin@veen.world) and is distributed under the AGPL v3 License.

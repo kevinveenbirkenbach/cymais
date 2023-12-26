@@ -99,10 +99,6 @@ For more details, visit the [Akaunting Docker Repository](https://github.com/aka
 
 Your contributions and feedback are welcome. Please reach out for support or queries at kevin@veen.world.
 
-## License
-
-This project is licensed under the GNU Affero General Public License v3.0.
-
 ## Author
 
 This script is developed by Kevin Veen-Birkenbach. You can reach out to him at kevin@veen.world or visit his website at https://www.veen.world.

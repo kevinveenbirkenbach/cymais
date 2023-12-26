@@ -12,10 +12,6 @@ An Ansible Role that installs `caffeine-ng` on Archlinux systems and sets it to 
 
 None.
 
-## License
-
-AGPL 3
-
 ## Author
 
 Kevin Veen-Birkenbach - kevin@veen.world - https://www.veen.world/
