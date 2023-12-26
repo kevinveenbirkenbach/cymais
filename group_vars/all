@@ -127,7 +127,7 @@ pixelfed_app_name:      "Pictures"
 
 #### Matrix
 matrix_playbook_tags:   "setup-all,start" # For the initial update use: install-all,ensure-matrix-users-created,start
-matrix_role:            "ansible"         # Role to setup Matrix. Valid values: ansible, compose
+matrix_role:            "compose"         # Role to setup Matrix. Valid values: ansible, compose
 
 #### Mastodon
 version_mastodon:       "latest"
