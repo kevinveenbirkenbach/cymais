@@ -34,10 +34,15 @@
   notify: restart backup-docker-to-local.timer
   when: run_once_backup_docker_to_local is not defined
 
-- name: create {{backup_docker_to_local_folder}}databases.csv
-  copy:
-    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}{{backup_docker_to_local_folder}}databases.csv"
-    dest: "{{backup_docker_to_local_folder}}databases.csv"
+- name: seed database values
+  command:
+    cmd: "python database_entry_seeder.py databases.csv {{database_instance}} {{database_host}} {{database_databasename}} {{database_username}} {{database_password}}"
+    chdir: "{{backup_docker_to_local_folder}}"
+
+- name: Set file permissions for databases.csv to be readable, writable, and executable by root only
+  ansible.builtin.file:
+    path: "{{ backup_docker_to_local_folder }}databases.csv"
+    mode: '0700'
     owner: root
     group: root
   when: run_once_backup_docker_to_local is not defined

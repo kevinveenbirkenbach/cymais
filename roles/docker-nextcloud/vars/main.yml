@@ -1,2 +1,7 @@
 ---
 docker_compose_instance_directory: "{{path_docker_compose_instances}}nextcloud/"
+database_instance:  	"nextcloud"
+database_host:      	"database"
+database_databasename:  "{{database_instance}}"
+database_username:  	"{{database_instance}}"
+database_password:  	"{{nextcloud_database_password}}"

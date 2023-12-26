@@ -6,10 +6,10 @@ services:
     logging:
       driver: journald
     environment:
-      JOOMLA_DB_HOST: "database:3306"
-      JOOMLA_DB_USER: "joomla"
-      JOOMLA_DB_PASSWORD: "{{joomla_database_password}}"
-      JOOMLA_DB_NAME: "joomla"
+      JOOMLA_DB_HOST: "{{database_host}}:3306"
+      JOOMLA_DB_USER: "{{database_username}}"
+      JOOMLA_DB_PASSWORD: "{{database_password}}"
+      JOOMLA_DB_NAME: "{{database_databasename}}"
     restart: always
     links:
       - database
@@ -17,19 +17,9 @@ services:
       - data:/var/www/html
     ports:
       - "127.0.0.1:{{http_port}}:80"
-  database:
-    image: mariadb
-    logging:
-      driver: journald
-    environment:
-      MYSQL_DATABASE: "joomla"
-      MYSQL_USER: "joomla"
-      MYSQL_PASSWORD: "{{joomla_database_password}}"
-      MYSQL_ROOT_PASSWORD: "{{joomla_database_password}}"
-      MARIADB_AUTO_UPGRADE: "1"
-    volumes:
-      - database:/var/lib/mysql
-    restart: always
+
+{% include 'templates/docker-mariadb-service.yml.j2' %}
+
 volumes:
   database:
   data:

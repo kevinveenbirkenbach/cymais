@@ -24,24 +24,9 @@ services:
     volumes:
       - .:/usr/share/nginx/html
       - .:/var/www
-  database:
-    logging:
-      driver: journald
-    image: mariadb
-    restart: always
-    environment:
-      MYSQL_DATABASE: "attendize"
-      MYSQL_USER: "attendize"
-      MYSQL_PASSWORD: "{{attendize_database_password}}"
-      MYSQL_ROOT_PASSWORD: "{{attendize_database_password}}"
-      MARIADB_AUTO_UPGRADE: "1"
-    volumes:
-      - database:/var/lib/mysql
-    healthcheck:
-      test: "/usr/bin/mariadb --user=attendize --password={{attendize_database_password}} --execute \"SHOW DATABASES;\""
-      interval: 3s
-      timeout: 1s
-      retries: 5
+
+{% include 'templates/docker-mariadb-service.yml.j2' %}
+  
   maildev:
     image: maildev/maildev
     ports:

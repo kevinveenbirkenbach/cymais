@@ -11,34 +11,19 @@ services:
     ports:
       - "127.0.0.1:{{http_port}}:80"
     environment:
-      WORDPRESS_DB_HOST:      database:3306
-      WORDPRESS_DB_USER:      "wordpress"
-      WORDPRESS_DB_PASSWORD:  "{{wordpress_database_password}}"
-      WORDPRESS_DB_NAME:      "wordpress"
+      WORDPRESS_DB_HOST:      "{{database_host}}:3306"
+      WORDPRESS_DB_USER:      "{{database_username}}"
+      WORDPRESS_DB_PASSWORD:  "{{database_password}}"
+      WORDPRESS_DB_NAME:      "{{database_databasename}}"
     links:
       - database
     volumes:
       - data:/var/www/html
     depends_on:
       - database
-  database:
-    logging:
-      driver: journald
-    image: mariadb
-    restart: always
-    environment:
-      MYSQL_DATABASE: "wordpress"
-      MYSQL_USER: "wordpress"
-      MYSQL_PASSWORD: "{{wordpress_database_password}}"
-      MYSQL_ROOT_PASSWORD: "{{wordpress_database_password}}"
-      MARIADB_AUTO_UPGRADE: "1"
-    volumes:
-      - database:/var/lib/mysql
-    healthcheck:
-      test: "/usr/bin/mariadb --user=wordpress --password={{wordpress_database_password}} --execute \"SHOW DATABASES;\""
-      interval: 3s
-      timeout: 1s
-      retries: 5
+
+{% include 'templates/docker-mariadb-service.yml.j2' %}
+
 volumes:
   database:
   data:

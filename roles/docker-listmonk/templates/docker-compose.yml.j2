@@ -1,35 +1,22 @@
 version: "3.7"
 
-x-application-defaults: &application-defaults
-  restart: unless-stopped
-  image: listmonk/listmonk:latest
-  ports:
-    - "127.0.0.1:{{http_port}}:9000"
-  networks:
-    - listmonk
-  environment:
-    - TZ=Etc/UTC
-
-x-database-defaults: &database-defaults
-  image: postgres:13-alpine
-  ports:
-    - "9432:5432"
-  networks:
-    - listmonk
-  environment:
-    - POSTGRES_PASSWORD={{listmonk_database_password}}
-    - POSTGRES_USER=listmonk
-    - POSTGRES_DB=listmonk
-  restart: unless-stopped
-  healthcheck:
-    test: ["CMD-SHELL", "pg_isready -U listmonk"]
-    interval: 10s
-    timeout: 5s
-    retries: 6
-
 services:
   database:
-    <<: *database-defaults
+    image: postgres:13-alpine
+    ports:
+      - "9432:5432"
+    networks:
+      - listmonk
+    environment:
+      - POSTGRES_PASSWORD={{database_password}}
+      - POSTGRES_USER={{database_username}}
+      - POSTGRES_DB={{database_databasename}}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U {{database_username}}"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
     container_name: database
     volumes:
       - type: volume
@@ -37,7 +24,14 @@ services:
         target: /var/lib/postgresql/data
 
   application:
-    <<: *application-defaults
+    restart: unless-stopped
+    image: listmonk/listmonk:latest
+    ports:
+      - "127.0.0.1:{{http_port}}:9000"
+    networks:
+      - listmonk
+    environment:
+      - TZ=Etc/UTC
     container_name: listmonk_application
     depends_on:
       - database

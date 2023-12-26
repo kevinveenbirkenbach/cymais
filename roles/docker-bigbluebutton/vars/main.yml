@@ -1,1 +1,6 @@
 docker_compose_instance_directory: "{{path_docker_compose_instances}}bigbluebutton/"
+database_instance:      "bigbluebutton"
+database_host:          "postgres"
+database_databasename:  "greenlight-v3"
+database_username:  	  "postgres"
+database_password:  	  ""

@@ -11,26 +11,26 @@ services:
     volumes:
       - data:/var/www/html
     environment:
-      MYSQL_DATABASE: "nextcloud"
-      MYSQL_USER: "nextcloud"
-      MYSQL_PASSWORD: "{{nextcloud_database_password}}"
-      MYSQL_HOST: database:3306
+      MYSQL_DATABASE: "{{database_databasename}}"
+      MYSQL_USER: "{{database_username}}"
+      MYSQL_PASSWORD: "{{database_password}}"
+      MYSQL_HOST: {{database_host}}:3306
   database:
     logging:
       driver: journald
     image: mariadb:10.5
     command: "--transaction-isolation=READ-COMMITTED --binlog-format=ROW"
     environment:
-      MYSQL_DATABASE: "nextcloud"
-      MYSQL_USER: "nextcloud"
-      MYSQL_PASSWORD: "{{nextcloud_database_password}}"
-      MYSQL_ROOT_PASSWORD: "{{nextcloud_database_password}}"
+      MYSQL_DATABASE: "{{database_databasename}}"
+      MYSQL_USER: "{{database_username}}"
+      MYSQL_PASSWORD: "{{database_password}}"
+      MYSQL_ROOT_PASSWORD: "{{database_password}}"
       MARIADB_AUTO_UPGRADE: "1"
     volumes:
       - database:/var/lib/mysql
     restart: always
     healthcheck:
-      test: "/usr/bin/mariadb --user=nextcloud --password={{nextcloud_database_password}} --execute \"SHOW DATABASES;\""
+      test: "/usr/bin/mariadb --user={{database_username}} --password={{database_password}} --execute \"SHOW DATABASES;\""
       interval: 3s
       timeout: 1s
       retries: 5

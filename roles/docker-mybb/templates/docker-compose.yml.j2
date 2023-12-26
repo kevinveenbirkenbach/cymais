@@ -25,24 +25,9 @@ services:
     volumes:
     - "{{docker_compose_instance_confd_directory}}:{{target_mount_conf_d_directory}}:ro"
     - "data:/var/www/html:ro"
-  database:
-    logging:
-      driver: journald
-    image: mariadb
-    restart: always
-    environment:
-      MYSQL_DATABASE: "mybb"
-      MYSQL_USER: "mybb"
-      MYSQL_PASSWORD: "{{mybb_database_password}}"
-      MYSQL_ROOT_PASSWORD: "{{mybb_database_password}}"
-      MARIADB_AUTO_UPGRADE: "1"
-    volumes:
-      - database:/var/lib/mysql
-    healthcheck:
-      test: "/usr/bin/mariadb --user=mybb --password={{mybb_database_password}} --execute \"SHOW DATABASES;\""
-      interval: 3s
-      timeout: 1s
-      retries: 5
+
+{% include 'templates/docker-mariadb-service.yml.j2' %}
+
 volumes:
   database:
   data:

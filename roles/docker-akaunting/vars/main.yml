@@ -1,1 +1,6 @@
 docker_compose_instance_directory: "{{path_docker_compose_instances}}akaunting/"
+database_instance:  "akaunting"
+database_host:      "akaunting-db"
+database_databasename:  "{{database_instance}}"
+database_username:  "admin"
+database_password:  "{{akaunting_database_password}}"

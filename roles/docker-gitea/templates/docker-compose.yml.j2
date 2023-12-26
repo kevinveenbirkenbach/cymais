@@ -10,10 +10,10 @@ services:
       - USER_UID=1000
       - USER_GID=1000
       - DB_TYPE=mysql
-      - DB_HOST=database:3306
-      - DB_NAME=gitea
-      - DB_USER=gitea
-      - DB_PASSWD={{gitea_database_password}}
+      - DB_HOST={{database_host}}:3306
+      - DB_NAME={{database_databasename}}
+      - DB_USER={{database_username}}
+      - DB_PASSWD={{database_password}}
       - SSH_PORT={{ssh_port}}
       - SSH_LISTEN_PORT=22
       - DOMAIN={{domain}}
@@ -31,24 +31,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     depends_on:
       - database
-  database:
-    logging:
-      driver: journald
-    image: mariadb
-    restart: always
-    environment:
-      MYSQL_DATABASE: "gitea"
-      MYSQL_USER: "gitea"
-      MYSQL_PASSWORD: "{{gitea_database_password}}"
-      MYSQL_ROOT_PASSWORD: "{{gitea_database_password}}"
-      MARIADB_AUTO_UPGRADE: "1"
-    volumes:
-      - database:/var/lib/mysql
-    healthcheck:
-      test: "/usr/bin/mariadb --user=gitea --password={{gitea_database_password}} --execute \"SHOW DATABASES;\""
-      interval: 3s
-      timeout: 1s
-      retries: 5
+{% include 'templates/docker-mariadb-service.yml.j2' %}
 volumes:
   database:
   data:

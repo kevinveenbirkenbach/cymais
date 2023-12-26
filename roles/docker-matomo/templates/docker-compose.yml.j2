@@ -9,35 +9,20 @@ services:
     ports:
       - "127.0.0.1:{{http_port}}:80"
     environment:
-      MATOMO_DATABASE_HOST: "database:3306"
+      MATOMO_DATABASE_HOST: "{{database_host}}:3306"
       MATOMO_DATABASE_ADAPTER: "mysql"
-      MATOMO_DATABASE_USERNAME: "matomo"
-      MATOMO_DATABASE_PASSWORD: "{{matomo_database_password}}"
-      MATOMO_DATABASE_DBNAME: "matomo"
+      MATOMO_DATABASE_USERNAME: "{{database_username}}"
+      MATOMO_DATABASE_PASSWORD: "{{database_password}}"
+      MATOMO_DATABASE_DBNAME: "{{database_databasename}}"
     links:
       - database
     depends_on:
       - database
     volumes:
       - data:/var/www/html
-  database:
-    logging:
-      driver: journald
-    image: mariadb
-    restart: always
-    environment:
-      MYSQL_DATABASE: "matomo"
-      MYSQL_USER: "matomo"
-      MYSQL_PASSWORD: "{{matomo_database_password}}"
-      MYSQL_ROOT_PASSWORD: "{{matomo_database_password}}"
-      MARIADB_AUTO_UPGRADE: "1"
-    volumes:
-      - database:/var/lib/mysql
-    healthcheck:
-      test: "/usr/bin/mariadb --user=matomo --password={{matomo_database_password}} --execute \"SHOW DATABASES;\""
-      interval: 3s
-      timeout: 1s
-      retries: 5
+
+{% include 'templates/docker-mariadb-service.yml.j2' %}
+
 volumes:
   database:
   data:

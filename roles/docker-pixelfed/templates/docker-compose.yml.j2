@@ -38,20 +38,9 @@ services:
       interval: 60s
       timeout: 5s
       retries: 1
-  database:
-    logging:
-      driver: journald
-    image: mariadb
-    restart: always
-    env_file:
-      - ./env
-    volumes:
-      - database:/var/lib/mysql
-    healthcheck:
-      test: "/usr/bin/mariadb --user=pixelfed --password={{pixelfed_database_password}} --execute \"SHOW DATABASES;\""
-      interval: 3s
-      timeout: 1s
-      retries: 5
+
+{% include 'templates/docker-mariadb-service.yml.j2' %}
+
   redis:
     image: redis:alpine
     restart: always

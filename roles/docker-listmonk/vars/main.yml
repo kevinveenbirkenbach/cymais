@@ -1,1 +1,6 @@
 docker_compose_instance_directory: "{{path_docker_compose_instances}}listmonk/"
+database_instance:  	"listmonk"
+database_host:      	"database"
+database_databasename:  "{{database_instance}}"
+database_username:  	"{{database_instance}}"
+database_password:  	"{{listmonk_database_password}}"
