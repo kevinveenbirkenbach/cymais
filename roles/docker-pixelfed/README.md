@@ -93,7 +93,7 @@ docker-compose exec -u "www-data" application php artisan schedule:run
 For a hard reset, which will delete all data and stop all services, use the following commands:
 ```bash
 docker-compose down
-docker volume rm pixelfed_application_data pixelfed_database pixelfed_redis_data
+docker volume rm pixelfed_application_data pixelfed_database pixelfed_redis
 ```
 
 ## Update Procedure

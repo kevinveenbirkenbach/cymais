@@ -2,20 +2,9 @@ version: '2.2'
 
 services:
 
-  # External dependencies
-  redis:
-    image: redis:alpine
-    restart: always
+{% include 'templates/docker-redis-service.yml.j2' %}
+
     env_file: mailu.env
-    volumes:
-      - "redis_data:/data"
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 1s
-      timeout: 3s
-      retries: 30
-    logging:
-      driver: journald
     depends_on:
       - resolver
     dns:
@@ -223,7 +212,7 @@ volumes:
   filter:
   dkim:
   dovecot_mail:
-  redis_data:
+  redis:
 networks:
   default:
     driver: bridge

@@ -41,20 +41,10 @@ services:
 
 {% include 'templates/docker-mariadb-service.yml.j2' %}
 
-  redis:
-    image: redis:alpine
-    restart: always
-    logging:
-      driver: journald
-    volumes:
-      - redis_data:/data
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 1s
-      timeout: 3s
-      retries: 30
+{% include 'templates/docker-redis-service.yml.j2' %}
+
 volumes:
   database:
-  redis_data:
+  redis:
   application_data:
   bootstrap:

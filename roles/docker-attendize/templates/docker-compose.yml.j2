@@ -31,7 +31,9 @@ services:
     image: maildev/maildev
     ports:
       - "{{ mail_interface_http_port }}:1080"
-  redis:
-    image: redis
+
+{% include 'templates/docker-redis-service.yml.j2' %}
+
 volumes:
   database:
+  redis:

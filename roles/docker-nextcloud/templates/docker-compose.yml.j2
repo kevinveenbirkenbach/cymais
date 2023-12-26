@@ -47,18 +47,9 @@ services:
         - "{{path_docker_volumes}}nextcloud/nginx.conf:/etc/nginx/nginx.conf:ro"
     volumes_from:
       - application
-  redis:
-    image: redis:alpine
-    restart: always
-    logging:
-      driver: journald
-    volumes:
-      - redis:/data
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 1s
-      timeout: 3s
-      retries: 30
+
+{% include 'templates/docker-redis-service.yml.j2' %}
+
   cron:
     image: "nextcloud:{{version_nextcloud}}-fpm-alpine"
     restart: always

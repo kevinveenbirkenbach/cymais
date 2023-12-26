@@ -14,17 +14,12 @@ services:
       - 'POSTGRES_HOST_AUTH_METHOD=trust'
     logging:
       driver: journald
-  redis:
-    restart: always
-    image: redis:7-alpine
+
+{% include 'templates/docker-redis-service.yml.j2' %}
+
     networks:
       - internal_network
-    healthcheck:
-      test: ['CMD', 'redis-cli', 'ping']
-    volumes:
-      - redis:/data
-    logging:
-      driver: journald
+
   web:
     image: tootsuite/mastodon:{{version_mastodon}}
     restart: always

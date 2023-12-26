@@ -28,11 +28,9 @@ services:
       interval: 10s
       timeout: 5s
       retries: 6
-  redis:
-    image: redis:alpine
-    volumes:
-      - redis:/data
-    restart: "always"
+
+{% include 'templates/docker-redis-service.yml.j2' %}
+
     env_file:
       - .env
 volumes:
