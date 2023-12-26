@@ -21,7 +21,8 @@ services:
     dns:
       - 192.168.203.254
 
-{% include 'templates/docker-mariadb-service.yml.j2' %}  
+{% include 'templates/docker-mariadb-service.yml.j2' %}
+
     depends_on:
       - resolver
     dns:

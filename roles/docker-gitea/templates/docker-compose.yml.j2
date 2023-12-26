@@ -31,7 +31,9 @@ services:
       - /etc/localtime:/etc/localtime:ro
     depends_on:
       - database
+
 {% include 'templates/docker-mariadb-service.yml.j2' %}
+
 volumes:
   database:
   data:

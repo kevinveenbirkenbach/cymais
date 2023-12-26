@@ -1,7 +1,7 @@
 docker_compose_instance_directory: "{{path_docker_compose_instances}}pixelfed/"
 nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size 512M;"
 database_instance:  "pixelfed"
-database_host:      "{{database_instance}}"
+database_host:      "database"
 database_databasename:  "{{database_instance}}"
 database_username:  "{{database_instance}}"
 database_password:  "{{pixelfed_database_password}}"
