@@ -104,6 +104,7 @@ domain_elk:                     "elk.{{top_domain}}"
 domain_discourse:               "forum.{{top_domain}}"
 domain_funkwhale:               "music.{{top_domain}}"
 domain_gitea:                   "git.{{top_domain}}"
+domain_gitlab:                  "gitlab.{{top_domain}}"
 domain_listmonk:                "newsletter.{{top_domain}}"
 domain_mailu:                   "mail.{{top_domain}}"
 domain_mastodon:                "microblog.{{top_domain}}"
@@ -120,6 +121,9 @@ domain_roulette:                "roulette.{{top_domain}}"
 domain_attendize:               "tickets.{{top_domain}}"
 domain_yourls:                  "s.{{top_domain}}"
 domain_openproject:             "project.{{top_domain}}"
+
+### Common Configurations
+postgres_default_version:       "16"
 
 ### Docker Role Specific Parameters
 

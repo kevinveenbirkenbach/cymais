@@ -1,0 +1,32 @@
+version: '3.6'
+services:
+  web:
+    image: 'gitlab/gitlab-ee:latest'
+    restart: always
+    hostname: '{{domain}}'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://{{domain}}'
+        postgresql['enable'] = false
+        gitlab_rails['gitlab_shell_ssh_port'] = {{ssh_port}}
+        gitlab_rails['db_adapter'] = 'postgresql'
+        gitlab_rails['db_encoding'] = 'utf8'
+        gitlab_rails['db_host'] = '{{database_host}}'
+        gitlab_rails['db_port'] = 5432
+        gitlab_rails['db_username'] = '{{database_username}}'
+        gitlab_rails['db_password'] = '{{database_password}}'
+    ports:
+      - '8929:8929'
+    ports:
+      - "127.0.0.1:{{http_port}}:80"
+      - "{{ssh_port}}:22"
+    volumes:
+      - 'config:/etc/gitlab'
+      - 'logs:/var/log/gitlab'
+      - 'data:/var/opt/gitlab'
+    shm_size: '256m'
+
+{% include 'templates/docker-postgres-service.yml.j2' %}
+
+volumes:
+  database:

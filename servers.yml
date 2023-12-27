@@ -229,6 +229,16 @@
         domain: "{{domain_openproject}}"
         http_port: 8023
 
+- name: setup gitlab hosts
+  hosts: gitlab
+  become: true
+  roles:
+   -  role: docker-gitlab
+      vars:
+        domain: "{{domain_gitlab}}"
+        http_port: 8024
+        ssh_port:  2202
+
 - name: setup akaunting hosts
   hosts: akaunting
   become: true
