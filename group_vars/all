@@ -70,6 +70,7 @@ system_maintenance_backup_services:
   - "backup-docker-to-local"
   - "backup-remote-to-local"
   - "backup-data-to-usb"
+  - "backup-docker-to-local-everything"
 
 ### Defined Services for System Cleanup
 system_maintenance_cleanup_services:

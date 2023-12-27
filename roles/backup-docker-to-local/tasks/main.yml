@@ -20,6 +20,13 @@
     msg: "Warning: Repository is not reachable."
   when: git_result is defined and git_result.failed is defined and run_once_cleanup_failed_docker_backups is not defined
 
+- name: configure backup-docker-to-local-everything.service
+  template: 
+    src: backup-docker-to-local-everything.service.j2
+    dest: /etc/systemd/system/backup-docker-to-local-everything.service
+  notify: reload backup-docker-to-local-everything.service
+  when: run_once_backup_docker_to_local is not defined
+
 - name: configure backup-docker-to-local.service
   template: 
     src: backup-docker-to-local.service.j2
