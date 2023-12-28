@@ -14,13 +14,13 @@ admin_password = "{{listmonk_admin_password}}"
 
 # Database.
 [db]
-host = "database"
+host = "{{database_host}}"
 port = 5432
-user = "listmonk"
-password = "{{listmonk_database_password}}"
+user = "{{database_user}}"
+password = "{{database_password}}"
 
 # Ensure that this database has been created in Postgres.
-database = "listmonk"
+database = "{{database_databasename}}"
 
 ssl_mode = "disable"
 max_open = 25
