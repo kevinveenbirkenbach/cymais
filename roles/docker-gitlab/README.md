@@ -33,3 +33,6 @@ Variables are defined in `vars/main.yml`. Key variables include:
 Include this role in your Ansible playbooks and specify the necessary variables. Run the playbook to deploy and configure GitLab in a Docker environment.
 
 For a detailed walkthrough and explanation of this role, refer to the conversation at [ChatGPT Session Transcript](https://chat.openai.com/share/1b0147bf-d4de-4790-b8ed-c332aa4e3ce3).
+
+## Further Information
+- https://ralph.blog.imixs.com/2019/06/09/running-gitlab-on-docker/
