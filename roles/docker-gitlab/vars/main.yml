@@ -1,7 +1,7 @@
 docker_compose_instance_directory:  "{{path_docker_compose_instances}}gitlab/"
 database_instance:                  "gitlab"
 database_host:                      "database"
-database_databasename:              "gitlabhq_production"
+database_databasename:              "gitlab"
 database_username:                  "gitlab"
 database_password:                  "{{gitlab_database_password}}"
 database_version:                   "{{ gitlab_database_version | default(postgres_default_version) }}"

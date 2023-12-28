@@ -7,7 +7,7 @@
       - POSTGRES_DB={{database_databasename}}
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U {{database_username}}"]
+      test: ["CMD-SHELL", "pg_isready -U {{database_databasename}}"]
       interval: 10s
       timeout: 5s
       retries: 6
