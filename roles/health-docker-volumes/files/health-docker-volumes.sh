@@ -22,7 +22,8 @@ for volume in $anonymous_volumes; do
         continue
     fi
 
-    status=1
+    ((status++))
+    
     container_ids=$(docker ps -aq --filter volume=$volume)
     if [ -z "$container_ids" ]; then
         echo "Volume $volume is not used by any running containers."
@@ -40,13 +41,5 @@ for volume in $anonymous_volumes; do
         fi
     done
 done
-
-# Additional warning for dangling volumes
-dangling_volumes=$(docker volume ls -f dangling=true --format "{{.Name}}")
-if [ -n "$dangling_volumes" ]; then
-    status=2
-    echo "The following dangling volumes were found:"
-    echo "$dangling_volumes"
-fi
 
 exit $status
