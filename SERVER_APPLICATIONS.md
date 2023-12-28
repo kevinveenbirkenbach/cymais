@@ -31,9 +31,10 @@ Focuses on web server roles and applications, covering SSL certificates, Nginx c
 Dedicated to Docker container setups and application management, offering a wide array of software deployment options.
 - **[Docker](./roles/docker/)**: Basic Docker and Docker Compose setup.
 
-### Financial Management
-Facilitating the deployment of finance-related applications.
+### Finance and Project Management
+Facilitating the deployment of finance-related and project management applications.
 - **[Docker Akaunting](./roles/docker-akaunting/)**: Deployment of the Akaunting finance software.
+- **[Open Project](./roles/docker-openproject)**: Project Management Software
 
 ### Continues Integration and Continues Delivery 
 Setups for development platforms and version control systems.
