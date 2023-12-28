@@ -36,3 +36,6 @@ For a detailed walkthrough and explanation of this role, refer to the conversati
 
 ## Further Information
 - https://ralph.blog.imixs.com/2019/06/09/running-gitlab-on-docker/
+
+## Performance Optimation
+- https://techoverflow.net/2020/04/18/how-i-reduced-gitlab-memory-consumption-in-my-docker-based-setup/
