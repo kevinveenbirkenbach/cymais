@@ -21,9 +21,9 @@ services:
 
         gitlab_rails['initial_root_password'] = "{{gitlab_initial_root_password}}"
         
-        #redis['enable']                       = false
-        #gitlab_rails['redis_host']            = 'redis'
-        #gitlab_rails['redis_port']            = '6379'
+        redis['enable']                       = false
+        gitlab_rails['redis_host']            = 'redis'
+        gitlab_rails['redis_port']            = '6379'
     ports:
       - "127.0.0.1:{{http_port}}:80"
       - "{{ssh_port}}:22"
@@ -35,12 +35,15 @@ services:
     depends_on:
       database:
         condition: service_healthy
+      redis:
 
 {% include 'templates/docker-postgres-service.yml.j2' %}
+
+{% include 'templates/docker-redis-service.yml.j2' %}
 
 volumes:
   database:
   config:
   logs:
   data:
-  # redis:
+  redis:
