@@ -1,0 +1,23 @@
+- name: Create Docker network for PostgreSQL
+  docker_network:
+    name: postgres_network
+    state: present
+  when: run_once_docker_postgres is not defined
+
+- name: Install PostgreSQL
+  docker_container:
+    name: postgres
+    image: postgres:latest
+    detach: yes
+    env:
+      POSTGRES_PASSWORD: "{{ central_postgres_password }}"
+    networks:
+      - name: postgres_network
+    published_ports:
+      - "127.0.0.1:5432:5432"
+  when: run_once_docker_postgres is not defined
+
+- name: Run the docker_postgres tasks once
+  set_fact:
+    run_once_docker_postgres: true
+  when: run_once_docker_postgres is not defined
