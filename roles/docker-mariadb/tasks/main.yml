@@ -2,7 +2,7 @@
   docker_network:
     name: mariadb_network
     state: present
-  when: run_once_backup_docker_to_local is not defined
+  when: run_once_docker_mariadb is not defined
 
 - name: install MariaDB
   docker_container:
@@ -15,9 +15,9 @@
       - name: mariadb_network
     published_ports:
       - "127.0.0.1:3306:3306"
-  when: run_once_backup_docker_to_local is not defined
+  when: run_once_docker_mariadb is not defined
 
 - name: run the docker_mariadb tasks once
   set_fact:
-    run_once_backup_docker_to_local: true
-  when: run_once_backup_docker_to_local is not defined
+    run_once_docker_mariadb: true
+  when: run_once_docker_mariadb is not defined
