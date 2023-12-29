@@ -23,7 +23,7 @@ for volume in $anonymous_volumes; do
     fi
 
     ((status++))
-    
+        
     container_ids=$(docker ps -aq --filter volume=$volume)
     if [ -z "$container_ids" ]; then
         echo "Volume $volume is not used by any running containers."
