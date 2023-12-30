@@ -20,32 +20,5 @@
 #    domain:    "{{ mail_interface_domain }}"
 #  notify: restart nginx
 
-- name: register directory
-  stat:
-    path: "{{docker_compose_instance_directory}}"
-  register: docker_compose_instance_directory_register
-
-- name: checkout repository 
-  ansible.builtin.shell: git checkout .
-  become: true
-  args:
-    chdir: "{{docker_compose_instance_directory}}"
-  when: docker_compose_instance_directory_register.stat.exists
-
-- name: checkout Attendize repository 
-  ansible.builtin.git: 
-    repo: "https://github.com/Attendize/Attendize.git"
-    dest: "{{docker_compose_instance_directory}}"
-    version: master
-  become: true
-
-- name: Warn if repo is not reachable
-  debug:
-    msg: "Warning: Repository is not reachable."
-  when: git_result.failed
-
-- name: create docker-compose.yml file from template
-  template:
-    src: docker-compose.yml.j2
-    dest: "{{docker_compose_instance_directory}}/docker-compose.yml"
-    mode: 0644
+- name: "include tasks update-repository-with-docker-compose.yml"
+  include_tasks: update-repository-with-docker-compose.yml

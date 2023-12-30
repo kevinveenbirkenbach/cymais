@@ -18,6 +18,8 @@ This guide details the process of setting up Akaunting, a free and online accoun
 
 ## Installation Steps
 
+@ATTENTION Variable ```#AKAUNTING_SETUP: true``` needs to be set
+
 ### New Manual Setup
 1. **Navigate to Docker Compose Directory**: Change to the directory containing your Docker Compose files for Akaunting.
 

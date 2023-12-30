@@ -1,8 +1,12 @@
 ---
+docker_compose_project_name:        "attendize"
 docker_compose_instance_directory:  "{{path_docker_compose_instances}}attendize/"
+docker_compose_file_path:           "{{docker_compose_instance_directory}}docker-compose.yml"
+docker_compose_backup_path:         "/tmp/attendize-docker-compose-backup.yml"
 mail_interface_domain:              "mail.{{domain}}"
-database_instance:                  "attendize"
+database_instance:                  "{{docker_compose_project_name}}"
 database_host:                      "database"
 database_databasename:              "{{database_instance}}"
 database_username:                  "{{database_instance}}"
 database_password:                  "{{attendize_database_password}}"
+repository_address:                 "https://github.com/Attendize/Attendize.git"

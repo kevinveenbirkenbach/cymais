@@ -246,7 +246,7 @@
    -  role: docker-akaunting
       vars:
         domain: "{{domain_akaunting}}"
-        http_port: 8080
+        http_port: 8025
 
 # Native Webserver Roles
 - name: setup nginx-homepages

@@ -1,9 +1,8 @@
 ---
-- name: setup akaunting
+- name: docker compose project setup
   command:
-    cmd: docker-compose -p akaunting up -d --force-recreate
+    cmd: docker-compose -p "{{docker_compose_project_name}}" up -d --force-recreate
     chdir: "{{docker_compose_instance_directory}}"
   environment:
-    #AKAUNTING_SETUP: true
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600

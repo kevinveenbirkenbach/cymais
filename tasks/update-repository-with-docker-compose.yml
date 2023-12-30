@@ -1,0 +1,45 @@
+- name: "backup docker-compose.yml if it exists"
+  command: >
+    mv "{{ docker_compose_file_path }}" "{{ docker_compose_backup_path }}"
+  args:
+    removes: "{{ docker_compose_file_path }}"
+  become: true
+
+- name: register directory
+  stat:
+    path: "{{docker_compose_instance_directory}}"
+  register: docker_compose_instance_directory_register
+
+- name: checkout repository 
+  ansible.builtin.shell: git checkout .
+  become: true
+  args:
+    chdir: "{{docker_compose_instance_directory}}"
+  when: docker_compose_instance_directory_register.stat.exists
+
+- name: pull docker repository
+  git:
+    repo: "{{ repository_address }}"
+    dest: "{{ repository_directory }}"
+    update: yes
+  notify: docker compose project setup
+  become: true
+  register: git_result
+
+- name: "restore docker-compose.yml from backup"
+  command: >
+    mv "{{ docker_compose_backup_path }}" "{{ docker_compose_file_path }}"
+  args:
+    removes: "{{ docker_compose_backup_path }}"
+  become: true
+
+- name: Warn if repo is not reachable
+  debug:
+    msg: "Warning: Repository is not reachable."
+  when: git_result.failed
+
+- name: "copy docker-compose.yml"
+  template: 
+    src: docker-compose.yml.j2
+    dest: "{{ docker_compose_file_path }}"
+  notify: docker compose project setup
