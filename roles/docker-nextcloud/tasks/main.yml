@@ -18,7 +18,7 @@
   template: 
     src:  "templates/nginx.conf.j2" 
     dest: "{{path_docker_volumes}}nextcloud/nginx.conf"
-  notify: recreate nextcloud
+  notify: docker compose project setup
 
 - name: "create {{docker_compose_instance_directory}}"
   file:
@@ -30,4 +30,4 @@
   template: 
     src:  docker-compose.yml.j2 
     dest: "{{docker_compose_instance_directory}}docker-compose.yml"
-  notify: recreate nextcloud
+  notify: docker compose project setup

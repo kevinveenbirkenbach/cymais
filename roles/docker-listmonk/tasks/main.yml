@@ -12,10 +12,10 @@
   template: 
     src:  "docker-compose.yml.j2" 
     dest: "{{docker_compose_instance_directory}}docker-compose.yml"
-  notify: recreate listmonk
+  notify: docker compose project setup
 
 - name: add config.toml
   template: 
     src:  "config.toml.j2" 
     dest: "{{docker_compose_instance_directory}}config.toml"
-  notify: recreate listmonk
+  notify: docker compose project setup

@@ -1,4 +1,6 @@
 # docker bigbluebutton
+@TODO Database needs to be decoupled 
+
 Role to deploy [BigBlueButton](https://bigbluebutton.org/). 
 
 ## maintanace

@@ -12,4 +12,4 @@
   template: 
     src:  "docker-compose.yml.j2" 
     dest: "{{docker_compose_instance_directory}}docker-compose.yml"
-  notify: recreate matomo
+  notify: docker compose project setup

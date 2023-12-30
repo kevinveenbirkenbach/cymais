@@ -13,10 +13,10 @@
 
 - name: copy docker-compose.yml
   template: src=docker-compose.yml.j2 dest={{docker_compose_instance_directory}}docker-compose.yml
-  notify: recreate mastodon
+  notify: docker compose project setup
 
 - name: copy configuration
   template: 
     src: .env.production.j2 
     dest: "{{docker_compose_instance_directory}}.env.production"
-  notify: recreate mastodon
+  notify: docker compose project setup

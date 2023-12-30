@@ -32,13 +32,13 @@
   template: 
     src:  "docker-compose.yml.j2" 
     dest: "{{docker_compose_instance_directory}}docker-compose.yml"
-  notify: recreate mailu
+  notify: docker compose project setup
 
 - name: add mailu.env
   template: 
     src:  "mailu.env.j2" 
     dest: "{{docker_compose_instance_directory}}mailu.env"
-  notify: recreate mailu
+  notify: docker compose project setup
 
 - name: add deploy-letsencrypt-mailu.sh
   template: 

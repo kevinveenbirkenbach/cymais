@@ -19,7 +19,7 @@
     src: upload.ini.j2
     dest: "{{docker_compose_instance_directory}}upload.ini"
   notify: 
-    - recreate wordpress
+    - docker compose project setup
     - rebuild wordpress container
 
 - name: "Transfering Dockerfile to {{docker_compose_instance_directory}}"
@@ -27,9 +27,9 @@
     src: Dockerfile
     dest: "{{docker_compose_instance_directory}}Dockerfile"
   notify:
-    - recreate wordpress
+    - docker compose project setup
     - rebuild wordpress container
 
 - name: "add docker-compose.yml to {{docker_compose_instance_directory}}"
   template: src=docker-compose.yml.j2 dest={{docker_compose_instance_directory}}docker-compose.yml
-  notify: recreate wordpress
+  notify: docker compose project setup

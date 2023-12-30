@@ -1,5 +1,7 @@
 # Ansible Role: Docker-Discourse
 
+@TODO Database needs to be decoupled 
+
 This Ansible role sets up Discourse, a popular open-source discussion platform, using Docker containers. It is designed to automate the deployment and configuration process of Discourse, making it easier to maintain and update.
 
 ---

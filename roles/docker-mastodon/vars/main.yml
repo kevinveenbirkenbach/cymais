@@ -1,6 +1,6 @@
-docker_compose_instance_directory: "{{path_docker_compose_instances}}mastodon/"
-database_instance:  	  "mastodon"
-database_host:      	  "database"
-database_databasename:  "postgres" # todo: Change this to standart name scheme for future setups
-database_username:  	  "postgres" # todo: Change this to standart name scheme for future setups
-database_password:  	  "" # todo: Change this to standart name scheme for future setups
+docker_compose_project_name:  	    "mastodon"
+docker_compose_instance_directory:  "{{path_docker_compose_instances}}{{docker_compose_project_name}}/"
+database_host:      	              "database"
+database_databasename:              "postgres" # todo: Change this to standart name scheme for future setups
+database_username:  	              "postgres" # todo: Change this to standart name scheme for future setups
+database_password:  	              "" # todo: Change this to standart name scheme for future setups

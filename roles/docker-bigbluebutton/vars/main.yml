@@ -1,5 +1,5 @@
-docker_compose_instance_directory: "{{path_docker_compose_instances}}bigbluebutton/"
-database_instance:      "bigbluebutton"
+docker_compose_project_name:      "bigbluebutton"
+docker_compose_instance_directory: "{{path_docker_compose_instances}}{{docker_compose_project_name}}/"
 database_host:          "postgres"
 database_databasename:  "greenlight-v3"
 database_username:  	  "postgres"

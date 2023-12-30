@@ -27,25 +27,25 @@
 #  template: 
 #    src:  "whatsapp-bridge-config.yml.j2" 
 #    dest: "{{docker_compose_instance_directory}}mautrix_whatsapp/config.yml"
-#  notify: recreate matrix
+#  notify: docker compose project setup
 
 - name: add element-config.json
   template: 
     src:  "element-config.json.j2" 
     dest: "{{docker_compose_instance_directory}}element-config.json"
-  notify: recreate matrix
+  notify: docker compose project setup
 
 - name: add homeserver.yaml
   template: 
     src:  "homeserver.yaml.j2" 
     dest: "{{docker_compose_instance_directory}}homeserver.yaml"
-  notify: recreate matrix
+  notify: docker compose project setup
 
 - name: add log.config
   template: 
     src:  "log.config.j2" 
     dest: "{{docker_compose_instance_directory}}{{synapse_domain}}.log.config"
-  notify: recreate matrix
+  notify: docker compose project setup
 
 # https://github.com/matrix-org/synapse/issues/6303
 - name: set correct folder permissions
@@ -56,4 +56,4 @@
   template: 
     src:  "docker-compose.yml.j2" 
     dest: "{{docker_compose_instance_directory}}docker-compose.yml"
-  notify: recreate matrix
+  notify: docker compose project setup
