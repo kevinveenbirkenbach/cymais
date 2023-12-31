@@ -5,7 +5,9 @@ networks:
   backend:
 
 volumes:
+{% if not ( enable_central_database | lower | bool )  %}
   database:
+{% endif %}
   data:
 
 x-op-restart-policy: &restart_policy
@@ -28,7 +30,9 @@ x-op-app: &app
     IMAP_ENABLED: "${IMAP_ENABLED:-false}"
   volumes:
     - "data:/var/openproject/assets"
+{% if not ( enable_central_database | lower | bool )  %}
     - "database:/var/openproject/pgdata"
+{% endif %}
 
 services:
 
@@ -58,8 +62,10 @@ services:
       - frontend
     volumes:
       - "data:/var/openproject/assets"
+{% if not ( enable_central_database | lower | bool )  %}
       - "database:/var/openproject/pgdata"
-  
+{% endif %}
+
   web:
     <<: *app
     command: "./docker/prod/web"
