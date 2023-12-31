@@ -3,15 +3,11 @@ version: '2.2'
 services:
 
 {% include 'templates/docker-redis-service.yml.j2' %}
-
     env_file: mailu.env
     depends_on:
       - resolver
     dns:
       - 192.168.203.254
-
-{% include 'templates/docker-mariadb-service.yml.j2' %}
-
     depends_on:
       - resolver
     dns:
@@ -53,8 +49,10 @@ services:
     depends_on:
       resolver:
         condition: service_started
+{% if not ( enable_central_database | lower | bool )  %}
       database:
         condition: service_healthy
+{% endif %}
     networks:
       - default
       - webmail
@@ -73,7 +71,9 @@ services:
       - resolver
       - front
       - redis
+{% if not ( enable_central_database | lower | bool )  %}
       - database
+{% endif %}
     logging:
       driver: journald
     dns:
@@ -202,9 +202,14 @@ services:
       - webmail
     dns:
       - 192.168.203.254
+{% if not ( enable_central_database | lower | bool )  %}
+{% include 'templates/docker-postgres-service.yml.j2' %}
+{% endif %}
 
 volumes:
+{% if not ( enable_central_database | lower | bool )  %}
   database:
+{% endif %}
   smtp_queue:
   admin_data:
   webdav_data:

@@ -96,6 +96,9 @@ nginx_upstreams_directory:      "{{nginx_configuration_directory}}upstreams/"   
 
 ## Docker Applications
 
+### Enable Central MariaDB
+enable_central_database: true
+
 ### Domain Names for Various Services
 domain_akaunting:               "akaunting.{{top_domain}}"
 domain_baserow:                 "baserow.{{top_domain}}"

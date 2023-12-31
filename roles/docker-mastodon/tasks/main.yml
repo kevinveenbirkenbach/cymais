@@ -5,6 +5,11 @@
   loop_control:
     loop_var: domain
 
+- name: create database in central Postgres
+  include_role:
+    name: docker-postgres
+  when: enable_central_database | bool
+
 - name: "create {{docker_compose_instance_directory}}"
   file:
     path: "{{docker_compose_instance_directory}}"

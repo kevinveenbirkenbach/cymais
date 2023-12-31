@@ -12,22 +12,14 @@ services:
       - assets:/app/client/dist
       - data:/data
       - config:/config
+    restart: "always"
     depends_on:
-      - database
       - redis
-    restart: "always"
-  database:
-    image: postgres:13-alpine
-    env_file:
-      - .env
-    volumes:
-      - database:/var/lib/postgresql/data
-    restart: "always"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U peertube"]
-      interval: 10s
-      timeout: 5s
-      retries: 6
+{% if not ( enable_central_database | lower | bool )  %}
+      - database
+
+{% include 'templates/docker-postgres-service.yml.j2' %}
+{% endif %}
 
 {% include 'templates/docker-redis-service.yml.j2' %}
 
@@ -35,7 +27,9 @@ services:
       - .env
 volumes:
   assets:
+{% if not ( enable_central_database | lower | bool )  %}
   database:
+{% endif %}
   data:
   redis:
   config:

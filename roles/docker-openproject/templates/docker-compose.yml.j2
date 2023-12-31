@@ -5,8 +5,8 @@ networks:
   backend:
 
 volumes:
-  pgdata:
-  opdata:
+  database:
+  data:
 
 x-op-restart-policy: &restart_policy
   restart: unless-stopped
@@ -15,8 +15,8 @@ x-op-image: &image
 x-op-app: &app
   <<: [*image, *restart_policy]
   environment:
-    OPENPROJECT_HTTPS: "${OPENPROJECT_HTTPS:-true}"
-    OPENPROJECT_HOST__NAME: "${OPENPROJECT_HOST__NAME:-localhost:8080}"
+    OPENPROJECT_HTTPS: "${OPENPROJECT_HTTPS}"
+    OPENPROJECT_HOST__NAME: "${OPENPROJECT_HOST__NAME}"
     OPENPROJECT_HSTS: "${OPENPROJECT_HSTS:-true}"
     RAILS_CACHE_STORE: "memcache"
     OPENPROJECT_CACHE__MEMCACHE__SERVER: "cache:11211"
@@ -27,19 +27,14 @@ x-op-app: &app
     # set to true to enable the email receiving feature. See ./docker/cron for more options
     IMAP_ENABLED: "${IMAP_ENABLED:-false}"
   volumes:
-    - "${OPDATA}:/var/openproject/assets"
-    - "${PGDATA}:/var/openproject/pgdata"
+    - "data:/var/openproject/assets"
+    - "database:/var/openproject/pgdata"
 
 services:
-  database:
-    image: postgres:13
-    <<: *restart_policy
-    stop_grace_period: "3s"
-    volumes:
-      - "${PGDATA}:/var/lib/postgresql/data"
-    environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: openproject
+
+{% if not ( enable_central_database | lower | bool )  %}
+{% include 'templates/docker-postgres-service.yml.j2' %}
+{% endif %}
     networks:
       - backend
 
@@ -53,7 +48,7 @@ services:
     <<: [*image, *restart_policy]
     command: "./docker/prod/proxy"
     ports:
-      - "${PORT:-8080}:80"
+      - "${PORT}:80"
     environment:
       APP_HOST: web
       OPENPROJECT_RAILS__RELATIVE__URL__ROOT: "${OPENPROJECT_RAILS__RELATIVE__URL__ROOT:-}"
@@ -62,8 +57,8 @@ services:
     networks:
       - frontend
     volumes:
-      - "${OPDATA}:/var/openproject/assets"
-      - "${PGDATA}:/var/openproject/pgdata"
+      - "data:/var/openproject/assets"
+      - "database:/var/openproject/pgdata"
   
   web:
     <<: *app
@@ -72,7 +67,9 @@ services:
       - frontend
       - backend
     depends_on:
+{% if not ( enable_central_database | lower | bool )  %}
       - database
+{% endif %}
       - cache
       - seeder
     labels:
@@ -99,7 +96,9 @@ services:
     networks:
       - backend
     depends_on:
+{% if not ( enable_central_database | lower | bool )  %}
       - database
+{% endif %}
       - cache
       - seeder
 
@@ -109,7 +108,9 @@ services:
     networks:
       - backend
     depends_on:
+{% if not ( enable_central_database | lower | bool )  %}
       - database
+{% endif %}
       - cache
       - seeder
 

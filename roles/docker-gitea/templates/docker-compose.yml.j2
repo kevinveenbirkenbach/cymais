@@ -23,20 +23,24 @@ services:
     ports:
       - "127.0.0.1:{{http_port}}:3000"
       - "{{ssh_port}}:22"
-    links:
-      - database
     volumes:
       - data:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
+{% if not ( enable_central_database | lower | bool )  %}
     depends_on:
       - database
-
+    links:
+      - database
 {% include 'templates/docker-mariadb-service.yml.j2' %}
+{% endif %}
 
 volumes:
-  database:
   data:
+{% if not ( enable_central_database | lower | bool )  %}
+  database:
+{% endif %}
+
 networks:
   default:
     driver: bridge

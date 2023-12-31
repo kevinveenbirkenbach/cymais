@@ -7,15 +7,47 @@
 - name: install MariaDB
   docker_container:
     name: mariadb
-    image: mariadb:latest
+    image: mariadb:latest #could lead to problems with nextcloud
     detach: yes
     env:
-      MARIADB_ROOT_PASSWORD: "{{central_mariadb_root_password}}"
+      MARIADB_ROOT_PASSWORD:  "{{central_mariadb_root_password}}"
+      MARIADB_AUTO_UPGRADE:   "1"
     networks:
       - name: mariadb_network
     published_ports:
       - "127.0.0.1:3306:3306"
+    command: "--transaction-isolation=READ-COMMITTED --binlog-format=ROW" #for nextcloud
   when: run_once_docker_mariadb is not defined
+
+- name: wait for availability of mariadb
+  wait_for:
+    host: "127.0.0.1"
+    port: "3306"
+    delay: 0      
+    timeout: 120
+  when: run_once_docker_mariadb is not defined
+
+- name: create database
+  mysql_db:
+    name: "{{database_databasename}}"
+    state: present
+    login_user: root
+    login_password: "{{central_mariadb_root_password}}"
+    login_host: 127.0.0.1
+    login_port: 3306
+  listen: create database
+
+- name: create database user
+  mysql_user:
+    name: "{{database_username}}"
+    password: "{{database_password}}"
+    priv: '{{database_databasename}}.*:ALL'
+    state: present
+    login_user: root
+    login_password: "{{central_mariadb_root_password}}"
+    login_host: 127.0.0.1
+    login_port: 3306
+  listen: create database
 
 - name: run the docker_mariadb tasks once
   set_fact:

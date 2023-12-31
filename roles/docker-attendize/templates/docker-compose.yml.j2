@@ -9,7 +9,9 @@ services:
       - .:/usr/share/nginx/html
       - .:/var/www
     depends_on:
+{% if not ( enable_central_database | lower | bool )  %}
       - database
+{% endif %}
       - maildev
       - redis
       - worker
@@ -18,15 +20,15 @@ services:
   worker:
     image: attendize_worker:latest
     depends_on:
+{% if not ( enable_central_database | lower | bool )  %}
       - database
+{% endif %}
       - maildev
       - redis
     volumes:
       - .:/usr/share/nginx/html
       - .:/var/www
 
-{% include 'templates/docker-mariadb-service.yml.j2' %}
-  
   maildev:
     image: maildev/maildev
     ports:
@@ -34,6 +36,15 @@ services:
 
 {% include 'templates/docker-redis-service.yml.j2' %}
 
+{% if not ( enable_central_database | lower | bool )  %}
+    depends_on:
+      - database
+
+{% include 'templates/docker-mariadb-service.yml.j2' %}
+{% endif %}
+
 volumes:
-  database:
   redis:
+{% if not ( enable_central_database | lower | bool )  %}
+  database:
+{% endif %}

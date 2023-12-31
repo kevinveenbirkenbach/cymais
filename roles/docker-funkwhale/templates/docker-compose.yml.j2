@@ -1,14 +1,6 @@
 version: "3"
 
 services:
-  postgres:
-    restart: always
-    env_file: .env
-    environment:
-      - "POSTGRES_HOST_AUTH_METHOD=trust"
-    image: postgres:15-alpine
-    volumes:
-      - database:/var/lib/postgresql/data
 
 {% include 'templates/docker-redis-service.yml.j2' %}
 
@@ -18,7 +10,9 @@ services:
     restart: always
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
     depends_on:
+{% if not ( enable_central_database | lower | bool )  %}
       - postgres
+% endif %}      
       - redis
     env_file: .env
     command: celery -A funkwhale_api.taskapp worker -l INFO --concurrency=${CELERYD_CONCURRENCY-0}
@@ -31,7 +25,9 @@ services:
     restart: always
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
     depends_on:
+{% if not ( enable_central_database | lower | bool )  %}
       - postgres
+% endif %}
       - redis
     env_file: .env
     command: celery -A funkwhale_api.taskapp beat --pidfile= -l INFO
@@ -65,7 +61,15 @@ services:
     ports:
       # override those variables in your .env file if needed
       - "${FUNKWHALE_API_IP}:${FUNKWHALE_API_PORT}:80"
+
+{% if not ( enable_central_database | lower | bool )  %}
+{% include 'templates/docker-postgres-service.yml.j2' %}
+{% endif %}
+
 volumes:
   data:
   redis:
+
+{% if not ( enable_central_database | lower | bool )  %}
   database:
+{% endif %}

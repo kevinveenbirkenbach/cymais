@@ -9,6 +9,7 @@
       MYSQL_PASSWORD: "{{database_password}}"
       MYSQL_ROOT_PASSWORD: "{{database_password}}"
       MARIADB_AUTO_UPGRADE: "1"
+    command: "--transaction-isolation=READ-COMMITTED --binlog-format=ROW"
     volumes:
       - database:/var/lib/mysql
     healthcheck:

@@ -1,7 +1,12 @@
 ---
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
-  
+
+- name: create database in central MariaDB
+  include_role:
+    name: docker-mariadb
+  when: enable_central_database | bool
+
 - name: "create {{docker_compose_instance_directory}}"
   file:
     path: "{{docker_compose_instance_directory}}"

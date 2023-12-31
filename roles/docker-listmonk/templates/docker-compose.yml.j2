@@ -2,8 +2,6 @@ version: "3.7"
 
 services:
 
-{% include 'templates/docker-postgres-service.yml.j2' %}
-
   application:
     restart: unless-stopped
     image: listmonk/listmonk:latest
@@ -11,10 +9,15 @@ services:
       - "127.0.0.1:{{http_port}}:9000"
     environment:
       - TZ=Etc/UTC
-    depends_on:
-      - database
     volumes:
       - ./config.toml:/listmonk/config.toml
 
+{% if not ( enable_central_database | lower | bool )  %}
+    depends_on:
+      - database
+
+{% include 'templates/docker-postgres-service.yml.j2' %}
+
 volumes:
   database:
+{% endif %}

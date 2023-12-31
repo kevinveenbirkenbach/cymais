@@ -33,17 +33,23 @@ services:
       - 'data:/var/opt/gitlab'
     shm_size: '256m'
     depends_on:
+{% if not ( enable_central_database | lower | bool )  %}
       database:
         condition: service_healthy
+{% endif %}
       redis:
-
-{% include 'templates/docker-postgres-service.yml.j2' %}
 
 {% include 'templates/docker-redis-service.yml.j2' %}
 
+{% if not ( enable_central_database | lower | bool )  %}
+{% include 'templates/docker-postgres-service.yml.j2' %}
+{% endif %}
+
 volumes:
-  database:
+  redis:
   config:
   logs:
   data:
-  redis:
+{% if not ( enable_central_database | lower | bool )  %}
+  database:
+{% endif %}

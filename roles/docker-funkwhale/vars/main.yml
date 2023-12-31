@@ -1,3 +1,7 @@
 docker_compose_project_name:        "funkwhale"
 docker_compose_instance_directory:  "{{path_docker_compose_instances}}{{docker_compose_project_name}}/"
 nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size 512M;"
+database_databasename:              "{{docker_compose_project_name}}"
+database_username:                  "{{docker_compose_project_name}}"
+database_password:                  "{{funkwhale_database_password}}"
+database_version:                   "{{ funkwhale_database_version | default(postgres_default_version) }}"

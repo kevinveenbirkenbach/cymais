@@ -16,30 +16,15 @@ services:
       YOURLS_SITE: "https://{{domain}}"
       YOURLS_USER: "{{yourls_user}}"
       YOURLS_PASS: "{{yourls_user_password}}"
-    links:
-      - database
+{% if not ( enable_central_database | lower | bool )  %}
     depends_on:
       - database
-  database:
-    logging:
-      driver: journald
-    image: mariadb
-    restart: always
-    environment:
-      MYSQL_DATABASE: "yourls"
-      MYSQL_USER: "yourls"
-      MYSQL_PASSWORD: "{{yourls_database_password}}"
-      MYSQL_ROOT_PASSWORD: "{{yourls_database_password}}"
-      MARIADB_AUTO_UPGRADE: "1"
-    volumes:
-      - database:/var/lib/mysql
-    healthcheck:
-      test: "/usr/bin/mariadb --user=yourls --password={{yourls_database_password}} --execute \"SHOW DATABASES;\""
-      interval: 3s
-      timeout: 1s
-      retries: 5
+
+{% include 'templates/docker-mariadb-service.yml.j2' %}
+
 volumes:
   database:
+{% endif %}
 networks:
   default:
     driver: bridge

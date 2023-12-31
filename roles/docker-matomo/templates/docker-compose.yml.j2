@@ -14,17 +14,18 @@ services:
       MATOMO_DATABASE_USERNAME: "{{database_username}}"
       MATOMO_DATABASE_PASSWORD: "{{database_password}}"
       MATOMO_DATABASE_DBNAME: "{{database_databasename}}"
-    links:
-      - database
-    depends_on:
-      - database
     volumes:
       - data:/var/www/html
-
+{% if not ( enable_central_database | lower | bool )  %}
+    depends_on:
+      - database
 {% include 'templates/docker-mariadb-service.yml.j2' %}
 
+{% endif %}
 volumes:
+{% if not ( enable_central_database | lower | bool )  %}
   database:
+{% endif %}
   data:
 networks:
   default:

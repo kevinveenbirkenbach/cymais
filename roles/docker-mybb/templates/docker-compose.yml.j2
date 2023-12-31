@@ -7,17 +7,17 @@ services:
         tag: "mybb_application"
     image: mybb/mybb:latest
     restart: always
-    links:
-      - database
     volumes:
       - data:/var/www/html
+{% if not ( enable_central_database | lower | bool )  %}
+    depends_on:
+      - database
+{% endif %}
   server:
     logging:
       driver: journald
       options:
         tag: "mybb_server"
-    links:
-      - application
     image: nginx:mainline
     restart: always
     ports:
@@ -26,10 +26,14 @@ services:
     - "{{docker_compose_instance_confd_directory}}:{{target_mount_conf_d_directory}}:ro"
     - "data:/var/www/html:ro"
 
+{% if not ( enable_central_database | lower | bool )  %}
 {% include 'templates/docker-mariadb-service.yml.j2' %}
+{% endif %}
 
 volumes:
+{% if not ( enable_central_database | lower | bool )  %}
   database:
+{% endif %}
   data:
 networks:
   default:
