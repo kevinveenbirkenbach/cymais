@@ -5,7 +5,7 @@ server
   
   {% include 'roles/letsencrypt/templates/ssl_header.j2' %}
 
-  {% if nginx_matomo_tracking | bool %}
+  {% if nginx_matomo_tracking %}
     {% include 'roles/nginx-matomo-tracking/templates/matomo-tracking.conf.j2' %}
   {% endif %}
 

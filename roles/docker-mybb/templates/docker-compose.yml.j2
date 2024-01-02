@@ -9,7 +9,7 @@ services:
     restart: always
     volumes:
       - data:/var/www/html
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
     depends_on:
       - database
 {% endif %}
@@ -26,12 +26,12 @@ services:
     - "{{docker_compose_instance_confd_directory}}:{{target_mount_conf_d_directory}}:ro"
     - "data:/var/www/html:ro"
 
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
 {% include 'templates/docker-mariadb-service.yml.j2' %}
 {% endif %}
 
 volumes:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
   database:
 {% endif %}
   data:

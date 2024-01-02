@@ -17,7 +17,7 @@ services:
       WORDPRESS_DB_NAME:      "{{database_databasename}}"
     volumes:
       - data:/var/www/html
-{% if not ( enable_central_database | lower | bool )  %}    
+{% if not enable_central_database %}    
     depends_on:
       - database
 
@@ -25,7 +25,7 @@ services:
 {% endif %}
 
 volumes:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
   database:
 {% endif %}
   data:

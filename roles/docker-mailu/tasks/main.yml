@@ -61,5 +61,5 @@
     src:  "deploy-letsencrypt-mailu.timer.j2" 
     dest: "/etc/systemd/system/deploy-letsencrypt-mailu.timer"
   register: deploy_letsencrypt_mailu_timer
-  changed_when: deploy_letsencrypt_mailu_timer.changed or activate_all_timers | bool
+  changed_when: deploy_letsencrypt_mailu_timer.changed or activate_all_timers
   notify: restart deploy-letsencrypt-mailu.timer

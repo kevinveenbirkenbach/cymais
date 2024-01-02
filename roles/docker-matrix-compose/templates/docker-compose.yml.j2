@@ -16,7 +16,7 @@ services:
       - SYNAPSE_REPORT_STATS=no
     ports:
       - "127.0.0.1:{{synapse_http_port}}:8008"
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
     depends_on:
       - database
 {% include 'templates/docker-postgres-service.yml.j2' %}
@@ -60,7 +60,7 @@ services:
   #  - instagram_bridge_data:/data  
 
 volumes:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
   database:
 {% endif %}
   synapse_data:

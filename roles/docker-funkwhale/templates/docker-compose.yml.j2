@@ -10,7 +10,7 @@ services:
     restart: always
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
     depends_on:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
       - postgres
 % endif %}      
       - redis
@@ -25,7 +25,7 @@ services:
     restart: always
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
     depends_on:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
       - postgres
 % endif %}
       - redis
@@ -62,7 +62,7 @@ services:
       # override those variables in your .env file if needed
       - "${FUNKWHALE_API_IP}:${FUNKWHALE_API_PORT}:80"
 
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
 {% include 'templates/docker-postgres-service.yml.j2' %}
 {% endif %}
 
@@ -70,6 +70,6 @@ volumes:
   data:
   redis:
 
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
   database:
 {% endif %}

@@ -16,7 +16,7 @@ services:
       YOURLS_SITE: "https://{{domain}}"
       YOURLS_USER: "{{yourls_user}}"
       YOURLS_PASS: "{{yourls_user_password}}"
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
     depends_on:
       - database
 

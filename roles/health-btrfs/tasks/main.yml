@@ -20,5 +20,5 @@
     src: health-btrfs.timer.j2
     dest: "/etc/systemd/system/health-btrfs.timer"
   register: health_btrs_timer
-  changed_when: health_btrs_timer.changed or activate_all_timers | bool
+  changed_when: health_btrs_timer.changed or activate_all_timers
   notify: restart health-btrfs.timer

@@ -27,7 +27,7 @@ services:
       - data:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
     depends_on:
       - database
 {% include 'templates/docker-mariadb-service.yml.j2' %}
@@ -35,7 +35,7 @@ services:
 
 volumes:
   data:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
   database:
 {% endif %}
 

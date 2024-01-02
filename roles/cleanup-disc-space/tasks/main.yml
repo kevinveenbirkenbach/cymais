@@ -20,5 +20,5 @@
     src: cleanup-disc-space.timer.j2
     dest: /etc/systemd/system/cleanup-disc-space.timer
   register: cleanup_disc_space_timer
-  changed_when: cleanup_disc_space_timer.changed or activate_all_timers | bool
+  changed_when: cleanup_disc_space_timer.changed or activate_all_timers
   notify: restart cleanup-disc-space.timer

@@ -15,7 +15,7 @@ services:
     restart: "always"
     depends_on:
       - redis
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
       - database
 
 {% include 'templates/docker-postgres-service.yml.j2' %}
@@ -27,7 +27,7 @@ services:
       - .env
 volumes:
   assets:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
   database:
 {% endif %}
   data:

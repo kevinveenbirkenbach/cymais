@@ -12,7 +12,7 @@ services:
     volumes:
       - ./config.toml:/listmonk/config.toml
 
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
     depends_on:
       - database
 

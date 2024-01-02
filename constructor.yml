@@ -1,12 +1,20 @@
 ---
-# general setup
-- name: general setup
+- name:   variable mapping   
+  hosts:  all
+  vars:
+    activate_all_timers:          "{{ activate_all_timers | lower | bool }}"
+    nginx_matomo_tracking:        "{{ nginx_matomo_tracking | lower | bool }}"
+    execute_updates:              "{{ execute_updates | lower | bool }}"
+    force_backup_before_update:   "{{ force_backup_before_update | lower | bool }}"
+    enable_central_database:      "{{ enable_central_database | lower | bool }}"
+
+- name: update device
   hosts:  all
   become: true
   tasks:
   roles:
     - role: update
-      when: execute_updates | bool
+      when: execute_updates
 
 - name: setup standard wireguard
   hosts: wireguard_server

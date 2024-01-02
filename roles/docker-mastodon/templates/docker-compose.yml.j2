@@ -20,7 +20,7 @@ services:
     ports:
       - "127.0.0.1:{{http_port}}:3000"
     depends_on:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
       - database
 {% endif %}
       - redis
@@ -42,7 +42,7 @@ services:
     ports:
       - "127.0.0.1:{{stream_port}}:4000"
     depends_on:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
       - database
 {% endif %}
       - redis
@@ -54,7 +54,7 @@ services:
     env_file: .env.production
     command: bundle exec sidekiq
     depends_on:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
       - database
 {% endif %}
       - redis
@@ -67,12 +67,12 @@ services:
       test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 6' || false"]
     logging:
       driver: journald
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
 {% include 'templates/docker-postgres-service.yml.j2' %}
 {% endif %}
 
 volumes:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
   database:
 {% endif %}
   redis:

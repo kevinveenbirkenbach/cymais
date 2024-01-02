@@ -49,7 +49,7 @@ services:
     depends_on:
       resolver:
         condition: service_started
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
       database:
         condition: service_healthy
 {% endif %}
@@ -71,7 +71,7 @@ services:
       - resolver
       - front
       - redis
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
       - database
 {% endif %}
     logging:
@@ -202,12 +202,12 @@ services:
       - webmail
     dns:
       - 192.168.203.254
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
 {% include 'templates/docker-postgres-service.yml.j2' %}
 {% endif %}
 
 volumes:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
   database:
 {% endif %}
   smtp_queue:

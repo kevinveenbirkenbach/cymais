@@ -37,7 +37,7 @@
 - name: configure backup-docker-to-local.timer.tpl
   template: src=backup-docker-to-local.timer.j2 dest=/etc/systemd/system/backup-docker-to-local.timer
   register: backup_docker_to_local_timer
-  changed_when: backup_docker_to_local_timer.changed or activate_all_timers | bool
+  changed_when: backup_docker_to_local_timer.changed or activate_all_timers
   notify: restart backup-docker-to-local.timer
   when: run_once_backup_docker_to_local is not defined
 

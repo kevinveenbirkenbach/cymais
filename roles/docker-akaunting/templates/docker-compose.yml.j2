@@ -14,7 +14,7 @@ services:
       - env/run.env
     environment:
       - AKAUNTING_SETUP
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
     depends_on:
       - database
 
@@ -23,6 +23,6 @@ services:
 
 volumes:
   data:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
   database:
 {% endif %}

@@ -20,5 +20,5 @@
     src: health-disc-space.timer.j2
     dest: /etc/systemd/system/health-disc-space.timer
   register: health_disc_space_timer
-  changed_when: health_disc_space_timer.changed or activate_all_timers | bool
+  changed_when: health_disc_space_timer.changed or activate_all_timers
   notify: restart health-disc-space.timer

@@ -11,7 +11,7 @@ services:
       JOOMLA_DB_PASSWORD: "{{database_password}}"
       JOOMLA_DB_NAME: "{{database_databasename}}"
     restart: always
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
     depends_on:
       - database
 {% endif %}
@@ -20,12 +20,12 @@ services:
     ports:
       - "127.0.0.1:{{http_port}}:80"
 
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
 {% include 'templates/docker-mariadb-service.yml.j2' %}
 {% endif %}
 
 volumes:
   data:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
   database:
 {% endif %}

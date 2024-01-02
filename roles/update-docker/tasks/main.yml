@@ -2,7 +2,7 @@
   systemd:
     name: backup-docker-to-local-everything.service
     state: started
-  when: force_backup_before_update | bool
+  when: force_backup_before_update
 
 - name: create {{update_docker_script}}
   copy:

@@ -5,7 +5,7 @@ networks:
   backend:
 
 volumes:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
   database:
 {% endif %}
   data:
@@ -30,13 +30,13 @@ x-op-app: &app
     IMAP_ENABLED: "${IMAP_ENABLED:-false}"
   volumes:
     - "data:/var/openproject/assets"
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
     - "database:/var/openproject/pgdata"
 {% endif %}
 
 services:
 
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
 {% include 'templates/docker-postgres-service.yml.j2' %}
 {% endif %}
     networks:
@@ -62,7 +62,7 @@ services:
       - frontend
     volumes:
       - "data:/var/openproject/assets"
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
       - "database:/var/openproject/pgdata"
 {% endif %}
 
@@ -73,7 +73,7 @@ services:
       - frontend
       - backend
     depends_on:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
       - database
 {% endif %}
       - cache
@@ -102,7 +102,7 @@ services:
     networks:
       - backend
     depends_on:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
       - database
 {% endif %}
       - cache
@@ -114,7 +114,7 @@ services:
     networks:
       - backend
     depends_on:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
       - database
 {% endif %}
       - cache

@@ -15,7 +15,7 @@ services:
     ports:
       - "{{http_port}}:80"
     depends_on:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
       - database
 {% endif %}
       - redis
@@ -39,7 +39,7 @@ services:
     depends_on:
       - redis
       - application
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
     
       - database
 
@@ -49,7 +49,7 @@ services:
 {% include 'templates/docker-redis-service.yml.j2' %}
 
 volumes:
-{% if not ( enable_central_database | lower | bool )  %}
+{% if not enable_central_database %}
   database:
 {% endif %}
   redis:
