@@ -1,0 +1,4 @@
+docker_compose_instance_directory:  "{{ docker_compose_instance_directory | default(path_docker_compose_instances + docker_compose_project_name + '/') }}"
+database_host:                      "{{ database_host | default('database') }}"
+database_databasename:              "{{ database_databasename | default(docker_compose_project_name) }}"
+database_username:                  "{{ database_username | default(docker_compose_project_name) }}"

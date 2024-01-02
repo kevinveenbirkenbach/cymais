@@ -63,13 +63,21 @@ env:
   ## TODO: The SMTP mail server used to validate new accounts and send notifications
   # SMTP ADDRESS, username, and password are required
   # WARNING the char '#' in SMTP password can cause problems!
-  DISCOURSE_SMTP_ADDRESS:           {{system_email_host}}
-  DISCOURSE_SMTP_PORT:              {{system_email_smtp_port}}
-  DISCOURSE_SMTP_USER_NAME:         {{system_email}}
-  DISCOURSE_SMTP_PASSWORD:          {{system_email_password}}
+  DISCOURSE_SMTP_ADDRESS:           {{ system_email_host }}
+  DISCOURSE_SMTP_PORT:              {{ system_email_smtp_port }}
+  DISCOURSE_SMTP_USER_NAME:         {{ system_email }}
+  DISCOURSE_SMTP_PASSWORD:          {{ system_email_password }}
   DISCOURSE_SMTP_ENABLE_START_TLS:  {{ system_email_start_tls | upper }}
-  DISCOURSE_SMTP_DOMAIN:            {{system_email_domain}}
-  DISCOURSE_NOTIFICATION_EMAIL:     {{system_email}}
+  DISCOURSE_SMTP_DOMAIN:            {{ system_email_domain }}
+  DISCOURSE_NOTIFICATION_EMAIL:     {{ system_email }}
+
+{% if enable_central_database %}
+  # Database Configuration
+  DISCOURSE_DB_USERNAME: {{ database_username }}
+  DISCOURSE_DB_PASSWORD: {{ database_password }}
+  DISCOURSE_DB_HOST:     {{ database_host }}
+  DISCOURSE_DB_NAME:     {{ database_databasename }}
+{% if enable_central_database %}
 
   ## If you added the Lets Encrypt template, uncomment below to get a free SSL certificate
   #LETSENCRYPT_ACCOUNT_EMAIL: administrator@veen.world
@@ -85,7 +93,7 @@ env:
 ## The Docker container is stateless; all data is stored in /shared
 volumes:
   - volume:
-      host: discourse_application_data
+      host: discourse_data
       guest: /shared
   - volume:
       host: /var/discourse/shared/standalone/log/var-log

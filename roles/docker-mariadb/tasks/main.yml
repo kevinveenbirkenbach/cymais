@@ -1,19 +1,21 @@
 - name: Create Docker network for MariaDB
   docker_network:
-    name: mariadb_network
+    name: central_mariadb_network
     state: present
   when: run_once_docker_mariadb is not defined
 
 - name: install MariaDB
   docker_container:
-    name: mariadb
+    name: central-mariadb
     image: mariadb:latest #could lead to problems with nextcloud
     detach: yes
     env:
       MARIADB_ROOT_PASSWORD:  "{{central_mariadb_root_password}}"
       MARIADB_AUTO_UPGRADE:   "1"
     networks:
-      - name: mariadb_network
+      - name: central_mariadb_network
+    volumes:
+      - database:/var/lib/mysql
     published_ports:
       - "127.0.0.1:3306:3306"
     command: "--transaction-isolation=READ-COMMITTED --binlog-format=ROW" #for nextcloud

@@ -10,9 +10,7 @@ services:
     restart: always
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
     depends_on:
-{% if not enable_central_database %}
-      - postgres
-% endif %}      
+{% include 'templates/docker-depends-on-central-database.yml.j2' %} 
       - redis
     env_file: .env
     command: celery -A funkwhale_api.taskapp worker -l INFO --concurrency=${CELERYD_CONCURRENCY-0}
@@ -20,23 +18,24 @@ services:
       - C_FORCE_ROOT=true
     volumes:
       - "data:${MEDIA_ROOT}"
+{% include 'templates/docker-networks-for-container.yml.j2' %}
+
 
   celerybeat:
     restart: always
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
     depends_on:
-{% if not enable_central_database %}
-      - postgres
-% endif %}
+{% include 'templates/docker-depends-on-central-database.yml.j2' %}
       - redis
     env_file: .env
     command: celery -A funkwhale_api.taskapp beat --pidfile= -l INFO
+{% include 'templates/docker-networks-for-container.yml.j2' %}
 
   api:
     restart: always
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
     depends_on:
-      - postgres
+{% include 'templates/docker-depends-on-central-database.yml.j2' %}
       - redis
     env_file: .env
     volumes:
@@ -44,6 +43,7 @@ services:
       #- "${STATIC_ROOT}:${STATIC_ROOT}"
     ports:
       - "5000"
+{% include 'templates/docker-networks-for-container.yml.j2' %}
 
   front:
     restart: always
@@ -61,15 +61,13 @@ services:
     ports:
       # override those variables in your .env file if needed
       - "${FUNKWHALE_API_IP}:${FUNKWHALE_API_PORT}:80"
+{% include 'templates/docker-networks-for-container.yml.j2' %}
 
-{% if not enable_central_database %}
-{% include 'templates/docker-postgres-service.yml.j2' %}
-{% endif %}
+{% include 'templates/docker-{{ database_type }}-service.yml.j2' %}
 
 volumes:
   data:
   redis:
+{% include 'templates/docker-database-volume.yml.j2' %}
 
-{% if not enable_central_database %}
-  database:
-{% endif %}
+{% include 'templates/docker-networks-for-role.yml.j2' %}

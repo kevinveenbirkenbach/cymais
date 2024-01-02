@@ -1,14 +1,17 @@
 ---
+- name: include docker vars
+  include_vars: vars/docker-database-service.yml.j2
+
+- name: create central database
+  include_role:
+    name: docker-{{database_type}}
+  when: enable_central_database | bool
+
 - name: "include tasks create-proxy-with-domain-replace.yml"
   include_tasks: create-proxy-with-domain-replace.yml
   loop: "{{ domains + [source_domain] }}"
   loop_control:
     loop_var: domain
-
-- name: create database in central MariaDB
-  include_role:
-    name: docker-mariadb
-  when: enable_central_database | bool
 
 - name: "create {{docker_compose_instance_confd_directory}} and parent directories"
   file:

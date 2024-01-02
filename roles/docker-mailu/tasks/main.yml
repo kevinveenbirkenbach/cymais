@@ -1,4 +1,12 @@
 ---
+- name: include docker vars
+  include_vars: vars/docker-database-service.yml.j2
+
+- name: create central database
+  include_role:
+    name: docker-{{database_type}}
+  when: enable_central_database | bool
+
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
   vars:
@@ -27,11 +35,6 @@
     path: "/etc/mailu/certs"
     state: directory
     mode: 0755
-
-- name: create database in central MariaDB
-  include_role:
-    name: docker-mariadb
-  when: enable_central_database | bool
 
 - name: add docker-compose.yml
   template: 

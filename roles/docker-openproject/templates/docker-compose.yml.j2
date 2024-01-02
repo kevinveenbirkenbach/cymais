@@ -5,9 +5,7 @@ networks:
   backend:
 
 volumes:
-{% if not enable_central_database %}
-  database:
-{% endif %}
+{% include 'templates/docker-database-volume.yml.j2' %}
   data:
 
 x-op-restart-policy: &restart_policy
@@ -36,9 +34,7 @@ x-op-app: &app
 
 services:
 
-{% if not enable_central_database %}
-{% include 'templates/docker-postgres-service.yml.j2' %}
-{% endif %}
+{% include 'templates/docker-{{ database_type }}-service.yml.j2' %}
     networks:
       - backend
 
@@ -72,12 +68,9 @@ services:
     networks:
       - frontend
       - backend
-    depends_on:
-{% if not enable_central_database %}
-      - database
-{% endif %}
-      - cache
-      - seeder
+{% include 'templates/docker-depends-on-central-database.yml.j2' %}
+      cache:
+      seeder:
     labels:
       - autoheal=true
     healthcheck:
@@ -101,24 +94,18 @@ services:
     command: "./docker/prod/worker"
     networks:
       - backend
-    depends_on:
-{% if not enable_central_database %}
-      - database
-{% endif %}
-      - cache
-      - seeder
+{% include 'templates/docker-depends-on-central-database.yml.j2' %}
+      cache:
+      seeder:
 
   cron:
     <<: *app
     command: "./docker/prod/cron"
     networks:
       - backend
-    depends_on:
-{% if not enable_central_database %}
-      - database
-{% endif %}
-      - cache
-      - seeder
+{% include 'templates/docker-depends-on-central-database.yml.j2' %}
+      cache:
+      seeder:
 
   seeder:
     <<: *app

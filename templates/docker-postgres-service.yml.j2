@@ -1,4 +1,4 @@
-  
+{% if not enable_central_database %}  
   database:
     image: postgres:{{database_version}}-alpine
     environment:
@@ -13,6 +13,9 @@
       timeout: 5s
       retries: 6
     volumes:
-      - type: volume
+      - type:   volume
         source: database
         target: /var/lib/postgresql/data
+    networks:
+      - {{docker_compose_project_name}}_network
+{% endif %}

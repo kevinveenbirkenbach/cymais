@@ -1,7 +1,5 @@
 ---
 docker_compose_project_name:  	    "matrix"
-docker_compose_instance_directory:  "{{path_docker_compose_instances}}{{docker_compose_project_name}}/"
-database_host:      	              "database"
-database_databasename:              "{{docker_compose_project_name}}"
-database_username:  	              "{{docker_compose_project_name}}"
 database_password:  	              "{{matrix_database_password}}"
+database_version:                   "{{ baserow_database_version | default(postgres_default_version) }}"
+database_type:                      "postgres"

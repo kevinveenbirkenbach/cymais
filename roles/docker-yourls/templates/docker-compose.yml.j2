@@ -20,11 +20,8 @@ services:
     depends_on:
       - database
 
-{% include 'templates/docker-mariadb-service.yml.j2' %}
+{% include 'templates/docker-{{ database_type }}-service.yml.j2' %}
 
 volumes:
   database:
 {% endif %}
-networks:
-  default:
-    driver: bridge

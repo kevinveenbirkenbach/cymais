@@ -1,0 +1,5 @@
+{% if enable_central_database %}
+    depends_on:
+      database:
+		    condition: service_healthy
+{% endif %}

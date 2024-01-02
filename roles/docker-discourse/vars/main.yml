@@ -1,1 +1,4 @@
-docker_compose_instance_directory: "{{path_docker_compose_instances}}discourse/"
+docker_compose_project_name:        "attendize"
+database_password:                  "{{ baserow_database_password }}"
+database_version:                   "{{ baserow_database_version | default(postgres_default_version) }}"
+database_type:                      "postgres"

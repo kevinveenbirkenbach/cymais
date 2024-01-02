@@ -1,11 +1,8 @@
 ---
 docker_compose_project_name:  	                "mybb"
-docker_compose_instance_directory:              "{{path_docker_compose_instances}}{{docker_compose_project_name}}/"
 docker_compose_instance_confd_directory:        "{{docker_compose_instance_directory}}conf.d/"
 docker_compose_instance_confd_defaultconf_file: "{{docker_compose_instance_confd_directory}}default.conf"
 target_mount_conf_d_directory:                  "{{nginx_servers_directory}}"
 source_domain:                                  "mybb.{{top_domain}}"
-database_host:      	                          "database"
-database_databasename:                          "{{docker_compose_project_name}}"
-database_username:  	                          "{{docker_compose_project_name}}"
 database_password:                              "{{mybb_database_password}}"
+database_type:                                  "mariadb"

@@ -11,21 +11,20 @@ services:
       JOOMLA_DB_PASSWORD: "{{database_password}}"
       JOOMLA_DB_NAME: "{{database_databasename}}"
     restart: always
-{% if not enable_central_database %}
-    depends_on:
-      - database
-{% endif %}
+{% include 'templates/docker-depends-on-central-database.yml.j2' %}
     volumes:
       - data:/var/www/html
     ports:
       - "127.0.0.1:{{http_port}}:80"
+{% include 'templates/docker-networks-for-container.yml.j2' %}
+{% if enable_central_database %}
+    depends_on:
+      database:
 
-{% if not enable_central_database %}
-{% include 'templates/docker-mariadb-service.yml.j2' %}
-{% endif %}
+{% include 'templates/docker-{{ database_type }}-service.yml.j2' %}
 
 volumes:
   data:
-{% if not enable_central_database %}
-  database:
-{% endif %}
+{% include 'templates/docker-database-volume.yml.j2' %}
+
+{% include 'templates/docker-networks-for-role.yml.j2' %}

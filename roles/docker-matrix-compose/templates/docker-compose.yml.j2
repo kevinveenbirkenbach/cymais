@@ -19,7 +19,7 @@ services:
 {% if not enable_central_database %}
     depends_on:
       - database
-{% include 'templates/docker-postgres-service.yml.j2' %}
+{% include 'templates/docker-{{ database_type }}-service.yml.j2' %}
 {% endif %}
   
   element:
@@ -60,14 +60,9 @@ services:
   #  - instagram_bridge_data:/data  
 
 volumes:
-{% if not enable_central_database %}
-  database:
-{% endif %}
+{% include 'templates/docker-database-volume.yml.j2' %}
   synapse_data:
   #telegram_bridge_data:
   #whatsapp_bridge_data:
   #facebook_bridge_data:
   #instagram_bridge_data:
-networks:
-  default:
-    driver: bridge

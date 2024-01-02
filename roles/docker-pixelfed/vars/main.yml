@@ -1,7 +1,4 @@
 docker_compose_project_name:                    "pixelfed"
-docker_compose_instance_directory:              "{{path_docker_compose_instances}}{{docker_compose_project_name}}/"
 nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size 512M;"
-database_host:                                  "database"
-database_databasename:                          "{{docker_compose_project_name}}"
-database_username:                              "{{docker_compose_project_name}}"
+database_type:                                  "mariadb"
 database_password:                              "{{pixelfed_database_password}}"

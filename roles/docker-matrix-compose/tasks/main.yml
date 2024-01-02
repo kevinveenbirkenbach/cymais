@@ -1,14 +1,17 @@
 ---
+- name: include docker vars
+  include_vars: vars/docker-database-service.yml.j2
+
+- name: create central database
+  include_role:
+    name: docker-{{database_type}}
+  when: enable_central_database | bool
+
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
   vars:
     domain:     "{{synapse_domain}}"
     http_port:  "{{synapse_http_port}}"
-
-- name: create database in central Postgres
-  include_role:
-    name: docker-postgres
-  when: enable_central_database | bool
         
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml

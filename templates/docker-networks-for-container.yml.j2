@@ -1,0 +1,5 @@
+    networks:
+      - {{docker_compose_project_name}}_network  
+{% if enable_central_database %}
+      - central_{{ database_type }}_network
+{% endif %}

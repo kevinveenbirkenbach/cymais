@@ -1,18 +1,17 @@
 ---
+- name: include docker vars
+  include_vars: vars/docker-database-service.yml.j2
+
+- name: create central database
+  include_role:
+    name: docker-{{database_type}}
+  when: enable_central_database | bool
+
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
 
-- name: Create database in central MariaDB
-  include_role:
-    name: docker-mariadb
-  when: enable_central_database | bool
-
 - name: "include tasks update-repository-with-docker-compose.yml"
   include_tasks: update-repository-with-docker-compose.yml
-
-- name: configure db.env
-  template: src=db.env.j2 dest={{docker_compose_instance_directory}}/env/db.env
-  notify: docker compose project setup
 
 - name: configure run.env
   template: src=run.env.j2 dest={{docker_compose_instance_directory}}/env/run.env
