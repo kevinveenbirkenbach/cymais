@@ -63,7 +63,7 @@ services:
       - "${FUNKWHALE_API_IP}:${FUNKWHALE_API_PORT}:80"
 {% include 'templates/docker-container-networks.yml.j2' %}
 
-{% include 'templates/docker-{{ database_type }}-service.yml.j2' %}
+{% include 'templates/docker-service-{{ database_type }}.yml.j2' %}
 
 {% include 'templates/docker-compose-volumes.yml.j2' %}
   data:

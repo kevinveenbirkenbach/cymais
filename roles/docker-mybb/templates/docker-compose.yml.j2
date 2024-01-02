@@ -26,7 +26,7 @@ services:
     - "{{docker_compose_instance_confd_directory}}:{{target_mount_conf_d_directory}}:ro"
     - "data:/var/www/html:ro"
 
-{% include 'templates/docker-{{ database_type }}-service.yml.j2' %}
+{% include 'templates/docker-service-{{ database_type }}.yml.j2' %}
 
 {% include 'templates/docker-compose-volumes.yml.j2' %}
   data:

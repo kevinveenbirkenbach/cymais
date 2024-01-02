@@ -21,7 +21,7 @@ services:
     depends_on:
       - database
 
-{% include 'templates/docker-{{ database_type }}-service.yml.j2' %}
+{% include 'templates/docker-service-{{ database_type }}.yml.j2' %}
 {% endif %}
 
 {% include 'templates/docker-compose-volumes.yml.j2' %}

@@ -2,7 +2,7 @@ version: '2'
 
 services:
 
-{% include 'templates/docker-{{ database_type }}-service.yml.j2' %}
+{% include 'templates/docker-service-{{ database_type }}.yml.j2' %}
 
 {% include 'templates/docker-service-redis.yml.j2' %}
 

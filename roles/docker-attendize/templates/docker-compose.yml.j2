@@ -25,7 +25,7 @@ services:
       - .:/usr/share/nginx/html
       - .:/var/www
 
-{% include 'templates/docker-{{ database_type }}-service.yml.j2' %}
+{% include 'templates/docker-service-{{ database_type }}.yml.j2' %}
 
   maildev:
     image: maildev/maildev
