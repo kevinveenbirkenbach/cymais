@@ -8,7 +8,16 @@
     ssh_key_type: rsa
     ssh_key_bits: 8192
   when: run_once_user_administrator is not defined
-    
+
+- name: "set correct rights for {{path_administrator_home}}"
+  file:
+    path: "{{path_administrator_home}}"
+    state: directory
+    owner: administrator
+    group: administrator
+    mode: 0700
+  when: run_once_user_administrator is not defined
+
 - name: "create {{path_administrator_scripts}}"
   file:
     path: "{{path_administrator_home}}scripts"
