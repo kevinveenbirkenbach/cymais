@@ -4,3 +4,4 @@ dependencies:
   - cleanup-backups-timer
   - cleanup-failed-docker-backups
   - system-maintenance-lock
+  - user-root
