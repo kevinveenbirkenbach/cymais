@@ -12,7 +12,7 @@ services:
       JOOMLA_DB_NAME: "{{database_databasename}}"
     restart: always
 {% if not ( enable_central_database | lower | bool )  %}
-    links:
+    depends_on:
       - database
 {% endif %}
     volumes:

@@ -9,7 +9,7 @@
         log_driver: journald
         image: mediawiki
         restart: always
-        links:
+        depends_on:
           - database
         volumes:
           - "mediawiki-data:/var/www/html/"
