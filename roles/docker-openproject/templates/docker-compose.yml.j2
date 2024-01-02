@@ -4,8 +4,7 @@ networks:
   frontend:
   backend:
 
-volumes:
-{% include 'templates/docker-database-volume.yml.j2' %}
+{% include 'templates/docker-compose-volumes.yml.j2' %}
   data:
 
 x-op-restart-policy: &restart_policy
@@ -68,7 +67,7 @@ services:
     networks:
       - frontend
       - backend
-{% include 'templates/docker-depends-on-central-database.yml.j2' %}
+{% include 'templates/docker-container-depends-on.yml.j2' %}
       cache:
       seeder:
     labels:
@@ -94,7 +93,7 @@ services:
     command: "./docker/prod/worker"
     networks:
       - backend
-{% include 'templates/docker-depends-on-central-database.yml.j2' %}
+{% include 'templates/docker-container-depends-on.yml.j2' %}
       cache:
       seeder:
 
@@ -103,7 +102,7 @@ services:
     command: "./docker/prod/cron"
     networks:
       - backend
-{% include 'templates/docker-depends-on-central-database.yml.j2' %}
+{% include 'templates/docker-container-depends-on.yml.j2' %}
       cache:
       seeder:
 

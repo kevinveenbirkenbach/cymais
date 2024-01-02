@@ -39,13 +39,12 @@ services:
 {% endif %}
       redis:
 
-{% include 'templates/docker-redis-service.yml.j2' %}
+{% include 'templates/docker-service-redis.yml.j2' %}
 
 {% include 'templates/docker-{{ database_type }}-service.yml.j2' %}
 
-volumes:
+{% include 'templates/docker-compose-volumes.yml.j2' %}
   redis:
   config:
   logs:
   data:
-{% include 'templates/docker-database-volume.yml.j2' %}

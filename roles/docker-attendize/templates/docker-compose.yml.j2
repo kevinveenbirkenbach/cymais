@@ -7,20 +7,20 @@ services:
     volumes:
       - .:/usr/share/nginx/html
       - .:/var/www
-{% include 'templates/docker-depends-on-central-database.yml.j2' %}
+{% include 'templates/docker-container-depends-on.yml.j2' %}
       maildev:
       redis:
       worker:
     env_file:
       - ./.env
-{% include 'templates/docker-networks-for-container.yml.j2' %}
+{% include 'templates/docker-container-networks.yml.j2' %}
 
   worker:
     image: attendize_worker:latest
-{% include 'templates/docker-depends-on-central-database.yml.j2' %}
+{% include 'templates/docker-container-depends-on.yml.j2' %}
       maildev:
       redis:
-{% include 'templates/docker-networks-for-container.yml.j2' %}
+{% include 'templates/docker-container-networks.yml.j2' %}
     volumes:
       - .:/usr/share/nginx/html
       - .:/var/www
@@ -31,13 +31,12 @@ services:
     image: maildev/maildev
     ports:
       - "{{ mail_interface_http_port }}:1080"
-{% include 'templates/docker-networks-for-container.yml.j2' %}
-{% include 'templates/docker-depends-on-central-database.yml.j2' %}
+{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker-container-depends-on.yml.j2' %}
       
-{% include 'templates/docker-redis-service.yml.j2' %}
+{% include 'templates/docker-service-redis.yml.j2' %}
 
-volumes:
+{% include 'templates/docker-compose-volumes.yml.j2' %}
   redis:
-{% include 'templates/docker-database-volume.yml.j2' %}
 
-{% include 'templates/docker-networks-for-role.yml.j2' %}
+{% include 'templates/docker-compose-networks.yml.j2' %}

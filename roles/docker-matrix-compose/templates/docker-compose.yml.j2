@@ -59,8 +59,7 @@ services:
   #  volumes:
   #  - instagram_bridge_data:/data  
 
-volumes:
-{% include 'templates/docker-database-volume.yml.j2' %}
+{% include 'templates/docker-compose-volumes.yml.j2' %}
   synapse_data:
   #telegram_bridge_data:
   #whatsapp_bridge_data:

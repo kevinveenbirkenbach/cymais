@@ -34,7 +34,7 @@ services:
     volumes_from:
       - application
 
-{% include 'templates/docker-redis-service.yml.j2' %}
+{% include 'templates/docker-service-redis.yml.j2' %}
 
   cron:
     image: "nextcloud:{{version_nextcloud}}-fpm-alpine"
@@ -44,9 +44,9 @@ services:
     volumes:
       - data:/var/www/html
     entrypoint: /cron.sh
-{% include 'templates/docker-depends-on-central-database.yml.j2' %}
+{% include 'templates/docker-container-depends-on.yml.j2' %}
       redis:
-volumes:
-{% include 'templates/docker-database-volume.yml.j2' %}
+
+{% include 'templates/docker-compose-volumes.yml.j2' %}
   data:
   redis:

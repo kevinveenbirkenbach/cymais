@@ -21,13 +21,13 @@ services:
 {% include 'templates/docker-{{ database_type }}-service.yml.j2' %}
 {% endif %}
 
-{% include 'templates/docker-redis-service.yml.j2' %}
+{% include 'templates/docker-service-redis.yml.j2' %}
 
     env_file:
       - .env
-volumes:
+
+{% include 'templates/docker-compose-volumes.yml.j2' %}
   assets:
-{% include 'templates/docker-database-volume.yml.j2' %}
   data:
   redis:
   config:

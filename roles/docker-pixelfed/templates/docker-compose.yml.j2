@@ -4,7 +4,7 @@ services:
 
 {% include 'templates/docker-{{ database_type }}-service.yml.j2' %}
 
-{% include 'templates/docker-redis-service.yml.j2' %}
+{% include 'templates/docker-service-redis.yml.j2' %}
 
   application:
     image: zknt/pixelfed
@@ -19,7 +19,7 @@ services:
       - "./env:/var/www/.env"
     ports:
       - "{{http_port}}:80"
-{% include 'templates/docker-depends-on-central-database.yml.j2' %}
+{% include 'templates/docker-container-depends-on.yml.j2' %}
       redis:
   worker:
     image: zknt/pixelfed
@@ -38,12 +38,11 @@ services:
       interval: 60s
       timeout: 5s
       retries: 1
-{% include 'templates/docker-depends-on-central-database.yml.j2' %}
+{% include 'templates/docker-container-depends-on.yml.j2' %}
       redis:
       application:
 
-volumes:
-{% include 'templates/docker-database-volume.yml.j2' %}
+{% include 'templates/docker-compose-volumes.yml.j2' %}
   redis:
   application_data:
   bootstrap:

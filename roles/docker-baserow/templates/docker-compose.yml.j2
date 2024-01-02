@@ -12,16 +12,15 @@ services:
       - data:/baserow/data
     ports:
       - "{{http_port}}:80"
-{% include 'templates/docker-networks-for-container.yml.j2' %}
-{% include 'templates/docker-depends-on-central-database.yml.j2' %}
+{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker-container-depends-on.yml.j2' %}
 
-{% include 'templates/docker-redis-service.yml.j2' %}
+{% include 'templates/docker-service-redis.yml.j2' %}
 
 {% include 'templates/docker-{{ database_type }}-service.yml.j2' %}
 
-volumes:
+{% include 'templates/docker-compose-volumes.yml.j2' %}
   data:
   redis:
-{% include 'templates/docker-database-volume.yml.j2' %}
 
-{% include 'templates/docker-networks-for-role.yml.j2' %}
+{% include 'templates/docker-compose-networks.yml.j2' %}

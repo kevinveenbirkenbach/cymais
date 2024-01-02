@@ -2,7 +2,7 @@ version: "3"
 
 services:
 
-{% include 'templates/docker-redis-service.yml.j2' %}
+{% include 'templates/docker-service-redis.yml.j2' %}
 
     env_file: .env
 
@@ -10,7 +10,7 @@ services:
     restart: always
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
     depends_on:
-{% include 'templates/docker-depends-on-central-database.yml.j2' %} 
+{% include 'templates/docker-container-depends-on.yml.j2' %} 
       - redis
     env_file: .env
     command: celery -A funkwhale_api.taskapp worker -l INFO --concurrency=${CELERYD_CONCURRENCY-0}
@@ -18,24 +18,24 @@ services:
       - C_FORCE_ROOT=true
     volumes:
       - "data:${MEDIA_ROOT}"
-{% include 'templates/docker-networks-for-container.yml.j2' %}
+{% include 'templates/docker-container-networks.yml.j2' %}
 
 
   celerybeat:
     restart: always
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
     depends_on:
-{% include 'templates/docker-depends-on-central-database.yml.j2' %}
+{% include 'templates/docker-container-depends-on.yml.j2' %}
       - redis
     env_file: .env
     command: celery -A funkwhale_api.taskapp beat --pidfile= -l INFO
-{% include 'templates/docker-networks-for-container.yml.j2' %}
+{% include 'templates/docker-container-networks.yml.j2' %}
 
   api:
     restart: always
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
     depends_on:
-{% include 'templates/docker-depends-on-central-database.yml.j2' %}
+{% include 'templates/docker-container-depends-on.yml.j2' %}
       - redis
     env_file: .env
     volumes:
@@ -43,7 +43,7 @@ services:
       #- "${STATIC_ROOT}:${STATIC_ROOT}"
     ports:
       - "5000"
-{% include 'templates/docker-networks-for-container.yml.j2' %}
+{% include 'templates/docker-container-networks.yml.j2' %}
 
   front:
     restart: always
@@ -61,13 +61,12 @@ services:
     ports:
       # override those variables in your .env file if needed
       - "${FUNKWHALE_API_IP}:${FUNKWHALE_API_PORT}:80"
-{% include 'templates/docker-networks-for-container.yml.j2' %}
+{% include 'templates/docker-container-networks.yml.j2' %}
 
 {% include 'templates/docker-{{ database_type }}-service.yml.j2' %}
 
-volumes:
+{% include 'templates/docker-compose-volumes.yml.j2' %}
   data:
   redis:
-{% include 'templates/docker-database-volume.yml.j2' %}
 
-{% include 'templates/docker-networks-for-role.yml.j2' %}
+{% include 'templates/docker-compose-networks.yml.j2' %}
