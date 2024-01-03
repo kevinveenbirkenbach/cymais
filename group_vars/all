@@ -1,6 +1,7 @@
 # General
-verbose:      false       # Prints well formated debug information
-top_domain:   "localhost"
+verbose:              false       # Prints well formated debug information
+top_domain:           "localhost"
+backups_folder_path:  "/Backups/"
 
 # Server Tact Variables 
 

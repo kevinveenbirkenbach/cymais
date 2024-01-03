@@ -1,11 +1,6 @@
 ---
-- name: include docker vars
-  include_vars: vars/docker-database-service.yml.j2
-
-- name: create central database
-  include_role:
-    name: docker-{{database_type}}
-  when: enable_central_database | bool
+- name: "include docker-compose-common.yml"
+  include_tasks: docker-compose-common.yml
 
 - name: "include create-domains.yml"
   include_tasks: create-domains.yml
