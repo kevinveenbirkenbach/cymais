@@ -46,7 +46,6 @@
     cmd: "python database_entry_seeder.py databases.csv {{docker_compose_project_name}} {{database_host}} {{database_databasename}} {{database_username}} {{database_password}}"
     chdir: "{{backup_docker_to_local_folder}}"
   when: >
-    docker_compose_project_name is defined or
     database_host is defined or
     database_databasename is defined or
     database_username is defined or
@@ -59,8 +58,7 @@
     owner: root
     group: root
   when: >
-    (docker_compose_project_name is defined or
-    database_host is defined or
+    (database_host is defined or
     database_databasename is defined or
     database_username is defined or
     database_password is defined) and

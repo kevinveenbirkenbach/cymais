@@ -86,6 +86,9 @@ system_maintenance_manipulation_services:
 ## Total System Maintenance Services
 system_maintenance_services: "{{ system_maintenance_backup_services + system_maintenance_cleanup_services + system_maintenance_manipulation_services }}"
 
+### Define Variables for Docker Volume Health services
+whitelisted_anonymous_docker_volumes: []
+
 # Webserver Configuration
 
 ## Nginx-Specific Path Configurations

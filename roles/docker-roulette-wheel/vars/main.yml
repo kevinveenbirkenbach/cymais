@@ -1,3 +1,2 @@
 docker_compose_project_name:      "roulette-wheel"
-docker_compose_instance_directory: "{{path_docker_compose_instances}}{{docker_compose_project_name}}/"
 app_path: "{{docker_compose_instance_directory}}/app/"

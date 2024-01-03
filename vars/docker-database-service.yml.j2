@@ -1,4 +1,6 @@
-docker_compose_instance_directory:  "{{ docker_compose_instance_directory | default(path_docker_compose_instances + docker_compose_project_name + '/') }}"
-database_host:                      "{{ database_host | default('database') }}"
-database_databasename:              "{{ database_databasename | default(docker_compose_project_name) }}"
-database_username:                  "{{ database_username | default(docker_compose_project_name) }}"
+docker_compose_instance_directory:  "{{ path_docker_compose_instances + docker_compose_project_name + '/' }}"
+database_host:                      "{{ 'central-' + database_type if enable_central_database else 'database' }}"
+database_databasename:              "{{ docker_compose_project_name }}"
+database_username:                  "{{ docker_compose_project_name }}"
+
+# This will lead to problems with bbb and openproject

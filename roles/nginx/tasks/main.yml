@@ -4,6 +4,13 @@
   notify: restart nginx
   when: run_once_nginx is not defined
 
+- name: install nginx-mod-headers-more for matomo
+  pacman: 
+    name: nginx-mod-headers-more
+    state: present
+  notify: restart nginx
+  when: run_once_nginx is not defined and nginx_matomo_tracking | bool
+
 - name: Ensure nginx configuration directories are present
   file:
     path: "{{ item }}"

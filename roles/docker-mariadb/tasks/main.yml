@@ -29,6 +29,12 @@
     timeout: 120
   when: run_once_docker_mariadb is not defined
 
+- name: install python-mysqlclient
+  pacman: 
+    name: python-mysqlclient
+    state: present
+  when: run_once_docker_mariadb is not defined
+
 - name: create database
   mysql_db:
     name: "{{database_databasename}}"
@@ -37,7 +43,6 @@
     login_password: "{{central_mariadb_root_password}}"
     login_host: 127.0.0.1
     login_port: 3306
-  listen: create database
 
 - name: create database user
   mysql_user:
@@ -49,7 +54,6 @@
     login_password: "{{central_mariadb_root_password}}"
     login_host: 127.0.0.1
     login_port: 3306
-  listen: create database
 
 - name: run the docker_mariadb tasks once
   set_fact:
