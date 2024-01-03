@@ -14,13 +14,13 @@ services:
     env_file:
       - ./env
     volumes:
-      - "application_data:/var/www/storage"
+      - "data:/var/www/storage"
       - "bootstrap:/var/www/bootstrap"
       - "./env:/var/www/.env"
     ports:
       - "{{http_port}}:80"
-{% include 'templates/docker-container-depends-on.yml.j2' %}
-      redis:
+{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
+{% include 'templates/docker-container-networks.yml.j2' %}
   worker:
     image: zknt/pixelfed
     restart: always
@@ -29,7 +29,7 @@ services:
     env_file:
       - ./env
     volumes:
-      - "application_data:/var/www/storage"
+      - "data:/var/www/storage"
       - "bootstrap:/var/www/bootstrap"
       - "./env:/var/www/.env"
     entrypoint: /worker-entrypoint.sh
@@ -38,11 +38,13 @@ services:
       interval: 60s
       timeout: 5s
       retries: 1
-{% include 'templates/docker-container-depends-on.yml.j2' %}
-      redis:
+{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
       application:
+{% include 'templates/docker-container-networks.yml.j2' %}
 
 {% include 'templates/docker-compose-volumes.yml.j2' %}
   redis:
-  application_data:
+  data:
   bootstrap:
+
+{% include 'templates/docker-compose-networks.yml.j2' %}

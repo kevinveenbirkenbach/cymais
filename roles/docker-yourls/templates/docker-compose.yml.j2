@@ -1,6 +1,9 @@
 version: '3'
 
 services:
+
+{% include 'templates/docker-service-{{ database_type }}.yml.j2' %}
+
   application:
     logging:
       driver: journald
@@ -16,12 +19,8 @@ services:
       YOURLS_SITE: "https://{{domain}}"
       YOURLS_USER: "{{yourls_user}}"
       YOURLS_PASS: "{{yourls_user_password}}"
-{% if not enable_central_database %}
-    depends_on:
-      - database
+{% include 'templates/docker-container-depends-on-just-database.yml.j2' %}
+{% include 'templates/docker-container-networks.yml.j2' %}
 
-{% include 'templates/docker-service-{{ database_type }}.yml.j2' %}
-
-volumes:
-  database:
-{% endif %}
+{% include 'templates/docker-compose-volumes-just-database.yml.j2' %}
+{% include 'templates/docker-compose-networks.yml.j2' %}

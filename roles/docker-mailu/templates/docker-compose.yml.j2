@@ -11,13 +11,9 @@ services:
     image: ghcr.io/mailu/unbound:{{version_mailu}}
     env_file: mailu.env
     restart: always
-    networks:
+{% include 'templates/docker-container-networks.yml.j2' %}
       default:
         ipv4_address: 192.168.203.254
-      {{docker_compose_project_name}}_network: 
-{% if enable_central_database %}
-      central_{{ database_type }}_network:
-{% endif %}
     logging:
       driver: journald
 
@@ -39,13 +35,9 @@ services:
     volumes:
       - "/etc/mailu/overrides/nginx:/overrides:ro"
       - "/etc/mailu/certs:/certs"
-    depends_on:
+{% include 'templates/docker-container-depends-on-also-database.yml.j2' %}
       resolver:
         condition: service_started
-{% if not enable_central_database %}
-      database:
-        condition: service_healthy
-{% endif %}
 {% include 'templates/docker-container-networks.yml.j2' %}
       default:
       webmail:
@@ -60,11 +52,9 @@ services:
     volumes:
       - "admin_data:/data"
       - "dkim:/dkim"
-    depends_on:
+{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
       resolver:
       front:
-      redis:
-{% include 'templates/docker-container-depends-on.yml.j2' %}
     logging:
       driver: journald
     dns:
@@ -202,7 +192,6 @@ services:
 {% include 'templates/docker-container-networks.yml.j2' %}
       webmail:
 
-volumes:
 {% include 'templates/docker-compose-volumes.yml.j2' %}
   smtp_queue:
   admin_data:

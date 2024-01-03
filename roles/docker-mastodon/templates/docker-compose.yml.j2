@@ -14,10 +14,7 @@ services:
       test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:3000/health || exit 1']
     ports:
       - "127.0.0.1:{{http_port}}:3000"
-    depends_on:
-{% include 'templates/docker-container-depends-on.yml.j2' %}
-      redis:
-        condition: service_healthy
+{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
     volumes:
       - data:/mastodon/public/system
     logging:
@@ -33,9 +30,7 @@ services:
       test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:4000/api/v1/streaming/health || exit 1']
     ports:
       - "127.0.0.1:{{stream_port}}:4000"
-{% include 'templates/docker-container-depends-on.yml.j2' %}
-      redis:
-        condition: service_healthy
+{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
     logging:
       driver: journald
 {% include 'templates/docker-container-networks.yml.j2' %}
@@ -45,10 +40,7 @@ services:
     restart: always
     env_file: .env.production
     command: bundle exec sidekiq
-    depends_on:
-{% include 'templates/docker-container-depends-on.yml.j2' %}
-      redis:
-        condition: service_healthy
+{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
     volumes:
       - data:/mastodon/public/system
     healthcheck:

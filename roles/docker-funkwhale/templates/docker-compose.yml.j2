@@ -4,45 +4,38 @@ services:
 
 {% include 'templates/docker-service-redis.yml.j2' %}
 
-    env_file: .env
-
   celeryworker:
     restart: always
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
-    depends_on:
-{% include 'templates/docker-container-depends-on.yml.j2' %} 
-      - redis
     env_file: .env
     command: celery -A funkwhale_api.taskapp worker -l INFO --concurrency=${CELERYD_CONCURRENCY-0}
     environment:
       - C_FORCE_ROOT=true
     volumes:
       - "data:${MEDIA_ROOT}"
+{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker-container-networks.yml.j2' %}
 
 
   celerybeat:
     restart: always
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
-    depends_on:
-{% include 'templates/docker-container-depends-on.yml.j2' %}
-      - redis
     env_file: .env
     command: celery -A funkwhale_api.taskapp beat --pidfile= -l INFO
+{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker-container-networks.yml.j2' %}
 
   api:
     restart: always
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
     depends_on:
-{% include 'templates/docker-container-depends-on.yml.j2' %}
-      - redis
     env_file: .env
     volumes:
       - "data:${MEDIA_ROOT}"
       #- "${STATIC_ROOT}:${STATIC_ROOT}"
     ports:
       - "5000"
+{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker-container-networks.yml.j2' %}
 
   front:
@@ -62,8 +55,6 @@ services:
       # override those variables in your .env file if needed
       - "${FUNKWHALE_API_IP}:${FUNKWHALE_API_PORT}:80"
 {% include 'templates/docker-container-networks.yml.j2' %}
-
-{% include 'templates/docker-service-{{ database_type }}.yml.j2' %}
 
 {% include 'templates/docker-compose-volumes.yml.j2' %}
   data:
