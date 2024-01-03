@@ -1,8 +1,5 @@
 # This needs to be included in docker-compose.yml which just contain a database volume
-#volumes:
 {% if not enable_central_database | bool %}
 volumes:
   database:
-#{% else %}
-#  mariadb_socket:
 {% endif %}

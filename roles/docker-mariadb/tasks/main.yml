@@ -21,7 +21,6 @@
       - name: central_mariadb_network
     volumes:
       - central_mariadb_database:/var/lib/mysql
-      - central_mariadb_socket:/var/run/mysqld
     published_ports:
       - "127.0.0.1:3306:3306" # can be that this will be removed if all applications use sockets
     command: "--transaction-isolation=READ-COMMITTED --binlog-format=ROW" #for nextcloud
