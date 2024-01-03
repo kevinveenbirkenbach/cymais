@@ -71,13 +71,13 @@ env:
   DISCOURSE_SMTP_DOMAIN:            {{ system_email_domain }}
   DISCOURSE_NOTIFICATION_EMAIL:     {{ system_email }}
 
-{% if enable_central_database %}
+{% if enable_central_database | bool %}
   # Database Configuration
   DISCOURSE_DB_USERNAME: {{ database_username }}
   DISCOURSE_DB_PASSWORD: {{ database_password }}
   DISCOURSE_DB_HOST:     {{ database_host }}
   DISCOURSE_DB_NAME:     {{ database_databasename }}
-{% if enable_central_database %}
+{% if enable_central_database | bool %}
 
   ## If you added the Lets Encrypt template, uncomment below to get a free SSL certificate
   #LETSENCRYPT_ACCOUNT_EMAIL: administrator@veen.world

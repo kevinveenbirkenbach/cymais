@@ -23,7 +23,7 @@
     src: heal-docker.timer.j2
     dest: "/etc/systemd/system/heal-docker.timer"
   register: heal_docker_timer
-  changed_when: heal_docker_timer.changed or activate_all_timers
+  changed_when: heal_docker_timer.changed or activate_all_timers | bool
   notify: restart heal-docker.timer
   when: run_once_heal_docker is not defined
 

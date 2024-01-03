@@ -16,7 +16,7 @@
     src:  certbot.timer.j2
     dest: /etc/systemd/system/certbot.timer
   register: certbot_timer
-  changed_when: certbot_timer.changed or activate_all_timers
+  changed_when: certbot_timer.changed or activate_all_timers | bool
   notify: restart certbot timer
   when: run_once_nginx_certbot is not defined
 

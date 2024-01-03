@@ -29,7 +29,7 @@
     src: health-nginx.timer.j2
     dest: "/etc/systemd/system/health-nginx.timer"
   register: health_nginx_timer
-  changed_when: health_nginx_timer.changed or activate_all_timers
+  changed_when: health_nginx_timer.changed or activate_all_timers | bool
   notify: restart health-nginx.timer
   when: run_once_health_nginx is not defined
 
