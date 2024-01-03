@@ -8,19 +8,19 @@
     path: "/root/.ssh/id_rsa"
     type: rsa
     size: 4096
-  when: not ssh_key.stat.exists and run_once_user_administrator is not defined
+  when: not ssh_key.stat.exists and run_once_user_root is not defined
 
 - name: Display the public SSH key
   command: cat /root/.ssh/id_rsa.pub
   register: public_key
-  when: not ssh_key.stat.exists and run_once_user_administrator is not defined
+  when: not ssh_key.stat.exists and run_once_user_root is not defined
 
 - name: Output the public SSH key
   debug:
     msg: "{{ public_key.stdout }}"
-  when: not ssh_key.stat.exists and run_once_user_administrator is not defined
+  when: not ssh_key.stat.exists and run_once_user_root is not defined
 
-- name: run the user_administrator tasks once
+- name: run the user_root tasks once
   set_fact:
-    run_once_user_administrator: true
-  when: run_once_user_administrator is not defined
+    run_once_user_root: true
+  when: run_once_user_root is not defined
