@@ -1,6 +1,9 @@
 version: '3'
 
 services:
+
+{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
+
   application:
     logging:
       driver: journald
@@ -9,22 +12,16 @@ services:
     ports:
       - "127.0.0.1:{{http_port}}:80"
     environment:
-      YOURLS_DB_HOST: "database:3306"
-      YOURLS_DB_USER: "yourls"
-      YOURLS_DB_PASS: "{{yourls_database_password}}"
-      YOURLS_DB_NAME: "yourls"
+      YOURLS_DB_HOST: "{{database_host}}"
+      YOURLS_DB_USER: "{{database_username}}"
+      YOURLS_DB_PASS: "{{database_password}}"
+      YOURLS_DB_NAME: "{{database_databasename}}"
       YOURLS_SITE: "https://{{domain}}"
       YOURLS_USER: "{{yourls_user}}"
       YOURLS_PASS: "{{yourls_user_password}}"
-{% if not ( enable_central_database | lower | bool )  %}
-    depends_on:
-      - database
 
-{% include 'templates/docker-mariadb-service.yml.j2' %}
+{% include 'templates/docker-container-depends-on-just-database.yml.j2' %}
+{% include 'templates/docker-container-networks.yml.j2' %}
 
-volumes:
-  database:
-{% endif %}
-networks:
-  default:
-    driver: bridge
+{% include 'templates/docker-compose-volumes-just-database.yml.j2' %}
+{% include 'templates/docker-compose-networks.yml.j2' %}

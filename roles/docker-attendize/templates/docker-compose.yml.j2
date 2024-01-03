@@ -1,30 +1,29 @@
 version: '3.2'
 services:
+
+{% include 'templates/docker-service-redis.yml.j2' %}
+
+{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
+
   web:
     image: attendize_web:latest
     ports:
     - "{{http_port}}:80"
-    #- "8081:443"
     volumes:
       - .:/usr/share/nginx/html
       - .:/var/www
-    depends_on:
-{% if not ( enable_central_database | lower | bool )  %}
-      - database
-{% endif %}
-      - maildev
-      - redis
-      - worker
+{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
+      maildev:
+      worker:
     env_file:
       - ./.env
+{% include 'templates/docker-container-networks.yml.j2' %}
+
   worker:
     image: attendize_worker:latest
-    depends_on:
-{% if not ( enable_central_database | lower | bool )  %}
-      - database
-{% endif %}
-      - maildev
-      - redis
+{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
+      maildev:
+{% include 'templates/docker-container-networks.yml.j2' %}
     volumes:
       - .:/usr/share/nginx/html
       - .:/var/www
@@ -33,18 +32,10 @@ services:
     image: maildev/maildev
     ports:
       - "{{ mail_interface_http_port }}:1080"
+{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker-container-depends-on-just-database.yml.j2' %}
 
-{% include 'templates/docker-redis-service.yml.j2' %}
-
-{% if not ( enable_central_database | lower | bool )  %}
-    depends_on:
-      - database
-
-{% include 'templates/docker-mariadb-service.yml.j2' %}
-{% endif %}
-
-volumes:
+{% include 'templates/docker-compose-volumes.yml.j2' %}
   redis:
-{% if not ( enable_central_database | lower | bool )  %}
-  database:
-{% endif %}
+
+{% include 'templates/docker-compose-networks.yml.j2' %}

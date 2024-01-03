@@ -1,0 +1,7 @@
+# This template needs to be included in docker-compose.yml
+networks:
+{% if enable_central_database | bool %}
+  central_{{ database_type }}_network:
+    external: true
+{% endif %}
+  {{docker_compose_project_name}}_network:

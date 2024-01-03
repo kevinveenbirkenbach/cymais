@@ -1,14 +1,12 @@
 ---
+- name: "include docker-compose-common.yml"
+  include_tasks: docker-compose-common.yml
+  
 - name: "include create-domains.yml"
   include_tasks: create-domains.yml
   loop: "{{ domains }}"
   loop_control:
     loop_var: domain
-
-- name: create database in central Postgres
-  include_role:
-    name: docker-postgres
-  when: enable_central_database | bool
 
 - name: "create {{docker_compose_instance_directory}}"
   file:

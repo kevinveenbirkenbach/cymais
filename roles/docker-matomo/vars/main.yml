@@ -1,7 +1,4 @@
 ---
 docker_compose_project_name:  	    "matomo"
-docker_compose_instance_directory:  "{{path_docker_compose_instances}}{{docker_compose_project_name}}/"
-database_host:      	              "database"
-database_databasename:              "{{docker_compose_project_name}}"
-database_username:  	              "{{docker_compose_project_name}}"
+database_type:                      "mariadb"
 database_password:  	              "{{matomo_database_password}}"

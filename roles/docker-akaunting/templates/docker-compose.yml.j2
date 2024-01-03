@@ -1,6 +1,9 @@
 version: '3.7'
 
 services:
+
+{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
+
   application:
     image: docker.io/akaunting/akaunting:{{version_akaunting}}
     build:
@@ -14,15 +17,10 @@ services:
       - env/run.env
     environment:
       - AKAUNTING_SETUP
-{% if not ( enable_central_database | lower | bool )  %}
-    depends_on:
-      - database
+{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker-container-depends-on-just-database.yml.j2' %}
 
-{% include 'templates/docker-mariadb-service.yml.j2' %}
-{% endif %}
-
-volumes:
+{% include 'templates/docker-compose-volumes.yml.j2' %}
   data:
-{% if not ( enable_central_database | lower | bool )  %}
-  database:
-{% endif %}
+
+{% include 'templates/docker-compose-networks.yml.j2' %}

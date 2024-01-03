@@ -2,6 +2,8 @@ version: "3.7"
 
 services:
 
+{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
+
   application:
     restart: unless-stopped
     image: listmonk/listmonk:latest
@@ -11,13 +13,7 @@ services:
       - TZ=Etc/UTC
     volumes:
       - ./config.toml:/listmonk/config.toml
+{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker-container-depends-on-just-database.yml.j2' %}
 
-{% if not ( enable_central_database | lower | bool )  %}
-    depends_on:
-      - database
-
-{% include 'templates/docker-postgres-service.yml.j2' %}
-
-volumes:
-  database:
-{% endif %}
+{% include 'templates/docker-compose-networks.yml.j2' %}

@@ -1,6 +1,2 @@
 docker_compose_project_name:        "mailu"
-docker_compose_instance_directory:  "{{path_docker_compose_instances}}{{docker_compose_project_name}}/"
-database_host:      	              "database"
-database_databasename:              "{{docker_compose_project_name}}"
-database_username:  	              "{{docker_compose_project_name}}"
 database_password:  	              "{{mailu_database_password}}"

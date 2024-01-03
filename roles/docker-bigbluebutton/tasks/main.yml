@@ -1,4 +1,11 @@
 ---
+- name: include docker vars
+  include_vars: vars/docker-database-service.yml.j2
+
+- name: load docker compose dependencies
+  include_role:
+    name: docker-compose
+
 - name: "include task certbot-matomo.yml"
   include_tasks: certbot-matomo.yml
 

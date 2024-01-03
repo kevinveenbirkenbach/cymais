@@ -1,0 +1,6 @@
+# This template needs to be included in docker-compose.yml containers
+    networks:
+      - {{docker_compose_project_name}}_network  
+{% if enable_central_database | bool %}
+      - central_{{ database_type }}_network
+{% endif %}

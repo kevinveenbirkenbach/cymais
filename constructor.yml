@@ -1,9 +1,8 @@
 ---
-# general setup
-- name: general setup
+
+- name: update device
   hosts:  all
   become: true
-  tasks:
   roles:
     - role: update
       when: execute_updates | bool

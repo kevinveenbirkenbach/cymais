@@ -1,5 +1,8 @@
 version: '3.8'
 services:
+
+{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
+
   application:
     logging:
       driver: journald
@@ -9,10 +12,9 @@ services:
     restart: always
     volumes:
       - data:/var/www/html
-{% if not ( enable_central_database | lower | bool )  %}
-    depends_on:
-      - database
-{% endif %}
+{% include 'templates/docker-container-depends-on-just-database.yml.j2' %}
+{% include 'templates/docker-container-networks.yml.j2' %}
+
   server:
     logging:
       driver: journald
@@ -25,16 +27,9 @@ services:
     volumes:
     - "{{docker_compose_instance_confd_directory}}:{{target_mount_conf_d_directory}}:ro"
     - "data:/var/www/html:ro"
+{% include 'templates/docker-container-networks.yml.j2' %}
 
-{% if not ( enable_central_database | lower | bool )  %}
-{% include 'templates/docker-mariadb-service.yml.j2' %}
-{% endif %}
-
-volumes:
-{% if not ( enable_central_database | lower | bool )  %}
-  database:
-{% endif %}
+{% include 'templates/docker-compose-volumes.yml.j2' %}
   data:
-networks:
-  default:
-    driver: bridge
+
+{% include 'templates/docker-compose-networks.yml.j2' %}

@@ -1,3 +1,4 @@
+# This template needs to be included in docker-compose.yml, which depend on redis
   redis:
     image: redis:alpine
     restart: always
@@ -10,3 +11,5 @@
       interval: 1s
       timeout: 3s
       retries: 30
+    networks:
+      - {{docker_compose_project_name}}_network

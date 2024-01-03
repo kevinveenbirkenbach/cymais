@@ -1,6 +1,11 @@
 version: '3'
 
 services:
+
+{% include 'templates/docker-service-redis.yml.j2' %}
+
+{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
+
   application:
     image: "nextcloud:{{version_nextcloud}}-fpm-alpine"
     restart: always
@@ -13,12 +18,8 @@ services:
       MYSQL_USER: "{{database_username}}"
       MYSQL_PASSWORD: "{{database_password}}"
       MYSQL_HOST: {{database_host}}:3306
-{% if not ( enable_central_database | lower | bool )  %}
-    depends_on:
-      - database
-
-{% include 'templates/docker-mariadb-service.yml.j2' %}
-{% endif %}
+{% include 'templates/docker-container-depends-on-just-database.yml.j2' %}
+{% include 'templates/docker-container-networks.yml.j2' %}
 
   web:
     image: nginx:alpine
@@ -27,14 +28,11 @@ services:
     restart: always
     ports:
       - "127.0.0.1:{{http_port}}:80"
-    depends_on:
-      - application
     volumes:
         - "{{path_docker_volumes}}nextcloud/nginx.conf:/etc/nginx/nginx.conf:ro"
     volumes_from:
       - application
-
-{% include 'templates/docker-redis-service.yml.j2' %}
+{% include 'templates/docker-container-networks.yml.j2' %}
 
   cron:
     image: "nextcloud:{{version_nextcloud}}-fpm-alpine"
@@ -44,17 +42,11 @@ services:
     volumes:
       - data:/var/www/html
     entrypoint: /cron.sh
-    depends_on:
-{% if not ( enable_central_database | lower | bool )  %}
-      - database
-{% endif %}
-      - redis
-volumes:
-{% if not ( enable_central_database | lower | bool )  %}
-  database:
-{% endif %}
+{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
+{% include 'templates/docker-container-networks.yml.j2' %}
+
+{% include 'templates/docker-compose-volumes.yml.j2' %}
   data:
   redis:
-networks:
-  default:
-    driver: bridge
+
+{% include 'templates/docker-compose-networks.yml.j2' %}

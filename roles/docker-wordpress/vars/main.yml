@@ -1,7 +1,4 @@
 docker_compose_project_name:  	    "wordpress"
-docker_compose_instance_directory:  "{{path_docker_compose_instances}}{{docker_compose_project_name}}/"
 wordpress_max_upload_size:          "64M"
-database_host:      	              "database"
-database_databasename:              "{{docker_compose_project_name}}"
-database_username:  	              "{{docker_compose_project_name}}"
+database_type:                      "mariadb"
 database_password:  	              "{{wordpress_database_password}}"

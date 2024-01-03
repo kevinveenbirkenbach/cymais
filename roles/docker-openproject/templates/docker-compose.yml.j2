@@ -1,21 +1,8 @@
 version: "3.7"
-
-networks:
-  frontend:
-  backend:
-
-volumes:
-{% if not ( enable_central_database | lower | bool )  %}
-  database:
-{% endif %}
-  data:
-
-x-op-restart-policy: &restart_policy
-  restart: unless-stopped
-x-op-image: &image
-  image: openproject/community:${TAG:-13}
+  
 x-op-app: &app
-  <<: [*image, *restart_policy]
+  restart: unless-stopped
+  image: openproject/community:${TAG:-13}
   environment:
     OPENPROJECT_HTTPS: "${OPENPROJECT_HTTPS}"
     OPENPROJECT_HOST__NAME: "${OPENPROJECT_HOST__NAME}"
@@ -30,26 +17,20 @@ x-op-app: &app
     IMAP_ENABLED: "${IMAP_ENABLED:-false}"
   volumes:
     - "data:/var/openproject/assets"
-{% if not ( enable_central_database | lower | bool )  %}
-    - "database:/var/openproject/pgdata"
-{% endif %}
+    # - "database:/var/openproject/pgdata"
 
 services:
 
-{% if not ( enable_central_database | lower | bool )  %}
-{% include 'templates/docker-postgres-service.yml.j2' %}
-{% endif %}
-    networks:
-      - backend
+{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
 
   cache:
     image: memcached
-    <<: *restart_policy
-    networks:
-      - backend
+    restart: unless-stopped
+{% include 'templates/docker-container-networks.yml.j2' %}
 
   proxy:
-    <<: [*image, *restart_policy]
+    restart: unless-stopped
+    image: openproject/community:${TAG:-13}
     command: "./docker/prod/proxy"
     ports:
       - "${PORT}:80"
@@ -58,26 +39,18 @@ services:
       OPENPROJECT_RAILS__RELATIVE__URL__ROOT: "${OPENPROJECT_RAILS__RELATIVE__URL__ROOT:-}"
     depends_on:
       - web
-    networks:
-      - frontend
+{% include 'templates/docker-container-networks.yml.j2' %}
     volumes:
       - "data:/var/openproject/assets"
-{% if not ( enable_central_database | lower | bool )  %}
-      - "database:/var/openproject/pgdata"
-{% endif %}
+      # - "database:/var/openproject/pgdata" Should definetly not be necessary here
 
   web:
     <<: *app
     command: "./docker/prod/web"
-    networks:
-      - frontend
-      - backend
-    depends_on:
-{% if not ( enable_central_database | lower | bool )  %}
-      - database
-{% endif %}
-      - cache
-      - seeder
+{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker-container-depends-on-also-database.yml.j2' %}
+      cache:
+      seeder:
     labels:
       - autoheal=true
     healthcheck:
@@ -99,30 +72,26 @@ services:
   worker:
     <<: *app
     command: "./docker/prod/worker"
-    networks:
-      - backend
-    depends_on:
-{% if not ( enable_central_database | lower | bool )  %}
-      - database
-{% endif %}
-      - cache
-      - seeder
+{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker-container-depends-on-also-database.yml.j2' %}
+      cache:
+      seeder:
 
   cron:
     <<: *app
     command: "./docker/prod/cron"
-    networks:
-      - backend
-    depends_on:
-{% if not ( enable_central_database | lower | bool )  %}
-      - database
-{% endif %}
-      - cache
-      - seeder
+{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker-container-depends-on-also-database.yml.j2' %}
+      cache:
+      seeder:
 
   seeder:
     <<: *app
     command: "./docker/prod/seeder"
     restart: on-failure
-    networks:
-      - backend
+{% include 'templates/docker-container-networks.yml.j2' %}
+
+{% include 'templates/docker-compose-networks.yml.j2' %}
+
+{% include 'templates/docker-compose-volumes.yml.j2' %}
+  data:

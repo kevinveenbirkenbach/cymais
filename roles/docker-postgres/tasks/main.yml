@@ -1,6 +1,6 @@
 - name: Create Docker network for PostgreSQL
   docker_network:
-    name: postgres_network
+    name: central_postgres_network
     state: present
   when: run_once_docker_postgres is not defined
 
@@ -13,7 +13,7 @@
       POSTGRES_PASSWORD: "{{ central_postgres_password }}"
       POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C" # Necessary for docker-matrix
     networks:
-      - name: postgres_network
+      - name: central_postgres_network
     published_ports:
       - "127.0.0.1:5432:5432"
   when: run_once_docker_postgres is not defined
@@ -34,7 +34,6 @@
     login_password: "{{ central_postgres_password }}"
     login_host: 127.0.0.1
     login_port: 5432
-  listen: create database
 
 - name: Create database user
   postgresql_user:
@@ -47,7 +46,6 @@
     login_password: "{{ central_postgres_password }}"
     login_host: 127.0.0.1
     login_port: 5432
-  listen: create database
 
 - name: Run the docker_postgres tasks once
   set_fact:

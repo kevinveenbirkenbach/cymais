@@ -1,53 +1,66 @@
 - name: Create Docker network for MariaDB
   docker_network:
-    name: mariadb_network
+    name: central_mariadb_network
     state: present
+  when: run_once_docker_mariadb is not defined
+
+- name: Create a volume for MariaDB socket
+  docker_volume:
+    name: mariadb_socket
   when: run_once_docker_mariadb is not defined
 
 - name: install MariaDB
   docker_container:
-    name: mariadb
+    name: central-mariadb
     image: mariadb:latest #could lead to problems with nextcloud
     detach: yes
     env:
       MARIADB_ROOT_PASSWORD:  "{{central_mariadb_root_password}}"
       MARIADB_AUTO_UPGRADE:   "1"
     networks:
-      - name: mariadb_network
+      - name: central_mariadb_network
+    volumes:
+      - central_mariadb_database:/var/lib/mysql
     published_ports:
-      - "127.0.0.1:3306:3306"
+      - "127.0.0.1:3306:3306" # can be that this will be removed if all applications use sockets
     command: "--transaction-isolation=READ-COMMITTED --binlog-format=ROW" #for nextcloud
   when: run_once_docker_mariadb is not defined
 
-- name: wait for availability of mariadb
+- name: install python-mysqlclient
+  pacman: 
+    name: python-mysqlclient
+    state: present
+  when: run_once_docker_mariadb is not defined
+
+- name: wait for database
   wait_for:
-    host: "127.0.0.1"
-    port: "3306"
-    delay: 0      
-    timeout: 120
+    host: 127.0.0.1
+    port: 3306
+    delay: 10
+    timeout: 300
   when: run_once_docker_mariadb is not defined
 
 - name: create database
   mysql_db:
-    name: "{{database_databasename}}"
+    name: "{{ database_databasename }}"
     state: present
     login_user: root
-    login_password: "{{central_mariadb_root_password}}"
+    login_password: "{{ central_mariadb_root_password }}"
     login_host: 127.0.0.1
     login_port: 3306
-  listen: create database
+
 
 - name: create database user
   mysql_user:
     name: "{{database_username}}"
     password: "{{database_password}}"
+    host: "%"
     priv: '{{database_databasename}}.*:ALL'
     state: present
     login_user: root
     login_password: "{{central_mariadb_root_password}}"
     login_host: 127.0.0.1
     login_port: 3306
-  listen: create database
 
 - name: run the docker_mariadb tasks once
   set_fact:

@@ -2,27 +2,16 @@ version: '2.2'
 
 services:
 
-{% include 'templates/docker-redis-service.yml.j2' %}
-    env_file: mailu.env
-    depends_on:
-      - resolver
-    dns:
-      - 192.168.203.254
-    depends_on:
-      - resolver
-    dns:
-      - 192.168.203.254
-    networks:
-      - default
-      - webmail
-      - radicale
+{% include 'templates/docker-service-redis.yml.j2' %}
+
+{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
 
   # Core services
   resolver:
     image: ghcr.io/mailu/unbound:{{version_mailu}}
     env_file: mailu.env
     restart: always
-    networks:
+{% include 'templates/docker-container-networks.yml.j2' %}
       default:
         ipv4_address: 192.168.203.254
     logging:
@@ -46,17 +35,13 @@ services:
     volumes:
       - "/etc/mailu/overrides/nginx:/overrides:ro"
       - "/etc/mailu/certs:/certs"
-    depends_on:
+{% include 'templates/docker-container-depends-on-also-database.yml.j2' %}
       resolver:
         condition: service_started
-{% if not ( enable_central_database | lower | bool )  %}
-      database:
-        condition: service_healthy
-{% endif %}
-    networks:
-      - default
-      - webmail
-      - radicale
+{% include 'templates/docker-container-networks.yml.j2' %}
+      default:
+      webmail:
+      radicale:
     dns:
       - 192.168.203.254
       
@@ -67,17 +52,15 @@ services:
     volumes:
       - "admin_data:/data"
       - "dkim:/dkim"
-    depends_on:
-      - resolver
-      - front
-      - redis
-{% if not ( enable_central_database | lower | bool )  %}
-      - database
-{% endif %}
+{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
+      resolver:
+      front:
     logging:
       driver: journald
     dns:
       - 192.168.203.254
+{% include 'templates/docker-container-networks.yml.j2' %}
+
   imap:
     image: ghcr.io/mailu/dovecot:{{version_mailu}}
     restart: always
@@ -92,6 +75,7 @@ services:
       - 192.168.203.254
     logging:
       driver: journald
+{% include 'templates/docker-container-networks.yml.j2' %}
 
   smtp:
     image: ghcr.io/mailu/postfix:{{version_mailu}}
@@ -107,6 +91,7 @@ services:
       - 192.168.203.254
     logging:
       driver: journald
+{% include 'templates/docker-container-networks.yml.j2' %}
 
   oletools:
     image: ghcr.io/mailu/oletools:{{version_mailu}}
@@ -116,8 +101,8 @@ services:
       - resolver
     dns:
       - 192.168.203.254
-    networks:
-      - noinet
+{% include 'templates/docker-container-networks.yml.j2' %}
+      noinet:
 
   antispam:
     image: ghcr.io/mailu/rspamd:{{version_mailu}}
@@ -134,11 +119,12 @@ services:
       - resolver
     dns:
       - 192.168.203.254
-    networks:
-      - default
-      - noinet
     logging:
       driver: journald
+{% include 'templates/docker-container-networks.yml.j2' %}
+      default:
+      noinet:  
+
 
   # Optional services
   antivirus:
@@ -153,6 +139,7 @@ services:
       - 192.168.203.254
     logging:
       driver: journald
+{% include 'templates/docker-container-networks.yml.j2' %}
 
   webdav:
     image: ghcr.io/mailu/radicale:{{version_mailu}}
@@ -168,6 +155,7 @@ services:
       - resolver
     dns:
       - 192.168.203.254
+{% include 'templates/docker-container-networks.yml.j2' %}
 
   fetchmail:
     image: ghcr.io/mailu/fetchmail:{{version_mailu}}
@@ -184,6 +172,7 @@ services:
       - resolver
     dns:
       - 192.168.203.254
+{% include 'templates/docker-container-networks.yml.j2' %}
 
   webmail:
     image: ghcr.io/mailu/webmail:{{version_mailu}}
@@ -198,18 +187,12 @@ services:
       - resolver
     logging:
       driver: journald
-    networks:
-      - webmail
     dns:
       - 192.168.203.254
-{% if not ( enable_central_database | lower | bool )  %}
-{% include 'templates/docker-postgres-service.yml.j2' %}
-{% endif %}
+{% include 'templates/docker-container-networks.yml.j2' %}
+      webmail:
 
-volumes:
-{% if not ( enable_central_database | lower | bool )  %}
-  database:
-{% endif %}
+{% include 'templates/docker-compose-volumes.yml.j2' %}
   smtp_queue:
   admin_data:
   webdav_data:
@@ -218,7 +201,8 @@ volumes:
   dkim:
   dovecot_mail:
   redis:
-networks:
+
+{% include 'templates/docker-compose-networks.yml.j2' %}
   default:
     driver: bridge
     ipam:

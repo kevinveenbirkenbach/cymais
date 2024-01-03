@@ -1,83 +1,56 @@
 version: '3'
 services:
 
-{% include 'templates/docker-redis-service.yml.j2' %}
+{% include 'templates/docker-service-redis.yml.j2' %}
 
-    networks:
-      - internal_network
+{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
 
   web:
     image: tootsuite/mastodon:{{version_mastodon}}
     restart: always
     env_file: .env.production
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
-    networks:
-      - external_network
-      - internal_network
     healthcheck:
-      # prettier-ignore
       test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:3000/health || exit 1']
     ports:
       - "127.0.0.1:{{http_port}}:3000"
-    depends_on:
-{% if not ( enable_central_database | lower | bool )  %}
-      - database
-{% endif %}
-      - redis
+{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
     volumes:
       - data:/mastodon/public/system
     logging:
       driver: journald
+{% include 'templates/docker-container-networks.yml.j2' %}
+
   streaming:
     image: tootsuite/mastodon:{{version_mastodon}}
     restart: always
     env_file: .env.production
     command: node ./streaming
-    networks:
-      - external_network
-      - internal_network
     healthcheck:
-      # prettier-ignore
       test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:4000/api/v1/streaming/health || exit 1']
     ports:
       - "127.0.0.1:{{stream_port}}:4000"
-    depends_on:
-{% if not ( enable_central_database | lower | bool )  %}
-      - database
-{% endif %}
-      - redis
+{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
     logging:
       driver: journald
+{% include 'templates/docker-container-networks.yml.j2' %}
+
   sidekiq:
     image: tootsuite/mastodon:{{version_mastodon}}
     restart: always
     env_file: .env.production
     command: bundle exec sidekiq
-    depends_on:
-{% if not ( enable_central_database | lower | bool )  %}
-      - database
-{% endif %}
-      - redis
-    networks:
-      - external_network
-      - internal_network
+{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
     volumes:
       - data:/mastodon/public/system
     healthcheck:
       test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 6' || false"]
     logging:
       driver: journald
-{% if not ( enable_central_database | lower | bool )  %}
-{% include 'templates/docker-postgres-service.yml.j2' %}
-{% endif %}
+{% include 'templates/docker-container-networks.yml.j2' %}
 
-volumes:
-{% if not ( enable_central_database | lower | bool )  %}
-  database:
-{% endif %}
+{% include 'templates/docker-compose-volumes.yml.j2' %}
   redis:
   data:
-networks:
-  external_network:
-  internal_network:
-    internal: true
+
+{% include 'templates/docker-compose-networks.yml.j2' %}

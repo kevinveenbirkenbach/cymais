@@ -1,6 +1,9 @@
 version: '3'
 
 services:
+
+{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
+
   application:
     image: joomla
     logging:
@@ -11,21 +14,14 @@ services:
       JOOMLA_DB_PASSWORD: "{{database_password}}"
       JOOMLA_DB_NAME: "{{database_databasename}}"
     restart: always
-{% if not ( enable_central_database | lower | bool )  %}
-    links:
-      - database
-{% endif %}
     volumes:
       - data:/var/www/html
     ports:
       - "127.0.0.1:{{http_port}}:80"
+{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker-container-depends-on-just-database.yml.j2' %}
 
-{% if not ( enable_central_database | lower | bool )  %}
-{% include 'templates/docker-mariadb-service.yml.j2' %}
-{% endif %}
-
-volumes:
+{% include 'templates/docker-compose-volumes.yml.j2' %}
   data:
-{% if not ( enable_central_database | lower | bool )  %}
-  database:
-{% endif %}
+
+{% include 'templates/docker-compose-networks.yml.j2' %}

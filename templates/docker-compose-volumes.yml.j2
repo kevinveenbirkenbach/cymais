@@ -1,0 +1,5 @@
+# This template needs to be included in docker-compose.yml which contain a database and additional volumes
+volumes:
+{% if not enable_central_database | bool %}
+  database:
+{% endif %}

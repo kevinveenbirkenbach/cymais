@@ -1,3 +1,5 @@
+# This template needs to be included in docker-compose.yml, which depend on a mariadb database
+{% if not enable_central_database | bool %}
   database:
     logging:
       driver: journald
@@ -17,3 +19,6 @@
       interval: 3s
       timeout: 1s
       retries: 5
+    networks:
+      - {{docker_compose_project_name}}_network
+{% endif %}

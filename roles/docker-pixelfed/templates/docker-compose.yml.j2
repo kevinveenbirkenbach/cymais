@@ -1,6 +1,11 @@
 version: '2'
 
 services:
+
+{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
+
+{% include 'templates/docker-service-redis.yml.j2' %}
+
   application:
     image: zknt/pixelfed
     restart: always
@@ -9,16 +14,13 @@ services:
     env_file:
       - ./env
     volumes:
-      - "application_data:/var/www/storage"
+      - "data:/var/www/storage"
       - "bootstrap:/var/www/bootstrap"
       - "./env:/var/www/.env"
     ports:
       - "{{http_port}}:80"
-    depends_on:
-{% if not ( enable_central_database | lower | bool )  %}
-      - database
-{% endif %}
-      - redis
+{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
+{% include 'templates/docker-container-networks.yml.j2' %}
   worker:
     image: zknt/pixelfed
     restart: always
@@ -27,7 +29,7 @@ services:
     env_file:
       - ./env
     volumes:
-      - "application_data:/var/www/storage"
+      - "data:/var/www/storage"
       - "bootstrap:/var/www/bootstrap"
       - "./env:/var/www/.env"
     entrypoint: /worker-entrypoint.sh
@@ -36,22 +38,13 @@ services:
       interval: 60s
       timeout: 5s
       retries: 1
-    depends_on:
-      - redis
-      - application
-{% if not ( enable_central_database | lower | bool )  %}
-    
-      - database
+{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
+      application:
+{% include 'templates/docker-container-networks.yml.j2' %}
 
-{% include 'templates/docker-mariadb-service.yml.j2' %}
-{% endif %}
-
-{% include 'templates/docker-redis-service.yml.j2' %}
-
-volumes:
-{% if not ( enable_central_database | lower | bool )  %}
-  database:
-{% endif %}
+{% include 'templates/docker-compose-volumes.yml.j2' %}
   redis:
-  application_data:
+  data:
   bootstrap:
+
+{% include 'templates/docker-compose-networks.yml.j2' %}

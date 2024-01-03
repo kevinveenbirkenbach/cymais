@@ -9,7 +9,7 @@
         log_driver: journald
         image: mediawiki
         restart: always
-        links:
+        depends_on:
           - database
         volumes:
           - "mediawiki-data:/var/www/html/"
@@ -20,10 +20,10 @@
         image: mariadb
         environment:
           MYSQL_DATABASE: mediawiki
-          MYSQL_ROOT_PASSWORD: "{{mediawiki_mysql_user_password}}"
+          MYSQL_ROOT_PASSWORD: "{{mediawiki_database_password}}"
           MYSQL_USER: mediawiki
-          MYSQL_PASSWORD: "{{mediawiki_mysql_user_password}}"
+          MYSQL_PASSWORD: "{{mediawiki_database_password}}"
           MARIADB_AUTO_UPGRADE: "1"
         volumes:
-          - mediawiki-database:/var/lib/mysql
+          - database:/var/lib/mysql
         restart: always

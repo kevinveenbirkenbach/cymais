@@ -1,6 +1,11 @@
 version: '2'
 
 services:
+
+{% include 'templates/docker-service-redis.yml.j2' %}
+
+{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
+
   baserow:
     image: baserow/baserow:1.19.1
     restart: always
@@ -12,5 +17,11 @@ services:
       - data:/baserow/data
     ports:
       - "{{http_port}}:80"
-volumes:
+{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker-container-depends-on-just-database.yml.j2' %}
+
+{% include 'templates/docker-compose-volumes.yml.j2' %}
   data:
+  redis:
+
+{% include 'templates/docker-compose-networks.yml.j2' %}
