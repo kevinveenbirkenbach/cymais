@@ -1,2 +1,3 @@
 docker_compose_project_name:        "mailu"
 database_password:  	              "{{mailu_database_password}}"
+database_type:                      "mariadb"
