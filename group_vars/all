@@ -128,6 +128,7 @@ domain_roulette:                "roulette.{{top_domain}}"
 domain_attendize:               "tickets.{{top_domain}}"
 domain_yourls:                  "s.{{top_domain}}"
 domain_openproject:             "project.{{top_domain}}"
+domains_wordpress:              ["wordpress.{{top_domain}}","blog.{{top_domain}}"]
 
 ### Common Configurations
 postgres_default_version:       "16"

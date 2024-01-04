@@ -39,7 +39,7 @@
   roles:
   - role: docker-wordpress
     vars:
-      domains: "{{wordpress_domains}}"
+      domains: "{{domains_wordpress}}"
       http_port: 8003
 
 - name: setup mediawiki hosts
