@@ -149,13 +149,12 @@ services:
       - "webdav_data:/data"
     logging:
       driver: journald
-    networks:
-      - radicale
     depends_on:
       - resolver
     dns:
       - 192.168.203.254
 {% include 'templates/docker-container-networks.yml.j2' %}
+      radicale:
 
   fetchmail:
     image: ghcr.io/mailu/fetchmail:{{version_mailu}}
