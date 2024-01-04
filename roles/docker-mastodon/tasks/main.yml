@@ -23,3 +23,9 @@
     src: .env.production.j2 
     dest: "{{docker_compose_instance_directory}}.env.production"
   notify: docker compose project setup
+
+- name: execute database migration
+  command:
+    cmd: "docker-compose run --rm web bundle exec rails db:migrate"
+    chdir: "{{docker_compose_instance_directory}}"
+  when: setup | bool 

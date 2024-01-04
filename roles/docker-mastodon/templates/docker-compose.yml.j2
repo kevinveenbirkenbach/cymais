@@ -6,7 +6,7 @@ services:
 {% include 'templates/docker-service-' + database_type + '.yml.j2' %}
 
   web:
-    image: tootsuite/mastodon:{{version_mastodon}}
+    image: ghcr.io/mastodon/mastodon:{{version_mastodon}}
     restart: always
     env_file: .env.production
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
@@ -22,7 +22,7 @@ services:
 {% include 'templates/docker-container-networks.yml.j2' %}
 
   streaming:
-    image: tootsuite/mastodon:{{version_mastodon}}
+    image: ghcr.io/mastodon/mastodon:{{version_mastodon}}
     restart: always
     env_file: .env.production
     command: node ./streaming
@@ -36,7 +36,7 @@ services:
 {% include 'templates/docker-container-networks.yml.j2' %}
 
   sidekiq:
-    image: tootsuite/mastodon:{{version_mastodon}}
+    image: ghcr.io/mastodon/mastodon:{{version_mastodon}}
     restart: always
     env_file: .env.production
     command: bundle exec sidekiq

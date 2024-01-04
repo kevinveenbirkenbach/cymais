@@ -11,10 +11,10 @@ listeners:
 database:
   name: psycopg2
   args:
-    user: matrix
-    password: "{{matrix_database_password}}"
-    database: matrix
-    host: database
+    user: "{{database_username}}"
+    password: "{{database_password}}"
+    database: "{{database_databasename}}"
+    host: "{{database_host}}"
     cp_min: 5
     cp_max: 10
 log_config:                     "/data/{{domain_matrix_synapse}}.log.config"

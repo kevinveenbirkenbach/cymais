@@ -6,8 +6,8 @@
 
 - name: Install PostgreSQL
   docker_container:
-    name: postgres
-    image: postgres:latest
+    name: central-postgres
+    image: "postgres:{{database_version}}"
     detach: yes
     env:
       POSTGRES_PASSWORD: "{{ central_postgres_password }}"
@@ -16,6 +16,8 @@
       - name: central_postgres_network
     published_ports:
       - "127.0.0.1:5432:5432"
+    volumes:
+      - central_postgres_database:/var/lib/postgresql/data
   when: run_once_docker_postgres is not defined
 
 - name: wait for availability of postgres
@@ -23,10 +25,16 @@
     host: "127.0.0.1"
     port: "5432"
     delay: 0      
-    timeout: 120
+    timeout: 300
   when: run_once_docker_postgres is not defined  
 
-- name: Create database
+- name: install python-psycopg2
+  pacman: 
+    name: python-psycopg2
+    state: present
+  when: run_once_docker_postgres is not defined
+
+- name: "Create database: {{ database_databasename }}"
   postgresql_db:
     name: "{{ database_databasename }}"
     state: present
@@ -35,17 +43,67 @@
     login_host: 127.0.0.1
     login_port: 5432
 
-- name: Create database user
+- name: "Create database user: {{ database_username }}"
   postgresql_user:
-    name: "{{ database_username }}"
-    password: "{{ database_password }}"
+    name:           "{{ database_username }}"
+    password:       "{{ database_password }}"
+    db:             "{{ database_databasename }}"
+    state:          present
+    login_user:     postgres
+    login_password: "{{ central_postgres_password }}"
+    login_host:     127.0.0.1
+    login_port:     5432
+
+- name: "Set privileges for database user: {{ database_username }}"
+  postgresql_privs:
+    db:             "{{ database_databasename }}"
+    role:           "{{ database_username }}"
+    objs:           ALL_IN_SCHEMA
+    privs:          ALL
+    type:           table
+    state:          present
+    login_user:     postgres
+    login_password: "{{ central_postgres_password }}"
+    login_host:     127.0.0.1
+    login_port:     5432
+
+- name: Grant all privileges at the database level
+  postgresql_privs:
     db: "{{ database_databasename }}"
-    priv: ALL
+    role: "{{ database_username }}"
+    privs: ALL
+    type: database
     state: present
     login_user: postgres
     login_password: "{{ central_postgres_password }}"
     login_host: 127.0.0.1
     login_port: 5432
+
+- name: Grant all privileges on all tables in the public schema
+  postgresql_privs:
+    db: "{{ database_databasename }}"
+    role: "{{ database_username }}"
+    objs: ALL_IN_SCHEMA
+    privs: ALL
+    type: table
+    schema: public
+    state: present
+    login_user: postgres
+    login_password: "{{ central_postgres_password }}"
+    login_host: 127.0.0.1
+    login_port: 5432
+
+- name: Set comprehensive privileges for user on public schema
+  postgresql_query:
+    db: "{{ database_databasename }}"
+    login_user: postgres
+    login_password: "{{ central_postgres_password }}"
+    login_host: 127.0.0.1
+    login_port: 5432
+    query: |
+      GRANT USAGE ON SCHEMA public TO {{ database_username }};
+      GRANT CREATE ON SCHEMA public TO {{ database_username }};
+      ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL PRIVILEGES ON TABLES TO {{ database_username }};
 
 - name: Run the docker_postgres tasks once
   set_fact:

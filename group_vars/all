@@ -1,8 +1,9 @@
 # General
+setup:                false       # Pass CLI commands to execute the setup tasks for the different roles
 verbose:              false       # Prints well formated debug information
 top_domain:           "localhost" # Change this in inventory to your domain
 ip4_address:          "127.0.0.1" # Change thie in inventory to the ip address of your server
-backups_folder_path:  "/Backups/"
+backups_folder_path:  "/Backups/" # Path to the backups folder
 
 # Server Tact Variables 
 
