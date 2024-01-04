@@ -54,7 +54,9 @@ services:
       - "dkim:/dkim"
 {% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
       resolver:
+        condition: service_started
       front:
+        condition: service_started
     logging:
       driver: journald
     dns:

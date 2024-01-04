@@ -1,6 +1,6 @@
-
 # This needs to be included in docker-compose.yml which just contain a database volume
 {% if not enable_central_database | bool %}
 volumes:
   database:
 {% endif %}
+{{ "\n" }}

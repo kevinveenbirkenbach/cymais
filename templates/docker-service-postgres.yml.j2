@@ -1,4 +1,3 @@
-
 # This template needs to be included in docker-compose.yml, which depend on a postgres database
 {% if not enable_central_database | bool %}  
   database:
@@ -21,3 +20,4 @@
     networks:
       - {{docker_compose_project_name}}_network
 {% endif %}
+{{ "\n" }}
