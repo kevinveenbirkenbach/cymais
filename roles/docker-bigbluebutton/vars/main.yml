@@ -3,3 +3,4 @@ database_host:                      "postgres" # needs to be fixed
 database_databasename:              "greenlight-v3"
 database_username:                  "postgres"
 database_password:  	              ""
+database_type:                      "postgres"
