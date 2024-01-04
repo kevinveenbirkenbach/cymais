@@ -1,0 +1,6 @@
+- name: "restart timer"
+  systemd:
+    name: "{{service_name}}.timer"
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

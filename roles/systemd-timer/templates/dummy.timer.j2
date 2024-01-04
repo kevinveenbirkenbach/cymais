@@ -1,0 +1,10 @@
+[Unit]
+Description=Timer to start {{service_name}}.service
+
+[Timer]
+OnCalendar={{on_calendar}}
+RandomizedDelaySec={{randomized_delay_sec}}
+Persistent=false
+
+[Install]
+WantedBy=timers.target
