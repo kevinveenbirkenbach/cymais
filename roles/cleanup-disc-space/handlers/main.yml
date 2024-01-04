@@ -3,9 +3,3 @@
     name: cleanup-disc-space.service
     enabled: yes
     daemon_reload: yes
-- name: "restart cleanup-disc-space.timer"
-  systemd:
-    name: cleanup-disc-space.timer
-    state: restarted
-    enabled: yes
-    daemon_reload: yes

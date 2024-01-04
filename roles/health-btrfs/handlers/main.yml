@@ -3,9 +3,3 @@
     name: health-btrfs.service
     enabled: yes
     daemon_reload: yes
-- name: "restart health-btrfs.timer"
-  systemd:
-    name: health-btrfs.timer
-    state: restarted
-    enabled: yes
-    daemon_reload: yes

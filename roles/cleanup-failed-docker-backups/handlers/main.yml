@@ -3,10 +3,3 @@
     name: cleanup-failed-docker-backups.service
     enabled: yes
     daemon_reload: yes
-
-- name: "restart cleanup-failed-docker-backups.timer"
-  systemd:
-    name: cleanup-failed-docker-backups.timer
-    state: restarted
-    enabled: yes
-    daemon_reload: yes

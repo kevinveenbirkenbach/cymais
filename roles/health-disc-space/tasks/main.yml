@@ -15,10 +15,12 @@
     dest: /etc/systemd/system/health-disc-space.service
   notify: reload health-disc-space.service
 
-- name: create health-disc-space.timer
-  template:
-    src: health-disc-space.timer.j2
-    dest: /etc/systemd/system/health-disc-space.timer
-  register: health_disc_space_timer
-  changed_when: health_disc_space_timer.changed or activate_all_timers | bool
-  notify: restart health-disc-space.timer
+- name: set service_name to the name of the current role
+  set_fact:
+    service_name: "{{ role_name }}"
+
+- name: "include role for systemd-timer for {{service_name}}"
+  include_role:
+    name: systemd-timer
+  vars:
+    on_calendar:  "{{on_calendar_health_disc_space}}"

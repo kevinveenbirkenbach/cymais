@@ -1,12 +1,6 @@
 - name: "reload certbot service"
   systemd:
-    name: certbot.service
+    name: nginx-certbot.service
     state: reloaded
-    enabled: yes
-    daemon_reload: yes
-- name: "restart certbot timer"
-  systemd:
-    name: certbot.timer
-    state: restarted
     enabled: yes
     daemon_reload: yes

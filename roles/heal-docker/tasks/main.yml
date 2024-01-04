@@ -18,13 +18,16 @@
   notify: reload heal-docker.service
   when: run_once_heal_docker is not defined
 
-- name: create heal-docker.timer
-  template:
-    src: heal-docker.timer.j2
-    dest: "/etc/systemd/system/heal-docker.timer"
-  register: heal_docker_timer
-  changed_when: heal_docker_timer.changed or activate_all_timers | bool
-  notify: restart heal-docker.timer
+- name: set service_name to the name of the current role
+  set_fact:
+    service_name: "{{ role_name }}"
+  when: run_once_heal_docker is not defined
+
+- name: "include role for systemd-timer for {{service_name}}"
+  include_role:
+    name: systemd-timer
+  vars:
+    on_calendar:  "{{on_calendar_heal_docker}}"
   when: run_once_heal_docker is not defined
 
 - name: run the heal_docker tasks once

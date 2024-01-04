@@ -14,15 +14,19 @@
   template: src=backup-remote-to-local.service.j2 dest=/etc/systemd/system/backup-remote-to-local.service
   notify: reload backup-remote-to-local service
 
-- name: create backup-remote-to-local.timer
-  template: src=backup-remote-to-local.timer.j2 dest=/etc/systemd/system/backup-remote-to-local.timer
-  register: backup_backup_remote_to_local_timer
-  changed_when: backup_backup_remote_to_local_timer.changed or activate_all_timers | bool
-  notify: restart backup-remote-to-local timer
-
 - name: create backups-remote-to-local.sh
   template: 
     src: backups-remote-to-local.sh.j2 
     dest: "{{docker_backup_remote_to_local_folder}}backups-remote-to-local.sh"
     mode: 0755
+
+- name: set service_name to the name of the current role
+  set_fact:
+    service_name: "{{ role_name }}"
+
+- name: "include role for systemd-timer for {{service_name}}"
+  include_role:
+    name: systemd-timer
+  vars:
+    on_calendar:  "{{on_calendar_backup_remote_to_local}}"
 

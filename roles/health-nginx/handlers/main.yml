@@ -3,10 +3,3 @@
     name: health-nginx.service
     enabled: yes
     daemon_reload: yes
-
-- name: "restart health-nginx.timer"
-  systemd:
-    name: health-nginx.timer
-    state: restarted
-    enabled: yes
-    daemon_reload: yes

@@ -34,11 +34,16 @@
   notify: reload backup-docker-to-local.service
   when: run_once_backup_docker_to_local is not defined
 
-- name: configure backup-docker-to-local.timer.tpl
-  template: src=backup-docker-to-local.timer.j2 dest=/etc/systemd/system/backup-docker-to-local.timer
-  register: backup_docker_to_local_timer
-  changed_when: backup_docker_to_local_timer.changed or activate_all_timers | bool
-  notify: restart backup-docker-to-local.timer
+- name: set service_name to the name of the current role
+  set_fact:
+    service_name: "{{ role_name }}"
+  when: run_once_backup_docker_to_local is not defined
+
+- name: "include role for systemd-timer for {{service_name}}"
+  include_role:
+    name: systemd-timer
+  vars:
+    on_calendar:  "{{on_calendar_backup_docker_to_local}}"
   when: run_once_backup_docker_to_local is not defined
 
 - name: seed database values

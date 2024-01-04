@@ -3,9 +3,3 @@
     name: health-journalctl.service
     enabled: yes
     daemon_reload: yes
-- name: "restart health-journalctl.timer"
-  systemd:
-    name: health-journalctl.timer
-    state: restarted
-    enabled: yes
-    daemon_reload: yes

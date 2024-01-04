@@ -3,9 +3,3 @@
     name: health-disc-space.service
     enabled: yes
     daemon_reload: yes
-- name: "restart health-disc-space.timer"
-  systemd:
-    name: health-disc-space.timer
-    state: restarted
-    enabled: yes
-    daemon_reload: yes

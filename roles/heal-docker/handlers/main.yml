@@ -2,9 +2,3 @@
   systemd:
     name: heal-docker.service
     daemon_reload: yes
-- name: "restart heal-docker.timer"
-  systemd:
-    name: heal-docker.timer
-    state: restarted
-    enabled: yes
-    daemon_reload: yes

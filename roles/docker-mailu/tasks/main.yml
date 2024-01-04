@@ -54,10 +54,10 @@
     dest: "/etc/systemd/system/deploy-letsencrypt-mailu.service"
   notify: restart deploy-letsencrypt-mailu.service
 
-- name: configure deploy-letsencrypt-mailu.timer
-  template: 
-    src:  "deploy-letsencrypt-mailu.timer.j2" 
-    dest: "/etc/systemd/system/deploy-letsencrypt-mailu.timer"
-  register: deploy_letsencrypt_mailu_timer
-  changed_when: deploy_letsencrypt_mailu_timer.changed or activate_all_timers | bool
-  notify: restart deploy-letsencrypt-mailu.timer
+- name: "include role for systemd-timer for {{service_name}}"
+  include_role:
+    name: systemd-timer
+  vars:
+    on_calendar:  "{{on_calendar_deploy_mailu_certificates}}"
+    service_name: "deploy-letsencrypt-mailu"
+    persistent:   "true"
