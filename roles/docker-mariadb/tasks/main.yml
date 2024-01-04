@@ -40,7 +40,7 @@
     timeout: 300
   when: run_once_docker_mariadb is not defined
 
-- name: create database
+- name: "Create database: {{ database_databasename }}"
   mysql_db:
     name: "{{ database_databasename }}"
     state: present
@@ -49,8 +49,7 @@
     login_host: 127.0.0.1
     login_port: 3306
 
-
-- name: create database user
+- name: "Create database user: {{ database_username }}"
   mysql_user:
     name: "{{database_username}}"
     password: "{{database_password}}"
