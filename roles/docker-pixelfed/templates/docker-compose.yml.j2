@@ -40,6 +40,7 @@ services:
       retries: 1
 {% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
       application:
+        condition: service_started
 {% include 'templates/docker-container-networks.yml.j2' %}
 
 {% include 'templates/docker-compose-volumes.yml.j2' %}
