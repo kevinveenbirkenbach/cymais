@@ -203,6 +203,7 @@ matrix_role:            "compose"         # Role to setup Matrix. Valid values: 
 #### Mailu
 version_mailu:                    "2.0"
 mailu_domain:                     "{{top_domain}}"
+mailu_subnet:                     "192.168.203.0/24"
 
 #### Nextcloud
 version_nextcloud:      "production"  # Danger: Nextcloud can't skipp major version updates.
