@@ -22,3 +22,13 @@
     src:  "config.toml.j2" 
     dest: "{{docker_compose_instance_directory}}config.toml"
   notify: docker compose project setup
+
+- name: flush docker service
+  meta: flush_handlers
+  when: setup | bool 
+
+- name: setup routine for listmonk
+  command:
+    cmd: "yes | docker compose run -T --rm application ./listmonk --install"
+    chdir: "{{docker_compose_instance_directory}}"
+  when: setup | bool 

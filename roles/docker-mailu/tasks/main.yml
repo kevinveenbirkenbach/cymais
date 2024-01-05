@@ -61,3 +61,13 @@
     on_calendar:  "{{on_calendar_deploy_mailu_certificates}}"
     service_name: "deploy-letsencrypt-mailu"
     persistent:   "true"
+
+- name: flush docker service
+  meta: flush_handlers
+  when: setup | bool 
+
+- name: execute database migration
+  command:
+    cmd: "docker compose -p mailu exec admin flask mailu admin admin {{top_domain}} {{mailu_initial_root_password}}"
+    chdir: "{{docker_compose_instance_directory}}"
+  when: setup | bool 

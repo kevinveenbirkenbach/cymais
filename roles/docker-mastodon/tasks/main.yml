@@ -24,7 +24,11 @@
     dest: "{{docker_compose_instance_directory}}.env.production"
   notify: docker compose project setup
 
-- name: execute database migration
+- name: flush docker service
+  meta: flush_handlers
+  when: setup | bool 
+
+- name: setup routine for mastodon
   command:
     cmd: "docker-compose run --rm web bundle exec rails db:migrate"
     chdir: "{{docker_compose_instance_directory}}"
