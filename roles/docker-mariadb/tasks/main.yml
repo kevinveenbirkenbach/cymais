@@ -24,6 +24,12 @@
     published_ports:
       - "127.0.0.1:3306:3306" # can be that this will be removed if all applications use sockets
     command: "--transaction-isolation=READ-COMMITTED --binlog-format=ROW" #for nextcloud
+    restart_policy: unless-stopped
+    healthcheck:
+      test: "/usr/bin/mariadb --user=root --password={{central_mariadb_root_password}} --execute \"SHOW DATABASES;\""
+      interval: 3s
+      timeout: 1s
+      retries: 5
   when: run_once_docker_mariadb is not defined
 
 - name: install python-mysqlclient

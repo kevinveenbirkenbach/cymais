@@ -18,6 +18,13 @@
       - "127.0.0.1:5432:5432"
     volumes:
       - central_postgres_database:/var/lib/postgresql/data
+    restart_policy: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
   when: run_once_docker_postgres is not defined
 
 - name: wait for availability of postgres
