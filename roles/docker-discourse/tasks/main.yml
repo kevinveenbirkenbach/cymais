@@ -18,30 +18,51 @@
     state: directory
     mode: 0755
 
-- name: checkout repository 
-  ansible.builtin.shell: git checkout .
-  become: true
-  args:
-    chdir: "{{docker_compose_instance_directory}}"
-  ignore_errors: true
+- name: add docker-compose.yml
+  template: src=docker-compose.yml.j2 dest={{docker_compose_instance_directory}}docker-compose.yml
+  notify: docker compose project setup
+
+- name: flush, to recreate discourse docker compose
+  meta: flush_handlers
+  when: enable_central_database | bool
 
 - name: pull docker repository
   git:
     repo: "https://github.com/discourse/discourse_docker.git"
-    dest: "{{docker_compose_instance_directory}}"
+    dest: "{{discourse_repository_directory}}"
     update: yes
   notify: recreate discourse
   become: true
   ignore_errors: true
 
-- name: set chmod 700 for {{docker_compose_instance_directory}}containers
+- name: set chmod 700 for {{discourse_repository_directory}}containers
   ansible.builtin.file:
-    path: "{{docker_compose_instance_directory}}/containers"
+    path: "{{discourse_repository_directory}}/containers"
     mode: '700'
     state: directory
 
-- name: "copy configuration to {{docker_compose_instance_directory}}containers/app.yml"
+- name: "copy configuration to {{discourse_repository_directory}}containers/app.yml"
   template: 
     src: app.yml.j2
-    dest: "{{docker_compose_instance_directory}}containers/app.yml"
+    dest: "{{discourse_repository_directory}}containers/app.yml"
   notify: recreate discourse
+
+- name: "Ensure {{docker_compose_project_name}}_default_network network exists"
+  community.docker.docker_network:
+    name: "{{docker_compose_project_name}}_default_network"
+    state: present
+  when: enable_central_database | bool
+
+- name: "add central database temporary to {{docker_compose_project_name}}_default_network"
+  command:
+    cmd: "docker network connect discourse_default_network central-{{ database_type }}"
+  when: enable_central_database | bool
+
+- name: flush, to recreate discourse app
+  meta: flush_handlers
+  when: enable_central_database | bool
+
+- name: "remove central database from {{docker_compose_project_name}}_default_network"
+  command:
+    cmd: "docker network disconnect discourse_default_network central-{{ database_type }}"
+  when: enable_central_database | bool

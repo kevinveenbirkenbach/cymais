@@ -2,4 +2,4 @@
 - name: recreate discourse
   command:
     cmd: ./launcher rebuild app
-    chdir: "{{docker_compose_instance_directory}}"
+    chdir: "{{discourse_repository_directory}}"

@@ -1,17 +1,8 @@
-## this is the all-in-one, standalone Discourse Docker container template
-##
-## After making changes to this file, you MUST rebuild
-## /var/discourse/launcher rebuild app
-##
-## BE *VERY* CAREFUL WHEN EDITING!
-## YAML FILES ARE SUPER SUPER SENSITIVE TO MISTAKES IN WHITESPACE OR ALIGNMENT!
-## visit http://www.yamllint.com/ to validate this file as needed
-
 templates:
 {% if not enable_central_database | bool %}
   - "templates/postgres.template.yml"
 {% endif %}
-  - "templates/redis.template.yml"
+  #- "templates/redis.template.yml"
   - "templates/web.template.yml"
   ## Uncomment the next line to enable the IPv6 listener
   #- "templates/web.ipv6.template.yml"
@@ -25,7 +16,6 @@ templates:
 ## see https://meta.discourse.org/t/17247 for details
 expose:
   - "127.0.0.1:{{http_port}}:80"   # http
-  #- "443:443" # https
 
 params:
   db_default_text_search_config: "pg_catalog.english"
@@ -73,13 +63,14 @@ env:
   DISCOURSE_SMTP_DOMAIN:            {{ system_email_domain }}
   DISCOURSE_NOTIFICATION_EMAIL:     {{ system_email }}
 
-{% if enable_central_database | bool %}
   # Database Configuration
   DISCOURSE_DB_USERNAME: {{ database_username }}
   DISCOURSE_DB_PASSWORD: {{ database_password }}
   DISCOURSE_DB_HOST:     {{ database_host }}
   DISCOURSE_DB_NAME:     {{ database_databasename }}
-{% endif %}
+
+  # Redis Configuration
+  DISCOURSE_REDIS_HOST: {{docker_compose_project_name}}-redis
 
   ## If you added the Lets Encrypt template, uncomment below to get a free SSL certificate
   #LETSENCRYPT_ACCOUNT_EMAIL: administrator@veen.world
@@ -127,7 +118,5 @@ run:
   - exec: echo "End of custom commands"
 
 docker_args:
-{% if enable_central_database | bool %}
-  - --network=central_{{ database_type }}_network
-{% endif %}
+  - --network={{docker_compose_project_name}}_default_network
   - --name=discourse_application

@@ -1,3 +1,4 @@
-docker_compose_project_name:        "discourse"
-database_password:                  "{{ baserow_database_password }}"
-database_type:                      "postgres"
+docker_compose_project_name:     "discourse"
+database_password:               "{{ baserow_database_password }}"
+database_type:                   "postgres"
+discourse_repository_directory:  "{{ path_docker_compose_instances + docker_compose_project_name + '/repository/' }}"

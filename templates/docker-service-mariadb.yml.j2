@@ -1,6 +1,7 @@
 # This template needs to be included in docker-compose.yml, which depend on a mariadb database
 {% if not enable_central_database | bool %}
   database:
+    container_name: {{docker_compose_project_name}}-mariadb
     logging:
       driver: journald
     image: mariadb
@@ -20,6 +21,6 @@
       timeout: 1s
       retries: 5
     networks:
-      - {{docker_compose_project_name}}_network
+      - default_network
 {% endif %}
 {{ "\n" }}
