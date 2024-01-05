@@ -50,7 +50,9 @@ services:
 {% include 'templates/docker-container-networks.yml.j2' %}
 {% include 'templates/docker-container-depends-on-also-database.yml.j2' %}
       cache:
+        condition: service_started
       seeder:
+        condition: service_started
     labels:
       - autoheal=true
     healthcheck:
@@ -75,7 +77,9 @@ services:
 {% include 'templates/docker-container-networks.yml.j2' %}
 {% include 'templates/docker-container-depends-on-also-database.yml.j2' %}
       cache:
+        condition: service_started
       seeder:
+        condition: service_started
 
   cron:
     <<: *app
@@ -83,7 +87,9 @@ services:
 {% include 'templates/docker-container-networks.yml.j2' %}
 {% include 'templates/docker-container-depends-on-also-database.yml.j2' %}
       cache:
+        condition: service_started
       seeder:
+        condition: service_started
 
   seeder:
     <<: *app
