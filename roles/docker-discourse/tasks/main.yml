@@ -1,4 +1,11 @@
 ---
+
+# Necessary for building: https://chat.openai.com/share/99d258cc-294b-4924-8eef-02fe419bb838
+- name: install which
+  pacman:
+    name: which
+    state: present
+
 - name: "include docker-compose-common.yml"
   include_tasks: docker-compose-common.yml
 
