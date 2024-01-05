@@ -77,7 +77,7 @@ env:
   DISCOURSE_DB_PASSWORD: {{ database_password }}
   DISCOURSE_DB_HOST:     {{ database_host }}
   DISCOURSE_DB_NAME:     {{ database_databasename }}
-{% if enable_central_database | bool %}
+{% endif %}
 
   ## If you added the Lets Encrypt template, uncomment below to get a free SSL certificate
   #LETSENCRYPT_ACCOUNT_EMAIL: administrator@veen.world
