@@ -12,7 +12,6 @@ services:
     env_file: mailu.env
     restart: always
 {% include 'templates/docker-container-networks.yml.j2' %}
-      default:
         ipv4_address: 192.168.203.254
     logging:
       driver: journald
@@ -39,7 +38,6 @@ services:
       resolver:
         condition: service_started
 {% include 'templates/docker-container-networks.yml.j2' %}
-      default:
       webmail:
       radicale:
     dns:
@@ -124,7 +122,6 @@ services:
     logging:
       driver: journald
 {% include 'templates/docker-container-networks.yml.j2' %}
-      default:
       noinet:  
 
 
@@ -204,7 +201,6 @@ services:
   redis:
 
 {% include 'templates/docker-compose-networks.yml.j2' %}
-  default:
     driver: bridge
     ipam:
       driver: default

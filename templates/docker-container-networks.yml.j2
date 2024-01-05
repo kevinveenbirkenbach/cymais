@@ -1,7 +1,7 @@
 # This template needs to be included in docker-compose.yml containers
     networks:
-      default:
 {% if enable_central_database | bool %}
       central_{{ database_type }}:
 {% endif %}
+      default:
 {{ "\n" }}
