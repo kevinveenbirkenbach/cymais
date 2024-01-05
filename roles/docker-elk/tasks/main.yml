@@ -26,13 +26,7 @@
     dest: "{{docker_elk_compose_path}}"
     update: yes
   notify: recreate docker-elk
-  register: git_result
   ignore_errors: true
-
-- name: Warn if repo is not reachable
-  debug:
-    msg: "Warning: Repository is not reachable."
-  when: git_result.failed
 
 - name: copy docker-compose.yml
   template: src=docker-compose.yml.j2 dest={{docker_elk_compose_path}}docker-compose.yml

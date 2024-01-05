@@ -3,14 +3,8 @@
     repo: "https://github.com/kevinveenbirkenbach/cleanup-failed-docker-backups.git"
     dest: "{{backup_docker_to_local_cleanup_folder}}"
     update: yes
-  register: git_result
   ignore_errors: true
   when: run_once_cleanup_failed_docker_backups is not defined
-
-- name: Warn if repo is not reachable
-  debug:
-    msg: "Warning: Repository is not reachable."
-  when: git_result is defined and git_result.failed is defined and run_once_cleanup_failed_docker_backups is not defined
 
 - name: configure cleanup-failed-docker-backups.service
   template: 

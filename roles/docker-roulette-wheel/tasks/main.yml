@@ -15,13 +15,7 @@
     update: yes
   notify: docker compose project setup
   become: true
-  register: git_result
   ignore_errors: true
-
-- name: Warn if repo is not reachable
-  debug:
-    msg: "Warning: Repository is not reachable."
-  when: git_result.failed
 
 - name: add docker-compose.yml
   template: src=docker-compose.yml.j2 dest={{docker_compose_instance_directory}}docker-compose.yml

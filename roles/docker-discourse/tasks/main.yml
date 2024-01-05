@@ -14,17 +14,12 @@
     state: directory
     mode: 0755
 
-- name: register directory
-  stat:
-    path: "{{docker_compose_instance_directory}}"
-  register: docker_compose_instance_directory_register
-
 - name: checkout repository 
   ansible.builtin.shell: git checkout .
   become: true
   args:
     chdir: "{{docker_compose_instance_directory}}"
-  when: docker_compose_instance_directory_register.stat.exists
+  ignore_errors: true
 
 - name: pull docker repository
   git:
@@ -33,13 +28,7 @@
     update: yes
   notify: recreate discourse
   become: true
-  register: git_result
   ignore_errors: true
-
-- name: Warn if repo is not reachable
-  debug:
-    msg: "Warning: Repository is not reachable."
-  when: git_result.failed
 
 - name: set chmod 700 for {{docker_compose_instance_directory}}containers
   ansible.builtin.file:

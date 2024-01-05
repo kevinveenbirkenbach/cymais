@@ -3,14 +3,8 @@
     repo: "https://github.com/kevinveenbirkenbach/create-linux-swapfile.git"
     dest: "$HOME/Repositories/github.com/kevinveenbirkenbach/create-linux-swapfile"
     update: yes
-  register: git_result
   ignore_errors: true
   become: false
-
-- name: Warn if repo is not reachable
-  debug:
-    msg: "Warning: Repository is not reachable."
-  when: git_result.failed
 
 - name: Execute create swapfile script
   ansible.builtin.shell: bash "/home/{{client_username}}/Repositories/github.com/kevinveenbirkenbach/create-linux-swapfile/create-linux-swapfile.sh" "{{swapfile_size}}"
