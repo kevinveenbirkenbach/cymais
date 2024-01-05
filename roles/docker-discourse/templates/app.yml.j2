@@ -127,5 +127,7 @@ run:
   - exec: echo "End of custom commands"
 
 docker_args:
+{% if enable_central_database | bool %}
   - --network=central_{{ database_type }}_network
+{% endif %}
   - --name=discourse_application
