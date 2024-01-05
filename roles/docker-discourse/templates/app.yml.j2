@@ -125,3 +125,7 @@ run:
   ## After getting the first signup email, re-comment the line. It only needs to run once.
   #- exec: rails r "SiteSetting.notification_email='info@unconfigured.discourse.org'"
   - exec: echo "End of custom commands"
+
+docker_args:
+  - --network=central_{{ database_type }}_network
+  - --name=discourse_application
