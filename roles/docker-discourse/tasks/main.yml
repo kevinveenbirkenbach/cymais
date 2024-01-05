@@ -47,22 +47,22 @@
     dest: "{{discourse_repository_directory}}containers/app.yml"
   notify: recreate discourse
 
-- name: "Ensure {{docker_compose_project_name}}_default_network network exists"
+- name: "Ensure {{docker_compose_project_name}}_default network exists"
   community.docker.docker_network:
-    name: "{{docker_compose_project_name}}_default_network"
+    name: "{{docker_compose_project_name}}_default"
     state: present
   when: enable_central_database | bool
 
-- name: "add central database temporary to {{docker_compose_project_name}}_default_network"
+- name: "add central database temporary to {{docker_compose_project_name}}_default"
   command:
-    cmd: "docker network connect discourse_default_network central-{{ database_type }}"
+    cmd: "docker network connect discourse_default central-{{ database_type }}"
   when: enable_central_database | bool
 
 - name: flush, to recreate discourse app
   meta: flush_handlers
   when: enable_central_database | bool
 
-- name: "remove central database from {{docker_compose_project_name}}_default_network"
+- name: "remove central database from {{docker_compose_project_name}}_default"
   command:
-    cmd: "docker network disconnect discourse_default_network central-{{ database_type }}"
+    cmd: "docker network disconnect discourse_default central-{{ database_type }}"
   when: enable_central_database | bool

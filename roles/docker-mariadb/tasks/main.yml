@@ -1,6 +1,6 @@
 - name: Create Docker network for MariaDB
   docker_network:
-    name: central_mariadb_network
+    name: central_mariadb
     state: present
   when: run_once_docker_mariadb is not defined
 
@@ -18,7 +18,7 @@
       MARIADB_ROOT_PASSWORD:  "{{central_mariadb_root_password}}"
       MARIADB_AUTO_UPGRADE:   "1"
     networks:
-      - name: central_mariadb_network
+      - name: central_mariadb
     volumes:
       - central_mariadb_database:/var/lib/mysql
     published_ports:
