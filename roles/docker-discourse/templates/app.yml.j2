@@ -8,7 +8,9 @@
 ## visit http://www.yamllint.com/ to validate this file as needed
 
 templates:
+{% if enable_central_database | bool %}
   - "templates/postgres.template.yml"
+{% endif %}
   - "templates/redis.template.yml"
   - "templates/web.template.yml"
   ## Uncomment the next line to enable the IPv6 listener

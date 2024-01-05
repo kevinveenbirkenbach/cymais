@@ -1,5 +1,4 @@
 ---
 docker_compose_project_name:  	    "matrix"
 database_password:  	              "{{matrix_database_password}}"
-database_version:                   "{{ baserow_database_version | default(postgres_default_version) }}"
 database_type:                      "postgres"

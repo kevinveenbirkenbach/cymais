@@ -5,5 +5,4 @@ docker_compose_file_path:           "{{docker_compose_instance_directory}}docker
 docker_compose_backup_path:         "/tmp/{{docker_compose_project_name}}-docker-compose-backup.yml"
 database_password:                  "{{openproject_database_password}}"
 repository_address:                 "https://github.com/opf/openproject-deploy"
-database_version:                   "{{ openproject_database_version | default(postgres_default_version) }}"
 database_type:                      "postgres"
