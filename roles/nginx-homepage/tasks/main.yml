@@ -8,15 +8,9 @@
     dest: "{{nginx_servers_directory}}{{domain}}.conf"
   notify: restart nginx
 
-- name: nginx-homepage repo git
+- name: "pull homepage from {{nginx_homepage_repository_address}}"
   git:
     repo: "{{nginx_homepage_repository_address}}"
     dest: "{{nginx_homepage_root}}"
     update: yes
-  register: git_result
   ignore_errors: true
-
-- name: Warn if repo is not reachable
-  debug:
-    msg: "Warning: Repository is not reachable."
-  when: git_result.failed
