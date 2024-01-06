@@ -42,7 +42,7 @@
   wait_for:
     host: 127.0.0.1
     port: 3306
-    delay: 10
+    delay: "{{database_delay}}"
     timeout: 300
   when: run_once_docker_mariadb is not defined
 

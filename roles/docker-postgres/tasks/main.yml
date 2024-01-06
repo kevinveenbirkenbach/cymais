@@ -31,7 +31,7 @@
   wait_for:
     host: "127.0.0.1"
     port: "5432"
-    delay: 0      
+    delay: "{{database_delay}}"
     timeout: 300
   when: run_once_docker_postgres is not defined  
 
