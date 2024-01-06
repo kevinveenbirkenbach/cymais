@@ -29,6 +29,6 @@
 
 - name: setup routine for listmonk
   command:
-    cmd: "yes | docker compose run -T --rm application ./listmonk --install"
+    cmd:   docker compose run -T --rm application sh -c "yes | ./listmonk --install"
     chdir: "{{docker_compose_instance_directory}}"
   when: setup | bool 
