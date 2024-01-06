@@ -6,8 +6,9 @@ services:
 
 {% include 'templates/docker-service-' + database_type + '.yml.j2' %}
 
-  baserow:
+  application:
     image: baserow/baserow:1.19.1
+    container_name: baserow-application
     restart: always
     logging:
       driver: journald
@@ -17,8 +18,13 @@ services:
       - data:/baserow/data
     ports:
       - "{{http_port}}:80"
+        healthcheck:
+    test: ["CMD", "curl", "-f", "http://localhost:80/"]
+    interval: 1m
+    timeout: 10s
+    retries: 3
 {% include 'templates/docker-container-networks.yml.j2' %}
-{% include 'templates/docker-container-depends-on-just-database.yml.j2' %}
+{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
 
 {% include 'templates/docker-compose-volumes.yml.j2' %}
   data:
