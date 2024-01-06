@@ -41,6 +41,12 @@
     on_calendar:  "{{on_calendar_backup_docker_to_local}}"
   when: run_once_backup_docker_to_local is not defined
 
+- name: "reset {{ backup_docker_to_local_folder }}databases.csv"
+  file:
+    path: "{{ backup_docker_to_local_folder }}databases.csv"
+    state: absent
+  when: reset_files | bool and run_once_backup_docker_to_local is not defined
+
 - name: seed database values
   command:
     cmd: "python database_entry_seeder.py databases.csv {{database_instance}} {{database_databasename}} {{database_username}} {{database_password}}"
