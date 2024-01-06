@@ -7,7 +7,7 @@
     image: mariadb
     restart: always
     environment:
-      MYSQL_DATABASE: "{{database_databasename}}"
+      MYSQL_DATABASE: "{{database_name}}"
       MYSQL_USER: "{{database_username}}"
       MYSQL_PASSWORD: "{{database_password}}"
       MYSQL_ROOT_PASSWORD: "{{database_password}}"

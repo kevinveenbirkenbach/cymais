@@ -49,11 +49,11 @@
 
 - name: seed database values
   command:
-    cmd: "python database_entry_seeder.py databases.csv {{database_instance}} {{database_databasename}} {{database_username}} {{database_password}}"
+    cmd: "python database_entry_seeder.py databases.csv {{database_instance}} {{database_name}} {{database_username}} {{database_password}}"
     chdir: "{{backup_docker_to_local_folder}}"
   when: >
     database_host is defined or
-    database_databasename is defined or
+    database_name is defined or
     database_username is defined or
     database_password is defined
 
@@ -65,7 +65,7 @@
     group: root
   when: >
     (database_host is defined or
-    database_databasename is defined or
+    database_name is defined or
     database_username is defined or
     database_password is defined) and
     run_once_backup_docker_to_local_file_permission is not defined

@@ -5,7 +5,7 @@ This Ansible role is designed to deploy a PostgreSQL database using Docker. It i
 
 ## Role Variables
 - `central_postgres_password`: The password for the PostgreSQL superuser (`postgres`).
-- `database_databasename`: Name of the database to be created.
+- `database_name`: Name of the database to be created.
 - `database_username`: Username for the database user.
 - `database_password`: Password for the database user.
 

@@ -19,7 +19,7 @@ Before using this role, ensure you have the following:
 ## Configuration
 Configure the role by setting the required variables. These can be set in the playbook or in a separate variable file:
 - `central_mariadb_root_password`: The root password for the MariaDB server.
-- `database_databasename`: The name of the initial database to create.
+- `database_name`: The name of the initial database to create.
 - `database_username`: The username for the database user.
 - `database_password`: The password for the database user.
 

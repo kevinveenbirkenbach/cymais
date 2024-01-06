@@ -41,9 +41,9 @@
     state: present
   when: run_once_docker_postgres is not defined
 
-- name: "Create database: {{ database_databasename }}"
+- name: "Create database: {{ database_name }}"
   postgresql_db:
-    name: "{{ database_databasename }}"
+    name: "{{ database_name }}"
     state: present
     login_user: postgres
     login_password: "{{ central_postgres_password }}"
@@ -54,7 +54,7 @@
   postgresql_user:
     name:           "{{ database_username }}"
     password:       "{{ database_password }}"
-    db:             "{{ database_databasename }}"
+    db:             "{{ database_name }}"
     state:          present
     login_user:     postgres
     login_password: "{{ central_postgres_password }}"
@@ -63,7 +63,7 @@
 
 - name: "Set privileges for database user: {{ database_username }}"
   postgresql_privs:
-    db:             "{{ database_databasename }}"
+    db:             "{{ database_name }}"
     role:           "{{ database_username }}"
     objs:           ALL_IN_SCHEMA
     privs:          ALL
@@ -76,7 +76,7 @@
 
 - name: Grant all privileges at the database level
   postgresql_privs:
-    db: "{{ database_databasename }}"
+    db: "{{ database_name }}"
     role: "{{ database_username }}"
     privs: ALL
     type: database
@@ -88,7 +88,7 @@
 
 - name: Grant all privileges on all tables in the public schema
   postgresql_privs:
-    db: "{{ database_databasename }}"
+    db: "{{ database_name }}"
     role: "{{ database_username }}"
     objs: ALL_IN_SCHEMA
     privs: ALL
@@ -102,7 +102,7 @@
 
 - name: Set comprehensive privileges for user on public schema
   postgresql_query:
-    db: "{{ database_databasename }}"
+    db: "{{ database_name }}"
     login_user: postgres
     login_password: "{{ central_postgres_password }}"
     login_host: 127.0.0.1

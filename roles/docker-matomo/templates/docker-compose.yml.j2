@@ -16,7 +16,7 @@ services:
       MATOMO_DATABASE_ADAPTER: "mysql"
       MATOMO_DATABASE_USERNAME: "{{database_username}}"
       MATOMO_DATABASE_PASSWORD: "{{database_password}}"
-      MATOMO_DATABASE_DBNAME: "{{database_databasename}}"
+      MATOMO_DATABASE_DBNAME: "{{database_name}}"
     volumes:
       - data:/var/www/html
 {% include 'templates/docker-container-depends-on-just-database.yml.j2' %}
