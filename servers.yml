@@ -77,6 +77,7 @@
       vars:
         domain: "{{domain_mailu}}"
         http_port: 8007
+        setup:  "{{ setup_maliu | default(default_setup) }}"
 
 - name: setup elk hosts
   hosts: elk
@@ -93,10 +94,11 @@
   roles:
    -  role: docker-mastodon
       vars:
-        domain: "{{domain_mastodon}}"
-        domains:  "{{ [domain] + domains_mastodon_alternates }}"
-        http_port: 8009
-        stream_port: 4001
+        domain:       "{{domain_mastodon}}"
+        domains:      "{{ [domain] + domains_mastodon_alternates }}"
+        http_port:    8009
+        stream_port:  4001
+        setup:        "{{ mastodon_maliu | default(default_setup) }}"
 
 - name: setup pixelfed hosts
   hosts: pixelfed
@@ -186,8 +188,9 @@
   roles:
    -  role: docker-listmonk
       vars:
-        domain: "{{domain_listmonk}}"
-        http_port: 8019
+        domain:     "{{domain_listmonk}}"
+        http_port:  8019
+        setup:      "{{ setup_listmonk | default(default_setup) }}"
 
 - name: setup discourse
   hosts: discourse
@@ -244,8 +247,9 @@
   roles:
    -  role: docker-akaunting
       vars:
-        domain: "{{domain_akaunting}}"
-        http_port: 8025
+        domain:     "{{domain_akaunting}}"
+        http_port:  8025
+        setup:      "{{ akaunting_maliu | default(default_setup) }}"
 
 # Native Webserver Roles
 - name: setup nginx-homepages

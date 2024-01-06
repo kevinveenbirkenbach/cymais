@@ -1,51 +1,4 @@
-# PASSWORDS AND SECRETS:
-
-akaunting_database_password:        "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-akaunting_setup_admin_password:     "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-baserow_database_password:          "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-bigbluebutton_database_password:    "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-bigbluebutton_etherpad_api_key:     "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-bigbluebutton_fsesl_password:       "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-bigbluebutton_rails_secret:         "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-bigbluebutton_shared_secret:        "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-bigbluebutton_postgresql_secret:    "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-bigbluebutton_turn_secret:          "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-central_mariadb_root_password:      "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-central_postgres_password:          "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-discourse_database_password:        "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-gitlab_database_password:	          "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-gitlab_initial_root_password:       "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-gitea_database_password:            "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-listmonk_admin_password:            "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-listmonk_database_password:         "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-mailu_api_token:                    "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-mailu_database_password:            "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-mailu_initial_root_password:        "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-mailu_secret_key:                   "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-mastodon_database_password:         "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-mastodon_otp_secret:                "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-mastodon_secret_key_base:           "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-mastodon_vapid_private_key:         "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-mastodon_vapid_public_key:          "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-matomo_auth_token:                  "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-matomo_database_password:           "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-matrix_database_password:           "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-matrix_generic_secret_key:		      "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-matrix_form_secret:                 "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-matrix_macaroon_secret_key:         "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-matrix_registration_shared_secret:  "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-nextcloud_database_password:        "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-openproject_database_password:      "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-peertube_database_password:         "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-peertube_secret:                    "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-pixelfed_database_password:         "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-pixelfed_app_key:                   "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-wordpress_database_password:        "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-yourls_database_password:           "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-yourls_user_password:               "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-
 # General
-setup:                false       # Pass CLI commands to execute the setup tasks for the different roles
 verbose:              false       # Prints well formated debug information
 top_domain:           "localhost" # Change this in inventory to your domain
 ip4_address:          "127.0.0.1" # Change thie in inventory to the ip address of your server
@@ -147,6 +100,13 @@ nginx_maps_directory:           "{{nginx_configuration_directory}}maps/"        
 nginx_upstreams_directory:      "{{nginx_configuration_directory}}upstreams/"   # Contains upstream configurations
 
 ## Docker Applications
+
+### Enable Setup
+setup_default:    "false"     # Pass CLI commands to execute the setup tasks for the different roles
+setup_akaunting:  "{{setup_default}}"
+setup_mailu:      "{{setup_default}}"
+setup_listmonk:   "{{setup_default}}"
+setup_mastodon:   "{{setup_default}}"
 
 ### Enable Central MariaDB
 enable_central_database: true
