@@ -32,6 +32,11 @@ services:
         - "{{path_docker_volumes}}nextcloud/nginx.conf:/etc/nginx/nginx.conf:ro"
     volumes_from:
       - application
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
 {% include 'templates/docker-container-networks.yml.j2' %}
 
   cron:

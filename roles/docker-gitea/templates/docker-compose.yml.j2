@@ -30,6 +30,11 @@ services:
       - data:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:3000"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
 {% include 'templates/docker-container-networks.yml.j2' %}
 {% include 'templates/docker-container-depends-on-just-database.yml.j2' %}
 

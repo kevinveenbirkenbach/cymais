@@ -19,6 +19,11 @@ services:
       YOURLS_SITE: "https://{{domain}}"
       YOURLS_USER: "{{yourls_user}}"
       YOURLS_PASS: "{{yourls_user_password}}"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1/admin/"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
 
 {% include 'templates/docker-container-depends-on-just-database.yml.j2' %}
 {% include 'templates/docker-container-networks.yml.j2' %}
