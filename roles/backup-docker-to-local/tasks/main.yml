@@ -43,7 +43,7 @@
 
 - name: seed database values
   command:
-    cmd: "python database_entry_seeder.py databases.csv {{docker_compose_project_name}} {{database_host}} {{database_databasename}} {{database_username}} {{database_password}}"
+    cmd: "python database_entry_seeder.py databases.csv {{database_instance}} {{database_databasename}} {{database_username}} {{database_password}}"
     chdir: "{{backup_docker_to_local_folder}}"
   when: >
     database_host is defined or

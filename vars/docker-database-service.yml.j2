@@ -1,6 +1,6 @@
 docker_compose_instance_directory:  "{{ path_docker_compose_instances + docker_compose_project_name + '/' }}"
+database_instance:                  "{{ 'central-' + database_type if enable_central_database else docker_compose_project_name }}"
 database_host:                      "{{ 'central-' + database_type if enable_central_database else 'database' }}"
 database_databasename:              "{{ docker_compose_project_name }}"
 database_username:                  "{{ docker_compose_project_name }}"
 database_version:                   "{{ postgres_default_version }}"
-# This will lead to problems with bbb and openproject
