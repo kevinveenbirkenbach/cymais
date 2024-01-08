@@ -1,5 +1,5 @@
-database_instance:                  "{{ 'central-' + database_type if enable_central_database else docker_compose_project_name }}"
-database_host:                      "{{ 'central-' + database_type if enable_central_database else 'database' }}"
+database_instance:                  "{{ 'central-' + database_type if enable_central_database | bool else docker_compose_project_name }}"
+database_host:                      "{{ 'central-' + database_type if enable_central_database | bool else 'database' }}"
 database_name:                      "{{ docker_compose_project_name }}"
 database_username:                  "{{ docker_compose_project_name }}"
 database_version:                   "{{ postgres_default_version }}"
