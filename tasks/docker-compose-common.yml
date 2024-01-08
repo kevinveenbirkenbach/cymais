@@ -1,11 +1,18 @@
 - name: include docker vars
-  include_vars: vars/docker-database-service.yml.j2
+  include_vars: vars/docker-common.yml.j2
 
 - name: load docker compose dependencies
   include_role:
     name: docker-compose
 
-- name: create central database
-  include_role:
-    name: docker-{{database_type}}
-  when: enable_central_database | bool
+- name: "remove {{ docker_compose_instance_directory }} and all its contents"
+  file:
+    path: "{{ docker_compose_instance_directory }}"
+    state: absent
+  when: reset_files | bool
+
+- name: "create {{docker_compose_instance_directory}}"
+  file:
+    path: "{{docker_compose_instance_directory}}"
+    state: directory
+    mode: 0755

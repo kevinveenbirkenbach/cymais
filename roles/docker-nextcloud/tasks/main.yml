@@ -1,6 +1,6 @@
 ---
-- name: "include docker-compose-common.yml"
-  include_tasks: docker-compose-common.yml
+- name: "include docker-compose-database.yml"
+  include_tasks: docker-compose-database.yml
 
 - name: "include task certbot-matomo.yml"
   include_tasks: certbot-matomo.yml
@@ -11,23 +11,12 @@
     dest: "{{nginx_servers_directory}}{{domain}}.conf"
   notify: restart nginx
 
-- name: "create {{path_docker_volumes}}nextcloud/"
-  file:
-    path: "{{path_docker_volumes}}nextcloud"
-    state: directory
-    mode: 0755
-
 - name: configure nginx.conf
   template: 
     src:  "templates/nginx.conf.j2" 
     dest: "{{path_docker_volumes}}nextcloud/nginx.conf"
   notify: docker compose project setup
 
-- name: "create {{docker_compose_instance_directory}}"
-  file:
-    path: "{{docker_compose_instance_directory}}"
-    state: directory
-    mode: 0755
 
 - name: add docker-compose.yml
   template: 

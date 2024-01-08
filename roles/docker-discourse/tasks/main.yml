@@ -6,17 +6,11 @@
     name: which
     state: present
 
-- name: "include docker-compose-common.yml"
-  include_tasks: docker-compose-common.yml
+- name: "include docker-compose-database.yml"
+  include_tasks: docker-compose-database.yml
 
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
-
-- name: "create {{docker_compose_instance_directory}}"
-  file:
-    path: "{{docker_compose_instance_directory}}"
-    state: directory
-    mode: 0755
 
 - name: "Ensure {{docker_compose_project_name}}_default network exists"
   community.docker.docker_network:

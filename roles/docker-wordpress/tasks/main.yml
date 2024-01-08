@@ -1,6 +1,6 @@
 ---
-- name: "include docker-compose-common.yml"
-  include_tasks: docker-compose-common.yml
+- name: "include docker-compose-database.yml"
+  include_tasks: docker-compose-database.yml
   
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
@@ -9,12 +9,6 @@
     loop_var: domain
   vars:
     nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size {{wordpress_max_upload_size}};"
-
-- name: "create {{docker_compose_instance_directory}}"
-  file:
-    path: "{{docker_compose_instance_directory}}"
-    state: directory
-    mode: 0755
 
 - name: "Transfering upload.ini to {{docker_compose_instance_directory}}"
   template:
