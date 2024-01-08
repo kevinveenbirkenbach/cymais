@@ -1,6 +1,9 @@
 version: '3'
 
 services:
+
+{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
+
   application:
     logging:
       driver: journald
