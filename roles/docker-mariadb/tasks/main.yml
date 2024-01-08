@@ -43,7 +43,7 @@
     host: 127.0.0.1
     port: 3306
     delay: "{{database_delay}}"
-    timeout: 300
+    timeout: 360
   when: run_once_docker_mariadb is not defined
 
 - name: "Create database: {{ database_name }}"

@@ -69,13 +69,14 @@
 - name: wait for database
   wait_for:
     host: 127.0.0.1
-    port: "{{ http_port }}"
+    port: 3306
     delay: "{{database_delay}}"
-    timeout: 300
+    timeout: 360
   when: setup | bool 
 
 - name: execute database migration
   command:
     cmd: "docker compose -p mailu exec admin flask mailu admin admin {{top_domain}} {{mailu_initial_root_password}}"
     chdir: "{{docker_compose_instance_directory}}"
+  ignore_errors: true
   when: setup | bool 
