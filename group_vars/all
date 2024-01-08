@@ -1,6 +1,7 @@
 # General
 reset_files:          false       # Cleans up all CyMaIS files. It's necessary to run to whole playbook and not particial roles when using this function.
 verbose:              false       # Prints well formated debug information
+test_run:             false       # Executes test routines instead of productive routines
 database_delay:       "0"         # Database delay to wait for the central database before continue tasks
 top_domain:           "localhost" # Change this in inventory to your domain
 ip4_address:          "127.0.0.1" # Change thie in inventory to the ip address of your server

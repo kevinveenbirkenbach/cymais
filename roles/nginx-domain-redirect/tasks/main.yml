@@ -1,7 +1,8 @@
 ---
-- name: recieve redirect source certificates
-  command: certbot certonly --agree-tos --email {{administrator_email}} --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{item.source}}
-  loop: "{{domain_mappings}}"
+- name: "include task receive certbot certificate"
+  include_tasks: recieve-certbot-certificate.yml
+  vars:
+    domain: "{{ domain }}"
 
 - name: configure nginx redirect configurations
   vars:
