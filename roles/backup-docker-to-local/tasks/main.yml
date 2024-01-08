@@ -3,7 +3,6 @@
     name:
       - lsof
       - python-pandas
-      - jq
     state: present
   when: run_once_backup_docker_to_local is not defined
 
