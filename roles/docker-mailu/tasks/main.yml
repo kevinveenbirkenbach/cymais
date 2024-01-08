@@ -66,14 +66,6 @@
   meta: flush_handlers
   when: setup | bool 
 
-- name: wait for database
-  wait_for:
-    host: 127.0.0.1
-    port: 3306
-    delay: "{{database_delay}}"
-    timeout: 360
-  when: setup | bool 
-
 - name: execute database migration
   command:
     cmd: "docker compose -p mailu exec admin flask mailu admin admin {{top_domain}} {{mailu_initial_root_password}}"
