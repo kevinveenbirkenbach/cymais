@@ -12,6 +12,24 @@
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
 
+- name: "stop container discourse_application"
+  command:
+    cmd: "docker stop discourse_application"
+  ignore_errors: true
+  when: reset_files | bool
+
+- name: "rm container discourse_application"
+  command:
+    cmd: "docker rm discourse_application"
+  ignore_errors: true
+  when: reset_files | bool
+
+- name: "cleanup central database from {{docker_compose_project_name}}_default network"
+  command:
+    cmd: "docker network disconnect discourse_default central-{{ database_type }}"
+  ignore_errors: true
+  when: reset_files | bool
+
 - name: add docker-compose.yml
   template: src=docker-compose.yml.j2 dest={{docker_compose_instance_directory}}docker-compose.yml
   notify: docker compose project setup
@@ -35,10 +53,10 @@
     mode: '700'
     state: directory
 
-- name: "copy configuration to {{discourse_repository_directory}}containers/app.yml"
+- name: "copy configuration to {{discourse_repository_directory}}containers/discourse_application.yml"
   template: 
-    src: app.yml.j2
-    dest: "{{discourse_repository_directory}}containers/app.yml"
+    src: discourse_application.yml.j2
+    dest: "{{discourse_repository_directory}}containers/discourse_application.yml"
   notify: recreate discourse
 
 - name: "add central database temporary to {{docker_compose_project_name}}_default"
