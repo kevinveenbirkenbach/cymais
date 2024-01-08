@@ -2,12 +2,15 @@
 - name: "include task receive certbot certificate"
   include_tasks: recieve-certbot-certificate.yml
   vars:
-    domain: "{{ domain }}"
+    domain: "{{item.source}}"
+  loop: "{{domain_mappings}}"
 
 - name: configure nginx redirect configurations
   vars:
     domain: "{{item.source}}"
     target_domain: "{{item.target}}"
-  template: src=redirect.domain.nginx.conf.j2 dest={{nginx_servers_directory}}{{ domain }}.conf
+  template: 
+    src:  redirect.domain.nginx.conf.j2
+    dest: "{{nginx_servers_directory}}{{ domain }}.conf"
   loop: "{{domain_mappings}}"
   notify: restart nginx

@@ -1,4 +1,4 @@
-- name: recieve certbot certificate for {{ domain }}
+- name: "recieve certbot certificate for {{ domain }}"
   command: >-
     certbot certonly --agree-tos --email {{ administrator_email }}
     --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{ domain }}
