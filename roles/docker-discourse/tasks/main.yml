@@ -16,19 +16,19 @@
   command:
     cmd: "docker stop discourse_application"
   ignore_errors: true
-  when: reset_files | bool
+  when: mode_reset | bool
 
 - name: "rm container discourse_application"
   command:
     cmd: "docker rm discourse_application"
   ignore_errors: true
-  when: reset_files | bool
+  when: mode_reset | bool
 
 - name: "cleanup central database from {{docker_compose_project_name}}_default network"
   command:
     cmd: "docker network disconnect discourse_default central-{{ database_type }}"
   ignore_errors: true
-  when: reset_files | bool
+  when: mode_reset | bool
 
 - name: add docker-compose.yml
   template: src=docker-compose.yml.j2 dest={{docker_compose_instance_directory}}docker-compose.yml

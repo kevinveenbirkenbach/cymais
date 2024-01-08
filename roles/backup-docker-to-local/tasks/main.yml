@@ -45,7 +45,7 @@
   file:
     path: "{{ backup_docker_to_local_folder }}databases.csv"
     state: absent
-  when: reset_files | bool and run_once_backup_docker_to_local is not defined
+  when: mode_reset | bool and run_once_backup_docker_to_local is not defined
 
 - name: seed database values
   command:

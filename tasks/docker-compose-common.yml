@@ -9,7 +9,7 @@
   file:
     path: "{{ docker_compose_instance_directory }}"
     state: absent
-  when: reset_files | bool
+  when: mode_reset | bool
 
 - name: "create {{docker_compose_instance_directory}}"
   file:

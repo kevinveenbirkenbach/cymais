@@ -2,4 +2,4 @@
   command: >-
     certbot certonly --agree-tos --email {{ administrator_email }}
     --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{ domain }}
-    {{ '--test-cert' if test_run | bool else '' }}
+    {{ '--test-cert' if mode_test | bool else '' }}
