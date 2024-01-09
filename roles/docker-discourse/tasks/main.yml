@@ -15,6 +15,7 @@
 - name: "destroy container discourse_application"
   command:
     cmd: "./launcher destroy discourse_application"
+    chdir: "{{discourse_repository_directory}}"
   ignore_errors: true
   when: mode_reset | bool
 
