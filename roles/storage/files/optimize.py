@@ -45,30 +45,40 @@ def pause_and_move(storage_path,volume):
     
     start_containers(containers)
 
-# Path on the SSD where data will be moved
-ssd_path = "/path/to/ssd"
-hdd_path = "/path/to/hdd"
-
-# List all Docker volumes
-volumes = run_command("docker volume ls -q").splitlines()
-
-for volume in volumes:
-    # List all containers using this volume
-    containers = run_command(f"docker ps -q --filter volume={volume}").splitlines()
-    volume_path = get_volume_path(volume)
-    if is_symbolic_link(volume_path):
-        print(f"Skipped Volume {volume}. The storage path {volume_path} is a symbolic link.")
+if __name__ == "__main__":
+    # Argument parser setup
+    parser = argparse.ArgumentParser(description='Migrate Docker volumes to SSD or HDD based on container image.')
+    parser.add_argument('--ssd_path', type=str, required=True, help='Path to the SSD storage')
+    parser.add_argument('--hdd_path', type=str, required=True, help='Path to the HDD storage')
     
-    for container in containers:
-        # Get the image of the container
-        image = get_image(container)
+    # Parse arguments
+    args = parser.parse_args()
 
-        # Check if the image contains "postgres" or "mariadb"
-        if is_database(image):
-            print(f"Container {container} with database image {image} found, using volume {volume}.")
-            pause_and_move(ssd_path,volume)
-        else:
-            print(f"Container {container} with file image {image} found, using volume {volume}.")
-            pause_and_move(hdd_path,volume)
+    # Set paths from arguments
+    ssd_path = args.ssd_path
+    hdd_path = args.hdd_path
 
-print("Operation completed.")
+    # List all Docker volumes
+    volumes = run_command("docker volume ls -q").splitlines()
+    
+    for volume in volumes:
+        # List all containers using this volume
+        containers = run_command(f"docker ps -q --filter volume={volume}").splitlines()
+        volume_path = get_volume_path(volume)
+        if is_symbolic_link(volume_path):
+            print(f"Skipped Volume {volume}. The storage path {volume_path} is a symbolic link.")
+        
+        for container in containers:
+            # Get the image of the container
+            image = get_image(container)
+    
+            # Check if the image contains "postgres" or "mariadb"
+            if is_database(image):
+                print(f"Container {container} with database image {image} found, using volume {volume}.")
+                pause_and_move(ssd_path,volume)
+            else:
+                print(f"Container {container} with file image {image} found, using volume {volume}.")
+                pause_and_move(hdd_path,volume)
+    
+    print("Operation completed.")
+    
