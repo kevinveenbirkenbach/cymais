@@ -6,13 +6,6 @@ def run_command(command):
     """ Run a shell command and return its output """
     return subprocess.check_output(command, shell=True).decode('utf-8').strip()
 
-# Path on the SSD where data will be moved
-ssd_path = "/path/to/ssd"
-hdd_path = "/path/to/hdd"
-
-# List all Docker volumes
-volumes = run_command("docker volume ls -q").splitlines()
-
 def stop_containers(containers):
     """Stop a list of containers."""
     container_list = ' '.join(containers)
@@ -51,6 +44,13 @@ def pause_and_move(storage_path,volume):
     os.symlink(storage_volume_path, volume_path)
     
     start_containers(containers)
+
+# Path on the SSD where data will be moved
+ssd_path = "/path/to/ssd"
+hdd_path = "/path/to/hdd"
+
+# List all Docker volumes
+volumes = run_command("docker volume ls -q").splitlines()
 
 for volume in volumes:
     # List all containers using this volume
