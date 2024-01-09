@@ -2,7 +2,7 @@
 {% if not enable_central_database | bool %}  
   database:
     image: postgres:{{database_version}}-alpine
-    container_name: {{docker_compose_project_name}}-postgres
+    container_name: {{docker_compose_project_name}}-database
     environment:
       - POSTGRES_PASSWORD={{database_password}}
       - POSTGRES_USER={{database_username}}
