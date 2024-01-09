@@ -73,17 +73,16 @@ if __name__ == "__main__":
     volumes = run_command("docker volume ls -q").splitlines()
     
     for volume in volumes:
-        # List all containers using this volume
         containers = run_command(f"docker ps -q --filter volume={volume}").splitlines()
         volume_path = get_volume_path(volume)
         if is_symbolic_link(volume_path):
             print(f"Skipped Volume {volume}. The storage path {volume_path} is a symbolic link.")
         elif has_container_with_database(containers):
-            print(f"Container {container} with database image found. Safing volume {volume} on SSD.")
-            pause_and_move(ssd_path,volume,containers)
+            print(f"Safing volume {volume} on SSD.")
+            pause_and_move(ssd_path, volume, volume_path, containers)
         else:
-            print(f"Container {container} with file image found. Safing volume {volume} on HDD.")
-            pause_and_move(hdd_path,volume,containers)
-    
+            print(f"Safing volume {volume} on HDD.")
+            pause_and_move(hdd_path, volume, volume_path, containers)
+
     print("Operation completed.")
     
