@@ -5,7 +5,7 @@
   become: true
   roles:
     - role: update
-      when: execute_updates | bool
+      when: mode_update | bool
 
 - name: setup standard wireguard
   hosts: wireguard_server

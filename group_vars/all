@@ -10,6 +10,8 @@ backups_folder_path:  "/Backups/" # Path to the backups folder
 mode_reset:   false # Cleans up all CyMaIS files. It's necessary to run to whole playbook and not particial roles when using this function.
 mode_verbose: false # Prints well formated debug information
 mode_test:    false # Executes test routines instead of productive routines
+mode_update:  true  # Executes updates
+mode_backup:  true  # Activates the backup before the update procedure
 
 # Server Tact Variables 
 
@@ -60,9 +62,6 @@ path_system_lock_script:        "{{path_administrator_scripts}}system-maintenanc
 # Runtime Variables for Process Control
 activate_all_timers:          false   # Activates all timers, independend if the handlers had been triggered
 nginx_matomo_tracking:        false   # Activates matomo tracking on all html pages
-execute_updates:              true    # Executes updates
-force_backup_before_update:   true    # Activates the backup before the update procedure
-
 
 # System maintenance Services
 
