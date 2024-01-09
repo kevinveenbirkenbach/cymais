@@ -1,6 +1,7 @@
 import subprocess
 import os
 import shutil
+import argparse
 
 def run_command(command):
     """ Run a shell command and return its output """
@@ -10,13 +11,13 @@ def stop_containers(containers):
     """Stop a list of containers."""
     container_list = ' '.join(containers)
     print(f"Stopping containers {container_list}...")
-    execute_shell_command(f"docker stop {container_list}")
-    
+    run_command(f"docker stop {container_list}")
+
 def start_containers(containers):
     """Start a list of containers."""
     container_list = ' '.join(containers)
-    print(f"Start containers {container_list}...")
-    execute_shell_command(f"docker start {container_list}")
+    print(f"Starting containers {container_list}...")
+    run_command(f"docker start {container_list}")
 
 def is_database(image):
     return "postgres" in image or "mariadb" in image
@@ -27,10 +28,10 @@ def is_symbolic_link(file_path):
 def get_volume_path(volume):
     return run_command(f"docker volume inspect --format '{{{{ .Mountpoint }}}}' {volume}")
 
-def get_image(volume):
+def get_image(container):
     return run_command(f"docker inspect --format='{{{{.Config.Image}}}}' {container}")
 
-def pause_and_move(storage_path,volume):
+def pause_and_move(storage_path, volume, volume_path, containers):
     stop_containers(containers)
     # Create a new directory on the Storage
     storage_volume_path = os.path.join(storage_path, volume)
@@ -75,10 +76,10 @@ if __name__ == "__main__":
             # Check if the image contains "postgres" or "mariadb"
             if is_database(image):
                 print(f"Container {container} with database image {image} found, using volume {volume}.")
-                pause_and_move(ssd_path,volume)
+                pause_and_move(ssd_path,volume,containers)
             else:
                 print(f"Container {container} with file image {image} found, using volume {volume}.")
-                pause_and_move(hdd_path,volume)
+                pause_and_move(hdd_path,volume,containers)
     
     print("Operation completed.")
     
