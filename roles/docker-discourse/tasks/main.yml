@@ -12,13 +12,6 @@
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
 
-- name: "destroy container discourse_application"
-  command:
-    cmd: "./launcher destroy discourse_application"
-    chdir: "{{discourse_repository_directory}}"
-  ignore_errors: true
-  when: mode_reset | bool
-
 - name: "cleanup central database from {{docker_compose_project_name}}_default network"
   command:
     cmd: "docker network disconnect discourse_default central-{{ database_type }}"
@@ -31,7 +24,6 @@
 
 - name: flush, to recreate discourse docker compose
   meta: flush_handlers
-  when: enable_central_database | bool
 
 - name: pull docker repository
   git:
@@ -59,10 +51,16 @@
     cmd: "docker network connect discourse_default central-{{ database_type }}"
   when: enable_central_database | bool
 
+- name: "destroy container discourse_application"
+  command:
+    cmd: "./launcher destroy discourse_application"
+    chdir: "{{discourse_repository_directory}}"
+  ignore_errors: true
+  when: mode_reset | bool
+
 - name: flush, to recreate discourse app
   meta: flush_handlers
-  when: enable_central_database | bool
-
+  
 - name: "remove central database from {{docker_compose_project_name}}_default"
   command:
     cmd: "docker network disconnect discourse_default central-{{ database_type }}"
