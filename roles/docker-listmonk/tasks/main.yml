@@ -20,10 +20,10 @@
 
 - name: flush docker service
   meta: flush_handlers
-  when: setup | bool 
+  when: mode_setup |bool 
 
 - name: setup routine for listmonk
   command:
     cmd:   docker compose run -T --rm application sh -c "yes | ./listmonk --install"
     chdir: "{{docker_compose_instance_directory}}"
-  when: setup | bool 
+  when: mode_setup |bool 

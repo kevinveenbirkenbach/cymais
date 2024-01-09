@@ -12,6 +12,8 @@ mode_verbose: false # Prints well formated debug information
 mode_test:    false # Executes test routines instead of productive routines
 mode_update:  true  # Executes updates
 mode_backup:  true  # Activates the backup before the update procedure
+mode_setup:   false # Execute the setup and initializing procedures
+
 
 # Server Tact Variables 
 
@@ -106,13 +108,6 @@ nginx_maps_directory:           "{{nginx_configuration_directory}}maps/"        
 nginx_upstreams_directory:      "{{nginx_configuration_directory}}upstreams/"   # Contains upstream configurations
 
 ## Docker Applications
-
-### Enable Setup
-setup_default:    "false"     # Pass CLI commands to execute the setup tasks for the different roles
-setup_akaunting:  "{{setup_default}}"
-setup_mailu:      "{{setup_default}}"
-setup_listmonk:   "{{setup_default}}"
-setup_mastodon:   "{{setup_default}}"
 
 ### Enable Central MariaDB
 enable_central_database: true
