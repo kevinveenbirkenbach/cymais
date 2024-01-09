@@ -12,15 +12,9 @@
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
 
-- name: "stop container discourse_application"
+- name: "destroy container discourse_application"
   command:
-    cmd: "docker stop discourse_application"
-  ignore_errors: true
-  when: mode_reset | bool
-
-- name: "rm container discourse_application"
-  command:
-    cmd: "docker rm discourse_application"
+    cmd: "./launcher destroy discourse_application"
   ignore_errors: true
   when: mode_reset | bool
 
