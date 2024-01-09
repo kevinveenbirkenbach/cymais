@@ -20,7 +20,8 @@ def start_containers(containers):
     run_command(f"docker start {container_list}")
 
 def is_database(image):
-    return "postgres" in image or "mariadb" in image
+    databases = {"postgres", "mariadb", "redis", "memcached"}
+    return any(database in image for database in databases)
 
 def is_symbolic_link(file_path):
     return os.path.islink(file_path)
@@ -46,6 +47,15 @@ def pause_and_move(storage_path, volume, volume_path, containers):
     
     start_containers(containers)
 
+def has_container_with_database(containers):
+    for container in containers:
+        # Get the image of the container
+        image = get_image(container)
+        if is_database(image):
+            return True
+    return False
+    
+
 if __name__ == "__main__":
     # Argument parser setup
     parser = argparse.ArgumentParser(description='Migrate Docker volumes to SSD or HDD based on container image.')
@@ -68,18 +78,12 @@ if __name__ == "__main__":
         volume_path = get_volume_path(volume)
         if is_symbolic_link(volume_path):
             print(f"Skipped Volume {volume}. The storage path {volume_path} is a symbolic link.")
-        
-        for container in containers:
-            # Get the image of the container
-            image = get_image(container)
-    
-            # Check if the image contains "postgres" or "mariadb"
-            if is_database(image):
-                print(f"Container {container} with database image {image} found, using volume {volume}.")
-                pause_and_move(ssd_path,volume,containers)
-            else:
-                print(f"Container {container} with file image {image} found, using volume {volume}.")
-                pause_and_move(hdd_path,volume,containers)
+        elif has_container_with_database(containers):
+            print(f"Container {container} with database image found. Safing volume {volume} on SSD.")
+            pause_and_move(ssd_path,volume,containers)
+        else:
+            print(f"Container {container} with file image found. Safing volume {volume} on HDD.")
+            pause_and_move(hdd_path,volume,containers)
     
     print("Operation completed.")
     
