@@ -65,13 +65,19 @@ def wait_for_all_services_to_stop(filtered_services, max_attempts, attempt):
 def get_max_attempts(timeout_sec):
     return timeout_sec // BREAK_TIME_SECONDS
 
+def append_suffix_to_services(services, suffix=".cymais"):
+    """
+    Append a specified suffix to each service name in the list.
+    """
+    return [service + suffix for service in services]
+
 def main(services, ignored_services, timeout_sec):
     """
     Main function to process the command-line arguments and perform actions.
     """
-        
-    filtered_services = filter_services(services, ignored_services)
-    print(f"Services to handle: {services}")
+    services_with_suffix = append_suffix_to_services(services)
+    filtered_services = filter_services(services_with_suffix, ignored_services)
+    print(f"Services to handle: {services_with_suffix}")
     print(f"Services to ignore: {ignored_services}")
     print(f"Services filtered: {filtered_services}")
     
@@ -82,7 +88,6 @@ def main(services, ignored_services, timeout_sec):
     while check_any_service_active(filtered_services):
         attempt = wait_for_all_services_to_stop(filtered_services, max_attempts, attempt)
     print("All required services have stopped.")
-
     
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Blocks the code execution as long as defined services are running. Terminates with 0 when all services stopped')
