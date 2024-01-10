@@ -8,11 +8,11 @@
   template: 
     src: storage-optimizer.service.j2
     dest: /etc/systemd/system/storage-optimizer.cymais.service
-  notify: reload storage-optimizer service
+  notify: start storage-optimizer service
 
 - name: create storage-optimizer.py
   template: 
     src: storage-optimizer.py.j2 
     dest: "{{storage_optimizer_script}}"
     mode: 0755
-  notify: reload storage-optimizer service
+  notify: start storage-optimizer service

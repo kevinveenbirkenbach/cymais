@@ -7,6 +7,13 @@
     - role: update
       when: mode_update | bool
 
+- name: optimize storage performance
+  hosts:  all
+  become: true
+  roles:
+    - role: storage-optimizer
+      when: path_mass_storage or path_rapid_storage
+
 - name: setup standard wireguard
   hosts: wireguard_server
   become: true
