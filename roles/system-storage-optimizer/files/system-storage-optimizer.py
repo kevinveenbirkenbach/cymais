@@ -1,11 +1,16 @@
 import subprocess
 import os
+import time
+import sys
 import shutil
 import argparse
 
 def run_command(command):
     """ Run a shell command and return its output """
-    return subprocess.check_output(command, shell=True).decode('utf-8').strip()
+    print(command)
+    output = subprocess.check_output(command, shell=True).decode('utf-8').strip()
+    print(output)
+    return output
 
 def stop_containers(containers):
     """Stop a list of containers."""
@@ -32,6 +37,17 @@ def get_volume_path(volume):
 def get_image(container):
     return run_command(f"docker inspect --format='{{{{.Config.Image}}}}' {container}")
 
+def run_rsync(src, dest):
+    run_command(f"rsync -aP --remove-source-files {src} {dest}")
+
+def delete_directory(path):
+    """Deletes a directory and all its contents."""
+    try:
+        shutil.rmtree(path)
+        print(f"Directory {path} was successfully deleted.")
+    except OSError as e:
+        print(f"Error deleting directory {path}: {e}")
+
 def pause_and_move(storage_path, volume, volume_path, containers):
     stop_containers(containers)
     # Create a new directory on the Storage
@@ -39,12 +55,10 @@ def pause_and_move(storage_path, volume, volume_path, containers):
     os.makedirs(storage_volume_path,exist_ok=False)
 
     # Move the data
-    for item in os.listdir(volume_path):
-        shutil.move(os.path.join(volume_path, item), storage_volume_path)
+    run_rsync(volume_path, storage_volume_path)
     
-    # Ensure the volume_path is empty and remove it
-    if not os.listdir(volume_path):
-        os.rmdir(volume_path)
+    # Delete the source directory
+    delete_directory(volume_path)
 
     # Create a symbolic link
     os.symlink(storage_volume_path, volume_path)
