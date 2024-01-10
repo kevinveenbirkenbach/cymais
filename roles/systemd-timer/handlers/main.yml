@@ -1,6 +1,6 @@
 - name: "restart timer"
   systemd:
-    name: "{{service_name}}.timer"
+    name: "{{service_name}}.cymais.timer"
     state: restarted
     enabled: yes
     daemon_reload: yes

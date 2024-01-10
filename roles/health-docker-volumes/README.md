@@ -11,7 +11,7 @@ This role checks for anonymous Docker volumes that are not bound to a container 
 - `files/health-docker-volumes.sh`: The script that checks for anonymous Docker volumes and excludes whitelisted volumes.
 - `tasks/main.yml`: Tasks to create necessary directories, copy scripts, and create systemd service and timer.
 - `templates/health-docker-volumes.cymais.service.j2`: Systemd service template, including the whitelisted volumes as a parameter.
-- `templates/health-docker-volumes.timer.j2`: Systemd timer template.
+- `templates/health-docker-volumes.cymais.timer.j2`: Systemd timer template.
 - `meta/main.yml`: Meta information declaring dependencies for the role.
 
 ## Usage

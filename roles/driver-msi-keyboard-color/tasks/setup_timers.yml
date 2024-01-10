@@ -1,8 +1,8 @@
 ---
-- name: Copy keyboard-color.timer file
+- name: Copy keyboard-color.cymais.timer file
   template:
     src: keyboard-color.timer.j2
-    dest: /etc/systemd/system/keyboard-color.timer
+    dest: /etc/systemd/system/keyboard-color.cymais.timer
     mode: 0644
   tags:
     - keyboard-color
@@ -21,9 +21,9 @@
   tags:
     - keyboard-color
 
-- name: Enable and start keyboard-color.timer
+- name: Enable and start keyboard-color.cymais.timer
   systemd:
-    name: keyboard-color.timer
+    name: keyboard-color.cymais.timer
     state: restarted
     enabled: yes
   tags:
