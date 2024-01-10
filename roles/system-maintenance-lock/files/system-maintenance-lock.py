@@ -76,9 +76,10 @@ def main(services, ignored_services, timeout_sec):
     Main function to process the command-line arguments and perform actions.
     """
     services_with_suffix = append_suffix_to_services(services)
-    filtered_services = filter_services(services_with_suffix, ignored_services)
+    ignored_services_with_suffix = append_suffix_to_services(ignored_services)
+    filtered_services = filter_services(services_with_suffix, ignored_services_with_suffix )
     print(f"Services to handle: {services_with_suffix}")
-    print(f"Services to ignore: {ignored_services}")
+    print(f"Services to ignore: {ignored_services_with_suffix}")
     print(f"Services filtered: {filtered_services}")
     
     print("Waiting for services to stop.")
