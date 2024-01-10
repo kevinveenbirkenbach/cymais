@@ -1,0 +1,18 @@
+- name: "create {{storage_optimizer_directory}}"
+  file:
+    path: "{{storage_optimizer_directory}}"
+    state: directory
+    mode: 0755
+
+- name: create storage-optimizer.cymais.service
+  template: 
+    src: storage-optimizer.service.j2
+    dest: /etc/systemd/system/storage-optimizer.cymais.service
+  notify: reload storage-optimizer service
+
+- name: create storage-optimizer.py
+  template: 
+    src: storage-optimizer.py.j2 
+    dest: "{{storage_optimizer_script}}"
+    mode: 0755
+  notify: reload storage-optimizer service

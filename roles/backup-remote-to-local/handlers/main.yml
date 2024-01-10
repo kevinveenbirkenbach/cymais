@@ -2,10 +2,3 @@
   systemd:
     name: backup-remote-to-local.cymais.service
     daemon_reload: yes
-    
-- name: "restart backup-remote-to-local timer"
-  systemd:
-    name: backup-remote-to-local.cymais.timer
-    state: started
-    enabled: yes
-    daemon_reload: yes
