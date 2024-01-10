@@ -1,4 +1,0 @@
-- name: "start storage-optimizer service"
-  systemd:
-    name: backup-docker-to-local-everything.cymais.service
-    state: started

@@ -36,11 +36,15 @@ def pause_and_move(storage_path, volume, volume_path, containers):
     stop_containers(containers)
     # Create a new directory on the Storage
     storage_volume_path = os.path.join(storage_path, 'data', 'docker', 'volumes', volume)
-    os.makedirs(storage_volume_path, exist_ok=False)
+    os.makedirs(storage_volume_path,exist_ok=False)
 
     # Move the data
     for item in os.listdir(volume_path):
         shutil.move(os.path.join(volume_path, item), storage_volume_path)
+    
+    # Ensure the volume_path is empty and remove it
+    if not os.listdir(volume_path):
+        os.rmdir(volume_path)
 
     # Create a symbolic link
     os.symlink(storage_volume_path, volume_path)
@@ -73,9 +77,11 @@ if __name__ == "__main__":
     volumes = run_command("docker volume ls -q").splitlines()
     
     for volume in volumes:
-        containers = run_command(f"docker ps -q --filter volume={volume}").splitlines()
         volume_path = get_volume_path(volume)
-        if is_symbolic_link(volume_path):
+        containers = run_command(f"docker ps -q --filter volume={volume}").splitlines()
+        if not containers:
+            print(f"Skipped Volume {volume}. It does not belong to a running container.")
+        elif is_symbolic_link(volume_path):
             print(f"Skipped Volume {volume}. The storage path {volume_path} is a symbolic link.")
         elif has_container_with_database(containers):
             print(f"Safing volume {volume} on SSD.")

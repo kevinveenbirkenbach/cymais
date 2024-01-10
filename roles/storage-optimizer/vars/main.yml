@@ -1,2 +1,0 @@
-storage_optimizer_directory: "{{path_administrator_scripts}}storage-optimizer/"
-storage_optimizer_script:    "{{storage_optimizer_directory}}storage-optimizer.py"
