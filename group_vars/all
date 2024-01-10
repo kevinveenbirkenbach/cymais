@@ -68,10 +68,11 @@ nginx_matomo_tracking:        false   # Activates matomo tracking on all html pa
 # System maintenance Services
 
 ## Timeouts to wait for other services to stop
-sytem_maintenance_lock_timeoutcleanup_services:  "15min"
-sytem_maintenance_lock_timeoutbackup_services:   "1h"
-sytem_maintenance_lock_timeoutheal_docker:       "30min"
-sytem_maintenance_lock_timeoutupdate_docker:     "2min"
+sytem_maintenance_lock_timeout_cleanup_services:  "15min"
+sytem_maintenance_lock_timeout_storage_optimizer: "10min"
+sytem_maintenance_lock_timeout_backup_services:   "1h"
+sytem_maintenance_lock_timeout_heal_docker:       "30min"
+sytem_maintenance_lock_timeout_update_docker:     "2min"
 
 ## Services
 

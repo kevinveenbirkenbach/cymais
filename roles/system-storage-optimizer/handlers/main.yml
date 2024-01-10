@@ -1,0 +1,5 @@
+- name: "reload system-storage-optimizer.cymais.service"
+  systemd:
+    name: system-storage-optimizer.cymais.service
+    state: reloaded
+    daemon_reload: yes

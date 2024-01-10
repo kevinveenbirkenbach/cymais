@@ -8,6 +8,7 @@
   template: 
     src: system-storage-optimizer.service.j2
     dest: /etc/systemd/system/system-storage-optimizer.cymais.service
+  notify: reload system-storage-optimizer.cymais.service
 
 - name: create system-storage-optimizer.py
   copy: 
