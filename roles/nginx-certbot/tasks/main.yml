@@ -4,10 +4,10 @@
     state: present
   when: run_once_nginx_certbot is not defined
 
-- name: configure nginx-certbot.service
+- name: configure nginx-certbot.cymais.service
   template: 
     src:  nginx-certbot.service.j2
-    dest: /etc/systemd/system/nginx-certbot.service
+    dest: /etc/systemd/system/nginx-certbot.cymais.service
   notify: reload certbot service
   when: run_once_nginx_certbot is not defined
 

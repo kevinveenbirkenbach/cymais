@@ -48,11 +48,11 @@
     src: "deploy-letsencrypt-mailu.sh.j2" 
     dest: "{{path_administrator_scripts}}mailu/deploy-letsencrypt-mailu.sh"
 
-- name: configure deploy-letsencrypt-mailu.service
+- name: configure deploy-letsencrypt-mailu.cymais.service
   template: 
     src:  "deploy-letsencrypt-mailu.service.j2"
-    dest: "/etc/systemd/system/deploy-letsencrypt-mailu.service"
-  notify: restart deploy-letsencrypt-mailu.service
+    dest: "/etc/systemd/system/deploy-letsencrypt-mailu.cymais.service"
+  notify: restart deploy-letsencrypt-mailu.cymais.service
 
 - name: "include role for systemd-timer for {{service_name}}"
   include_role:

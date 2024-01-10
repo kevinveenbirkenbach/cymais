@@ -1,5 +1,5 @@
-- name: "reload cleanup-backups.service"
+- name: "reload cleanup-backups.cymais.service"
   systemd:
-    name: cleanup-backups.service
+    name: cleanup-backups.cymais.service
     enabled: yes
     daemon_reload: yes

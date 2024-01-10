@@ -19,12 +19,12 @@ Manages wireguard on host.
 ### Activate Configuration
 ```bash
   cp /path/to/wg0.conf /etc/wireguard/wg0.conf
-  systemctl enable wg-quick@wg0.service --now
+  systemctl enable wg-quick@wg0.cymais.service --now
 ```
 
 ### Check status
 ```bash
-  systemctl status wg-quick@wg0.service
+  systemctl status wg-quick@wg0.cymais.service
 ```
 
 ## See

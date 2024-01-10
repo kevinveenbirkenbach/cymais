@@ -26,11 +26,11 @@ This role depends on:
 ## Usage
 1. **Installation of Python Modules**: The role installs the required Python `requests` module.
 2. **File and Directory Management**: It creates the necessary directories and files, including the `health-nginx.py` script.
-3. **Service and Timer Templates**: Templates for `health-nginx.service` and `health-nginx.timer` are set up to automate the health checks.
+3. **Service and Timer Templates**: Templates for `health-nginx.cymais.service` and `health-nginx.timer` are set up to automate the health checks.
 4. **Running the Health Check**: The `health-nginx.py` script is executed to perform the health check. It iterates over nginx configuration files and sends a HEAD request to each domain/subdomain to verify its status. The script considers different expected status codes based on the domain or subdomain.
 
 ## Handler Details
-- **reload health-nginx.service**: Reloads the `health-nginx.service` if there are any changes to the service file.
+- **reload health-nginx.cymais.service**: Reloads the `health-nginx.cymais.service` if there are any changes to the service file.
 - **restart health-nginx.timer**: Restarts and enables the `health-nginx.timer` to schedule regular health checks.
 
 ## Additional Information

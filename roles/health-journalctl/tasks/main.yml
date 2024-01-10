@@ -11,11 +11,11 @@
     dest: "{{health_journalctl_folder}}health-journalctl.sh"
   when: run_once_health_journalctl is not defined
 
-- name: create health-journalctl.service
+- name: create health-journalctl.cymais.service
   template: 
     src: health-journalctl.service.j2
-    dest: /etc/systemd/system/health-journalctl.service
-  notify: reload health-journalctl.service
+    dest: /etc/systemd/system/health-journalctl.cymais.service
+  notify: reload health-journalctl.cymais.service
   when: run_once_health_journalctl is not defined
 
 - name: set service_name to the name of the current role

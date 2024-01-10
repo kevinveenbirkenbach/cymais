@@ -9,8 +9,8 @@
 - name: Copy systemd service to systemd directory
   template:
     src: backup-data-to-usb.service.j2
-    dest: /etc/systemd/system/backup-data-to-usb.service
+    dest: /etc/systemd/system/backup-data-to-usb.cymais.service
     owner: root
     group: root
     mode: '0644'
-  notify: reload backup-data-to-usb.service
+  notify: reload backup-data-to-usb.cymais.service

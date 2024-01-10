@@ -1,6 +1,6 @@
-- name: "start backup-docker-to-local-everything.service"
+- name: "start backup-docker-to-local-everything.cymais.service"
   systemd:
-    name: backup-docker-to-local-everything.service
+    name: backup-docker-to-local-everything.cymais.service
     state: started
   when: mode_backup | bool
 
@@ -9,14 +9,14 @@
     src: update-docker.py
     dest: "{{update_docker_script}}"
 
-- name: configure update-docker.service
+- name: configure update-docker.cymais.service
   template: 
     src: update-docker.service.j2
-    dest: /etc/systemd/system/update-docker.service
+    dest: /etc/systemd/system/update-docker.cymais.service
 
-- name: "reload update-docker.service"
+- name: "reload update-docker.cymais.service"
   systemd:
-    name: update-docker.service
+    name: update-docker.cymais.service
     state: reloaded
     enabled: yes
     daemon_reload: yes

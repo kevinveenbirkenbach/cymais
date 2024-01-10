@@ -15,12 +15,12 @@ To track what the service is doing execute one of the following commands:
 
 #### systemctl
 ```bash
-  watch -n2 "systemctl status backup-remote-to-local.service"
+  watch -n2 "systemctl status backup-remote-to-local.cymais.service"
 ```
 
 #### journalctl
 ```bash
-  journalctl -fu backup-remote-to-local.service
+  journalctl -fu backup-remote-to-local.cymais.service
 ```  
 
 ### history

@@ -1,5 +1,5 @@
-- name: "reload backup-data-to-usb.service"
+- name: "reload backup-data-to-usb.cymais.service"
   systemd:
-    name: backup-data-to-usb.service
+    name: backup-data-to-usb.cymais.service
     state: reloaded
     daemon_reload: yes

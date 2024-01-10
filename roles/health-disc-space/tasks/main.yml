@@ -9,11 +9,11 @@
     src: health-disc-space.sh
     dest: "{{health_disc_space_folder}}health-disc-space.sh"
 
-- name: create health-disc-space.service
+- name: create health-disc-space.cymais.service
   template: 
     src: health-disc-space.service.j2
-    dest: /etc/systemd/system/health-disc-space.service
-  notify: reload health-disc-space.service
+    dest: /etc/systemd/system/health-disc-space.cymais.service
+  notify: reload health-disc-space.cymais.service
 
 - name: set service_name to the name of the current role
   set_fact:

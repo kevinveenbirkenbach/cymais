@@ -11,9 +11,11 @@
     dest: "{{health_docker_volumes_folder}}health-docker-volumes.sh"
   when: run_once_health_docker_volumes is not defined
 
-- name: create health-docker-volumes.service
-  template: src=health-docker-volumes.service.j2 dest=/etc/systemd/system/health-docker-volumes.service
-  notify: reload health-docker-volumes.service
+- name: create health-docker-volumes.cymais.service
+  template:
+    src:  health-docker-volumes.service.j2
+    dest: /etc/systemd/system/health-docker-volumes.cymais.service
+  notify: reload health-docker-volumes.cymais.service
   when: run_once_health_docker_volumes is not defined
 
 - name: set service_name to the name of the current role

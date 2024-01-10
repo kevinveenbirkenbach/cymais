@@ -1,5 +1,5 @@
-- name: "reload health-docker-volumes.service"
+- name: "reload health-docker-volumes.cymais.service"
   systemd:
-    name: health-docker-volumes.service
+    name: health-docker-volumes.cymais.service
     enabled: yes
     daemon_reload: yes

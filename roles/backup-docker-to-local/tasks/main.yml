@@ -14,18 +14,18 @@
   ignore_errors: true
   when: run_once_backup_docker_to_local is not defined
 
-- name: configure backup-docker-to-local-everything.service
+- name: configure backup-docker-to-local-everything.cymais.service
   template: 
     src: backup-docker-to-local-everything.service.j2
-    dest: /etc/systemd/system/backup-docker-to-local-everything.service
-  notify: reload backup-docker-to-local-everything.service
+    dest: /etc/systemd/system/backup-docker-to-local-everything.cymais.service
+  notify: reload backup-docker-to-local-everything.cymais.service
   when: run_once_backup_docker_to_local is not defined
 
-- name: configure backup-docker-to-local.service
+- name: configure backup-docker-to-local.cymais.service
   template: 
     src: backup-docker-to-local.service.j2
-    dest: /etc/systemd/system/backup-docker-to-local.service
-  notify: reload backup-docker-to-local.service
+    dest: /etc/systemd/system/backup-docker-to-local.cymais.service
+  notify: reload backup-docker-to-local.cymais.service
   when: run_once_backup_docker_to_local is not defined
 
 - name: set service_name to the name of the current role

@@ -1,10 +1,10 @@
 [Unit]
 Description=set MTU 
-Before=wg-quick@wg0.service
+Before=wg-quick@wg0.cymais.service
 
 [Service]
 Type=oneshot
 ExecStart=bash /usr/local/bin/set-mtu.sh
 
 [Install]
-RequiredBy=wg-quick@wg0.service
+RequiredBy=wg-quick@wg0.cymais.service

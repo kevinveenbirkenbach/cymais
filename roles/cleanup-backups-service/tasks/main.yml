@@ -19,11 +19,11 @@
     dest: "{{docker_cleanup_backups}}cleanup-backups.py"
   when: run_once_cleanup_backups_service is not defined
 
-- name: create cleanup-backups.service
+- name: create cleanup-backups.cymais.service
   template: 
     src:  "cleanup-backups.service.j2"
-    dest: "/etc/systemd/system/cleanup-backups.service"
-  notify: reload cleanup-backups.service
+    dest: "/etc/systemd/system/cleanup-backups.cymais.service"
+  notify: reload cleanup-backups.cymais.service
   when: run_once_cleanup_backups_service is not defined
 
 - name: run the cleanup_backups_service tasks once

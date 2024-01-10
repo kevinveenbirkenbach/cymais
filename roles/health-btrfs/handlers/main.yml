@@ -1,5 +1,5 @@
-- name: "reload health-btrfs.service"
+- name: "reload health-btrfs.cymais.service"
   systemd:
-    name: health-btrfs.service
+    name: health-btrfs.cymais.service
     enabled: yes
     daemon_reload: yes

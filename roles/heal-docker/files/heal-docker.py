@@ -40,8 +40,8 @@ waiting_time=600
 blocker_running=True
 while blocker_running:
     try: 
-        bash("systemctl is-active --quiet backup-docker-to-local.service")
-        bash("systemctl is-active --quiet update-docker.service")
+        bash("systemctl is-active --quiet backup-docker-to-local.cymais.service")
+        bash("systemctl is-active --quiet update-docker.cymais.service")
         print("backup is running.")
         print("trying again in  " + str(waiting_time) + " seconds.")
         time.sleep(waiting_time)

@@ -9,11 +9,11 @@
     src: cleanup-disc-space.sh.j2
     dest: "{{cleanup_disc_space_folder}}cleanup-disc-space.sh"
 
-- name: create cleanup-disc-space.service
+- name: create cleanup-disc-space.cymais.service
   template: 
     src: cleanup-disc-space.service.j2
-    dest: /etc/systemd/system/cleanup-disc-space.service
-  notify: reload cleanup-disc-space.service
+    dest: /etc/systemd/system/cleanup-disc-space.cymais.service
+  notify: reload cleanup-disc-space.cymais.service
 
 - name: set service_name to the name of the current role
   set_fact:

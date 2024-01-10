@@ -1,6 +1,6 @@
 - name: "reload certbot service"
   systemd:
-    name: nginx-certbot.service
+    name: nginx-certbot.cymais.service
     state: reloaded
     enabled: yes
     daemon_reload: yes

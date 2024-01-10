@@ -10,7 +10,7 @@ This Ansible role is designed to ensure the health of Docker containers running 
 - `handlers/main.yml`: Handlers to reload and restart the systemd service and timer.
 - `files/health-docker-container.sh`: The script that checks the container health.
 - `tasks/main.yml`: Tasks to create necessary directories, copy scripts, and create systemd service and timer.
-- `templates/health-docker-container.service.j2`: Systemd service template.
+- `templates/health-docker-container.cymais.service.j2`: Systemd service template.
 - `templates/health-docker-container.timer.j2`: Systemd timer template.
 - `meta/main.yml`: Meta information declaring dependencies for the role.
 

@@ -1,6 +1,6 @@
 - name: "restart systemd-notifier service"
   systemd:
-    name: systemd-notifier.service
+    name: systemd-notifier.cymais.service
     daemon_reload: yes
   when: run_once_systemd_notifier_service is not defined
 

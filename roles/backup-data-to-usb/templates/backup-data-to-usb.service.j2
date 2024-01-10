@@ -1,11 +1,11 @@
 [Unit]
 Description=Backup to USB when mounted to {{ backup_to_usb_mount }}
 Wants={{systemctl_mount_service_name}}
-OnFailure=systemd-notifier@%n.service
+OnFailure=systemd-notifier.cymais@%n.service
 
 [Service]
 ExecStart=/bin/python {{ backup_to_usb_script_path }} {{backup_to_usb_source}} {{backup_to_usb_destination}}
-ExecStartPost=/bin/systemctl start cleanup-backups.service
+ExecStartPost=/bin/systemctl start cleanup-backups.cymais.service
 
 [Install]
 WantedBy=multi-user.target

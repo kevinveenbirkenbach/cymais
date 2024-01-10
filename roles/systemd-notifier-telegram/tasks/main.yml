@@ -17,10 +17,10 @@
     dest: "{{ systemd_telegram_script }}"
   when: run_once_systemd_notifier_telegram is not defined  
 
-- name: configure systemd-notifier-telegram.service
+- name: configure systemd-notifier-telegram.cymais.service
   template: 
     src: systemd-notifier-telegram@.service.j2 
-    dest: "/etc/systemd/system/systemd-notifier-telegram@.service"
+    dest: "/etc/systemd/system/systemd-notifier-telegram.cymais@.service"
   notify: "restart systemd-notifier-telegram service"
   when: run_once_systemd_notifier_telegram is not defined
 
