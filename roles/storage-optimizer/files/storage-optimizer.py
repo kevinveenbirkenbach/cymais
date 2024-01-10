@@ -59,15 +59,15 @@ def has_container_with_database(containers):
 if __name__ == "__main__":
     # Argument parser setup
     parser = argparse.ArgumentParser(description='Migrate Docker volumes to SSD or HDD based on container image.')
-    parser.add_argument('--ssd_path', type=str, required=True, help='Path to the SSD storage')
-    parser.add_argument('--hdd_path', type=str, required=True, help='Path to the HDD storage')
+    parser.add_argument('--rapid-storage-path', type=str, required=True, help='Path to the SSD storage')
+    parser.add_argument('--mass-storage-path', type=str, required=True, help='Path to the HDD storage')
     
     # Parse arguments
     args = parser.parse_args()
 
     # Set paths from arguments
-    ssd_path = args.ssd_path
-    hdd_path = args.hdd_path
+    rapid_storage_path = args.rapid_storage_path
+    mass_storage_path = args.mass_storage_path
 
     # List all Docker volumes
     volumes = run_command("docker volume ls -q").splitlines()
@@ -79,10 +79,10 @@ if __name__ == "__main__":
             print(f"Skipped Volume {volume}. The storage path {volume_path} is a symbolic link.")
         elif has_container_with_database(containers):
             print(f"Safing volume {volume} on SSD.")
-            pause_and_move(ssd_path, volume, volume_path, containers)
+            pause_and_move(rapid_storage_path, volume, volume_path, containers)
         else:
             print(f"Safing volume {volume} on HDD.")
-            pause_and_move(hdd_path, volume, volume_path, containers)
+            pause_and_move(mass_storage_path, volume, volume_path, containers)
 
     print("Operation completed.")
     
