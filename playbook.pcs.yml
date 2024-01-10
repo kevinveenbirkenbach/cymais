@@ -1,6 +1,6 @@
 ---
 
-- import_playbook: playbook-common.yml
+- import_playbook: playbook.constructor.yml
 
 ## pc applications
 - name: general host setup
@@ -102,4 +102,4 @@
   roles:
     - driver-msi-keyboard-color
 
-- import_playbook: destructor.yml
+- import_playbook: playbook.destructor.yml

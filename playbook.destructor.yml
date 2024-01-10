@@ -1,0 +1,6 @@
+- name: optimize storage performance
+  hosts:  all
+  become: true
+  roles:
+    - role: system-storage-optimizer
+      when: path_mass_storage or path_rapid_storage
