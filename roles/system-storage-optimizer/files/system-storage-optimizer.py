@@ -55,7 +55,7 @@ def pause_and_move(storage_path, volume, volume_path, containers):
     os.makedirs(storage_volume_path,exist_ok=False)
 
     # Move the data
-    run_rsync(volume_path, storage_volume_path)
+    run_rsync(f"{storage_volume_path}/", f"{volume_path}/")
     
     # Delete the source directory
     delete_directory(volume_path)
