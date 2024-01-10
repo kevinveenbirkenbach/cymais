@@ -35,7 +35,7 @@ def get_image(container):
 def pause_and_move(storage_path, volume, volume_path, containers):
     stop_containers(containers)
     # Create a new directory on the Storage
-    storage_volume_path = os.path.join(storage_path, volume)
+    storage_volume_path = os.path.join(storage_path, 'data', 'docker', 'volumes', volume)
     os.makedirs(storage_volume_path, exist_ok=False)
 
     # Move the data
