@@ -5,5 +5,29 @@
     name:
       - msi-perkeyrgb
 
-- include_tasks: setup_script.yml
-- include_tasks: setup_timers.yml
+- name: Copy keyboard_color.sh script
+  copy:
+    src: keyboard_color.py
+    dest: /opt/keyboard_color.py
+    mode: 0755
+
+- name: Copy keyboard-color.cymais.service file
+  template:
+    src: keyboard-color.service.j2
+    dest: /etc/systemd/system/keyboard-color.cymais.service
+    mode: 0644
+
+- name: Reload systemd daemon
+  systemd:
+    daemon_reload: yes
+
+- name: set service_name to the name of the current role
+  set_fact:
+    service_name: "{{ role_name }}"
+
+- name: "include role for systemd-timer for {{service_name}}"
+  include_role:
+    name: systemd-timer
+  vars:
+    on_calendar:  "{{on_calendar_msi_keyboard_color}}"
+    persistent:   "true"

@@ -1,8 +1,0 @@
----
-- name: Copy keyboard_color.sh script
-  copy:
-    src: keyboard_color.py
-    dest: /opt/keyboard_color.py
-    mode: 0755
-  tags:
-    - keyboard-color
