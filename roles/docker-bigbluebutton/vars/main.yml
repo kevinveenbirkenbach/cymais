@@ -1,6 +1,6 @@
 docker_compose_project_name:        "bigbluebutton"
-database_host:                      "postgres" # needs to be fixed
-database_name:              "greenlight-v3"
-database_username:                  "postgres"
-database_password:  	              ""
-database_type:                      "postgres"
+#database_host:                      "postgres" # needs to be fixed
+#database_name:                      "greenlight-v3"
+#database_username:                  "postgres"
+#database_password:  	              ""
+#database_type:                      "postgres"
