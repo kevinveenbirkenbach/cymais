@@ -73,7 +73,7 @@ def average_version_directories_per_application(backups_folder_path,blur=-1):
 def getAmountOfIteration(versions,average_version_directories_per_application):
     return len(versions) - average_version_directories_per_application
 
-def deleteInteration(backups_folder_path,average_version_directories_per_application):
+def deleteIteration(backups_folder_path,average_version_directories_per_application):
     for host_backup_directory_name in os.listdir(backups_folder_path):
         host_backup_directory_path = os.path.join(backups_folder_path, host_backup_directory_name)
         for application_directory in os.listdir(host_backup_directory_path):
