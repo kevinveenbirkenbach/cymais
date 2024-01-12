@@ -26,7 +26,7 @@ def isSmallerThenMaximumBackupSize(maximum_backup_size_percent,backups_folder_pa
     current_disc_usage_percent=psutil.disk_usage(backups_folder_path).percent
     return current_disc_usage_percent > maximum_backup_size_percent
 
-def isDirectoryDeletable(version, versions_directory, version_path):
+def isDirectoryDeletable(version, versions, version_path):
     print("Checking directory %s ..." % (version_path))
     if version == versions[-1]:
         print("Directory %s contains the last version of the backup. Skipped." % (version_path))
@@ -38,9 +38,10 @@ def isDirectoryDeletable(version, versions_directory, version_path):
     
 def deleteVersion(version_path, backups_folder_path):
     print("Deleting %s to free space." % (version_path))
+    current_disc_usage_percent=psutil.disk_usage(backups_folder_path).percent
     shutil.rmtree(version_path)
     new_disc_usage_percent=psutil.disk_usage(backups_folder_path).percent
-    difference_percent=old_disc_usage_percent-new_disc_usage_percent
+    difference_percent=current_disc_usage_percent-new_disc_usage_percent
     print("{:6.2f} %% of drive freed".format(difference_percent))
 
 def count_total_application_directories(backups_folder_path):
@@ -69,10 +70,10 @@ def average_version_directories_per_application(backups_folder_path,blur=-1):
     average = total_version_folders / total_app_directories
     return int(average) - blur
 
-def getAmountOfIterration(versions,average_version_directories_per_application):
+def getAmountOfIteration(versions,average_version_directories_per_application):
     return len(versions) - average_version_directories_per_application
 
-def deletInterration(backups_folder_path,average_version_directories_per_application):
+def deleteInteration(backups_folder_path,average_version_directories_per_application):
     for host_backup_directory_name in os.listdir(backups_folder_path):
         host_backup_directory_path = os.path.join(backups_folder_path, host_backup_directory_name)
         for application_directory in os.listdir(host_backup_directory_path):
@@ -82,14 +83,14 @@ def deletInterration(backups_folder_path,average_version_directories_per_applica
                         
             versions = os.listdir(versions_directory)
             versions.sort(reverse=False)
-            version_iterration=0 
-            while version_iterration < getAmountOfIterration(versions,average_version_directories_per_application):
+            version_iteration=0 
+            while version_iteration < getAmountOfIteration(versions,average_version_directories_per_application):
                 print_used_disc_space(backups_folder_path)
-                version = versions[version_iterration]
+                version = versions[version_iteration]
                 version_path=os.path.join(versions_directory, version)
-                if isDirectoryDeletable(version, versions_directory, version_path):
+                if isDirectoryDeletable(version, versions, version_path):
                     deleteVersion(version_path, backups_folder_path)
-                version_iterration += 1 
+                version_iteration += 1 
                      
 backups_folder_path=args.backups_folder_path
 maximum_backup_size_percent=args.maximum_backup_size_percent
