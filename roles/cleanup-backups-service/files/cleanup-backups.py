@@ -35,6 +35,13 @@ def isDirectoryDeletable(version, versions_directory, version_path):
     if is_directory_used_by_another_process(version_path):
         print("Directory %s is used by another process. Skipped." % (version_path))
         return False
+    
+def deleteVersion(version_path, backups_folder_path):
+    print("Deleting %s to free space." % (version_path))
+    shutil.rmtree(version_path)
+    new_disc_usage_percent=psutil.disk_usage(backups_folder_path).percent
+    difference_percent=old_disc_usage_percent-new_disc_usage_percent
+    print("{:6.2f} %% of drive freed".format(difference_percent))
      
 backups_folder_path=args.backups_folder_path
 for host_backup_directory_name in os.listdir(backups_folder_path):
@@ -54,11 +61,7 @@ for host_backup_directory_name in os.listdir(backups_folder_path):
                 continue
 
             if isSmallerThenMaximumBackupSize(maximum_backup_size_percent,backups_folder_path):
-                print("Deleting %s to free space." % (version_path))
-                shutil.rmtree(version_path)
-                new_disc_usage_percent=psutil.disk_usage(backups_folder_path).percent
-                difference_percent=old_disc_usage_percent-new_disc_usage_percent
-                print("{:6.2f} %% of drive freed".format(difference_percent))
+                deleteVersion(version_path, backups_folder_path)
                 continue
             
 print_used_disc_space(backups_folder_path)            
