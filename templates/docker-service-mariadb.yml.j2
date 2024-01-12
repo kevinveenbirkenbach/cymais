@@ -5,7 +5,7 @@
     logging:
       driver: journald
     image: mariadb
-    restart: always
+    restart: {{docker_restart_policy}}
     environment:
       MYSQL_DATABASE: "{{database_name}}"
       MYSQL_USER: "{{database_username}}"

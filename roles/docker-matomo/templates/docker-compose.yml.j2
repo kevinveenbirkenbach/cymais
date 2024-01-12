@@ -8,7 +8,7 @@ services:
     logging:
       driver: journald
     image: matomo
-    restart: always
+    restart: {{docker_restart_policy}}
     ports:
       - "127.0.0.1:{{http_port}}:80"
     environment:

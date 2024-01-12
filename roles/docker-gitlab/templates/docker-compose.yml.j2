@@ -7,7 +7,7 @@ services:
 
   web:
     image: 'gitlab/gitlab-ee:latest'
-    restart: always
+    restart: {{docker_restart_policy}}
     hostname: '{{domain}}'
     environment:
       GITLAB_OMNIBUS_CONFIG: |

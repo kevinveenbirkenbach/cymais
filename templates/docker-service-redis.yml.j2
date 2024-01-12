@@ -2,7 +2,7 @@
   redis:
     image: redis:alpine
     container_name: {{docker_compose_project_name}}-redis
-    restart: always
+    restart: {{docker_restart_policy}}
     logging:
       driver: journald
     volumes:

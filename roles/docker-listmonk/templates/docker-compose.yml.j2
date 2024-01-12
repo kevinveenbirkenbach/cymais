@@ -5,7 +5,7 @@ services:
 {% include 'templates/docker-service-' + database_type + '.yml.j2' %}
 
   application:
-    restart: unless-stopped
+    restart: {{docker_restart_policy}}
     image: listmonk/listmonk:latest
     ports:
       - "127.0.0.1:{{http_port}}:9000"

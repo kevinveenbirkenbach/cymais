@@ -18,7 +18,7 @@
       - "127.0.0.1:5432:5432"
     volumes:
       - central_postgres_database:/var/lib/postgresql/data
-    restart_policy: unless-stopped
+    restart_policy: "{{docker_restart_policy}}"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s

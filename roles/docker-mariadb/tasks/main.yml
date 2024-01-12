@@ -24,7 +24,7 @@
     published_ports:
       - "127.0.0.1:3306:3306" # can be that this will be removed if all applications use sockets
     command: "--transaction-isolation=READ-COMMITTED --binlog-format=ROW" #for nextcloud
-    restart_policy: unless-stopped
+    restart_policy: "{{docker_restart_policy}}"
     healthcheck:
       test: "/usr/bin/mariadb --user=root --password={{central_mariadb_root_password}} --execute \"SHOW DATABASES;\""
       interval: 3s

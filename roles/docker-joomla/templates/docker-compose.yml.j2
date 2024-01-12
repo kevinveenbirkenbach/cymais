@@ -13,7 +13,7 @@ services:
       JOOMLA_DB_USER: "{{database_username}}"
       JOOMLA_DB_PASSWORD: "{{database_password}}"
       JOOMLA_DB_NAME: "{{database_name}}"
-    restart: always
+    restart: {{docker_restart_policy}}
     volumes:
       - data:/var/www/html
     ports:

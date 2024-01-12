@@ -6,4 +6,4 @@ services:
             context: .
         ports:
         - 127.0.0.1:{{http_port}}:8080
-        restart: always
+        restart: {{docker_restart_policy}}

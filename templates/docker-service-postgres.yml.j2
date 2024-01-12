@@ -8,7 +8,7 @@
       - POSTGRES_USER={{database_username}}
       - POSTGRES_DB={{database_name}}
       - POSTGRES_INITDB_ARGS=--encoding=UTF8 --locale=C
-    restart: always
+    restart: {{docker_restart_policy}}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U {{database_name}}"]
       interval: 10s

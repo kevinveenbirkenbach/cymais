@@ -7,7 +7,7 @@ services:
   application:
     logging:
       driver: journald
-    restart: always
+    restart: {{docker_restart_policy}}
     image: gitea/gitea:latest
     environment:
       - USER_UID=1000

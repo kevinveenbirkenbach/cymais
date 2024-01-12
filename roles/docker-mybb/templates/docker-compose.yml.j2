@@ -9,7 +9,7 @@ services:
       options:
         tag: "mybb_application"
     image: mybb/mybb:latest
-    restart: always
+    restart: {{docker_restart_policy}}
     volumes:
       - data:/var/www/html
 {% include 'templates/docker-container-depends-on-just-database.yml.j2' %}
@@ -21,7 +21,7 @@ services:
       options:
         tag: "mybb_server"
     image: nginx:mainline
-    restart: always
+    restart: {{docker_restart_policy}}
     ports:
       - "127.0.0.1:{{http_port}}:80"
     volumes:

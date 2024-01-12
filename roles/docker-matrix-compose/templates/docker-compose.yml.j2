@@ -6,7 +6,7 @@ services:
 
   synapse:
     image: matrixdotorg/synapse:latest
-    restart: always
+    restart: {{docker_restart_policy}}
     logging:
       driver: journald
     volumes:
@@ -23,7 +23,7 @@ services:
   
   element:
     image: vectorim/element-web:latest
-    restart: unless-stopped
+    restart: {{docker_restart_policy}}
     volumes:
       - ./element-config.json:/app/config.json
     ports:
@@ -34,28 +34,28 @@ services:
   #mautrix-telegram:
   #  container_name: mautrix-telegram
   #  image: dock.mau.dev/mautrix/telegram:<version>
-  #  restart: unless-stopped
+  #  restart: {{docker_restart_policy}}
   #  volumes:
   #  - telegram_bridge_data:/data
 
   #mautrix-whatsapp:
   #  container_name: mautrix-whatsapp
   #  image: dock.mau.dev/mautrix/whatsapp:latest
-  #  restart: unless-stopped
+  #  restart: {{docker_restart_policy}}
   #  volumes:
   #  - ./mautrix_whatsapp:/data
 
   #mautrix-facebook:
   #  container_name: mautrix-facebook
   #  image: dock.mau.dev/mautrix/facebook:<version>
-  #  restart: unless-stopped
+  #  restart: {{docker_restart_policy}}
   #  volumes:
   #  - facebook_bridge_data:/data
 
   #mautrix-instagram:
   #  container_name: mautrix-instagram
   #  image: dock.mau.dev/mautrix/instagram:<version>
-  #  restart: unless-stopped
+  #  restart: {{docker_restart_policy}}
   #  volumes:
   #  - instagram_bridge_data:/data  
 

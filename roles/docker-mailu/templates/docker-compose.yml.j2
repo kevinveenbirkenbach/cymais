@@ -10,7 +10,7 @@ services:
   resolver:
     image: ghcr.io/mailu/unbound:{{version_mailu}}
     env_file: mailu.env
-    restart: always
+    restart: {{docker_restart_policy}}
 {% include 'templates/docker-container-networks.yml.j2' %}
         ipv4_address: 192.168.203.254
     logging:
@@ -18,7 +18,7 @@ services:
 
   front:
     image: ghcr.io/mailu/nginx:{{version_mailu}}
-    restart: always
+    restart: {{docker_restart_policy}}
     env_file: mailu.env
     logging:
       driver: journald
@@ -45,7 +45,7 @@ services:
       
   admin:
     image: ghcr.io/mailu/admin:{{version_mailu}}
-    restart: always
+    restart: {{docker_restart_policy}}
     env_file: mailu.env
     volumes:
       - "admin_data:/data"
@@ -63,7 +63,7 @@ services:
 
   imap:
     image: ghcr.io/mailu/dovecot:{{version_mailu}}
-    restart: always
+    restart: {{docker_restart_policy}}
     env_file: mailu.env
     volumes:
       - "dovecot_mail:/mail"
@@ -79,7 +79,7 @@ services:
 
   smtp:
     image: ghcr.io/mailu/postfix:{{version_mailu}}
-    restart: always
+    restart: {{docker_restart_policy}}
     env_file: mailu.env
     volumes:
       - "/etc/mailu/overrides:/overrides:ro"
@@ -96,7 +96,7 @@ services:
   oletools:
     image: ghcr.io/mailu/oletools:{{version_mailu}}
     hostname: oletools
-    restart: always
+    restart: {{docker_restart_policy}}
     depends_on:
       - resolver
     dns:
@@ -106,7 +106,7 @@ services:
 
   antispam:
     image: ghcr.io/mailu/rspamd:{{version_mailu}}
-    restart: always
+    restart: {{docker_restart_policy}}
     env_file: mailu.env
     volumes:
       - "filter:/var/lib/rspamd"
@@ -128,7 +128,7 @@ services:
   # Optional services
   antivirus:
     image: ghcr.io/mailu/clamav:{{version_mailu}}
-    restart: always
+    restart: {{docker_restart_policy}}
     env_file: mailu.env
     volumes:
       - "filter:/data"
@@ -142,7 +142,7 @@ services:
 
   webdav:
     image: ghcr.io/mailu/radicale:{{version_mailu}}
-    restart: always
+    restart: {{docker_restart_policy}}
     env_file: mailu.env
     volumes:
       - "webdav_data:/data"
@@ -159,7 +159,7 @@ services:
     image: ghcr.io/mailu/fetchmail:{{version_mailu}}
     volumes:
       - "admin_data:/data"
-    restart: always
+    restart: {{docker_restart_policy}}
     env_file: mailu.env
     logging:
       driver: journald
@@ -174,7 +174,7 @@ services:
 
   webmail:
     image: ghcr.io/mailu/webmail:{{version_mailu}}
-    restart: always
+    restart: {{docker_restart_policy}}
     env_file: mailu.env
     volumes:
       - "webmail_data:/data"

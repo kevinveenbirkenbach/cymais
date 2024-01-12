@@ -146,6 +146,7 @@ domains_wordpress:              ["wordpress.{{top_domain}}","blog.{{top_domain}}
 postgres_default_version:       "16"
 
 ### Docker Role Specific Parameters
+docker_restart_policy:        "unless-stopped"
 
 #### Akaunting
 version_akaunting:            "latest"

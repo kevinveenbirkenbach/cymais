@@ -1,7 +1,7 @@
 version: "3.7"
   
 x-op-app: &app
-  restart: unless-stopped
+  restart: {{docker_restart_policy}}
   image: openproject/community:${TAG:-13}
   environment:
     OPENPROJECT_HTTPS: "${OPENPROJECT_HTTPS}"
@@ -25,11 +25,11 @@ services:
 
   cache:
     image: memcached
-    restart: unless-stopped
+    restart: {{docker_restart_policy}}
 {% include 'templates/docker-container-networks.yml.j2' %}
 
   proxy:
-    restart: unless-stopped
+    restart: {{docker_restart_policy}}
     image: openproject/community:${TAG:-13}
     command: "./docker/prod/proxy"
     ports:

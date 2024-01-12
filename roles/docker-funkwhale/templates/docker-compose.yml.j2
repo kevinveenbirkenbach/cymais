@@ -5,7 +5,7 @@ services:
 {% include 'templates/docker-service-redis.yml.j2' %}
 
   celeryworker:
-    restart: always
+    restart: {{docker_restart_policy}}
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
     env_file: .env
     command: celery -A funkwhale_api.taskapp worker -l INFO --concurrency=${CELERYD_CONCURRENCY-0}
@@ -18,7 +18,7 @@ services:
 
 
   celerybeat:
-    restart: always
+    restart: {{docker_restart_policy}}
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
     env_file: .env
     command: celery -A funkwhale_api.taskapp beat --pidfile= -l INFO
@@ -26,7 +26,7 @@ services:
 {% include 'templates/docker-container-networks.yml.j2' %}
 
   api:
-    restart: always
+    restart: {{docker_restart_policy}}
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
     depends_on:
     env_file: .env
@@ -39,7 +39,7 @@ services:
 {% include 'templates/docker-container-networks.yml.j2' %}
 
   front:
-    restart: always
+    restart: {{docker_restart_policy}}
     image: funkwhale/front:${FUNKWHALE_VERSION:-latest}
     depends_on:
       - api

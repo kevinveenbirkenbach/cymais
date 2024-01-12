@@ -12,7 +12,7 @@ services:
       - 127.0.0.1:{{http_port}}:80
     volumes:
       - data:/var/www/html
-    restart: unless-stopped
+    restart: {{docker_restart_policy}}
     env_file:
       - env/run.env
     environment:

@@ -9,7 +9,7 @@ services:
   application:
     image: baserow/baserow:1.19.1
     container_name: baserow-application
-    restart: always
+    restart: {{docker_restart_policy}}
     logging:
       driver: journald
     env_file:

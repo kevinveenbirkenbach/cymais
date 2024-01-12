@@ -7,7 +7,7 @@ services:
 
   web:
     image: ghcr.io/mastodon/mastodon:{{version_mastodon}}
-    restart: always
+    restart: {{docker_restart_policy}}
     env_file: .env.production
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
     healthcheck:
@@ -23,7 +23,7 @@ services:
 
   streaming:
     image: ghcr.io/mastodon/mastodon:{{version_mastodon}}
-    restart: always
+    restart: {{docker_restart_policy}}
     env_file: .env.production
     command: node ./streaming
     healthcheck:
@@ -37,7 +37,7 @@ services:
 
   sidekiq:
     image: ghcr.io/mastodon/mastodon:{{version_mastodon}}
-    restart: always
+    restart: {{docker_restart_policy}}
     env_file: .env.production
     command: bundle exec sidekiq
 {% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}

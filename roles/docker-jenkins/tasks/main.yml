@@ -7,10 +7,9 @@
     definition:
       application:
         image: jenkins/jenkins:lts
-        restart: always
+        restart: "{{docker_restart_policy}}"
         ports:
           - "127.0.0.1:{{http_port}}:8080"
-        restart: always
         volumes:
           - jenkins_data:/var/jenkins_home
         log_driver: journald

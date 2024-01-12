@@ -8,7 +8,7 @@ services:
 
   application:
     image: zknt/pixelfed
-    restart: always
+    restart: {{docker_restart_policy}}
     logging:
       driver: journald
     env_file:
@@ -23,7 +23,7 @@ services:
 {% include 'templates/docker-container-networks.yml.j2' %}
   worker:
     image: zknt/pixelfed
-    restart: always
+    restart: {{docker_restart_policy}}
     logging:
       driver: journald
     env_file:

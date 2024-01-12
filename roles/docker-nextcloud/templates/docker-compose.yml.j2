@@ -8,7 +8,7 @@ services:
 
   application:
     image: "nextcloud:{{version_nextcloud}}-fpm-alpine"
-    restart: always
+    restart: {{docker_restart_policy}}
     logging:
       driver: journald
     volumes:
@@ -25,7 +25,7 @@ services:
     image: nginx:alpine
     logging:
       driver: journald
-    restart: always
+    restart: {{docker_restart_policy}}
     ports:
       - "127.0.0.1:{{http_port}}:80"
     volumes:
@@ -41,7 +41,7 @@ services:
 
   cron:
     image: "nextcloud:{{version_nextcloud}}-fpm-alpine"
-    restart: always
+    restart: {{docker_restart_policy}}
     logging:
       driver: journald
     volumes:
