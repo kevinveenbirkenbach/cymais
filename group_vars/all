@@ -113,6 +113,7 @@ nginx_upstreams_directory:      "{{nginx_configuration_directory}}upstreams/"   
 
 ### Enable Central MariaDB
 enable_central_database: true
+enable_central_database_mailu: "{{enable_central_database}}"
 
 ### Domain Names for Various Services
 domain_akaunting:               "akaunting.{{top_domain}}"
