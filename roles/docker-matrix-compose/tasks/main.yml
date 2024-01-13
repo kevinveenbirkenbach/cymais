@@ -14,7 +14,6 @@
     domain:     "{{element_domain}}"
     http_port:  "{{element_http_port}}"
 
-
 #- name: "create {{docker_compose_instance_directory}}mautrix_whatsapp"
 #  file:
 #    path: "{{docker_compose_instance_directory}}mautrix_whatsapp"
