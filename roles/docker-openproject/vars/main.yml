@@ -6,5 +6,5 @@ docker_compose_backup_path:         "/tmp/{{docker_compose_project_name}}-docker
 database_password:                  "{{openproject_database_password}}"
 repository_address:                 "https://github.com/opf/openproject-deploy"
 database_type:                      "postgres"
-# The following volume doesn't have a function. It just exist to prevent the creation of unnecessary anonymous volumes
+# The following volume doesn't have a practcical function. It just exist to prevent the creation of unnecessary anonymous volumes
 dummy_volume:                       "{{repository_directory}}dummy_volume"
