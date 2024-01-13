@@ -25,8 +25,11 @@ def start_containers(containers):
     run_command(f"docker start {container_list}")
 
 def is_database(image):
-    databases = {"postgres", "mariadb", "redis", "memcached"}
-    return any(database in image for database in databases)
+    databases = {"postgres", "mariadb", "redis", "memcached", "mongo"}
+    # Split the string at the colon and take the first part
+    prefix = image.split(':')[0]
+    # Check if the prefix is in the database names
+    return prefix in databases
 
 def is_symbolic_link(file_path):
     return os.path.islink(file_path)
