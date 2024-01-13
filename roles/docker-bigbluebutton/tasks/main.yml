@@ -1,10 +1,6 @@
 ---
-- name: include docker vars
-  include_vars: vars/docker-common.yml.j2
-
-- name: load docker compose dependencies
-  include_role:
-    name: docker-compose
+- name: "include docker-compose-common.yml"
+  include_tasks: docker-compose-common.yml
 
 - name: "include task certbot-matomo.yml"
   include_tasks: certbot-matomo.yml
@@ -34,3 +30,24 @@
 - name: deploy .env
   template: src=env.j2 dest={{docker_compose_instance_directory}}/.env
   notify: setup bigbluebutton
+
+- name: flush docker service
+  meta: flush_handlers
+
+- name: wait for database
+  pause:
+    seconds: "{{database_delay}}"
+  when: mode_setup | bool
+
+- name: create admin
+  command:
+    cmd: docker compose exec greenlight bundle exec rake admin:create
+    chdir: "{{docker_compose_instance_directory}}"
+  when: mode_setup | bool
+  ignore_errors: true
+  register: admin_creation_result
+
+- name: print admin user data
+  debug:
+    msg: "{{ admin_creation_result.stdout }}"
+  when: admin_creation_result is defined

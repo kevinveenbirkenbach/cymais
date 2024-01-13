@@ -53,8 +53,6 @@
       database_name: "{{ database_name | default('undefined') }}"
       database_username: "{{ database_username | default('undefined') }}"
       database_password: "{{ database_password | default('undefined') }}"
-      database_host: "{{ database_host | default('undefined') }}"
-      database_type: "{{ database_type | default('undefined') }}"
   when: mode_verbose | bool
 
 - name: seed database values

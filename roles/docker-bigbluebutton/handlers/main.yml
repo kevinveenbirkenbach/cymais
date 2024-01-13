@@ -7,6 +7,31 @@
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600
   listen: setup bigbluebutton
+
+- name: replace postgres bind mount by volume mount
+  replace:
+    path: "{{docker_compose_file}}"
+    regexp: '\./postgres-data:/var/lib/postgresql/data'
+    replace: 'postgres-data:/var/lib/postgresql/data'
+  listen: setup bigbluebutton
+
+- name: replace greenlight bind mount by volume mount
+  replace:
+    path: "{{docker_compose_file}}"
+    regexp: '\./greenlight-data:/usr/src/app/storage'
+    replace: 'greenlight-data:/usr/src/app/storage'
+  listen: setup bigbluebutton
+
+- name: add volumes to docker compose
+  blockinfile:
+    path: "{{docker_compose_file}}"
+    block: |2
+        postgres-data:
+        greenlight-data:
+    marker: "# {mark} ANSIBLE MANAGED BLOCK FOR VOLUMES"
+    insertafter: "html5-static:"
+  listen: setup bigbluebutton
+
 - name: docker compose up bigbluebutton
   command:
     cmd: docker-compose -p bigbluebutton up -d --force-recreate

@@ -115,6 +115,9 @@ nginx_upstreams_directory:      "{{nginx_configuration_directory}}upstreams/"   
 enable_central_database: true
 enable_central_database_mailu: "{{enable_central_database}}"
 
+### Enable Storage Optimizer for Docker Volumes
+enable_system_storage_optimizer: true
+
 ### Domain Names for Various Services
 domain_akaunting:               "akaunting.{{top_domain}}"
 domain_baserow:                 "baserow.{{top_domain}}"
@@ -155,7 +158,7 @@ akaunting_company_email:      "DUMMY_VALUE_NEEDS_TO_BE_CHANGED"
 akaunting_setup_admin_email:  "DUMMY_VALUE_NEEDS_TO_BE_CHANGED"
 
 #### Big Blue Button
-bigbluebutton_enable_greenlight:  "false"
+bigbluebutton_enable_greenlight:  "true"
 
 #### Listmonk
 listmonk_admin_username:          "admin"

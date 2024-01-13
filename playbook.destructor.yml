@@ -3,4 +3,4 @@
   become: true
   roles:
     - role: system-storage-optimizer
-      when: path_mass_storage or path_rapid_storage
+      when: (path_mass_storage or path_rapid_storage) and enable_system_storage_optimizer | bool
