@@ -50,4 +50,4 @@
 - name: print admin user data
   debug:
     msg: "{{ admin_creation_result.stdout }}"
-  when: admin_creation_result is defined
+  when: mode_setup | bool

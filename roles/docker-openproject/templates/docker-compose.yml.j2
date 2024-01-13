@@ -17,7 +17,7 @@ x-op-app: &app
     IMAP_ENABLED: "${IMAP_ENABLED:-false}"
   volumes:
     - "data:/var/openproject/assets"
-    # - "database:/var/openproject/pgdata"
+    - "{{dummy_volume}}:/var/openproject/pgdata" # This mount is unnecessary and just done to prevent anonymous volumes
 
 services:
 
@@ -42,7 +42,7 @@ services:
 {% include 'templates/docker-container-networks.yml.j2' %}
     volumes:
       - "data:/var/openproject/assets"
-      # - "database:/var/openproject/pgdata" Should definetly not be necessary here
+      - "{{dummy_volume}}:/var/openproject/pgdata" # This mount is unnecessary and just done to prevent anonymous volumes
 
   web:
     <<: *app

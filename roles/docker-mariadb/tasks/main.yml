@@ -4,11 +4,6 @@
     state: present
   when: run_once_docker_mariadb is not defined
 
-- name: Create a volume for MariaDB socket
-  docker_volume:
-    name: mariadb_socket
-  when: run_once_docker_mariadb is not defined
-
 - name: install MariaDB
   docker_container:
     name: central-mariadb

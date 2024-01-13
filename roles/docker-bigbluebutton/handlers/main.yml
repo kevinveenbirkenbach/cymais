@@ -12,22 +12,39 @@
   replace:
     path: "{{docker_compose_file}}"
     regexp: '\./postgres-data:/var/lib/postgresql/data'
-    replace: 'postgres-data:/var/lib/postgresql/data'
+    replace: 'database:/var/lib/postgresql/data'
   listen: setup bigbluebutton
 
 - name: replace greenlight bind mount by volume mount
   replace:
     path: "{{docker_compose_file}}"
     regexp: '\./greenlight-data:/usr/src/app/storage'
-    replace: 'greenlight-data:/usr/src/app/storage'
+    replace: 'greenlight:/usr/src/app/storage'
+  listen: setup bigbluebutton
+
+- name: add volume to redis
+  lineinfile:
+    path: "{{ docker_compose_file }}"
+    insertafter: "^\\s*redis:"
+    line: "    volumes:\n      - redis:/data"
+    firstmatch: yes
+  listen: setup bigbluebutton
+
+- name: add volume to coturn
+  lineinfile:
+    path: "{{ docker_compose_file }}"
+    insertafter: "- ./mod/coturn/turnserver.conf:/etc/coturn/turnserver.conf"
+    line: "      - coturn:/var/lib/coturn"
   listen: setup bigbluebutton
 
 - name: add volumes to docker compose
   blockinfile:
     path: "{{docker_compose_file}}"
     block: |2
-        postgres-data:
-        greenlight-data:
+        database:
+        greenlight:
+        redis:
+        coturn:
     marker: "# {mark} ANSIBLE MANAGED BLOCK FOR VOLUMES"
     insertafter: "html5-static:"
   listen: setup bigbluebutton

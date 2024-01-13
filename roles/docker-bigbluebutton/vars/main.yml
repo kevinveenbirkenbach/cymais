@@ -1,5 +1,5 @@
 docker_compose_project_name:  "bigbluebutton"
-docker_compose_file:          "{{docker_compose_instance_directory}}/docker-compose.yml"
+docker_compose_file:          "{{docker_compose_instance_directory}}docker-compose.yml"
 database_instance:            "bigbluebutton"
 database_name:                "greenlight-v3"
 database_username:            "postgres"
