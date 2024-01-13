@@ -154,6 +154,9 @@ akaunting_company_name:       "DUMMY_VALUE_NEEDS_TO_BE_CHANGED"
 akaunting_company_email:      "DUMMY_VALUE_NEEDS_TO_BE_CHANGED"
 akaunting_setup_admin_email:  "DUMMY_VALUE_NEEDS_TO_BE_CHANGED"
 
+#### Big Blue Button
+bigbluebutton_enable_greenlight:  "false"
+
 #### Listmonk
 listmonk_admin_username:          "admin"
 
