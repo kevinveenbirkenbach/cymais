@@ -51,6 +51,7 @@
 - name: "add central database temporary to {{docker_compose_project_name}}_default"
   command:
     cmd: "docker network connect discourse_default central-{{ database_type }}"
+  ignore_errors: true
   when: enable_central_database | bool
 
 - name: "destroy container discourse_application"
