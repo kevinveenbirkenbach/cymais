@@ -8,6 +8,23 @@
 - name: "include tasks update-repository-with-docker-compose.yml"
   include_tasks: update-repository-with-docker-compose.yml
 
+
+- name: "Transfering Gemfile.plugins to {{docker_compose_instance_directory}}"
+  copy:
+    src: Gemfile.plugins
+    dest: "{{docker_compose_instance_directory}}Gemfile.plugins"
+  notify:
+    - docker compose project setup
+    - rebuild docker image
+
+- name: "Transfering Dockerfile to {{docker_compose_instance_directory}}"
+  copy:
+    src: Dockerfile
+    dest: "{{docker_compose_instance_directory}}Dockerfile"
+  notify:
+    - docker compose project setup
+    - rebuild docker image
+
 - name: "create {{dummy_volume}}"
   file:
     path: "{{dummy_volume}}"

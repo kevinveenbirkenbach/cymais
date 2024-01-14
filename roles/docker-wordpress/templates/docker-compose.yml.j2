@@ -8,6 +8,7 @@ services:
     logging:
       driver: journald
     image: custom_wordpress
+    container_name: wordpress-application
     build:
       context: .
     restart: {{docker_restart_policy}}

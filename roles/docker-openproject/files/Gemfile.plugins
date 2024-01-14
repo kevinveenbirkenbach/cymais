@@ -1,0 +1,3 @@
+group :opf_plugins do
+  gem "openproject-gitlab-integration", git: "openproject-gitlab_integration", branch: "master"
+end

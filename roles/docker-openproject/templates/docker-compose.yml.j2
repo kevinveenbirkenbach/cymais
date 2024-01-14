@@ -2,7 +2,7 @@ version: "3.7"
   
 x-op-app: &app
   restart: {{docker_restart_policy}}
-  image: openproject/community:${TAG:-13}
+  image: custom_openproject
   environment:
     OPENPROJECT_HTTPS: "${OPENPROJECT_HTTPS}"
     OPENPROJECT_HOST__NAME: "${OPENPROJECT_HOST__NAME}"
@@ -25,12 +25,14 @@ services:
 
   cache:
     image: memcached
+    container_name: openproject-memcached
     restart: {{docker_restart_policy}}
 {% include 'templates/docker-container-networks.yml.j2' %}
 
   proxy:
     restart: {{docker_restart_policy}}
-    image: openproject/community:${TAG:-13}
+    image: custom_openproject
+    container_name: openproject-proxy
     command: "./docker/prod/proxy"
     ports:
       - "${PORT}:80"
@@ -47,6 +49,7 @@ services:
   web:
     <<: *app
     command: "./docker/prod/web"
+    container_name: openproject-web
 {% include 'templates/docker-container-networks.yml.j2' %}
 {% include 'templates/docker-container-depends-on-also-database.yml.j2' %}
       cache:
@@ -64,6 +67,7 @@ services:
 
   autoheal:
     image: willfarrell/autoheal:1.2.0
+    container_name: openproject-autoheal
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
     environment:
@@ -74,6 +78,7 @@ services:
   worker:
     <<: *app
     command: "./docker/prod/worker"
+    container_name: openproject-worker
 {% include 'templates/docker-container-networks.yml.j2' %}
 {% include 'templates/docker-container-depends-on-also-database.yml.j2' %}
       cache:
@@ -84,6 +89,7 @@ services:
   cron:
     <<: *app
     command: "./docker/prod/cron"
+    container_name: openproject-cron
 {% include 'templates/docker-container-networks.yml.j2' %}
 {% include 'templates/docker-container-depends-on-also-database.yml.j2' %}
       cache:
@@ -94,6 +100,7 @@ services:
   seeder:
     <<: *app
     command: "./docker/prod/seeder"
+    container_name: openproject-seeder
     restart: on-failure
 {% include 'templates/docker-container-networks.yml.j2' %}
 
