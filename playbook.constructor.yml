@@ -28,7 +28,7 @@
 
 ## backup setup
 - name: setup replica backup hosts
-  hosts: replica_backup
+  hosts: backup_remote_to_local
   become: true
   roles:
     - role: backup-remote-to-local
