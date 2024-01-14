@@ -2,7 +2,6 @@
 # @param $1 mimimum free disc space
 # @param $2 --force to for execution indepentend on how much disc space is free
 
-execute_cleanup_disc_space=0
 minimum_percent_cleanup_disc_space="$1"
 force_freeing=false
 echo "Checking free disc space..."
@@ -16,10 +15,10 @@ do
     disc_use_percent_number=$(echo "$disc_use_percent" | sed "s/%//")
     if [ "$disc_use_percent_number" -gt "$minimum_percent_cleanup_disc_space" ]; then
       echo "WARNING: $disc_use_percent_number exceeds the limit of {{size_percent_disc_space_warning}}%."
-      execute_cleanup_disc_space+=1;
+      force_freeing=true 
     fi
 done
-if [ "$disc_use_percent_number" -gt "$minimum_percent_cleanup_disc_space" ] || [ "$force_freeing" = true ]; then
+if [ "$force_freeing" = true ]; then
   echo "cleaning up /tmp" &&
   find /tmp -type f -atime +10 -delete || exit 1
   
@@ -32,7 +31,7 @@ if [ "$disc_use_percent_number" -gt "$minimum_percent_cleanup_disc_space" ] || [
     echo "cleaning up docker" &&
     docker system prune -f || exit 3
 
-    nextcloud_application_container="nextcloud-application-1"
+    nextcloud_application_container="nextcloud-application"
     if [ "$(docker ps -a -q -f name=$nextcloud_application_container)" ] ; then
       echo "cleaning up docker nextcloud" &&
       docker exec -it -u www-data $nextcloud_application_container /var/www/html/occ files:cleanup || exit 4
