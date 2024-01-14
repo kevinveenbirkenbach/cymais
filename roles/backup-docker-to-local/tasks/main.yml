@@ -46,24 +46,8 @@
     state: absent
   when: mode_reset | bool and run_once_backup_docker_to_local is not defined
 
-- name: Display all database variables
-  debug:
-    msg: |
-      database_instance: "{{ database_instance | default('undefined') }}"
-      database_name: "{{ database_name | default('undefined') }}"
-      database_username: "{{ database_username | default('undefined') }}"
-      database_password: "{{ database_password | default('undefined') }}"
-  when: mode_verbose | bool
-
-- name: seed database values
-  command:
-    cmd: "python database_entry_seeder.py databases.csv {{database_instance}} {{database_name}} {{database_username}} {{database_password}}"
-    chdir: "{{backup_docker_to_local_folder}}"
-  when: >
-    database_instance is defined and
-    database_name is defined and
-    database_username is defined and
-    database_password is defined
+- name: "include seed-database-to-backup.yml"
+  include_tasks: seed-database-to-backup.yml
 
 - name: Set file permissions for databases.csv to be readable, writable, and executable by root only
   ansible.builtin.file:

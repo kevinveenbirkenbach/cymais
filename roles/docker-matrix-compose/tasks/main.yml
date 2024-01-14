@@ -14,33 +14,40 @@
     domain:     "{{element_domain}}"
     http_port:  "{{element_http_port}}"
 
-#- name: "create {{docker_compose_instance_directory}}mautrix_whatsapp"
-#  file:
-#    path: "{{docker_compose_instance_directory}}mautrix_whatsapp"
-#    state: directory
-#    mode: 0755
-#
-#- name: add whatsapp-bridge-config.yml
-#  template: 
-#    src:  "whatsapp-bridge-config.yml.j2" 
-#    dest: "{{docker_compose_instance_directory}}mautrix_whatsapp/config.yml"
-#  notify: docker compose project setup
+- name: "create {{docker_compose_instance_directory}}mautrix_whatsapp"
+  file:
+    path: "{{docker_compose_instance_directory}}mautrix_whatsapp"
+    state: directory
+    mode: 0755
 
-- name: add element-config.json
+- name: "include create-and-seed-database.yml"
+  include_tasks: create-and-seed-database.yml
+  vars:
+    database_password:  "{{mautrix_whatsapp_bridge_database_password}}"
+    database_username:  "{{mautrix_whatsapp_bridge_database_username}}"
+    database_name:      "{{mautrix_whatsapp_bridge_database_name}}"
+
+- name: add mautrix-whatsapp configuration
   template: 
-    src:  "element-config.json.j2" 
+    src:  "mautrix-whatsapp.config.yml.j2" 
+    dest: "{{docker_compose_instance_directory}}mautrix_whatsapp/config.yaml"
+  notify: docker compose project setup
+
+- name: add element configuration
+  template: 
+    src:  "element.config.json.j2" 
     dest: "{{docker_compose_instance_directory}}element-config.json"
   notify: docker compose project setup
 
-- name: add homeserver.yaml
+- name: add synapse homeserver configuration
   template: 
-    src:  "homeserver.yaml.j2" 
+    src:  "synapse.homeserver.config.j2" 
     dest: "{{docker_compose_instance_directory}}homeserver.yaml"
   notify: docker compose project setup
 
-- name: add log.config
+- name: add synapse log configuration
   template: 
-    src:  "log.config.j2" 
+    src:  "synapse.log.config.j2" 
     dest: "{{docker_compose_instance_directory}}{{synapse_domain}}.log.config"
   notify: docker compose project setup
 
@@ -54,3 +61,21 @@
     src:  "docker-compose.yml.j2" 
     dest: "{{docker_compose_instance_directory}}docker-compose.yml"
   notify: docker compose project setup
+
+- name: flush docker service
+  meta: flush_handlers
+
+- name: create registration files
+  command:
+    cmd: docker compose exec -it mautrix-whatsapp /usr/bin/mautrix-whatsapp -g -c /data/config.yaml -r {{mautrix_registration_file}}
+    chdir: "{{docker_compose_instance_directory}}"
+
+- name: create registration files
+  command:
+    cmd: docker compose exec mautrix-whatsapp /usr/bin/mautrix-whatsapp -g -c /data/config.yaml -r {{ mautrix_registration_file }}
+    chdir: "{{ docker_compose_instance_directory }}"
+
+- name: set read and execute permissions for the registration file in the container
+  command:
+    cmd: docker compose exec mautrix-whatsapp chmod a+rx {{ mautrix_registration_file }}
+    chdir: "{{ docker_compose_instance_directory }}"

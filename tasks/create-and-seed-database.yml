@@ -1,0 +1,13 @@
+# The following parameters need to be based:
+# 
+# - database_instance
+# - database_name
+# - database_username
+# - database_password
+- name: "create {{database_name}} database"
+  include_role:
+    name: docker-postgres
+  when: enable_central_database | bool
+
+- name: "include seed-database-to-backup.yml"
+  include_tasks: seed-database-to-backup.yml

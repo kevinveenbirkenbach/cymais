@@ -1,0 +1,18 @@
+- name: Display all database variables
+  debug:
+    msg: |
+      database_instance: "{{ database_instance | default('undefined') }}"
+      database_name: "{{ database_name | default('undefined') }}"
+      database_username: "{{ database_username | default('undefined') }}"
+      database_password: "{{ database_password | default('undefined') }}"
+  when: mode_verbose | bool
+
+- name: seed database values
+  command:
+    cmd: "python database_entry_seeder.py databases.csv {{database_instance}} {{database_name}} {{database_username}} {{database_password}}"
+    chdir: "{{backup_docker_to_local_folder}}"
+  when: >
+    database_instance is defined and
+    database_name is defined and
+    database_username is defined and
+    database_password is defined

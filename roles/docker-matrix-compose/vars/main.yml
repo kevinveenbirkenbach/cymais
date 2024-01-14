@@ -1,4 +1,9 @@
 ---
-docker_compose_project_name:  	    "matrix"
-database_password:  	              "{{matrix_database_password}}"
-database_type:                      "postgres"
+docker_compose_project_name:  	            "matrix"
+database_password:  	                      "{{matrix_database_password}}"
+database_type:                              "postgres"
+registration_file_folder:                   "/data/registration/"
+mautrix_whatsapp_bridge_database_name:      "mautrix_whatsapp_bridge"
+mautrix_whatsapp_bridge_database_username:  "mautrix_whatsapp_bridge"
+mautrix_registration_file:                  "{{registration_file_folder}}mautrix-whatsapp.registration.yaml"
+

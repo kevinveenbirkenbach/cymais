@@ -170,6 +170,7 @@ mastodon_single_user_mode:        false
 #### Matrix
 matrix_playbook_tags:   "setup-all,start" # For the initial update use: install-all,ensure-matrix-users-created,start
 matrix_role:            "compose"         # Role to setup Matrix. Valid values: ansible, compose
+matrix_admin_name:      "admin"
 
 #### Mailu
 version_mailu:                    "2.0"
