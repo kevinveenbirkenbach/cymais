@@ -25,15 +25,13 @@
       timeout: 5s
       retries: 5
       start_period: 30s
+  register: setup_postgres_container_result
   when: run_once_docker_postgres is not defined
 
-- name: wait for availability of postgres
-  wait_for:
-    host: "127.0.0.1"
-    port: "5432"
-    delay: "{{database_delay}}"
-    timeout: 360
-  when: run_once_docker_postgres is not defined  
+- name: wait for database
+  pause:
+    seconds: "{{pause_duration}}"
+  when: setup_postgres_container_result.changed and run_once_docker_postgres is not defined
 
 - name: install python-psycopg2
   pacman: 

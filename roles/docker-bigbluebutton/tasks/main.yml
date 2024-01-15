@@ -36,7 +36,7 @@
 
 - name: wait for database
   pause:
-    seconds: "{{database_delay}}"
+    seconds: "{{pause_duration}}"
   when: mode_setup | bool
 
 - name: create admin

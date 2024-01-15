@@ -33,43 +33,20 @@ services:
       - "127.0.0.1:{{element_http_port}}:80"
 {% include 'templates/docker-container-networks.yml.j2' %}
 
-  # bridges
-  #mautrix-telegram:
-  #  container_name: mautrix-telegram
-  #  image: dock.mau.dev/mautrix/telegram:<version>
-  #  restart: {{docker_restart_policy}}
-  #  volumes:
-  #  - telegram_bridge_data:/data
-
-  mautrix-whatsapp:
-    container_name: mautrix-whatsapp
-    image: dock.mau.dev/mautrix/whatsapp:latest
+{% for item in bridges %}
+  {{item.bridge_name}}:
+    container_name: {{item.bridge_name}}
+    image: dock.mau.dev/{{ item.bridge_name | replace("-", "/") }}:latest
     restart: {{docker_restart_policy}}
     volumes:
-    - ./mautrix_whatsapp:/data
-    - registration_files:{{registration_file_folder}}
+      - ./{{item.bridge_name}}:/data
+      - registration_files:{{registration_file_folder}}
+
 {% include 'templates/docker-container-networks.yml.j2' %}
-
-  #mautrix-facebook:
-  #  container_name: mautrix-facebook
-  #  image: dock.mau.dev/mautrix/facebook:<version>
-  #  restart: {{docker_restart_policy}}
-  #  volumes:
-  #  - facebook_bridge_data:/data
-
-  #mautrix-instagram:
-  #  container_name: mautrix-instagram
-  #  image: dock.mau.dev/mautrix/instagram:<version>
-  #  restart: {{docker_restart_policy}}
-  #  volumes:
-  #  - instagram_bridge_data:/data  
+{% endfor %}
 
 {% include 'templates/docker-compose-volumes.yml.j2' %}
   synapse_data:
-  #telegram_bridge_data:
-  whatsapp_bridge_data:
   registration_files:
-  #facebook_bridge_data:
-  #instagram_bridge_data:
 
 {% include 'templates/docker-compose-networks.yml.j2' %}

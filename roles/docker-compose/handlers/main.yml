@@ -1,4 +1,13 @@
 ---
+# It is necessary to shut the projects down, when reset is activated. 
+# Otherwise it can lead to this bug:
+# https://github.com/ansible/ansible/issues/10244
+- name: shut down docker compose project 
+  command:
+    cmd: docker-compose -p "{{docker_compose_project_name}}" down
+  listen: docker compose project setup
+  when: mode_reset | bool
+
 - name: docker compose project setup
   command:
     cmd: docker-compose -p "{{docker_compose_project_name}}" up -d --force-recreate
@@ -6,3 +15,4 @@
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600
+  listen: docker compose project setup

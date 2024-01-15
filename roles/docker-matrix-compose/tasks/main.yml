@@ -14,24 +14,27 @@
     domain:     "{{element_domain}}"
     http_port:  "{{element_http_port}}"
 
-- name: "create {{docker_compose_instance_directory}}mautrix_whatsapp"
-  file:
-    path: "{{docker_compose_instance_directory}}mautrix_whatsapp"
-    state: directory
-    mode: 0755
-
-- name: "include create-and-seed-database.yml"
+- name: include create-and-seed-database.yml for multiple bridges
   include_tasks: create-and-seed-database.yml
   vars:
-    database_password:  "{{mautrix_whatsapp_bridge_database_password}}"
-    database_username:  "{{mautrix_whatsapp_bridge_database_username}}"
-    database_name:      "{{mautrix_whatsapp_bridge_database_name}}"
+    database_password: "{{ item.database_password }}"
+    database_username: "{{ item.database_username }}"
+    database_name: "{{ item.database_name }}"
+  loop: "{{ bridges }}"
 
-- name: add mautrix-whatsapp configuration
+- name: "create bridge volume folders"
+  file:
+    path: "{{docker_compose_instance_directory}}{{item.bridge_name}}"
+    state: directory
+    mode: 0755
+  loop: "{{ bridges }}"
+
+- name: add multiple mautrix bridge configuration
   template: 
-    src:  "mautrix-whatsapp.config.yml.j2" 
-    dest: "{{docker_compose_instance_directory}}mautrix_whatsapp/config.yaml"
+    src:  "{{item.bridge_name}}.config.yml.j2" 
+    dest: "{{docker_compose_instance_directory}}{{item.bridge_name}}/config.yaml"
   notify: docker compose project setup
+  loop: "{{ bridges }}"
 
 - name: add element configuration
   template: 
@@ -65,17 +68,18 @@
 - name: flush docker service
   meta: flush_handlers
 
-- name: create registration files
-  command:
-    cmd: docker compose exec -it mautrix-whatsapp /usr/bin/mautrix-whatsapp -g -c /data/config.yaml -r {{mautrix_registration_file}}
-    chdir: "{{docker_compose_instance_directory}}"
+- name: wait for containers
+  pause:
+    seconds: "{{pause_duration}}"
 
 - name: create registration files
   command:
-    cmd: docker compose exec mautrix-whatsapp /usr/bin/mautrix-whatsapp -g -c /data/config.yaml -r {{ mautrix_registration_file }}
+    cmd: docker compose exec {{item.bridge_name}} /usr/bin/{{item.bridge_name}} -g -c /data/config.yaml -r {{registration_file_folder}}{{item.bridge_name}}.registration.yaml
     chdir: "{{ docker_compose_instance_directory }}"
+  loop: "{{ bridges }}"
 
 - name: set read and execute permissions for the registration file in the container
   command:
-    cmd: docker compose exec mautrix-whatsapp chmod a+rx {{ mautrix_registration_file }}
+    cmd: docker compose exec {{item.bridge_name}} chmod a+rx {{registration_file_folder}}{{item.bridge_name}}.registration.yaml
     chdir: "{{ docker_compose_instance_directory }}"
+  loop: "{{ bridges }}"

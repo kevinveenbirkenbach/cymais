@@ -46,4 +46,6 @@ email:
   validation_token_lifetime:    15m
 
 app_service_config_files:
-  - "{{mautrix_registration_file}}"
+{% for item in bridges %}
+  - {{registration_file_folder}}{{item.bridge_name}}.registration.yaml
+{% endfor %}

@@ -26,6 +26,7 @@
       timeout: 1s
       retries: 5
   when: run_once_docker_mariadb is not defined
+  register: setup_mariadb_container_result
 
 - name: install python-mysqlclient
   pacman: 
@@ -34,12 +35,9 @@
   when: run_once_docker_mariadb is not defined
 
 - name: wait for database
-  wait_for:
-    host: 127.0.0.1
-    port: 3306
-    delay: "{{database_delay}}"
-    timeout: 360
-  when: run_once_docker_mariadb is not defined
+  pause:
+    seconds: "{{pause_duration}}"
+  when: setup_mariadb_container_result.changed and run_once_docker_mariadb is not defined
 
 - name: "Create database: {{ database_name }}"
   mysql_db:
