@@ -22,7 +22,13 @@
     database_name: "{{ item.database_name }}"
   loop: "{{ bridges }}"
 
-- name: "create bridge volume folders"
+- name: "create registrations folder"
+  file:
+    path: "{{docker_compose_instance_directory}}registrations"
+    state: directory
+    mode: 0755
+
+- name: "create bridge folders"
   file:
     path: "{{docker_compose_instance_directory}}{{item.bridge_name}}"
     state: directory

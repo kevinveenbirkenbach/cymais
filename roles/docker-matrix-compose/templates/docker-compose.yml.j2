@@ -14,7 +14,7 @@ services:
       - synapse_data:/data
       - ./homeserver.yaml:/data/homeserver.yaml:ro
       - ./{{synapse_domain}}.log.config:/data/{{synapse_domain}}.log.config:ro
-      - registration_files:{{registration_file_folder}}
+      - ./registrations:{{registration_file_folder}}
     environment:
       - SYNAPSE_SERVER_NAME={{synapse_domain}}
       - SYNAPSE_REPORT_STATS=no
@@ -40,13 +40,12 @@ services:
     restart: {{docker_restart_policy}}
     volumes:
       - ./{{item.bridge_name}}:/data
-      - registration_files:{{registration_file_folder}}
+      - ./registrations:{{registration_file_folder}}
 
 {% include 'templates/docker-container-networks.yml.j2' %}
 {% endfor %}
 
 {% include 'templates/docker-compose-volumes.yml.j2' %}
   synapse_data:
-  registration_files:
 
 {% include 'templates/docker-compose-networks.yml.j2' %}
