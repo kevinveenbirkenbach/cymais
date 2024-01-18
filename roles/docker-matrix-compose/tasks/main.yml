@@ -86,18 +86,21 @@
 - name: flush docker service
   meta: flush_handlers
 
-- name: wait for containers
-  pause:
-    seconds: "{{pause_duration}}"
+- name: wait for registration files
+  wait_for:
+    path: "{{docker_compose_instance_directory}}{{item.bridge_name}}/registration.yaml"
+    state: present  
+    timeout: 120
+  loop: "{{ bridges }}"
 
-- name: create registration files
+- name: move registration files
   command:
-    cmd: docker compose exec {{item.bridge_name}} /usr/bin/{{item.bridge_name}} -g -c /data/config.yaml -r {{registration_file_folder}}{{item.bridge_name}}.registration.yaml
+    cmd: mv {{docker_compose_instance_directory}}{{item.bridge_name}}/registration.yaml {{docker_compose_instance_directory}}registrations/{{item.bridge_name}}.registration.yaml
     chdir: "{{ docker_compose_instance_directory }}"
   loop: "{{ bridges }}"
 
-- name: set read and execute permissions for the registration file in the container
-  command:
-    cmd: docker compose exec {{item.bridge_name}} chmod a+rx {{registration_file_folder}}{{item.bridge_name}}.registration.yaml
-    chdir: "{{ docker_compose_instance_directory }}"
+- name: "change file permissions"
+  file:
+    path: "{{docker_compose_instance_directory}}registrations/{{item.bridge_name}}.registration.yaml"
+    mode: 0755
   loop: "{{ bridges }}"
