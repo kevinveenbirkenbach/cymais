@@ -56,15 +56,15 @@
 
 - name: "create bridge folders"
   file:
-    path: "{{docker_compose_instance_directory}}{{item.bridge_name}}"
+    path: "{{docker_compose_instance_directory}}mautrix/{{item.bridge_name}}"
     state: directory
     mode: 0755
   loop: "{{ bridges }}"
 
 - name: add multiple mautrix bridge configuration
   template: 
-    src:  "{{item.bridge_name}}.config.yml.j2" 
-    dest: "{{docker_compose_instance_directory}}{{item.bridge_name}}/config.yaml"
+    src:  "mautrix/{{item.bridge_name}}.config.yml.j2" 
+    dest: "{{docker_compose_instance_directory}}mautrix/{{item.bridge_name}}/config.yaml"
   notify: docker compose project setup
   loop: "{{ bridges }}"
   notify: docker compose project setup
@@ -103,14 +103,14 @@
 
 - name: wait for registration files
   wait_for:
-    path: "{{docker_compose_instance_directory}}{{item.bridge_name}}/registration.yaml"
+    path: "{{docker_compose_instance_directory}}mautrix/{{item.bridge_name}}/registration.yaml"
     state: present  
     timeout: 120
   loop: "{{ bridges }}"
 
 - name: move registration files
   command:
-    cmd: mv {{docker_compose_instance_directory}}{{item.bridge_name}}/registration.yaml {{docker_compose_instance_directory}}registrations/{{item.bridge_name}}.registration.yaml
+    cmd: mv {{docker_compose_instance_directory}}mautrix/{{item.bridge_name}}/registration.yaml {{docker_compose_instance_directory}}registrations/{{item.bridge_name}}.registration.yaml
     chdir: "{{ docker_compose_instance_directory }}"
   loop: "{{ bridges }}"
 

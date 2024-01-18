@@ -34,12 +34,12 @@ services:
 {% include 'templates/docker-container-networks.yml.j2' %}
 
 {% for item in bridges %}
-  {{item.bridge_name}}:
-    container_name: {{item.bridge_name}}
-    image: dock.mau.dev/{{ item.bridge_name | replace("-", "/") }}:latest
+  mautrix-{{item.bridge_name}}:
+    container_name: matrix-{{item.bridge_name}}
+    image: dock.mau.dev/mautrix/{{ item.bridge_name }}:latest
     restart: {{docker_restart_policy}}
     volumes:
-      - ./{{item.bridge_name}}:/data
+      - ./mautrix/{{item.bridge_name}}:/data
       - ./registrations:{{registration_file_folder}}
 
 {% include 'templates/docker-container-networks.yml.j2' %}
