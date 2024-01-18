@@ -6,7 +6,7 @@ services:
 
   synapse:
     image: matrixdotorg/synapse:latest
-    container_name: mautrix-synapse
+    container_name: matrix-synapse
     restart: {{docker_restart_policy}}
     logging:
       driver: journald
@@ -25,7 +25,7 @@ services:
   
   element:
     image: vectorim/element-web:latest
-    container_name: mautrix-element
+    container_name: matrix-element
     restart: {{docker_restart_policy}}
     volumes:
       - ./element-config.json:/app/config.json

@@ -22,6 +22,17 @@
     database_name: "{{ item.database_name }}"
   loop: "{{ bridges }}"
 
+# The following taks are necessary because a clean setup is necessary
+- name: shut down docker compose project 
+  command:
+    cmd: docker-compose -p "{{docker_compose_project_name}}" down
+    chdir: "{{ docker_compose_instance_directory }}"
+
+- name: "cleanup project folder"
+  file:
+    path: "{{docker_compose_instance_directory}}"
+    state: absent
+
 - name: "create registrations folder"
   file:
     path: "{{docker_compose_instance_directory}}registrations"
@@ -41,6 +52,7 @@
     dest: "{{docker_compose_instance_directory}}{{item.bridge_name}}/config.yaml"
   notify: docker compose project setup
   loop: "{{ bridges }}"
+  notify: docker compose project setup
 
 - name: add element configuration
   template: 
@@ -50,13 +62,13 @@
 
 - name: add synapse homeserver configuration
   template: 
-    src:  "synapse.homeserver.config.j2" 
+    src:  "synapse/homeserver.yaml.j2" 
     dest: "{{docker_compose_instance_directory}}homeserver.yaml"
   notify: docker compose project setup
 
 - name: add synapse log configuration
   template: 
-    src:  "synapse.log.config.j2" 
+    src:  "synapse/log.config.j2" 
     dest: "{{docker_compose_instance_directory}}{{synapse_domain}}.log.config"
   notify: docker compose project setup
 
