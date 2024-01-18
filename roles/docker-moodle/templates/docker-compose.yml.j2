@@ -1,0 +1,27 @@
+services:
+
+{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
+  moodle:
+    image: docker.io/bitnami/moodle:latest
+    ports:
+      - '80:8080'
+      - '443:8443'
+    environment:
+      - MOODLE_DATABASE_HOST={{database_host}}
+      - MOODLE_DATABASE_PORT_NUMBER=3306
+      - MOODLE_DATABASE_USER={{database_username}}
+      - MOODLE_DATABASE_NAME={{database_name}}
+      - ALLOW_EMPTY_PASSWORD=no
+    volumes:
+      - 'moodle:/bitnami/moodle'
+      - 'data:/bitnami/moodledata'
+{% include 'templates/docker-container-depends-on-just-database.yml.j2' %}
+{% include 'templates/docker-container-networks.yml.j2' %}
+
+
+{% include 'templates/docker-compose-volumes.yml.j2' %}
+  moodle:
+  data:
+
+{% include 'templates/docker-compose-networks.yml.j2' %}
+  
