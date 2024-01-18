@@ -2,13 +2,28 @@
 - name: "include docker-compose-database.yml"
   include_tasks: docker-compose-database.yml
 
-- name: "include tasks nginx-docker-proxy-domain.yml"
-  include_tasks: nginx-docker-proxy-domain.yml
+- name: "include task certbot-matomo.yml"
+  include_tasks: certbot-matomo.yml
   vars:
     domain:     "{{synapse_domain}}"
     http_port:  "{{synapse_http_port}}"
+
+- name: configure {{synapse_domain}}.conf
+  template: 
+    src:  "templates/nginx.conf.j2" 
+    dest: "{{nginx_servers_directory}}{{synapse_domain}}.conf"
+  vars:
+    domain:     "{{synapse_domain}}"
+    http_port:  "{{synapse_http_port}}"
+  notify: restart nginx
+
+#- name: "include tasks nginx-docker-proxy-domain.yml"
+#  include_tasks: nginx-docker-proxy-domain.yml
+#  vars:
+#    domain:     "{{synapse_domain}}"
+#    http_port:  "{{synapse_http_port}}"
         
-- name: "include tasks nginx-docker-proxy-domain.yml"
+- name: "include tasks nginx-docker-proxy-domain.yml for element"
   include_tasks: nginx-docker-proxy-domain.yml
   vars:        
     domain:     "{{element_domain}}"

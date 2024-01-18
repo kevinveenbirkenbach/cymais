@@ -34,6 +34,10 @@ Matrix is an open-source project that provides a protocol for secure, decentrali
     ```
     docker-compose logs
     ```
+
+## Debug:
+- https://federationtester.matrix.org/
+
 ## Sources
 
 ### Guides
