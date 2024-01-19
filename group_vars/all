@@ -170,9 +170,10 @@ version_mastodon:                 "latest"
 mastodon_single_user_mode:        false
 
 #### Matrix
+matrix_admin_name:      "admin"           # Accountname of the matrix admin
 matrix_playbook_tags:   "setup-all,start" # For the initial update use: install-all,ensure-matrix-users-created,start
 matrix_role:            "compose"         # Role to setup Matrix. Valid values: ansible, compose
-matrix_admin_name:      "admin"
+matrix_server_name:     "{{top_domain}}"  # Adress for the account names etc.
 
 #### Mailu
 version_mailu:                    "2.0"

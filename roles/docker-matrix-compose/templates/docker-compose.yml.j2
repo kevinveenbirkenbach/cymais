@@ -45,7 +45,7 @@ services:
     ports:
       - "127.0.0.1:{{element_http_port}}:80"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:80/"]
       interval: 1m
       timeout: 10s
       retries: 3

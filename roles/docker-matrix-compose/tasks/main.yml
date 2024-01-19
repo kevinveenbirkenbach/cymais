@@ -50,7 +50,7 @@
 
 - name: "cleanup project folder"
   file:
-    path: "{{docker_compose_instance_directory}}"
+    path: "{{docker_compose_instance_directory}}mautrix/"
     state: absent
 
 - name: "create bridge folders"
@@ -64,7 +64,6 @@
   template: 
     src:  "mautrix/{{item.bridge_name}}.config.yml.j2" 
     dest: "{{docker_compose_instance_directory}}mautrix/{{item.bridge_name}}/config.yaml"
-  notify: docker compose project setup
   loop: "{{ bridges }}"
   notify: docker compose project setup
 

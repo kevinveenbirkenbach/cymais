@@ -1,4 +1,4 @@
-server_name: "{{top_domain}}"
+server_name: "{{matrix_server_name}}"
 pid_file: /data/homeserver.pid
 listeners:
   - port: 8008
@@ -39,7 +39,7 @@ email:
   #require_transport_security:   true
   enable_tls:                   "{{ system_email_tls | upper }}"
   notif_from:                   "Your Friendly %(app)s homeserver <{{system_email}}>"
-  app_name:                     "Matrix on {{top_domain}}"
+  app_name:                     "Matrix on {{synapse_domain}}"
   enable_notifs:                true
   notif_for_new_users:          false
   client_base_url:              "{{domain_matrix_synapse}}"
