@@ -133,8 +133,8 @@ Until NC24 MariaDB version has to be used.
 - https://help.nextcloud.com/t/update-to-22-failed-with-database-error-updated/120682
 - https://help.nextcloud.com/t/nc-update-to-21-0-0-beta1-exception-database-error/101124/4
 - https://wolfgang.gassler.org/reset-password-mariadb-mysql-docker/
-- https://unix.stackexchange.com/questions/478855/ansible-docker-container-and-depends-on
+- https://unix.stackexchange.com/questions/478855/ansible-docker/container/and-depends-on
 - https://github.com/gdiepen/docker-convenience-scripts
 - https://help.nextcloud.com/t/several-issues-after-upgrading-to-nextcloud-21/113118/3
 - https://forum.openmediavault.org/index.php?thread/31782-docker-nextcloud-talk-plugin-and-turnserver/
-- https://help.nextcloud.com/t/nextcloud-talk-im-docker-container-turn-server-auf-docker-host-kein-video/84133/10
+- https://help.nextcloud.com/t/nextcloud-talk-im-docker/container/turn-server-auf-docker-host-kein-video/84133/10

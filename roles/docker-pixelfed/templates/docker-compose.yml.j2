@@ -2,9 +2,9 @@ version: '2'
 
 services:
 
-{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
+{% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
-{% include 'templates/docker-service-redis.yml.j2' %}
+{% include 'templates/docker/services/redis.yml.j2' %}
 
   application:
     image: zknt/pixelfed
@@ -19,8 +19,8 @@ services:
       - "./env:/var/www/.env"
     ports:
       - "{{http_port}}:80"
-{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
   worker:
     image: zknt/pixelfed
     restart: {{docker_restart_policy}}
@@ -38,14 +38,14 @@ services:
       interval: 60s
       timeout: 5s
       retries: 1
-{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
+{% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
       application:
         condition: service_started
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
 
-{% include 'templates/docker-compose-volumes.yml.j2' %}
+{% include 'templates/docker/compose/volumes.yml.j2' %}
   redis:
   data:
   bootstrap:
 
-{% include 'templates/docker-compose-networks.yml.j2' %}
+{% include 'templates/docker/compose/networks.yml.j2' %}

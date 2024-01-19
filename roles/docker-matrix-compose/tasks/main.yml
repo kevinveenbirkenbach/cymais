@@ -1,6 +1,6 @@
 ---
-- name: "include docker-compose-database.yml"
-  include_tasks: docker-compose-database.yml
+- name: "include docker/compose/database.yml"
+  include_tasks: docker/compose/database.yml
 
 - name: "include task certbot-matomo.yml"
   include_tasks: certbot-matomo.yml
@@ -52,12 +52,6 @@
   file:
     path: "{{docker_compose_instance_directory}}"
     state: absent
-
-- name: "create registrations folder"
-  file:
-    path: "{{docker_compose_instance_directory}}registrations"
-    state: directory
-    mode: 0755
 
 - name: "create bridge folders"
   file:
@@ -113,14 +107,15 @@
     timeout: 120
   loop: "{{ bridges }}"
 
-- name: move registration files
-  command:
-    cmd: mv {{docker_compose_instance_directory}}mautrix/{{item.bridge_name}}/registration.yaml {{docker_compose_instance_directory}}registrations/{{item.bridge_name}}.registration.yaml
-    chdir: "{{ docker_compose_instance_directory }}"
-  loop: "{{ bridges }}"
-
 - name: "change file permissions"
   file:
-    path: "{{docker_compose_instance_directory}}registrations/{{item.bridge_name}}.registration.yaml"
+    path: "{{docker_compose_instance_directory}}mautrix/{{item.bridge_name}}/registration.yaml"
     mode: 0755
   loop: "{{ bridges }}"
+
+- name: create admin account
+  command:
+    cmd: docker compose exec -it synapse register_new_matrix_user -u {{matrix_admin_name}} -p {{matrix_admin_password}} -a -c /data/homeserver.yaml http://localhost:8008
+    chdir: "{{ docker_compose_instance_directory }}"
+  ignore_errors: true
+  when: mode_setup | bool

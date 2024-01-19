@@ -1,9 +1,9 @@
 version: '3.6'
 services:
 
-{% include 'templates/docker-service-redis.yml.j2' %}
+{% include 'templates/docker/services/redis.yml.j2' %}
 
-{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
+{% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   web:
     image: 'gitlab/gitlab-ee:latest'
@@ -37,12 +37,12 @@ services:
       - 'logs:/var/log/gitlab'
       - 'data:/var/opt/gitlab'
     shm_size: '256m'
-{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
 
-{% include 'templates/docker-compose-networks.yml.j2' %}
+{% include 'templates/docker/compose/networks.yml.j2' %}
 
-{% include 'templates/docker-compose-volumes.yml.j2' %}
+{% include 'templates/docker/compose/volumes.yml.j2' %}
   redis:
   config:
   logs:

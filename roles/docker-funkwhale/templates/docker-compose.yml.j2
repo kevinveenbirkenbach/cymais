@@ -2,7 +2,7 @@ version: "3"
 
 services:
 
-{% include 'templates/docker-service-redis.yml.j2' %}
+{% include 'templates/docker/services/redis.yml.j2' %}
 
   celeryworker:
     restart: {{docker_restart_policy}}
@@ -13,8 +13,8 @@ services:
       - C_FORCE_ROOT=true
     volumes:
       - "data:${MEDIA_ROOT}"
-{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
 
 
   celerybeat:
@@ -22,8 +22,8 @@ services:
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
     env_file: .env
     command: celery -A funkwhale_api.taskapp beat --pidfile= -l INFO
-{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
 
   api:
     restart: {{docker_restart_policy}}
@@ -35,8 +35,8 @@ services:
       #- "${STATIC_ROOT}:${STATIC_ROOT}"
     ports:
       - "5000"
-{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
 
   front:
     restart: {{docker_restart_policy}}
@@ -54,10 +54,10 @@ services:
     ports:
       # override those variables in your .env file if needed
       - "${FUNKWHALE_API_IP}:${FUNKWHALE_API_PORT}:80"
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
 
-{% include 'templates/docker-compose-volumes.yml.j2' %}
+{% include 'templates/docker/compose/volumes.yml.j2' %}
   data:
   redis:
 
-{% include 'templates/docker-compose-networks.yml.j2' %}
+{% include 'templates/docker/compose/networks.yml.j2' %}

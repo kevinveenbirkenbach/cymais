@@ -1,7 +1,7 @@
 version: '3.8'
 services:
 
-{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
+{% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   application:
     logging:
@@ -12,8 +12,8 @@ services:
     restart: {{docker_restart_policy}}
     volumes:
       - data:/var/www/html
-{% include 'templates/docker-container-depends-on-just-database.yml.j2' %}
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
 
   server:
     logging:
@@ -27,9 +27,9 @@ services:
     volumes:
     - "{{docker_compose_instance_confd_directory}}:{{target_mount_conf_d_directory}}:ro"
     - "data:/var/www/html:ro"
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
 
-{% include 'templates/docker-compose-volumes.yml.j2' %}
+{% include 'templates/docker/compose/volumes.yml.j2' %}
   data:
 
-{% include 'templates/docker-compose-networks.yml.j2' %}
+{% include 'templates/docker/compose/networks.yml.j2' %}

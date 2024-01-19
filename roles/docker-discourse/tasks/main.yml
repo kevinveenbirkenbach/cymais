@@ -6,8 +6,8 @@
     name: which
     state: present
 
-- name: "include docker-compose-database.yml"
-  include_tasks: docker-compose-database.yml
+- name: "include docker/compose/database.yml"
+  include_tasks: docker/compose/database.yml
 
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml

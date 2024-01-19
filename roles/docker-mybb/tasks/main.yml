@@ -1,6 +1,6 @@
 ---
-- name: "include docker-compose-database.yml"
-  include_tasks: docker-compose-database.yml
+- name: "include docker/compose/database.yml"
+  include_tasks: docker/compose/database.yml
 
 - name: "include tasks create-proxy-with-domain-replace.yml"
   include_tasks: create-proxy-with-domain-replace.yml

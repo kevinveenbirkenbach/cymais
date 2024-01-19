@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
 
-{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
+{% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   synapse:
     image: matrixdotorg/synapse:latest
@@ -14,15 +14,28 @@ services:
       - synapse_data:/data
       - ./homeserver.yaml:/data/homeserver.yaml:ro
       - ./{{synapse_domain}}.log.config:/data/{{synapse_domain}}.log.config:ro
-      - ./registrations:{{registration_file_folder}}
+{% for item in bridges %}
+      - {{docker_compose_instance_directory}}mautrix/{{item.bridge_name}}/registration.yaml:{{registration_file_folder}}{{item.bridge_name}}.registration.yaml:ro
+{% endfor %}
     environment:
       - SYNAPSE_SERVER_NAME={{synapse_domain}}
       - SYNAPSE_REPORT_STATS=no
     ports:
       - "127.0.0.1:{{synapse_http_port}}:8008"
-{% include 'templates/docker-container-depends-on-just-database.yml.j2' %}
-{% include 'templates/docker-container-networks.yml.j2' %}
-  
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8008/"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+{% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
+{% for item in bridges %}
+      mautrix-{{item.bridge_name}}:
+        # The condition service_healthy does not work. 
+        # In practice is does not make a difference anyhow, due to the reason that synapse will restart until it is running
+        condition: service_started
+{% endfor %}
+{% include 'templates/docker/container/networks.yml.j2' %}
+    
   element:
     image: vectorim/element-web:latest
     container_name: matrix-element
@@ -31,7 +44,12 @@ services:
       - ./element-config.json:/app/config.json
     ports:
       - "127.0.0.1:{{element_http_port}}:80"
-{% include 'templates/docker-container-networks.yml.j2' %}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+{% include 'templates/docker/container/networks.yml.j2' %}
 
 {% for item in bridges %}
   mautrix-{{item.bridge_name}}:
@@ -40,12 +58,15 @@ services:
     restart: {{docker_restart_policy}}
     volumes:
       - ./mautrix/{{item.bridge_name}}:/data
-      - ./registrations:{{registration_file_folder}}
-
-{% include 'templates/docker-container-networks.yml.j2' %}
+    healthcheck:
+      test: ["CMD-SHELL", "test -f {{registration_file_folder}}registration.yaml || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+{% include 'templates/docker/container/networks.yml.j2' %}
 {% endfor %}
 
-{% include 'templates/docker-compose-volumes.yml.j2' %}
+{% include 'templates/docker/compose/volumes.yml.j2' %}
   synapse_data:
 
-{% include 'templates/docker-compose-networks.yml.j2' %}
+{% include 'templates/docker/compose/networks.yml.j2' %}

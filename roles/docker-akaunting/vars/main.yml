@@ -1,6 +1,6 @@
 docker_compose_project_name:        "akaunting"
 docker_compose_file_path:           "{{docker_compose_instance_directory}}docker-compose.yml"
-docker_compose_backup_path:         "/tmp/{{docker_compose_project_name}}-docker-compose-backup.yml"
+docker_compose_backup_path:         "/tmp/{{docker_compose_project_name}}-docker/compose/backup.yml"
 database_type:                      "mariadb"
 database_password:                  "{{akaunting_database_password}}"
 repository_address:                 "https://github.com/akaunting/docker.git"

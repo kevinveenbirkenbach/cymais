@@ -2,16 +2,16 @@ version: '2.2'
 
 services:
 
-{% include 'templates/docker-service-redis.yml.j2' %}
+{% include 'templates/docker/services/redis.yml.j2' %}
 
-{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
+{% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   # Core services
   resolver:
     image: ghcr.io/mailu/unbound:{{version_mailu}}
     env_file: mailu.env
     restart: {{docker_restart_policy}}
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
         ipv4_address: 192.168.203.254
     logging:
       driver: journald
@@ -34,10 +34,10 @@ services:
     volumes:
       - "/etc/mailu/overrides/nginx:/overrides:ro"
       - "/etc/mailu/certs:/certs"
-{% include 'templates/docker-container-depends-on-also-database.yml.j2' %}
+{% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
       resolver:
         condition: service_started
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
       webmail:
       radicale:
     dns:
@@ -50,7 +50,7 @@ services:
     volumes:
       - "admin_data:/data"
       - "dkim:/dkim"
-{% include 'templates/docker-container-depends-on-database-redis.yml.j2' %}
+{% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
       resolver:
         condition: service_started
       front:
@@ -59,7 +59,7 @@ services:
       driver: journald
     dns:
       - 192.168.203.254
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
 
   imap:
     image: ghcr.io/mailu/dovecot:{{version_mailu}}
@@ -75,7 +75,7 @@ services:
       - 192.168.203.254
     logging:
       driver: journald
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
 
   smtp:
     image: ghcr.io/mailu/postfix:{{version_mailu}}
@@ -91,7 +91,7 @@ services:
       - 192.168.203.254
     logging:
       driver: journald
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
 
   oletools:
     image: ghcr.io/mailu/oletools:{{version_mailu}}
@@ -101,7 +101,7 @@ services:
       - resolver
     dns:
       - 192.168.203.254
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
       noinet:
 
   antispam:
@@ -121,7 +121,7 @@ services:
       - 192.168.203.254
     logging:
       driver: journald
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
       noinet:  
 
 
@@ -138,7 +138,7 @@ services:
       - 192.168.203.254
     logging:
       driver: journald
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
 
   webdav:
     image: ghcr.io/mailu/radicale:{{version_mailu}}
@@ -152,7 +152,7 @@ services:
       - resolver
     dns:
       - 192.168.203.254
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
       radicale:
 
   fetchmail:
@@ -170,7 +170,7 @@ services:
       - resolver
     dns:
       - 192.168.203.254
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
 
   webmail:
     image: ghcr.io/mailu/webmail:{{version_mailu}}
@@ -187,10 +187,10 @@ services:
       driver: journald
     dns:
       - 192.168.203.254
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
       webmail:
 
-{% include 'templates/docker-compose-volumes.yml.j2' %}
+{% include 'templates/docker/compose/volumes.yml.j2' %}
   smtp_queue:
   admin_data:
   webdav_data:
@@ -200,7 +200,7 @@ services:
   dovecot_mail:
   redis:
 
-{% include 'templates/docker-compose-networks.yml.j2' %}
+{% include 'templates/docker/compose/networks.yml.j2' %}
     driver: bridge
     ipam:
       driver: default

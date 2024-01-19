@@ -21,13 +21,13 @@ x-op-app: &app
 
 services:
 
-{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
+{% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   cache:
     image: memcached
     container_name: openproject-memcached
     restart: {{docker_restart_policy}}
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
 
   proxy:
     restart: {{docker_restart_policy}}
@@ -41,7 +41,7 @@ services:
       OPENPROJECT_RAILS__RELATIVE__URL__ROOT: "${OPENPROJECT_RAILS__RELATIVE__URL__ROOT:-}"
     depends_on:
       - web
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
     volumes:
       - "data:/var/openproject/assets"
       - "{{dummy_volume}}:/var/openproject/pgdata" # This mount is unnecessary and just done to prevent anonymous volumes
@@ -50,8 +50,8 @@ services:
     <<: *app
     command: "./docker/prod/web"
     container_name: openproject-web
-{% include 'templates/docker-container-networks.yml.j2' %}
-{% include 'templates/docker-container-depends-on-also-database.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
       cache:
         condition: service_started
       seeder:
@@ -79,8 +79,8 @@ services:
     <<: *app
     command: "./docker/prod/worker"
     container_name: openproject-worker
-{% include 'templates/docker-container-networks.yml.j2' %}
-{% include 'templates/docker-container-depends-on-also-database.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
       cache:
         condition: service_started
       seeder:
@@ -90,8 +90,8 @@ services:
     <<: *app
     command: "./docker/prod/cron"
     container_name: openproject-cron
-{% include 'templates/docker-container-networks.yml.j2' %}
-{% include 'templates/docker-container-depends-on-also-database.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
       cache:
         condition: service_started
       seeder:
@@ -102,9 +102,9 @@ services:
     command: "./docker/prod/seeder"
     container_name: openproject-seeder
     restart: on-failure
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
 
-{% include 'templates/docker-compose-networks.yml.j2' %}
+{% include 'templates/docker/compose/networks.yml.j2' %}
 
-{% include 'templates/docker-compose-volumes.yml.j2' %}
+{% include 'templates/docker/compose/volumes.yml.j2' %}
   data:

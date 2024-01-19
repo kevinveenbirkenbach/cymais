@@ -1,6 +1,6 @@
 services:
 
-{% include 'templates/docker-service-' + database_type + '.yml.j2' %}
+{% include 'templates/docker/services/' + database_type + '.yml.j2' %}
   moodle:
     image: docker.io/bitnami/moodle:latest
     ports:
@@ -15,13 +15,13 @@ services:
     volumes:
       - 'moodle:/bitnami/moodle'
       - 'data:/bitnami/moodledata'
-{% include 'templates/docker-container-depends-on-just-database.yml.j2' %}
-{% include 'templates/docker-container-networks.yml.j2' %}
+{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
 
 
-{% include 'templates/docker-compose-volumes.yml.j2' %}
+{% include 'templates/docker/compose/volumes.yml.j2' %}
   moodle:
   data:
 
-{% include 'templates/docker-compose-networks.yml.j2' %}
+{% include 'templates/docker/compose/networks.yml.j2' %}
   
