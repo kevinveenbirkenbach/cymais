@@ -108,6 +108,8 @@ nginx_configuration_directory:  "/etc/nginx/conf.d/"                            
 nginx_servers_directory:        "{{nginx_configuration_directory}}servers/"     # Contains server blogs
 nginx_maps_directory:           "{{nginx_configuration_directory}}maps/"        # Contains mappins
 nginx_upstreams_directory:      "{{nginx_configuration_directory}}upstreams/"   # Contains upstream configurations
+nginx_well_known_root:          "/usr/share/nginx/well-known/"                   # Path where well-known files are stored
+nginx_homepage_root:            "/usr/share/nginx/homepage/"                     # Path where the static homepage files are stored
 
 ## Docker Applications
 

@@ -16,4 +16,11 @@ server
     root {{nginx_homepage_root}};
     index index.html index.htm;
   }
+
+  location /.well-known/ {
+    alias {{nginx_well_known_root}};
+    allow all;
+    default_type "text/plain";
+    autoindex on;
+  }
 }

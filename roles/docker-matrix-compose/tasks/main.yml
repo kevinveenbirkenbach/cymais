@@ -8,7 +8,18 @@
     domain:     "{{synapse_domain}}"
     http_port:  "{{synapse_http_port}}"
 
-- name: configure {{synapse_domain}}.conf
+- name: create {{well_known_directory}}
+  file:
+    path: "{{well_known_directory}}"
+    state: directory
+    mode: '0755'
+
+- name: create {{well_known_directory}}server
+  template: 
+    src:  "well-known.j2" 
+    dest: "{{well_known_directory}}server"
+
+- name: create {{synapse_domain}}.conf
   template: 
     src:  "templates/nginx.conf.j2" 
     dest: "{{nginx_servers_directory}}{{synapse_domain}}.conf"
@@ -16,12 +27,6 @@
     domain:     "{{synapse_domain}}"
     http_port:  "{{synapse_http_port}}"
   notify: restart nginx
-
-#- name: "include tasks nginx-docker-proxy-domain.yml"
-#  include_tasks: nginx-docker-proxy-domain.yml
-#  vars:
-#    domain:     "{{synapse_domain}}"
-#    http_port:  "{{synapse_http_port}}"
         
 - name: "include tasks nginx-docker-proxy-domain.yml for element"
   include_tasks: nginx-docker-proxy-domain.yml
@@ -32,9 +37,9 @@
 - name: include create-and-seed-database.yml for multiple bridges
   include_tasks: create-and-seed-database.yml
   vars:
-    database_password: "{{ item.database_password }}"
-    database_username: "{{ item.database_username }}"
-    database_name: "{{ item.database_name }}"
+    database_password:  "{{ item.database_password }}"
+    database_username:  "{{ item.database_username }}"
+    database_name:      "{{ item.database_name }}"
   loop: "{{ bridges }}"
 
 # The following taks are necessary because a clean setup is necessary

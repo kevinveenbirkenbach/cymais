@@ -1,13 +1,4 @@
 ---
-- name: "include task certbot-matomo.yml"
-  include_tasks: certbot-matomo.yml
-
-- name: configure {{domain}}.conf
-  template: 
-    src:  "homepage.nginx.conf.j2" 
-    dest: "{{nginx_servers_directory}}{{domain}}.conf"
-  notify: restart nginx
-
 - name: "pull homepage from {{nginx_homepage_repository_address}}"
   git:
     repo: "{{nginx_homepage_repository_address}}"

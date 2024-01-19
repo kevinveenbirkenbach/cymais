@@ -23,7 +23,25 @@
   when: run_once_nginx is not defined
 
 - name: create nginx config file
-  template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
+  template: 
+    src:  nginx.conf.j2 
+    dest: /etc/nginx/nginx.conf
+  notify: restart nginx
+  when: run_once_nginx is not defined
+
+- name: "include task certbot-matomo.yml"
+  include_tasks: certbot-matomo.yml
+  when: run_once_nginx is not defined
+  vars:
+    domain: "{{top_domain}}"
+  when: run_once_nginx is not defined
+
+- name: configure {{top_domain}}.conf
+  template: 
+    src:  "homepage.nginx.conf.j2" 
+    dest: "{{nginx_servers_directory}}{{top_domain}}.conf"
+  vars:
+    domain: "{{top_domain}}"
   notify: restart nginx
   when: run_once_nginx is not defined
 

@@ -3,6 +3,7 @@ docker_compose_project_name:  	      "matrix"
 database_password:  	                "{{matrix_database_password}}"
 database_type:                        "postgres"
 registration_file_folder:             "/data/registration/"
+well_known_directory:                 "{{nginx_well_known_root}}/matrix/"
 
 bridges:
   - database_password: "{{ mautrix_whatsapp_bridge_database_password }}"
