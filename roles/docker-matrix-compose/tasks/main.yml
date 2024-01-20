@@ -127,3 +127,10 @@
     chdir: "{{ docker_compose_instance_directory }}"
   ignore_errors: true
   when: mode_setup | bool
+
+- name: create chatgpt bot
+  command:
+    cmd: docker compose exec -it synapse register_new_matrix_user -u chatgptbot -p {{matrix_chatgpt_bridge_user_password}} -a -c /data/homeserver.yaml http://localhost:8008
+    chdir: "{{ docker_compose_instance_directory }}"
+  ignore_errors: true
+  when: mode_setup | bool
