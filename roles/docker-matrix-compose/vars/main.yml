@@ -25,3 +25,8 @@ bridges:
     database_username:  "mautrix_slack_bridge"
     database_name:      "mautrix_slack_bridge"
     bridge_name:        "slack"
+
+  - database_password:  "{{ mautrix_facebook_bridge_database_password }}"
+    database_username:  "mautrix_facebook_bridge"
+    database_name:      "mautrix_facebook_bridge"
+    bridge_name:        "facebook"

@@ -118,7 +118,7 @@ bridge:
 
     # Servers to always allow double puppeting from
     double_puppet_server_map:
-        {{matrix_server_name}}: https://{{matrix_server_name}}
+        {{matrix_server_name}}: https://{{synapse_domain}}
     # Allow using double puppeting from any server with a valid client .well-known file.
     double_puppet_allow_discovery: false
     # Shared secrets for https://github.com/devture/matrix-synapse-shared-secret-auth
@@ -127,7 +127,7 @@ bridge:
     # instead of users having to find an access token and run `login-matrix`
     # manually.
     login_shared_secret_map:
-        {{matrix_server_name}}: foobar
+        {{matrix_server_name}}: {{matrix_registration_shared_secret}}
 
     message_handling_timeout:
         # Send an error message after this timeout, but keep waiting for the response until the deadline.
