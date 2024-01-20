@@ -30,3 +30,8 @@ bridges:
     database_username:  "mautrix_facebook_bridge"
     database_name:      "mautrix_facebook_bridge"
     bridge_name:        "facebook"
+
+  - database_password:  "{{ mautrix_instagram_bridge_database_password }}"
+    database_username:  "mautrix_instagram_bridge"
+    database_name:      "mautrix_instagram_bridge"
+    bridge_name:        "instagram"
