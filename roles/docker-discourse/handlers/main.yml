@@ -1,5 +1,5 @@
 ---
 - name: recreate discourse
   command:
-    cmd: ./launcher rebuild discourse_application
+    cmd: "./launcher rebuild {{discourse_application_container}}"
     chdir: "{{discourse_repository_directory}}"
