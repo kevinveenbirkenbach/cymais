@@ -30,9 +30,7 @@ services:
 {% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
 {% for item in bridges %}
       mautrix-{{item.bridge_name}}:
-        # The condition service_healthy does not work. 
-        # In practice is does not make a difference anyhow, due to the reason that synapse will restart until it is running
-        condition: service_started
+        condition: service_healthy
 {% endfor %}
 {% include 'templates/docker/container/networks.yml.j2' %}
     

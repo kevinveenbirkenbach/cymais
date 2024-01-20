@@ -96,8 +96,17 @@
     dest: "{{docker_compose_instance_directory}}docker-compose.yml"
   notify: docker compose project setup
 
-- name: flush docker service
-  meta: flush_handlers
+- name: docker compose project setup
+  command:
+    cmd: docker-compose -p "{{docker_compose_project_name}}" up -d --force-recreate
+    chdir: "{{docker_compose_instance_directory}}"
+  environment:
+    COMPOSE_HTTP_TIMEOUT:   600
+    DOCKER_CLIENT_TIMEOUT:  600
+  register: result
+  until:    result is succeeded
+  retries:  12
+  delay:    30
 
 - name: wait for registration files
   wait_for:

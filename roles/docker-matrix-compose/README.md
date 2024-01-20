@@ -43,6 +43,19 @@ for db in matrix mautrix_whatsapp_bridge mautrix_telegram_bridge mautrix_signal_
 docker compose down -v
 ```
 
+## Bridges
+
+### General
+Contact one of the following bots for more information:
+
+- @signalbot:yourdomain.tld
+- @telegrambot:yourdomain.tld
+- @whatsappbot:yourdomain.tld
+- @slackbot:yourdomain.tld
+
+### Slack
+For login with Token checkout [this guide](https://docs.mau.fi/bridges/go/slack/authentication.html).
+
 ## Debug:
 - https://federationtester.matrix.org/
 
