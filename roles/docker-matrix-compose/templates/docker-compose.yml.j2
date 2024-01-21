@@ -90,7 +90,7 @@ services:
       KEYV_URL: ''
       KEYV_BOT_ENCRYPTION: 'false'
       KEYV_BOT_STORAGE: 'true'
-      MATRIX_HOMESERVER_URL: 'http://synapse'
+      MATRIX_HOMESERVER_URL: 'https://{{synapse_domain}}'
       MATRIX_BOT_USERNAME: '@chatgptbot:{{matrix_server_name}}'
       MATRIX_ACCESS_TOKEN: '{{ matrix_chatgpt_bridge_access_token | default('') }}'
       MATRIX_BOT_PASSWORD: '{{matrix_chatgpt_bridge_user_password}}'
