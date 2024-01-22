@@ -21,7 +21,7 @@ To update the nextcloud container execute the following commands on the server:
   docker-compose down
 ```
 
-Afterwards update the ***version_nextcloud*** variable to the next version and run the this repository with this ansible role.
+Afterwards update the ***nextcloud_version*** variable to the next version and run the this repository with this ansible role.
 
 It is only possible to update from one to the next major version at a time
 

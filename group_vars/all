@@ -1,14 +1,18 @@
 # General
-pause_duration:       "120"       # Database delay to wait for the central database before continue tasks
-top_domain:           "localhost" # Change this in inventory to your domain
-ip4_address:          "127.0.0.1" # Change thie in inventory to the ip address of your server
-backups_folder_path:  "/Backups/" # Path to the backups folder
+pause_duration:       "120"         # Database delay to wait for the central database before continue tasks
+top_domain:           "localhost"   # Change this in inventory to your domain
+ip4_address:          "127.0.0.1"   # Change thie in inventory to the ip address of your server
+backups_folder_path:  "/Backups/"   # Path to the backups folder
+
+# Administrator
+administrator_username:   "administrator"                             # Username of the administrator
+administrator_email:      "{{administrator_username}}@{{top_domain}}" # Email of the administrator
 
 # Mode
 
 # The following modes can be combined with each other
 mode_reset:   false # Cleans up all CyMaIS files. It's necessary to run to whole playbook and not particial roles when using this function.
-mode_verbose: false # Prints well formated debug information
+mode_debug:   false # Prints well formated debug information
 mode_test:    false # Executes test routines instead of productive routines
 mode_update:  true  # Executes updates
 mode_backup:  true  # Activates the backup before the update procedure
@@ -111,17 +115,10 @@ nginx_upstreams_directory:      "{{nginx_configuration_directory}}upstreams/"   
 nginx_well_known_root:          "/usr/share/nginx/well-known/"                   # Path where well-known files are stored
 nginx_homepage_root:            "/usr/share/nginx/homepage/"                     # Path where the static homepage files are stored
 
-## Docker Applications
+## Domains
 
-### Enable Central MariaDB
-enable_central_database: true
-enable_central_database_mailu: "{{enable_central_database}}"
-
-### Enable Storage Optimizer for Docker Volumes
-enable_system_storage_optimizer: true
-
-### Domain Names for Various Services
-domain_akaunting:               "akaunting.{{top_domain}}"
+### Service Domains
+domain_akaunting:               "accounting.{{top_domain}}"
 domain_baserow:                 "baserow.{{top_domain}}"
 domain_bigbluebutton:           "meet.{{top_domain}}"
 domain_elk:                     "elk.{{top_domain}}"
@@ -132,10 +129,11 @@ domain_gitlab:                  "gitlab.{{top_domain}}"
 domain_listmonk:                "newsletter.{{top_domain}}"
 domain_mailu:                   "mail.{{top_domain}}"
 domain_mastodon:                "microblog.{{top_domain}}"
-domains_mastodon_alternates:    []
+domains_mastodon_alternates:    ["mastodon.{{top_domain}}"]
 domain_matomo:                  "matomo.{{top_domain}}"
 domain_matrix_synapse:          "matrix.{{top_domain}}"
 domain_matrix_element:          "element.{{top_domain}}"
+domain_moodle:                  "academy.{{top_domain}}"
 domain_mediawiki:               "wiki.{{top_domain}}"
 domain_nextcloud:               "cloud.{{top_domain}}"
 domain_pixelfed:                "picture.{{top_domain}}"
@@ -147,6 +145,32 @@ domain_yourls:                  "s.{{top_domain}}"
 domain_openproject:             "project.{{top_domain}}"
 domains_wordpress:              ["wordpress.{{top_domain}}","blog.{{top_domain}}"]
 
+### Domain Redirects
+redirect_domain_mappings:
+- { source: "akaunting.{{top_domain}}",   target: "{{domain_akaunting}}" }
+- { source: "bbb.{{top_domain}}",         target: "{{domain_bigbluebutton}}" }
+- { source: "discourse.{{top_domain}}",   target: "{{domain_discourse}}" }
+- { source: "funkwhale.{{top_domain}}",   target: "{{domain_funkwhale}}" }
+- { source: "gitea.{{top_domain}}",       target: "{{domain_gitea}}" }
+- { source: "listmonk.{{top_domain}}",    target: "{{domain_listmonk}}" }
+- { source: "moodle.{{top_domain}}",      target: "{{domain_moodle}}" }
+- { source: "nextcloud.{{top_domain}}",   target: "{{domain_nextcloud}}" }
+- { source: "openproject.{{top_domain}}", target: "{{domain_openproject}}" }
+- { source: "peertube.{{top_domain}}",    target: "{{domain_peertube}}" }
+- { source: "pictures.{{top_domain}}",    target: "{{domain_pixelfed}}" }
+- { source: "pixelfed.{{top_domain}}",    target: "{{domain_pixelfed}}" }
+- { source: "short.{{top_domain}}",       target: "{{domain_yourls}}" }
+- { source: "videos.{{top_domain}}",      target: "{{domain_peertube}}" }
+
+## Docker Applications
+
+### Enable Central MariaDB
+enable_central_database: true
+enable_central_database_mailu: "{{enable_central_database}}"
+
+### Enable Storage Optimizer for Docker Volumes
+enable_system_storage_optimizer: true
+
 ### Common Configurations
 postgres_default_version:       "16"
 
@@ -154,10 +178,10 @@ postgres_default_version:       "16"
 docker_restart_policy:        "unless-stopped"
 
 #### Akaunting
-version_akaunting:            "latest"
-akaunting_company_name:       "DUMMY_VALUE_NEEDS_TO_BE_CHANGED"
-akaunting_company_email:      "DUMMY_VALUE_NEEDS_TO_BE_CHANGED"
-akaunting_setup_admin_email:  "DUMMY_VALUE_NEEDS_TO_BE_CHANGED"
+akaunting_version:            "latest"
+akaunting_company_name:       "{{top_domain}}"
+akaunting_company_email:      "{{administrator_email}}"
+akaunting_setup_admin_email:  "{{administrator_email}}"
 
 #### Big Blue Button
 bigbluebutton_enable_greenlight:  "true"
@@ -166,42 +190,30 @@ bigbluebutton_enable_greenlight:  "true"
 listmonk_admin_username:          "admin"
 
 #### Mastodon
-version_mastodon:                 "latest"
+mastodon_version:                 "latest"
 mastodon_single_user_mode:        false
 
 #### Matrix
-matrix_admin_name:      "admin"           # Accountname of the matrix admin
-matrix_playbook_tags:   "setup-all,start" # For the initial update use: install-all,ensure-matrix-users-created,start
-matrix_role:            "compose"         # Role to setup Matrix. Valid values: ansible, compose
-matrix_server_name:     "{{top_domain}}"  # Adress for the account names etc.
+matrix_admin_name:      "{{administrator_username}}"  # Accountname of the matrix admin
+matrix_playbook_tags:   "setup-all,start"             # For the initial update use: install-all,ensure-matrix-users-created,start
+matrix_role:            "compose"                     # Role to setup Matrix. Valid values: ansible, compose
+matrix_server_name:     "{{top_domain}}"              # Adress for the account names etc.
 
 #### Mailu
-version_mailu:                    "2.0"
-mailu_domain:                     "{{top_domain}}"
-mailu_subnet:                     "192.168.203.0/24"
+mailu_version:          "2.0"
+mailu_domain:           "{{top_domain}}"
+mailu_subnet:           "192.168.203.0/24"
+
+#### Moodle
+moodle_site_name:       "Global Learning Academy on {{top_domain}}"
+moodle_user_name:       "{{administrator_username}}"
+moodle_user_email:      "{{administrator_email}}"
 
 #### Nextcloud
-version_nextcloud:      "production"  # Danger: Nextcloud can't skipp major version updates.
+nextcloud_version:      "production"  # Danger: Nextcloud can't skipp major version updates.
 
 #### Pixelfed
-pixelfed_app_name:      "Pictures"
+pixelfed_app_name:      "Pictures on {{top_domain}}"
 
 #### YOURLS
-yourls_user:            "admin"
-
-
-# Routing Configurations for Domain Redirections
-redirect_domain_mappings:
-- { source: "bbb.{{top_domain}}",         target: "{{domain_bigbluebutton}}" }
-- { source: "discourse.{{top_domain}}",   target: "{{domain_discourse}}" }
-- { source: "funkwhale.{{top_domain}}",   target: "{{domain_funkwhale}}" }
-- { source: "gitea.{{top_domain}}",       target: "{{domain_gitea}}" }
-- { source: "listmonk.{{top_domain}}",    target: "{{domain_listmonk}}" }
-- { source: "mastodon.{{top_domain}}",    target: "{{domain_mastodon}}" }
-- { source: "nextcloud.{{top_domain}}",   target: "{{domain_nextcloud}}" }
-- { source: "openproject.{{top_domain}}", target: "{{domain_openproject}}" }
-- { source: "peertube.{{top_domain}}",    target: "{{domain_peertube}}" }
-- { source: "pictures.{{top_domain}}",    target: "{{domain_pixelfed}}" }
-- { source: "pixelfed.{{top_domain}}",    target: "{{domain_pixelfed}}" }
-- { source: "short.{{top_domain}}",       target: "{{domain_yourls}}" }
-- { source: "videos.{{top_domain}}",      target: "{{domain_peertube}}" }
+yourls_user:            "{{administrator_username}}"

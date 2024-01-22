@@ -8,7 +8,7 @@ services:
 
   # Core services
   resolver:
-    image: ghcr.io/mailu/unbound:{{version_mailu}}
+    image: ghcr.io/mailu/unbound:{{mailu_version}}
     env_file: mailu.env
     restart: {{docker_restart_policy}}
 {% include 'templates/docker/container/networks.yml.j2' %}
@@ -17,7 +17,7 @@ services:
       driver: journald
 
   front:
-    image: ghcr.io/mailu/nginx:{{version_mailu}}
+    image: ghcr.io/mailu/nginx:{{mailu_version}}
     restart: {{docker_restart_policy}}
     env_file: mailu.env
     logging:
@@ -44,7 +44,7 @@ services:
       - 192.168.203.254
       
   admin:
-    image: ghcr.io/mailu/admin:{{version_mailu}}
+    image: ghcr.io/mailu/admin:{{mailu_version}}
     restart: {{docker_restart_policy}}
     env_file: mailu.env
     volumes:
@@ -62,7 +62,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   imap:
-    image: ghcr.io/mailu/dovecot:{{version_mailu}}
+    image: ghcr.io/mailu/dovecot:{{mailu_version}}
     restart: {{docker_restart_policy}}
     env_file: mailu.env
     volumes:
@@ -78,7 +78,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   smtp:
-    image: ghcr.io/mailu/postfix:{{version_mailu}}
+    image: ghcr.io/mailu/postfix:{{mailu_version}}
     restart: {{docker_restart_policy}}
     env_file: mailu.env
     volumes:
@@ -94,7 +94,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   oletools:
-    image: ghcr.io/mailu/oletools:{{version_mailu}}
+    image: ghcr.io/mailu/oletools:{{mailu_version}}
     hostname: oletools
     restart: {{docker_restart_policy}}
     depends_on:
@@ -105,7 +105,7 @@ services:
       noinet:
 
   antispam:
-    image: ghcr.io/mailu/rspamd:{{version_mailu}}
+    image: ghcr.io/mailu/rspamd:{{mailu_version}}
     restart: {{docker_restart_policy}}
     env_file: mailu.env
     volumes:
@@ -127,7 +127,7 @@ services:
 
   # Optional services
   antivirus:
-    image: ghcr.io/mailu/clamav:{{version_mailu}}
+    image: ghcr.io/mailu/clamav:{{mailu_version}}
     restart: {{docker_restart_policy}}
     env_file: mailu.env
     volumes:
@@ -141,7 +141,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   webdav:
-    image: ghcr.io/mailu/radicale:{{version_mailu}}
+    image: ghcr.io/mailu/radicale:{{mailu_version}}
     restart: {{docker_restart_policy}}
     env_file: mailu.env
     volumes:
@@ -156,7 +156,7 @@ services:
       radicale:
 
   fetchmail:
-    image: ghcr.io/mailu/fetchmail:{{version_mailu}}
+    image: ghcr.io/mailu/fetchmail:{{mailu_version}}
     volumes:
       - "admin_data:/data"
     restart: {{docker_restart_policy}}
@@ -173,7 +173,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   webmail:
-    image: ghcr.io/mailu/webmail:{{version_mailu}}
+    image: ghcr.io/mailu/webmail:{{mailu_version}}
     restart: {{docker_restart_policy}}
     env_file: mailu.env
     volumes:
