@@ -4,7 +4,7 @@ services:
   moodle:
     image: docker.io/bitnami/moodle:latest
     ports:
-      - 127.0.0.1:{{http_port}}:80
+      - 127.0.0.1:{{http_port}}:8080
     environment:
       - MOODLE_DATABASE_HOST={{database_host}}
       - MOODLE_DATABASE_PORT_NUMBER=3306
