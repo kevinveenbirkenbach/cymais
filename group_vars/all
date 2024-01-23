@@ -21,8 +21,8 @@ mode_setup:   false # Execute the setup and initializing procedures
 
 # Server Tact Variables 
 
-## Ours in which the server is 100% working. Rest of the time is reserved for maintanance
-hours_server_awake: "0..1,9..23"
+## Ours in which the server is "awake" (100% working). Rest of the time is reserved for maintanance
+hours_server_awake: "0..23"
 
 ## Random delay for systemd timers to avoid peak loads.
 randomized_delay_sec:                         "5min" 
