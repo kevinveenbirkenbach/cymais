@@ -4,6 +4,7 @@ Wants={{systemctl_mount_service_name}}
 OnFailure=systemd-notifier.cymais@%n.service
 
 [Service]
+Type=oneshot
 ExecStart=/bin/python {{ backup_to_usb_script_path }} {{backup_to_usb_source}} {{backup_to_usb_destination}}
 ExecStartPost=/bin/systemctl start cleanup-backups.cymais.service
 
