@@ -1,0 +1,12 @@
+- name: pull directory-validator.git
+  git:
+    repo: "https://github.com/kevinveenbirkenbach/directory-validator.git"
+    dest: "{{backup_directory_validator_folder}}"
+    update: yes
+  ignore_errors: true
+  when: run_once_backup_directory_validator is not defined
+
+- name: run the backup_directory_validator tasks once
+  set_fact:
+    run_once_backup_directory_validator: true
+  when: run_once_backup_directory_validator is not defined

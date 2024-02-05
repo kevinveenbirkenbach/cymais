@@ -248,6 +248,15 @@
         domain:     "{{domain_akaunting}}"
         http_port:  8025
 
+- name: setup moodle instance
+  hosts: moodle
+  become: true
+  roles:
+   -  role: docker-moodle
+      vars:
+        domain:     "{{domain_moodle}}"
+        http_port:  8026
+
 # Native Webserver Roles
 - name: setup nginx-homepages
   hosts: homepage

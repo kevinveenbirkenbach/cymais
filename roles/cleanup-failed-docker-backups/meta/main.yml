@@ -2,3 +2,4 @@ dependencies:
   - git
   - systemd-notifier
   - system-maintenance-lock
+  - backup-directory-validator

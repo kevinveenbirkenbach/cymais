@@ -7,7 +7,7 @@ services:
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   application:
-    image: "nextcloud:{{version_nextcloud}}-fpm-alpine"
+    image: "nextcloud:{{nextcloud_version}}-fpm-alpine"
     container_name: nextcloud-application
     restart: {{docker_restart_policy}}
     logging:
@@ -43,7 +43,7 @@ services:
 
   cron:
     container_name: nextcloud-cron
-    image: "nextcloud:{{version_nextcloud}}-fpm-alpine"
+    image: "nextcloud:{{nextcloud_version}}-fpm-alpine"
     restart: {{docker_restart_policy}}
     logging:
       driver: journald
