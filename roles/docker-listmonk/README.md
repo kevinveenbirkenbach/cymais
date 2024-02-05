@@ -31,6 +31,10 @@ This role deploys the Listmonk application using Docker. Listmonk is a high perf
      ```bash
      docker-compose -p listmonk up -d --force-recreate
      ```
+## Upgrade
+```bash 
+docker compose run application ./listmonk --upgrade
+```
 
 ## Configuration Files
 
