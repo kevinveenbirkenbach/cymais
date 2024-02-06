@@ -103,7 +103,10 @@ def update_docker(directory):
 
 def update_nextcloud():
     print("Start Nextcloud update procedure.")
+    update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ upgrade")
+    update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ maintenance:repair")
     update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ app:update --all")
+    update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ maintenance:mode --off")
     
 def update_discourse(directory):
     os.chdir(directory)
