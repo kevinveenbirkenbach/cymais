@@ -1,5 +1,13 @@
 ---
-- name: recreate discourse
+- name: "stop and remove discourse container if it exist"
+  docker_container:
+    name: "{{discourse_application_container}}"
+    state: absent
+  register: container_action
+  failed_when: container_action.failed and 'No such container' not in container_action.msg
+  listen: recreate discourse
+- name: rebuild discourse
   command:
     cmd: "./launcher rebuild {{discourse_application_container}}"
     chdir: "{{discourse_repository_directory}}"
+  listen: recreate discourse
