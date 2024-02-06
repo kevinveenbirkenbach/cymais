@@ -10,6 +10,11 @@ To gain shell access to the application container, run the following command:
 docker-compose exec -it application bash
 ```
 
+### Clear Cache
+```bash 
+docker compose exec -it application php artisan cache:clear
+```
+
 ### Database Access
 To access the MariaDB instance in the database container, run the following command:
 ```bash

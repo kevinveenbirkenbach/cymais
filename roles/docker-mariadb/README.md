@@ -23,5 +23,10 @@ Configure the role by setting the required variables. These can be set in the pl
 - `database_username`: The username for the database user.
 - `database_password`: The password for the database user.
 
+## Execute SQL commands
+```bash
+docker exec -it central-mariadb mysql -u root -p
+```
+
 ## Contributing
 Contributions to this project are welcome. Please submit issues and pull requests with your suggestions.
