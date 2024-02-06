@@ -6,6 +6,14 @@
   register: container_action
   failed_when: container_action.failed and 'No such container' not in container_action.msg
   listen: recreate discourse
+  
+- name: "add central database temporary to {{docker_compose_project_name}}_default"
+  command:
+    cmd: "docker network connect discourse_default central-{{ database_type }}"
+  ignore_errors: true
+  when: enable_central_database | bool
+  listen: recreate discourse
+
 - name: rebuild discourse
   command:
     cmd: "./launcher rebuild {{discourse_application_container}}"
