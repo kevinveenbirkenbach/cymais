@@ -25,7 +25,7 @@ Configure the role by setting the required variables. These can be set in the pl
 
 ## Execute SQL commands
 ```bash
-docker exec -it central-mariadb mysql -u root -p
+docker exec -it central-mariadb mariadb -u root -p
 ```
 
 ## Contributing
