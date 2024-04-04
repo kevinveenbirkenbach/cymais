@@ -53,8 +53,8 @@ on_calendar_cleanup_failed_docker:            "*-*-* 12:00:00"                  
 
 # Storage Space-Related Configurations          
 size_percent_maximum_backup:                  75  # Maximum storage space in percent for backups
-size_percent_disc_space_warning:              85  # Warning threshold in percent for free disk space
-size_percent_cleanup_disc_space:              90  # Threshold for triggering cleanup actions
+size_percent_cleanup_disc_space:              85  # Threshold for triggering cleanup actions
+size_percent_disc_space_warning:              90  # Warning threshold in percent for free disk space
 
 
 # Path Variables for Key Directories and Scripts
