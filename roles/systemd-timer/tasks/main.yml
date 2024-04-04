@@ -3,5 +3,11 @@
     src: dummy.timer.j2
     dest: "/etc/systemd/system/{{service_name}}.cymais.timer"
   register: dummy_timer
-  changed_when: dummy_timer.changed or activate_all_timers | bool
-  notify: restart timer
+
+- name: "restart timer"
+  systemd:
+    daemon_reload: yes
+    name: "{{service_name}}.cymais.timer"
+    state: restarted
+    enabled: yes
+  when: dummy_timer.changed or activate_all_timers | bool

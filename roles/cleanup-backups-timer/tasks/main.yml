@@ -1,6 +1,6 @@
-- name: set service_name to the name of the current role
+- name: set service_name to cleanup-backups
   set_fact:
-    service_name: "{{ role_name }}"
+    service_name: "cleanup-backups"
   when: run_once_cleanup_backups_timer is not defined
 
 - name: "include role for systemd-timer for {{service_name}}"
