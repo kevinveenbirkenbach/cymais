@@ -5,6 +5,9 @@ services:
     image: docker.io/bitnami/moodle:latest
     ports:
       - 127.0.0.1:{{http_port}}:8080
+    restart: {{docker_restart_policy}}
+    logging:
+      driver: journald
     environment:
       - MOODLE_DATABASE_HOST={{database_host}}
       - MOODLE_DATABASE_PORT_NUMBER=3306
