@@ -2,10 +2,10 @@ version: "3.5"
 
 x-environment:
   &default-back-environment
-  POSTGRES_DB: "taiga"
+  POSTGRES_DB: "{{database_name}}"
   POSTGRES_USER: "${POSTGRES_USER}"
   POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-  POSTGRES_HOST: "taiga-db"
+  POSTGRES_HOST: "{{database_host}}"
 
   TAIGA_SECRET_KEY: "${SECRET_KEY}"
   TAIGA_SITES_SCHEME: "${TAIGA_SCHEME}"
@@ -34,9 +34,9 @@ services:
   taiga-manage:
     image: taigaio/taiga-back:latest
     environment: *default-back-environment
-    depends_on:
-      - taiga-db
+{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+
     entrypoint: "python manage.py"
     volumes: *default-back-volumes
-    networks:
-      - taiga
+{% include 'templates/docker/compose/networks.yml.j2' %}
+      taiga:

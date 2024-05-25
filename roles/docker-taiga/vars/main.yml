@@ -1,6 +1,6 @@
 docker_compose_project_name:        "taigaio"
 docker_compose_file_path:           "{{docker_compose_instance_directory}}docker-compose.yml"
 docker_compose_backup_path:         "/tmp/{{docker_compose_project_name}}-docker-compose.yml.backup"
-database_type:                      "mariadb"
+database_type:                      "postgres"
 database_password:                  "{{taigaio_database_password}}"
 repository_address:                 "https://github.com/taigaio/taiga-docker"
