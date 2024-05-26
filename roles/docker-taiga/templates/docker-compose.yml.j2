@@ -37,7 +37,7 @@ x-volumes:
 
 services:
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
-  back:
+  taiga-back:
     image: taigaio/taiga-back:latest
     environment: *default-back-environment
     volumes: *default-back-volumes
@@ -80,7 +80,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
       taiga:
 
-  front:
+  taiga-front:
     image: taigaio/taiga-front:latest
     environment:
       TAIGA_URL: "${TAIGA_SCHEME}://${TAIGA_DOMAIN}"
@@ -93,7 +93,7 @@ services:
     # volumes:
     #   - ./conf.json:/usr/share/nginx/html/conf.json
 
-  events:
+  taiga-events:
     image: taigaio/taiga-events:latest
     environment:
       RABBITMQ_USER: "${RABBITMQ_USER}"
@@ -141,9 +141,9 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
       taiga:
     depends_on:
-      - front
-      - back
-      - events
+      - taiga-front
+      - taiga-back
+      - taiga-events
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}
   static-data:
