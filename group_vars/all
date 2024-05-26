@@ -119,10 +119,11 @@ nginx_homepage_root:            "/usr/share/nginx/homepage/"                    
 
 ### Service Domains
 domain_akaunting:               "accounting.{{top_domain}}"
+domain_attendize:               "tickets.{{top_domain}}"
 domain_baserow:                 "baserow.{{top_domain}}"
 domain_bigbluebutton:           "meet.{{top_domain}}"
-domain_elk:                     "elk.{{top_domain}}"
 domain_discourse:               "forum.{{top_domain}}"
+domain_elk:                     "elk.{{top_domain}}"
 domain_funkwhale:               "music.{{top_domain}}"
 domain_gitea:                   "git.{{top_domain}}"
 domain_gitlab:                  "gitlab.{{top_domain}}"
@@ -136,13 +137,13 @@ domain_matrix_element:          "element.{{top_domain}}"
 domain_moodle:                  "academy.{{top_domain}}"
 domain_mediawiki:               "wiki.{{top_domain}}"
 domain_nextcloud:               "cloud.{{top_domain}}"
+domain_openproject:             "project.{{top_domain}}"
 domain_pixelfed:                "picture.{{top_domain}}"
 domain_peertube:                "video.{{top_domain}}"
 domains_peertube:               []
 domain_roulette:                "roulette.{{top_domain}}"
-domain_attendize:               "tickets.{{top_domain}}"
+domain_taiga:                   "kanban.{{top_domain}}"
 domain_yourls:                  "s.{{top_domain}}"
-domain_openproject:             "project.{{top_domain}}"
 domains_wordpress:              ["wordpress.{{top_domain}}","blog.{{top_domain}}"]
 
 ### Domain Redirects
@@ -160,6 +161,7 @@ redirect_domain_mappings:
 - { source: "pictures.{{top_domain}}",    target: "{{domain_pixelfed}}" }
 - { source: "pixelfed.{{top_domain}}",    target: "{{domain_pixelfed}}" }
 - { source: "short.{{top_domain}}",       target: "{{domain_yourls}}" }
+- { source: "taiga.{{top_domain}}",       target: "{{domain_taiga}}" }
 - { source: "videos.{{top_domain}}",      target: "{{domain_peertube}}" }
 
 ## Docker Applications
