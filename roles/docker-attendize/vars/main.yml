@@ -1,7 +1,6 @@
 ---
 docker_compose_project_name:        "attendize"
 docker_compose_file_path:           "{{docker_compose_instance_directory}}docker-compose.yml"
-docker_compose_backup_path:         "/tmp/{{docker_compose_project_name}}-docker-compose.yml.backup"
 mail_interface_domain:              "mail.{{domain}}"
 database_type:                      "mariadb"
 database_password:                  "{{attendize_database_password}}"

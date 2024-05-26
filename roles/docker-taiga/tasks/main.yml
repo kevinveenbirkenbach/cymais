@@ -5,8 +5,13 @@
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
 
-- name: "include tasks update-repository-with-docker-compose.yml"
-  include_tasks: update-repository-with-docker-compose.yml
+- name: "include tasks update-repository-with-files.yml"
+  include_tasks: update-repository-with-files.yml
+  vars:
+    detached_files: 
+      - .env
+      - docker-compose.yml
+      - docker-compose-init.yml
 
 - name: configure run.env
   template: src=env.j2 dest={{docker_compose_instance_directory}}/.env
