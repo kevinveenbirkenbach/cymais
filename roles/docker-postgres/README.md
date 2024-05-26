@@ -23,6 +23,12 @@ This Ansible role is designed to deploy a PostgreSQL database using Docker. It i
 2. Include this role in your playbook.
 3. Run the playbook against the target host.
 
+## Root Access
+To access the database via the root account execute the following on the server:
+```bash
+docker exec -it central-postgres psql -U postgres
+```
+
 ## Notes
 - The PostgreSQL server is bound to `127.0.0.1:5432` on the host machine, making it accessible only from localhost.
 - Ensure that the provided passwords are secure and stored securely, preferably using Ansible Vault or another encryption method.
