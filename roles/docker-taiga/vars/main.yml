@@ -1,5 +1,4 @@
-docker_compose_project_name:        "taigaio"
-docker_compose_file_path:           "{{docker_compose_instance_directory}}docker-compose.yml"
+docker_compose_project_name:        "taiga"
 database_type:                      "postgres"
-database_password:                  "{{taigaio_database_password}}"
+database_password:                  "{{taiga_database_password}}"
 repository_address:                 "https://github.com/taigaio/taiga-docker"

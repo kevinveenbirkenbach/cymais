@@ -2,4 +2,4 @@
   include_tasks: update-repository-with-files.yml
   vars:
     detached_files: 
-      - "{{docker_compose_file_path}}"
+      - "docker-compose.yml"

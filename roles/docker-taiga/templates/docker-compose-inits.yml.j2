@@ -1,5 +1,3 @@
-version: "3.5"
-
 x-environment:
   &default-back-environment
   POSTGRES_DB: "{{database_name}}"
@@ -35,8 +33,9 @@ services:
     image: taigaio/taiga-back:latest
     environment: *default-back-environment
 {% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
 
     entrypoint: "python manage.py"
     volumes: *default-back-volumes
 {% include 'templates/docker/compose/networks.yml.j2' %}
-      taiga:
+  taiga:

@@ -11,4 +11,4 @@
     detached_files: 
       - .env
       - docker-compose.yml
-      - docker-compose-init.yml
+      - docker-compose-inits.yml

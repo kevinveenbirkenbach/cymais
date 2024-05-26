@@ -16,7 +16,7 @@
 - name: pull docker repository
   git:
     repo: "{{ repository_address }}"
-    dest: "{{ repository_directory }}"
+    dest: "{{ repository_directory | default(docker_compose_instance_directory) }}"
     update: yes
   notify: docker compose project setup
   become: true

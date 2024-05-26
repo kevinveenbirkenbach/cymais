@@ -1,7 +1,6 @@
 docker_compose_project_name:        "openproject"
 repository_directory:               "{{ path_docker_compose_instances }}{{docker_compose_project_name}}/"
 docker_compose_instance_directory:  "{{repository_directory}}compose/"
-docker_compose_file_path:           "{{docker_compose_instance_directory}}docker-compose.yml"
 database_password:                  "{{openproject_database_password}}"
 repository_address:                 "https://github.com/opf/openproject-deploy"
 database_type:                      "postgres"
