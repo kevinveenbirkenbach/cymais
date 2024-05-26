@@ -26,8 +26,8 @@ x-environment:
 
 x-volumes:
   &default-back-volumes
-  - taiga-static-data:/taiga-back/static
-  - taiga-media-data:/taiga-back/media
+  - static-data:/taiga-back/static
+  - media-data:/taiga-back/media
   # - ./config.py:/taiga-back/settings/config.py
 
 services:
