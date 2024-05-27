@@ -11,6 +11,8 @@
     - health-disc-space
     - cleanup-disc-space
     - health-btrfs
+    - system-btrfs-auto-balancer
+
 
 # Docker Roles
 - name: setup nextcloud hosts

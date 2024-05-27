@@ -1,0 +1,31 @@
+- name: pull auto-btrfs-balancer.git
+  git:
+    repo: "https://github.com/kevinveenbirkenbach/auto-btrfs-balancer.git"
+    dest: "{{system_btrfs_auto_balancer_folder}}"
+    update: yes
+  ignore_errors: true
+  when: run_once_system_btrfs_auto_balancer is not defined
+
+- name: configure system-btrfs-auto-balancer.cymais.service
+  template: 
+    src: system-btrfs-auto-balancer.service.j2
+    dest: /etc/systemd/system/system-btrfs-auto-balancer.cymais.service
+  notify: reload system-btrfs-auto-balancer.cymais.service
+  when: run_once_system_btrfs_auto_balancer is not defined
+
+- name: set service_name to the name of the current role
+  set_fact:
+    service_name: "{{ role_name }}"
+  when: run_once_system_btrfs_auto_balancer is not defined
+
+- name: "include role for systemd-timer for {{service_name}}"
+  include_role:
+    name: systemd-timer
+  vars:
+    on_calendar:  "{{on_calendar_btrfs_auto_balancer}}"
+  when: run_once_system_btrfs_auto_balancer is not defined
+
+- name: run the system_btrfs_auto_balancer tasks once
+  set_fact:
+    run_once_system_btrfs_auto_balancer: true
+  when: run_once_system_btrfs_auto_balancer is not defined
