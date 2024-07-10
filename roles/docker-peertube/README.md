@@ -28,6 +28,9 @@ apt update && apt install nano && nano ./config/default.yaml
 docker logs peertube-application-1 | grep -A1 root
 ```
 
+## upgrade version
+- https://docs.joinpeertube.org/install/docker
+
 ## further information
 - https://docs.joinpeertube.org/install-docker
 - https://github.com/Chocobozzz/PeerTube/issues/3091
