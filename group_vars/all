@@ -214,6 +214,9 @@ moodle_user_email:      "{{administrator_email}}"
 #### Nextcloud
 nextcloud_version:      "production"  # Danger: Nextcloud can't skipp major version updates.
 
+#### Peertube
+peertube_version:       "bookworm"
+
 #### Pixelfed
 pixelfed_app_name:      "Pictures on {{top_domain}}"
 

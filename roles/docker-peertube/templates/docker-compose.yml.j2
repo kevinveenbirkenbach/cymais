@@ -5,7 +5,7 @@ services:
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   application:
-    image: chocobozzz/peertube:production-bullseye
+    image: chocobozzz/peertube:production-{{peertube_version}}
     env_file:
       - .env
     ports:
