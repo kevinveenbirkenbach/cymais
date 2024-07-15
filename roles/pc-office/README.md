@@ -9,7 +9,6 @@ The `main.yml` file within the `pc-office` role comprises tasks for installing a
 1. **Install Office Software**:
    - The role utilizes the `community.general.pacman` module to install the following software packages:
      - `chromium`: A free and open-source web browser.
-     - `shutter`: A feature-rich screenshot tool.
      - `thunderbird`: A free and open-source email client, news client, RSS, and chat client.
      - `calibre`: An e-book management software.
      - `retext`: A simple but powerful editor for Markdown and reStructuredText.
