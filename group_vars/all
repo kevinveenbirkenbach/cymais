@@ -49,7 +49,7 @@ on_calendar_renew_lets_encrypt_certificates:  "*-*-* 12,00:30:00"               
 on_calendar_deploy_mailu_certificates:        "*-*-* 13,01:30:00"                     # Deploy Mailu certificates twice per day
 on_calendar_msi_keyboard_color:               "*-*-* *:*:00"                          # Change the keyboard color every minute
 on_calendar_cleanup_failed_docker:            "*-*-* 12:00:00"                        # Clean up failed docker backups every noon
-
+on_calendar_btrfs_auto_balancer:              "Sat *-*-01..07 00:00:00"               # Execute btrfs auto balancer every first Saturday of a month
 
 # Storage Space-Related Configurations          
 size_percent_maximum_backup:                  75  # Maximum storage space in percent for backups
@@ -119,10 +119,11 @@ nginx_homepage_root:            "/usr/share/nginx/homepage/"                    
 
 ### Service Domains
 domain_akaunting:               "accounting.{{top_domain}}"
+domain_attendize:               "tickets.{{top_domain}}"
 domain_baserow:                 "baserow.{{top_domain}}"
 domain_bigbluebutton:           "meet.{{top_domain}}"
-domain_elk:                     "elk.{{top_domain}}"
 domain_discourse:               "forum.{{top_domain}}"
+domain_elk:                     "elk.{{top_domain}}"
 domain_funkwhale:               "music.{{top_domain}}"
 domain_gitea:                   "git.{{top_domain}}"
 domain_gitlab:                  "gitlab.{{top_domain}}"
@@ -136,13 +137,13 @@ domain_matrix_element:          "element.{{top_domain}}"
 domain_moodle:                  "academy.{{top_domain}}"
 domain_mediawiki:               "wiki.{{top_domain}}"
 domain_nextcloud:               "cloud.{{top_domain}}"
+domain_openproject:             "project.{{top_domain}}"
 domain_pixelfed:                "picture.{{top_domain}}"
 domain_peertube:                "video.{{top_domain}}"
 domains_peertube:               []
 domain_roulette:                "roulette.{{top_domain}}"
-domain_attendize:               "tickets.{{top_domain}}"
+domain_taiga:                   "kanban.{{top_domain}}"
 domain_yourls:                  "s.{{top_domain}}"
-domain_openproject:             "project.{{top_domain}}"
 domains_wordpress:              ["wordpress.{{top_domain}}","blog.{{top_domain}}"]
 
 ### Domain Redirects
@@ -160,6 +161,7 @@ redirect_domain_mappings:
 - { source: "pictures.{{top_domain}}",    target: "{{domain_pixelfed}}" }
 - { source: "pixelfed.{{top_domain}}",    target: "{{domain_pixelfed}}" }
 - { source: "short.{{top_domain}}",       target: "{{domain_yourls}}" }
+- { source: "taiga.{{top_domain}}",       target: "{{domain_taiga}}" }
 - { source: "videos.{{top_domain}}",      target: "{{domain_peertube}}" }
 
 ## Docker Applications
@@ -211,6 +213,9 @@ moodle_user_email:      "{{administrator_email}}"
 
 #### Nextcloud
 nextcloud_version:      "production"  # Danger: Nextcloud can't skipp major version updates.
+
+#### Peertube
+peertube_version:       "bookworm"
 
 #### Pixelfed
 pixelfed_app_name:      "Pictures on {{top_domain}}"

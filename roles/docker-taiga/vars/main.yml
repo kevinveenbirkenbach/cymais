@@ -1,0 +1,4 @@
+docker_compose_project_name:        "taiga"
+database_type:                      "postgres"
+database_password:                  "{{taiga_database_password}}"
+repository_address:                 "https://github.com/taigaio/taiga-docker"

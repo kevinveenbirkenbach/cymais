@@ -11,6 +11,8 @@
     - health-disc-space
     - cleanup-disc-space
     - health-btrfs
+    - system-btrfs-auto-balancer
+
 
 # Docker Roles
 - name: setup nextcloud hosts
@@ -256,6 +258,15 @@
       vars:
         domain:     "{{domain_moodle}}"
         http_port:  8026
+
+- name: setup taiga instance
+  hosts: taiga
+  become: true
+  roles:
+   -  role: docker-taiga
+      vars:
+        domain:     "{{domain_taiga}}"
+        http_port:  8027
 
 # Native Webserver Roles
 - name: setup nginx-homepages

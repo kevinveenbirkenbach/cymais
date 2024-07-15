@@ -1,0 +1,179 @@
+x-environment:
+  &default-back-environment
+  # These environment variables will be used by taiga-back and taiga-async.
+  # Database settings
+  POSTGRES_DB: "{{database_name}}"
+  POSTGRES_USER: "${POSTGRES_USER}"
+  POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+  POSTGRES_HOST: "{{database_host}}"
+
+  # Taiga settings
+  TAIGA_SECRET_KEY: "${SECRET_KEY}"
+  TAIGA_SITES_SCHEME: "${TAIGA_SCHEME}"
+  TAIGA_SITES_DOMAIN: "${TAIGA_DOMAIN}"
+  TAIGA_SUBPATH: "${SUBPATH}"
+  # Email settings.
+  EMAIL_BACKEND: "django.core.mail.backends.${EMAIL_BACKEND}.EmailBackend"
+  DEFAULT_FROM_EMAIL: "${EMAIL_DEFAULT_FROM}"
+  EMAIL_USE_TLS: "${EMAIL_USE_TLS}"
+  EMAIL_USE_SSL: "${EMAIL_USE_SSL}"
+  EMAIL_HOST: "${EMAIL_HOST}"
+  EMAIL_PORT: "${EMAIL_PORT}"
+  EMAIL_HOST_USER: "${EMAIL_HOST_USER}"
+  EMAIL_HOST_PASSWORD: "${EMAIL_HOST_PASSWORD}"
+  # Rabbitmq settings
+  RABBITMQ_USER: "${RABBITMQ_USER}"
+  RABBITMQ_PASS: "${RABBITMQ_PASS}"
+  # Telemetry settings
+  ENABLE_TELEMETRY: "${ENABLE_TELEMETRY}"
+  # ...your customizations go here
+
+x-volumes:
+  &default-back-volumes
+  # These volumens will be used by taiga-back and taiga-async.
+  - static-data:/taiga-back/static
+  - media-data:/taiga-back/media
+  # - ./config.py:/taiga-back/settings/config.py
+
+services:
+{% include 'templates/docker/services/' + database_type + '.yml.j2' %}
+  taiga-back:
+    restart: {{docker_restart_policy}}
+    logging:
+      driver: journald
+    image: taigaio/taiga-back:latest
+    environment: *default-back-environment
+    volumes: *default-back-volumes
+
+{% include 'templates/docker/container/networks.yml.j2' %}
+      taiga:
+
+{% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
+      taiga-events-rabbitmq:
+        condition: service_started
+      taiga-async-rabbitmq:
+        condition: service_started
+
+  taiga-async:
+    restart: {{docker_restart_policy}}
+    logging:
+      driver: journald
+    image: taigaio/taiga-back:latest
+    entrypoint: ["/taiga-back/docker/async_entrypoint.sh"]
+    environment: *default-back-environment
+    volumes: *default-back-volumes
+
+{% include 'templates/docker/container/networks.yml.j2' %}
+      taiga:
+
+{% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
+      taiga-events-rabbitmq:
+        condition: service_started
+      taiga-async-rabbitmq:
+        condition: service_started
+
+  taiga-async-rabbitmq:
+    image: rabbitmq:3.8-management-alpine
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "${RABBITMQ_ERLANG_COOKIE}"
+      RABBITMQ_DEFAULT_USER: "${RABBITMQ_USER}"
+      RABBITMQ_DEFAULT_PASS: "${RABBITMQ_PASS}"
+      RABBITMQ_DEFAULT_VHOST: "${RABBITMQ_VHOST}"
+    hostname: "taiga-async-rabbitmq"
+    volumes:
+      - async-rabbitmq-data:/var/lib/rabbitmq
+    restart: {{docker_restart_policy}}
+    logging:
+      driver: journald
+
+{% include 'templates/docker/container/networks.yml.j2' %}
+      taiga:
+
+  taiga-front:
+    image: taigaio/taiga-front:latest
+    environment:
+      TAIGA_URL: "${TAIGA_SCHEME}://${TAIGA_DOMAIN}"
+      TAIGA_WEBSOCKETS_URL: "${WEBSOCKETS_SCHEME}://${TAIGA_DOMAIN}"
+      TAIGA_SUBPATH: "${SUBPATH}"
+      # ...your customizations go here
+    restart: {{docker_restart_policy}}
+    logging:
+      driver: journald
+
+{% include 'templates/docker/container/networks.yml.j2' %}
+      taiga:
+    # volumes:
+    #   - ./conf.json:/usr/share/nginx/html/conf.json
+
+  taiga-events:
+    image: taigaio/taiga-events:latest
+    environment:
+      RABBITMQ_USER: "${RABBITMQ_USER}"
+      RABBITMQ_PASS: "${RABBITMQ_PASS}"
+      TAIGA_SECRET_KEY: "${SECRET_KEY}"
+    restart: {{docker_restart_policy}}
+    logging:
+      driver: journald
+
+{% include 'templates/docker/container/networks.yml.j2' %}
+      taiga:
+    depends_on:
+      taiga-events-rabbitmq:
+        condition: service_started
+
+  taiga-events-rabbitmq:
+    image: rabbitmq:3.8-management-alpine
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "${RABBITMQ_ERLANG_COOKIE}"
+      RABBITMQ_DEFAULT_USER: "${RABBITMQ_USER}"
+      RABBITMQ_DEFAULT_PASS: "${RABBITMQ_PASS}"
+      RABBITMQ_DEFAULT_VHOST: "${RABBITMQ_VHOST}"
+    hostname: "events-rabbitmq"
+    volumes:
+      - events-rabbitmq-data:/var/lib/rabbitmq
+    restart: {{docker_restart_policy}}
+    logging:
+      driver: journald
+
+{% include 'templates/docker/container/networks.yml.j2' %}
+      taiga:
+
+  taiga-protected:
+    image: taigaio/taiga-protected:latest
+    environment:
+      MAX_AGE: "${ATTACHMENTS_MAX_AGE}"
+      SECRET_KEY: "${SECRET_KEY}"
+    restart: {{docker_restart_policy}}
+    logging:
+      driver: journald
+
+{% include 'templates/docker/container/networks.yml.j2' %}
+      taiga:
+
+  taiga-gateway:
+    image: nginx:1.19-alpine
+    ports:
+      - "{{http_port}}:80"
+    volumes:
+      - ./taiga-gateway/taiga.conf:/etc/nginx/conf.d/default.conf
+      - static-data:/taiga/static
+      - media-data:/taiga/media
+    restart: {{docker_restart_policy}}
+    logging:
+      driver: journald
+
+{% include 'templates/docker/container/networks.yml.j2' %}
+      taiga:
+    depends_on:
+      - taiga-front
+      - taiga-back
+      - taiga-events
+
+{% include 'templates/docker/compose/volumes.yml.j2' %}
+  static-data:
+  media-data:
+  async-rabbitmq-data:
+  events-rabbitmq-data:
+
+{% include 'templates/docker/compose/networks.yml.j2' %}
+  taiga:

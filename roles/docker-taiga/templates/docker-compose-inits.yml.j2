@@ -1,0 +1,41 @@
+x-environment:
+  &default-back-environment
+  POSTGRES_DB: "{{database_name}}"
+  POSTGRES_USER: "${POSTGRES_USER}"
+  POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+  POSTGRES_HOST: "{{database_host}}"
+
+  TAIGA_SECRET_KEY: "${SECRET_KEY}"
+  TAIGA_SITES_SCHEME: "${TAIGA_SCHEME}"
+  TAIGA_SITES_DOMAIN: "${TAIGA_DOMAIN}"
+
+  EMAIL_BACKEND: "django.core.mail.backends.${EMAIL_BACKEND}.EmailBackend"
+  DEFAULT_FROM_EMAIL: "${EMAIL_DEFAULT_FROM}"
+  EMAIL_USE_TLS: "${EMAIL_USE_TLS}"
+  EMAIL_USE_SSL: "${EMAIL_USE_SSL}"
+  EMAIL_HOST: "${EMAIL_HOST}"
+  EMAIL_PORT: "${EMAIL_PORT}"
+  EMAIL_HOST_USER: "${EMAIL_HOST_USER}"
+  EMAIL_HOST_PASSWORD: "${EMAIL_HOST_PASSWORD}"
+
+  RABBITMQ_USER: "${RABBITMQ_USER}"
+  RABBITMQ_PASS: "${RABBITMQ_PASS}"
+  CELERY_ENABLED: "False"
+
+x-volumes:
+  &default-back-volumes
+  - static-data:/taiga-back/static
+  - media-data:/taiga-back/media
+  # - ./config.py:/taiga-back/settings/config.py
+
+services:
+  taiga-manage:
+    image: taigaio/taiga-back:latest
+    environment: *default-back-environment
+{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
+
+    entrypoint: "python manage.py"
+    volumes: *default-back-volumes
+{% include 'templates/docker/compose/networks.yml.j2' %}
+  taiga:

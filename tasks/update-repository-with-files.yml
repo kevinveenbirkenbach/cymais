@@ -1,0 +1,37 @@
+- name: "backup docker-compose.yml if it exists"
+  command: >
+    mv "{{docker_compose_instance_directory}}{{ item }}" "/tmp/{{docker_compose_project_name}}-{{ item }}.backup"
+  args:
+    removes: "{{docker_compose_instance_directory}}{{ item }}"
+  become: true
+  loop: "{{ detached_files }}"
+
+- name: checkout repository 
+  ansible.builtin.shell: git checkout .
+  become: true
+  args:
+    chdir: "{{docker_compose_instance_directory}}"
+  ignore_errors: true
+
+- name: pull docker repository
+  git:
+    repo: "{{ repository_address }}"
+    dest: "{{ repository_directory | default(docker_compose_instance_directory) }}"
+    update: yes
+  notify: docker compose project setup
+  become: true
+
+- name: "restore docker-compose.yml from backup"
+  command: >
+    mv "/tmp/{{docker_compose_project_name}}-{{ item }}.backup" "{{docker_compose_instance_directory}}{{ item }}"
+  args:
+    removes: "/tmp/{{docker_compose_project_name}}-{{ item }}.backup"
+  become: true
+  loop: "{{ detached_files }}"
+
+- name: "copy {{ item }}"
+  template: 
+    src: "{{ item }}.j2"
+    dest: "{{docker_compose_instance_directory}}{{ item }}"
+  loop: "{{ detached_files }}"
+  notify: docker compose project setup

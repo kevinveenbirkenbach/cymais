@@ -1,0 +1,7 @@
+[Unit]
+Description=auto balance btrfs
+OnFailure=systemd-notifier.cymais@%n.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c '/usr/bin/python {{system_btrfs_auto_balancer_folder}}main.py 90 10'
