@@ -35,6 +35,7 @@ Dedicated to Docker container setups and application management, offering a wide
 Facilitating the deployment of finance-related and project management applications.
 - **[Docker Akaunting](./roles/docker-akaunting/)**: Deployment of the Akaunting finance software.
 - **[Open Project](./roles/docker-openproject)**: Project Management Software
+- **[Taiga](./roles/docker-taiga)**: Scrum and Kanban Software
 
 ### Continues Integration and Continues Delivery 
 Setups for development platforms and version control systems.
