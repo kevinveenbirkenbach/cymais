@@ -13,7 +13,6 @@ services:
       - ./env
     volumes:
       - "data:/var/www/storage"
-      - "bootstrap:/var/www/bootstrap"
       - "./env:/var/www/.env"
     ports:
       - "{{http_port}}:80"
@@ -28,7 +27,6 @@ services:
       - ./env
     volumes:
       - "data:/var/www/storage"
-      - "bootstrap:/var/www/bootstrap"
       - "./env:/var/www/.env"
     entrypoint: /worker-entrypoint.sh
     healthcheck:
@@ -44,6 +42,5 @@ services:
 {% include 'templates/docker/compose/volumes.yml.j2' %}
   redis:
   data:
-  bootstrap:
 
 {% include 'templates/docker/compose/networks.yml.j2' %}
