@@ -22,6 +22,12 @@ for volume in $anonymous_volumes; do
         continue
     fi
 
+    container_mount_path=$(docker ps -q | xargs -I {} docker inspect {} --format="{{range .Mounts}}{{if eq .Name \"$volume\"}}{{.Destination}}{{end}}{{end}}" | tr -d '\n' | xargs)
+    if [ "$container_mount_path" == "/var/www/bootstrap" ]; then
+        echo "Volume $volume is a bootstrap volume and will be skipped."
+        continue
+    fi
+
     ((status++))
         
     container_ids=$(docker ps -aq --filter volume=$volume)
