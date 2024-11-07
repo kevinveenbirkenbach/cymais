@@ -15,6 +15,7 @@ This guide provides instructions for setting up, operating, and maintaining the 
 - [Testing](#testing)
 - [Updates](#updates)
 - [To-Do](#to-do)
+- [Spam Issues][#spam-issues]
 - [References](#references)
 
 ## Setup
@@ -121,6 +122,25 @@ Use the following tools for testing:
 ## Updates
 
 For instructions on updating your Mailu setup, follow the official [Mailu maintenance guide](https://mailu.io/master/maintain.html).
+
+## Spam Issues
+
+### Inspect
+
+To inspect use:
+- [Google Postmaster](https://postmaster.google.com/)
+- [Yahoo Postmaster](https://postmaster.yahooinc.com)
+
+### Blacklisted
+It may be that your domain is blacklisted. In this case check out:
+
+- [Spamhaus](https://check.spamhaus.org/)
+- [Barracuda](https://www.barracudacentral.org/lookups)
+
+### Reset
+- [Cloudmark](https://csi.cloudmark.com/en/reset/)
+
+
 
 ## To-Do
 
