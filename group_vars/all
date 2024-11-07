@@ -190,6 +190,7 @@ bigbluebutton_enable_greenlight:  "true"
 
 #### Listmonk
 listmonk_admin_username:          "admin"
+listmonk_public_api_activated:    False # Security hole. Can be used for spaming
 
 #### Mastodon
 mastodon_version:                 "latest"

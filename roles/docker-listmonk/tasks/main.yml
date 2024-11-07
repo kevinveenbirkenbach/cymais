@@ -2,6 +2,15 @@
 - name: "include docker/compose/database.yml"
   include_tasks: docker/compose/database.yml
 
+- name: Set nginx_docker_reverse_proxy_extra_configuration based on listmonk_public_api_activated
+  set_fact:
+    nginx_docker_reverse_proxy_extra_configuration: >-
+      {% if not listmonk_public_api_activated %}
+      {{ lookup('file', '{{ role_path }}/files/deactivate-public-api.conf') }}
+      {% else %}
+      ""
+      {% endif %}
+
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
 
