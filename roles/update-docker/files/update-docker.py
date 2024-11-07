@@ -22,7 +22,7 @@ def run_command(command):
         if process and process.stdout:
             process.stdout.close()
 
-def git_pull(directory):
+def git_pull():
     """
     Checks whether the Git repository in the specified directory is up to date and performs a git pull if necessary.
 
@@ -32,8 +32,7 @@ def git_pull(directory):
     Returns:
         bool: True if a git pull was performed, otherwise False.
     """
-    os.chdir(directory)
-    print(f"Checking if the git repository in {directory} is up to date.")
+    print(f"Checking if the git repository is up to date.")
     local = subprocess.check_output("git rev-parse @", shell=True).decode().strip()
     remote = subprocess.check_output("git rev-parse @{u}", shell=True).decode().strip()
     
@@ -59,8 +58,7 @@ def get_image_digests(directory):
         else:
             raise  # Other errors are still raised
 
-def is_any_service_up(directory):
-    os.chdir(directory)
+def is_any_service_up():
     process = subprocess.Popen("docker-compose ps -q", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output, _ = process.communicate()
     service_ids = output.decode().strip().splitlines()
@@ -70,26 +68,23 @@ def is_any_service_up(directory):
         return False  # No services are up
     return True  # At least one service is up
 
-
-def update_docker(directory):
-    print(f"Checking for updates to Docker images in {directory}.")
-    os.chdir(directory)
-    before_digests = get_image_digests(directory)
+def pull_docker_images():
     print("Pulling docker images.")
-    
-    need_to_build=False
-    
     try:
         run_command("docker-compose pull")
     except subprocess.CalledProcessError as e:
         if "pull access denied" in e.output.decode() or "must be built from source" in e.output.decode():
             print("Need to build the image from source.")
-            need_to_build=True
+            return True
         else:
             print("Failed to pull images with unexpected error.")
             raise
+    return False
 
-    
+def update_docker(directory):
+    print(f"Checking for updates to Docker images in {directory}.")        
+    before_digests = get_image_digests(directory)
+    need_to_build = pull_docker_images()
     after_digests = get_image_digests(directory)
     if before_digests != after_digests:
         print("Changes detected in image digests. Rebuilding containers.")
@@ -130,7 +125,7 @@ def update_procedure(command):
 
 
 def start_docker(directory):
-    if is_any_service_up(directory):
+    if is_any_service_up():
         print(f"Restarting containers in {directory}.")
         run_command("docker-compose up -d --force-recreate")
     else:
@@ -146,9 +141,10 @@ if __name__ == "__main__":
         if dir_entry.is_dir():
             dir_path = dir_entry.path
             print(f"Checking for updates in: {dir_path}")
+            os.chdir(dir_path)
             
             if os.path.isdir(os.path.join(dir_path, ".git")):
-                git_repository_was_pulled = git_pull(dir_path)
+                git_repository_was_pulled = git_pull()
             
             # Discourse is an exception and uses own update command instead of docker compose
             if os.path.basename(dir_path) == "discourse":
@@ -156,8 +152,13 @@ if __name__ == "__main__":
                     update_discourse(dir_path)
                 else:
                     print("Discourse update skipped. No changes in git repository.")
+            if os.path.basename(dir_path) == "matrix":
+                # Just pull docker images, the rest of the logic is executed in the task
+                pull_docker_images()
             else:
+                # Pull and update docker images
                 update_docker(dir_path)
+                
                 # Nextcloud needs additional update procedures
                 if os.path.basename(dir_path) == "nextcloud":
                     update_nextcloud()
