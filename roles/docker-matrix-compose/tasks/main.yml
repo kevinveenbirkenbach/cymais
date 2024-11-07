@@ -96,9 +96,17 @@
     dest: "{{docker_compose_instance_directory}}docker-compose.yml"
   notify: docker compose project setup
 
+# Pull image when update is wished. 
+# @todo This should be moved to update-docker
+- name: docker compose pull
+  command:
+    cmd: docker-compose -p "{{docker_compose_project_name}}" pull
+    chdir: "{{docker_compose_instance_directory}}"
+  when: mode_update | bool
+
 - name: docker compose project setup
   command:
-    cmd: docker-compose -p "{{docker_compose_project_name}}" up -d --force-recreate
+    cmd: docker-compose -p "{{docker_compose_project_name}}" up -d
     chdir: "{{docker_compose_instance_directory}}"
   environment:
     COMPOSE_HTTP_TIMEOUT:   600

@@ -123,7 +123,6 @@ def update_procedure(command):
                 print("All attempts to update Nextcloud apps have failed.")
                 raise  # Re-raise the last exception after all attempts fail
 
-
 def start_docker(directory):
     if is_any_service_up():
         print(f"Restarting containers in {directory}.")
@@ -153,8 +152,11 @@ if __name__ == "__main__":
                 else:
                     print("Discourse update skipped. No changes in git repository.")
             if os.path.basename(dir_path) == "matrix":
-                # Just pull docker images, the rest of the logic is executed in the task
-                pull_docker_images()
+                # No autoupdate for matrix is possible atm, 
+                # due to the reason that the role has to be executed every time.
+                # The update has to be executed in the role
+                # @todo implement in future
+                pass
             else:
                 # Pull and update docker images
                 update_docker(dir_path)

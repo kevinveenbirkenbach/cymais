@@ -21,10 +21,12 @@ bridges:
     database_name:      "mautrix_signal_bridge"
     bridge_name:        "signal"
 
-  - database_password:  "{{ mautrix_slack_bridge_database_password }}"
-    database_username:  "mautrix_slack_bridge"
-    database_name:      "mautrix_slack_bridge"
-    bridge_name:        "slack"
+# Deactivated temporary, due to bug which is hard to find 
+# @todo Reactivate 
+#  - database_password:  "{{ mautrix_slack_bridge_database_password }}"
+#    database_username:  "mautrix_slack_bridge"
+#    database_name:      "mautrix_slack_bridge"
+#    bridge_name:        "slack"
 
   - database_password:  "{{ mautrix_facebook_bridge_database_password }}"
     database_username:  "mautrix_facebook_bridge"
