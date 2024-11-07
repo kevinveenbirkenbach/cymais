@@ -21,7 +21,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   streaming:
-    image: ghcr.io/mastodon/mastodon:{{mastodon_version}}
+    image: ghcr.io/mastodon/mastodon-streaming:{{mastodon_version}}
     restart: {{docker_restart_policy}}
     env_file: .env.production
     command: node ./streaming
