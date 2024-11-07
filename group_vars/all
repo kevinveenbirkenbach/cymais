@@ -212,7 +212,7 @@ moodle_user_name:       "{{administrator_username}}"
 moodle_user_email:      "{{administrator_email}}"
 
 #### Nextcloud
-nextcloud_version:      "production"  # Danger: Nextcloud can't skipp major version updates.
+nextcloud_version:      "production"  # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
 
 #### Peertube
 peertube_version:       "bookworm"

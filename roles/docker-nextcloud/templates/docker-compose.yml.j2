@@ -17,6 +17,7 @@ services:
       MYSQL_USER: "{{database_username}}"
       MYSQL_PASSWORD: "{{database_password}}"
       MYSQL_HOST: {{database_host}}:3306
+      PHP_MEMORY_LIMIT: 1G # Required for plugin duplicate finder
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
