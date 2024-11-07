@@ -1,6 +1,6 @@
 # Mailu Server Docker Role
 
-This guide provides instructions for setting up, operating, and maintaining the Mailu server docker role. 
+This guide provides instructions for setting up, operating, and maintaining the Mailu server docker role.
 
 ## Table of Contents
 
@@ -14,19 +14,20 @@ This guide provides instructions for setting up, operating, and maintaining the 
 - [Debugging](#debugging)
 - [Testing](#testing)
 - [Updates](#updates)
+- [Queue Management](#queue-management)
+- [Spam Issues](#spam-issues)
 - [To-Do](#to-do)
-- [Spam Issues][#spam-issues]
 - [References](#references)
 
 ## Setup
 
 ### Fetchmail Issues
 
-Fetchmail might not work properly with large amounts of data. For more information, refer to this [issue](https://github.com/Mailu/Mailu/issues/1719). 
+Fetchmail might not work properly with large amounts of data. For more information, refer to this [issue](https://github.com/Mailu/Mailu/issues/1719).
 
 #### Deactivating Fetchmail
 
-Before uninstalling Fetchmail, ensure to remove all fetched accounts from the administration panel.
+Before uninstalling Fetchmail, ensure you remove all fetched accounts from the administration panel.
 
 #### Fetchmail Security Concerns
 
@@ -114,8 +115,6 @@ docker-compose exec -it smtp postqueue -f
 
 Use the following tools for testing:
 
-
-
 - SSL-Tools Mailserver Test (URL: https://de.ssl-tools.net/mailservers/)
 - TestEmail.de (URL: http://testemail.de/)
 
@@ -123,24 +122,43 @@ Use the following tools for testing:
 
 For instructions on updating your Mailu setup, follow the official [Mailu maintenance guide](https://mailu.io/master/maintain.html).
 
+## Queue Management
+
+To manage the Postfix email queue in Mailu, you can use the following commands:
+
+- **Display the email queue**: This command shows all queued emails.
+  ```bash
+  docker compose exec -it smtp postqueue -p
+  ```
+
+- **Delete all emails in the queue**: To remove all queued emails permanently, use the command:
+  ```bash
+  docker compose exec -it smtp postsuper -d ALL
+  ```
+
+These commands can help control the email queue, especially for clearing out emails with delivery issues or delays.
+
 ## Spam Issues
 
 ### Inspect
 
-To inspect use:
-- [Google Postmaster](https://postmaster.google.com/)
-- [Yahoo Postmaster](https://postmaster.yahooinc.com)
+Use the following tools to monitor your domain and email deliverability:
 
-### Blacklisted
-It may be that your domain is blacklisted. In this case check out:
+- [Google Postmaster](https://postmaster.google.com/) - Analyzes deliverability and spam issues for Gmail.
+- [Yahoo Postmaster](https://postmaster.yahooinc.com) - Provides insights and delivery reports for Yahoo.
 
-- [Spamhaus](https://check.spamhaus.org/)
-- [Barracuda](https://www.barracudacentral.org/lookups)
+### Blacklist Check
 
-### Reset
-- [Cloudmark](https://csi.cloudmark.com/en/reset/)
+If your domain is blacklisted, you can check the status with these services and take steps to remove your domain if necessary:
 
+- [Spamhaus](https://check.spamhaus.org/) - One of the most widely used blacklists for spam.
+- [Barracuda](https://www.barracudacentral.org/lookups) - Checks if your IP is on the Barracuda blacklist.
 
+### Cloudmark Reset Request
+
+If your IP or domain is flagged by Cloudmark, you can submit a **reset request** to help restore deliverability:
+
+- [Cloudmark Reset](https://csi.cloudmark.com/en/reset/)
 
 ## To-Do
 
