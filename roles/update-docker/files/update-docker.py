@@ -25,12 +25,6 @@ def run_command(command):
 def git_pull():
     """
     Checks whether the Git repository in the specified directory is up to date and performs a git pull if necessary.
-
-    Args:
-        directory (str): The path to the directory of the Git repository.
-
-    Returns:
-        bool: True if a git pull was performed, otherwise False.
     """
     print(f"Checking if the git repository is up to date.")
     local = subprocess.check_output("git rev-parse @", shell=True).decode().strip()
@@ -39,12 +33,15 @@ def git_pull():
     if local != remote:
         print("Repository is not up to date. Performing git pull.")
         run_command("git pull")
-        return True;
+        return True
     
     print("Repository is already up to date.")
-    return False;
+    return False
         
 def get_image_digests(directory):
+    """
+    Retrieves the image digests for all images in the specified Docker Compose project.
+    """
     compose_project = os.path.basename(directory)
     try:
         images_output = subprocess.check_output(
@@ -59,16 +56,18 @@ def get_image_digests(directory):
             raise  # Other errors are still raised
 
 def is_any_service_up():
+    """
+    Checks if any Docker services are currently running.
+    """
     process = subprocess.Popen("docker-compose ps -q", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output, _ = process.communicate()
     service_ids = output.decode().strip().splitlines()
-
-    # Check if there are any service containers up
-    if not service_ids:
-        return False  # No services are up
-    return True  # At least one service is up
+    return bool(service_ids)
 
 def pull_docker_images():
+    """
+    Pulls the latest Docker images for the project.
+    """
     print("Pulling docker images.")
     try:
         run_command("docker-compose pull")
@@ -82,13 +81,16 @@ def pull_docker_images():
     return False
 
 def update_docker(directory):
+    """
+    Checks for updates to Docker images and rebuilds containers if necessary.
+    """
     print(f"Checking for updates to Docker images in {directory}.")        
     before_digests = get_image_digests(directory)
     need_to_build = pull_docker_images()
     after_digests = get_image_digests(directory)
     if before_digests != after_digests:
         print("Changes detected in image digests. Rebuilding containers.")
-        need_to_build=True
+        need_to_build = True
         
     if need_to_build:
         run_command("docker-compose build")
@@ -96,7 +98,18 @@ def update_docker(directory):
     else:
         print("Docker images are up to date. No rebuild necessary.")
 
+def update_mastodon():
+    """
+    Runs the database migration for Mastodon to ensure all required tables are up to date.
+    """
+    print("Starting Mastodon database migration.")
+    run_command("docker compose exec -T web bash -c 'RAILS_ENV=production bin/rails db:migrate'")
+    print("Mastodon database migration complete.")
+
 def update_nextcloud():
+    """
+    Performs the necessary Nextcloud update procedures, including maintenance and app updates.
+    """
     print("Start Nextcloud update procedure.")
     update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ upgrade")
     update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ maintenance:repair")
@@ -104,12 +117,17 @@ def update_nextcloud():
     update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ maintenance:mode --off")
     
 def update_discourse(directory):
+    """
+    Updates Discourse by running the rebuild command on the launcher script.
+    """
     os.chdir(directory)
     print("Start Discourse update procedure.")
     update_procedure("./launcher rebuild app")
-    
-# This procedure waits until the container is up
+
 def update_procedure(command):
+    """
+    Attempts to execute a command up to a maximum number of retries.
+    """
     max_attempts = 3
     for attempt in range(max_attempts):
         try:
@@ -120,10 +138,13 @@ def update_procedure(command):
                 print(f"Attempt {attempt + 1} failed, retrying in 60 seconds...")
                 time.sleep(60)  # Wait for 60 seconds before retrying
             else:
-                print("All attempts to update Nextcloud apps have failed.")
+                print("All attempts to update have failed.")
                 raise  # Re-raise the last exception after all attempts fail
 
 def start_docker(directory):
+    """
+    Starts or restarts Docker services in the specified directory.
+    """
     if is_any_service_up():
         print(f"Restarting containers in {directory}.")
         run_command("docker-compose up -d --force-recreate")
@@ -151,7 +172,7 @@ if __name__ == "__main__":
                     update_discourse(dir_path)
                 else:
                     print("Discourse update skipped. No changes in git repository.")
-            if os.path.basename(dir_path) == "matrix":
+            elif os.path.basename(dir_path) == "matrix":
                 # No autoupdate for matrix is possible atm, 
                 # due to the reason that the role has to be executed every time.
                 # The update has to be executed in the role
@@ -164,3 +185,5 @@ if __name__ == "__main__":
                 # Nextcloud needs additional update procedures
                 if os.path.basename(dir_path) == "nextcloud":
                     update_nextcloud()
+                elif os.path.basename(dir_path) == "mastodon":
+                    update_mastodon()
