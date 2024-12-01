@@ -4,3 +4,4 @@ dependencies:
   - health-docker-container
   - health-docker-volumes
   - heal-docker
+  - restart-docker
