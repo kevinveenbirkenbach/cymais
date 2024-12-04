@@ -113,7 +113,7 @@ def update_nextcloud():
     print("Start Nextcloud upgrade procedure.")
     update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ upgrade")
     print("Start Nextcloud repairing procedure.")
-    update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ maintenance:repair")
+    update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ maintenance:repair --include-expensive")
     print("Start Nextcloud update procedure.")
     update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ app:update --all")
     print("Start Nextcloud add-missing procedure.")
