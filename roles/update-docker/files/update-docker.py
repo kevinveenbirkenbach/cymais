@@ -110,10 +110,17 @@ def update_nextcloud():
     """
     Performs the necessary Nextcloud update procedures, including maintenance and app updates.
     """
-    print("Start Nextcloud update procedure.")
+    print("Start Nextcloud upgrade procedure.")
     update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ upgrade")
+    print("Start Nextcloud repairing procedure.")
     update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ maintenance:repair")
+    print("Start Nextcloud update procedure.")
     update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ app:update --all")
+    print("Start Nextcloud add-missing procedure.")
+    update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ db:add-missing-columns")
+    update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ db:add-missing-indices")
+    update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ db:add-missing-primary-keys")
+    print("Deacitvate Maintanance Mode")
     update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ maintenance:mode --off")
     
 def update_discourse(directory):
