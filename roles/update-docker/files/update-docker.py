@@ -106,6 +106,14 @@ def update_mastodon():
     run_command("docker compose exec -T web bash -c 'RAILS_ENV=production bin/rails db:migrate'")
     print("Mastodon database migration complete.")
 
+def upgrade_listmonk():
+    """
+    Runs the upgrade for Listmonk
+    """
+    print("Starting Listmonk upgrade.")
+    run_command("docker compose run application ./listmonk --upgrade")
+    print("Upgrade complete.")
+
 def update_nextcloud():
     """
     Performs the necessary Nextcloud update procedures, including maintenance and app updates.
@@ -189,8 +197,10 @@ if __name__ == "__main__":
                 # Pull and update docker images
                 update_docker(dir_path)
                 
-                # Nextcloud needs additional update procedures
+                # The following instances need additional update and upgrade procedures
                 if os.path.basename(dir_path) == "nextcloud":
                     update_nextcloud()
+                elif os.path.basename(dir_path) == "listmonk":
+                    upgrade_listmonk()
                 elif os.path.basename(dir_path) == "mastodon":
                     update_mastodon()
