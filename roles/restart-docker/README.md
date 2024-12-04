@@ -22,7 +22,7 @@ This role automates the restart process for all `docker-compose` instances withi
 2. Define the required variables in your playbook or inventory:
    ```yaml
    path_administrator_scripts: "/path/to/administrator/scripts/"
-   restart_docker_volumes_folder: "/path/to/restart/volumes/"
+   restart_docker_folder: "/path/to/restart/volumes/"
    on_calendar_restart_dockers: "daily"
    ```
 

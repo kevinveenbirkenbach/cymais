@@ -1,7 +1,7 @@
 - block:
-  - name: "create {{restart_docker_volumes_folder}}"
+  - name: "create {{restart_docker_folder}}"
     file:
-      path: "{{restart_docker_volumes_folder}}"
+      path: "{{restart_docker_folder}}"
       state: directory
       mode: 0755
 
