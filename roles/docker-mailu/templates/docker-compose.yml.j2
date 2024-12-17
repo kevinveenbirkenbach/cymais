@@ -29,6 +29,7 @@ services:
       - "{{ ip4_address }}:995:995"
       - "{{ ip4_address }}:143:143"
       - "{{ ip4_address }}:993:993"
+      - "{{ ip4_address }}:4190:4190"
     volumes:
       - "/etc/mailu/overrides/nginx:/overrides:ro"
       - "/etc/mailu/certs:/certs"
