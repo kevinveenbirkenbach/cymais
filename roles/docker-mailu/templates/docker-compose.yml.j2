@@ -126,7 +126,7 @@ services:
 
   # Optional services
   antivirus:
-    image: ghcr.io/mailu/clamav:{{mailu_version}}
+    image: clamav/clamav-debian:latest
     restart: {{docker_restart_policy}}
     env_file: mailu.env
     volumes:
