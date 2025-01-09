@@ -1,0 +1,52 @@
+services:
+  pds:
+    container_name: pds
+    image: ghcr.io/bluesky-social/pds:0.4
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    volumes:
+        - path/to/pds/storage:/pds
+    env_file:
+      - /path/to/pds.env
+
+{% include 'templates/docker/services/' + database_type + '.yml.j2' %}
+
+  application:
+    logging:
+      driver: journald
+    restart: {{docker_restart_policy}}
+    image: gitea/gitea:latest
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - DB_TYPE=mysql
+      - DB_HOST={{database_host}}:3306
+      - DB_NAME={{database_name}}
+      - DB_USER={{database_username}}
+      - DB_PASSWD={{database_password}}
+      - SSH_PORT={{ssh_port}}
+      - SSH_LISTEN_PORT=22
+      - DOMAIN={{domain}}
+      - SSH_DOMAIN={{domain}}
+      - RUN_MODE="{{run_mode}}"
+      - ROOT_URL="https://{{domain}}/"
+    ports:
+      - "127.0.0.1:{{http_port}}:3000"
+      - "{{ssh_port}}:22"
+    volumes:
+      - data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:3000"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+
+{% include 'templates/docker/compose/volumes.yml.j2' %}
+  data:
+
+{% include 'templates/docker/compose/networks.yml.j2' %}
