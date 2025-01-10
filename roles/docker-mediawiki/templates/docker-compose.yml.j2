@@ -1,0 +1,19 @@
+services:
+
+{% include 'templates/docker/services/' + database_type + '.yml.j2' %}
+      application:
+        log_driver: journald
+        restart: "{{docker_restart_policy}}"
+        depends_on:
+          - database
+        volumes:
+          - "mediawiki-data:/var/www/html/"
+        ports:
+          - "127.0.0.1:{{http_port}}:80"
+{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+
+{% include 'templates/docker/compose/volumes.yml.j2' %}
+  data:
+
+{% include 'templates/docker/compose/networks.yml.j2' %}

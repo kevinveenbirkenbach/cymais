@@ -1,29 +1,10 @@
+---
+- name: "include docker/compose/database.yml"
+  include_tasks: docker/compose/database.yml
+
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
 
-- name: "docker mediawiki"
-  docker_compose:
-    project_name: mediawiki
-    definition:
-      application:
-        log_driver: journald
-        image: mediawiki
-        restart: "{{docker_restart_policy}}"
-        depends_on:
-          - database
-        volumes:
-          - "mediawiki-data:/var/www/html/"
-        ports:
-          - "127.0.0.1:{{http_port}}:80"
-      database:
-        log_driver: journald
-        image: mariadb
-        environment:
-          MYSQL_DATABASE: mediawiki
-          MYSQL_ROOT_PASSWORD: "{{mediawiki_database_password}}"
-          MYSQL_USER: mediawiki
-          MYSQL_PASSWORD: "{{mediawiki_database_password}}"
-          MARIADB_AUTO_UPGRADE: "1"
-        volumes:
-          - database:/var/lib/mysql
-        restart: "{{docker_restart_policy}}"
+- name: add docker-compose.yml
+  template: src=docker-compose.yml.j2 dest={{docker_compose_instance_directory}}docker-compose.yml
+  notify: docker compose project setup
