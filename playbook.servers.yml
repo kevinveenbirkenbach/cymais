@@ -268,6 +268,15 @@
         domain:     "{{domain_taiga}}"
         http_port:  8027
 
+- name: setup friendica hosts
+  hosts: friendica
+  become: true
+  roles:
+   -  role: docker-friendica
+      vars:
+        domain: "{{domain_friendica}}"
+        http_port: 8028
+
 # Native Webserver Roles
 - name: setup nginx-homepages
   hosts: homepage

@@ -48,12 +48,6 @@
     login_host: 127.0.0.1
     login_port: 3306
 
-- name: Grant database privileges
-  ansible.builtin.shell:
-    cmd: "docker exec central-mariadb mariadb -u root -p{{ central_mariadb_root_password }} -e \"GRANT ALL PRIVILEGES ON {{database_name}}.* TO '{{database_username}}'@'%';\""
-  args:
-    executable: /bin/bash
-
 - name: "Create database user: {{ database_username }}"
   mysql_user:
     name: "{{database_username}}"
@@ -65,6 +59,12 @@
     login_password: "{{central_mariadb_root_password}}"
     login_host: 127.0.0.1
     login_port: 3306
+
+- name: Grant database privileges
+  ansible.builtin.shell:
+    cmd: "docker exec central-mariadb mariadb -u root -p{{ central_mariadb_root_password }} -e \"GRANT ALL PRIVILEGES ON {{database_name}}.* TO '{{database_username}}'@'%';\""
+  args:
+    executable: /bin/bash
 
 - name: run the docker_mariadb tasks once
   set_fact:

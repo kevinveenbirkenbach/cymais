@@ -1,0 +1,3 @@
+docker_compose_project_name:        "friendica"
+database_password:                  "{{friendica_database_password}}"
+database_type:                      "mariadb"
