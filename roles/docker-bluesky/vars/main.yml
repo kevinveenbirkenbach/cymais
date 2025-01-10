@@ -1,3 +1,3 @@
 docker_compose_project_name:        "bluesky"
 database_password:                  "{{bluesky_database_password}}"
-database_type:                      "mariadb"
+database_type:                      "postgres"

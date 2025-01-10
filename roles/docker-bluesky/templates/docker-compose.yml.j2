@@ -10,6 +10,24 @@ services:
     env_file:
       - /path/to/pds.env
 
+version: "3.8"
+
+services:
+  pds:
+    image: bluesky-social/pds:latest
+    container_name: bluesky_pds
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      # Geben Sie hier Ihre Domain und Konfigurationsdetails an
+      PDS_HOSTNAME: "your-domain.com"
+      PDS_ADMIN_EMAIL: "admin@your-domain.com"
+      PDS_DB__POSTGRES__URL: "postgres://pdsuser:pdspassword@postgres:5432/pds"
+      PDS_SERVICE_DID: "did:web:your-domain.com"
+    volumes:
+      - data:/data
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   application:
