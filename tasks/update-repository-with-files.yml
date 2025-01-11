@@ -1,4 +1,4 @@
-- name: "backup docker-compose.yml if it exists"
+- name: "backup detached files"
   command: >
     mv "{{docker_compose_instance_directory}}{{ item }}" "/tmp/{{docker_compose_project_name}}-{{ item }}.backup"
   args:
@@ -21,7 +21,7 @@
   notify: docker compose project setup
   become: true
 
-- name: "restore docker-compose.yml from backup"
+- name: "restore detached files"
   command: >
     mv "/tmp/{{docker_compose_project_name}}-{{ item }}.backup" "{{docker_compose_instance_directory}}{{ item }}"
   args:

@@ -1,0 +1,15 @@
+services:
+  landingpage:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: application-landingpage
+    container_name: landingpage
+    ports:
+      - 127.0.0.1:{{http_port}}:5000
+    volumes:
+      - ./app:/app
+    restart: unless-stopped
+{% include 'templates/docker/container/networks.yml.j2' %}
+
+{% include 'templates/docker/compose/networks.yml.j2' %}

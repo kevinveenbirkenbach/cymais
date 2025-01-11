@@ -277,6 +277,15 @@
         domain: "{{domain_friendica}}"
         http_port: 8028
 
+- name: setup landingpage
+  hosts: landingpage
+  become: true
+  roles:
+   -  role: docker-landingpage
+      vars:
+        domain: "{{domain_landingpage}}"
+        http_port: 8029
+
 # Native Webserver Roles
 - name: setup nginx-homepages
   hosts: homepage
