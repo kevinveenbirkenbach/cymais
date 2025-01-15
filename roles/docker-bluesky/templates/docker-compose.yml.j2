@@ -1,61 +1,21 @@
 services:
-  pds:
-    container_name: pds
+  application:
     image: ghcr.io/bluesky-social/pds:0.4
-    restart: unless-stopped
+    restart: {{docker_restart_policy}}
     ports:
-      - 3000:3000
+      - {{http_port}}:3000
     volumes:
-        - path/to/pds/storage:/pds
+        - data:/pds
     env_file:
-      - /path/to/pds.env
-
-version: "3.8"
-
-services:
-  pds:
-    image: bluesky-social/pds:latest
-    container_name: bluesky_pds
-    restart: always
-    ports:
-      - "80:80"
-      - "443:443"
+      - /env
     environment:
       # Geben Sie hier Ihre Domain und Konfigurationsdetails an
       PDS_HOSTNAME: "your-domain.com"
       PDS_ADMIN_EMAIL: "admin@your-domain.com"
       PDS_DB__POSTGRES__URL: "postgres://pdsuser:pdspassword@postgres:5432/pds"
       PDS_SERVICE_DID: "did:web:your-domain.com"
-    volumes:
-      - data:/data
-{% include 'templates/docker/services/' + database_type + '.yml.j2' %}
-
-  application:
-    logging:
-      driver: journald
-    restart: {{docker_restart_policy}}
-    image: gitea/gitea:latest
-    environment:
-      - USER_UID=1000
-      - USER_GID=1000
-      - DB_TYPE=mysql
-      - DB_HOST={{database_host}}:3306
-      - DB_NAME={{database_name}}
-      - DB_USER={{database_username}}
-      - DB_PASSWD={{database_password}}
-      - SSH_PORT={{ssh_port}}
-      - SSH_LISTEN_PORT=22
-      - DOMAIN={{domain}}
-      - SSH_DOMAIN={{domain}}
-      - RUN_MODE="{{run_mode}}"
-      - ROOT_URL="https://{{domain}}/"
     ports:
       - "127.0.0.1:{{http_port}}:3000"
-      - "{{ssh_port}}:22"
-    volumes:
-      - data:/data
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:3000"]
       interval: 1m
@@ -63,6 +23,8 @@ services:
       retries: 3
 {% include 'templates/docker/container/networks.yml.j2' %}
 {% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+
+{% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}
   data:
