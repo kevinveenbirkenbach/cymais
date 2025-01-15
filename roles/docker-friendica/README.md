@@ -41,6 +41,18 @@ cat /var/lib/docker/volumes/friendica_data/_data/config/local.config.php
 ## Check environment variables
 docker compose exec -it application printenv
 ```
+## create user
+INSERT INTO user (guid, username, email, password, verified, register_date, account_expires_on, account_expired)
+VALUES (
+    UUID(), -- Generiert eine eindeutige Benutzer-ID
+    'newusername', -- Benutzername
+    'newuser@example.com', -- E-Mail-Adresse
+    MD5('newpassword'), -- Passwort (kann durch Bcrypt ersetzt werden, siehe unten)
+    1, -- Verifizierungsstatus (1 = verifiziert)
+    NOW(), -- Registrierungsdatum
+    '0001-01-01 00:00:00', -- Kontodauer unbegrenzt
+    0 -- Konto ist nicht abgelaufen
+);
 
 
 
