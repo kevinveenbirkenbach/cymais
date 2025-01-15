@@ -31,6 +31,7 @@ docker compose exec --user www-data -it application bin/console autoinstall
 ## reinitialisation
 
 ### docker
+docker-compose up -d --force-recreate
 
 ### full
 docker-compose up -d --force-recreate && sleep 2; docker compose exec --user www-data -it application bin/console autoinstall; 
@@ -59,3 +60,4 @@ VALUES (
 ## More information
 - https://hub.docker.com/_/friendica
 - https://wiki.friendi.ca/docs/install
+- https://github.com/friendica/docker

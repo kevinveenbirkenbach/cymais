@@ -57,11 +57,11 @@ env:
   # WARNING the char '#' in SMTP password can cause problems!
   DISCOURSE_SMTP_ADDRESS:           {{ system_email_host }}
   DISCOURSE_SMTP_PORT:              {{ system_email_smtp_port }}
-  DISCOURSE_SMTP_USER_NAME:         {{ system_email }}
+  DISCOURSE_SMTP_USER_NAME:         {{system_email_address}}
   DISCOURSE_SMTP_PASSWORD:          {{ system_email_password }}
   DISCOURSE_SMTP_ENABLE_START_TLS:  {{ system_email_start_tls | upper }}
   DISCOURSE_SMTP_DOMAIN:            {{ system_email_domain }}
-  DISCOURSE_NOTIFICATION_EMAIL:     {{ system_email }}
+  DISCOURSE_NOTIFICATION_EMAIL:     {{system_email_address}}
 
   # Database Configuration
   DISCOURSE_DB_USERNAME: {{ database_username }}

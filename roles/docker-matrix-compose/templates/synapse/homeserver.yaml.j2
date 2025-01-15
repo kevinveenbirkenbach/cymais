@@ -33,12 +33,12 @@ admin_contact: 'mailto:{{administrator_email}}'
 email:
   smtp_host:                    "{{system_email_host}}"
   smtp_port:                    "{{system_email_smtp_port}}"
-  smtp_user:                    "{{system_email_username}}"
+  smtp_user:                    "{{system_email_address}}"
   smtp_pass:                    "{{system_email_password}}"
   #force_tls:                    true
   #require_transport_security:   true
   enable_tls:                   "{{ system_email_tls | upper }}"
-  notif_from:                   "Your Friendly %(app)s homeserver <{{system_email}}>"
+  notif_from:                   "Your Friendly %(app)s homeserver <{{system_email_address}}>"
   app_name:                     "Matrix on {{synapse_domain}}"
   enable_notifs:                true
   notif_for_new_users:          false

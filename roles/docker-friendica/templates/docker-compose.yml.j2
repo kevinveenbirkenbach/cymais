@@ -3,7 +3,7 @@ services:
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   application:
-    image: friendica/server
+    image: friendica
     restart: {{docker_restart_policy}}
     volumes:
       - data:/var/www/html
@@ -21,20 +21,24 @@ services:
       
       # Debugging
       FRIENDICA_DEBUGGING: false
+      FRIENDICA_LOGLEVEL: 5
+      FRIENDICA_LOGGER: stream
+      FRIENDICA_LOGFILE: php://stdout
+
       # Database Configuration 
       MYSQL_HOST: {{database_host}}:3306
       MYSQL_DATABASE: {{database_name}}
       MYSQL_USER: {{database_username}}
       MYSQL_PASSWORD: {{database_password}}
-      SMTP: {{system_email_host}}
-      
+
       # Email Configuration
-      SMTP_DOMAIN: {{ system_email_host }}
-      SMTP_PORT:  {{system_email_smtp_port}}
+      SMTP:           {{system_email_host}}
+      SMTP_DOMAIN:    {{system_email_domain}}
+      SMTP_PORT:      {{system_email_smtp_port}}
       SMTP_AUTH_USER: {{system_email_username}}
       SMTP_AUTH_PASS: {{system_email_password}}
-      SMTP_STARTTLS:  {{system_email_start_tls}}
-      SMTP_FROM:  {{system_email_username}}
+      SMTP_STARTTLS: "{{ 'On' if system_email_start_tls else 'Off' }}"
+      SMTP_FROM:      {{system_email_address}}
 
       # Administrator Credentials
       FRIENDICA_ADMIN_MAIL: {{administrator_email}}
