@@ -3,8 +3,8 @@ services:
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   application:
-    image: friendica
-    restart: always
+    image: friendica/server
+    restart: {{docker_restart_policy}}
     volumes:
       - data:/var/www/html
     ports:
@@ -15,19 +15,30 @@ services:
       timeout: 10s
       retries: 3      
     environment:
-      - FRIENDICA_URL="https://{{domain}}"
-      - FRIENDICA_ADMIN_MAIL={{administrator_email}}
-      - MYSQL_HOST={{database_host}}:3306
-      - MYSQL_DATABASE={{database_name}}
-      - MYSQL_USER={{database_username}}
-      - MYSQL_PASSWORD={{database_password}}
-      - SMTP={{system_email_host}}
-      - SMTP_DOMAIN={{ system_email_host }}
-      - SMTP_PORT={{system_email_smtp_port}}
-      - SMTP_AUTH_USER={{system_email_username}}
-      - SMTP_AUTH_PASS={{system_email_password}}
-      - SMTP_STARTTLS={{system_email_start_tls}}
-      - SMTP_FROM={{system_email_username}}
+      FRIENDICA_URL: https://{{domain}}
+      HOSTNAME: {{domain}}
+      FRIENDICA_NO_VALIDATION: false
+      
+      # Debugging
+      FRIENDICA_DEBUGGING: false
+      # Database Configuration 
+      MYSQL_HOST: {{database_host}}:3306
+      MYSQL_DATABASE: {{database_name}}
+      MYSQL_USER: {{database_username}}
+      MYSQL_PASSWORD: {{database_password}}
+      SMTP: {{system_email_host}}
+      
+      # Email Configuration
+      SMTP_DOMAIN: {{ system_email_host }}
+      SMTP_PORT:  {{system_email_smtp_port}}
+      SMTP_AUTH_USER: {{system_email_username}}
+      SMTP_AUTH_PASS: {{system_email_password}}
+      SMTP_STARTTLS:  {{system_email_start_tls}}
+      SMTP_FROM:  {{system_email_username}}
+
+      # Administrator Credentials
+      FRIENDICA_ADMIN_MAIL: {{administrator_email}}
+      MAILNAME: {{administrator_email}}
 {% include 'templates/docker/container/networks.yml.j2' %}
 {% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
 
