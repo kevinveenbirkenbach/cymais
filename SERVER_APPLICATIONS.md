@@ -19,7 +19,7 @@ Focuses on web server roles and applications, covering SSL certificates, Nginx c
 - **[Letsencrypt](./roles/letsencrypt/)**: Configures Let's Encrypt for SSL certificates.
 - **[Nginx](./roles/nginx/)**: Installs and configures Nginx web server.
 - **[Nginx-Docker-Reverse-Proxy](./roles/nginx-docker-reverse-proxy/)**: Sets up a reverse proxy for Docker containers.
-- **[Nginx-Homepage](./roles/nginx-homepage/)**: Configures a homepage for Nginx.
+- **[nginx-static-repository](./roles/nginx-static-repository/)**: Configures a homepage for Nginx.
 - **[Nginx-Https](./roles/nginx-https/)**: Enables HTTPS configuration for Nginx.
 - **[Nginx-Matomo-Tracking](./roles/nginx-matomo-tracking/)**: Integrates Matomo tracking with Nginx.
 - **[Nginx-Domain-Redirect](./roles/nginx-domain-redirect/)**: Manages URL redirects in Nginx.

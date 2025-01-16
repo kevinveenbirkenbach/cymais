@@ -1,0 +1,16 @@
+---
+- name: "pull homepage from {{nginx_homepage_repository_address}}"
+  git:
+    repo: "{{nginx_homepage_repository_address}}"
+    dest: "{{nginx_homepage_root}}"
+    update: yes
+  ignore_errors: true
+
+- name: configure {{top_domain}}.conf
+  template: 
+    src:  "static.nginx.conf.j2" 
+    dest: "{{nginx_servers_directory}}{{top_domain}}.conf"
+  vars:
+    domain: "{{top_domain}}"
+  notify: restart nginx
+  when: run_once_nginx is not defined

@@ -26,7 +26,7 @@ This Ansible role configures an Nginx server to serve a static homepage. It hand
 ```yaml
 - hosts: servers
   roles:
-     - { role: nginx-homepage, domain: 'example.com', administrator_email: 'admin@example.com' }
+     - { role: nginx-static-repository, domain: 'example.com', administrator_email: 'admin@example.com' }
 ```
 
 ## Author Information

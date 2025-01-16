@@ -1,7 +1,0 @@
----
-- name: "pull homepage from {{nginx_homepage_repository_address}}"
-  git:
-    repo: "{{nginx_homepage_repository_address}}"
-    dest: "{{nginx_homepage_root}}"
-    update: yes
-  ignore_errors: true

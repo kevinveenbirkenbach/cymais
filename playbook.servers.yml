@@ -287,11 +287,11 @@
         http_port: 8029
 
 # Native Webserver Roles
-- name: setup nginx-homepages
-  hosts: homepage
+- name: setup nginx-static-repositorys
+  hosts: nginx-static-repositorys
   become: true
   roles:
-   -  role: nginx-homepage
+   -  role: nginx-static-repository
       vars:
         domain: "{{top_domain}}"
 
