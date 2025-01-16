@@ -10,10 +10,14 @@ services:
     ports:
       - "127.0.0.1:{{http_port}}:80"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:80"]
+      test:
+        [
+          "CMD-SHELL",
+          "(echo 'Subject: testmessage from {{domain}}\n\nSUCCESSFULL' | msmtp -t {{test_email}} && curl -f http://127.0.0.1:80) || exit 1"
+        ]
       interval: 1m
       timeout: 10s
-      retries: 3      
+      retries: 3
     environment:
       FRIENDICA_URL: https://{{domain}}
       HOSTNAME: {{domain}}
@@ -26,9 +30,9 @@ services:
       FRIENDICA_LOGFILE: php://stdout
 
       # Database Configuration 
-      MYSQL_HOST: {{database_host}}:3306
+      MYSQL_HOST:     {{database_host}}:3306
       MYSQL_DATABASE: {{database_name}}
-      MYSQL_USER: {{database_username}}
+      MYSQL_USER:     {{database_username}}
       MYSQL_PASSWORD: {{database_password}}
 
       # Email Configuration
@@ -37,8 +41,9 @@ services:
       SMTP_PORT:      {{system_email_smtp_port}}
       SMTP_AUTH_USER: {{system_email_username}}
       SMTP_AUTH_PASS: {{system_email_password}}
+      SMTP_TLS:       {{ 'on' if system_email_tls else 'off' }}
       SMTP_STARTTLS:  {{ 'on' if system_email_start_tls else 'off' }}
-      SMTP_FROM:      {{system_email_from}}
+      SMTP_FROM:      {{system_email_local}}
 
       # Administrator Credentials
       FRIENDICA_ADMIN_MAIL: {{administrator_email}}

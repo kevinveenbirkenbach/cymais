@@ -8,6 +8,20 @@ backups_folder_path:  "/Backups/"   # Path to the backups folder
 administrator_username:   "administrator"                             # Username of the administrator
 administrator_email:      "{{administrator_username}}@{{top_domain}}" # Email of the administrator
 
+# Email Configuration
+system_email_local:     no-reply
+system_email_domain:    "{{top_domain}}"
+system_email_username:  "{{system_email_local}}@{{system_email_domain}}"
+system_email_host:      "mail.{{top_domain}}"
+system_email_smtp_port: 465
+system_email_tls:       true
+system_email_start_tls: false
+system_email_from:      "{{system_email_username}}"
+system_email_smtp:      true
+
+# Test Email
+test_email:             "test@{{top_domain}}"
+
 # Mode
 
 # The following modes can be combined with each other
@@ -134,7 +148,7 @@ domain_gitea:                   "git.{{top_domain}}"
 domain_gitlab:                  "gitlab.{{top_domain}}"
 domain_landingpage:             "{{top_domain}}"
 domain_listmonk:                "newsletter.{{top_domain}}"
-domain_mailu:                   "mail.{{top_domain}}"
+domain_mailu:                   "{{system_email_host}}"
 domain_mastodon:                "microblog.{{top_domain}}"
 domains_mastodon_alternates:    ["mastodon.{{top_domain}}"]
 domain_matomo:                  "matomo.{{top_domain}}"

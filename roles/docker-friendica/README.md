@@ -47,7 +47,7 @@ docker compose exec -it application cat /etc/msmtprc
 ```
 
 ## email debugging:
-echo "Testnachricht" | msmtp --account=system_email -t kevin@veen.world
+docker compose exec -it application msmtp --account=system_email -t kevin@veen.world
 
 ## create user
 INSERT INTO user (guid, username, email, password, verified, register_date, account_expires_on, account_expired)
