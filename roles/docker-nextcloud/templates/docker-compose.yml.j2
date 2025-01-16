@@ -33,7 +33,7 @@ services:
 
       # Email from configuration
       MAIL_FROM_ADDRESS: no-reply
-      MAIL_DOMAIN: {{system_email_host}}
+      MAIL_DOMAIN: {{system_email_domain}}
 
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
