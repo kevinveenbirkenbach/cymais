@@ -50,7 +50,7 @@ If nextcloud stays in the maintenance mode after the update try the following:
 If the update process fails execute
 
 ```bash
-  docker-compose exec -it -u www-data application /var/www/html/occ maintenance:repair
+  docker-compose exec -it -u www-data application /var/www/html/occ maintenance:repair --include-expensive
 ```
 
 and disable the not functioning apps.
