@@ -38,10 +38,17 @@ docker-compose up -d --force-recreate && sleep 2; docker compose exec --user www
 
 ### info
 ```bash 
+## Check general config
 cat /var/lib/docker/volumes/friendica_data/_data/config/local.config.php
 ## Check environment variables
 docker compose exec -it application printenv
+## Check email configuration
+docker compose exec -it application cat /etc/msmtprc
 ```
+
+## email debugging:
+echo "Testnachricht" | msmtp --account=system_email -t kevin@veen.world
+
 ## create user
 INSERT INTO user (guid, username, email, password, verified, register_date, account_expires_on, account_expired)
 VALUES (

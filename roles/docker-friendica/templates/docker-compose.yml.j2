@@ -37,8 +37,8 @@ services:
       SMTP_PORT:      {{system_email_smtp_port}}
       SMTP_AUTH_USER: {{system_email_username}}
       SMTP_AUTH_PASS: {{system_email_password}}
-      SMTP_STARTTLS: "{{ 'On' if system_email_start_tls else 'Off' }}"
-      SMTP_FROM:      {{system_email_address}}
+      SMTP_STARTTLS:  {{ 'on' if system_email_start_tls else 'off' }}
+      SMTP_FROM:      {{system_email_from}}
 
       # Administrator Credentials
       FRIENDICA_ADMIN_MAIL: {{administrator_email}}
