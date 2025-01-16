@@ -1,10 +1,10 @@
 services:
-  landingpage:
+  portfolio:
     build:
       context: .
       dockerfile: Dockerfile
-    image: application-landingpage
-    container_name: landingpage
+    image: application-portfolio
+    container_name: portfolio
     ports:
       - 127.0.0.1:{{http_port}}:5000
     volumes:

@@ -277,13 +277,13 @@
         domain: "{{domain_friendica}}"
         http_port: 8028
 
-- name: setup landingpage
-  hosts: landingpage
+- name: setup portfolio
+  hosts: portfolio
   become: true
   roles:
-   -  role: docker-landingpage
+   -  role: docker-portfolio
       vars:
-        domain: "{{domain_landingpage}}"
+        domain: "{{domain_portfolio}}"
         http_port: 8029
 
 # Native Webserver Roles
