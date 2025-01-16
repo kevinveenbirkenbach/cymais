@@ -103,24 +103,7 @@ docker compose exec -it application cat /etc/msmtprc
 
 To send a test email:
 ```bash
-docker compose exec -it application msmtp --account=system_email -t kevin@veen.world
-```
-
-### Create User 👤
-
-To manually create a user in the database:
-```sql
-INSERT INTO user (guid, username, email, password, verified, register_date, account_expires_on, account_expired)
-VALUES (
-    UUID(), -- Generates a unique user ID
-    'newusername', -- Username
-    'newuser@example.com', -- Email address
-    MD5('newpassword'), -- Password (use Bcrypt if preferred)
-    1, -- Verification status (1 = verified)
-    NOW(), -- Registration date
-    '0001-01-01 00:00:00', -- Unlimited account duration
-    0 -- Account is not expired
-);
+docker compose exec -it application msmtp --account=system_email -t test@test.de
 ```
 
 ## Additional Resources 📖
