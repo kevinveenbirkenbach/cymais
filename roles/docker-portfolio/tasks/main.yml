@@ -10,7 +10,7 @@
 
 - name: create {{docker_compose_instance_directory}}/app/config.yaml
   copy:
-    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}/docker/app/portfolio/config.yaml"
+    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}/docker/portfolio/config.yaml"
     dest: "{{docker_compose_instance_directory}}/app/config.yaml"
   notify: docker compose project setup
 
