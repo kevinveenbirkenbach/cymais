@@ -36,15 +36,6 @@
     domain: "{{top_domain}}"
   when: run_once_nginx is not defined
 
-- name: configure {{top_domain}}.conf
-  template: 
-    src:  "homepage.nginx.conf.j2" 
-    dest: "{{nginx_servers_directory}}{{top_domain}}.conf"
-  vars:
-    domain: "{{top_domain}}"
-  notify: restart nginx
-  when: run_once_nginx is not defined
-
 - name: flush nginx service
   meta: flush_handlers
   when: run_once_nginx is not defined
