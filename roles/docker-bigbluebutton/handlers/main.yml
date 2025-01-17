@@ -51,7 +51,7 @@
 
 - name: docker compose up bigbluebutton
   command:
-    cmd: docker-compose -p bigbluebutton up -d --force-recreate
+    cmd: docker-compose -p bigbluebutton up -d --force-recreate --build
     chdir: "{{docker_compose_instance_directory}}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600

@@ -292,8 +292,10 @@
   roles:
    -  role: docker-bluesky
       vars:
-        domain: "{{domain_bluesky}}"
-        http_port: 8030
+        domain_api:   "{{domain_bluesky_api}}"
+        domain_web:   "{{domain_bluesky_web}}"
+        http_port_api: 8030
+        http_port_web: 8031
 
 # Native Webserver Roles
 - name: setup nginx-static-repositorys

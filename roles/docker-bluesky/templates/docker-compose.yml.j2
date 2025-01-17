@@ -6,12 +6,12 @@ services:
         - pds_data:/pds
     environment:
       # Geben Sie hier Ihre Domain und Konfigurationsdetails an
-      PDS_HOSTNAME: "{{domain}}"
+      PDS_HOSTNAME: "{{domain_api}}"
       PDS_ADMIN_EMAIL: "{{administrator_email}}"
       PDS_DB__POSTGRES__URL: "postgres://{{ database_username }}:{{ database_password }}@{{ database_host }}:5432/{{ database_name }}"
-      PDS_SERVICE_DID: "did:web:{{ domain }}"
+      PDS_SERVICE_DID: "did:web:{{domain_api}}"
       # See https://mattdyson.org/blog/2024/11/self-hosting-bluesky-pds/
-      PDS_SERVICE_HANDLE_DOMAINS: ."{{domain}}"
+      PDS_SERVICE_HANDLE_DOMAINS: ".{{domain_api}}"
       PDS_JWT_SECRET: "{{bluesky_pds_jwt_secret}}"
       PDS_ADMIN_PASSWORD: "{{bluesky_pds_admin_password}}"
       PDS_PLC_ROTATION_KEY_K256_PRIVATE_KEY_HEX: "{{bluesky_pds_plc_rotation_key_k256_private_key_hex}}"
@@ -29,7 +29,7 @@ services:
       # PDS_REPORT_SERVICE_URL=https://mod.bsky.app
       # PDS_REPORT_SERVICE_DID=did:plc:ar7c4by46qjdydhdevvrndac
     ports:
-      - "127.0.0.1:{{http_port}}:3000"
+      - "127.0.0.1:{{http_port_api}}:3000"
     healthcheck:
       test: ["CMD", "wget", "--spider", "http://127.0.0.1:3000"]
       interval: 1m
@@ -39,19 +39,28 @@ services:
 {% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
 
 #  Deactivated for the moment @see https://github.com/bluesky-social/social-app
-#  bluesky-app:
-#    image: ghcr.io/bluesky-social/app:latest # Beispiel-App-Image
-#    restart: always
-#    ports:
-#      - "8080:8080"
-#    environment:
-#      # Verbindung zur PDS-Instanz
-#      REACT_APP_PDS_URL: "http://application:3000" # URL des PDS
-#      REACT_APP_API_URL: "http://application:3000" # API-URL des PDS
-#      REACT_APP_SITE_NAME: "Bluesky"
-#      REACT_APP_SITE_DESCRIPTION: "Dezentrales Soziales Netzwerk"
-#    depends_on:
-#      - application
+  web:
+    command: ["bskyweb","serve"]
+    build:
+      context: "{{ social_app_path }}"
+      dockerfile: Dockerfile # Standard-Dockerfile im Repository
+      args:
+        REACT_APP_PDS_URL: "http://{{domain_api}}" # URL des PDS
+        REACT_APP_API_URL: "http://{{domain_api}}" # API-URL des PDS
+        REACT_APP_SITE_NAME: "{{top_domain | upper}} - Bluesky"
+        REACT_APP_SITE_DESCRIPTION: "Decentral Social "
+    restart: {{docker_restart_policy}}
+    ports:
+      - "127.0.0.1:{{http_port_web}}:8100"
+    # Start already parallel to pds
+    #depends_on:
+    #  - None
+    healthcheck:
+      test: ["CMD", "sh", "-c", "for pid in $(ls /proc | grep -E '^[0-9]+$'); do if cat /proc/$pid/cmdline 2>/dev/null | grep -q 'bskywebserve'; then exit 0; fi; done; exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
 
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 

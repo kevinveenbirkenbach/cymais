@@ -8,9 +8,21 @@
 #  listen: docker compose project setup
 #  when: mode_reset | bool
 
+# default setup for docker compose files
 - name: docker compose project setup
   command:
     cmd: docker-compose -p "{{docker_compose_project_name}}" up -d --force-recreate
+    chdir: "{{docker_compose_instance_directory}}"
+  environment:
+    COMPOSE_HTTP_TIMEOUT: 600
+    DOCKER_CLIENT_TIMEOUT: 600
+  listen: docker compose project setup
+
+# it's necessary to rebuild when a build in the docker compose files is defined
+# for performance reasons it's not recommended to use this if there is no build tag specified
+- name: docker compose project build and setup 
+  command:
+    cmd: docker-compose -p "{{docker_compose_project_name}}" up -d --force-recreate --build
     chdir: "{{docker_compose_instance_directory}}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600

@@ -17,6 +17,18 @@ openssl rand -base64 16
 ### bluesky_database_password
 openssl rand -base64 32
 
+## create user
+```bash
+curl -X POST https://your-pds-domain/xrpc/com.atproto.server.createAccount \
+  -H "Content-Type: application/json" \
+  -d '{
+        "email": "user@example.com",
+        "handle": "username",
+        "password": "securepassword123",
+        "inviteCode": "optional-invite-code"
+      }'
+```
+
 ## more information
 - https://therobbiedavis.com/selfhosting-bluesky-with-docker-and-swag/
 - https://cprimozic.net/notes/posts/notes-on-self-hosting-bluesky-pds-alongside-other-services/
