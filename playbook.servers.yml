@@ -286,6 +286,15 @@
         domain: "{{domain_portfolio}}"
         http_port: 8029
 
+- name: setup bluesky
+  hosts: bluesky
+  become: true
+  roles:
+   -  role: docker-bluesky
+      vars:
+        domain: "{{domain_bluesky}}"
+        http_port: 8030
+
 # Native Webserver Roles
 - name: setup nginx-static-repositorys
   hosts: nginx-static-repositorys

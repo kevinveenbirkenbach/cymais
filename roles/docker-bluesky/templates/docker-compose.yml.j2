@@ -5,22 +5,22 @@ services:
     ports:
       - {{http_port}}:3000
     volumes:
-        - data:/pds
+        - pds_data:/pds
     env_file:
       - /env
     environment:
       # Geben Sie hier Ihre Domain und Konfigurationsdetails an
       PDS_HOSTNAME: "{{domain}}"
-      PDS_ADMIN_EMAIL: "{{PDS_ADMIN_EMAIL}}"
+      PDS_ADMIN_EMAIL: "{{administrator_email}}"
       PDS_DB__POSTGRES__URL: "postgres://{{ database_username }}:{{ database_password }}@{{ database_host }}:5432/{{ database_name }}"
       PDS_SERVICE_DID: "did:web:{{ domain }}"
       # See https://mattdyson.org/blog/2024/11/self-hosting-bluesky-pds/
       PDS_SERVICE_HANDLE_DOMAINS: ."{{domain}}"
-      PDS_JWT_SECRET: <INSERT SECRET HERE>
-      PDS_ADMIN_PASSWORD: <INSERT ANOTHER SECRET HERE>
-      PDS_PLC_ROTATION_KEY_K256_PRIVATE_KEY_HEX: <INSERT KEY HEX HERE>
+      PDS_JWT_SECRET: "{{bluesky_pds_jwt_secret}}"
+      PDS_ADMIN_PASSWORD: "{{bluesky_pds_admin_password}}"
+      PDS_PLC_ROTATION_KEY_K256_PRIVATE_KEY_HEX: "{{bluesky_pds_plc_rotation_key_k256_private_key_hex}}"
       PDS_CRAWLERS: https://bsky.network
-      PDS_EMAIL_SMTP_URL: smtps://{{system_email_username}}:{{system_email_passwort}}@{{system_email_host}}:{{system_email_port}}/
+      PDS_EMAIL_SMTP_URL: smtps://{{system_email_username}}:{{system_email_password}}@{{system_email_host}}:{{system_email_port}}/
       PDS_EMAIL_FROM_ADDRESS: {{system_email_from}}
       LOG_ENABLED: true
 
@@ -61,6 +61,6 @@ services:
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}
-  data:
+  pds_data:
 
 {% include 'templates/docker/compose/networks.yml.j2' %}
