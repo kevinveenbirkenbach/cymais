@@ -11,7 +11,7 @@ services:
       PDS_DB__POSTGRES__URL: "postgres://{{ database_username }}:{{ database_password }}@{{ database_host }}:5432/{{ database_name }}"
       PDS_SERVICE_DID: "did:web:{{domain_api}}"
       # See https://mattdyson.org/blog/2024/11/self-hosting-bluesky-pds/
-      PDS_SERVICE_HANDLE_DOMAINS: ".{{domain_api}}"
+      PDS_SERVICE_HANDLE_DOMAINS: ".{{top_domain}}"
       PDS_JWT_SECRET: "{{bluesky_pds_jwt_secret}}"
       PDS_ADMIN_PASSWORD: "{{bluesky_pds_admin_password}}"
       PDS_PLC_ROTATION_KEY_K256_PRIVATE_KEY_HEX: "{{bluesky_pds_plc_rotation_key_k256_private_key_hex}}"
@@ -31,7 +31,7 @@ services:
     ports:
       - "127.0.0.1:{{http_port_api}}:3000"
     healthcheck:
-      test: ["CMD", "wget", "--spider", "http://127.0.0.1:3000"]
+      test: ["CMD", "wget", "--spider", "http://127.0.0.1:3000/xrpc/_health"]
       interval: 1m
       timeout: 10s
       retries: 3
