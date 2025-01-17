@@ -1,4 +1,7 @@
 ---
+- name: "include docker/compose/common.yml"
+  include_tasks: docker/compose/common.yml
+
 - name: "Include tasks for API domain"
   include_tasks: nginx-docker-proxy-domain.yml
   vars:

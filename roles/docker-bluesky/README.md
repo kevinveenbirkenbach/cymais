@@ -20,6 +20,7 @@ openssl rand -base64 32
 ## create user
 ```bash
 curl -X POST https://your-pds-domain/xrpc/com.atproto.server.createAccount \
+  --user "admin:$admin-password" 
   -H "Content-Type: application/json" \
   -d '{
         "email": "user@example.com",
