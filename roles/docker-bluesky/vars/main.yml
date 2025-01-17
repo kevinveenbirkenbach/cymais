@@ -1,4 +1,2 @@
 docker_compose_project_name:        "bluesky"
-database_password:                  "{{bluesky_database_password}}"
-database_type:                      "postgres"
 social_app_path:                    "{{ docker_compose_instance_directory }}/social-app"

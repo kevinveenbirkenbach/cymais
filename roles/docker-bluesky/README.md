@@ -35,3 +35,4 @@ curl -X POST https://your-pds-domain/xrpc/com.atproto.server.createAccount \
 - https://github.com/bluesky-social/pds
 - https://chatgpt.com/c/678a2eb6-145c-800f-bf51-ff706981a928
 - https://www.youtube.com/watch?v=7_AG50u7D6c
+- https://github.com/bluesky-social/pds/issues/52
