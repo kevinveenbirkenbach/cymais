@@ -4,8 +4,6 @@ services:
     restart: {{docker_restart_policy}}
     volumes:
         - pds_data:/pds
-    env_file:
-      - /env
     environment:
       # Geben Sie hier Ihre Domain und Konfigurationsdetails an
       PDS_HOSTNAME: "{{domain}}"
