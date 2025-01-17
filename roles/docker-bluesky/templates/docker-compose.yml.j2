@@ -2,8 +2,6 @@ services:
   pds:
     image: ghcr.io/bluesky-social/pds:0.4
     restart: {{docker_restart_policy}}
-    ports:
-      - {{http_port}}:3000
     volumes:
         - pds_data:/pds
     env_file:
