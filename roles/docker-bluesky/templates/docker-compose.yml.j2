@@ -1,9 +1,10 @@
 services:
   pds:
-    image: ghcr.io/bluesky-social/pds:0.4
+    image: ghcr.io/bluesky-social/pds:latest
     restart: {{docker_restart_policy}}
     volumes:
         - pds_data:/pds
+        - {{pdsadmin_file_path}}:/usr/local/bin/pdsadmin:ro
     environment:
       # Geben Sie hier Ihre Domain und Konfigurationsdetails an
       PDS_HOSTNAME: "{{domain_api}}"
@@ -41,7 +42,8 @@ services:
     command: ["bskyweb","serve"]
     build:
       context: "{{ social_app_path }}"
-      dockerfile: Dockerfile # Standard-Dockerfile im Repository
+      dockerfile: Dockerfile 
+      # It doesn't compile yet with this parameters. @todo Fix it
       args:
         REACT_APP_PDS_URL: "http://{{domain_api}}" # URL des PDS
         REACT_APP_API_URL: "http://{{domain_api}}" # API-URL des PDS

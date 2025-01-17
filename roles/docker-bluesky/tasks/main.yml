@@ -12,14 +12,41 @@
   include_tasks: nginx-docker-proxy-domain.yml
   vars:
     domain: "{{ domain_web }}"
-    http_port: "{{ http_port_web }}"
+    http_port: "{{ http_port_web }}" 
+
+# The following lines should be removed when the following issue is closed:
+# https://github.com/bluesky-social/pds/issues/52
+
+- name: Download pdsadmin tarball
+  get_url:
+    url: "https://github.com/lhaig/pdsadmin/releases/download/v1.0.0-dev/pdsadmin_Linux_x86_64.tar.gz"
+    dest: "{{pdsadmin_temporary_tar_path}}"
+    mode: '0644'
+
+- name: Create {{pdsadmin_folder_path}}
+  file:
+    path: "{{pdsadmin_folder_path}}"
+    state: directory
+    mode: '0755'
+    
+- name: Extract pdsadmin tarball
+  unarchive:
+    src: "{{pdsadmin_temporary_tar_path}}"
+    dest: "{{pdsadmin_folder_path}}"
+    remote_src: yes
+    mode: '0755'
+
+- name: Ensure pdsadmin is executable
+  file:
+    path: "{{pdsadmin_file_path}}"
+    mode: '0755'
+    state: file
 
 - name: clone social app repository
   git:
     repo: "https://github.com/bluesky-social/social-app.git"
     dest: "{{social_app_path}}"
-    version: "main"  # Optional: spezifischer Branch oder Tag
-    update: yes      # Aktualisiert das Repo, falls es schon existiert
+    version: "main"
   notify: docker compose project build and setup 
 
 - name: add docker-compose.yml
