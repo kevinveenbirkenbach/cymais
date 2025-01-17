@@ -1,5 +1,5 @@
 services:
-  application:
+  pds:
     image: ghcr.io/bluesky-social/pds:0.4
     restart: {{docker_restart_policy}}
     ports:
@@ -42,6 +42,21 @@ services:
       retries: 3
 {% include 'templates/docker/container/networks.yml.j2' %}
 {% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+
+#  Deactivated for the moment @see https://github.com/bluesky-social/social-app
+#  bluesky-app:
+#    image: ghcr.io/bluesky-social/app:latest # Beispiel-App-Image
+#    restart: always
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      # Verbindung zur PDS-Instanz
+#      REACT_APP_PDS_URL: "http://application:3000" # URL des PDS
+#      REACT_APP_API_URL: "http://application:3000" # API-URL des PDS
+#      REACT_APP_SITE_NAME: "Bluesky"
+#      REACT_APP_SITE_DESCRIPTION: "Dezentrales Soziales Netzwerk"
+#    depends_on:
+#      - application
 
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
