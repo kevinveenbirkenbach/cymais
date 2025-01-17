@@ -10,10 +10,29 @@ services:
       - /env
     environment:
       # Geben Sie hier Ihre Domain und Konfigurationsdetails an
-      PDS_HOSTNAME: "your-domain.com"
-      PDS_ADMIN_EMAIL: "admin@your-domain.com"
-      PDS_DB__POSTGRES__URL: "postgres://pdsuser:pdspassword@postgres:5432/pds"
-      PDS_SERVICE_DID: "did:web:your-domain.com"
+      PDS_HOSTNAME: "{{domain}}"
+      PDS_ADMIN_EMAIL: "{{PDS_ADMIN_EMAIL}}"
+      PDS_DB__POSTGRES__URL: "postgres://{{ database_username }}:{{ database_password }}@{{ database_host }}:5432/{{ database_name }}"
+      PDS_SERVICE_DID: "did:web:{{ domain }}"
+      # See https://mattdyson.org/blog/2024/11/self-hosting-bluesky-pds/
+      PDS_SERVICE_HANDLE_DOMAINS: ."{{domain}}"
+      PDS_JWT_SECRET: <INSERT SECRET HERE>
+      PDS_ADMIN_PASSWORD: <INSERT ANOTHER SECRET HERE>
+      PDS_PLC_ROTATION_KEY_K256_PRIVATE_KEY_HEX: <INSERT KEY HEX HERE>
+      PDS_CRAWLERS: https://bsky.network
+      PDS_EMAIL_SMTP_URL: smtps://{{system_email_username}}:{{system_email_passwort}}@{{system_email_host}}:{{system_email_port}}/
+      PDS_EMAIL_FROM_ADDRESS: {{system_email_from}}
+      LOG_ENABLED: true
+
+      # -- DEFAULT VALUES ---
+      # PDS_DATA_DIRECTORY: /opt/pds
+      # PDS_BLOBSTORE_DISK_LOCATION: /opt/pds/blocks
+      # PDS_BLOB_UPLOAD_LIMIT: 52428800
+      # PDS_DID_PLC_URL=https://plc.directory
+      # PDS_BSKY_APP_VIEW_URL=https://api.bsky.app
+      # PDS_BSKY_APP_VIEW_DID=did:web:api.bsky.app
+      # PDS_REPORT_SERVICE_URL=https://mod.bsky.app
+      # PDS_REPORT_SERVICE_DID=did:plc:ar7c4by46qjdydhdevvrndac
     ports:
       - "127.0.0.1:{{http_port}}:3000"
     healthcheck:
