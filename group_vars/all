@@ -228,6 +228,9 @@ gitlab_version:                   "latest"
 #### Joomla
 joomla_version:                   "latest"
 
+#### Keycloak
+keycloak_version:                 "latest"
+
 #### Listmonk
 listmonk_admin_username:          "admin"
 listmonk_public_api_activated:    False # Security hole. Can be used for spaming
@@ -257,10 +260,10 @@ mailu_domain:           "{{top_domain}}"
 mailu_subnet:           "192.168.203.0/24"
 
 #### Moodle
-moodle_site_name:       "Global Learning Academy on {{top_domain}}"
-moodle_user_name:       "{{administrator_username}}"
-moodle_user_email:      "{{administrator_email}}"
-moodle_version:         "latest"
+moodle_site_name:           "Global Learning Academy on {{top_domain}}"
+moodle_administrator_name:  "{{administrator_username}}"
+moodle_administrator_email: "{{administrator_email}}"
+moodle_version:             "latest"
 
 #### MyBB
 mybb_version:            "latest"
@@ -283,5 +286,5 @@ postgres_database_version:      "latest"
 taiga_version:          "latest"
 
 #### YOURLS
-yourls_user:            "{{administrator_username}}"
-yourls_version:         "latest"
+yourls_administrator_name:  "{{administrator_username}}"
+yourls_version:             "latest"

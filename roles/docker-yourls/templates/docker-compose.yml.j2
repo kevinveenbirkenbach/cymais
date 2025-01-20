@@ -15,8 +15,8 @@ services:
       YOURLS_DB_PASS: "{{database_password}}"
       YOURLS_DB_NAME: "{{database_name}}"
       YOURLS_SITE: "https://{{domain}}"
-      YOURLS_USER: "{{yourls_user}}"
-      YOURLS_PASS: "{{yourls_user_password}}"
+      yourls_administrator_name: "{{yourls_administrator_name}}"
+      YOURLS_PASS: "{{yourls_administrator_name_password}}"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1/admin/"]
       interval: 1m
