@@ -7,10 +7,10 @@ services:
     command: start
     environment:
       KC_HOSTNAME:                    {{domain}}
-      #KC_HOSTNAME_PORT:              {{http_port}}
-      KC_HOSTNAME_STRICT_BACKCHANNEL: false
+      KC_HOSTNAME_STRICT_BACKCHANNEL: true
       KC_HTTP_ENABLED:                true
       KC_HOSTNAME_STRICT_HTTPS:       false
+      KC_PROXY:                       passthrough
       KC_HEALTH_ENABLED:              true
       KEYCLOAK_ADMIN:                 "{{keycloak_administrator_username}}"
       KEYCLOAK_ADMIN_PASSWORD:        "{{keycloak_administrator_password}}"
