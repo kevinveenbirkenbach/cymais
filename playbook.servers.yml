@@ -303,7 +303,7 @@
   roles:
    -  role: docker-keycloak
       vars:
-        domain: "{{domain_keycloack}}"
+        domain: "{{domain_keycloak}}"
         http_port: 8032
 
 # Native Webserver Roles
