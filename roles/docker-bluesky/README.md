@@ -46,6 +46,8 @@ docker compose exec -it pds pdsadmin account create-invite-code
 
 https://bluesky.veen.world/.well-known/atproto-did
 
+Initial setup keine top level domain
+
 
 ## more information
 - https://therobbiedavis.com/selfhosting-bluesky-with-docker-and-swag/
