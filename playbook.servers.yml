@@ -297,6 +297,15 @@
         http_port_api: 8030
         http_port_web: 8031
 
+- name: setup keycloak
+  hosts: keycloak
+  become: true
+  roles:
+   -  role: docker-keycloak
+      vars:
+        domain: "{{domain_keycloack}}"
+        http_port: 8032
+
 # Native Webserver Roles
 - name: setup nginx-static-repositorys
   hosts: nginx-static-repositorys

@@ -1,8 +1,5 @@
-version: '3.7'
-
 services:
 
-# include database container
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   keycloak:
@@ -15,8 +12,8 @@ services:
       KC_HTTP_ENABLED:                false
       KC_HOSTNAME_STRICT_HTTPS:       true
       KC_HEALTH_ENABLED:              true
-      KEYCLOAK_ADMIN:                 ${KEYCLOAK_ADMIN}
-      KEYCLOAK_ADMIN_PASSWORD:        ${KEYCLOAK_ADMIN_PASSWORD}
+      KEYCLOAK_ADMIN:                 "{{keycloak_administrator_username}}"
+      KEYCLOAK_ADMIN_PASSWORD:        "{{keycloak_administrator_password}}"
       KC_DB:                          postgres
       KC_DB_URL:                      jdbc:postgresql://{{database_host}}/{{database_name}}
       KC_DB_USERNAME:                 {{database_username}}

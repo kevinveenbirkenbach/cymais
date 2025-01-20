@@ -5,8 +5,8 @@ ip4_address:          "127.0.0.1"   # Change thie in inventory to the ip address
 backups_folder_path:  "/Backups/"   # Path to the backups folder
 
 # Administrator
-administrator_username:   "administrator"                             # Username of the administrator
-administrator_email:      "{{administrator_username}}@{{top_domain}}" # Email of the administrator
+administrator_username:    "administrator"                             # Username of the administrator
+administrator_email:       "{{administrator_username}}@{{top_domain}}" # Email of the administrator
 
 # Email Configuration
 system_email_local:     no-reply
@@ -148,6 +148,7 @@ domain_funkwhale:               "music.{{top_domain}}"
 domain_gitea:                   "git.{{top_domain}}"
 domain_gitlab:                  "gitlab.{{top_domain}}"
 domain_portfolio:               "{{top_domain}}"
+domain_keycloak:                "auth.{{top_domain}}"
 domain_listmonk:                "newsletter.{{top_domain}}"
 domain_mailu:                   "{{system_email_host}}"
 domain_mastodon:                "microblog.{{top_domain}}"
@@ -174,6 +175,7 @@ redirect_domain_mappings:
 - { source: "discourse.{{top_domain}}",   target: "{{domain_discourse}}" }
 - { source: "funkwhale.{{top_domain}}",   target: "{{domain_funkwhale}}" }
 - { source: "gitea.{{top_domain}}",       target: "{{domain_gitea}}" }
+- { source: "keycloak.{{top_domain}}",    target: "{{domain_keycloak}}" }
 - { source: "listmonk.{{top_domain}}",    target: "{{domain_listmonk}}" }
 - { source: "moodle.{{top_domain}}",      target: "{{domain_moodle}}" }
 - { source: "nextcloud.{{top_domain}}",   target: "{{domain_nextcloud}}" }
@@ -184,6 +186,7 @@ redirect_domain_mappings:
 - { source: "short.{{top_domain}}",       target: "{{domain_yourls}}" }
 - { source: "taiga.{{top_domain}}",       target: "{{domain_taiga}}" }
 - { source: "videos.{{top_domain}}",      target: "{{domain_peertube}}" }
+
 
 ## Docker Applications
 
