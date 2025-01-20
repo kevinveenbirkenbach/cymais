@@ -85,7 +85,7 @@ For more details about Keycloak, check out:
 - [Official Keycloak Documentation](https://www.keycloak.org/)
 - [GitHub Repository](https://github.com/keycloak/keycloak)
 - [Setting up Keycloak behind a Reverse Proxy](https://www.keycloak.org/server/reverseproxy)
-- [Wikipedia][https://en.wikipedia.org/wiki/Keycloak]
+- [Wikipedia](https://en.wikipedia.org/wiki/Keycloak)
 - [Youtube Tutorial](https://www.youtube.com/watch?v=fvxQ8bW0vO8)
 ---
 
