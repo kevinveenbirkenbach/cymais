@@ -6,7 +6,7 @@ services:
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   keycloak:
-    image: quay.io/keycloak/keycloak:23.0.6
+    image: quay.io/keycloak/keycloak:latest
     command: start
     environment:
       KC_HOSTNAME: {{domain}}
@@ -18,9 +18,9 @@ services:
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgres/${POSTGRES_DB}
-      KC_DB_USERNAME: ${POSTGRES_USER}
-      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      KC_DB_URL: jdbc:postgresql://{{database_host}}/{{database_name}}
+      KC_DB_USERNAME: {{database_username}}
+      KC_DB_PASSWORD: {{database_password}}
     ports:
       - "127.0.0.1:{{http_port}}:8080"
     restart: always
