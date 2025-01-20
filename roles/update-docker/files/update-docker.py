@@ -111,7 +111,7 @@ def upgrade_listmonk():
     Runs the upgrade for Listmonk
     """
     print("Starting Listmonk upgrade.")
-    run_command("docker compose run application ./listmonk --upgrade")
+    run_command('echo "y" | docker compose run -T application ./listmonk --upgrade')
     print("Upgrade complete.")
 
 def update_nextcloud():
