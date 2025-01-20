@@ -5,7 +5,7 @@ services:
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   web:
-    image: attendize_web:latest
+    image: "attendize_web:{{attendize_version}}"
     ports:
     - "{{http_port}}:80"
     volumes:
@@ -19,7 +19,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   worker:
-    image: attendize_worker:latest
+    image: "attendize_worker:{{attendize_version}}"
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
       maildev:
 {% include 'templates/docker/container/networks.yml.j2' %}

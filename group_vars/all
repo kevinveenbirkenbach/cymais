@@ -194,9 +194,6 @@ enable_central_database_mailu: "{{enable_central_database}}"
 ### Enable Storage Optimizer for Docker Volumes
 enable_system_storage_optimizer: true
 
-### Common Configurations
-postgres_default_version:       "16"
-
 ### Docker Role Specific Parameters
 docker_restart_policy:        "unless-stopped"
 
@@ -206,12 +203,41 @@ akaunting_company_name:       "{{top_domain}}"
 akaunting_company_email:      "{{administrator_email}}"
 akaunting_setup_admin_email:  "{{administrator_email}}"
 
+#### Attendize 
+attendize_version:              "latest"
+
+#### Baserow 
+baserow_version:                "latest"
+
 #### Big Blue Button
 bigbluebutton_enable_greenlight:  "true"
+
+#### Bluesky
+bluesky_administrator_email:      "{{administrator_email}}"
+bluesky_pds_version:              "latest"
+
+#### Friendica
+friendica_version:                "latest"
+
+#### Gitea
+gitea_version:                    "latest"
+
+#### Gitlab
+gitlab_version:                   "latest"
+
+#### Joomla
+joomla_version:                   "latest"
 
 #### Listmonk
 listmonk_admin_username:          "admin"
 listmonk_public_api_activated:    False # Security hole. Can be used for spaming
+listmonk_version:                  "latest"
+
+#### MariaDB
+mariadb_version:                  "latest"
+
+#### Matomo
+matomo_version:                   "latest"
 
 #### Mastodon
 mastodon_version:                 "latest"
@@ -222,6 +248,8 @@ matrix_admin_name:      "{{administrator_username}}"  # Accountname of the matri
 matrix_playbook_tags:   "setup-all,start"             # For the initial update use: install-all,ensure-matrix-users-created,start
 matrix_role:            "compose"                     # Role to setup Matrix. Valid values: ansible, compose
 matrix_server_name:     "{{top_domain}}"              # Adress for the account names etc.
+matrix_synapse_version: "latest"
+matrix_element_version: "latest"
 
 #### Mailu
 mailu_version:          "2024.06"
@@ -232,6 +260,10 @@ mailu_subnet:           "192.168.203.0/24"
 moodle_site_name:       "Global Learning Academy on {{top_domain}}"
 moodle_user_name:       "{{administrator_username}}"
 moodle_user_email:      "{{administrator_email}}"
+moodle_version:         "latest"
+
+#### MyBB
+mybb_version:            "latest"
 
 #### Nextcloud
 nextcloud_version:      "production"  # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
@@ -241,6 +273,15 @@ peertube_version:       "bookworm"
 
 #### Pixelfed
 pixelfed_app_name:      "Pictures on {{top_domain}}"
+pixelfed_version:       "latest"
+
+#### Postgres
+# Please set an version in your inventory file - Rolling release for postgres isn't recommended
+postgres_database_version:      "latest"
+
+#### Taiga
+taiga_version:          "latest"
 
 #### YOURLS
 yourls_user:            "{{administrator_username}}"
+yourls_version:         "latest"

@@ -2,6 +2,7 @@ services:
 
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
       application:
+      # Seems like image tag got lost. @todo Check and implement if necessary
         log_driver: journald
         restart: "{{docker_restart_policy}}"
         depends_on:

@@ -5,7 +5,7 @@ services:
   application:
     logging:
       driver: journald
-    image: yourls
+    image: yourls:{{yourls_version}}
     restart: {{docker_restart_policy}}
     ports:
       - "127.0.0.1:{{http_port}}:80"

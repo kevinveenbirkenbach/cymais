@@ -1,7 +1,7 @@
 # This template needs to be included in docker-compose.yml, which depend on a postgres database
 {% if not enable_central_database | bool %}  
   database:
-    image: postgres:{{database_version}}-alpine
+    image: postgres:{{postgres_database_version}}-alpine
     container_name: {{docker_compose_project_name}}-database
     environment:
       - POSTGRES_PASSWORD={{database_password}}

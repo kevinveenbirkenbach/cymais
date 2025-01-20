@@ -1,6 +1,6 @@
 services:
   pds:
-    image: ghcr.io/bluesky-social/pds:latest
+    image: "ghcr.io/bluesky-social/pds:{{bluesky_pds_version}}"
     restart: {{docker_restart_policy}}
     volumes:
         - pds_data:/pds
@@ -8,7 +8,7 @@ services:
     environment:
       # Geben Sie hier Ihre Domain und Konfigurationsdetails an
       PDS_HOSTNAME: "{{domain_api}}"
-      PDS_ADMIN_EMAIL: "{{administrator_email}}"
+      PDS_ADMIN_EMAIL: "{{bluesky_administrator_email}}"
       PDS_SERVICE_DID: "did:web:{{domain_api}}"
       # See https://mattdyson.org/blog/2024/11/self-hosting-bluesky-pds/
       PDS_SERVICE_HANDLE_DOMAINS: ".{{top_domain}}"

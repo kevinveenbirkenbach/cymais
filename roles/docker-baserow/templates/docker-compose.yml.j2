@@ -5,7 +5,7 @@ services:
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   application:
-    image: baserow/baserow:1.19.1
+    image: "baserow/baserow:{{baserow_version}}"
     container_name: baserow-application
     restart: {{docker_restart_policy}}
     logging:

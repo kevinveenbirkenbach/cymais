@@ -3,7 +3,7 @@ services:
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   synapse:
-    image: matrixdotorg/synapse:latest
+    image: matrixdotorg/synapse:{{matrix_synapse_version}}
     container_name: matrix-synapse
     restart: {{docker_restart_policy}}
     logging:
@@ -33,7 +33,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
     
   element:
-    image: vectorim/element-web:latest
+    image: vectorim/element-web:{{matrix_synapse_element}}
     container_name: matrix-element
     restart: {{docker_restart_policy}}
     volumes:
