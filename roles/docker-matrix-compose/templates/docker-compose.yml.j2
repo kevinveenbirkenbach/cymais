@@ -33,7 +33,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
     
   element:
-    image: vectorim/element-web:{{matrix_synapse_element}}
+    image: vectorim/element-web:{{matrix_element_version}}
     container_name: matrix-element
     restart: {{docker_restart_policy}}
     volumes:

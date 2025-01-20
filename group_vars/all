@@ -229,7 +229,8 @@ gitlab_version:                   "latest"
 joomla_version:                   "latest"
 
 #### Keycloak
-keycloak_version:                 "latest"
+keycloak_version:                   "latest"
+keycloak_administrator_username:    "{{administrator_username}}"
 
 #### Listmonk
 listmonk_admin_username:          "admin"
@@ -247,12 +248,12 @@ mastodon_version:                 "latest"
 mastodon_single_user_mode:        false
 
 #### Matrix
-matrix_admin_name:      "{{administrator_username}}"  # Accountname of the matrix admin
-matrix_playbook_tags:   "setup-all,start"             # For the initial update use: install-all,ensure-matrix-users-created,start
-matrix_role:            "compose"                     # Role to setup Matrix. Valid values: ansible, compose
-matrix_server_name:     "{{top_domain}}"              # Adress for the account names etc.
-matrix_synapse_version: "latest"
-matrix_element_version: "latest"
+matrix_administrator_username:  "{{administrator_username}}"  # Accountname of the matrix admin
+matrix_playbook_tags:           "setup-all,start"             # For the initial update use: install-all,ensure-matrix-users-created,start
+matrix_role:                    "compose"                     # Role to setup Matrix. Valid values: ansible, compose
+matrix_server_name:             "{{top_domain}}"              # Adress for the account names etc.
+matrix_synapse_version:         "latest"
+matrix_element_version:         "latest"
 
 #### Mailu
 mailu_version:          "2024.06"
@@ -280,11 +281,11 @@ pixelfed_version:       "latest"
 
 #### Postgres
 # Please set an version in your inventory file - Rolling release for postgres isn't recommended
-postgres_database_version:      "latest"
+postgres_database_version:  "latest"
 
 #### Taiga
-taiga_version:          "latest"
+taiga_version:              "latest"
 
 #### YOURLS
-yourls_administrator_name:  "{{administrator_username}}"
-yourls_version:             "latest"
+yourls_administrator_username:  "{{administrator_username}}"
+yourls_version:                 "latest"
