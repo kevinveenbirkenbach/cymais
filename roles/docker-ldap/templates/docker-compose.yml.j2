@@ -34,7 +34,6 @@ services:
       LDAP_ENABLE_TLS:          no                              # Using nginx proxy
       LDAP_LDAPS_PORT_NUMBER:   {{ldap_secure_localhost_port}}  # Port used for TLS secure traffic. Priviledged port is supported (e.g. 636). Default: 1636 (non privileged port).
     volumes:
-      - {{cert_mount_directory}}:/certs:ro
       - 'data:/bitnami/openldap'
     healthcheck:
       test: >

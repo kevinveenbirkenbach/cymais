@@ -1,7 +1,6 @@
 docker_compose_project_name:  "ldap"
 ldap_root:                    "dc={{primary_domain_sld}},dc={{primary_domain_tld}}"
 ldap_admin_dn:                "cn={{ldap_administrator_username}},{{ldap_root}}"
-cert_mount_directory:         "{{docker_compose_instance_directory}}/certs/"
 ldap_secure_localhost_port:   1636
 ldap_secure_internet_port:    636
 ldap_localhost_port:          389
