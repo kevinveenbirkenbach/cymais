@@ -45,7 +45,7 @@ pixelfed_database_password:         "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
 pixelfed_app_key:                   "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
 wordpress_database_password:        "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
 yourls_database_password:           "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
-yourls_user_password:               "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
+yourls_administrator_username_password:               "I_NEED_TO_CHANGE_THIS_UNSECURE_PASSWORD"
 
 path_mass_storage:                  "/mnt/hdd/"
 path_rapid_storage:                 "/mnt/ssd/"

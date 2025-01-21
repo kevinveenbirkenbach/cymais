@@ -7,7 +7,7 @@
 - name: Install PostgreSQL
   docker_container:
     name: central-postgres
-    image: "postgres:{{database_version}}"
+    image: "postgres:{{postgres_database_version}}"
     detach: yes
     env:
       POSTGRES_PASSWORD: "{{ central_postgres_password }}"

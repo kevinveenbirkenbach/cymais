@@ -1,32 +1,24 @@
-version: '3.7'
-
 services:
 
-# include database container
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
-  keycloak:
-    image: quay.io/keycloak/keycloak:23.0.6
+  application:
+    image: quay.io/keycloak/keycloak:{{keycloak_version}}
     command: start
     environment:
-      KC_HOSTNAME: {{domain}}
-      KC_HOSTNAME_PORT: {{http_port}}
-      KC_HOSTNAME_STRICT_BACKCHANNEL: false
-      KC_HTTP_ENABLED: true
-      KC_HOSTNAME_STRICT_HTTPS: false
-      KC_HEALTH_ENABLED: true
-      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
-      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
-      KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgres/${POSTGRES_DB}
-      KC_DB_USERNAME: ${POSTGRES_USER}
-      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      KC_HOSTNAME:                    https://{{domain}}
+      KC_HTTP_ENABLED:                true
+      KC_HEALTH_ENABLED:              true
+      KEYCLOAK_ADMIN:                 "{{keycloak_administrator_username}}"
+      KEYCLOAK_ADMIN_PASSWORD:        "{{keycloak_administrator_password}}"
+      KC_DB:                          postgres
+      KC_DB_URL:                      jdbc:postgresql://{{database_host}}/{{database_name}}
+      KC_DB_USERNAME:                 {{database_username}}
+      KC_DB_PASSWORD:                 {{database_password}}
     ports:
       - "127.0.0.1:{{http_port}}:8080"
-    restart: always
+    restart: {{docker_restart_policy}}
 {% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
-
-{% include 'templates/docker/compose/volumes.yml.j2' %}
 
 {% include 'templates/docker/compose/networks.yml.j2' %}

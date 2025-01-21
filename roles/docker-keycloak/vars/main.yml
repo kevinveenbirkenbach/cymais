@@ -1,0 +1,3 @@
+docker_compose_project_name:  	    "keycloak"
+database_type:                      "postgres"
+database_password:  	              "{{keycloak_database_password}}"

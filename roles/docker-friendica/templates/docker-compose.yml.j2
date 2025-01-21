@@ -3,7 +3,7 @@ services:
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   application:
-    image: friendica
+    image: "friendica:{{friendica_version}}"
     restart: {{docker_restart_policy}}
     volumes:
       - data:/var/www/html

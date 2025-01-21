@@ -5,7 +5,7 @@ services:
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   application:
-    image: baserow/baserow:1.19.1
+    image: "baserow/baserow:{{baserow_version}}"
     container_name: baserow-application
     restart: {{docker_restart_policy}}
     logging:
@@ -16,11 +16,6 @@ services:
       - data:/baserow/data
     ports:
       - "{{http_port}}:80"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80/"]
-      interval: 1m
-      timeout: 10s
-      retries: 3
 {% include 'templates/docker/container/networks.yml.j2' %}
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 

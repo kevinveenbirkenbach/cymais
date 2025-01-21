@@ -1,24 +1,36 @@
+version: '2'
+
+networks:
+  my-network:
+    driver: bridge
 services:
   openldap:
-    image: osixia/openldap:1.2.4
-    environment:
-      - LDAP_ORGANISATION=MeineFirma
-      - LDAP_DOMAIN=meinefirma.de
-      - LDAP_ADMIN_PASSWORD=admin
+    image: bitnami/openldap:2
     ports:
-      - "389:389"
-      - "636:636"
-    volumes:
-      - ./ldap:/var/lib/ldap
-      - ./ldap-slapd:/etc/ldap/slapd.d
+      - '389:1389'
+      - '636:1636'
+    environment:
+      - LDAP_ADMIN_USERNAME=admin
+      - LDAP_ADMIN_PASSWORD=adminpassword
+      - LDAP_USERS=user01,user02 # Comma separated list of LDAP users to create in the default LDAP tree. Default: user01,user02
+      - LDAP_PASSWORDS=password1,password2 #Comma separated list of passwords to use for LDAP users. Default: bitnami1,bitnami2
+  
+      - LDAP_ROOT=dc=example,dc=org
+      - LDAP_ADMIN_DN=cn=admin,dc=example,dc=org
 
-  keycloak:
-    image: jboss/keycloak:latest
-    environment:
-      - KEYCLOAK_USER=admin
-      - KEYCLOAK_PASSWORD=admin
-      - DB_VENDOR=h2
-    ports:
-      - "8080:8080"
-    depends_on:
-      - openldap
+      - MARIADB_ROOT_PASSWORD=root-password
+      - MARIADB_GALERA_MARIABACKUP_PASSWORD=backup-password
+      - MARIADB_USER=customuser
+      - MARIADB_DATABASE=customdatabase
+      - MARIADB_ENABLE_LDAP=yes
+    networks:
+      - my-network
+    volumes:
+      - 'openldap_data:/bitnami/openldap'
+  myapp:
+    image: 'YOUR_APPLICATION_IMAGE'
+    networks:
+      - my-network
+volumes:
+  openldap_data:
+    driver: local

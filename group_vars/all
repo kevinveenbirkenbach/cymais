@@ -5,8 +5,8 @@ ip4_address:          "127.0.0.1"   # Change thie in inventory to the ip address
 backups_folder_path:  "/Backups/"   # Path to the backups folder
 
 # Administrator
-administrator_username:   "administrator"                             # Username of the administrator
-administrator_email:      "{{administrator_username}}@{{top_domain}}" # Email of the administrator
+administrator_username:    "administrator"                             # Username of the administrator
+administrator_email:       "{{administrator_username}}@{{top_domain}}" # Email of the administrator
 
 # Email Configuration
 system_email_local:     no-reply
@@ -148,6 +148,7 @@ domain_funkwhale:               "music.{{top_domain}}"
 domain_gitea:                   "git.{{top_domain}}"
 domain_gitlab:                  "gitlab.{{top_domain}}"
 domain_portfolio:               "{{top_domain}}"
+domain_keycloak:                "auth.{{top_domain}}"
 domain_listmonk:                "newsletter.{{top_domain}}"
 domain_mailu:                   "{{system_email_host}}"
 domain_mastodon:                "microblog.{{top_domain}}"
@@ -174,6 +175,7 @@ redirect_domain_mappings:
 - { source: "discourse.{{top_domain}}",   target: "{{domain_discourse}}" }
 - { source: "funkwhale.{{top_domain}}",   target: "{{domain_funkwhale}}" }
 - { source: "gitea.{{top_domain}}",       target: "{{domain_gitea}}" }
+- { source: "keycloak.{{top_domain}}",    target: "{{domain_keycloak}}" }
 - { source: "listmonk.{{top_domain}}",    target: "{{domain_listmonk}}" }
 - { source: "moodle.{{top_domain}}",      target: "{{domain_moodle}}" }
 - { source: "nextcloud.{{top_domain}}",   target: "{{domain_nextcloud}}" }
@@ -185,6 +187,7 @@ redirect_domain_mappings:
 - { source: "taiga.{{top_domain}}",       target: "{{domain_taiga}}" }
 - { source: "videos.{{top_domain}}",      target: "{{domain_peertube}}" }
 
+
 ## Docker Applications
 
 ### Enable Central MariaDB
@@ -193,9 +196,6 @@ enable_central_database_mailu: "{{enable_central_database}}"
 
 ### Enable Storage Optimizer for Docker Volumes
 enable_system_storage_optimizer: true
-
-### Common Configurations
-postgres_default_version:       "16"
 
 ### Docker Role Specific Parameters
 docker_restart_policy:        "unless-stopped"
@@ -206,22 +206,57 @@ akaunting_company_name:       "{{top_domain}}"
 akaunting_company_email:      "{{administrator_email}}"
 akaunting_setup_admin_email:  "{{administrator_email}}"
 
+#### Attendize 
+attendize_version:              "latest"
+
+#### Baserow 
+baserow_version:                "latest"
+
 #### Big Blue Button
 bigbluebutton_enable_greenlight:  "true"
+
+#### Bluesky
+bluesky_administrator_email:      "{{administrator_email}}"
+bluesky_pds_version:              "latest"
+
+#### Friendica
+friendica_version:                "latest"
+
+#### Gitea
+gitea_version:                    "latest"
+
+#### Gitlab
+gitlab_version:                   "latest"
+
+#### Joomla
+joomla_version:                   "latest"
+
+#### Keycloak
+keycloak_version:                   "latest"
+keycloak_administrator_username:    "{{administrator_username}}"
 
 #### Listmonk
 listmonk_admin_username:          "admin"
 listmonk_public_api_activated:    False # Security hole. Can be used for spaming
+listmonk_version:                  "latest"
+
+#### MariaDB
+mariadb_version:                  "latest"
+
+#### Matomo
+matomo_version:                   "latest"
 
 #### Mastodon
 mastodon_version:                 "latest"
 mastodon_single_user_mode:        false
 
 #### Matrix
-matrix_admin_name:      "{{administrator_username}}"  # Accountname of the matrix admin
-matrix_playbook_tags:   "setup-all,start"             # For the initial update use: install-all,ensure-matrix-users-created,start
-matrix_role:            "compose"                     # Role to setup Matrix. Valid values: ansible, compose
-matrix_server_name:     "{{top_domain}}"              # Adress for the account names etc.
+matrix_administrator_username:  "{{administrator_username}}"  # Accountname of the matrix admin
+matrix_playbook_tags:           "setup-all,start"             # For the initial update use: install-all,ensure-matrix-users-created,start
+matrix_role:                    "compose"                     # Role to setup Matrix. Valid values: ansible, compose
+matrix_server_name:             "{{top_domain}}"              # Adress for the account names etc.
+matrix_synapse_version:         "latest"
+matrix_element_version:         "latest"
 
 #### Mailu
 mailu_version:          "2024.06"
@@ -229,9 +264,13 @@ mailu_domain:           "{{top_domain}}"
 mailu_subnet:           "192.168.203.0/24"
 
 #### Moodle
-moodle_site_name:       "Global Learning Academy on {{top_domain}}"
-moodle_user_name:       "{{administrator_username}}"
-moodle_user_email:      "{{administrator_email}}"
+moodle_site_name:           "Global Learning Academy on {{top_domain}}"
+moodle_administrator_name:  "{{administrator_username}}"
+moodle_administrator_email: "{{administrator_email}}"
+moodle_version:             "latest"
+
+#### MyBB
+mybb_version:            "latest"
 
 #### Nextcloud
 nextcloud_version:      "production"  # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
@@ -241,6 +280,15 @@ peertube_version:       "bookworm"
 
 #### Pixelfed
 pixelfed_app_name:      "Pictures on {{top_domain}}"
+pixelfed_version:       "latest"
+
+#### Postgres
+# Please set an version in your inventory file - Rolling release for postgres isn't recommended
+postgres_database_version:  "latest"
+
+#### Taiga
+taiga_version:              "latest"
 
 #### YOURLS
-yourls_user:            "{{administrator_username}}"
+yourls_administrator_username:  "{{administrator_username}}"
+yourls_version:                 "latest"
