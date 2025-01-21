@@ -1,5 +1,3 @@
 docker_compose_project_name:  	    "ldap"
-database_type:                      "postgres"
-database_password:  	              "{{ldap_database_password}}"
 ldap_root:                          "dc={{primary_domain_sld}},dc={{primary_domain_tld}}"
 ldap_admin_dm:                      "cn={{ldap_administrator_username}},{{ldap_root}}"

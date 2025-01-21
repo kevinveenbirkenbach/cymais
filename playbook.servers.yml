@@ -306,6 +306,15 @@
         domain: "{{domain_keycloak}}"
         http_port: 8032
 
+- name: setup ldap
+  hosts: ldap
+  become: true
+  roles:
+   -  role: docker-ldap
+      vars:
+        domain: "{{domain_ldap}}"
+        http_port: 8033
+
 # Native Webserver Roles
 - name: setup nginx-static-repositorys
   hosts: nginx-static-repositorys

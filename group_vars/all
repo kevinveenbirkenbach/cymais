@@ -1,16 +1,16 @@
 # General
-pause_duration:       "120"         # Database delay to wait for the central database before continue tasks
-ip4_address:          "127.0.0.1"   # Change thie in inventory to the ip address of your server
-backups_folder_path:  "/Backups/"   # Path to the backups folder
+pause_duration:         "120"         # Database delay to wait for the central database before continue tasks
+ip4_address:            "127.0.0.1"   # Change thie in inventory to the ip address of your server
+backups_folder_path:    "/Backups/"   # Path to the backups folder
 
 ## Domain
-primary_domain_tld:                       "localhost"                                     # Top Level Domain of the server
-primary_domain_sld:                       "cymais"                                        # Second Level Domain of the server
-primary_domain:                           "{{primary_domain_sld}}.{{primary_domain_tld}}" # Primary Domain of the server
+primary_domain_tld:     "localhost"                                     # Top Level Domain of the server
+primary_domain_sld:     "cymais"                                        # Second Level Domain of the server
+primary_domain:         "{{primary_domain_sld}}.{{primary_domain_tld}}" # Primary Domain of the server
 
 # Administrator
-administrator_username:               "administrator"                                 # Username of the administrator
-administrator_email:                  "{{administrator_username}}@{{primary_domain}}" # Email of the administrator
+administrator_username: "administrator"                                 # Username of the administrator
+administrator_email:    "{{administrator_username}}@{{primary_domain}}" # Email of the administrator
 #user_administrator_initial_password: EXAMPLE_PASSWORD_123456                         # Example initialisation password needs to be set in inventory file
 
 # Email Configuration
@@ -157,6 +157,7 @@ domain_gitea:                   "git.{{primary_domain}}"
 domain_gitlab:                  "gitlab.{{primary_domain}}"
 domain_portfolio:               "{{primary_domain}}"
 domain_keycloak:                "auth.{{primary_domain}}"
+domain_ldap:                    "ldap.{{primary_domain}}"
 domain_listmonk:                "newsletter.{{primary_domain}}"
 domain_mailu:                   "{{system_email_host}}"
 domain_mastodon:                "microblog.{{primary_domain}}"
@@ -245,9 +246,9 @@ keycloak_administrator_username:  "{{administrator_username}}"
 
 #### LDAP
 ldap_version:                     "latest"
+ldap_admin_version:               "latest"
 ldap_administrator_username:      "{{administrator_username}}"
 ldap_administrator_password:      "{{user_administrator_initial_password}}" #CHANGE for security reasons
-# ldap_database_password:         # Needs to be defined in inventory
 
 #### Listmonk
 listmonk_admin_username:          "{{administrator_username}}"

@@ -1,6 +1,15 @@
 services:
-  {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
-
+  phpldapadmin:
+    image: leenooks/phpldapadmin:{{ldap_admin_version}}
+    logging:
+      driver: journald
+    restart: {{docker_restart_policy}}
+    ports:
+      - 127.0.0.1:{{http_port}}:8080
+    environment:
+      # @See https://github.com/leenooks/phpLDAPadmin/wiki/Docker-Container
+      APP_URL:    https://{{domain}}
+      LDAP_HOST:  {{domain}}
   openldap:
     image: bitnami/openldap:{{ldap_version}}
     logging:
@@ -10,6 +19,8 @@ services:
       - '127.0.0.1:389:1389'  # Expose just on local host for security reasons
       - '636:636'             # Expose to internet
     environment:
+      # @See https://hub.docker.com/r/bitnami/openldap
+
       # GENERAL
       LDAP_ADMIN_USERNAME:  {{ldap_administrator_username}} # LDAP database admin user.
       LDAP_ADMIN_PASSWORD:  {{ldap_administrator_password}} # LDAP database admin password.
@@ -19,22 +30,16 @@ services:
       LDAP_ADMIN_DN:        {{ldap_admin_dn}}
 
       # TLS
-      LDAP_ENABLE_TLS:          yes # Whether to enable TLS for traffic or not. Defaults to no
-      LDAP_REQUIRE_TLS:         yes # Whether connections must use TLS. Will only be applied with LDAP_ENABLE_TLS active. Defaults to no
-      LDAP_LDAPS_PORT_NUMBER:   636 # Port used for TLS secure traffic. Priviledged port is supported (e.g. 636). Default: 1636 (non privileged port).
-      LDAP_TLS_CERT_FILE:       File containing the certificate file for the TLS traffic. No defaults.
-      LDAP_TLS_KEY_FILE:        File containing the key for certificate. No defaults.
-      LDAP_TLS_CA_FILE:         File containing the CA of the certificate. No defaults.
-      LDAP_TLS_DH_PARAMS_FILE:  File containing the DH parameters. No defaults.
-
-      # Database Configuration
-      MARIADB_ROOT_PASSWORD=root-password
-      MARIADB_USER=customuser
-      MARIADB_DATABASE=customdatabase
-      MARIADB_ENABLE_LDAP=yes
+      LDAP_ENABLE_TLS:          yes                         # Whether to enable TLS for traffic or not. Defaults to no
+      LDAP_REQUIRE_TLS:         yes                         # Whether connections must use TLS. Will only be applied with LDAP_ENABLE_TLS active. Defaults to no
+      LDAP_LDAPS_PORT_NUMBER:   636                         # Port used for TLS secure traffic. Priviledged port is supported (e.g. 636). Default: 1636 (non privileged port).
+      LDAP_TLS_CERT_FILE:       /certs/cert.pem             # File containing the certificate file for the TLS traffic. No defaults.
+      LDAP_TLS_KEY_FILE:        /certs/key.pem              # File containing the key for certificate. No defaults.
+      #LDAP_TLS_CA_FILE:                                    # File containing the CA of the certificate. No defaults.
+      #LDAP_TLS_DH_PARAMS_FILE:                             # File containing the DH parameters. No defaults.
     volumes:
+      - {{cert_mount_directory}}:/certs
       - 'data:/bitnami/openldap'
-{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 {% include 'templates/docker/compose/volumes.yml.j2' %}
   data:
