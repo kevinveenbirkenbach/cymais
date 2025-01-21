@@ -16,28 +16,23 @@ services:
       driver: journald
     restart: {{docker_restart_policy}}
     ports:
-      - '127.0.0.1:389:389'   # Expose just on local host for security reasons, phpLDAPadmin requires this
-      - '636:636'             # Expose to internet
+      - 127.0.0.1:{{ldap_localhost_port}}:{{ldap_localhost_port}}               # Expose just on localhost so that nginx stream proxy can use it
+      - 127.0.0.1:{{ldap_secure_localhost_port}}:{{ldap_secure_localhost_port}} # Expose just on localhost
     environment:
       # @See https://hub.docker.com/r/bitnami/openldap
-
+      
       # GENERAL
-      LDAP_ADMIN_USERNAME:    {{ldap_administrator_username}} # LDAP database admin user.
-      LDAP_ADMIN_PASSWORD:    {{ldap_administrator_password}} # LDAP database admin password.
-      #LDAP_USERS:            user01,user02                   # Comma separated list of LDAP users to create in the default LDAP tree. Default: user01,user02
-      #LDAP_PASSWORDS:        password1,password2             # Comma separated list of passwords to use for LDAP users. Default: bitnami1,bitnami 
-      LDAP_ROOT:              {{ldap_root}}                   # LDAP baseDN (or suffix) of the LDAP tree. Default: dc=example,dc=org
-      LDAP_ADMIN_DN:          {{ldap_admin_dn}}
-      LDAP_PORT_NUMBER:       389                             # Route to default port
+      LDAP_ADMIN_USERNAME:      {{ldap_administrator_username}} # LDAP database admin user.
+      LDAP_ADMIN_PASSWORD:      {{ldap_administrator_password}} # LDAP database admin password.
+      #LDAP_USERS:              user01,user02                   # Comma separated list of LDAP users to create in the default LDAP tree. Default: user01,user02
+      #LDAP_PASSWORDS:          password1,password2             # Comma separated list of passwords to use for LDAP users. Default: bitnami1,bitnami 
+      LDAP_ROOT:                {{ldap_root}}                   # LDAP baseDN (or suffix) of the LDAP tree. Default: dc=example,dc=org
+      LDAP_ADMIN_DN:            {{ldap_admin_dn}}
+      LDAP_PORT_NUMBER:         {{ldap_localhost_port}}         # Route to default port
 
       # TLS
-      LDAP_ENABLE_TLS:          yes                         # Whether to enable TLS for traffic or not. Defaults to no
-      LDAP_REQUIRE_TLS:         no                          # Deactivated so that it can be accessed on the server itself via phpldapadmin
-      LDAP_LDAPS_PORT_NUMBER:   636                         # Port used for TLS secure traffic. Priviledged port is supported (e.g. 636). Default: 1636 (non privileged port).
-      LDAP_TLS_CERT_FILE:       /certs/cert.pem             # File containing the certificate file for the TLS traffic. No defaults.
-      LDAP_TLS_KEY_FILE:        /certs/key.pem              # File containing the key for certificate. No defaults.
-      LDAP_TLS_CA_FILE:         /certs/chain.pem            # File containing the CA of the certificate. No defaults.
-      #LDAP_TLS_DH_PARAMS_FILE:                             # File containing the DH parameters. No defaults.
+      LDAP_ENABLE_TLS:          no                              # Using nginx proxy
+      LDAP_LDAPS_PORT_NUMBER:   {{ldap_secure_localhost_port}}  # Port used for TLS secure traffic. Priviledged port is supported (e.g. 636). Default: 1636 (non privileged port).
     volumes:
       - {{cert_mount_directory}}:/certs:ro
       - 'data:/bitnami/openldap'

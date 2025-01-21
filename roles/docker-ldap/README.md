@@ -125,6 +125,9 @@ The following directories are mounted in the container:
 - [Bitnami OpenLDAP](https://hub.docker.com/r/bitnami/openldap)
 - [phpLDAPadmin Documentation](https://github.com/leenooks/phpLDAPadmin/wiki/Docker-Container)
 - [LDAP Account Manager](https://github.com/LDAPAccountManager/docker)
+- https://github.com/bitnami/containers/issues/53392
+- https://kb.i-doit.com/de/administration/troubleshooting/ldap-via-tls.html
+- https://forum.ubuntuusers.de/topic/tls-verbindung-mit-openldap/
 
 ---
 

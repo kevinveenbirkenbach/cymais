@@ -19,7 +19,7 @@
   loop:
     - "{{nginx_servers_directory}}"
     - "{{nginx_maps_directory}}"
-    - "{{nginx_upstreams_directory}}"
+    - "{{nginx_streams_directory}}"
   when: run_once_nginx is not defined
 
 - name: create nginx config file
