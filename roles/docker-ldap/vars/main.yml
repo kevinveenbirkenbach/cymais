@@ -1,3 +1,4 @@
-docker_compose_project_name:  	    "ldap"
-ldap_root:                          "dc={{primary_domain_sld}},dc={{primary_domain_tld}}"
-ldap_admin_dm:                      "cn={{ldap_administrator_username}},{{ldap_root}}"
+docker_compose_project_name:  "ldap"
+ldap_root:                    "dc={{primary_domain_sld}},dc={{primary_domain_tld}}"
+ldap_admin_dn:                "cn={{ldap_administrator_username}},{{ldap_root}}"
+cert_mount_directory:         "{{docker_compose_instance_directory}}/certs/"

@@ -35,10 +35,10 @@ services:
       LDAP_LDAPS_PORT_NUMBER:   636                         # Port used for TLS secure traffic. Priviledged port is supported (e.g. 636). Default: 1636 (non privileged port).
       LDAP_TLS_CERT_FILE:       /certs/cert.pem             # File containing the certificate file for the TLS traffic. No defaults.
       LDAP_TLS_KEY_FILE:        /certs/key.pem              # File containing the key for certificate. No defaults.
-      #LDAP_TLS_CA_FILE:                                    # File containing the CA of the certificate. No defaults.
+      LDAP_TLS_CA_FILE:         /certs/chain.pem            # File containing the CA of the certificate. No defaults.
       #LDAP_TLS_DH_PARAMS_FILE:                             # File containing the DH parameters. No defaults.
     volumes:
-      - {{cert_mount_directory}}:/certs
+      - {{cert_mount_directory}}:/certs:ro
       - 'data:/bitnami/openldap'
 {% include 'templates/docker/container/networks.yml.j2' %}
 {% include 'templates/docker/compose/volumes.yml.j2' %}
