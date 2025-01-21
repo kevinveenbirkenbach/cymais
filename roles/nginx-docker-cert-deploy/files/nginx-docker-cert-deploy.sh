@@ -11,7 +11,8 @@ domain="$1"
 docker_compose_instance_directory="$2"
 
 # Copy certificates
-cp -Rv "/etc/letsencrypt/live/$domain/"* "$docker_compose_instance_directory/certs" || exit 1
+cp -RvL "/etc/letsencrypt/live/$domain/"* "$docker_compose_instance_directory/certs" || exit 1
+chmod a+r -v "$docker_compose_instance_directory/certs/"*
 
 # Flag to track if any Nginx reload was successful
 nginx_reload_successful=false
