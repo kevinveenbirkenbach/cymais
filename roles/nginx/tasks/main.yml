@@ -33,7 +33,7 @@
   include_tasks: certbot-matomo.yml
   when: run_once_nginx is not defined
   vars:
-    domain: "{{top_domain}}"
+    domain: "{{primary_domain}}"
   when: run_once_nginx is not defined
 
 - name: flush nginx service

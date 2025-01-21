@@ -8,8 +8,8 @@
 ### Multi Domain Installation
 If you want to access your mybb over multiple domains, keep the following in mind:
 - Set Cookie Domain to nothing
-- Access mybb for installation via mybb.<top_domain> 
-- Set the Board Url to mybb.<top_domain>
+- Access mybb for installation via mybb.<primary_domain> 
+- Set the Board Url to mybb.<primary_domain>
 
 ### Manual Installation of MyBB Plugins
 

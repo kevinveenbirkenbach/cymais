@@ -1,18 +1,23 @@
 # General
 pause_duration:       "120"         # Database delay to wait for the central database before continue tasks
-top_domain:           "localhost"   # Change this in inventory to your domain
 ip4_address:          "127.0.0.1"   # Change thie in inventory to the ip address of your server
 backups_folder_path:  "/Backups/"   # Path to the backups folder
 
+## Domain
+primary_domain_tld:                       "localhost"                                     # Top Level Domain of the server
+primary_domain_sld:                       "cymais"                                        # Second Level Domain of the server
+primary_domain:                           "{{primary_domain_sld}}.{{primary_domain_tld}}" # Primary Domain of the server
+
 # Administrator
-administrator_username:    "administrator"                             # Username of the administrator
-administrator_email:       "{{administrator_username}}@{{top_domain}}" # Email of the administrator
+administrator_username:               "administrator"                                 # Username of the administrator
+administrator_email:                  "{{administrator_username}}@{{primary_domain}}" # Email of the administrator
+#user_administrator_initial_password: EXAMPLE_PASSWORD_123456                         # Example initialisation password needs to be set in inventory file
 
 # Email Configuration
 system_email_local:     no-reply
-system_email_domain:    "{{top_domain}}"
+system_email_domain:    "{{primary_domain}}"
 system_email_username:  "{{system_email_local}}@{{system_email_domain}}"
-system_email_host:      "mail.{{top_domain}}"
+system_email_host:      "mail.{{primary_domain}}"
 system_email_smtp_port: 465
 system_email_tls:       true
 system_email_start_tls: false
@@ -20,7 +25,7 @@ system_email_from:      "{{system_email_username}}"
 system_email_smtp:      true
 
 # Test Email
-test_email:             "test@{{top_domain}}"
+test_email:             "test@{{primary_domain}}"
 
 # Mode
 
@@ -36,7 +41,7 @@ mode_setup:   false # Execute the setup and initializing procedures
 # Server Tact Variables 
 
 ## Ours in which the server is "awake" (100% working). Rest of the time is reserved for maintanance
-hours_server_awake: "0..23"
+hours_server_awake:                           "0..23"
 
 ## Random delay for systemd timers to avoid peak loads.
 randomized_delay_sec:                         "5min" 
@@ -73,16 +78,16 @@ size_percent_disc_space_warning:              90  # Warning threshold in percent
 
 
 # Path Variables for Key Directories and Scripts
-path_administrator_home:        "/home/administrator/"
-path_administrator_scripts:     "{{path_administrator_home}}scripts/"
-path_docker_volumes:            "{{path_administrator_home}}volumes/docker/"
-path_docker_compose_instances:  "{{path_administrator_home}}docker-compose/"
-path_system_lock_script:        "{{path_administrator_scripts}}system-maintenance-lock.py"
+path_administrator_home:                      "/home/administrator/"
+path_administrator_scripts:                   "{{path_administrator_home}}scripts/"
+path_docker_volumes:                          "{{path_administrator_home}}volumes/docker/"
+path_docker_compose_instances:                "{{path_administrator_home}}docker-compose/"
+path_system_lock_script:                      "{{path_administrator_scripts}}system-maintenance-lock.py"
 
 
 # Runtime Variables for Process Control
-activate_all_timers:          false   # Activates all timers, independend if the handlers had been triggered
-nginx_matomo_tracking:        false   # Activates matomo tracking on all html pages
+activate_all_timers:                          false   # Activates all timers, independend if the handlers had been triggered
+nginx_matomo_tracking:                        false   # Activates matomo tracking on all html pages
 
 # System maintenance Services
 
@@ -132,60 +137,63 @@ nginx_upstreams_directory:      "{{nginx_configuration_directory}}upstreams/"   
 nginx_well_known_root:          "/usr/share/nginx/well-known/"                  # Path where well-known files are stored
 nginx_homepage_root:            "/usr/share/nginx/homepage/"                    # Path where the static homepage files are stored
 
+## Nginx static repository
+nginx_static_repository_address: NULL #This should contain the url to an git repository which has a static homepage included and an index.html file
+
 ## Domains
 
 ### Service Domains
-domain_akaunting:               "accounting.{{top_domain}}"
-domain_attendize:               "tickets.{{top_domain}}"
-domain_baserow:                 "baserow.{{top_domain}}"
-domain_bigbluebutton:           "meet.{{top_domain}}"
-domain_bluesky_api:             "bluesky.{{top_domain}}"
-domain_bluesky_web:             "bskyweb.{{top_domain}}"
-domain_discourse:               "forum.{{top_domain}}"
-domain_elk:                     "elk.{{top_domain}}"
-domain_friendica:               "friendica.{{top_domain}}"
-domain_funkwhale:               "music.{{top_domain}}"
-domain_gitea:                   "git.{{top_domain}}"
-domain_gitlab:                  "gitlab.{{top_domain}}"
-domain_portfolio:               "{{top_domain}}"
-domain_keycloak:                "auth.{{top_domain}}"
-domain_listmonk:                "newsletter.{{top_domain}}"
+domain_akaunting:               "accounting.{{primary_domain}}"
+domain_attendize:               "tickets.{{primary_domain}}"
+domain_baserow:                 "baserow.{{primary_domain}}"
+domain_bigbluebutton:           "meet.{{primary_domain}}"
+domain_bluesky_api:             "bluesky.{{primary_domain}}"
+domain_bluesky_web:             "bskyweb.{{primary_domain}}"
+domain_discourse:               "forum.{{primary_domain}}"
+domain_elk:                     "elk.{{primary_domain}}"
+domain_friendica:               "friendica.{{primary_domain}}"
+domain_funkwhale:               "music.{{primary_domain}}"
+domain_gitea:                   "git.{{primary_domain}}"
+domain_gitlab:                  "gitlab.{{primary_domain}}"
+domain_portfolio:               "{{primary_domain}}"
+domain_keycloak:                "auth.{{primary_domain}}"
+domain_listmonk:                "newsletter.{{primary_domain}}"
 domain_mailu:                   "{{system_email_host}}"
-domain_mastodon:                "microblog.{{top_domain}}"
-domains_mastodon_alternates:    ["mastodon.{{top_domain}}"]
-domain_matomo:                  "matomo.{{top_domain}}"
-domain_matrix_synapse:          "matrix.{{top_domain}}"
-domain_matrix_element:          "element.{{top_domain}}"
-domain_moodle:                  "academy.{{top_domain}}"
-domain_mediawiki:               "wiki.{{top_domain}}"
-domain_nextcloud:               "cloud.{{top_domain}}"
-domain_openproject:             "project.{{top_domain}}"
-domain_pixelfed:                "picture.{{top_domain}}"
-domain_peertube:                "video.{{top_domain}}"
+domain_mastodon:                "microblog.{{primary_domain}}"
+domains_mastodon_alternates:    ["mastodon.{{primary_domain}}"]
+domain_matomo:                  "matomo.{{primary_domain}}"
+domain_matrix_synapse:          "matrix.{{primary_domain}}"
+domain_matrix_element:          "element.{{primary_domain}}"
+domain_moodle:                  "academy.{{primary_domain}}"
+domain_mediawiki:               "wiki.{{primary_domain}}"
+domain_nextcloud:               "cloud.{{primary_domain}}"
+domain_openproject:             "project.{{primary_domain}}"
+domain_pixelfed:                "picture.{{primary_domain}}"
+domain_peertube:                "video.{{primary_domain}}"
 domains_peertube:               []
-domain_roulette:                "roulette.{{top_domain}}"
-domain_taiga:                   "kanban.{{top_domain}}"
-domain_yourls:                  "s.{{top_domain}}"
-domains_wordpress:              ["wordpress.{{top_domain}}","blog.{{top_domain}}"]
+domain_roulette:                "roulette.{{primary_domain}}"
+domain_taiga:                   "kanban.{{primary_domain}}"
+domain_yourls:                  "s.{{primary_domain}}"
+domains_wordpress:              ["wordpress.{{primary_domain}}","blog.{{primary_domain}}"]
 
 ### Domain Redirects
 redirect_domain_mappings:
-- { source: "akaunting.{{top_domain}}",   target: "{{domain_akaunting}}" }
-- { source: "bbb.{{top_domain}}",         target: "{{domain_bigbluebutton}}" }
-- { source: "discourse.{{top_domain}}",   target: "{{domain_discourse}}" }
-- { source: "funkwhale.{{top_domain}}",   target: "{{domain_funkwhale}}" }
-- { source: "gitea.{{top_domain}}",       target: "{{domain_gitea}}" }
-- { source: "keycloak.{{top_domain}}",    target: "{{domain_keycloak}}" }
-- { source: "listmonk.{{top_domain}}",    target: "{{domain_listmonk}}" }
-- { source: "moodle.{{top_domain}}",      target: "{{domain_moodle}}" }
-- { source: "nextcloud.{{top_domain}}",   target: "{{domain_nextcloud}}" }
-- { source: "openproject.{{top_domain}}", target: "{{domain_openproject}}" }
-- { source: "peertube.{{top_domain}}",    target: "{{domain_peertube}}" }
-- { source: "pictures.{{top_domain}}",    target: "{{domain_pixelfed}}" }
-- { source: "pixelfed.{{top_domain}}",    target: "{{domain_pixelfed}}" }
-- { source: "short.{{top_domain}}",       target: "{{domain_yourls}}" }
-- { source: "taiga.{{top_domain}}",       target: "{{domain_taiga}}" }
-- { source: "videos.{{top_domain}}",      target: "{{domain_peertube}}" }
+- { source: "akaunting.{{primary_domain}}",   target: "{{domain_akaunting}}" }
+- { source: "bbb.{{primary_domain}}",         target: "{{domain_bigbluebutton}}" }
+- { source: "discourse.{{primary_domain}}",   target: "{{domain_discourse}}" }
+- { source: "funkwhale.{{primary_domain}}",   target: "{{domain_funkwhale}}" }
+- { source: "gitea.{{primary_domain}}",       target: "{{domain_gitea}}" }
+- { source: "keycloak.{{primary_domain}}",    target: "{{domain_keycloak}}" }
+- { source: "listmonk.{{primary_domain}}",    target: "{{domain_listmonk}}" }
+- { source: "moodle.{{primary_domain}}",      target: "{{domain_moodle}}" }
+- { source: "nextcloud.{{primary_domain}}",   target: "{{domain_nextcloud}}" }
+- { source: "openproject.{{primary_domain}}", target: "{{domain_openproject}}" }
+- { source: "peertube.{{primary_domain}}",    target: "{{domain_peertube}}" }
+- { source: "pictures.{{primary_domain}}",    target: "{{domain_pixelfed}}" }
+- { source: "pixelfed.{{primary_domain}}",    target: "{{domain_pixelfed}}" }
+- { source: "short.{{primary_domain}}",       target: "{{domain_yourls}}" }
+- { source: "taiga.{{primary_domain}}",       target: "{{domain_taiga}}" }
+- { source: "videos.{{primary_domain}}",      target: "{{domain_peertube}}" }
 
 
 ## Docker Applications
@@ -202,7 +210,7 @@ docker_restart_policy:        "unless-stopped"
 
 #### Akaunting
 akaunting_version:            "latest"
-akaunting_company_name:       "{{top_domain}}"
+akaunting_company_name:       "{{primary_domain}}"
 akaunting_company_email:      "{{administrator_email}}"
 akaunting_setup_admin_email:  "{{administrator_email}}"
 
@@ -232,13 +240,19 @@ gitlab_version:                   "latest"
 joomla_version:                   "latest"
 
 #### Keycloak
-keycloak_version:                   "latest"
-keycloak_administrator_username:    "{{administrator_username}}"
+keycloak_version:                 "latest"
+keycloak_administrator_username:  "{{administrator_username}}"
+
+#### LDAP
+ldap_version:                     "latest"
+ldap_administrator_username:      "{{administrator_username}}"
+ldap_administrator_password:      "{{user_administrator_initial_password}}" #CHANGE for security reasons
+# ldap_database_password:         # Needs to be defined in inventory
 
 #### Listmonk
-listmonk_admin_username:          "admin"
+listmonk_admin_username:          "{{administrator_username}}"
 listmonk_public_api_activated:    False # Security hole. Can be used for spaming
-listmonk_version:                  "latest"
+listmonk_version:                 "latest"
 
 #### MariaDB
 mariadb_version:                  "latest"
@@ -254,17 +268,17 @@ mastodon_single_user_mode:        false
 matrix_administrator_username:  "{{administrator_username}}"  # Accountname of the matrix admin
 matrix_playbook_tags:           "setup-all,start"             # For the initial update use: install-all,ensure-matrix-users-created,start
 matrix_role:                    "compose"                     # Role to setup Matrix. Valid values: ansible, compose
-matrix_server_name:             "{{top_domain}}"              # Adress for the account names etc.
+matrix_server_name:             "{{primary_domain}}"              # Adress for the account names etc.
 matrix_synapse_version:         "latest"
 matrix_element_version:         "latest"
 
 #### Mailu
 mailu_version:          "2024.06"
-mailu_domain:           "{{top_domain}}"
+mailu_domain:           "{{primary_domain}}"
 mailu_subnet:           "192.168.203.0/24"
 
 #### Moodle
-moodle_site_name:           "Global Learning Academy on {{top_domain}}"
+moodle_site_name:           "Global Learning Academy on {{primary_domain}}"
 moodle_administrator_name:  "{{administrator_username}}"
 moodle_administrator_email: "{{administrator_email}}"
 moodle_version:             "latest"
@@ -279,7 +293,7 @@ nextcloud_version:      "production"  # @see https://nextcloud.com/blog/nextclou
 peertube_version:       "bookworm"
 
 #### Pixelfed
-pixelfed_app_name:      "Pictures on {{top_domain}}"
+pixelfed_app_name:      "Pictures on {{primary_domain}}"
 pixelfed_version:       "latest"
 
 #### Postgres

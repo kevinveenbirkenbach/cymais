@@ -313,7 +313,7 @@
   roles:
    -  role: nginx-static-repository
       vars:
-        domain: "{{top_domain}}"
+        domain: "{{primary_domain}}"
 
 - name: setup redirect hosts
   hosts: redirect

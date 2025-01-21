@@ -1,2 +1,2 @@
-matomo_domain: "matomo.{{top_domain}}"
+matomo_domain: "matomo.{{primary_domain}}"
 base_domain: "{{ domain | regex_replace('^(?:.*\\.)?(.+\\..+)$', '\\1') }}"

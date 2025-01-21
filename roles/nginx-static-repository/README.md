@@ -14,7 +14,7 @@ This Ansible role configures an Nginx server to serve a static homepage. It hand
 - `nginx_homepage_root`: The directory where the homepage content will be stored (default: `/usr/share/nginx/homepage`)
 - `domain`: The domain name for the Nginx server configuration
 - `administrator_email`: The email used for SSL certificate registration with Let's Encrypt
-- `nginx_homepage_repository_address`: The Git repository address containing the homepage content
+- `nginx_static_repository_address`: The Git repository address containing the homepage content
 
 ## Dependencies
 
