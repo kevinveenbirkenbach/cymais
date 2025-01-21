@@ -1,4 +1,0 @@
-#!/bin/sh
-cp /etc/letsencrypt/live/{{domain}}/privkey.pem /etc/mailu/certs/key.pem || exit 1
-cp /etc/letsencrypt/live/{{domain}}/fullchain.pem /etc/mailu/certs/cert.pem || exit 1
-cd {{docker_compose_instance_directory}} && docker compose exec front nginx -s reload || exit 1

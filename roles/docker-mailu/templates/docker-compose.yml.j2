@@ -32,7 +32,7 @@ services:
       - "{{ ip4_address }}:4190:4190"
     volumes:
       - "/etc/mailu/overrides/nginx:/overrides:ro"
-      - "/etc/mailu/certs:/certs"
+      - "{{docker_compose_instance_directory}}/certs/:/certs"
 {% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
       resolver:
         condition: service_started

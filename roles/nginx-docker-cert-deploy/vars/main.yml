@@ -1,0 +1,2 @@
+cert_mount_directory:             "{{docker_compose_instance_directory}}/certs/"
+nginx_docker_cert_deploy_script:  "{{path_administrator_scripts}}nginx-docker-cert-deploy.sh"

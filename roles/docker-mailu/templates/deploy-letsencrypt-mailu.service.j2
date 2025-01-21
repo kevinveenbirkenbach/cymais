@@ -1,7 +1,0 @@
-[Unit]
-Description=Let's Encrypt Mailu Deploy
-OnFailure=systemd-notifier.cymais@%n.service
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/bash {{path_administrator_scripts}}mailu/deploy-letsencrypt-mailu.sh

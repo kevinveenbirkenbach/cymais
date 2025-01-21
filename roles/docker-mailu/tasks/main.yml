@@ -7,15 +7,9 @@
   vars:
     nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size 31M;"
 
-- name: "create {{path_docker_compose_instances}}mailu"
+- name: "create {{docker_compose_instance_directory}}"
   file:
-    path: "{{path_docker_compose_instances}}mailu"
-    state: directory
-    mode: 0755
-
-- name: "create {{path_administrator_scripts}}mailu"
-  file:
-    path: "{{path_administrator_scripts}}mailu"
+    path: "{{docker_compose_instance_directory}}"
     state: directory
     mode: 0755
 
@@ -25,11 +19,9 @@
     state: directory
     mode: 0755
 
-- name: "create /etc/mailu/certs"
-  file:
-    path: "/etc/mailu/certs"
-    state: directory
-    mode: 0755
+- name: "Include the nginx-docker-cert-deploy role"
+  include_role:
+    name: nginx-docker-cert-deploy
 
 - name: add docker-compose.yml
   template: 
@@ -42,25 +34,6 @@
     src:  "mailu.env.j2" 
     dest: "{{docker_compose_instance_directory}}mailu.env"
   notify: docker compose project setup
-
-- name: add deploy-letsencrypt-mailu.sh
-  template: 
-    src: "deploy-letsencrypt-mailu.sh.j2" 
-    dest: "{{path_administrator_scripts}}mailu/deploy-letsencrypt-mailu.sh"
-
-- name: configure deploy-letsencrypt-mailu.cymais.service
-  template: 
-    src:  "deploy-letsencrypt-mailu.service.j2"
-    dest: "/etc/systemd/system/deploy-letsencrypt-mailu.cymais.service"
-  notify: restart deploy-letsencrypt-mailu.cymais.service
-
-- name: "include role for systemd-timer for {{service_name}}"
-  include_role:
-    name: systemd-timer
-  vars:
-    on_calendar:  "{{on_calendar_deploy_mailu_certificates}}"
-    service_name: "deploy-letsencrypt-mailu"
-    persistent:   "true"
 
 - name: flush docker service
   meta: flush_handlers

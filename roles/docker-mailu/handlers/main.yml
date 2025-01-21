@@ -1,7 +1,0 @@
----
-- name: "restart deploy-letsencrypt-mailu.cymais.service"
-  systemd:
-    name: deploy-letsencrypt-mailu.cymais.service
-    state: restarted
-    enabled: yes
-    daemon_reload: yes
