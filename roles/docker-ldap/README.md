@@ -22,7 +22,6 @@ This Ansible role provides a streamlined implementation of an LDAP server with T
 
 ### Prerequisites
 - A valid domain name.
-- SSL/TLS certificates (e.g., from Let’s Encrypt).
 - Ansible installed on the deployment host.
 - Docker and Docker Compose installed on the target host.
 
@@ -56,6 +55,7 @@ roles/
       main.yml
     templates/
       docker-compose.yml.j2
+      nginx.stream.conf.j2
 ```
 
 ---
@@ -65,7 +65,7 @@ roles/
 Here’s an example playbook to use this role:
 
 ```yaml
-- name: Deploy LDAP with SSO
+- name: Deploy LDAP
   hosts: ldap_servers
   roles:
     - role: docker-ldap
@@ -100,7 +100,7 @@ Here’s an example playbook to use this role:
    - Configuration driven by environment variables.
 
 2. **phpLDAPadmin**
-   - Accessible on port 8080.
+   - Accessible on port 443.
    - Simplifies LDAP management via a web interface.
 
 3. **Healthchecks**
@@ -109,14 +109,12 @@ Here’s an example playbook to use this role:
 ### **Directory Structure**
 
 The following directories are mounted in the container:
-- **Certificates:** `{{cert_mount_directory}}` for TLS certificates.
 - **LDAP Data:** `data:/bitnami/openldap` for persistent data storage.
 
 ---
 
 ## 🔒 **Security Recommendations**
 - Always use strong passwords for `ldap_administrator_password`.
-- Ensure proper file permissions for mounted certificate files.
 - Restrict access to phpLDAPadmin by binding it to `127.0.0.1` or using a reverse proxy.
 
 ---
@@ -125,10 +123,6 @@ The following directories are mounted in the container:
 - [Bitnami OpenLDAP](https://hub.docker.com/r/bitnami/openldap)
 - [phpLDAPadmin Documentation](https://github.com/leenooks/phpLDAPadmin/wiki/Docker-Container)
 - [LDAP Account Manager](https://github.com/LDAPAccountManager/docker)
-- https://github.com/bitnami/containers/issues/53392
-- https://kb.i-doit.com/de/administration/troubleshooting/ldap-via-tls.html
-- https://forum.ubuntuusers.de/topic/tls-verbindung-mit-openldap/
-
 ---
 
 
@@ -137,4 +131,3 @@ The following directories are mounted in the container:
 Kevin Veen-Birkenbach - [veen.world](https://www.veen.world)
 
 Feel free to report issues, suggest features, or contribute to the repository! 😊
-
