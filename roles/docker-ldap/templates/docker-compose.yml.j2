@@ -22,22 +22,33 @@ services:
       # @See https://hub.docker.com/r/bitnami/openldap
       
       # GENERAL
-      LDAP_ADMIN_USERNAME:      {{ldap_administrator_username}} # LDAP database admin user.
-      LDAP_ADMIN_PASSWORD:      {{ldap_administrator_password}} # LDAP database admin password.
-      #LDAP_USERS:              user01,user02                   # Comma separated list of LDAP users to create in the default LDAP tree. Default: user01,user02
-      #LDAP_PASSWORDS:          password1,password2             # Comma separated list of passwords to use for LDAP users. Default: bitnami1,bitnami 
-      LDAP_ROOT:                {{ldap_root}}                   # LDAP baseDN (or suffix) of the LDAP tree. Default: dc=example,dc=org
-      LDAP_ADMIN_DN:            {{ldap_admin_dn}}
-      LDAP_PORT_NUMBER:         {{ldap_localhost_port}}         # Route to default port
-
-      # TLS
-      LDAP_ENABLE_TLS:          no                              # Using nginx proxy
-      LDAP_LDAPS_PORT_NUMBER:   {{ldap_secure_localhost_port}}  # Port used for TLS secure traffic. Priviledged port is supported (e.g. 636). Default: 1636 (non privileged port).
+      ## Database
+      LDAP_ADMIN_USERNAME:        {{ldap_administrator_username}} # LDAP database admin user.
+      LDAP_ADMIN_PASSWORD:        {{ldap_administrator_database_password}} # LDAP database admin password.
+      
+      ## Users
+      #LDAP_USERS:                 ' '                             # Comma separated list of LDAP users to create in the default LDAP tree. Default: user01,user02
+      #LDAP_PASSWORDS:             ' '                             # Comma separated list of passwords to use for LDAP users. Default: bitnami1,bitnami2
+      LDAP_ROOT:                  {{ldap_root}}                   # LDAP baseDN (or suffix) of the LDAP tree. Default: dc=example,dc=org
+      
+      ## Admin
+      LDAP_ADMIN_DN:              {{ldap_admin_dn}}               # Not well documented. Don't know if this has an effect
+      LDAP_CONFIG_ADMIN_ENABLED:  yes
+      LDAP_CONFIG_ADMIN_USERNAME: {{ldap_administrator_username}}
+      LDAP_CONFIG_ADMIN_PASSWORD: {{ldap_administrator_password}}
+        
+      # Network
+      LDAP_PORT_NUMBER:           {{ldap_localhost_port}}         # Route to default port
+      LDAP_ENABLE_TLS:            no                              # Using nginx proxy for tls
+      LDAP_LDAPS_PORT_NUMBER:     {{ldap_secure_localhost_port}}  # Port used for TLS secure traffic. Priviledged port is supported (e.g. 636). Default: 1636 (non privileged port).
+    
+      # Security
+      LDAP_ALLOW_ANON_BINDING:    yes                              # Allow anonymous bindings to the LDAP server. Default: yes.
     volumes:
       - 'data:/bitnami/openldap'
     healthcheck:
       test: >
-        ldapsearch -x -H ldap://localhost:389 -b "{{ldap_root}}" -D "{{ldap_admin_dn}}" -w "{{ldap_administrator_password}}"
+        ldapsearch -x -H ldap://localhost:389 -b "{{ldap_root}}" -D "{{ldap_admin_dn}}" -w "{{ldap_administrator_database_password}}"
       interval: 30s
       timeout: 10s
       retries: 3

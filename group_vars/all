@@ -245,10 +245,11 @@ keycloak_version:                 "latest"
 keycloak_administrator_username:  "{{administrator_username}}"
 
 #### LDAP
-ldap_version:                     "latest"
-ldap_admin_version:               "2.0.0-dev"   # @todo Attention: Change this as fast as released to latest
-ldap_administrator_username:      "{{administrator_username}}"
-ldap_administrator_password:      "{{user_administrator_initial_password}}" #CHANGE for security reasons
+ldap_version:                         "latest"
+ldap_admin_version:                   "2.0.0-dev"   # @todo Attention: Change this as fast as released to latest
+ldap_administrator_username:          "{{administrator_username}}"
+ldap_administrator_password:          "{{user_administrator_initial_password}}" #CHANGE for security reasons
+ldap_administrator_database_password: "{{user_administrator_initial_password}}" #CHANGE for security reasons
 
 #### Listmonk
 listmonk_admin_username:          "{{administrator_username}}"
