@@ -27,8 +27,8 @@ services:
       LDAP_ADMIN_PASSWORD:        {{ldap_administrator_database_password}} # LDAP database admin password.
       
       ## Users
-      #LDAP_USERS:                 ' '                             # Comma separated list of LDAP users to create in the default LDAP tree. Default: user01,user02
-      #LDAP_PASSWORDS:             ' '                             # Comma separated list of passwords to use for LDAP users. Default: bitnami1,bitnami2
+      LDAP_USERS:                 ' '                             # Comma separated list of LDAP users to create in the default LDAP tree. Default: user01,user02
+      LDAP_PASSWORDS:             ' '                             # Comma separated list of passwords to use for LDAP users. Default: bitnami1,bitnami2
       LDAP_ROOT:                  {{ldap_root}}                   # LDAP baseDN (or suffix) of the LDAP tree. Default: dc=example,dc=org
       
       ## Admin
