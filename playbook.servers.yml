@@ -314,7 +314,8 @@
    -  role: docker-ldap
       vars:
         domain: "{{domain_ldap}}"
-        http_port: 8033
+        http_port:          8033
+        oauth2_proxy_port:  4182
 
 - name: setup PHPMyAdmin
   hosts: phpmyadmin

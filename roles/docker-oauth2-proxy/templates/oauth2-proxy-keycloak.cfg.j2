@@ -8,12 +8,12 @@ whitelist_domains       =   [".{{primary_domain}}"]                             
 
 # keycloak provider
 client_secret           =   "{{oauth2_proxy_client_secret}}"
-client_id               =   "{{domain}}"
+client_id               =   "{{oauth2_proxy_client_id}}"
 redirect_url            =   "https://{{domain}}/oauth2/callback"
 oidc_issuer_url         =   "https://{{domain_keycloak}}/realms/{{primary_domain}}"
 provider                =   "oidc"
 provider_display_name   =   "Keycloak"
 
 # role restrictions
-cookie_roles            =   "realm_access.roles"
+#cookie_roles            =   "realm_access.roles"
 allowed_roles           =   "{{oauth2_proxy_allowed_roles}}"

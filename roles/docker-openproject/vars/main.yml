@@ -12,3 +12,4 @@ oauth2_proxy_client_secret:                   "{{openproject_oauth2_proxy_client
 oauth2_proxy_cookie_secret:                   "{{openproject_oauth2_proxy_cookie_secret}}"
 oauth2_proxy_upstream_application_and_port:   "proxy:80"
 oauth2_proxy_active:                          true
+oauth2_proxy_client_id:                        "{{domain}}"

@@ -1,11 +1,14 @@
 services:
-{% if ldap_webinterface == 'lam' %}
-  lam:
-    image: ghcr.io/ldapaccountmanager/lam:{{ldap_lam_version}}  # Dies ist das Docker-Image für LAM
-    container_name: lam
+
+{% include 'roles/docker-oauth2-proxy/templates/container.yml.j2' %}
+
+  {{ldap_webinterface}}:
+    container_name: {{ldap_webinterface}}
     logging:
       driver: journald
     restart: {{docker_restart_policy}}
+{% if ldap_webinterface == 'lam' %}
+    image: ghcr.io/ldapaccountmanager/lam:{{ldap_lam_version}}      # Dies ist das Docker-Image für LAM
     ports:
       - 127.0.0.1:{{http_port}}:80 
     environment:                                                    # See all variables here: https://github.com/LDAPAccountManager/lam/blob/develop/lam-packaging/docker/.env  
@@ -23,12 +26,7 @@ services:
       LDAP_USER:           {{ldap_admin_dn}}                         # LDAP admin user (set as login user for LAM)
       LDAP_ADMIN_PASSWORD: {{ldap_administrator_database_password}}  # LDAP admin password
 {% elif ldap_webinterface == 'phpldapadmin' %}
-  phpldapadmin:
-    name: phpldapadmin
     image: leenooks/phpldapadmin:{{ldap_phpldapadmin_version}}
-    logging:
-      driver: journald
-    restart: {{docker_restart_policy}}
     ports:
       - 127.0.0.1:{{http_port}}:8080
     environment:
@@ -38,7 +36,7 @@ services:
 {% endif %}
   openldap:
     image: bitnami/openldap:{{ldap_openldap_version}}
-    name: openldap
+    container_name: openldap
     logging:
       driver: journald
     restart: {{docker_restart_policy}}
