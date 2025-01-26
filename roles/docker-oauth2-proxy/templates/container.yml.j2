@@ -1,24 +1,11 @@
   oauth2-proxy:
-    image: quay.io/oauth2-proxy/oauth2-proxy:v7.8.1
-    #image: quay.io/oauth2-proxy/oauth2-proxy:{{oauth2_version}}
+    #image: quay.io/oauth2-proxy/oauth2-proxy:v7.8.1
+    image: quay.io/oauth2-proxy/oauth2-proxy:{{oauth2_version}}
     restart: {{docker_restart_policy}}
     command: --config /oauth2-proxy.cfg
     hostname: oauth2-proxy
-    #environment:
-    #  OAUTH2_PROXY_PROVIDER:      "keycloak"                        # The OAuth2 provider, in this case, Keycloak. Change based on your provider (e.g., Google, GitHub).
-    #  OAUTH2_PROXY_OIDC_ISSUER_URL: "https://auth.veen.world/auth/realms/veen.world"
-    #  OAUTH2_PROXY_CLIENT_ID:     "{{domain}}"                      # The client ID configured in Keycloak for the application.
-    #  OAUTH2_PROXY_CLIENT_SECRET: "{{oauth2_proxy_client_secret}}"  # The client secret configured in Keycloak for the application.
-    #  OAUTH2_PROXY_COOKIE_SECRET: "{{oauth2_proxy_cookie_secret}}"  # A random 32-character string used to sign cookies for session management. Generate with `openssl rand -base64 32`.
-    #  #OAUTH2_PROXY_EMAIL_DOMAINS: "{{primary_domain}}"              # The allowed email domain(s) for authentication. Example: "example.com".
-    #  OAUTH2_PROXY_REDIRECT_URL:  "{{oauth2_proxy_redirect_url}}"   # The redirect URL for the OAuth2 flow. It should match the redirect URL configured in Keycloak.
-    #  OAUTH2_PROXY_UPSTREAMS:     "http://127.0.0.1:{{http_port}}"  # The internal upstream service (your application) that OAuth2-Proxy protects.
     ports:
-    #  - "127.0.0.1:{{oauth2_proxy_port}}:4180"
-      - 4180:4180/tcp
+      - {{oauth2_proxy_port}}:4180/tcp
     volumes:
-      - "./oauth2-proxy-keycloak.cfg:/oauth2-proxy.cfg"
+      - "./{{oauth2_configuration_file}}:/oauth2-proxy.cfg"
 {% include 'templates/docker/container/networks.yml.j2' %}
-#      keycloak: {}
-#      httpbin: {}
-#      oauth2-proxy: {}

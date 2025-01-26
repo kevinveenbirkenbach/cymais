@@ -3,3 +3,8 @@
 
 - name: "include task create-domain-conf.yml"
   include_tasks: create-domain-conf.yml
+
+- name: include the docker-oauth2-proxy role
+  include_role:
+    name: docker-oauth2-proxy
+  when: oauth2_proxy_active | bool

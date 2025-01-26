@@ -1,0 +1,1 @@
+https://github.com/oauth2-proxy/oauth2-proxy/blob/master/contrib/local-environment/keycloak/oauth2-proxy-realm.json

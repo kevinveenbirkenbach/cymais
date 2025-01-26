@@ -1,3 +1,14 @@
+- name: "Add {{oauth2_configuration_file}} to detached_files if oauth2_proxy_active is true"
+  ansible.builtin.set_fact:
+    detached_files: >-
+      {{
+        (detached_files | default([])) +
+        [oauth2_configuration_file]
+        if oauth2_configuration_file not in (detached_files | default([]))
+        else detached_files | default([])
+      }}
+  when: oauth2_proxy_active | default(false)
+
 - name: "backup detached files"
   command: >
     mv "{{docker_compose_instance_directory}}{{ item }}" "/tmp/{{docker_compose_project_name}}-{{ item }}.backup"

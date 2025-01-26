@@ -295,11 +295,12 @@ mybb_version:               "latest"
 nextcloud_version:          "production"  # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
 
 #### OAuth2 Proxy
-oauth2_proxy_active:                  true
+oauth2_configuration_file:            "oauth2-proxy-keycloak.cfg"
+oauth2_proxy_active:                  false       # Needs to be set true in the roles which use it
 oauth2_version:                       "latest"
 oauth2_proxy_redirect_url:            "https://{{domain_keycloak}}/auth/realms/{{primary_domain}}/protocol/openid-connect/auth"  # The redirect URL for the OAuth2 flow. It should match the redirect URL configured in Keycloak.
-# oauth2_proxy_port:                  >= 4180 # This ports should be defined in the roles. They are for the local mapping on the host and need to be defined in the playbook for transparancy.
-# oauth2_proxy_upstream_application:  # The name of the application which the server redirects to. Needs to be defined in role vars.
+# oauth2_proxy_port:                  >= 4180     # This ports should be defined in the roles. They are for the local mapping on the host and need to be defined in the playbook for transparancy.
+# oauth2_proxy_upstream_application_and_port:  # The name of the application which the server redirects to. Needs to be defined in role vars.
 
 #### Open Project
 # openproject_oauth2_proxy_client_secret: Needs to be defined in inventory # The client ID configured in Keycloak for the application. 

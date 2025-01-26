@@ -8,13 +8,6 @@
 - name: "include tasks update-repository-with-docker-compose.yml"
   include_tasks: update-repository-with-docker-compose.yml
 
-- name: "Transfering oauth2-proxy-keycloak.cfg.j2 to {{docker_compose_instance_directory}}"
-  template:
-    src: roles/docker-oauth2-proxy/templates/oauth2-proxy-keycloak.cfg.j2
-    dest: "{{docker_compose_instance_directory}}oauth2-proxy-keycloak.cfg"
-  notify:
-    - docker compose project setup
-
 - name: "Transfering Gemfile.plugins to {{docker_compose_instance_directory}}"
   copy:
     src: Gemfile.plugins
