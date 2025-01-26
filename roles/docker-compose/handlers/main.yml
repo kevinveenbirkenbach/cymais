@@ -27,4 +27,4 @@
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600
-  listen: docker compose project setup
+  listen: docker compose project build and setup

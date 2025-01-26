@@ -9,7 +9,7 @@
   args:
     removes: "{{docker_compose_instance_directory}}{{ item }}"
   become: true
-  loop: "{{ merged_detached_files }}"
+  loop: "{{ merged_detached_files | default(detached_files) }}"
 
 - name: checkout repository 
   ansible.builtin.shell: git checkout .
@@ -32,7 +32,7 @@
   args:
     removes: "/tmp/{{docker_compose_project_name}}-{{ item }}.backup"
   become: true
-  loop: "{{ merged_detached_files }}"
+  loop: "{{ merged_detached_files | default(detached_files) }}"
 
 - name: "copy {{ detached_files }} templates to server"
   template: 
