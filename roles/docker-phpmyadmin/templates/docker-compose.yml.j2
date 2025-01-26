@@ -1,4 +1,7 @@
 services:
+
+{% include 'roles/docker-oauth2-proxy/templates/container.yml.j2' %}
+
   application:
     logging:
       driver: journald
@@ -6,8 +9,10 @@ services:
     container_name: phpmyadmin
     environment:
       PMA_HOST: central-mariadb
+{% if phpmyadmin_autologin | bool %}
       PMA_USER: root
       PMA_PASSWORD: "{{central_mariadb_root_password}}"
+{% endif %}
     restart: {{docker_restart_policy}}
     ports:
       - "127.0.0.1:{{http_port}}:80"

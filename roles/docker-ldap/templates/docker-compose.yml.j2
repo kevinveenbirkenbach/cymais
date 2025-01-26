@@ -24,6 +24,7 @@ services:
       LDAP_ADMIN_PASSWORD: {{ldap_administrator_database_password}}  # LDAP admin password
 {% elif ldap_webinterface == 'phpldapadmin' %}
   phpldapadmin:
+    name: phpldapadmin
     image: leenooks/phpldapadmin:{{ldap_phpldapadmin_version}}
     logging:
       driver: journald
@@ -37,6 +38,7 @@ services:
 {% endif %}
   openldap:
     image: bitnami/openldap:{{ldap_openldap_version}}
+    name: openldap
     logging:
       driver: journald
     restart: {{docker_restart_policy}}

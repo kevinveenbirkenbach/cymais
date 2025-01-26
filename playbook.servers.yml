@@ -323,7 +323,8 @@
    -  role: docker-phpmyadmin
       vars:
         domain: "{{domain_phpmyadmin}}"
-        http_port: 8034
+        http_port:          8034
+        oauth2_proxy_port:  4181
 
 # Native Webserver Roles
 - name: setup nginx-static-repositorys

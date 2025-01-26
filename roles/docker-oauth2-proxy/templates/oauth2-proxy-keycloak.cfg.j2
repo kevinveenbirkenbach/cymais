@@ -1,15 +1,19 @@
-http_address="0.0.0.0:4180"
-cookie_secret="{{oauth2_proxy_cookie_secret}}"
-email_domains="{{primary_domain}}"
-cookie_secure="false"
-upstreams="http://{{oauth2_proxy_upstream_application_and_port}}"
-cookie_domains=["{{domain}}", "{{domain_keycloak}}"]                # Required so cookie can be read on all subdomains.
-whitelist_domains=[".{{primary_domain}}"]                           # Required to allow redirection back to original requested target.
+http_address            =   "0.0.0.0:4180"
+cookie_secret           =   "{{oauth2_proxy_cookie_secret}}"
+email_domains           =   "{{primary_domain}}"
+cookie_secure           =   "false"
+upstreams               =   "http://{{oauth2_proxy_upstream_application_and_port}}"
+cookie_domains          =   ["{{domain}}", "{{domain_keycloak}}"]                   # Required so cookie can be read on all subdomains.
+whitelist_domains       =   [".{{primary_domain}}"]                                 # Required to allow redirection back to original requested target.
 
 # keycloak provider
-client_secret="{{oauth2_proxy_client_secret}}"
-client_id="{{domain}}"
-redirect_url="https://{{domain}}/oauth2/callback"
-oidc_issuer_url="https://{{domain_keycloak}}/realms/{{primary_domain}}"
-provider="oidc"
-provider_display_name="Keycloak"
+client_secret           =   "{{oauth2_proxy_client_secret}}"
+client_id               =   "{{domain}}"
+redirect_url            =   "https://{{domain}}/oauth2/callback"
+oidc_issuer_url         =   "https://{{domain_keycloak}}/realms/{{primary_domain}}"
+provider                =   "oidc"
+provider_display_name   =   "Keycloak"
+
+# role restrictions
+cookie_roles            =   "realm_access.roles"
+allowed_roles           =   "{{oauth2_proxy_allowed_roles}}"

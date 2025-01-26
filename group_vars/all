@@ -297,21 +297,26 @@ nextcloud_version:          "production"  # @see https://nextcloud.com/blog/next
 
 #### OAuth2 Proxy
 oauth2_configuration_file:            "oauth2-proxy-keycloak.cfg"
-oauth2_proxy_active:                  false       # Needs to be set true in the roles which use it
+oauth2_proxy_active:                  false   # Needs to be set true in the roles which use it
 oauth2_version:                       "latest"
 oauth2_proxy_redirect_url:            "https://{{domain_keycloak}}/auth/realms/{{primary_domain}}/protocol/openid-connect/auth"  # The redirect URL for the OAuth2 flow. It should match the redirect URL configured in Keycloak.
-# oauth2_proxy_port:                  >= 4180     # This ports should be defined in the roles. They are for the local mapping on the host and need to be defined in the playbook for transparancy.
-# oauth2_proxy_upstream_application_and_port:  # The name of the application which the server redirects to. Needs to be defined in role vars.
+# oauth2_proxy_port:                  >= 4180 # This ports should be defined in the roles. They are for the local mapping on the host and need to be defined in the playbook for transparancy.
+# oauth2_proxy_upstream_application_and_port: # The name of the application which the server redirects to. Needs to be defined in role vars.
+oauth2_proxy_allowed_roles:           admin   # Restrict it default to admin role. Use the vars/main.yml to open the specific role for other groups  
 
 #### Open Project
 # openproject_oauth2_proxy_client_secret: Needs to be defined in inventory # The client ID configured in Keycloak for the application. 
-# openproject_oauth2_proxy_cookie_secret: Needs to be defined in inventory # The client secret configured in Keycloak for the application.
+# openproject_oauth2_proxy_cookie_secret: Needs to be defined in inventory # The client secret configured in Keycloak for the application: 0dc07dc3b323921acbd96656f33dc55a
+
 
 #### Peertube
-peertube_version:           "bookworm"
+peertube_version:                         "bookworm"
 
 #### PHPMyAdmin
-phpmyadmin_version:         "latest"
+phpmyadmin_version:                       "latest"
+phpmyadmin_autologin:                     false     # This is a high security risk. Just activate this option if you know what you're doing
+# phpmyadmin_oauth2_proxy_client_secret:    Needs to be defined in inventory # The client ID configured in Keycloak for the application. 
+# phpmyadmin_oauth2_proxy_cookie_secret:    Needs to be defined in inventory # The client secret configured in Keycloak for the application.
 
 #### Pixelfed
 pixelfed_app_name:          "Pictures on {{primary_domain}}"

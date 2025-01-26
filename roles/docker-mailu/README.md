@@ -177,6 +177,7 @@ If your IP or domain is flagged by Cloudmark, you can submit a **reset request**
 - [Mailu GitHub repository](https://github.com/Mailu/Mailu)
 - [Plesk support article on RoundCube connection issue](https://support.plesk.com/hc/en-us/articles/115001264814-Unable-to-log-into-RoundCube-Connection-to-storage-server-failed)
 - [Gist by marienfressinaud](https://gist.github.com/marienfressinaud/f284a59b18aad395eb0de2d22836ae6b)
+- [Implementing OpenID with Mailu](https://github.com/heviat/Mailu-OIDC)
 
 For more information about this role, visit the [GitHub repository](https://github.com/kevinveenbirkenbach/cymais/tree/master/roles/docker-mailu).
 
