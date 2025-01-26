@@ -168,9 +168,10 @@ domain_moodle:                  "academy.{{primary_domain}}"
 domain_mediawiki:               "wiki.{{primary_domain}}"
 domain_nextcloud:               "cloud.{{primary_domain}}"
 domain_openproject:             "project.{{primary_domain}}"
-domain_pixelfed:                "picture.{{primary_domain}}"
 domain_peertube:                "video.{{primary_domain}}"
 domains_peertube:               []
+domain_phpmyadmin:              "phpmyadmin.{{primary_domain}}"
+domain_pixelfed:                "picture.{{primary_domain}}"
 domain_portfolio:               "{{primary_domain}}"
 domain_roulette:                "roulette.{{primary_domain}}"
 domain_taiga:                   "kanban.{{primary_domain}}"
@@ -250,9 +251,9 @@ ldap_openldap_version:                "latest"
 ldap_phpldapadmin_version:            "2.0.0-dev"                               # @todo Attention: Change this as fast as released to latest
 ldap_webinterface:                    "lam"                                     # The webinterface which should be used. Possible: lam and phpldapadmin
 ldap_administrator_username:          "{{administrator_username}}"
-ldap_administrator_password:          "{{user_administrator_initial_password}}" #CHANGE for security reasons
-ldap_administrator_database_password: "{{user_administrator_initial_password}}" #CHANGE for security reasons
-ldap_lam_administrator_password:      "{{user_administrator_initial_password}}" #CHANGE for security reasons
+ldap_administrator_password:          "{{user_administrator_initial_password}}" # CHANGE for security reasons
+ldap_administrator_database_password: "{{user_administrator_initial_password}}" # CHANGE for security reasons
+ldap_lam_administrator_password:      "{{user_administrator_initial_password}}" # CHANGE for security reasons
 
 #### Listmonk
 listmonk_admin_username:          "{{administrator_username}}"
@@ -308,6 +309,9 @@ oauth2_proxy_redirect_url:            "https://{{domain_keycloak}}/auth/realms/{
 
 #### Peertube
 peertube_version:           "bookworm"
+
+#### PHPMyAdmin
+phpmyadmin_version:         "latest"
 
 #### Pixelfed
 pixelfed_app_name:          "Pictures on {{primary_domain}}"

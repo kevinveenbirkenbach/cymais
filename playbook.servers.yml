@@ -316,6 +316,15 @@
         domain: "{{domain_ldap}}"
         http_port: 8033
 
+- name: setup PHPMyAdmin
+  hosts: phpmyadmin
+  become: true
+  roles:
+   -  role: docker-phpmyadmin
+      vars:
+        domain: "{{domain_phpmyadmin}}"
+        http_port: 8034
+
 # Native Webserver Roles
 - name: setup nginx-static-repositorys
   hosts: nginx-static-repositorys

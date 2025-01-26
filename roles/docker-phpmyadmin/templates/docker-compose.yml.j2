@@ -1,0 +1,17 @@
+services:
+  application:
+    logging:
+      driver: journald
+    image: phpmyadmin/phpmyadmin:{{phpmyadmin_version}}
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: central-mariadb
+      PMA_USER: root
+      PMA_PASSWORD: "{{central_mariadb_root_password}}"
+    restart: {{docker_restart_policy}}
+    ports:
+      - "127.0.0.1:{{http_port}}:80"
+{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
+
+{% include 'templates/docker/compose/networks.yml.j2' %}
