@@ -1,0 +1,18 @@
+http_address="0.0.0.0:4180"
+cookie_secret="{{oauth2_proxy_cookie_secret}}"
+email_domains="{{primary_domain}}"
+cookie_secure="false"
+upstreams="http://proxy:80"
+cookie_domains=["{{domain}}", "{{domain_keycloak}}"]    # Required so cookie can be read on all subdomains.
+whitelist_domains=[".{{primary_domain}}"]               # Required to allow redirection back to original requested target.
+
+# keycloak provider
+client_secret="{{oauth2_proxy_client_secret}}"
+client_id="{{domain}}"
+#redirect_url="http://oauth2-proxy.localtest.me:4180/oauth2/callback"
+redirect_url="https://{{domain}}/oauth2/callback"
+
+# in this case oauth2-proxy is going to visit
+oidc_issuer_url="https://{{domain_keycloak}}/realms/{{primary_domain}}"
+provider="oidc"
+provider_display_name="Keycloak"

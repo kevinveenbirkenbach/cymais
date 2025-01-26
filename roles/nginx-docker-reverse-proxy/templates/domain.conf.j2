@@ -2,9 +2,16 @@ server
 {
   server_name {{domain}};
 
-  # Include OAuth2 Proxy
   {% if oauth2_proxy_active | bool %}
-  # OAuth2-Proxy-Endpunkte
+  # Include OAuth2 Proxy
+  # Raise the maximal header size.
+  # Keycloak uses huge headers for authentification 
+  proxy_buffer_size 16k;
+  proxy_buffers 8 16k;
+  proxy_busy_buffers_size 16k;
+  large_client_header_buffers 4 16k;
+
+  # OAuth2-Proxy-Endpoint
   location /oauth2/ {
       proxy_pass http://127.0.0.1:{{oauth2_proxy_port}};
       proxy_set_header Host $host;
@@ -14,13 +21,13 @@ server
   }
   {% endif %}
 
-  # Include Matomo Tracking Code
   {% if nginx_matomo_tracking | bool %}
+    # Include Matomo Tracking Code
     {% include 'roles/nginx-matomo-tracking/templates/matomo-tracking.conf.j2' %}
   {% endif %}
 
-  # Additional Domain Specific Configuration
   {% if nginx_docker_reverse_proxy_extra_configuration is defined %}
+    # Additional Domain Specific Configuration
     {{nginx_docker_reverse_proxy_extra_configuration}}
   {% endif %}
 
