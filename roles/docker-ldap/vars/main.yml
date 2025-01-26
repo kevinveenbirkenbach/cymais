@@ -6,5 +6,5 @@ ldap_secure_internet_port:    636
 ldap_localhost_port:          389
 
 # OAuth2 Proxy Configuration
-oauth2_proxy_upstream_application_and_port: "{{ ldap_webinterface }}:{% if ldap_webinterface == 'phpldapadmin' %}8080{% else %}{{ ldap_webinterface }}80{% endif %}"
-oauth2_proxy_active:  true
+oauth2_proxy_upstream_application_and_port: "{{ ldap_webinterface }}:{% if ldap_webinterface == 'phpldapadmin' %}8080{% else %}80{% endif %}"
+oauth2_proxy_active:                        true

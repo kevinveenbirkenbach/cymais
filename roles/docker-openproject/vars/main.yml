@@ -1,15 +1,13 @@
 docker_compose_project_name:                  "openproject"
 repository_directory:                         "{{ path_docker_compose_instances }}{{docker_compose_project_name}}/"
 docker_compose_instance_directory:            "{{repository_directory}}compose/"
-database_password:                            "{{openproject_database_password}}"
 repository_address:                           "https://github.com/opf/openproject-deploy"
+database_password:                            "{{openproject_database_password}}"
 database_type:                                "postgres"
+
 # The following volume doesn't have a practcical function. It just exist to prevent the creation of unnecessary anonymous volumes
 dummy_volume:                                 "{{repository_directory}}dummy_volume"
 
 # OAuth2 Proxy Configuration
-oauth2_proxy_client_secret:                   "{{openproject_oauth2_proxy_client_secret}}"
-oauth2_proxy_cookie_secret:                   "{{openproject_oauth2_proxy_cookie_secret}}"
 oauth2_proxy_upstream_application_and_port:   "proxy:80"
 oauth2_proxy_active:                          true
-oauth2_proxy_client_id:                        "{{domain}}"

@@ -2,7 +2,4 @@ docker_compose_project_name:  "phpmyadmin"
 database_type:                "mariadb"
 database_host:                "{{ 'central-' + database_type if enable_central_database}}"
 # OAuth2 Proxy Configuration
-oauth2_proxy_client_secret: "{{phpmyadmin_oauth2_proxy_client_secret}}"
-oauth2_proxy_cookie_secret: "{{phpmyadmin_oauth2_proxy_cookie_secret}}"
 oauth2_proxy_active:        true
-oauth2_proxy_client_id:      "{{domain}}"

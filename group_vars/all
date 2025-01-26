@@ -279,21 +279,21 @@ matrix_synapse_version:         "latest"
 matrix_element_version:         "latest"
 
 #### Mailu
-mailu_version:          "2024.06"
-mailu_domain:           "{{primary_domain}}"
-mailu_subnet:           "192.168.203.0/24"
+mailu_version:                  "2024.06"
+mailu_domain:                   "{{primary_domain}}"
+mailu_subnet:                   "192.168.203.0/24"
 
 #### Moodle
-moodle_site_name:           "Global Learning Academy on {{primary_domain}}"
-moodle_administrator_name:  "{{administrator_username}}"
-moodle_administrator_email: "{{administrator_email}}"
-moodle_version:             "latest"
+moodle_site_name:               "Global Learning Academy on {{primary_domain}}"
+moodle_administrator_name:      "{{administrator_username}}"
+moodle_administrator_email:     "{{administrator_email}}"
+moodle_version:                 "latest"
 
 #### MyBB
-mybb_version:               "latest"
+mybb_version:                   "latest"
 
 #### Nextcloud
-nextcloud_version:          "production"  # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
+nextcloud_version:              "production"  # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
 
 #### OAuth2 Proxy
 oauth2_configuration_file:                    "oauth2-proxy-keycloak.cfg"
@@ -307,19 +307,12 @@ oauth2_proxy_client_id:                       "{{primary_domain}}"              
 oauth2_proxy_client_secret:                   "{{primary_oauth2_proxy_client_secret}}"  # Default use wildcard for primary domain, subdomain client specific configuration in vars files in the roles is possible
 oauth2_proxy_cookie_secret:                   "{{primary_oauth2_proxy_cookie_secret}}"  # Default use wildcard for primary domain, subdomain client specific configuration in vars files in the roles is possible openssl rand -hex 16
 
-#### Open Project
-# openproject_oauth2_proxy_client_secret: Needs to be defined in inventory # The client ID configured in Keycloak for the application. 
-# openproject_oauth2_proxy_cookie_secret: Needs to be defined in inventory # The client secret configured in Keycloak for the application: 0dc07dc3b323921acbd96656f33dc55a
-
-
 #### Peertube
 peertube_version:                         "bookworm"
 
 #### PHPMyAdmin
 phpmyadmin_version:                       "latest"
 phpmyadmin_autologin:                     false     # This is a high security risk. Just activate this option if you know what you're doing
-# phpmyadmin_oauth2_proxy_client_secret:  Needs to be defined in inventory # The client ID configured in Keycloak for the application. 
-# phpmyadmin_oauth2_proxy_cookie_secret:  Needs to be defined in inventory # The client secret configured in Keycloak for the application.
 
 #### Pixelfed
 pixelfed_app_name:          "Pictures on {{primary_domain}}"
