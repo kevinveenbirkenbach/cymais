@@ -38,8 +38,8 @@ This Ansible role provides a streamlined implementation of an LDAP server with T
 | `cert_mount_directory`        | Directory to mount SSL/TLS certificates.                | `{{docker_compose_instance_directory}}/certs/` |
 | `ldap_administrator_username` | Username for the LDAP admin.                            | `admin`                              |
 | `ldap_administrator_password` | Password for the LDAP admin.                            | _Required_                           |
-| `ldap_admin_version`          | Version of phpLDAPadmin Docker image.                   | `latest`                             |
-| `ldap_version`                | Version of OpenLDAP Docker image.                       | `latest`                             |
+| `ldap_phpldapadmin_version`          | Version of phpLDAPadmin Docker image.                   | `latest`                             |
+| `ldap_openldap_version`                | Version of OpenLDAP Docker image.                       | `latest`                             |
 
 ---
 
@@ -75,8 +75,8 @@ Here’s an example playbook to use this role:
         primary_domain_tld: "world"
         ldap_administrator_username: "administrator"
         ldap_administrator_password: "secure_password_here"
-        ldap_admin_version: "latest"
-        ldap_version: "latest"
+        ldap_phpldapadmin_version: "latest"
+        ldap_openldap_version: "latest"
 ```
 
 ### **Steps to Deploy:**

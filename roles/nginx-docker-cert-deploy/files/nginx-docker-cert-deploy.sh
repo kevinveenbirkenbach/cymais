@@ -12,6 +12,12 @@ docker_compose_instance_directory="$2"
 
 # Copy certificates
 cp -RvL "/etc/letsencrypt/live/$domain/"* "$docker_compose_instance_directory/certs" || exit 1
+
+# This code is optimized for mailu
+cp -v "/etc/letsencrypt/live/$domain/privkey.pem" "$docker_compose_instance_directory/certs/key.pem" || exit 1
+cp -v "/etc/letsencrypt/live/$domain/fullchain.pem" "$docker_compose_instance_directory/certs/cert.pem" || exit 1
+
+# Set correct reading rights
 chmod a+r -v "$docker_compose_instance_directory/certs/"*
 
 # Flag to track if any Nginx reload was successful
