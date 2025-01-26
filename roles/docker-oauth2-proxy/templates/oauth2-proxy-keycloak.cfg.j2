@@ -10,8 +10,6 @@ whitelist_domains=[".{{primary_domain}}"]                           # Required t
 client_secret="{{oauth2_proxy_client_secret}}"
 client_id="{{domain}}"
 redirect_url="https://{{domain}}/oauth2/callback"
-
-# in this case oauth2-proxy is going to visit
 oidc_issuer_url="https://{{domain_keycloak}}/realms/{{primary_domain}}"
 provider="oidc"
 provider_display_name="Keycloak"

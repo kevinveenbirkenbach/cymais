@@ -1,13 +1,7 @@
-- name: "Add {{oauth2_configuration_file}} to detached_files if oauth2_proxy_active is true"
+- name: "Merge detached_files with oauth2_configuration_file"
   ansible.builtin.set_fact:
-    detached_files: >-
-      {{
-        (detached_files | default([])) +
-        [oauth2_configuration_file]
-        if oauth2_configuration_file not in (detached_files | default([]))
-        else detached_files | default([])
-      }}
-  when: oauth2_proxy_active | default(false)
+    merged_detached_files: "{{ detached_files + [oauth2_configuration_file] }}"
+  when: oauth2_proxy_active
 
 - name: "backup detached files"
   command: >
@@ -15,7 +9,7 @@
   args:
     removes: "{{docker_compose_instance_directory}}{{ item }}"
   become: true
-  loop: "{{ detached_files }}"
+  loop: "{{ merged_detached_files }}"
 
 - name: checkout repository 
   ansible.builtin.shell: git checkout .
@@ -38,9 +32,9 @@
   args:
     removes: "/tmp/{{docker_compose_project_name}}-{{ item }}.backup"
   become: true
-  loop: "{{ detached_files }}"
+  loop: "{{ merged_detached_files }}"
 
-- name: "copy {{ item }}"
+- name: "copy {{ detached_files }} templates to server"
   template: 
     src: "{{ item }}.j2"
     dest: "{{docker_compose_instance_directory}}{{ item }}"
