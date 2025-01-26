@@ -228,8 +228,9 @@
   roles:
    -  role: docker-openproject
       vars:
-        domain: "{{domain_openproject}}"
-        http_port: 8023
+        domain:             "{{domain_openproject}}"
+        http_port:          8023
+        oauth2_proxy_port:  4180
 
 - name: setup gitlab hosts
   hosts: gitlab

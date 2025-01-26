@@ -22,6 +22,8 @@ services:
 
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
+{% include 'templates/docker/services/oauth2-proxy.yml.j2' %}
+
   cache:
     image: memcached
     container_name: openproject-memcached
@@ -38,7 +40,7 @@ services:
     container_name: openproject-proxy
     command: "./docker/prod/proxy"
     ports:
-      - "${PORT}:80"
+      - "127.0.0.1:{{http_port}}:80"
     environment:
       APP_HOST: web
       OPENPROJECT_RAILS__RELATIVE__URL__ROOT: "${OPENPROJECT_RAILS__RELATIVE__URL__ROOT:-}"
@@ -79,8 +81,8 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
     environment:
       AUTOHEAL_CONTAINER_LABEL: autoheal
-      AUTOHEAL_START_PERIOD: 600
-      AUTOHEAL_INTERVAL: 30
+      AUTOHEAL_START_PERIOD:    600
+      AUTOHEAL_INTERVAL:        30
 
   worker:
     <<: *app
