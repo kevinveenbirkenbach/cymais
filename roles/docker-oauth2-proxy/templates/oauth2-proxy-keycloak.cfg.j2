@@ -7,10 +7,10 @@ cookie_domains          =   ["{{domain}}", "{{domain_keycloak}}"]               
 whitelist_domains       =   [".{{primary_domain}}"]                                 # Required to allow redirection back to original requested target.
 
 # keycloak provider
-client_secret           =   "{{oauth2_proxy_client_secret}}"
-client_id               =   "{{oauth2_proxy_client_id}}"
+client_secret           =   "{{oidc_client_secret}}"
+client_id               =   "{{oidc_client_id}}"
 redirect_url            =   "https://{{domain}}/oauth2/callback"
-oidc_issuer_url         =   "{{oauth2_proxy_oidc_issuer_url}}"
+oidc_issuer_url         =   "{{oidc_client_issuer_url}}"
 provider                =   "oidc"
 provider_display_name   =   "Keycloak"
 
