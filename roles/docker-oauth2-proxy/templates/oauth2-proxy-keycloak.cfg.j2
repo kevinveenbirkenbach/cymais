@@ -10,7 +10,7 @@ whitelist_domains       =   [".{{primary_domain}}"]                             
 client_secret           =   "{{oauth2_proxy_client_secret}}"
 client_id               =   "{{oauth2_proxy_client_id}}"
 redirect_url            =   "https://{{domain}}/oauth2/callback"
-oidc_issuer_url         =   "https://{{domain_keycloak}}/realms/{{primary_domain}}"
+oidc_issuer_url         =   "{{oauth2_proxy_oidc_issuer_url}}"
 provider                =   "oidc"
 provider_display_name   =   "Keycloak"
 

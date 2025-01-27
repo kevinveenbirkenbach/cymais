@@ -20,6 +20,9 @@ watch -n 2 "docker compose ps -a"
  sudo docker-compose exec -it postgres psql -U postgres
 ```
 
+## SSO
+- https://docs.bigbluebutton.org/greenlight/v3/external-authentication/
+
 ## further information
 - https://github.com/bigbluebutton/docker
 - https://docs.bigbluebutton.org/greenlight/gl-install.html#setting-bigbluebutton-credentials
@@ -29,3 +32,4 @@ watch -n 2 "docker compose ps -a"
 - https://www.cyberciti.biz/faq/linux-restart-network-interface/
 - https://stackoverflow.com/questions/53347951/docker-network-not-found
 - https://github.com/bigbluebutton/docker/issues/325
+

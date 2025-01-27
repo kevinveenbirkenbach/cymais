@@ -306,6 +306,7 @@ oauth2_proxy_allowed_roles:                   admin                             
 oauth2_proxy_client_id:                       "{{primary_domain}}"                      # The id of the client application
 oauth2_proxy_client_secret:                   "{{primary_oauth2_proxy_client_secret}}"  # Default use wildcard for primary domain, subdomain client specific configuration in vars files in the roles is possible
 oauth2_proxy_cookie_secret:                   "{{primary_oauth2_proxy_cookie_secret}}"  # Default use wildcard for primary domain, subdomain client specific configuration in vars files in the roles is possible openssl rand -hex 16
+oauth2_proxy_oidc_issuer_url:                 "https://{{domain_keycloak}}/realms/{{primary_domain}}"
 
 #### Peertube
 peertube_version:                         "bookworm"
