@@ -243,7 +243,8 @@ joomla_version:                   "latest"
 
 #### Keycloak
 keycloak_version:                 "latest"
-keycloak_administrator_username:  "{{administrator_username}}"
+keycloak_administrator_username:  "{{administrator_username}}"  # Administrator Username for Keycloak
+keycloak_oidc_active:             true                          # Implement OpenID Connect https://en.wikipedia.org/wiki/OpenID_Connect
 
 #### LDAP
 ldap_lam_version:                     "latest"
