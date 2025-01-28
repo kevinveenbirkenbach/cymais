@@ -17,7 +17,7 @@
     volumes:
       - central_mariadb_database:/var/lib/mysql
     published_ports:
-      - "127.0.0.1:3306:3306" # can be that this will be removed if all applications use sockets
+      - "127.0.0.1:{{database_port}}:3306" # can be that this will be removed if all applications use sockets
     command: "--transaction-isolation=READ-COMMITTED --binlog-format=ROW" #for nextcloud
     restart_policy: "{{docker_restart_policy}}"
     healthcheck:
@@ -46,7 +46,7 @@
     login_user: root
     login_password: "{{ central_mariadb_root_password }}"
     login_host: 127.0.0.1
-    login_port: 3306
+    login_port: "{{database_port}}"
 
 - name: "Create database user: {{ database_username }}"
   mysql_user:
@@ -58,7 +58,7 @@
     login_user: root
     login_password: "{{central_mariadb_root_password}}"
     login_host: 127.0.0.1
-    login_port: 3306
+    login_port: "{{database_port}}"
 
 - name: Grant database privileges
   ansible.builtin.shell:

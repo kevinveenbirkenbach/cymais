@@ -16,7 +16,7 @@ services:
         gitlab_rails['db_adapter']            = 'postgresql'
         gitlab_rails['db_encoding']           = 'utf8'
         gitlab_rails['db_host']               = '{{database_host}}'
-        gitlab_rails['db_port']               = 5432
+        gitlab_rails['db_port']               = '{{database_port}}''
         gitlab_rails['db_username']           = '{{database_username}}'
         gitlab_rails['db_password']           = '{{database_password}}'
         gitlab_rails['db_database']           = "{{database_name}}"

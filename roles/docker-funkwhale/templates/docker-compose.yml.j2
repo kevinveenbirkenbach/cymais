@@ -1,8 +1,18 @@
 services:
 
+{% include 'templates/docker/services/' + database_type + '.yml.j2' %}
+
 {% include 'templates/docker/services/redis.yml.j2' %}
 
   celeryworker:
+    # Celery workers handle background tasks (such file imports or federation
+    # messaging). The more processes a worker gets, the more tasks
+    # can be processed in parallel. However, more processes also means
+    # a bigger memory footprint.
+    # By default, a worker will span a number of process equal to your number
+    # of CPUs. You can adjust this, by explicitly setting the --concurrency
+    # flag:
+    #   celery -A funkwhale_api.taskapp worker -l INFO --concurrency=4
     restart: {{docker_restart_policy}}
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
     env_file: .env
@@ -11,9 +21,9 @@ services:
       - C_FORCE_ROOT=true
     volumes:
       - "data:${MEDIA_ROOT}"
+      - "music:${MUSIC_DIRECTORY_PATH}:ro"
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
-
 
   celerybeat:
     restart: {{docker_restart_policy}}
@@ -26,11 +36,11 @@ services:
   api:
     restart: {{docker_restart_policy}}
     image: funkwhale/api:${FUNKWHALE_VERSION:-latest}
-    depends_on:
     env_file: .env
     volumes:
+      - "music:${MUSIC_DIRECTORY_PATH}:ro"
       - "data:${MEDIA_ROOT}"
-      #- "${STATIC_ROOT}:${STATIC_ROOT}"
+      - "static_root:${STATIC_ROOT}"
     ports:
       - "5000"
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
@@ -53,9 +63,22 @@ services:
       # override those variables in your .env file if needed
       - "${FUNKWHALE_API_IP}:${FUNKWHALE_API_PORT}:80"
 {% include 'templates/docker/container/networks.yml.j2' %}
+  
+  typesense:
+    restart: {{docker_restart_policy}}
+    env_file:
+      - .env
+    image: typesense/typesense:0.24.0
+    volumes:
+      - ./typesense/data:/data
+    command: --data-dir /data --enable-cors
+    profiles:
+      - typesense
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}
   data:
+  static_root:
   redis:
+  music:
 
 {% include 'templates/docker/compose/networks.yml.j2' %}

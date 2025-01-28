@@ -15,7 +15,7 @@
     networks:
       - name: central_postgres
     published_ports:
-      - "127.0.0.1:5432:5432"
+      - "127.0.0.1:{{database_port}}:5432"
     volumes:
       - central_postgres_database:/var/lib/postgresql/data
     restart_policy: "{{docker_restart_policy}}"
@@ -46,7 +46,7 @@
     login_user: postgres
     login_password: "{{ central_postgres_password }}"
     login_host: 127.0.0.1
-    login_port: 5432
+    login_port: "{{database_port}}"
 
 - name: "Create database user: {{ database_username }}"
   postgresql_user:
@@ -57,7 +57,7 @@
     login_user:     postgres
     login_password: "{{ central_postgres_password }}"
     login_host:     127.0.0.1
-    login_port:     5432
+    login_port:     "{{database_port}}"
 
 - name: "Set privileges for database user: {{ database_username }}"
   postgresql_privs:
@@ -70,7 +70,7 @@
     login_user:     postgres
     login_password: "{{ central_postgres_password }}"
     login_host:     127.0.0.1
-    login_port:     5432
+    login_port:     "{{database_port}}"
 
 - name: Grant all privileges at the database level
   postgresql_privs:
@@ -82,7 +82,7 @@
     login_user: postgres
     login_password: "{{ central_postgres_password }}"
     login_host: 127.0.0.1
-    login_port: 5432
+    login_port: "{{database_port}}"
 
 - name: Grant all privileges on all tables in the public schema
   postgresql_privs:
@@ -96,7 +96,7 @@
     login_user: postgres
     login_password: "{{ central_postgres_password }}"
     login_host: 127.0.0.1
-    login_port: 5432
+    login_port: "{{database_port}}"
 
 - name: Set comprehensive privileges for user on public schema
   postgresql_query:
@@ -104,7 +104,7 @@
     login_user: postgres
     login_password: "{{ central_postgres_password }}"
     login_host: 127.0.0.1
-    login_port: 5432
+    login_port: "{{database_port}}"
     query: |
       GRANT USAGE ON SCHEMA public TO {{ database_username }};
       GRANT CREATE ON SCHEMA public TO {{ database_username }};
