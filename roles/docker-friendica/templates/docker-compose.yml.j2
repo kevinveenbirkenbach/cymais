@@ -37,7 +37,7 @@ services:
       FRIENDICA_LOGFILE: php://stdout
 
       # Database Configuration 
-      MYSQL_HOST:     {{database_host}}:3306
+      MYSQL_HOST:     "{{database_host}}:{{database_port}}"
       MYSQL_DATABASE: {{database_name}}
       MYSQL_USER:     {{database_username}}
       MYSQL_PASSWORD: {{database_password}}

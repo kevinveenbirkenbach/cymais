@@ -2,3 +2,4 @@ database_instance:                  "{{ 'central-' + database_type if enable_cen
 database_host:                      "{{ 'central-' + database_type if enable_central_database | bool else 'database' }}"
 database_name:                      "{{ docker_compose_project_name }}"
 database_username:                  "{{ docker_compose_project_name }}"
+database_port:                      "{{ 3306 if database_type == 'mariadb' else 5432 }}"

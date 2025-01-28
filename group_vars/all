@@ -232,6 +232,9 @@ bluesky_pds_version:              "latest"
 #### Friendica
 friendica_version:                "latest"
 
+#### Funkwhale
+funkwhale_version:                "1.4.0"
+
 #### Gitea
 gitea_version:                    "latest"
 
