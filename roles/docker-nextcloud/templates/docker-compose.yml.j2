@@ -6,7 +6,7 @@ services:
 
   application:
     image: "nextcloud:{{nextcloud_version}}-fpm-alpine"
-    container_name: nextcloud-application
+    container_name: {{nextcloud_application_container_name}} 
     restart: {{docker_restart_policy}}
     logging:
       driver: journald

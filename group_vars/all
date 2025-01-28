@@ -254,6 +254,10 @@ oidc_client_id:                   "{{primary_domain}}"
 oidc_client_realm:                "{{primary_domain}}"   
 oidc_client_issuer_url:           "https://{{domain_keycloak}}/realms/{{oidc_client_realm}}"
 oidc_client_discovery_document:   "{{oidc_client_issuer_url}}/.well-known/openid-configuration"
+oidc_client_authorize_url:        "https://auth.veen.world/realms/veen.world/protocol/openid-connect/auth"
+oidc_client_toke_url:             "https://auth.veen.world/realms/veen.world/protocol/openid-connect/token"
+oidc_client_user_info_url:        "https://auth.veen.world/realms/veen.world/protocol/openid-connect/userinfo"
+oidc_client_logout_url:           "https://auth.veen.world/realms/veen.world/protocol/openid-connect/logout"
 # oidc_client_secret:             "{{oidc_client_secret}}"  # Default use wildcard for primary domain, subdomain client specific configuration in vars files in the roles is possible
 
 #### LDAP
