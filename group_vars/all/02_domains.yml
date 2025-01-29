@@ -1,0 +1,57 @@
+# Domains
+
+## Service Domains
+default_domains:
+  akaunting:               "accounting.{{primary_domain}}"
+  attendize:               "tickets.{{primary_domain}}"
+  baserow:                 "baserow.{{primary_domain}}"
+  bigbluebutton:           "meet.{{primary_domain}}"
+  bluesky_api:             "bluesky.{{primary_domain}}"
+  bluesky_web:             "bskyweb.{{primary_domain}}"
+  discourse:               "forum.{{primary_domain}}"
+  elk:                     "elk.{{primary_domain}}"
+  friendica:               "friendica.{{primary_domain}}"
+  funkwhale:               "music.{{primary_domain}}"
+  gitea:                   "git.{{primary_domain}}"
+  gitlab:                  "gitlab.{{primary_domain}}"
+  keycloak:                "auth.{{primary_domain}}"
+  ldap:                    "ldap.{{primary_domain}}"
+  listmonk:                "newsletter.{{primary_domain}}"
+  mailu:                   "{{system_email.host}}"
+  mastodon:                "microblog.{{primary_domain}}"
+  mastodon_alternates:    ["mastodon.{{primary_domain}}"]
+  matomo:                  "matomo.{{primary_domain}}"
+  matrix_synapse:          "matrix.{{primary_domain}}"
+  matrix_element:          "element.{{primary_domain}}"
+  moodle:                  "academy.{{primary_domain}}"
+  mediawiki:               "wiki.{{primary_domain}}"
+  nextcloud:               "cloud.{{primary_domain}}"
+  openproject:             "project.{{primary_domain}}"
+  peertube:                "video.{{primary_domain}}"
+  peertube_alternates:     []
+  phpmyadmin:              "phpmyadmin.{{primary_domain}}"
+  pixelfed:                "picture.{{primary_domain}}"
+  portfolio:               "{{primary_domain}}"
+  roulette:                "roulette.{{primary_domain}}"
+  taiga:                   "kanban.{{primary_domain}}"
+  yourls:                  "s.{{primary_domain}}"
+  wordpress:              ["wordpress.{{primary_domain}}","blog.{{primary_domain}}"]
+
+## Domain Redirects
+redirect_domain_mappings:
+- { source: "akaunting.{{primary_domain}}",   target: "{{domains.akaunting}}" }
+- { source: "bbb.{{primary_domain}}",         target: "{{domains.bigbluebutton}}" }
+- { source: "discourse.{{primary_domain}}",   target: "{{domains.discourse}}" }
+- { source: "funkwhale.{{primary_domain}}",   target: "{{domains.funkwhale}}" }
+- { source: "gitea.{{primary_domain}}",       target: "{{domains.gitea}}" }
+- { source: "keycloak.{{primary_domain}}",    target: "{{domains.keycloak}}" }
+- { source: "listmonk.{{primary_domain}}",    target: "{{domains.listmonk}}" }
+- { source: "moodle.{{primary_domain}}",      target: "{{domains.moodle}}" }
+- { source: "nextcloud.{{primary_domain}}",   target: "{{domains.nextcloud}}" }
+- { source: "openproject.{{primary_domain}}", target: "{{domains.openproject}}" }
+- { source: "peertube.{{primary_domain}}",    target: "{{domains.peertube}}" }
+- { source: "pictures.{{primary_domain}}",    target: "{{domains.pixelfed}}" }
+- { source: "pixelfed.{{primary_domain}}",    target: "{{domains.pixelfed}}" }
+- { source: "short.{{primary_domain}}",       target: "{{domains.yourls}}" }
+- { source: "taiga.{{primary_domain}}",       target: "{{domains.taiga}}" }
+- { source: "videos.{{primary_domain}}",      target: "{{domains.peertube}}" }

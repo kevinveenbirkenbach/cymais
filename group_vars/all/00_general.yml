@@ -1,0 +1,35 @@
+# General
+pause_duration:         "120"         # Database delay to wait for the central database before continue tasks
+ip4_address:            "127.0.0.1"   # Change thie in inventory to the ip address of your server
+backups_folder_path:    "/Backups/"   # Path to the backups folder
+
+## Domain
+primary_domain_tld:     "localhost"                                     # Top Level Domain of the server
+primary_domain_sld:     "cymais"                                        # Second Level Domain of the server
+primary_domain:         "{{primary_domain_sld}}.{{primary_domain_tld}}" # Primary Domain of the server
+
+# Administrator
+administrator_username: "administrator"                                 # Username of the administrator
+administrator_email:    "{{administrator_username}}@{{primary_domain}}" # Email of the administrator
+#user_administrator_initial_password: EXAMPLE_PASSWORD_123456                         # Example initialisation password needs to be set in inventory file
+
+# Test Email
+test_email:             "test@{{primary_domain}}"
+
+# Server Tact Variables 
+
+## Ours in which the server is "awake" (100% working). Rest of the time is reserved for maintanance
+hours_server_awake:                           "0..23"
+
+## Random delay for systemd timers to avoid peak loads.
+randomized_delay_sec:                         "5min" 
+
+# Storage Space-Related Configurations          
+size_percent_maximum_backup:                  75  # Maximum storage space in percent for backups
+size_percent_cleanup_disc_space:              85  # Threshold for triggering cleanup actions
+size_percent_disc_space_warning:              90  # Warning threshold in percent for free disk space
+
+# Runtime Variables for Process Control
+activate_all_timers:                          false   # Activates all timers, independend if the handlers had been triggered
+nginx_matomo_tracking:                        false   # Activates matomo tracking on all html pages
+

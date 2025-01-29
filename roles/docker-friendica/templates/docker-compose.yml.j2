@@ -43,14 +43,14 @@ services:
       MYSQL_PASSWORD: {{database_password}}
 
       # Email Configuration
-      SMTP:           {{system_email_host}}
-      SMTP_DOMAIN:    {{system_email_domain}}
-      SMTP_PORT:      {{system_email_smtp_port}}
-      SMTP_AUTH_USER: {{system_email_username}}
-      SMTP_AUTH_PASS: {{system_email_password}}
-      SMTP_TLS:       {{ 'on' if system_email_tls else 'off' }}
-      SMTP_STARTTLS:  {{ 'on' if system_email_start_tls else 'off' }}
-      SMTP_FROM:      {{system_email_local}}
+      SMTP:           {{system_email.host}}
+      SMTP_DOMAIN:    {{system_email.domain}}
+      SMTP_PORT:      {{system_email.smtp_port}}
+      SMTP_AUTH_USER: {{system_email.username}}
+      SMTP_AUTH_PASS: {{system_email.password}}
+      SMTP_TLS:       {{ 'on' if system_email.tls else 'off' }}
+      SMTP_STARTTLS:  {{ 'on' if system_email.start_tls else 'off' }}
+      SMTP_FROM:      {{system_email.local}}
 
       # Administrator Credentials
       FRIENDICA_ADMIN_MAIL: {{administrator_email}}

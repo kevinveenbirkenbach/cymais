@@ -1,0 +1,38 @@
+
+# System maintenance Services
+
+## Timeouts to wait for other services to stop
+system_maintenance_lock_timeout_cleanup_services:  "15min"
+system_maintenance_lock_timeout_storage_optimizer: "10min"
+system_maintenance_lock_timeout_backup_services:   "1h"
+system_maintenance_lock_timeout_heal_docker:       "30min"
+system_maintenance_lock_timeout_update_docker:     "2min"
+system_maintenance_lock_timeout_restart_docker:    "{{system_maintenance_lock_timeout_update_docker}}"
+
+## Services
+
+### Defined Services for Backup Tasks
+system_maintenance_backup_services:
+  - "backup-docker-to-local"
+  - "backup-remote-to-local"
+  - "backup-data-to-usb"
+  - "backup-docker-to-local-everything"
+
+### Defined Services for System Cleanup
+system_maintenance_cleanup_services:
+  - "cleanup-backups"
+  - "cleanup-disc-space"
+  - "cleanup-failed-docker-backups"
+
+### Services that Manipulate the System
+system_maintenance_manipulation_services:
+  - "heal-docker"
+  - "update-docker"
+  - "system-storage-optimizer"
+  - "restart-docker"
+  
+## Total System Maintenance Services
+system_maintenance_services: "{{ system_maintenance_backup_services + system_maintenance_cleanup_services + system_maintenance_manipulation_services }}"
+
+### Define Variables for Docker Volume Health services
+whitelisted_anonymous_docker_volumes: []

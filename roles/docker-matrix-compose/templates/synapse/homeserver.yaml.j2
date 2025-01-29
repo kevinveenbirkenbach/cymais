@@ -17,13 +17,13 @@ database:
     host: "{{database_host}}"
     cp_min: 5
     cp_max: 10
-log_config:                     "/data/{{domain_matrix_synapse}}.log.config"
+log_config:                     "/data/{{domains.matrix_synapse}}.log.config"
 media_store_path:               "/data/media_store"
 registration_shared_secret:     "{{matrix_registration_shared_secret}}"
 report_stats:                   true
 macaroon_secret_key:            "{{matrix_macaroon_secret_key}}"
 form_secret:                    "{{matrix_form_secret}}"
-signing_key_path:               "/data/{{domain_matrix_synapse}}.signing.key"
+signing_key_path:               "/data/{{domains.matrix_synapse}}.signing.key"
 web_client_location:            "https://{{element_domain}}"
 public_baseurl:                 "https://{{synapse_domain}}"
 trusted_key_servers:
@@ -31,18 +31,18 @@ trusted_key_servers:
 admin_contact: 'mailto:{{administrator_email}}'
 
 email:
-  smtp_host:                    "{{system_email_host}}"
-  smtp_port:                    "{{system_email_smtp_port}}"
-  smtp_user:                    "{{system_email_from}}"
-  smtp_pass:                    "{{system_email_password}}"
+  smtp_host:                    "{{system_email.host}}"
+  smtp_port:                    "{{system_email.smtp_port}}"
+  smtp_user:                    "{{system_email.from}}"
+  smtp_pass:                    "{{system_email.password}}"
   #force_tls:                    true
   #require_transport_security:   true
-  enable_tls:                   "{{ system_email_tls | upper }}"
-  notif_from:                   "Your Friendly %(app)s homeserver <{{system_email_from}}>"
+  enable_tls:                   "{{ system_email.tls | upper }}"
+  notif_from:                   "Your Friendly %(app)s homeserver <{{system_email.from}}>"
   app_name:                     "Matrix on {{synapse_domain}}"
   enable_notifs:                true
   notif_for_new_users:          false
-  client_base_url:              "{{domain_matrix_synapse}}"
+  client_base_url:              "{{domains.matrix_synapse}}"
   validation_token_lifetime:    15m
 
 app_service_config_files:

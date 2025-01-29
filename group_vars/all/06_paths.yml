@@ -1,0 +1,7 @@
+
+# Path Variables for Key Directories and Scripts
+path_administrator_home:                      "/home/administrator/"
+path_administrator_scripts:                   "/opt/scripts/"
+#path_docker_volumes:                          "{{path_administrator_home}}volumes/docker/"
+path_docker_compose_instances:                "/opt/docker/"
+path_system_lock_script:                      "/opt/scripts/system-maintenance-lock.py"

@@ -21,7 +21,7 @@
   roles:
    -  role: docker-nextcloud
       vars:
-        domain: "{{domain_nextcloud}}"
+        domain: "{{domains.nextcloud}}"
         http_port: 8001
 
 - name: setup gitea hosts
@@ -30,7 +30,7 @@
   roles:
    -  role: docker-gitea
       vars:
-        domain: "{{domain_gitea}}"
+        domain: "{{domains.gitea}}"
         http_port: 8002
         ssh_port:  2201
         run_mode: prod
@@ -50,7 +50,7 @@
   roles:
    -  role: docker-mediawiki
       vars:
-        domain: "{{domain_mediawiki}}"
+        domain: "{{domains.mediawiki}}"
         http_port: 8004
 
 - name: setup mybb hosts
@@ -68,7 +68,7 @@
   roles:
    -  role: docker-yourls
       vars:
-        domain: "{{domain_yourls}}"
+        domain: "{{domains.yourls}}"
         http_port: 8006
 
 - name: setup mailu hosts
@@ -77,7 +77,7 @@
   roles:
    -  role: docker-mailu
       vars:
-        domain: "{{domain_mailu}}"
+        domain: "{{domains.mailu}}"
         http_port: 8007
         enable_central_database: "{{enable_central_database_mailu}}"
         
@@ -87,7 +87,7 @@
   roles:
    -  role: docker-elk
       vars:
-        domain: "{{domain_elk}}"
+        domain: "{{domains.elk}}"
         http_port: 8008
 
 - name: setup mastodon hosts
@@ -96,7 +96,7 @@
   roles:
    -  role: docker-mastodon
       vars:
-        domain:       "{{domain_mastodon}}"
+        domain:       "{{domains.mastodon}}"
         domains:      "{{ [domain] + domains_mastodon_alternates }}"
         http_port:    8009
         stream_port:  4001
@@ -107,7 +107,7 @@
   roles:
    -  role: docker-pixelfed
       vars:
-        domain: "{{domain_pixelfed}}"
+        domain: "{{domains.pixelfed}}"
         http_port: 8010
 
 - name: setup peertube hosts
@@ -116,8 +116,8 @@
   roles:
    -  role: docker-peertube
       vars:
-        domain: "{{domain_peertube}}"
-        domains: "{{ [domain] + domains_peertube }}"
+        domain: "{{domains.peertube}}"
+        domains: "{{ [domain] + peertube_alternates }}"
         http_port: 8011
 
 - name: setup bigbluebutton hosts
@@ -126,7 +126,7 @@
   roles:
    -  role: docker-bigbluebutton
       vars:
-        domain: "{{domain_bigbluebutton}}"
+        domain: "{{domains.bigbluebutton}}"
 
 - name: setup funkwhale hosts
   hosts: funkwhale
@@ -134,7 +134,7 @@
   roles:
    -  role: docker-funkwhale
       vars:
-        domain: "{{domain_funkwhale}}"
+        domain: "{{domains.funkwhale}}"
         http_port: 8012
 
 - name: setup roulette-wheel hosts
@@ -143,7 +143,7 @@
   roles:
    -  role: docker-roulette-wheel
       vars:
-        domain: "{{domain_roulette}}"
+        domain: "{{domains.roulette}}"
         http_port: 8013
 
 - name: setup joomla hosts
@@ -161,7 +161,7 @@
   roles:
    -  role: docker-attendize
       vars:
-        domain: "{{domain_attendize}}"
+        domain: "{{domains.attendize}}"
         http_port: 8015
         mail_interface_http_port: 8016
 
@@ -171,7 +171,7 @@
   roles:
    -  role: docker-baserow
       vars:
-        domain: "{{domain_baserow}}"
+        domain: "{{domains.baserow}}"
         http_port: 8017
 
 - name: setup matomo hosts
@@ -180,7 +180,7 @@
   roles:
    -  role: docker-matomo
       vars:
-        domain: "{{domain_matomo}}"
+        domain: "{{domains.matomo}}"
         http_port: 8018
 
 - name: setup listmonk
@@ -189,7 +189,7 @@
   roles:
    -  role: docker-listmonk
       vars:
-        domain:     "{{domain_listmonk}}"
+        domain:     "{{domains.listmonk}}"
         http_port:  8019
 
 - name: setup discourse
@@ -198,7 +198,7 @@
   roles:
    -  role: docker-discourse
       vars:
-        domain:   "{{domain_discourse}}"
+        domain:   "{{domains.discourse}}"
         http_port: 8020
 
 - name: setup matrix
@@ -209,16 +209,16 @@
       when: matrix_role == 'ansible'
       vars:
         domains:
-          - "{{domain_matrix_element}}"
-          - "{{domain_matrix_synapse}}"
-        element_domain:   "{{domain_matrix_element}}"
-        synapse_domain:   "{{domain_matrix_synapse}}"
+          - "{{domains.matrix_element}}"
+          - "{{domains.matrix_synapse}}"
+        element_domain:   "{{domains.matrix_element}}"
+        synapse_domain:   "{{domains.matrix_synapse}}"
         http_port: 8021
    -  role: docker-matrix-compose
       when: matrix_role == 'compose'
       vars:
-        element_domain:   "{{domain_matrix_element}}"
-        synapse_domain:   "{{domain_matrix_synapse}}"
+        element_domain:   "{{domains.matrix_element}}"
+        synapse_domain:   "{{domains.matrix_synapse}}"
         synapse_http_port: 8021
         element_http_port: 8022
 
@@ -228,7 +228,7 @@
   roles:
    -  role: docker-openproject
       vars:
-        domain:             "{{domain_openproject}}"
+        domain:             "{{domains.openproject}}"
         http_port:          8023
         oauth2_proxy_port:  4180
 
@@ -238,7 +238,7 @@
   roles:
    -  role: docker-gitlab
       vars:
-        domain: "{{domain_gitlab}}"
+        domain: "{{domains.gitlab}}"
         http_port: 8024
         ssh_port:  2202
 
@@ -248,7 +248,7 @@
   roles:
    -  role: docker-akaunting
       vars:
-        domain:     "{{domain_akaunting}}"
+        domain:     "{{domains.akaunting}}"
         http_port:  8025
 
 - name: setup moodle instance
@@ -257,7 +257,7 @@
   roles:
    -  role: docker-moodle
       vars:
-        domain:     "{{domain_moodle}}"
+        domain:     "{{domains.moodle}}"
         http_port:  8026
 
 - name: setup taiga instance
@@ -266,7 +266,7 @@
   roles:
    -  role: docker-taiga
       vars:
-        domain:     "{{domain_taiga}}"
+        domain:     "{{domains.taiga}}"
         http_port:  8027
 
 - name: setup friendica hosts
@@ -275,7 +275,7 @@
   roles:
    -  role: docker-friendica
       vars:
-        domain: "{{domain_friendica}}"
+        domain: "{{domains.friendica}}"
         http_port: 8028
 
 - name: setup portfolio
@@ -284,7 +284,7 @@
   roles:
    -  role: docker-portfolio
       vars:
-        domain: "{{domain_portfolio}}"
+        domain: "{{domains.portfolio}}"
         http_port: 8029
 
 - name: setup bluesky
@@ -293,8 +293,8 @@
   roles:
    -  role: docker-bluesky
       vars:
-        domain_api:   "{{domain_bluesky_api}}"
-        domain_web:   "{{domain_bluesky_web}}"
+        domain_api:   "{{domains.bluesky_api}}"
+        domain_web:   "{{domains.bluesky_web}}"
         http_port_api: 8030
         http_port_web: 8031
 
@@ -304,7 +304,7 @@
   roles:
    -  role: docker-keycloak
       vars:
-        domain: "{{domain_keycloak}}"
+        domain: "{{domains.keycloak}}"
         http_port: 8032
 
 - name: setup ldap
@@ -313,7 +313,7 @@
   roles:
    -  role: docker-ldap
       vars:
-        domain: "{{domain_ldap}}"
+        domain: "{{domains.ldap}}"
         http_port:          8033
         oauth2_proxy_port:  4182
 
@@ -323,7 +323,7 @@
   roles:
    -  role: docker-phpmyadmin
       vars:
-        domain: "{{domain_phpmyadmin}}"
+        domain: "{{domains.phpmyadmin}}"
         http_port:          8034
         oauth2_proxy_port:  4181
 

@@ -1,0 +1,11 @@
+# Email Configuration
+default_system_email:
+  local:     no-reply
+  domain:    "{{primary_domain}}"
+  username:  "{{system_email.local}}@{{system_email.domain}}"
+  host:      "mail.{{primary_domain}}"
+  smtp_port: 465
+  tls:       true
+  start_tls: false
+  from:      "{{system_email.username}}"
+  smtp:      true

@@ -1,6 +1,3 @@
-- name: include docker vars
-  include_vars: vars/docker-common.yml.j2
-
 - name: load docker compose dependencies
   include_role:
     name: docker-compose
@@ -16,3 +13,12 @@
     path: "{{docker_compose_instance_directory}}"
     state: directory
     mode: 0755
+
+- name: flush docker service
+  meta: flush_handlers
+  when: run_once_docker_compose is not defined
+
+- name: run the docker tasks once
+  set_fact:
+    run_once_docker_compose: true
+  when: run_once_docker_compose is not defined

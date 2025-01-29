@@ -1,0 +1,144 @@
+# Docker Applications
+
+## Enable Central MariaDB
+enable_central_database: true
+enable_central_database_mailu: "{{enable_central_database}}"
+
+## Enable Storage Optimizer for Docker Volumes
+enable_system_storage_optimizer: true
+
+## Docker Role Specific Parameters
+docker_restart_policy:        "unless-stopped"
+
+## Akaunting
+akaunting_version:            "latest"
+akaunting_company_name:       "{{primary_domain}}"
+akaunting_company_email:      "{{administrator_email}}"
+akaunting_setup_admin_email:  "{{administrator_email}}"
+
+## Attendize 
+attendize_version:                "latest"
+
+## Baserow 
+baserow_version:                  "latest"
+
+## Big Blue Button
+bigbluebutton_enable_greenlight:  "true"
+
+## Bluesky
+bluesky_administrator_email:      "{{administrator_email}}"
+bluesky_pds_version:              "latest"
+
+## Friendica
+friendica_version:                "latest"
+
+## Funkwhale
+funkwhale_version:                "1.4.0"
+
+## Gitea
+gitea_version:                    "latest"
+
+## Gitlab
+gitlab_version:                   "latest"
+
+## Joomla
+joomla_version:                   "latest"
+
+## Keycloak
+keycloak_version:                 "latest"
+keycloak_administrator_username:  "{{administrator_username}}"  # Administrator Username for Keycloak
+
+### Keycloak Client Configuration
+oidc_client_active:               true  # Implement OpenID Connect https://en.wikipedia.org/wiki/OpenID_Connect
+oidc_client_id:                   "{{primary_domain}}"
+oidc_client_realm:                "{{primary_domain}}"   
+oidc_client_issuer_url:           "https://{{domains.keycloak}}/realms/{{oidc_client_realm}}"
+oidc_client_discovery_document:   "{{oidc_client_issuer_url}}/.well-known/openid-configuration"
+oidc_client_authorize_url:        "{{oidc_client_issuer_url}}/protocol/openid-connect/auth"
+oidc_client_toke_url:             "{{oidc_client_issuer_url}}/protocol/openid-connect/token"
+oidc_client_user_info_url:        "{{oidc_client_issuer_url}}/protocol/openid-connect/userinfo"
+oidc_client_logout_url:           "{{oidc_client_issuer_url}}/protocol/openid-connect/logout"
+# oidc_client_secret:             "{{oidc_client_secret}}"  # Default use wildcard for primary domain, subdomain client specific configuration in vars files in the roles is possible
+
+## LDAP
+ldap_lam_version:                     "latest"
+ldap_openldap_version:                "latest"
+ldap_phpldapadmin_version:            "2.0.0-dev"                               # @todo Attention: Change this as fast as released to latest
+ldap_webinterface:                    "lam"                                     # The webinterface which should be used. Possible: lam and phpldapadmin
+ldap_administrator_username:          "{{administrator_username}}"
+ldap_administrator_password:          "{{user_administrator_initial_password}}" # CHANGE for security reasons
+ldap_administrator_database_password: "{{user_administrator_initial_password}}" # CHANGE for security reasons
+ldap_lam_administrator_password:      "{{user_administrator_initial_password}}" # CHANGE for security reasons
+ldap_expose_to_internet:              false                                     # Set to true if you want to expose the LDAP port to the internet. Keep in mind to 
+
+## Listmonk
+listmonk_admin_username:          "{{administrator_username}}"
+listmonk_public_api_activated:    False # Security hole. Can be used for spaming
+listmonk_version:                 "latest"
+
+## MariaDB
+mariadb_version:                  "latest"
+
+## Matomo
+matomo_version:                   "latest"
+
+## Mastodon
+mastodon_version:                 "latest"
+mastodon_single_user_mode:        false
+
+## Matrix
+matrix_administrator_username:  "{{administrator_username}}"  # Accountname of the matrix admin
+matrix_playbook_tags:           "setup-all,start"             # For the initial update use: install-all,ensure-matrix-users-created,start
+matrix_role:                    "compose"                     # Role to setup Matrix. Valid values: ansible, compose
+matrix_server_name:             "{{primary_domain}}"          # Adress for the account names etc.
+matrix_synapse_version:         "latest"
+matrix_element_version:         "latest"
+
+## Mailu
+mailu_version:                  "2024.06"
+mailu_domain:                   "{{primary_domain}}"
+mailu_subnet:                   "192.168.203.0/24"
+
+## Moodle
+moodle_site_name:               "Global Learning Academy on {{primary_domain}}"
+moodle_administrator_name:      "{{administrator_username}}"
+moodle_administrator_email:     "{{administrator_email}}"
+moodle_version:                 "latest"
+
+## MyBB
+mybb_version:                   "latest"
+
+## Nextcloud
+nextcloud_version:              "production"  # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
+
+## OAuth2 Proxy
+oauth2_configuration_file:                    "oauth2-proxy-keycloak.cfg"
+oauth2_proxy_active:                          false                                     # Needs to be set true in the roles which use it
+oauth2_version:                               "latest"
+oauth2_proxy_redirect_url:                    "https://{{domains.keycloak}}/auth/realms/{{primary_domain}}/protocol/openid-connect/auth"  # The redirect URL for the OAuth2 flow. It should match the redirect URL configured in Keycloak.
+# oauth2_proxy_port:                          >= 4180                                   # This ports should be defined in the roles. They are for the local mapping on the host and need to be defined in the playbook for transparancy.
+oauth2_proxy_upstream_application_and_port:   "application:80"                          # The name of the application which the server redirects to. Needs to be defined in role vars.
+oauth2_proxy_allowed_roles:                   admin                                     # Restrict it default to admin role. Use the vars/main.yml to open the specific role for other groups  
+#oauth2_proxy_cookie_secret:                  "{{oauth2_proxy_cookie_secret}}"          # Default use wildcard for primary domain, subdomain client specific configuration in vars files in the roles is possible openssl rand -hex 16
+
+## Peertube
+peertube_version:           "bookworm"
+
+## PHPMyAdmin
+phpmyadmin_version:         "latest"
+phpmyadmin_autologin:       false     # This is a high security risk. Just activate this option if you know what you're doing
+
+## Pixelfed
+pixelfed_app_name:          "Pictures on {{primary_domain}}"
+pixelfed_version:           "latest"
+
+## Postgres
+# Please set an version in your inventory file - Rolling release for postgres isn't recommended
+postgres_database_version:  "latest"
+
+## Taiga
+taiga_version:              "latest"
+
+## YOURLS
+yourls_administrator_username:  "{{administrator_username}}"
+yourls_version:                 "latest"

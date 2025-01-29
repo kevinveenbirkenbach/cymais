@@ -11,10 +11,10 @@
     dest: "{{nginx_servers_directory}}{{domain}}.conf"
   notify: restart nginx
 
-- name: configure nginx.conf
+- name: create nginx.conf
   template: 
     src:  "templates/nginx.conf.j2" 
-    dest: "{{path_docker_volumes}}nextcloud/nginx.conf"
+    dest: "{{docker_compose_instance_directory}}nginx.conf"
   notify: docker compose project setup
 
 - name: add docker-compose.yml

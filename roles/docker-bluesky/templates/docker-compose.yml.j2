@@ -7,7 +7,7 @@ services:
         - {{pdsadmin_file_path}}:/usr/local/bin/pdsadmin:ro
     environment:
       # Geben Sie hier Ihre Domain und Konfigurationsdetails an
-      PDS_HOSTNAME: "{{domain_api}}"
+      PDS_HOSTNAME: "{{domains.api}}"
       PDS_ADMIN_EMAIL: "{{bluesky_administrator_email}}"
       PDS_SERVICE_DID: "did:web:{{domain_api}}"
       # See https://mattdyson.org/blog/2024/11/self-hosting-bluesky-pds/
@@ -16,8 +16,8 @@ services:
       PDS_ADMIN_PASSWORD: "{{bluesky_pds_admin_password}}"
       PDS_PLC_ROTATION_KEY_K256_PRIVATE_KEY_HEX: "{{bluesky_pds_plc_rotation_key_k256_private_key_hex}}"
       PDS_CRAWLERS: https://bsky.network
-      PDS_EMAIL_SMTP_URL: smtps://{{system_email_username}}:{{system_email_password}}@{{system_email_host}}:{{system_email_smtp_port}}/
-      PDS_EMAIL_FROM_ADDRESS: {{system_email_from}}
+      PDS_EMAIL_SMTP_URL: smtps://{{system_email.username}}:{{system_email.password}}@{{system_email.host}}:{{system_email.smtp_port}}/
+      PDS_EMAIL_FROM_ADDRESS: {{system_email.from}}
       LOG_ENABLED: true
       PDS_BLOBSTORE_DISK_LOCATION: /opt/pds/blocks
       # -- DEFAULT VALUES ---

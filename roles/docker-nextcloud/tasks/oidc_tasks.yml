@@ -20,7 +20,7 @@
   command: >
     docker-compose exec -u www-data application /var/www/html/occ
     config:app:set sociallogin custom_providers
-    --value='{"custom_oidc":[{"name":"{{domain_keycloak}}","title":"keycloak","authorizeUrl":"{{oidc_client_authorize_url}}","tokenUrl":"{{oidc_client_toke_url}}","displayNameClaim":"","userInfoUrl":"{{oidc_client_user_info_url}}","logoutUrl":"{{oidc_client_logout_url}}","clientId":"{{oidc_client_id}}","clientSecret":"{{oidc_client_secret}}","scope":"openid","groupsClaim":"","style":"","defaultGroup":""}]}'
+    --value='{"custom_oidc":[{"name":"{{domains.keycloak}}","title":"keycloak","authorizeUrl":"{{oidc_client_authorize_url}}","tokenUrl":"{{oidc_client_toke_url}}","displayNameClaim":"","userInfoUrl":"{{oidc_client_user_info_url}}","logoutUrl":"{{oidc_client_logout_url}}","clientId":"{{oidc_client_id}}","clientSecret":"{{oidc_client_secret}}","scope":"openid","groupsClaim":"","style":"","defaultGroup":""}]}'
   # This configuration defines custom OpenID Connect (OIDC) providers for authentication.
   # In this case, it sets up a Keycloak provider with details like URLs for authorization,
   # token retrieval, user info, and logout, as well as the client ID and secret.

@@ -25,15 +25,15 @@ services:
       PHP_MEMORY_LIMIT: 1G # Required for plugin duplicate finder
       
       # Email Configuration
-      SMTP_HOST: {{system_email_host}}
-      SMTP_SECURE: {{ 'ssl' if system_email_tls else '' }}
-      SMTP_PORT: {{system_email_smtp_port}}
-      SMTP_NAME: {{system_email_username}}
-      SMTP_PASSWORD: {{system_email_password}}
+      SMTP_HOST: {{system_email.host}}
+      SMTP_SECURE: {{ 'ssl' if system_email.tls else '' }}
+      SMTP_PORT: {{system_email.smtp_port}}
+      SMTP_NAME: {{system_email.username}}
+      SMTP_PASSWORD: {{system_email.password}}
 
       # Email from configuration
       MAIL_FROM_ADDRESS: no-reply
-      MAIL_DOMAIN: {{system_email_domain}}
+      MAIL_DOMAIN: {{system_email.domain}}
 
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
@@ -47,7 +47,7 @@ services:
     ports:
       - "127.0.0.1:{{http_port}}:80"
     volumes:
-        - "{{path_docker_volumes}}nextcloud/nginx.conf:/etc/nginx/nginx.conf:ro"
+        - "{{docker_compose_instance_directory}}/nginx.conf:/etc/nginx/nginx.conf:ro"
     volumes_from:
       - application
     healthcheck:

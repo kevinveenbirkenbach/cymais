@@ -1,4 +1,13 @@
 ---
+- name: Merge variables
+  hosts: all
+  tasks:
+  - name: Merge domain definitions
+    set_fact:
+      domains: "{{ default_domains | combine(domains | default({}, true)) }}"
+  - name: Merge system_email definitions
+    set_fact:
+      system_email: "{{ default_system_email | combine(system_email | default({}, true)) }}"
 
 - name: update device
   hosts:  all

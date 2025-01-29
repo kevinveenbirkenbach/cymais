@@ -16,15 +16,6 @@
     group: administrator
   when: run_once_docker is not defined
 
-- name: "create {{path_docker_volumes}}"
-  file:
-    path: "{{path_docker_volumes}}"
-    state: directory
-    mode: 0700
-    owner: administrator
-    group: administrator
-  when: run_once_docker is not defined
-
 - name: flush docker service
   meta: flush_handlers
   when: run_once_docker is not defined

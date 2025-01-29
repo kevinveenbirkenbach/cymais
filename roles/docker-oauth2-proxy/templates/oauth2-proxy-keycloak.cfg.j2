@@ -3,7 +3,7 @@ cookie_secret           =   "{{oauth2_proxy_cookie_secret}}"
 email_domains           =   "{{primary_domain}}"
 cookie_secure           =   "false"
 upstreams               =   "http://{{oauth2_proxy_upstream_application_and_port}}"
-cookie_domains          =   ["{{domain}}", "{{domain_keycloak}}"]                   # Required so cookie can be read on all subdomains.
+cookie_domains          =   ["{{domain}}", "{{domains.keycloak}}"]                   # Required so cookie can be read on all subdomains.
 whitelist_domains       =   [".{{primary_domain}}"]                                 # Required to allow redirection back to original requested target.
 
 # keycloak provider
