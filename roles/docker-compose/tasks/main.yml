@@ -1,3 +1,7 @@
+- name: "Set global docker_compose_instance_directory: {{ path_docker_compose_instances }}{{ docker_compose_project_name }}/"
+  set_fact:
+    docker_compose_instance_directory: "{{ path_docker_compose_instances }}{{ docker_compose_project_name }}/"
+
 - name: "remove {{ docker_compose_instance_directory }} and all its contents"
   file:
     path: "{{ docker_compose_instance_directory }}"
