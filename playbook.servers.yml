@@ -41,7 +41,7 @@
   roles:
   - role: docker-wordpress
     vars:
-      domains: "{{domains_wordpress}}"
+      wordpress_domains: "{{domains.wordpress}}"
       http_port: 8003
 
 - name: setup mediawiki hosts
@@ -59,7 +59,7 @@
   roles:
    -  role: docker-mybb
       vars:
-        domains: "{{domains_mybb}}"
+        mybb_domains: "{{domains.mybb}}"
         http_port: 8005
 
 - name: setup yourls hosts
@@ -96,10 +96,10 @@
   roles:
    -  role: docker-mastodon
       vars:
-        domain:       "{{domains.mastodon}}"
-        domains:      "{{ [domain] + domains_mastodon_alternates }}"
-        http_port:    8009
-        stream_port:  4001
+        domain:           "{{domains.mastodon}}"
+        mastodon_domains: "{{ [domain] + domains.mastodon_alternates }}"
+        http_port:        8009
+        stream_port:      4001
 
 - name: setup pixelfed hosts
   hosts: pixelfed
@@ -116,9 +116,9 @@
   roles:
    -  role: docker-peertube
       vars:
-        domain: "{{domains.peertube}}"
-        domains: "{{ [domain] + peertube_alternates }}"
-        http_port: 8011
+        domain:           "{{domains.peertube}}"
+        peertube_domains: "{{ [domain] + peertube_alternates }}"
+        http_port:        8011
 
 - name: setup bigbluebutton hosts
   hosts: bigbluebutton

@@ -4,7 +4,7 @@
   
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
-  loop: "{{ domains }}"
+  loop: "{{ wordpress_domains }}"
   loop_control:
     loop_var: domain
   vars:

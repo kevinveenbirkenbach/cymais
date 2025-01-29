@@ -4,7 +4,7 @@
 
 - name: "include create-domains.yml"
   include_tasks: create-domains.yml
-  loop: "{{ domains }}"
+  loop: "{{ mastodon_domains }}"
   loop_control:
     loop_var: domain
 
