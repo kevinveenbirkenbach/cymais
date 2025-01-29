@@ -12,11 +12,14 @@
     {{ '--test-cert' if mode_test | bool else '' }}
   when: enable_one_letsencrypt_cert_for_all and run_once_recieve_certificate is not defined
 
-- name: "cleanup dedicated cert for {{ domain }}"
+- name: "Cleanup dedicated cert for {{ domain }}"
   command: >-
     certbot delete --cert-name {{ domain }} --non-interactive
-  when: mode_cleanup and enable_one_letsencrypt_cert_for_all and run_once_recieve_certificate is not defined
-
+  when: 
+    - mode_cleanup
+    - enable_one_letsencrypt_cert_for_all
+    - domain != primary_domain
+  ignore_errors: true
 
 - name: run the recieve_certificate tasks once
   set_fact:
