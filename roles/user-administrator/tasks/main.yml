@@ -46,15 +46,6 @@
   notify: sshd restart
   when: run_once_user_administrator is not defined
 
-- name: "create {{path_administrator_home}}volumes/"
-  file:
-    path: "{{path_administrator_home}}volumes"
-    state: directory
-    owner: administrator
-    group: administrator
-    mode: 0700
-  when: run_once_user_administrator is not defined
-
 - name: run the user_administrator tasks once
   set_fact:
     run_once_user_administrator: true

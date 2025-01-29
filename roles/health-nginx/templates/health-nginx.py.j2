@@ -25,7 +25,7 @@ for filename in os.listdir(config_path):
         # Default: Expect status code 200 or 302 for a domain
         expected_statuses = [200,302]
         
-        redirected_domains = [domain['source'] for domain in {{redirect_domains_mappings}}]
+        redirected_domains = [domain['source'] for domain in {{redirect_domain_mappings}}]
         redirected_domains.append("{{domains.mailu}}")
 
         # Determine expected status codes based on the domain

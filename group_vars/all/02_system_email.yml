@@ -2,10 +2,10 @@
 default_system_email:
   local:     no-reply
   domain:    "{{primary_domain}}"
-  username:  "{{system_email.local}}@{{system_email.domain}}"
+  username:  "no-reply@{{primary_domain}}"
   host:      "mail.{{primary_domain}}"
   smtp_port: 465
   tls:       true
   start_tls: false
-  from:      "{{system_email.username}}"
+  from:      "no-reply@{{primary_domain}}"
   smtp:      true

@@ -1,7 +1,3 @@
-- name: load docker compose dependencies
-  include_role:
-    name: docker-compose
-
 - name: "remove {{ docker_compose_instance_directory }} and all its contents"
   file:
     path: "{{ docker_compose_instance_directory }}"
