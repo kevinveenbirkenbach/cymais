@@ -32,4 +32,13 @@ size_percent_disc_space_warning:  90  # Warning threshold in percent for free di
 # Runtime Variables for Process Control
 activate_all_timers:                  false   # Activates all timers, independend if the handlers had been triggered
 nginx_matomo_tracking:                false   # Activates matomo tracking on all html pages
-enable_one_letsencrypt_cert_for_all:  true    # Activates one letsencrypt cert for all instead of one per subdomain
+
+# One Wildcard Certificate for All Subdomains
+# Enables a single Let's Encrypt wildcard certificate for all subdomains instead of individual certificates.
+# Default: false (recommended for automatic setup).
+# Setting this to true requires additional manual configuration.
+# Using a wildcard certificate can improve performance by reducing TLS handshakes.
+# To enable, update your inventory file.
+# For detailed setup instructions, visit: 
+# https://github.com/kevinveenbirkenbach/cymais/tree/master/roles/nginx-docker-cert-deploy
+enable_one_letsencrypt_cert_for_all:  false    
