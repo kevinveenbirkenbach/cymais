@@ -117,7 +117,7 @@
    -  role: docker-peertube
       vars:
         domain:           "{{domains.peertube}}"
-        peertube_domains: "{{ [domain] + peertube_alternates }}"
+        peertube_domains: "{{ [domain] + domains.peertube_alternates }}"
         http_port:        8011
 
 - name: setup bigbluebutton hosts
