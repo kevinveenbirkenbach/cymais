@@ -3,8 +3,7 @@ server {
     proxy_pass 127.0.0.1:{{ldap_localhost_port}};
 
     # SSL Configuration for LDAPS
-    ssl_certificate /etc/letsencrypt/live/{{domain}}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/{{domain}}/privkey.pem;
+    {% include 'roles/letsencrypt/templates/ssl_credentials.j2' %}
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_ciphers HIGH:!aNULL:!MD5;
 }

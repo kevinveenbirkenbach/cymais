@@ -1,4 +1,5 @@
-docker_compose_project_name:  "mailu"
-database_password:  	        "{{mailu_database_password}}"
-database_type:                "mariadb"
-cert_mount_directory:         "{{docker_compose_instance_directory}}/certs/"
+docker_compose_project_name:          "mailu"
+database_password:  	                "{{mailu_database_password}}"
+database_type:                        "mariadb"
+cert_mount_directory:                 "{{docker_compose_instance_directory}}/certs/"
+enable_one_letsencrypt_cert_for_all:  false

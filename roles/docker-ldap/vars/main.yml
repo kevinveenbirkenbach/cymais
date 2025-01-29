@@ -8,3 +8,5 @@ ldap_localhost_port:          389
 # OAuth2 Proxy Configuration
 oauth2_proxy_upstream_application_and_port: "{{ ldap_webinterface }}:{% if ldap_webinterface == 'phpldapadmin' %}8080{% else %}80{% endif %}"
 oauth2_proxy_active:                        true
+
+enable_one_letsencrypt_cert_for_all:  false

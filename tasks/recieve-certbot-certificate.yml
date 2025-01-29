@@ -3,3 +3,16 @@
     certbot certonly --agree-tos --email {{ administrator_email }}
     --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{ domain }}
     {{ '--test-cert' if mode_test | bool else '' }}
+  when: not enable_one_letsencrypt_cert_for_all
+
+- name: "recieve certbot certificate for *{{ primary_domain }}"
+  command: >-
+    certbot certonly --agree-tos --email {{ administrator_email }}
+    --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{ primary_domain }} -d *.{{ primary_domain }}
+    {{ '--test-cert' if mode_test | bool else '' }}
+  when: enable_one_letsencrypt_cert_for_all and run_once_recieve_certificate is not defined
+
+- name: run the recieve_certificate tasks once
+  set_fact:
+    run_once_recieve_certificate: true
+  when: run_once_recieve_certificate is not defined
