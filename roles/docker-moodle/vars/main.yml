@@ -1,4 +1,4 @@
 ---
-docker_compose_project_name:        "moodle"
-database_password:  	              "{{moodle_database_password}}"
-database_type:                      "mariadb"
+application_id:     "moodle"
+database_password:  "{{moodle_database_password}}"
+database_type:      "mariadb"

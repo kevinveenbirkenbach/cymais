@@ -1,6 +1,14 @@
-- name: "Set global docker_compose_instance_directory: {{ path_docker_compose_instances }}{{ docker_compose_project_name }}/"
+- name: "Set global docker_compose_instance_directory: {{ path_docker_compose_instances }}{{ application_id }}/"
   set_fact:
-    docker_compose_instance_directory: "{{ path_docker_compose_instances }}{{ docker_compose_project_name }}/"
+    docker_compose_instance_directory: "{{ path_docker_compose_instances }}{{ application_id }}/"
+
+- name: "Set global domain to {{ domains[application_id] }}"
+  set_fact:
+    domain: "{{ domains[application_id] }}"
+
+- name: "Set global http_port to {{ ports.localhost.http_ports[application_id] }}"
+  set_fact:
+    http_port: "{{ ports.localhost.http_ports[application_id] }}"
 
 - name: "remove {{ docker_compose_instance_directory }} and all its contents"
   file:

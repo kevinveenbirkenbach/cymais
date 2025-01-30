@@ -25,7 +25,7 @@ Defined in `vars/main.yml`:
 
 | Variable                        | Description                                                      |
 |---------------------------------|------------------------------------------------------------------|
-| `docker_compose_project_name`   | Name of the Docker Compose project. Default: `keycloak`.         |
+| `application_id`   | Name of the Docker Compose project. Default: `keycloak`.         |
 | `database_type`                 | Type of the database. Default: `postgres`.                      |
 | `database_password`             | Password for the PostgreSQL database user.                      |
 

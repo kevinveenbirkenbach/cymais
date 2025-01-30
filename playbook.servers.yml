@@ -13,16 +13,12 @@
     - health-btrfs
     - system-btrfs-auto-balancer
 
-
 # Docker Roles
 - name: setup nextcloud hosts
   hosts: nextcloud_server
   become: true
   roles:
    -  role: docker-nextcloud
-      vars:
-        domain: "{{domains.nextcloud}}"
-        http_port: 8001
 
 - name: setup gitea hosts
   hosts: gitea
@@ -30,9 +26,6 @@
   roles:
    -  role: docker-gitea
       vars:
-        domain: "{{domains.gitea}}"
-        http_port: 8002
-        ssh_port:  2201
         run_mode: prod
 
 - name: setup wordpress hosts
@@ -40,18 +33,12 @@
   become: true
   roles:
   - role: docker-wordpress
-    vars:
-      wordpress_domains: "{{domains.wordpress}}"
-      http_port: 8003
 
 - name: setup mediawiki hosts
   hosts: mediawiki
   become: true
   roles:
    -  role: docker-mediawiki
-      vars:
-        domain: "{{domains.mediawiki}}"
-        http_port: 8004
 
 - name: setup mybb hosts
   hosts: mybb
@@ -60,16 +47,12 @@
    -  role: docker-mybb
       vars:
         mybb_domains: "{{domains.mybb}}"
-        http_port: 8005
 
 - name: setup yourls hosts
   hosts: yourls
   become: true
   roles:
    -  role: docker-yourls
-      vars:
-        domain: "{{domains.yourls}}"
-        http_port: 8006
 
 - name: setup mailu hosts
   hosts: mailu
@@ -77,8 +60,6 @@
   roles:
    -  role: docker-mailu
       vars:
-        domain: "{{domains.mailu}}"
-        http_port: 8007
         enable_central_database: "{{enable_central_database_mailu}}"
         
 - name: setup elk hosts
@@ -86,39 +67,24 @@
   become: true
   roles:
    -  role: docker-elk
-      vars:
-        domain: "{{domains.elk}}"
-        http_port: 8008
 
 - name: setup mastodon hosts
   hosts: mastodon
   become: true
   roles:
    -  role: docker-mastodon
-      vars:
-        domain:           "{{domains.mastodon}}"
-        mastodon_domains: "{{ [domain] + domains.mastodon_alternates }}"
-        http_port:        8009
-        stream_port:      4001
 
 - name: setup pixelfed hosts
   hosts: pixelfed
   become: true
   roles:
    -  role: docker-pixelfed
-      vars:
-        domain: "{{domains.pixelfed}}"
-        http_port: 8010
 
 - name: setup peertube hosts
   hosts: peertube
   become: true
   roles:
    -  role: docker-peertube
-      vars:
-        domain:           "{{domains.peertube}}"
-        peertube_domains: "{{ [domain] + domains.peertube_alternates }}"
-        http_port:        8011
 
 - name: setup bigbluebutton hosts
   hosts: bigbluebutton
@@ -133,73 +99,48 @@
   become: true
   roles:
    -  role: docker-funkwhale
-      vars:
-        domain: "{{domains.funkwhale}}"
-        http_port: 8012
 
 - name: setup roulette-wheel hosts
-  hosts: roulette_wheel
+  hosts: roulette-wheel
   become: true
   roles:
    -  role: docker-roulette-wheel
-      vars:
-        domain: "{{domains.roulette}}"
-        http_port: 8013
 
 - name: setup joomla hosts
   hosts: joomla
   become: true
   roles:
    -  role: docker-joomla
-      vars:
-        domain: "{{joomla_domains}}"
-        http_port: 8014
 
 - name: setup attendize
   hosts: attendize
   become: true
   roles:
    -  role: docker-attendize
-      vars:
-        domain: "{{domains.attendize}}"
-        http_port: 8015
-        mail_interface_http_port: 8016
 
 - name: setup baserow hosts
   hosts: baserow
   become: true
   roles:
    -  role: docker-baserow
-      vars:
-        domain: "{{domains.baserow}}"
-        http_port: 8017
 
 - name: setup matomo hosts
   hosts: matomo
   become: true
   roles:
    -  role: docker-matomo
-      vars:
-        domain: "{{domains.matomo}}"
-        http_port: 8018
 
 - name: setup listmonk
   hosts: listmonk
   become: true
   roles:
    -  role: docker-listmonk
-      vars:
-        domain:     "{{domains.listmonk}}"
-        http_port:  8019
 
 - name: setup discourse
   hosts: discourse
   become: true
   roles:
    -  role: docker-discourse
-      vars:
-        domain:   "{{domains.discourse}}"
-        http_port: 8020
 
 - name: setup matrix
   hosts: matrix
@@ -207,85 +148,50 @@
   roles:
    -  role: docker-matrix-ansible
       when: matrix_role == 'ansible'
-      vars:
-        matrix_domains:
-          - "{{domains.matrix_element}}"
-          - "{{domains.matrix_synapse}}"
-        element_domain:   "{{domains.matrix_element}}"
-        synapse_domain:   "{{domains.matrix_synapse}}"
-        http_port: 8021
    -  role: docker-matrix-compose
       when: matrix_role == 'compose'
-      vars:
-        element_domain:   "{{domains.matrix_element}}"
-        synapse_domain:   "{{domains.matrix_synapse}}"
-        synapse_http_port: 8021
-        element_http_port: 8022
 
 - name: setup open project instances
   hosts: openproject
   become: true
   roles:
    -  role: docker-openproject
-      vars:
-        domain:             "{{domains.openproject}}"
-        http_port:          8023
-        oauth2_proxy_port:  4180
 
 - name: setup gitlab hosts
   hosts: gitlab
   become: true
   roles:
    -  role: docker-gitlab
-      vars:
-        domain: "{{domains.gitlab}}"
-        http_port: 8024
-        ssh_port:  2202
 
 - name: setup akaunting hosts
   hosts: akaunting
   become: true
   roles:
    -  role: docker-akaunting
-      vars:
-        domain:     "{{domains.akaunting}}"
-        http_port:  8025
 
 - name: setup moodle instance
   hosts: moodle
   become: true
   roles:
    -  role: docker-moodle
-      vars:
-        domain:     "{{domains.moodle}}"
-        http_port:  8026
 
 - name: setup taiga instance
   hosts: taiga
   become: true
   roles:
    -  role: docker-taiga
-      vars:
-        domain:     "{{domains.taiga}}"
-        http_port:  8027
 
 - name: setup friendica hosts
   hosts: friendica
   become: true
   roles:
    -  role: docker-friendica
-      vars:
-        domain: "{{domains.friendica}}"
-        http_port: 8028
 
 - name: setup portfolio
   hosts: portfolio
   become: true
   roles:
    -  role: docker-portfolio
-      vars:
-        domain: "{{domains.portfolio}}"
-        http_port: 8029
 
 - name: setup bluesky
   hosts: bluesky
@@ -303,29 +209,18 @@
   become: true
   roles:
    -  role: docker-keycloak
-      vars:
-        domain: "{{domains.keycloak}}"
-        http_port: 8032
 
 - name: setup ldap
   hosts: ldap
   become: true
   roles:
    -  role: docker-ldap
-      vars:
-        domain: "{{domains.ldap}}"
-        http_port:          8033
-        oauth2_proxy_port:  4182
 
 - name: setup PHPMyAdmin
   hosts: phpmyadmin
   become: true
   roles:
    -  role: docker-phpmyadmin
-      vars:
-        domain: "{{domains.phpmyadmin}}"
-        http_port:          8034
-        oauth2_proxy_port:  4181
 
 # Native Webserver Roles
 - name: setup nginx-static-repositorys

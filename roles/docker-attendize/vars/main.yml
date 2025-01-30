@@ -1,6 +1,5 @@
 ---
-docker_compose_project_name:        "attendize"
-mail_interface_domain:              "mail.{{domain}}"
-database_type:                      "mariadb"
-database_password:                  "{{attendize_database_password}}"
-repository_address:                 "https://github.com/Attendize/Attendize.git"
+application_id:     "attendize"
+database_type:      "mariadb"
+database_password:  "{{attendize_database_password}}"
+repository_address: "https://github.com/Attendize/Attendize.git"

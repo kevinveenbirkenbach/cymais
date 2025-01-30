@@ -1,3 +1,3 @@
-docker_compose_project_name:        "baserow"
-database_password:                  "{{ baserow_database_password }}"
-database_type:                      "postgres"
+application_id:     "baserow"
+database_password:  "{{ baserow_database_password }}"
+database_type:      "postgres"

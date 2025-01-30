@@ -7,7 +7,7 @@
   vars:
     domain: "{{ item }}"
   loop:
-    - "{{ mail_interface_domain }}"
+    - "{{ domains.mailu }}"
     - "{{ domain }}"
     
 - name: configure {{domain}}.conf

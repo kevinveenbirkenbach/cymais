@@ -3,14 +3,20 @@
   include_role: 
     name: docker-compose
 
-- name: "include task certbot-matomo.yml"
-  include_tasks: certbot-matomo.yml
+# Leave this in the code until big blue button was working for a while. 
+# This is necessary due to the reason that big blue button wasn't fully tested after refactoring
+#
+#- name: "include task certbot-matomo.yml"
+#  include_tasks: certbot-matomo.yml
+#
+#- name: configure {{domain}}.conf
+#  template: 
+#    src:  "nginx-proxy.conf.j2"
+#    dest: "{{nginx_servers_directory}}{{domain}}.conf"
+#  notify: restart nginx
 
-- name: configure {{domain}}.conf
-  template: 
-    src:  "nginx-proxy.conf.j2"
-    dest: "{{nginx_servers_directory}}{{domain}}.conf"
-  notify: restart nginx
+- name: "include tasks nginx-docker-proxy-domain.yml"
+  include_tasks: nginx-docker-proxy-domain.yml
 
 - name: configure websocket_upgrade.conf
   copy: 

@@ -15,7 +15,7 @@ services:
       - DB_NAME={{database_name}}
       - DB_USER={{database_username}}
       - DB_PASSWD={{database_password}}
-      - SSH_PORT={{ssh_port}}
+      - SSH_PORT={{ports.public.ssh_ports[application_id]}}
       - SSH_LISTEN_PORT=22
       - DOMAIN={{domain}}
       - SSH_DOMAIN={{domain}}
@@ -23,7 +23,7 @@ services:
       - ROOT_URL="https://{{domain}}/"
     ports:
       - "127.0.0.1:{{http_port}}:3000"
-      - "{{ssh_port}}:22"
+      - "{{ports.public.ssh_ports[application_id]}}:22"
     volumes:
       - data:/data
       - /etc/timezone:/etc/timezone:ro

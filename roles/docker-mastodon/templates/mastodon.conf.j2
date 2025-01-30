@@ -37,7 +37,7 @@ server {
     proxy_set_header X-Forwarded-Proto https;
     proxy_set_header Proxy "";
 
-    proxy_pass http://127.0.0.1:{{stream_port}};
+    proxy_pass http://127.0.0.1:{{ports.localhost.web_socket[application_id]}};
     proxy_buffering off;
     proxy_redirect off;
     proxy_http_version 1.1;

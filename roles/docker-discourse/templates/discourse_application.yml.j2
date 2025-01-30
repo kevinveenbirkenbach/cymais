@@ -67,7 +67,7 @@ env:
   DISCOURSE_DB_NAME:     {{ database_name }}
 
   # Redis Configuration
-  DISCOURSE_REDIS_HOST: {{docker_compose_project_name}}-redis
+  DISCOURSE_REDIS_HOST: {{application_id}}-redis
 
   ## If you added the Lets Encrypt template, uncomment below to get a free SSL certificate
   #LETSENCRYPT_ACCOUNT_EMAIL: administrator@veen.world
@@ -129,5 +129,5 @@ run:
   - exec: echo "End of custom commands"
 
 docker_args:
-  - --network={{docker_compose_project_name}}_default
+  - --network={{application_id}}_default
   - --name={{discourse_application_container}}

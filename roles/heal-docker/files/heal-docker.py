@@ -1,28 +1,25 @@
 #!/bin/python
 #
-# restart docker-compose configurations who have exited or unhealthy containers
+# Restart Docker-Compose configurations with exited or unhealthy containers
 #
 import subprocess
 import time
 import os
-
-errors = 0
+import argparse
 
 def bash(command):
     print(command)
     process = subprocess.Popen([command], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     out, err = process.communicate()
     stdout = out.splitlines()
-    output = []
-    for line in stdout:
-        output.append(line.decode("utf-8"))
+    output = [line.decode("utf-8") for line in stdout]
     if process.wait() > bool(0):
         print(command, out, err)
-        raise Exception("Exitcode is greater then 0")
+        raise Exception("Exitcode is greater than 0")
     return output
 
-def list_to_string(list):
-    return str(' '.join(list))
+def list_to_string(lst):
+    return ' '.join(lst)
 
 def print_bash(command):
     output = bash(command)
@@ -31,44 +28,49 @@ def print_bash(command):
 
 def find_docker_compose_file(directory):
     for root, _, files in os.walk(directory):
-        for file in files:
-            if file == 'docker-compose.yml':
-                return os.path.join(root, file)
+        if 'docker-compose.yml' in files:
+            return os.path.join(root, 'docker-compose.yml')
     return None
 
-waiting_time=600
-blocker_running=True
-while blocker_running:
-    try: 
-        bash("systemctl is-active --quiet backup-docker-to-local.cymais.service")
-        bash("systemctl is-active --quiet update-docker.cymais.service")
-        print("backup is running.")
-        print("trying again in  " + str(waiting_time) + " seconds.")
-        time.sleep(waiting_time)
-    except:
-        blocker_running=False
-        print("No blocking service is running.")
-
-unhealthy_container_names=print_bash('docker ps --filter health=unhealthy --format \'{{.Names}}\'')
-exited_container_names=print_bash('docker ps --filter status=exited --format \'{{.Names}}\'')
-failed_containers=unhealthy_container_names + exited_container_names
-
-unfiltered_failed_docker_compose_repositories=[]
-for failed_container in failed_containers:
-    unfiltered_failed_docker_compose_repositories.append(failed_container.split('-')[0])
-
-filtered_failed_docker_compose_repositories=list(dict.fromkeys(unfiltered_failed_docker_compose_repositories))
-
-for filtered_failed_docker_compose_repository in filtered_failed_docker_compose_repositories:
-    compose_file_path = find_docker_compose_file('/home/administrator/docker-compose/' + filtered_failed_docker_compose_repository)
+def main(base_directory):
+    errors = 0
+    waiting_time = 600
+    blocker_running = True
     
-    if compose_file_path:
-        print("Restarting unhealthy container in:", compose_file_path)
-        # Propably the cd is not necessary. But in rare cases it could be. To lazzy to test it now.
-        print_bash(f'cd {os.path.dirname(compose_file_path)} && docker-compose -p "{filtered_failed_docker_compose_repository}" restart')
-    else:
-        print("Error: Docker Compose file not found for:", filtered_failed_docker_compose_repository)
-        errors += 1
+    while blocker_running:
+        try: 
+            bash("systemctl is-active --quiet backup-docker-to-local.cymais.service")
+            bash("systemctl is-active --quiet update-docker.cymais.service")
+            print("Backup is running.")
+            print(f"Trying again in {waiting_time} seconds.")
+            time.sleep(waiting_time)
+        except:
+            blocker_running = False
+            print("No blocking service is running.")
+    
+    unhealthy_container_names = print_bash("docker ps --filter health=unhealthy --format '{{.Names}}'")
+    exited_container_names = print_bash("docker ps --filter status=exited --format '{{.Names}}'")
+    failed_containers = unhealthy_container_names + exited_container_names
+    
+    unfiltered_failed_docker_compose_repositories = [container.split('-')[0] for container in failed_containers]
+    filtered_failed_docker_compose_repositories = list(dict.fromkeys(unfiltered_failed_docker_compose_repositories))
+    
+    for repo in filtered_failed_docker_compose_repositories:
+        compose_file_path = find_docker_compose_file(os.path.join(base_directory, repo))
+        
+        if compose_file_path:
+            print("Restarting unhealthy container in:", compose_file_path)
+            print_bash(f'cd {os.path.dirname(compose_file_path)} && docker-compose -p "{repo}" restart')
+        else:
+            print("Error: Docker Compose file not found for:", repo)
+            errors += 1
+    
+    print("Finished restart procedure.")
+    exit(errors)
 
-print("finished restart procedure.")
-exit(errors)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Restart Docker-Compose configurations with exited or unhealthy containers.")
+    parser.add_argument("base_directory", type=str, help="Base directory where Docker Compose configurations are located.")
+    args = parser.parse_args()
+    
+    main(args.base_directory)

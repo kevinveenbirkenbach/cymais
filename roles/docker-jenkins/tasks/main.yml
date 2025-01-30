@@ -3,7 +3,7 @@
 
 - name: "docker jenkins"
   docker_compose:
-    project_name: jenkins
+    application_id: jenkins
     definition:
       application:
         image: jenkins/jenkins:lts

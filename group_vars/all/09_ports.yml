@@ -1,0 +1,53 @@
+ports:
+  # Ports which are exposed to localhost
+  localhost:
+    web_socket:
+      mastodon:       4001
+    oauth2_proxy_ports:
+      phpmyadmin:     4181
+      ldap:           4182
+      openproject:    4183
+    ldap_ports:
+      openldap:
+    http_ports:
+      nextcloud:      8001
+      gitea:          8002
+      wordpress:      8003
+      mediawiki:      8004
+      mybb:           8005
+      yourls:         8006
+      mailu:          8007
+      elk:            8008
+      mastodon:       8009
+      pixelfed:       8010
+      peertube:       8011
+      funkwhale:      8012
+      roulette-wheel: 8013
+      joomla:         8014
+      attendize:      8015
+      matrix:         8016
+      baserow:        8017
+      matomo:         8018
+      listmonk:       8019
+      discourse:      8020
+      matrix_synapse: 8021
+      matrix_element: 8022
+      openproject:    8023
+      gitlab:         8024
+      akaunting:      8025
+      moodle:         8026
+      taiga:          8027
+      friendica:      8028
+      portfolio:      8029
+      bluesky_api:    8030
+      bluesky_web:    8031
+      keycloak:       8032
+      ldap:           8033
+      phpmyadmin:     8034
+      bigbluebutton:  48087 # This port is predefined by bbb. @todo Try to change this to a 8XXX port
+  # Ports which are exposed to the World Wide Web
+  public:
+    # The following ports should be changed to 22 on the subdomain via stream mapping
+    ssh_ports:
+      gitea:         2201
+      gitlab:        2202

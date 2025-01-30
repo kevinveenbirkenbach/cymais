@@ -18,7 +18,7 @@
 - name: configure nginx-docker-cert-deploy.cymais.service
   template: 
     src:  "nginx-docker-cert-deploy.service.j2"
-    dest: "/etc/systemd/system/nginx-docker-cert-deploy.{{docker_compose_project_name}}.cymais.service"
+    dest: "/etc/systemd/system/nginx-docker-cert-deploy.{{application_id}}.cymais.service"
   notify: restart nginx-docker-cert-deploy.cymais.service
 
 - name: "include role for systemd-timer for {{service_name}}"
@@ -26,5 +26,5 @@
     name: systemd-timer
   vars:
     on_calendar:  "{{on_calendar_deploy_certificates}}"
-    service_name: "nginx-docker-cert-deploy.{{docker_compose_project_name}}"
+    service_name: "nginx-docker-cert-deploy.{{application_id}}"
     persistent:   "true"

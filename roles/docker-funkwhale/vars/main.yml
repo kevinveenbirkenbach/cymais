@@ -1,6 +1,5 @@
-docker_compose_project_name:                    "funkwhale"
+application_id:                                 "funkwhale"
 nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size 512M;"
 database_password:                              "{{funkwhale_database_password}}"
 database_type:                                  "postgres"
-
 ldap_network_enabled:                           true  # Activate LDAP network

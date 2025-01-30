@@ -1,4 +1,4 @@
-docker_compose_project_name:  "ldap"
+application_id:               "ldap"
 ldap_root:                    "dc={{primary_domain_sld}},dc={{primary_domain_tld}}"
 ldap_admin_dn:                "cn={{ldap_administrator_username}},{{ldap_root}}"
 ldap_secure_localhost_port:   1636

@@ -1,5 +1,5 @@
 ---
-docker_compose_project_name:          "nextcloud"
+application_id:                       "nextcloud"
 database_password:  	                "{{nextcloud_database_password}}"
 database_type:                        "mariadb"
 nextcloud_application_container_name: "nextcloud-application"

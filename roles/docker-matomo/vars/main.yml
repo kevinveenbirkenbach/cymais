@@ -1,4 +1,4 @@
 ---
-docker_compose_project_name:  	    "matomo"
-database_type:                      "mariadb"
-database_password:  	              "{{matomo_database_password}}"
+application_id:  	  "matomo"
+database_type:      "mariadb"
+database_password:  "{{matomo_database_password}}"

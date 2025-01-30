@@ -24,8 +24,8 @@ report_stats:                   true
 macaroon_secret_key:            "{{matrix_macaroon_secret_key}}"
 form_secret:                    "{{matrix_form_secret}}"
 signing_key_path:               "/data/{{domains.matrix_synapse}}.signing.key"
-web_client_location:            "https://{{element_domain}}"
-public_baseurl:                 "https://{{synapse_domain}}"
+web_client_location:            "https://{{domains.matrix_element}}"
+public_baseurl:                 "https://{{domains.matrix_synapse}}"
 trusted_key_servers:
   - server_name: "matrix.org"
 admin_contact: 'mailto:{{administrator_email}}'
@@ -39,7 +39,7 @@ email:
   #require_transport_security:   true
   enable_tls:                   "{{ system_email.tls | upper }}"
   notif_from:                   "Your Friendly %(app)s homeserver <{{system_email.from}}>"
-  app_name:                     "Matrix on {{synapse_domain}}"
+  app_name:                     "Matrix on {{domains.matrix_synapse}}"
   enable_notifs:                true
   notif_for_new_users:          false
   client_base_url:              "{{domains.matrix_synapse}}"

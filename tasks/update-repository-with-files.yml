@@ -5,7 +5,7 @@
 
 - name: "backup detached files"
   command: >
-    mv "{{docker_compose_instance_directory}}{{ item }}" "/tmp/{{docker_compose_project_name}}-{{ item }}.backup"
+    mv "{{docker_compose_instance_directory}}{{ item }}" "/tmp/{{application_id}}-{{ item }}.backup"
   args:
     removes: "{{docker_compose_instance_directory}}{{ item }}"
   become: true
@@ -28,9 +28,9 @@
 
 - name: "restore detached files"
   command: >
-    mv "/tmp/{{docker_compose_project_name}}-{{ item }}.backup" "{{docker_compose_instance_directory}}{{ item }}"
+    mv "/tmp/{{application_id}}-{{ item }}.backup" "{{docker_compose_instance_directory}}{{ item }}"
   args:
-    removes: "/tmp/{{docker_compose_project_name}}-{{ item }}.backup"
+    removes: "/tmp/{{application_id}}-{{ item }}.backup"
   become: true
   loop: "{{ merged_detached_files | default(detached_files) }}"
 

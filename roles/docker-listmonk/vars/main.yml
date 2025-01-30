@@ -1,3 +1,3 @@
-docker_compose_project_name:  	    "listmonk"
-database_password:  	              "{{listmonk_database_password}}"
-database_type:                      "postgres"
+application_id:  	  "listmonk"
+database_password:  "{{listmonk_database_password}}"
+database_type:      "postgres"

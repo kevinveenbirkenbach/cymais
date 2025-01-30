@@ -1,4 +1,4 @@
-docker_compose_project_name:                    "pixelfed"
+application_id:                                 "pixelfed"
 nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size 512M;"
 database_type:                                  "mariadb"
 database_password:                              "{{pixelfed_database_password}}"

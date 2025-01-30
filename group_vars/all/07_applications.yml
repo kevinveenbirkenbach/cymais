@@ -69,7 +69,8 @@ ldap_administrator_username:          "{{administrator_username}}"
 ldap_administrator_password:          "{{user_administrator_initial_password}}" # CHANGE for security reasons
 ldap_administrator_database_password: "{{user_administrator_initial_password}}" # CHANGE for security reasons
 ldap_lam_administrator_password:      "{{user_administrator_initial_password}}" # CHANGE for security reasons
-ldap_expose_to_internet:              false                                     # Set to true if you want to expose the LDAP port to the internet. Keep in mind to 
+ldap_expose_to_internet:              false                                     # Set to true if you want to expose the LDAP port to the internet. Keep in mind to
+ldap_network_enabled:                 false                                     # Activate LDAP network for insecure communitation on localhot between different container instances. Set in vars/main.yml
 
 ## Listmonk
 listmonk_admin_username:          "{{administrator_username}}"

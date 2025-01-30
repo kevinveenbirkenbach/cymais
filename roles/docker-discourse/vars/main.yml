@@ -1,5 +1,5 @@
-docker_compose_project_name:      "discourse"
+application_id:                   "discourse"
 discourse_application_container:  "discourse_application"
 database_password:                "{{ baserow_database_password }}"
 database_type:                    "postgres"
-discourse_repository_directory:   "{{ path_docker_compose_instances + docker_compose_project_name + '/repository/' }}"
+discourse_repository_directory:   "{{ path_docker_compose_instances + application_id + '/repository/' }}"

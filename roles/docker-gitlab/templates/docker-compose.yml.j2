@@ -12,7 +12,7 @@ services:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://{{domain}}'
         postgresql['enable']                  = false
-        gitlab_rails['gitlab_shell_ssh_port'] = {{ssh_port}}
+        gitlab_rails['gitlab_shell_ssh_port'] = {{ports.public.ssh_ports[application_id]}}
         gitlab_rails['db_adapter']            = 'postgresql'
         gitlab_rails['db_encoding']           = 'utf8'
         gitlab_rails['db_host']               = '{{database_host}}'
@@ -30,7 +30,7 @@ services:
         gitlab_rails['redis_port']            = '6379'
     ports:
       - "127.0.0.1:{{http_port}}:80"
-      - "{{ssh_port}}:22"
+      - "{{ports.public.ssh_ports[application_id]}}:22"
     volumes:
       - 'config:/etc/gitlab'
       - 'logs:/var/log/gitlab'

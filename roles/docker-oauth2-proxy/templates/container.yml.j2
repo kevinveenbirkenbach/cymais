@@ -4,7 +4,7 @@
     command: --config /oauth2-proxy.cfg
     hostname: oauth2-proxy
     ports:
-      - {{oauth2_proxy_port}}:4180/tcp
+      - {{ports.localhost.oauth2_proxy_ports[application_id]}}:4180/tcp
     volumes:
       - "./{{oauth2_configuration_file}}:/oauth2-proxy.cfg"
 {% include 'templates/docker/container/networks.yml.j2' %}

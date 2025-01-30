@@ -1,7 +1,7 @@
 # This template needs to be included in docker-compose.yml, which depend on redis
   redis:
     image: redis:alpine
-    container_name: {{docker_compose_project_name}}-redis
+    container_name: {{application_id}}-redis
     restart: {{docker_restart_policy}}
     logging:
       driver: journald

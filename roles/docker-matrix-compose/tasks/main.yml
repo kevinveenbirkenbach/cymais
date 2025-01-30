@@ -5,8 +5,8 @@
 - name: "include task certbot-matomo.yml"
   include_tasks: certbot-matomo.yml
   vars:
-    domain:     "{{synapse_domain}}"
-    http_port:  "{{synapse_http_port}}"
+    domain:     "{{domains.matrix_synapse}}"
+    http_port:  "{{ports.localhost.http_port[matrix_synapse]}}"
 
 - name: create {{well_known_directory}}
   file:
@@ -19,20 +19,20 @@
     src:  "well-known.j2" 
     dest: "{{well_known_directory}}server"
 
-- name: create {{synapse_domain}}.conf
+- name: create {{domains.matrix_synapse}}.conf
   template: 
     src:  "templates/nginx.conf.j2" 
-    dest: "{{nginx_servers_directory}}{{synapse_domain}}.conf"
+    dest: "{{nginx_servers_directory}}{{domains.matrix_synapse}}.conf"
   vars:
-    domain:     "{{synapse_domain}}"
-    http_port:  "{{synapse_http_port}}"
+    domain:     "{{domains.matrix_synapse}}"
+    http_port:  "{{ports.localhost.http_port[matrix_synapse]}}"
   notify: restart nginx
         
 - name: "include tasks nginx-docker-proxy-domain.yml for element"
   include_tasks: nginx-docker-proxy-domain.yml
   vars:        
-    domain:     "{{element_domain}}"
-    http_port:  "{{element_http_port}}"
+    domain:     "{{domains.matrix_element}}"
+    http_port:  "{{ports.localhost.http_port[matrix_element]}}"
 
 - name: include create-and-seed-database.yml for multiple bridges
   include_tasks: create-and-seed-database.yml
@@ -45,7 +45,7 @@
 # The following taks are necessary because a clean setup is necessary
 - name: shut down docker compose project 
   command:
-    cmd: docker-compose -p "{{docker_compose_project_name}}" down
+    cmd: docker-compose -p "{{application_id}}" down
     chdir: "{{ docker_compose_instance_directory }}"
 
 - name: "cleanup project folder"
@@ -82,13 +82,13 @@
 - name: add synapse log configuration
   template: 
     src:  "synapse/log.config.j2" 
-    dest: "{{docker_compose_instance_directory}}{{synapse_domain}}.log.config"
+    dest: "{{docker_compose_instance_directory}}{{domains.matrix_synapse}}.log.config"
   notify: docker compose project setup
 
 # https://github.com/matrix-org/synapse/issues/6303
 - name: set correct folder permissions
   command:
-    cmd: "docker run --rm --mount type=volume,src=matrix_synapse_data,dst=/data -e SYNAPSE_SERVER_NAME={{synapse_domain}} -e SYNAPSE_REPORT_STATS=no --entrypoint /bin/sh matrixdotorg/synapse:latest -c 'chown -vR 991:991 /data'"
+    cmd: "docker run --rm --mount type=volume,src=matrix_synapse_data,dst=/data -e SYNAPSE_SERVER_NAME={{domains.matrix_synapse}} -e SYNAPSE_REPORT_STATS=no --entrypoint /bin/sh matrixdotorg/synapse:latest -c 'chown -vR 991:991 /data'"
 
 - name: add docker-compose.yml
   template: 
@@ -100,13 +100,13 @@
 # @todo This should be moved to update-docker
 - name: docker compose pull
   command:
-    cmd: docker-compose -p "{{docker_compose_project_name}}" pull
+    cmd: docker-compose -p "{{application_id}}" pull
     chdir: "{{docker_compose_instance_directory}}"
   when: mode_update | bool
 
 - name: docker compose project setup
   command:
-    cmd: docker-compose -p "{{docker_compose_project_name}}" up -d
+    cmd: docker-compose -p "{{application_id}}" up -d
     chdir: "{{docker_compose_instance_directory}}"
   environment:
     COMPOSE_HTTP_TIMEOUT:   600

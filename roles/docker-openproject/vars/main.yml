@@ -1,5 +1,5 @@
-docker_compose_project_name:                  "openproject"
-repository_directory:                         "{{ path_docker_compose_instances }}{{docker_compose_project_name}}/"
+application_id:                               "openproject"
+repository_directory:                         "{{ path_docker_compose_instances }}{{application_id}}/"
 docker_compose_instance_directory:            "{{repository_directory}}compose/"
 repository_address:                           "https://github.com/opf/openproject-deploy"
 database_password:                            "{{openproject_database_password}}"

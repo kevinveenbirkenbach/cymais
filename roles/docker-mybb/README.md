@@ -22,12 +22,12 @@ This guide describes the process of manually installing MyBB plugins in your Doc
    - Download the desired MyBB plugin zip files.
 
 2. **Copy plugin to host:**
-    - ```bash scp <plugin> administrator@<server>:/home/administrator/docker-compose/mybb/plugins```
+    - ```bash scp <plugin> administrator@<server>:/opt/docker/mybb/plugins```
 
 3. **Unzip Plugin Files on the Host:**
    - Unzip the plugin zip files in the host's plugin directory:
      ```bash
-     unzip /home/administrator/docker-compose/mybb/plugins/<plugin-file>.zip -d /home/administrator/docker-compose/mybb/plugins/
+     unzip /opt/docker/mybb/plugins/<plugin-file>.zip -d /opt/docker/mybb/plugins/
      ```
    - Replace `<plugin-file>.zip` with the name of the plugin zip file.
    - Repeat this step for each plugin.
@@ -38,7 +38,7 @@ This guide describes the process of manually installing MyBB plugins in your Doc
 5. **Copy Unzipped Plugin Files to the Container:**
    - Copy the unzipped plugin files from the host directory to the Docker container:
      ```bash
-     docker compose cp /home/administrator/docker-compose/mybb/plugins/<unzipped-plugin-folder> application:/var/www/html/inc/plugins/
+     docker compose cp /opt/docker/mybb/plugins/<unzipped-plugin-folder> application:/var/www/html/inc/plugins/
      ```
    - Replace `<unzipped-plugin-folder>` with the name of the unzipped plugin folder.
 
