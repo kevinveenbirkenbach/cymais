@@ -114,7 +114,7 @@ services:
     container_name: openproject-seeder
     restart: on-failure
 {% include 'templates/docker/container/networks.yml.j2' %}
-  central_ldap:
+
 {% include 'templates/docker/compose/networks.yml.j2' %}
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}

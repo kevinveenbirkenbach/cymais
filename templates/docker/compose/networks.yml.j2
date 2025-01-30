@@ -4,5 +4,8 @@ networks:
   central_{{ database_type }}:
     external: true
 {% endif %}
+{% if ldap_network_enabled %}
+  central_ldap:
+{% endif %}
   default:
 {{ "\n" }}

@@ -79,7 +79,7 @@ services:
       retries: 3
       start_period: 20s
 {% include 'templates/docker/container/networks.yml.j2' %}
-  central_ldap:
+
 {% include 'templates/docker/compose/volumes.yml.j2' %}
   data:
 

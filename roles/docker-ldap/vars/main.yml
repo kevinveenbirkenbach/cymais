@@ -9,4 +9,7 @@ ldap_localhost_port:          389
 oauth2_proxy_upstream_application_and_port: "{{ ldap_webinterface }}:{% if ldap_webinterface == 'phpldapadmin' %}8080{% else %}80{% endif %}"
 oauth2_proxy_active:                        true
 
-enable_one_letsencrypt_cert_for_all:  false
+
+enable_one_letsencrypt_cert_for_all:  false # Activate dedicated Certificate
+
+ldap_network_enabled:                 true  # Activate LDAP network
