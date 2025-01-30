@@ -208,7 +208,7 @@
    -  role: docker-matrix-ansible
       when: matrix_role == 'ansible'
       vars:
-        domains:
+        matrix_domains:
           - "{{domains.matrix_element}}"
           - "{{domains.matrix_synapse}}"
         element_domain:   "{{domains.matrix_element}}"
