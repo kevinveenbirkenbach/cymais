@@ -1,5 +1,7 @@
 - name: create nginx letsencrypt config file
-  template: src=letsencrypt.conf.j2 dest={{nginx_servers_directory}}letsencrypt.conf
+  template: 
+    src:  "letsencrypt.conf.j2"
+    dest: "{{nginx.directories.http.global}}letsencrypt.conf"
   notify: restart nginx
   when: run_once_letsencrypt is not defined
 

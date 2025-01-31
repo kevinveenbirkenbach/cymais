@@ -1,13 +1,13 @@
 # README.md for nginx-www-redirect Role
 
 ## Overview
-The `nginx-www-redirect` role is designed to automate the process of setting up redirects from `www.domain.tld` to `domain.tld` for all domains and subdomains configured within the `{{nginx_servers_directory}}` directory. This role dynamically identifies configuration files following the pattern `*domain.tld.conf` and creates corresponding redirection rules.
+The `nginx-www-redirect` role is designed to automate the process of setting up redirects from `www.domain.tld` to `domain.tld` for all domains and subdomains configured within the `{{nginx.directories.http.servers}}` directory. This role dynamically identifies configuration files following the pattern `*domain.tld.conf` and creates corresponding redirection rules.
 
 ## Role Description
 This role performs several key tasks:
-1. **Find Configuration Files**: Locates all `.conf` files in the `{{nginx_servers_directory}}` directory that match the `*.*.conf` pattern, ensuring that only domain and subdomain configurations are selected.
+1. **Find Configuration Files**: Locates all `.conf` files in the `{{nginx.directories.http.servers}}` directory that match the `*.*.conf` pattern, ensuring that only domain and subdomain configurations are selected.
    
-2. **Filter Domain Names**: Processes each configuration file, extracting the domain names and removing both the `.conf` extension and the `{{nginx_servers_directory}}` path.
+2. **Filter Domain Names**: Processes each configuration file, extracting the domain names and removing both the `.conf` extension and the `{{nginx.directories.http.servers}}` path.
 
 3. **Prepare Redirect Domain Mappings**: Transforms the filtered domain names into a source-target mapping format, where `source` is `www.domain.tld` and `target` is `domain.tld`.
 
@@ -25,7 +25,7 @@ Example playbook:
 
 ## Requirements
 - Ansible environment set up and configured to run roles.
-- Access to the `{{nginx_servers_directory}}` directory on the target hosts.
+- Access to the `{{nginx.directories.http.servers}}` directory on the target hosts.
 - The `nginx-domain-redirect` role must be present and properly configured to handle the redirection mappings.
 
 ## Notes

@@ -6,7 +6,7 @@
   include_tasks: certbot-matomo.yml
   vars:
     domain:     "{{domains.matrix_synapse}}"
-    http_port:  "{{ports.localhost.http_port[matrix_synapse]}}"
+    http_port:  "{{ports.localhost.http_ports.matrix_synapse}}"
 
 - name: create {{well_known_directory}}
   file:
@@ -22,17 +22,17 @@
 - name: create {{domains.matrix_synapse}}.conf
   template: 
     src:  "templates/nginx.conf.j2" 
-    dest: "{{nginx_servers_directory}}{{domains.matrix_synapse}}.conf"
+    dest: "{{nginx.directories.http.servers}}{{domains.matrix_synapse}}.conf"
   vars:
     domain:     "{{domains.matrix_synapse}}"
-    http_port:  "{{ports.localhost.http_port[matrix_synapse]}}"
+    http_port:  "{{ports.localhost.http_ports.matrix_synapse}}"
   notify: restart nginx
         
 - name: "include tasks nginx-docker-proxy-domain.yml for element"
   include_tasks: nginx-docker-proxy-domain.yml
   vars:        
     domain:     "{{domains.matrix_element}}"
-    http_port:  "{{ports.localhost.http_port[matrix_element]}}"
+    http_port:  "{{ports.localhost.http_ports.matrix_element}}"
 
 - name: include create-and-seed-database.yml for multiple bridges
   include_tasks: create-and-seed-database.yml

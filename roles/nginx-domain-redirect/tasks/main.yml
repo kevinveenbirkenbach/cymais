@@ -11,6 +11,6 @@
     target_domain: "{{item.target}}"
   template: 
     src:  redirect.domain.nginx.conf.j2
-    dest: "{{nginx_servers_directory}}{{ domain }}.conf"
+    dest: "{{nginx.directories.http.servers}}{{ domain }}.conf"
   loop: "{{domain_mappings}}"
   notify: restart nginx

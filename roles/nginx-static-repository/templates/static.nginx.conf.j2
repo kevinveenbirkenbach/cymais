@@ -13,12 +13,12 @@ server
   
   location /
   {
-    root {{nginx_homepage_root}};
+    root {{nginx.directories.homepage}};
     index index.html index.htm;
   }
 
   location /.well-known/ {
-    alias {{nginx_well_known_root}};
+    alias {{nginx.directories.well_known}};
     allow all;
     default_type "text/plain";
     autoindex on;

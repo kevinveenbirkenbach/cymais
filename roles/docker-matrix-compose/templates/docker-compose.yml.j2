@@ -19,7 +19,7 @@ services:
       - SYNAPSE_SERVER_NAME={{domains.matrix_synapse}}
       - SYNAPSE_REPORT_STATS=no
     ports:
-      - "127.0.0.1:{{ports.localhost.http_port[matrix_synapse]}}:8008"
+      - "127.0.0.1:{{ports.localhost.http_ports.matrix_synapse}}:8008"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8008/"]
       interval: 1m
@@ -39,7 +39,7 @@ services:
     volumes:
       - ./element-config.json:/app/config.json
     ports:
-      - "127.0.0.1:{{ports.localhost.http_port[matrix_element]}}:80"
+      - "127.0.0.1:{{ports.localhost.http_ports.matrix_element}}:80"
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:80/"]
       interval: 1m

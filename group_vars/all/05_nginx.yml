@@ -1,12 +1,16 @@
 # Webserver Configuration
 
 ## Nginx-Specific Path Configurations
-nginx_configuration_directory:  "/etc/nginx/conf.d/"                            # General configuration dir
-nginx_servers_directory:        "{{nginx_configuration_directory}}servers/"     # Contains server blogs
-nginx_maps_directory:           "{{nginx_configuration_directory}}maps/"        # Contains mappins
-nginx_streams_directory:        "{{nginx_configuration_directory}}streams/"     # Contains streams configuration e.g. for ldaps
-nginx_well_known_root:          "/usr/share/nginx/well-known/"                  # Path where well-known files are stored
-nginx_homepage_root:            "/usr/share/nginx/homepage/"                    # Path where the static homepage files are stored
+nginx:
+  directories:
+    configuration:  "/etc/nginx/conf.d/"              # Configuration directory
+    http:
+      global:       "/etc/nginx/conf.d/http/global"   # Contains global configurations which will be loaded into the http block
+      servers:      "/etc/nginx/conf.d/http/servers"  # Contains one configuration per domain
+      maps:         "/etc/nginx/conf.d/http/maps/"    # Contains mappings
+    streams:        "/etc/nginx/conf.d/streams/"      # Contains streams configuration e.g. for ldaps
+    well_known:     "/usr/share/nginx/well-known/"    # Path where well-known files are stored
+    homepage:       "/usr/share/nginx/homepage/"      # Path where the static homepage files are stored. @todo Move this variable to the role
 
 ## Nginx static repository
-nginx_static_repository_address: NULL #This should contain the url to an git repository which has a static homepage included and an index.html file
+nginx_static_repository_address: NULL #This should contain the url to an git repository which has a static homepage included and an index.html file. @todo move this variable to the role

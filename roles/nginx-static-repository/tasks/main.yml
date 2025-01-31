@@ -2,14 +2,14 @@
 - name: "pull homepage from {{nginx_static_repository_address}}"
   git:
     repo: "{{nginx_static_repository_address}}"
-    dest: "{{nginx_homepage_root}}"
+    dest: "{{nginx.directories.homepage}}"
     update: yes
   ignore_errors: true
 
 - name: configure {{primary_domain}}.conf
   template: 
     src:  "static.nginx.conf.j2" 
-    dest: "{{nginx_servers_directory}}{{primary_domain}}.conf"
+    dest: "{{nginx.directories.http.servers}}{{primary_domain}}.conf"
   vars:
     domain: "{{primary_domain}}"
   notify: restart nginx

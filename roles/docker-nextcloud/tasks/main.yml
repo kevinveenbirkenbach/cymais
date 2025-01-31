@@ -8,7 +8,7 @@
 - name: configure {{domain}}.conf
   template: 
     src:  "templates/nextcloud.conf.j2" 
-    dest: "{{nginx_servers_directory}}{{domain}}.conf"
+    dest: "{{nginx.directories.http.servers}}{{domain}}.conf"
   notify: restart nginx
 
 - name: create nginx.conf

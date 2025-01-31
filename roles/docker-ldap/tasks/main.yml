@@ -9,13 +9,13 @@
 - name: Create {{domain}}.conf if LDAP is exposed to internet
   template: 
     src:  "nginx.stream.conf.j2" 
-    dest: "{{nginx_streams_directory}}{{domain}}.conf"
+    dest: "{{nginx.directories.streams}}{{domain}}.conf"
   notify: restart nginx
   when: ldap_expose_to_internet | bool
 
 - name: Remove {{domain}}.conf if LDAP is not exposed to internet
   file:
-    path: "{{ nginx_streams_directory }}{{ domain }}.conf"
+    path: "{{ nginx.directories.streams }}{{ domain }}.conf"
     state: absent
   when: not ldap_expose_to_internet | bool
 

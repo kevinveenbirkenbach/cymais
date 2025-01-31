@@ -4,5 +4,5 @@
 - name: configure {{domain}}.conf
   template: 
     src:  "templates/peertube.conf.j2"
-    dest: "{{nginx_servers_directory}}{{domain}}.conf"
+    dest: "{{nginx.directories.http.servers}}{{domain}}.conf"
   notify: restart nginx

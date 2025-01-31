@@ -2,9 +2,10 @@
   set_fact:
     docker_compose_instance_directory: "{{ path_docker_compose_instances }}{{ application_id }}/"
 
-- name: "Set global domain to {{ domains[application_id] }}"
+- name: "Set global domain based on application_id"
   set_fact:
-    domain: "{{ domains[application_id] }}"
+    domain: "{{ domains[application_id] if application_id in domains else None }}"
+  # Default case: One Domain exists. Some applications like matrix don't have an default key
 
 - name: "Set global http_port to {{ ports.localhost.http_ports[application_id] }}"
   set_fact:
