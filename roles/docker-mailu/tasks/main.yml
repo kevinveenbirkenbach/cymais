@@ -31,7 +31,7 @@
 
 - name: add .env
   template: 
-    src:  ".env.j2" 
+    src:  "env.j2" 
     dest: "{{docker_compose_instance_directory}}.env"
   notify: docker compose project setup
 
