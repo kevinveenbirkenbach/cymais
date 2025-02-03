@@ -5,11 +5,12 @@
 - name: "Set global domain based on application_id"
   set_fact:
     domain: "{{ domains[application_id] if application_id in domains else None }}"
-  # Default case: One Domain exists. Some applications like matrix don't have an default key
+  # Default case: One domain exists. Some applications like matrix don't have an default domain
 
 - name: "Set global http_port to {{ ports.localhost.http_ports[application_id] }}"
   set_fact:
-    http_port: "{{ ports.localhost.http_ports[application_id] }}"
+    http_port: "{{ ports.localhost.http_ports[application_id] if application_id in ports.localhost.http_ports else None }}"
+  # Default case: One port exists. Some applications like matrix don't have an default port
 
 - name: "remove {{ docker_compose_instance_directory }} and all its contents"
   file:
