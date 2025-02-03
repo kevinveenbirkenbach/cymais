@@ -204,7 +204,7 @@ services:
     ipam:
       driver: default
       config:
-        - subnet: {{applications.mailu.subnet}}
+        - subnet: {{networks.local.mailu.subnet}}
   radicale:
     driver: bridge
   webmail:

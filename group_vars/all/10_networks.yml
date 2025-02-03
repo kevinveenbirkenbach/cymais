@@ -4,6 +4,7 @@ defaults_networks:
     ip6:  "::01"            # Change this in inventory to the ip address of your server
   local:
     mailu:
-      dns:  192.168.203.254 # Address of the Mailu DNS server
+      dns:    192.168.203.254   # Address of the Mailu DNS server
+      subnet: 192.168.203.0/24  # Mailu Subnet
 
   
