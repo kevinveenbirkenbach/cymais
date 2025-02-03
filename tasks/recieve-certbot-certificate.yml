@@ -3,7 +3,7 @@
     certbot certonly --agree-tos --email {{ administrator_email }}
     --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{ domain }}
     {{ '--test-cert' if mode_test | bool else '' }}
-  when: not enable_one_letsencrypt_cert_for_all
+  when: not enable_wildcard_certificate | bool or primary_domain not in domain
 
 - name: "recieve certbot certificate for *{{ primary_domain }}"
   command: >-
@@ -11,7 +11,7 @@
     --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{ primary_domain }} -d *.{{ primary_domain }}
     {{ '--test-cert' if mode_test | bool else '' }}
   when: 
-    - enable_one_letsencrypt_cert_for_all
+    - enable_wildcard_certificate | bool
     - primary_domain in domain
     - run_once_recieve_certificate is not defined
 
@@ -19,8 +19,8 @@
   command: >-
     certbot delete --cert-name {{ domain }} --non-interactive
   when: 
-    - mode_cleanup
-    - enable_one_letsencrypt_cert_for_all
+    - mode_cleanup | bool
+    - enable_wildcard_certificate | bool
     - primary_domain in domain
     - domain != primary_domain
   ignore_errors: true

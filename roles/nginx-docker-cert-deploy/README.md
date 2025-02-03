@@ -23,7 +23,7 @@ This Ansible role simplifies the deployment of **Let's Encrypt certificates** in
 By default, each subdomain gets its own certificate. You can **enable a wildcard certificate** by setting:
 
 ```yaml
-enable_one_letsencrypt_cert_for_all: true
+enable_wildcard_certificate: true
 ```
 
 📌 **Pros & Cons of a Wildcard Certificate:**
@@ -58,7 +58,7 @@ If enabled, update your inventory file and follow the **manual wildcard certific
 ---
 
 ## **🔐 Wildcard Certificate Setup with Let's Encrypt**
-If you enabled `enable_one_letsencrypt_cert_for_all`, follow these steps to manually request a **wildcard certificate**.
+If you enabled `enable_wildcard_certificate`, follow these steps to manually request a **wildcard certificate**.
 
 ### **1️⃣ Run the Certbot Command 🖥️**
 ```sh

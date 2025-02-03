@@ -1,0 +1,1 @@
+nginx_www_wildcart_configuration: "{{nginx.directories.http.global}}www.wildcard.conf"

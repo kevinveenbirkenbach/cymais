@@ -5,6 +5,8 @@
     patterns: '*.*.conf'
   register: conf_files
 
+# Filter all domains
+
 - name: Filter domain names and remove .conf extension and path
   set_fact:
     filtered_domains: "{{ conf_files.files | map(attribute='path') | map('regex_search', domain_regex) | select('string') | map('regex_replace', path_regex, '') | map('regex_replace', '.conf$', '') | list }}"
@@ -15,9 +17,69 @@
 - name: The domains for which a www. redirect will be implemented
   debug:
     var: filtered_domains
+  when: mode_debug | bool
 
-- name: Include nginx-domain-redirect role with dynamic domain mappings
+# Routine for domains with primary domain included
+
+- name: Set filtered_domains_with_primary_domain
+  set_fact:
+    filtered_domains_with_primary_domain: "{{ filtered_domains | select('search', primary_domain + '$') | list }}"
+
+- name: Debug with primary domain
+  debug:
+    var: filtered_domains_with_primary_domain
+  when: mode_debug | bool
+
+- name: Include nginx-domain-redirect role with dynamic domain mappings for domains with {{primary_domain}} included
   include_role:
     name: nginx-domain-redirect
   vars:
-    domain_mappings: "{{ filtered_domains | map('regex_replace', '^(.*)$', '{ source: \"www.\\1\", target: \"\\1\" }') | map('from_yaml') | list }}"
+    domain_mappings: "{{ filtered_domains_with_primary_domain | map('regex_replace', '^(.*)$', '{ source: \"www.\\1\", target: \"\\1\" }') | map('from_yaml') | list }}"
+  when: not enable_wildcard_certificate | bool
+
+- name: Include wildcard www. redirect for domains with {{primary_domain}} included
+  vars:
+    domain: "{{primary_domain}}"
+  template: 
+    src:  www.wildcard.conf.j2
+    dest: "{{nginx_www_wildcart_configuration}}"
+  notify: restart nginx
+  when: enable_wildcard_certificate | bool
+
+# Routine for domains without the primary domain included
+
+- name: Set filtered_domains_without_primary_domain
+  set_fact:
+    filtered_domains_without_primary_domain: "{{ filtered_domains | reject('search', primary_domain + '$') | list }}"
+
+- name: Debug domains without primary domain
+  debug:
+    var: filtered_domains_without_primary_domain
+  when: mode_debug | bool
+
+- name: Include nginx-domain-redirect role with dynamic domain mappings for domains without primary domain
+  include_role:
+    name: nginx-domain-redirect
+  vars:
+    domain_mappings: "{{ filtered_domains_without_primary_domain | map('regex_replace', '^(.*)$', '{ source: \"www.\\1\", target: \"\\1\" }') | map('from_yaml') | list }}"
+
+
+# Cleanup
+- name: Cleanup dedicated nginx configurations for www redirect configuration
+  file:
+    path: "{{ nginx.directories.http.servers }}{{ item.source }}.conf"
+    state: absent
+  loop: "{{ filtered_domains_with_primary_domain | map('regex_replace', '^(.*)$', '{ source: \"www.\\1\", target: \"\\1\" }') | map('from_yaml') | list }}"
+  notify: restart nginx
+  when: 
+    - enable_wildcard_certificate | bool
+    - mode_cleanup
+
+- name: Cleanup {{nginx_www_wildcart_configuration}}
+  file:
+    path: "{{nginx_www_wildcart_configuration}}"
+    state: absent
+  notify: restart nginx
+  when: 
+    - not enable_wildcard_certificate | bool
+    - mode_cleanup

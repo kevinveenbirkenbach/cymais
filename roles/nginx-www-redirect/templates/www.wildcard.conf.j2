@@ -1,0 +1,6 @@
+server {
+    server_name ~^www\.(?<domain>.+)$;
+    {% include 'roles/letsencrypt/templates/ssl_header.j2' %}
+
+    return 301 https://$domain$request_uri;
+}

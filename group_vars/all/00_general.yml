@@ -43,4 +43,4 @@ nginx_matomo_tracking:                false   # Activates matomo tracking on all
 # To enable, update your inventory file.
 # For detailed setup instructions, visit: 
 # https://github.com/kevinveenbirkenbach/cymais/tree/master/roles/nginx-docker-cert-deploy
-enable_one_letsencrypt_cert_for_all:  false    
+enable_wildcard_certificate:          false    
