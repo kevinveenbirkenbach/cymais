@@ -5,12 +5,16 @@
     domain: "{{item.source}}"
   loop: "{{domain_mappings}}"
 
+- name: The domains for which a www. redirect will be implemented
+  debug:
+    var: domain_mappings
+  when: mode_debug | bool
+
 - name: configure nginx redirect configurations
   vars:
-    domain: "{{item.source}}"
-    target_domain: "{{item.target}}"
+    item: "{{item}}"
   template: 
     src:  redirect.domain.nginx.conf.j2
-    dest: "{{nginx.directories.http.servers}}{{ domain }}.conf"
-  loop: "{{domain_mappings}}"
+    dest: "{{nginx.directories.http.servers}}{{item.source}}.conf"
+  loop:   "{{domain_mappings}}"
   notify: restart nginx

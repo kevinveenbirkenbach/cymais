@@ -42,7 +42,7 @@
     domain: "{{primary_domain}}"
   template: 
     src:  www.wildcard.conf.j2
-    dest: "{{nginx_www_wildcart_configuration}}"
+    dest: "{{nginx_www_wildcard_configuration}}"
   notify: restart nginx
   when: enable_wildcard_certificate | bool
 
@@ -65,21 +65,30 @@
 
 
 # Cleanup
-- name: Cleanup dedicated nginx configurations for www redirect configuration
-  file:
-    path: "{{ nginx.directories.http.servers }}{{ item.source }}.conf"
-    state: absent
-  loop: "{{ filtered_domains_with_primary_domain | map('regex_replace', '^(.*)$', '{ source: \"www.\\1\", target: \"\\1\" }') | map('from_yaml') | list }}"
-  notify: restart nginx
-  when: 
-    - enable_wildcard_certificate | bool
-    - mode_cleanup
+# Deactivated due to complexity
+#- name: Cleanup dedicated nginx configurations for www redirect configuration
+#  file:
+#    path: "{{ nginx.directories.http.servers }}{{ item.source }}.conf"
+#    state: absent
+#  # Filter: Only first-level subdomains of primary_domain
+#  # Exclude the primary domain itself
+#  # Transform for www redirection
+#  loop: "{{ filtered_domains_with_primary_domain 
+#            | select('regex_search', '^[^.]+\\.' ~ primary_domain ~ '$') 
+#            | reject('equalto', primary_domain)  
+#            | map('regex_replace', '^(.*)$', '{ source: \"www.\\1\", target: \"\\1\" }')  
+#            | map('from_yaml') 
+#            | list }}"
+#  notify: restart nginx
+#  when: 
+#    - enable_wildcard_certificate | bool  # Wildcard certificate must be enabled
+#    - mode_cleanup | bool                 # Cleanup mode must be enabled
 
-- name: Cleanup {{nginx_www_wildcart_configuration}}
+- name: Cleanup {{nginx_www_wildcard_configuration}}
   file:
-    path: "{{nginx_www_wildcart_configuration}}"
+    path: "{{nginx_www_wildcard_configuration}}"
     state: absent
   notify: restart nginx
   when: 
     - not enable_wildcard_certificate | bool
-    - mode_cleanup
+    - mode_cleanup | bool

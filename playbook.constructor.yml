@@ -8,6 +8,9 @@
   - name: Merge domain definitions
     set_fact:
       domains: "{{ defaults_domains | combine(domains | default({}, true), recursive=True) }}"
+  - name: Merge redirect domain definitions
+    set_fact:
+      redirect_domain_mappings: "{{ defaults_redirect_domain_mappings | combine(redirect_domain_mappings | default({}, true), recursive=True) }}"
   - name: Merge application definitions
     set_fact:
       applications: "{{ defaults_applications | combine(applications | default({}, true), recursive=True) }}"

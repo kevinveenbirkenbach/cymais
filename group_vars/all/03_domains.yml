@@ -38,7 +38,7 @@ defaults_domains:
   wordpress:              ["wordpress.{{primary_domain}}","blog.{{primary_domain}}"]
 
 ## Domain Redirects
-redirect_domain_mappings:
+defaults_redirect_domain_mappings:
 - { source: "akaunting.{{primary_domain}}",   target: "{{domains.akaunting}}" }
 - { source: "bbb.{{primary_domain}}",         target: "{{domains.bigbluebutton}}" }
 - { source: "discourse.{{primary_domain}}",   target: "{{domains.discourse}}" }
