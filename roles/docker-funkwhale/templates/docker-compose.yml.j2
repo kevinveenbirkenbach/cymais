@@ -14,7 +14,7 @@ services:
     # flag:
     #   celery -A funkwhale_api.taskapp worker -l INFO --concurrency=4
     restart: {{docker_restart_policy}}
-    image: funkwhale/api:${applications.funkwhale.version:-latest}
+    image: funkwhale/api:${FUNKWHALE_VERSION}
     env_file: .env
     command: celery -A funkwhale_api.taskapp worker -l INFO --concurrency=${CELERYD_CONCURRENCY-0}
     environment:
@@ -27,7 +27,7 @@ services:
 
   celerybeat:
     restart: {{docker_restart_policy}}
-    image: funkwhale/api:${applications.funkwhale.version:-latest}
+    image: funkwhale/api:${FUNKWHALE_VERSION}
     env_file: .env
     command: celery -A funkwhale_api.taskapp beat --pidfile= -l INFO
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
@@ -35,7 +35,7 @@ services:
 
   api:
     restart: {{docker_restart_policy}}
-    image: funkwhale/api:${applications.funkwhale.version:-latest}
+    image: funkwhale/api:${FUNKWHALE_VERSION}
     env_file: .env
     volumes:
       - "music:${MUSIC_DIRECTORY_PATH}:ro"
@@ -48,7 +48,7 @@ services:
 
   front:
     restart: {{docker_restart_policy}}
-    image: funkwhale/front:${applications.funkwhale.version:-latest}
+    image: funkwhale/front:${FUNKWHALE_VERSION}
     depends_on:
       - api
     env_file:
