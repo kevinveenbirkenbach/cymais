@@ -23,7 +23,7 @@
     state: directory
     mode: '0755'
     recurse: yes
-  loop: "{{ nginx.directories.http + nginx.directories.streams }}"
+  loop: "{{ nginx.directories.http.values() | list + [nginx.directories.streams] }}"
   when: run_once_nginx is not defined
 
 - name: create nginx config file
