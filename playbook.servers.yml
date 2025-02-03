@@ -147,9 +147,9 @@
   become: true
   roles:
    -  role: docker-matrix-ansible
-      when: matrix_role == 'ansible'
+      when: applications.matrix.role == 'ansible'
    -  role: docker-matrix-compose
-      when: matrix_role == 'compose'
+      when: applications.matrix.role == 'compose'
 
 - name: setup open project instances
   hosts: openproject

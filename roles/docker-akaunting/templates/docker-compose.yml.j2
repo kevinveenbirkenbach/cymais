@@ -3,7 +3,7 @@ services:
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   application:
-    image: docker.io/akaunting/akaunting:{{akaunting_version}}
+    image: docker.io/akaunting/akaunting:{{applications.akaunting.version}}
     build:
       context: .
     ports:

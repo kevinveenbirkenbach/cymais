@@ -2,7 +2,7 @@ services:
 
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
   moodle:
-    image: docker.io/bitnami/moodle:{{moodle_version}}
+    image: docker.io/bitnami/moodle:{{applications.moodle.version}}
     ports:
       - 127.0.0.1:{{http_port}}:8080
     restart: {{docker_restart_policy}}
@@ -15,12 +15,12 @@ services:
       - MOODLE_DATABASE_NAME={{database_name}}
       - MOODLE_DATABASE_PASSWORD={{database_password}}
       - ALLOW_EMPTY_PASSWORD=no
-      - MOODLE_SITE_NAME="{{moodle_site_name}}"
+      - MOODLE_SITE_NAME="{{applications.moodle.site_titel}}"
       - MOODLE_SSLPROXY=yes
       - MOODLE_REVERSE_PROXY=yes
-      - MOODLE_USERNAME={{moodle_administrator_name}}
+      - MOODLE_USERNAME={{applications.moodle.administrator_name}}
       - MOODLE_PASSWORD={{moodle_user_password}}
-      - MOODLE_EMAIL={{moodle_administrator_email}}
+      - MOODLE_EMAIL={{applications.moodle.administrator_email}}
       - BITNAMI_DEBUG={% if mode_debug | bool %}true{% else %}false{% endif %} 
     volumes:
       - 'moodle:/bitnami/moodle'

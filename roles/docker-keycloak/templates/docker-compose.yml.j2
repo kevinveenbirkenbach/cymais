@@ -3,13 +3,13 @@ services:
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   application:
-    image: quay.io/keycloak/keycloak:{{keycloak_version}}
+    image: quay.io/keycloak/keycloak:{{applications.keycloak.version}}
     command: start
     environment:
       KC_HOSTNAME:                    https://{{domain}}
       KC_HTTP_ENABLED:                true
       KC_HEALTH_ENABLED:              true
-      KEYCLOAK_ADMIN:                 "{{keycloak_administrator_username}}"
+      KEYCLOAK_ADMIN:                 "{{applications.keycloak.administrator_username}}"
       KEYCLOAK_ADMIN_PASSWORD:        "{{keycloak_administrator_password}}"
       KC_DB:                          postgres
       KC_DB_URL:                      jdbc:postgresql://{{database_host}}/{{database_name}}

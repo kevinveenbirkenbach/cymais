@@ -7,7 +7,7 @@
 - name: install MariaDB
   docker_container:
     name: central-mariadb
-    image: "mariadb:{{mariadb_version}}" #could lead to problems with nextcloud
+    image: "mariadb:{{applications.mariadb.version}}" #could lead to problems with nextcloud
     detach: yes
     env:
       MARIADB_ROOT_PASSWORD:  "{{central_mariadb_root_password}}"

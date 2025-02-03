@@ -5,7 +5,7 @@ services:
   application:
     logging:
       driver: journald
-    image: yourls:{{yourls_version}}
+    image: yourls:{{applications.yourls.version}}
     restart: {{docker_restart_policy}}
     ports:
       - "127.0.0.1:{{http_port}}:80"
@@ -15,7 +15,7 @@ services:
       YOURLS_DB_PASS: "{{database_password}}"
       YOURLS_DB_NAME: "{{database_name}}"
       YOURLS_SITE:    "https://{{domain}}"
-      YOURLS_USER:    "{{yourls_administrator_username}}"
+      YOURLS_USER:    "{{applications.yourls.administrator_username}}"
       YOURLS_PASS:    "{{yourls_administrator_password}}"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1/admin/"]

@@ -5,7 +5,7 @@ services:
 {% include 'templates/docker/services/redis.yml.j2' %}
 
   application:
-    image: zknt/pixelfed:{{pixelfed_version}}
+    image: zknt/pixelfed:{{applications.pixelfed.version}}
     restart: {{docker_restart_policy}}
     logging:
       driver: journald
@@ -19,7 +19,7 @@ services:
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
   worker:
-    image: zknt/pixelfed:{{pixelfed_version}}
+    image: zknt/pixelfed:{{applications.pixelfed.version}}
     restart: {{docker_restart_policy}}
     logging:
       driver: journald

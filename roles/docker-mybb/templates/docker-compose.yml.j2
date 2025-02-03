@@ -7,7 +7,7 @@ services:
       driver: journald
       options:
         tag: "mybb_application"
-    image: mybb/mybb:{{mybb_version}}
+    image: mybb/mybb:{{applications.mybb.version}}
     restart: {{docker_restart_policy}}
     volumes:
       - data:/var/www/html

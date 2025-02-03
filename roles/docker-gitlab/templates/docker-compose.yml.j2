@@ -5,7 +5,7 @@ services:
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   web:
-    image: "gitlab/gitlab-ee:{{gitlab_version}}"
+    image: "gitlab/gitlab-ee:{{applications.gitlab.version}}"
     restart: {{docker_restart_policy}}
     hostname: '{{domain}}'
     environment:

@@ -79,7 +79,7 @@
   become: false
 
 - name: play matrix-docker-ansible-deploy
-  local_action: "command ansible-playbook -i {{hosts_path}} {{local_repository_directory}}/setup.yml -vvv --tags={{matrix_playbook_tags}}"
+  local_action: "command ansible-playbook -i {{hosts_path}} {{local_repository_directory}}/setup.yml -vvv --tags={{applications.matrix.playbook_tags}}"
   become: false
 
 

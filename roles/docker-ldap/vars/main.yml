@@ -1,14 +1,13 @@
 application_id:               "ldap"
 ldap_root:                    "dc={{primary_domain_sld}},dc={{primary_domain_tld}}"
-ldap_admin_dn:                "cn={{ldap_administrator_username}},{{ldap_root}}"
+ldap_admin_dn:                "cn={{applications.ldap.administrator_username}},{{ldap_root}}"
 ldap_secure_localhost_port:   1636
 ldap_secure_internet_port:    636
 ldap_localhost_port:          389
 
 # OAuth2 Proxy Configuration
-oauth2_proxy_upstream_application_and_port: "{{ ldap_webinterface }}:{% if ldap_webinterface == 'phpldapadmin' %}8080{% else %}80{% endif %}"
+oauth2_proxy_upstream_application_and_port: "{{ applications.ldap.webinterface }}:{% if applications.ldap.webinterface == 'phpldapadmin' %}8080{% else %}80{% endif %}"
 oauth2_proxy_active:                        true
-
 
 enable_one_letsencrypt_cert_for_all:  false # Activate dedicated Certificate
 

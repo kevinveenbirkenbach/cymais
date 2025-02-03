@@ -5,11 +5,11 @@ services:
   application:
     logging:
       driver: journald
-    image: phpmyadmin/phpmyadmin:{{phpmyadmin_version}}
+    image: phpmyadmin/phpmyadmin:{{applications.phpmyadmin.version}}
     container_name: phpmyadmin
     environment:
       PMA_HOST: central-mariadb
-{% if phpmyadmin_autologin | bool %}
+{% if applications.phpmyadmin.autologin | bool %}
       PMA_USER: root
       PMA_PASSWORD: "{{central_mariadb_root_password}}"
 {% endif %}

@@ -1,10 +1,10 @@
   oauth2-proxy:
-    image: quay.io/oauth2-proxy/oauth2-proxy:{{oauth2_version}}
+    image: quay.io/oauth2-proxy/oauth2-proxy:{{applications.oauth2_proxy.version}}
     restart: {{docker_restart_policy}}
     command: --config /oauth2-proxy.cfg
     hostname: oauth2-proxy
     ports:
       - {{ports.localhost.oauth2_proxy_ports[application_id]}}:4180/tcp
     volumes:
-      - "./{{oauth2_configuration_file}}:/oauth2-proxy.cfg"
+      - "./{{applications.oauth2_proxy.configuration_file}}:/oauth2-proxy.cfg"
 {% include 'templates/docker/container/networks.yml.j2' %}

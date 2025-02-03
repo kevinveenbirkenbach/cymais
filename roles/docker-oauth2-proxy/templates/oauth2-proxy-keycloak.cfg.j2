@@ -1,5 +1,5 @@
 http_address            =   "0.0.0.0:4180"
-cookie_secret           =   "{{oauth2_proxy_cookie_secret}}"
+cookie_secret           =   "{{applications.oauth2_proxy.cookie_secret}}"
 email_domains           =   "{{primary_domain}}"
 cookie_secure           =   "false"
 upstreams               =   "http://{{oauth2_proxy_upstream_application_and_port}}"
@@ -16,4 +16,4 @@ provider_display_name   =   "Keycloak"
 
 # role restrictions
 #cookie_roles            =   "realm_access.roles"
-allowed_roles           =   "{{oauth2_proxy_allowed_roles}}"
+allowed_roles           =   "{{applications.oauth2_proxy.allowed_roles}}"

@@ -34,12 +34,12 @@ This Ansible role provides a streamlined implementation of an LDAP server with T
 |-------------------------------|----------------------------------------------------------|--------------------------------------|
 | `application_id` | Name of the Docker Compose project.                     | `ldap`                               |
 | `ldap_root`                   | Base DN for the LDAP directory.                         | `dc={{primary_domain_sld}},dc={{primary_domain_tld}}` |
-| `ldap_admin_dn`               | Distinguished Name (DN) for the LDAP administrator.     | `cn={{ldap_administrator_username}},{{ldap_root}}` |
+| `ldap_admin_dn`               | Distinguished Name (DN) for the LDAP administrator.     | `cn={{applications.ldap.administrator_username}},{{ldap_root}}` |
 | `cert_mount_directory`        | Directory to mount SSL/TLS certificates.                | `{{docker_compose_instance_directory}}/certs/` |
-| `ldap_administrator_username` | Username for the LDAP admin.                            | `admin`                              |
-| `ldap_administrator_password` | Password for the LDAP admin.                            | _Required_                           |
-| `ldap_phpldapadmin_version`          | Version of phpLDAPadmin Docker image.                   | `latest`                             |
-| `ldap_openldap_version`                | Version of OpenLDAP Docker image.                       | `latest`                             |
+| `applications.ldap.administrator_username` | Username for the LDAP admin.                            | `admin`                              |
+| `applications.ldap.administrator_password` | Password for the LDAP admin.                            | _Required_                           |
+| `applications.ldap.phpldapadmin.version`          | Version of phpLDAPadmin Docker image.                   | `latest`                             |
+| `applications.ldap.openldap.version`                | Version of OpenLDAP Docker image.                       | `latest`                             |
 
 ---
 
@@ -73,10 +73,10 @@ Here’s an example playbook to use this role:
         docker_compose_instance_directory: "/opt/docker/ldap/"
         primary_domain_sld: "veen"
         primary_domain_tld: "world"
-        ldap_administrator_username: "administrator"
-        ldap_administrator_password: "secure_password_here"
-        ldap_phpldapadmin_version: "latest"
-        ldap_openldap_version: "latest"
+        applications.ldap.administrator_username: "administrator"
+        applications.ldap.administrator_password: "secure_password_here"
+        applications.ldap.phpldapadmin.version: "latest"
+        applications.ldap.openldap.version: "latest"
 ```
 
 ### **Steps to Deploy:**
@@ -114,7 +114,7 @@ The following directories are mounted in the container:
 ---
 
 ## 🔒 **Security Recommendations**
-- Always use strong passwords for `ldap_administrator_password`.
+- Always use strong passwords for `applications.ldap.administrator_password`.
 - Restrict access to phpLDAPadmin by binding it to `127.0.0.1` or using a reverse proxy.
 
 ---

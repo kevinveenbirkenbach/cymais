@@ -1,7 +1,7 @@
 # Domains
 
 ## Service Domains
-default_domains:
+defaults_domains:
   akaunting:               "accounting.{{primary_domain}}"
   attendize:               "tickets.{{primary_domain}}"
   baserow:                 "baserow.{{primary_domain}}"

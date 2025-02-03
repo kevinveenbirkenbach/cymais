@@ -1,6 +1,6 @@
-- name: "Merge detached_files with oauth2_configuration_file"
+- name: "Merge detached_files with applications.oauth2_proxy.configuration_file"
   ansible.builtin.set_fact:
-    merged_detached_files: "{{ detached_files + [oauth2_configuration_file] }}"
+    merged_detached_files: "{{ detached_files + [applications.oauth2_proxy.configuration_file] }}"
   when: oauth2_proxy_active
 
 - name: "backup detached files"

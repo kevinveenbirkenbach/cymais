@@ -3,7 +3,7 @@ services:
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
   synapse:
-    image: matrixdotorg/synapse:{{matrix_synapse_version}}
+    image: matrixdotorg/synapse:{{applications.matrix.synapse.version}}
     container_name: matrix-synapse
     restart: {{docker_restart_policy}}
     logging:
@@ -33,7 +33,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
     
   element:
-    image: vectorim/element-web:{{matrix_element_version}}
+    image: vectorim/element-web:{{applications.matrix.element.version}}
     container_name: matrix-element
     restart: {{docker_restart_policy}}
     volumes:
@@ -90,13 +90,13 @@ services:
 #      KEYV_BOT_ENCRYPTION: 'false'
 #      KEYV_BOT_STORAGE: 'true'
 #      MATRIX_HOMESERVER_URL: 'https://{{domains.matrix_synapse}}'
-#      MATRIX_BOT_USERNAME: '@chatgptbot:{{matrix_server_name}}'
+#      MATRIX_BOT_USERNAME: '@chatgptbot:{{applications.matrix.server_name}}'
 #      MATRIX_ACCESS_TOKEN: '{{ matrix_chatgpt_bridge_access_token | default('') }}'
 #      MATRIX_BOT_PASSWORD: '{{matrix_chatgpt_bridge_user_password}}'
 #      MATRIX_DEFAULT_PREFIX: '!chatgpt'
 #      MATRIX_DEFAULT_PREFIX_REPLY: 'false'
 #      #MATRIX_BLACKLIST: ''
-#      MATRIX_WHITELIST: ':{{matrix_server_name}}'
+#      MATRIX_WHITELIST: ':{{applications.matrix.server_name}}'
 #      MATRIX_AUTOJOIN: 'true'
 #      MATRIX_ENCRYPTION: 'true'
 #      MATRIX_THREADS: 'true'

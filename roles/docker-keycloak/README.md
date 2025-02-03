@@ -33,9 +33,9 @@ Defined in `vars/main.yml`:
 
 | Variable                        | Description                                                      |
 |---------------------------------|------------------------------------------------------------------|
-| `keycloak_version`              | Version of the Keycloak image.                                  |
+| `applications.keycloak.version`              | Version of the Keycloak image.                                  |
 | `domain`                        | Domain where Keycloak will be accessible.                       |
-| `keycloak_administrator_username` | Admin username for Keycloak.                                   |
+| `applications.keycloak.administrator_username` | Admin username for Keycloak.                                   |
 | `keycloak_administrator_password` | Admin password for Keycloak.                                   |
 | `database_host`                 | Host of the PostgreSQL database.                                |
 | `database_name`                 | Name of the PostgreSQL database.                                |
@@ -66,8 +66,8 @@ Here is an example of how to use this role in a playbook:
   hosts: all
   vars:
     domain: "auth.example.com"
-    keycloak_version: "21.1.0"
-    keycloak_administrator_username: "admin"
+    applications.keycloak.version: "21.1.0"
+    applications.keycloak.administrator_username: "admin"
     keycloak_administrator_password: "securepassword"
     database_host: "db.example.com"
     database_name: "keycloak_db"

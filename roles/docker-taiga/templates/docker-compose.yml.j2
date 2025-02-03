@@ -41,7 +41,7 @@ services:
     restart: {{docker_restart_policy}}
     logging:
       driver: journald
-    image: taigaio/taiga-back:{{taiga_version}}
+    image: taigaio/taiga-back:{{applications.taiga.version}}
     environment: *default-back-environment
     volumes: *default-back-volumes
 

@@ -4,7 +4,7 @@ services:
 
   application:
     restart: {{docker_restart_policy}}
-    image: listmonk/listmonk:{{listmonk_version}}
+    image: listmonk/listmonk:{{applications.listmonk.version}}
     ports:
       - "127.0.0.1:{{http_port}}:9000"
     environment:
