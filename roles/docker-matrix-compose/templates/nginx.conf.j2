@@ -1,5 +1,5 @@
 server {
-    server_name {{domain}};
+    server_name {{domains.matrix_synapse}};
     {% include 'roles/letsencrypt/templates/ssl_header.j2' %}
     
     # For the federation port
