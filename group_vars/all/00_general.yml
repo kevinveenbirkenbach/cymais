@@ -13,7 +13,7 @@ primary_domain:         "{{primary_domain_sld}}.{{primary_domain_tld}}" # Primar
 # Administrator
 administrator_username: "administrator"                                 # Username of the administrator
 administrator_email:    "{{administrator_username}}@{{primary_domain}}" # Email of the administrator
-#user_administrator_initial_password: EXAMPLE_PASSWORD_123456                         # Example initialisation password needs to be set in inventory file
+#user_administrator_initial_password: EXAMPLE_PASSWORD_123456           # Example initialisation password needs to be set in inventory file
 
 # Test Email
 test_email:             "test@{{primary_domain}}"
