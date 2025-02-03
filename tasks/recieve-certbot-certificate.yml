@@ -10,7 +10,10 @@
     certbot certonly --agree-tos --email {{ administrator_email }}
     --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{ primary_domain }} -d *.{{ primary_domain }}
     {{ '--test-cert' if mode_test | bool else '' }}
-  when: enable_one_letsencrypt_cert_for_all and run_once_recieve_certificate is not defined
+  when: 
+    - enable_one_letsencrypt_cert_for_all
+    - primary_domain in domain
+    - run_once_recieve_certificate is not defined
 
 - name: "Cleanup dedicated cert for {{ domain }}"
   command: >-
@@ -18,6 +21,7 @@
   when: 
     - mode_cleanup
     - enable_one_letsencrypt_cert_for_all
+    - primary_domain in domain
     - domain != primary_domain
   ignore_errors: true
 
