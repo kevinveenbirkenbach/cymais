@@ -37,6 +37,16 @@
     line: "      - coturn:/var/lib/coturn"
   listen: setup bigbluebutton
 
+# Implemented due to etherpad health bug.
+# @todo Remove when health check is working fine
+# @see https://chatgpt.com/c/67a0fc7e-5104-800f-bb6b-3731e2f83b7b
+- name: "Update docker-compose.yml for Etherpad health check"
+  lineinfile: 
+    line: "    healthcheck:\n      test: [\"CMD\", \"curl\", \"-f\", \"http://127.0.0.1:9001\"]\n      interval: 30s\n      timeout: 10s\n      retries: 5\n      start_period: 10s"
+    path: "{{docker_compose_file}}"
+    insertafter: "etherpad:"
+  listen: setup bigbluebutton
+
 - name: add volumes to docker compose
   blockinfile:
     path: "{{docker_compose_file}}"
