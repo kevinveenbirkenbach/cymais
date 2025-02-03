@@ -1,7 +1,7 @@
 matrix_servers:
   hosts:
     {{inventory_hostname}}:
-      ansible_host: "{{ip4_address}}"
+      ansible_host: "{{{{networks.internet.ip4}}}}"
       ansible_ssh_user: administrator
       become: true
       become_user: root

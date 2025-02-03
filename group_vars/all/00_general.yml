@@ -1,7 +1,9 @@
 # General
 pause_duration:         "120"         # Database delay to wait for the central database before continue tasks
-ip4_address:            "127.0.0.1"   # Change thie in inventory to the ip address of your server
+
 backups_folder_path:    "/Backups/"   # Path to the backups folder
+timezone:               "UTC"
+locale:                 "locale"
 
 ## Domain
 primary_domain_tld:     "localhost"                                     # Top Level Domain of the server

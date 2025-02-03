@@ -11,6 +11,9 @@
   - name: Merge application definitions
     set_fact:
       applications: "{{ defaults_applications | combine(applications | default({}, true), recursive=True) }}"
+  - name: Merge networks definitions
+    set_fact:
+      networks: "{{ defaults_networks | combine(networks | default({}, true), recursive=True) }}"
 
 - name: update device
   hosts:  all

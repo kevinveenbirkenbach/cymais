@@ -29,10 +29,10 @@
     dest: "{{docker_compose_instance_directory}}docker-compose.yml"
   notify: docker compose project setup
 
-- name: add mailu.env
+- name: add .env
   template: 
-    src:  "mailu.env.j2" 
-    dest: "{{docker_compose_instance_directory}}mailu.env"
+    src:  ".env.j2" 
+    dest: "{{docker_compose_instance_directory}}.env"
   notify: docker compose project setup
 
 - name: flush docker service

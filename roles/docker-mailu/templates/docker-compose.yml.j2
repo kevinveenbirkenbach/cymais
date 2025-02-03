@@ -7,29 +7,29 @@ services:
   # Core services
   resolver:
     image: ghcr.io/mailu/unbound:{{applications.mailu.version}}
-    env_file: mailu.env
+    env_file: .env
     restart: {{docker_restart_policy}}
 {% include 'templates/docker/container/networks.yml.j2' %}
-        ipv4_address: 192.168.203.254
+        ipv4_address: {{networks.local.mailu.dns}}
     logging:
       driver: journald
 
   front:
     image: ghcr.io/mailu/nginx:{{applications.mailu.version}}
     restart: {{docker_restart_policy}}
-    env_file: mailu.env
+    env_file: .env
     logging:
       driver: journald
     ports:
       - "127.0.0.1:{{ http_port }}:80"
-      - "{{ ip4_address }}:25:25"
-      - "{{ ip4_address }}:465:465"
-      - "{{ ip4_address }}:587:587"
-      - "{{ ip4_address }}:110:110"
-      - "{{ ip4_address }}:995:995"
-      - "{{ ip4_address }}:143:143"
-      - "{{ ip4_address }}:993:993"
-      - "{{ ip4_address }}:4190:4190"
+      - "{{networks.internet.ip4}}:25:25"
+      - "{{networks.internet.ip4}}:465:465"
+      - "{{networks.internet.ip4}}:587:587"
+      - "{{networks.internet.ip4}}:110:110"
+      - "{{networks.internet.ip4}}:995:995"
+      - "{{networks.internet.ip4}}:143:143"
+      - "{{networks.internet.ip4}}:993:993"
+      - "{{networks.internet.ip4}}:4190:4190"
     volumes:
       - "/etc/mailu/overrides/nginx:/overrides:ro"
       - "{{cert_mount_directory}}:/certs:ro"
@@ -40,12 +40,12 @@ services:
       webmail:
       radicale:
     dns:
-      - 192.168.203.254
+      - {{networks.local.mailu.dns}}
       
   admin:
     image: ghcr.io/mailu/admin:{{applications.mailu.version}}
     restart: {{docker_restart_policy}}
-    env_file: mailu.env
+    env_file: .env
     volumes:
       - "admin_data:/data"
       - "dkim:/dkim"
@@ -57,13 +57,13 @@ services:
     logging:
       driver: journald
     dns:
-      - 192.168.203.254
+      - {{networks.local.mailu.dns}}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   imap:
     image: ghcr.io/mailu/dovecot:{{applications.mailu.version}}
     restart: {{docker_restart_policy}}
-    env_file: mailu.env
+    env_file: .env
     volumes:
       - "dovecot_mail:/mail"
       - "/etc/mailu/overrides:/overrides:ro"
@@ -71,7 +71,7 @@ services:
       - front
       - resolver
     dns:
-      - 192.168.203.254
+      - {{networks.local.mailu.dns}}
     logging:
       driver: journald
 {% include 'templates/docker/container/networks.yml.j2' %}
@@ -79,7 +79,7 @@ services:
   smtp:
     image: ghcr.io/mailu/postfix:{{applications.mailu.version}}
     restart: {{docker_restart_policy}}
-    env_file: mailu.env
+    env_file: .env
     volumes:
       - "/etc/mailu/overrides:/overrides:ro"
       - "smtp_queue:/queue"
@@ -87,7 +87,7 @@ services:
       - front
       - resolver
     dns:
-      - 192.168.203.254
+      - {{networks.local.mailu.dns}}
     logging:
       driver: journald
 {% include 'templates/docker/container/networks.yml.j2' %}
@@ -99,14 +99,14 @@ services:
     depends_on:
       - resolver
     dns:
-      - 192.168.203.254
+      - {{networks.local.mailu.dns}}
 {% include 'templates/docker/container/networks.yml.j2' %}
       noinet:
 
   antispam:
     image: ghcr.io/mailu/rspamd:{{applications.mailu.version}}
     restart: {{docker_restart_policy}}
-    env_file: mailu.env
+    env_file: .env
     volumes:
       - "filter:/var/lib/rspamd"
       - "dkim:/dkim"
@@ -117,7 +117,7 @@ services:
       - antivirus
       - resolver
     dns:
-      - 192.168.203.254
+      - {{networks.local.mailu.dns}}
     logging:
       driver: journald
 {% include 'templates/docker/container/networks.yml.j2' %}
@@ -128,13 +128,13 @@ services:
   antivirus:
     image: clamav/clamav-debian:latest
     restart: {{docker_restart_policy}}
-    env_file: mailu.env
+    env_file: .env
     volumes:
       - "filter:/data"
     depends_on:
       - resolver
     dns:
-      - 192.168.203.254
+      - {{networks.local.mailu.dns}}
     logging:
       driver: journald
 {% include 'templates/docker/container/networks.yml.j2' %}
@@ -142,7 +142,7 @@ services:
   webdav:
     image: ghcr.io/mailu/radicale:{{applications.mailu.version}}
     restart: {{docker_restart_policy}}
-    env_file: mailu.env
+    env_file: .env
     volumes:
       - "webdav_data:/data"
     logging:
@@ -150,7 +150,7 @@ services:
     depends_on:
       - resolver
     dns:
-      - 192.168.203.254
+      - {{networks.local.mailu.dns}}
 {% include 'templates/docker/container/networks.yml.j2' %}
       radicale:
 
@@ -159,7 +159,7 @@ services:
     volumes:
       - "admin_data:/data"
     restart: {{docker_restart_policy}}
-    env_file: mailu.env
+    env_file: .env
     logging:
       driver: journald
     depends_on:
@@ -168,13 +168,13 @@ services:
       - imap
       - resolver
     dns:
-      - 192.168.203.254
+      - {{networks.local.mailu.dns}}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   webmail:
     image: ghcr.io/mailu/webmail:{{applications.mailu.version}}
     restart: {{docker_restart_policy}}
-    env_file: mailu.env
+    env_file: .env
     volumes:
       - "webmail_data:/data"
       - "/etc/mailu/overrides:/overrides:ro"
@@ -185,7 +185,7 @@ services:
     logging:
       driver: journald
     dns:
-      - 192.168.203.254
+      - {{networks.local.mailu.dns}}
 {% include 'templates/docker/container/networks.yml.j2' %}
       webmail:
 

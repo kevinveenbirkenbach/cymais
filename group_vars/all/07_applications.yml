@@ -172,6 +172,10 @@ defaults_applications:
   postgres:
     database.version:  "latest"
 
+  # Snipe-IT
+  snipe-it:
+    version:           "latest"
+
   ## Taiga
   taiga:
     version:              "latest"

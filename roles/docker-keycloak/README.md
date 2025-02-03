@@ -57,28 +57,6 @@ The role performs the following main tasks:
 3. **Start Docker containers:**
    - The role launches the Keycloak project using Docker Compose.
 
-## Example: Usage 🚀
-
-Here is an example of how to use this role in a playbook:
-
-```yaml
-- name: Setup Keycloak with Docker
-  hosts: all
-  vars:
-    domain: "auth.example.com"
-    applications.keycloak.version: "21.1.0"
-    applications.keycloak.administrator_username: "admin"
-    keycloak_administrator_password: "securepassword"
-    database_host: "db.example.com"
-    database_name: "keycloak_db"
-    database_username: "keycloak_user"
-    database_password: "securedbpassword"
-    http_port: 8080
-    docker_restart_policy: "unless-stopped"
-  roles:
-    - docker-keycloak
-```
-
 ## More Information 📚
 
 For more details about Keycloak, check out:
