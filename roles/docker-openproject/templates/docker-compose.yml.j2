@@ -2,24 +2,11 @@ x-op-app: &app
   logging:
     driver: journald
   image: {{custom_openproject_image}}
-  environment:
-    OPENPROJECT_HTTPS: "${OPENPROJECT_HTTPS}"
-    OPENPROJECT_HOST__NAME: "${OPENPROJECT_HOST__NAME}"
-    OPENPROJECT_HSTS: "${OPENPROJECT_HSTS:-true}"
-    RAILS_CACHE_STORE: "memcache"
-    OPENPROJECT_CACHE__MEMCACHE__SERVER: "cache:11211"
-    OPENPROJECT_RAILS__RELATIVE__URL__ROOT: "${OPENPROJECT_RAILS__RELATIVE__URL__ROOT:-}"
-    DATABASE_URL: "${DATABASE_URL}"
-    RAILS_MIN_THREADS: ${RAILS_MIN_THREADS:-4}
-    RAILS_MAX_THREADS: ${RAILS_MAX_THREADS:-16}
-    # set to true to enable the email receiving feature. See ./docker/cron for more options
-    IMAP_ENABLED: "${IMAP_ENABLED:-false}"
   volumes:
     - "data:/var/openproject/assets"
     - "{{dummy_volume}}:/var/openproject/pgdata" # This mount is unnecessary and just done to prevent anonymous volumes
 
 services:
-
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
 {% include 'roles/docker-oauth2-proxy/templates/container.yml.j2' %}
@@ -39,7 +26,6 @@ services:
       - "127.0.0.1:{{http_port}}:80"
     environment:
       APP_HOST: web
-      OPENPROJECT_RAILS__RELATIVE__URL__ROOT: "${OPENPROJECT_RAILS__RELATIVE__URL__ROOT:-}"
     depends_on:
       - web
 {% include 'templates/docker/container/networks.yml.j2' %}
@@ -61,7 +47,7 @@ services:
     labels:
       - autoheal=true
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080${OPENPROJECT_RAILS__RELATIVE__URL__ROOT:-}/health_checks/default"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health_checks/default"]
       interval: 10s
       timeout: 3s
       retries: 3
