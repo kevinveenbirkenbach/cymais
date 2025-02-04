@@ -4,9 +4,8 @@
     --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{ domain }}
     {{ '--test-cert' if mode_test | bool else '' }}
   when: 
-    - not enable_wildcard_certificate | bool  
+    - not enable_wildcard_certificate | bool or not (domain.split('.') | length == (primary_domain.split('.') | length + 1) and domain.endswith(primary_domain))
       # Wildcard certificate should not be used
-    - not (domain.split('.') | length == (primary_domain.split('.') | length + 1) and domain.endswith(primary_domain))
       # OR: The domain is not a first-level subdomain of the primary domain
 
 - name: "recieve wildcard certificate for *{{ primary_domain }}"
@@ -21,6 +20,8 @@
       # AND: The domain is a direct first-level subdomain of the primary domain
     - run_once_recieve_certificate is not defined  
       # Ensure this task runs only once for the wildcard certificate
+    - domain == primary_domain  
+      # The domain is the primary domain
 
 - name: "Cleanup dedicated cert for {{ domain }}"
   command: >-
