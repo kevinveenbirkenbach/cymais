@@ -200,11 +200,6 @@ services:
   redis:
 
 {% include 'templates/docker/compose/networks.yml.j2' %}
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: {{networks.local.mailu.subnet}}
   radicale:
     driver: bridge
   webmail:

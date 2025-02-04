@@ -222,6 +222,12 @@
   roles:
    -  role: docker-phpmyadmin
 
+- name: setup SNIPE-IT
+  hosts: snipe_it
+  become: true
+  roles:
+   -  role: docker-snipe_it
+
 # Native Webserver Roles
 - name: setup nginx-static-repositorys
   hosts: nginx-static-repositorys

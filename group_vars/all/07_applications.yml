@@ -173,7 +173,7 @@ defaults_applications:
     database.version:  "latest"
 
   # Snipe-IT
-  snipe-it:
+  snipe_it:
     version:           "latest"
 
   ## Taiga

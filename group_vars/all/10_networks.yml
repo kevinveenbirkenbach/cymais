@@ -1,10 +1,73 @@
 defaults_networks:
   internet:
-    ip4:  "127.0.0.1"       # Change this in inventory to the ip address of your server
-    ip6:  "::01"            # Change this in inventory to the ip address of your server
+    ip4: "127.0.0.1"       # Change this in inventory to the ip4 address of your server
+    ip6: "::01"            # Change this in inventory to the ip6 address of your server
   local:
+    # The default docker subnetworking does lead to overlapping and to huge networks.
+    # Due to this reason networks with 16 ips are created.
+    # This should be sufficient for the most cases
+    akaunting:
+      subnet: 192.168.101.0/28
+    attendize:
+      subnet: 192.168.101.16/28
+    baserow:
+      subnet: 192.168.101.32/28
+    bigbluebutton:
+      subnet: 192.168.101.48/28
+    bluesky:
+      subnet: 192.168.101.64/28
+    friendica:
+      subnet: 192.168.101.80/28
+    funkwhale:
+      subnet: 192.168.101.96/28
+    gitea:
+      subnet: 192.168.101.112/28
+    gitlab:
+      subnet: 192.168.101.128/28
+    joomla:
+      subnet: 192.168.101.144/28
+    keycloak:
+      subnet: 192.168.101.160/28
+    ldap:
+      subnet: 192.168.101.176/28
+    listmonk:
+      subnet: 192.168.101.192/28
+    mariadb:
+      subnet: 192.168.101.208/28
+    matomo:
+      subnet: 192.168.101.224/28
+    mastodon:
+      subnet: 192.168.101.240/28
+    matrix:
+      subnet: 192.168.102.0/28
     mailu:
-      dns:    192.168.203.254   # Address of the Mailu DNS server
-      subnet: 192.168.203.0/24  # Mailu Subnet
+      # Use one of the last container ips for dns resolving so that it isn't used
+      dns:    192.168.102.29
+      subnet: 192.168.102.16/28
+    moodle:
+      subnet: 192.168.102.32/28
+    mybb:
+      subnet: 192.168.102.48/28
+    nextcloud:
+      subnet: 192.168.102.64/28
+    oauth2_proxy:
+      subnet: 192.168.102.80/28
+    peertube:
+      subnet: 192.168.102.96/28
+    phpmyadmin:
+      subnet: 192.168.102.112/28
+    pixelfed:
+      subnet: 192.168.102.128/28
+    postgres:
+      subnet: 192.168.102.144/28
+    snipe_it:
+      subnet: 192.168.102.160/28
+    taiga:
+      subnet: 192.168.102.176/28
+    yourls:
+      subnet: 192.168.102.192/28
+    discourse:
+      subnet: 192.168.102.208/28
+
 
   

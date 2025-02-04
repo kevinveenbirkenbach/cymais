@@ -8,4 +8,11 @@ networks:
   central_ldap:
 {% endif %}
   default:
+{% if application_id in networks.local and networks.local[application_id].subnet is defined %}
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: {{networks.local[application_id].subnet}}
+{% endif %}
 {{ "\n" }}
