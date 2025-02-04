@@ -36,7 +36,7 @@ x-volumes:
   # - ./config.py:/taiga-back/settings/config.py
 
 services:
-{% include 'templates/docker/services/' + database_type + '.yml.j2' %}
+{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
   taiga-back:
     restart: {{docker_restart_policy}}
     logging:

@@ -1,2 +1,2 @@
 application_id: "roulette-wheel"
-app_path:       "{{docker_compose_instance_directory}}/app/"
+app_path:       "{{docker_compose.directories.instance}}/app/"

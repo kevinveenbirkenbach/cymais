@@ -1,6 +1,7 @@
 ---
-- name: "include docker/compose/database.yml"
-  include_tasks: docker/compose/database.yml
+- name: "include docker-central-database"
+  include_role: 
+    name: docker-central-database
   
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
@@ -10,22 +11,22 @@
   vars:
     nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size {{wordpress_max_upload_size}};"
 
-- name: "Transfering upload.ini to {{docker_compose_instance_directory}}"
+- name: "Transfering upload.ini to {{docker_compose.directories.instance}}"
   template:
     src: upload.ini.j2
-    dest: "{{docker_compose_instance_directory}}upload.ini"
+    dest: "{{docker_compose.directories.instance}}upload.ini"
   notify: 
     - docker compose project setup
     - rebuild wordpress container
 
-- name: "Transfering Dockerfile to {{docker_compose_instance_directory}}"
+- name: "Transfering Dockerfile to {{docker_compose.directories.instance}}"
   copy:
     src: Dockerfile
-    dest: "{{docker_compose_instance_directory}}Dockerfile"
+    dest: "{{docker_compose.directories.instance}}Dockerfile"
   notify:
     - docker compose project setup
     - rebuild wordpress container
 
-- name: "add docker-compose.yml to {{docker_compose_instance_directory}}"
-  template: src=docker-compose.yml.j2 dest={{docker_compose_instance_directory}}docker-compose.yml
+- name: "add docker-compose.yml to {{docker_compose.directories.instance}}"
+  template: src=docker-compose.yml.j2 dest={{docker_compose.directories.instance}}docker-compose.yml
   notify: docker compose project setup

@@ -1,6 +1,6 @@
 ---
 application_id:  	                              "mybb"
-docker_compose_instance_confd_directory:        "{{docker_compose_instance_directory}}conf.d/"
+docker_compose_instance_confd_directory:        "{{docker_compose.directories.instance}}conf.d/"
 docker_compose_instance_confd_defaultconf_file: "{{docker_compose_instance_confd_directory}}default.conf"
 target_mount_conf_d_directory:                  "{{nginx.directories.http.servers}}"
 source_domain:                                  "mybb.{{primary_domain}}"

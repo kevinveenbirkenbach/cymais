@@ -1,6 +1,7 @@
 ---
-- name: "include docker/compose/database.yml"
-  include_tasks: docker/compose/database.yml
+- name: "include docker-central-database"
+  include_role: 
+    name: docker-central-database
 
 - name: "include create-domains.yml"
   include_tasks: create-domains.yml
@@ -9,13 +10,13 @@
     loop_var: domain
 
 - name: copy docker-compose.yml
-  template: src=docker-compose.yml.j2 dest={{docker_compose_instance_directory}}docker-compose.yml
+  template: src=docker-compose.yml.j2 dest={{docker_compose.directories.instance}}docker-compose.yml
   notify: docker compose project setup
 
 - name: copy configuration
   template: 
     src: .env.production.j2 
-    dest: "{{docker_compose_instance_directory}}.env.production"
+    dest: "{{docker_compose.directories.instance}}.env.production"
   notify: docker compose project setup
 
 - name: flush docker service
@@ -25,5 +26,5 @@
 - name: setup routine for mastodon
   command:
     cmd: "docker-compose run --rm web bundle exec rails db:migrate"
-    chdir: "{{docker_compose_instance_directory}}"
+    chdir: "{{docker_compose.directories.instance}}"
   when: mode_setup |bool 

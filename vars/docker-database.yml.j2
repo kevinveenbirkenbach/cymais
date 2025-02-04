@@ -1,5 +1,0 @@
-database_instance:                  "{{ 'central-' + database_type if enable_central_database | bool else application_id }}"
-database_host:                      "{{ 'central-' + database_type if enable_central_database | bool else 'database' }}"
-database_name:                      "{{ application_id }}"
-database_username:                  "{{ application_id }}"
-database_port:                      "{{ 3306 if database_type == 'mariadb' else 5432 }}"

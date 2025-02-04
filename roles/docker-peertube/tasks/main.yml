@@ -1,6 +1,7 @@
 ---
-- name: "include docker/compose/database.yml"
-  include_tasks: docker/compose/database.yml
+- name: "include docker-central-database"
+  include_role: 
+    name: docker-central-database
   
 - name: "include create-domains.yml"
   include_tasks: create-domains.yml
@@ -9,11 +10,11 @@
     loop_var: domain
 
 - name: copy docker-compose.yml
-  template: src=docker-compose.yml.j2 dest={{docker_compose_instance_directory}}docker-compose.yml
+  template: src=docker-compose.yml.j2 dest={{docker_compose.directories.instance}}docker-compose.yml
   notify: docker compose project setup
 
 - name: copy configuration
   template: 
     src: env.j2 
-    dest: "{{docker_compose_instance_directory}}.env"
+    dest: "{{docker_compose.directories.instance}}.env"
   notify: docker compose project setup

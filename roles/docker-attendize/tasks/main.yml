@@ -1,6 +1,7 @@
 ---
-- name: "include docker/compose/database.yml"
-  include_tasks: docker/compose/database.yml
+- name: "include docker-central-database"
+  include_role: 
+    name: docker-central-database
 
 - name: "include tasks to receive attendize certbot certificate"
   include_tasks: recieve-certbot-certificate.yml

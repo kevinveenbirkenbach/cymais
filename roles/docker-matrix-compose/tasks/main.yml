@@ -1,6 +1,7 @@
 ---
-- name: "include docker/compose/database.yml"
-  include_tasks: docker/compose/database.yml
+- name: "include docker-central-database"
+  include_role: 
+    name: docker-central-database
 
 - name: "include task certbot-matomo.yml"
   include_tasks: certbot-matomo.yml
@@ -46,16 +47,16 @@
 - name: shut down docker compose project 
   command:
     cmd: docker-compose -p "{{application_id}}" down
-    chdir: "{{ docker_compose_instance_directory }}"
+    chdir: "{{ docker_compose.directories.instance }}"
 
 - name: "cleanup project folder"
   file:
-    path: "{{docker_compose_instance_directory}}mautrix/"
+    path: "{{docker_compose.directories.instance}}mautrix/"
     state: absent
 
 - name: "create bridge folders"
   file:
-    path: "{{docker_compose_instance_directory}}mautrix/{{item.bridge_name}}"
+    path: "{{docker_compose.directories.instance}}mautrix/{{item.bridge_name}}"
     state: directory
     mode: 0755
   loop: "{{ bridges }}"
@@ -63,26 +64,26 @@
 - name: add multiple mautrix bridge configuration
   template: 
     src:  "mautrix/{{item.bridge_name}}.config.yml.j2" 
-    dest: "{{docker_compose_instance_directory}}mautrix/{{item.bridge_name}}/config.yaml"
+    dest: "{{docker_compose.directories.instance}}mautrix/{{item.bridge_name}}/config.yaml"
   loop: "{{ bridges }}"
   notify: docker compose project setup
 
 - name: add element configuration
   template: 
     src:  "element.config.json.j2" 
-    dest: "{{docker_compose_instance_directory}}element-config.json"
+    dest: "{{docker_compose.directories.instance}}element-config.json"
   notify: docker compose project setup
 
 - name: add synapse homeserver configuration
   template: 
     src:  "synapse/homeserver.yaml.j2" 
-    dest: "{{docker_compose_instance_directory}}homeserver.yaml"
+    dest: "{{docker_compose.directories.instance}}homeserver.yaml"
   notify: docker compose project setup
 
 - name: add synapse log configuration
   template: 
     src:  "synapse/log.config.j2" 
-    dest: "{{docker_compose_instance_directory}}{{domains.matrix_synapse}}.log.config"
+    dest: "{{docker_compose.directories.instance}}{{domains.matrix_synapse}}.log.config"
   notify: docker compose project setup
 
 # https://github.com/matrix-org/synapse/issues/6303
@@ -93,7 +94,7 @@
 - name: add docker-compose.yml
   template: 
     src:  "docker-compose.yml.j2" 
-    dest: "{{docker_compose_instance_directory}}docker-compose.yml"
+    dest: "{{docker_compose.directories.instance}}docker-compose.yml"
   notify: docker compose project setup
 
 # Pull image when update is wished. 
@@ -101,13 +102,13 @@
 - name: docker compose pull
   command:
     cmd: docker-compose -p "{{application_id}}" pull
-    chdir: "{{docker_compose_instance_directory}}"
+    chdir: "{{docker_compose.directories.instance}}"
   when: mode_update | bool
 
 - name: docker compose project setup
   command:
     cmd: docker-compose -p "{{application_id}}" up -d
-    chdir: "{{docker_compose_instance_directory}}"
+    chdir: "{{docker_compose.directories.instance}}"
   environment:
     COMPOSE_HTTP_TIMEOUT:   600
     DOCKER_CLIENT_TIMEOUT:  600
@@ -118,27 +119,27 @@
 
 - name: wait for registration files
   wait_for:
-    path: "{{docker_compose_instance_directory}}mautrix/{{item.bridge_name}}/registration.yaml"
+    path: "{{docker_compose.directories.instance}}mautrix/{{item.bridge_name}}/registration.yaml"
     state: present  
     timeout: 120
   loop: "{{ bridges }}"
 
 - name: "change file permissions"
   file:
-    path: "{{docker_compose_instance_directory}}mautrix/{{item.bridge_name}}/registration.yaml"
+    path: "{{docker_compose.directories.instance}}mautrix/{{item.bridge_name}}/registration.yaml"
     mode: 0755
   loop: "{{ bridges }}"
 
 - name: create admin account
   command:
     cmd: docker compose exec -it synapse register_new_matrix_user -u {{applications.matrix.administrator_username}} -p {{matrix_admin_password}} -a -c /data/homeserver.yaml http://localhost:8008
-    chdir: "{{ docker_compose_instance_directory }}"
+    chdir: "{{ docker_compose.directories.instance }}"
   ignore_errors: true
   when: mode_setup | bool
 
 - name: create chatgpt bot
   command:
     cmd: docker compose exec -it synapse register_new_matrix_user -u chatgptbot -p {{matrix_chatgpt_bridge_user_password}} -a -c /data/homeserver.yaml http://localhost:8008
-    chdir: "{{ docker_compose_instance_directory }}"
+    chdir: "{{ docker_compose.directories.instance }}"
   ignore_errors: true
   when: mode_setup | bool

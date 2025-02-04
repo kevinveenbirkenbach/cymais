@@ -9,12 +9,12 @@
 - name: "include tasks update-repository-with-docker-compose.yml"
   include_tasks: update-repository-with-docker-compose.yml
 
-- name: create {{docker_compose_instance_directory}}/app/config.yaml
+- name: create {{docker_compose.directories.instance}}/app/config.yaml
   copy:
     src: "{{ inventory_dir }}/files/{{ inventory_hostname }}/docker/portfolio/config.yaml"
-    dest: "{{docker_compose_instance_directory}}/app/config.yaml"
+    dest: "{{docker_compose.directories.instance}}/app/config.yaml"
   notify: docker compose project setup
 
 - name: add docker-compose.yml
-  template: src=docker-compose.yml.j2 dest={{docker_compose_instance_directory}}docker-compose.yml
+  template: src=docker-compose.yml.j2 dest={{docker_compose.directories.instance}}docker-compose.yml
   notify: docker compose project setup

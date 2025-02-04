@@ -27,7 +27,7 @@
 - name: pull docker repository
   git:
     repo: "https://github.com/bigbluebutton/docker.git"
-    dest: "{{docker_compose_instance_directory}}"
+    dest: "{{docker_compose.directories.instance}}"
     update: yes
     recursive: yes
     version: main
@@ -35,7 +35,7 @@
   ignore_errors: true
 
 - name: deploy .env
-  template: src=env.j2 dest={{docker_compose_instance_directory}}/.env
+  template: src=env.j2 dest={{docker_compose.directories.instance}}/.env
   notify: setup bigbluebutton
 
 - name: flush docker service
@@ -49,7 +49,7 @@
 - name: create admin
   command:
     cmd: docker compose exec greenlight bundle exec rake admin:create
-    chdir: "{{docker_compose_instance_directory}}"
+    chdir: "{{docker_compose.directories.instance}}"
   when: mode_setup | bool
   ignore_errors: true
   register: admin_creation_result

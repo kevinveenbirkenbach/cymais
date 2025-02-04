@@ -135,12 +135,12 @@ The role includes a **`systemd` service** that runs the deployment script whenev
 Example `nginx-docker-cert-deploy.service.j2`:
 ```ini
 [Unit]
-Description=Let's Encrypt deploy to {{docker_compose_instance_directory}}
+Description=Let's Encrypt deploy to {{docker_compose.directories.instance}}
 OnFailure=systemd-notifier.cymais@%n.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/bash {{path_administrator_scripts}}/nginx-docker-cert-deploy.sh {{primary_domain}} {{docker_compose_instance_directory}}
+ExecStart=/usr/bin/bash {{path_administrator_scripts}}/nginx-docker-cert-deploy.sh {{primary_domain}} {{docker_compose.directories.instance}}
 ```
 
 ---

@@ -1,0 +1,10 @@
+# Private variable for role. Please use docker_compose.directories.instance instead
+_docker_compose_directories_instance: "{{ path_docker_compose_instances }}{{ application_id }}/"
+
+# @See https://chatgpt.com/share/67a23d18-fb54-800f-983c-d6d00752b0b4
+docker_compose: 
+  directories:
+    instance: "{{_docker_compose_directories_instance}}"          # Folder for docker-compose.yml file
+    env:      "{{_docker_compose_directories_instance}}/.env/"     # Folder for env files
+    services: "{{_docker_compose_directories_instance}}/services/" # Folder for services
+    volumes:  "{{_docker_compose_directories_instance}}/volumes/"  # Folder for volumes

@@ -1,6 +1,6 @@
 services:
 
-{% include 'templates/docker/services/' + database_type + '.yml.j2' %}
+{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
   application:
     restart: {{docker_restart_policy}}

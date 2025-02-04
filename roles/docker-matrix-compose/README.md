@@ -12,7 +12,7 @@ Matrix is an open-source project that provides a protocol for secure, decentrali
 
 ## Files and Their Functions
 
-1. **`vars/main.yml`**: Defines variables such as `docker_compose_instance_directory`.
+1. **`vars/main.yml`**: Defines variables such as `docker_compose.directories.instance`.
 2. **`handlers/main.yml`**: Contains handlers like `recreate matrix` for restarting the Matrix service.
 3. **`tasks/main.yml`**: Contains main tasks like creating directories and configuration files.
 4. **`templates/log.config.j2`**: Template for the Matrix server's logging configuration.

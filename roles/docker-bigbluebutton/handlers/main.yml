@@ -2,7 +2,7 @@
 - name: create docker-compose.yml for bigbluebutton
   command:
     cmd: bash ./scripts/generate-compose
-    chdir: "{{docker_compose_instance_directory}}"
+    chdir: "{{docker_compose.directories.instance}}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600
@@ -63,7 +63,7 @@
   command:
     cmd: docker-compose -p bigbluebutton up -d --force-recreate 
     # Don't use the --build flag here. This leads to bugs
-    chdir: "{{docker_compose_instance_directory}}"
+    chdir: "{{docker_compose.directories.instance}}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600

@@ -16,7 +16,7 @@ This role is designed to deploy the OpenProject application using Docker. It inc
 The role uses several variables, defined in `vars/main.yml`:
 
 - `repository_directory`: The directory for the OpenProject repository.
-- `docker_compose_instance_directory`: Directory for Docker Compose instances.
+- `docker_compose.directories.instance`: Directory for Docker Compose instances.
 
 ## Handlers
 

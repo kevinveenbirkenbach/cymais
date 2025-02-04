@@ -86,7 +86,7 @@ Detailed steps for backing up your Akaunting instance, including setting manual 
 ### Setting Variables
 Variables are crucial in configuring your Akaunting setup. Ensure you set the following variables correctly in your environment:
 
-- `docker_compose_instance_directory`: Set this variable to the path where your Docker Compose files for Akaunting are located.
+- `docker_compose.directories.instance`: Set this variable to the path where your Docker Compose files for Akaunting are located.
 - `akaunting_db_password`, `applications.akaunting.version`, `applications.akaunting.company_name`, `applications.akaunting.company_email`, `applications.akaunting.setup_admin_email`, and `akaunting_setup_admin_password`: These should be set in your `.env` files as per your requirements.
 
 ### Additional Configuration

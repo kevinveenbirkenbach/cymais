@@ -1,6 +1,6 @@
 services:
 
-{% include 'templates/docker/services/' + database_type + '.yml.j2' %}
+{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
   synapse:
     image: matrixdotorg/synapse:{{applications.matrix.synapse.version}}
@@ -13,7 +13,7 @@ services:
       - ./homeserver.yaml:/data/homeserver.yaml:ro
       - ./{{domains.matrix_synapse}}.log.config:/data/{{domains.matrix_synapse}}.log.config:ro
 {% for item in bridges %}
-      - {{docker_compose_instance_directory}}mautrix/{{item.bridge_name}}/registration.yaml:{{registration_file_folder}}{{item.bridge_name}}.registration.yaml:ro
+      - {{docker_compose.directories.instance}}mautrix/{{item.bridge_name}}/registration.yaml:{{registration_file_folder}}{{item.bridge_name}}.registration.yaml:ro
 {% endfor %}
     environment:
       - SYNAPSE_SERVER_NAME={{domains.matrix_synapse}}

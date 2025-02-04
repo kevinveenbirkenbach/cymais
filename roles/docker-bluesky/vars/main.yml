@@ -1,8 +1,8 @@
 application_id:               "bluesky"
-social_app_path:              "{{ docker_compose_instance_directory }}/social-app"
+social_app_path:              "{{ docker_compose.directories.instance }}/social-app"
 
 # This should be removed when the following issue is closed:
 # https://github.com/bluesky-social/pds/issues/52
-pdsadmin_folder_path:         "{{ docker_compose_instance_directory }}/pdsadmin"
+pdsadmin_folder_path:         "{{ docker_compose.directories.instance }}/pdsadmin"
 pdsadmin_file_path:           "{{pdsadmin_folder_path}}/pdsadmin"
 pdsadmin_temporary_tar_path:  "/tmp/pdsadmin.tar.gz"

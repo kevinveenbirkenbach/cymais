@@ -1,6 +1,7 @@
 ---
-- name: "include docker/compose/database.yml"
-  include_tasks: docker/compose/database.yml
+- name: "include docker-central-database"
+  include_role: 
+    name: docker-central-database
 
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
@@ -8,18 +9,18 @@
 - name: "include tasks update-repository-with-docker-compose.yml"
   include_tasks: update-repository-with-docker-compose.yml
 
-- name: "Transfering Gemfile.plugins to {{docker_compose_instance_directory}}"
+- name: "Transfering Gemfile.plugins to {{docker_compose.directories.instance}}"
   copy:
     src: Gemfile.plugins
-    dest: "{{docker_compose_instance_directory}}Gemfile.plugins"
+    dest: "{{docker_compose.directories.instance}}Gemfile.plugins"
   notify:
     - docker compose project setup
     - rebuild docker image
 
-- name: "Transfering Dockerfile to {{docker_compose_instance_directory}}"
+- name: "Transfering Dockerfile to {{docker_compose.directories.instance}}"
   copy:
     src: Dockerfile
-    dest: "{{docker_compose_instance_directory}}Dockerfile"
+    dest: "{{docker_compose.directories.instance}}Dockerfile"
   notify:
     - docker compose project setup
     - rebuild docker image
@@ -33,5 +34,5 @@
 - name: "copy .env"
   template: 
     src: env.j2
-    dest: "{{ docker_compose_instance_directory }}.env"
+    dest: "{{ docker_compose.directories.instance }}.env"
   notify: docker compose project setup

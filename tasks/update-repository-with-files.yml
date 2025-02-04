@@ -5,9 +5,9 @@
 
 - name: "backup detached files"
   command: >
-    mv "{{docker_compose_instance_directory}}{{ item }}" "/tmp/{{application_id}}-{{ item }}.backup"
+    mv "{{docker_compose.directories.instance}}{{ item }}" "/tmp/{{application_id}}-{{ item }}.backup"
   args:
-    removes: "{{docker_compose_instance_directory}}{{ item }}"
+    removes: "{{docker_compose.directories.instance}}{{ item }}"
   become: true
   loop: "{{ merged_detached_files | default(detached_files) }}"
 
@@ -15,20 +15,20 @@
   ansible.builtin.shell: git checkout .
   become: true
   args:
-    chdir: "{{docker_compose_instance_directory}}"
+    chdir: "{{docker_compose.directories.instance}}"
   ignore_errors: true
 
 - name: pull docker repository
   git:
     repo: "{{ repository_address }}"
-    dest: "{{ repository_directory | default(docker_compose_instance_directory) }}"
+    dest: "{{ repository_directory | default(docker_compose.directories.instance) }}"
     update: yes
   notify: docker compose project setup
   become: true
 
 - name: "restore detached files"
   command: >
-    mv "/tmp/{{application_id}}-{{ item }}.backup" "{{docker_compose_instance_directory}}{{ item }}"
+    mv "/tmp/{{application_id}}-{{ item }}.backup" "{{docker_compose.directories.instance}}{{ item }}"
   args:
     removes: "/tmp/{{application_id}}-{{ item }}.backup"
   become: true
@@ -37,6 +37,6 @@
 - name: "copy {{ detached_files }} templates to server"
   template: 
     src: "{{ item }}.j2"
-    dest: "{{docker_compose_instance_directory}}{{ item }}"
+    dest: "{{docker_compose.directories.instance}}{{ item }}"
   loop: "{{ detached_files }}"
   notify: docker compose project setup

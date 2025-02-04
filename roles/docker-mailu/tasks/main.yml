@@ -1,15 +1,16 @@
 ---
-- name: "include docker/compose/database.yml"
-  include_tasks: docker/compose/database.yml
+- name: "include docker-central-database"
+  include_role: 
+    name: docker-central-database
 
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
   vars:
     nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size 31M;"
 
-- name: "create {{docker_compose_instance_directory}}"
+- name: "create {{docker_compose.directories.instance}}"
   file:
-    path: "{{docker_compose_instance_directory}}"
+    path: "{{docker_compose.directories.instance}}"
     state: directory
     mode: 0755
 
@@ -26,13 +27,13 @@
 - name: add docker-compose.yml
   template: 
     src:  "docker-compose.yml.j2" 
-    dest: "{{docker_compose_instance_directory}}docker-compose.yml"
+    dest: "{{docker_compose.directories.instance}}docker-compose.yml"
   notify: docker compose project setup
 
 - name: add .env
   template: 
     src:  "env.j2" 
-    dest: "{{docker_compose_instance_directory}}.env"
+    dest: "{{docker_compose.directories.instance}}.env"
   notify: docker compose project setup
 
 - name: flush docker service
@@ -42,6 +43,6 @@
 - name: execute database migration
   command:
     cmd: "docker compose -p mailu exec admin flask mailu admin admin {{primary_domain}} {{mailu_initial_root_password}}"
-    chdir: "{{docker_compose_instance_directory}}"
+    chdir: "{{docker_compose.directories.instance}}"
   ignore_errors: true
   when: mode_setup |bool 

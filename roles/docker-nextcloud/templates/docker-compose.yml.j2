@@ -2,7 +2,7 @@ services:
 
 {% include 'templates/docker/services/redis.yml.j2' %}
 
-{% include 'templates/docker/services/' + database_type + '.yml.j2' %}
+{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
   application:
     image: "nextcloud:{{applications.nextcloud.version}}-fpm-alpine"
@@ -47,7 +47,7 @@ services:
     ports:
       - "127.0.0.1:{{http_port}}:80"
     volumes:
-        - "{{docker_compose_instance_directory}}/nginx.conf:/etc/nginx/nginx.conf:ro"
+        - "{{docker_compose.directories.volumes}}nginx.conf:/etc/nginx/nginx.conf:ro"
     volumes_from:
       - application
     healthcheck:

@@ -12,7 +12,7 @@
 - name: docker compose project setup
   command:
     cmd: docker-compose -p "{{application_id}}" up -d --force-recreate
-    chdir: "{{docker_compose_instance_directory}}"
+    chdir: "{{docker_compose.directories.instance}}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600
@@ -23,7 +23,7 @@
 - name: docker compose project build and setup 
   command:
     cmd: docker-compose -p "{{application_id}}" up -d --force-recreate --build
-    chdir: "{{docker_compose_instance_directory}}"
+    chdir: "{{docker_compose.directories.instance}}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600

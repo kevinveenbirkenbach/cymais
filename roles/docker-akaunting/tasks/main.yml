@@ -1,6 +1,7 @@
 ---
-- name: "include docker/compose/database.yml"
-  include_tasks: docker/compose/database.yml
+- name: "include docker-central-database"
+  include_role: 
+    name: docker-central-database
 
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
@@ -9,5 +10,5 @@
   include_tasks: update-repository-with-docker-compose.yml
 
 - name: configure run.env
-  template: src=run.env.j2 dest={{docker_compose_instance_directory}}/env/run.env
+  template: src=run.env.j2 dest={{docker_compose.directories.instance}}/env/run.env
   notify: docker compose project setup

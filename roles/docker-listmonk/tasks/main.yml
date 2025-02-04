@@ -1,6 +1,7 @@
 ---
-- name: "include docker/compose/database.yml"
-  include_tasks: docker/compose/database.yml
+- name: "include docker-central-database"
+  include_role: 
+    name: docker-central-database
 
 - name: Set nginx_docker_reverse_proxy_extra_configuration based on applications.listmonk.public_api_activated
   set_fact:
@@ -17,13 +18,13 @@
 - name: add docker-compose.yml
   template: 
     src:  "docker-compose.yml.j2" 
-    dest: "{{docker_compose_instance_directory}}docker-compose.yml"
+    dest: "{{docker_compose.directories.instance}}docker-compose.yml"
   notify: docker compose project setup
 
 - name: add config.toml
   template: 
     src:  "config.toml.j2" 
-    dest: "{{docker_compose_instance_directory}}config.toml"
+    dest: "{{docker_compose.directories.instance}}config.toml"
   notify: docker compose project setup
 
 - name: flush docker service
@@ -33,5 +34,5 @@
 - name: setup routine for listmonk
   command:
     cmd:   docker compose run -T --rm application sh -c "yes | ./listmonk --install"
-    chdir: "{{docker_compose_instance_directory}}"
+    chdir: "{{docker_compose.directories.instance}}"
   when: mode_setup |bool 

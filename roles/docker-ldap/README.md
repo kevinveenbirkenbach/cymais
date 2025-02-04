@@ -35,7 +35,7 @@ This Ansible role provides a streamlined implementation of an LDAP server with T
 | `application_id` | Name of the Docker Compose project.                     | `ldap`                               |
 | `ldap_root`                   | Base DN for the LDAP directory.                         | `dc={{primary_domain_sld}},dc={{primary_domain_tld}}` |
 | `ldap_admin_dn`               | Distinguished Name (DN) for the LDAP administrator.     | `cn={{applications.ldap.administrator_username}},{{ldap_root}}` |
-| `cert_mount_directory`        | Directory to mount SSL/TLS certificates.                | `{{docker_compose_instance_directory}}/certs/` |
+| `cert_mount_directory`        | Directory to mount SSL/TLS certificates.                | `{{docker_compose.directories.instance}}/certs/` |
 | `applications.ldap.administrator_username` | Username for the LDAP admin.                            | `admin`                              |
 | `applications.ldap.administrator_password` | Password for the LDAP admin.                            | _Required_                           |
 | `applications.ldap.phpldapadmin.version`          | Version of phpLDAPadmin Docker image.                   | `latest`                             |
@@ -70,7 +70,7 @@ Here’s an example playbook to use this role:
   roles:
     - role: docker-ldap
       vars:
-        docker_compose_instance_directory: "/opt/docker/ldap/"
+        docker_compose.directories.instance: "/opt/docker/ldap/"
         primary_domain_sld: "veen"
         primary_domain_tld: "world"
         applications.ldap.administrator_username: "administrator"

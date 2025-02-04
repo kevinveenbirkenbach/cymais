@@ -15,7 +15,7 @@ This Ansible role is designed for setting up and managing a GitLab server runnin
 
 ## Role Variables
 Variables are defined in `vars/main.yml`. Key variables include:
-- `docker_compose_instance_directory`: Directory for Docker Compose instances.
+- `docker_compose.directories.instance`: Directory for Docker Compose instances.
 - `application_id`, `database_host`, `database_name`, `database_username`, `database_password`: Database configuration variables.
 
 ## Handlers

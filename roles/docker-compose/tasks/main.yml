@@ -1,6 +1,5 @@
-- name: "Set global docker_compose_instance_directory: {{ path_docker_compose_instances }}{{ application_id }}/"
-  set_fact:
-    docker_compose_instance_directory: "{{ path_docker_compose_instances }}{{ application_id }}/"
+- name: "load variables from {{ role_path }}/vars/docker-compose.yml for whole play"
+  include_vars: "{{ role_path }}/vars/docker-compose.yml"
 
 - name: "Set global domain based on application_id"
   set_fact:
@@ -12,17 +11,20 @@
     http_port: "{{ ports.localhost.http_ports[application_id] if application_id in ports.localhost.http_ports else None }}"
   # Default case: One port exists. Some applications like matrix don't have an default port
 
-- name: "remove {{ docker_compose_instance_directory }} and all its contents"
+- name: "remove {{ docker_compose.directories.instance }} and all its contents"
   file:
-    path: "{{ docker_compose_instance_directory }}"
+    path: "{{ docker_compose.directories.instance }}"
     state: absent
   when: mode_reset | bool
 
-- name: "create {{docker_compose_instance_directory}}"
+# This could lead to problems in docker-compose directories which are based on a git repository
+# @todo Verify that this isn't the case. E.g. in accounting
+- name: "Create all docker-compose directories (including parent directories)"
   file:
-    path: "{{docker_compose_instance_directory}}"
+    path: "{{ item.value }}"
     state: directory
-    mode: 0755
+    mode: '0755'
+  with_dict: "{{ docker_compose.directories }}"
 
 - name: flush docker service
   meta: flush_handlers

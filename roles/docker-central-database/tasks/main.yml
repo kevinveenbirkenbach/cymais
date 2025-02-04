@@ -1,0 +1,19 @@
+# Docker Routines
+- name: "include docker-compose role"
+  include_role: 
+    name: docker-compose
+
+# Database Routines
+- name: "load variables from {{ role_path }}/vars/database.yml for whole play"
+  include_vars: "{{ role_path }}/vars/database.yml"
+
+- name: "create {{database_env}}"
+  template: 
+    src: "env/{{database_type}}.env.j2"
+    dest: "{{database_env}}"
+  notify: docker compose project build and setup
+
+- name: create central database
+  include_role:
+    name: docker-{{database_type}}
+  when: enable_central_database | bool
