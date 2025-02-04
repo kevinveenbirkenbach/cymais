@@ -1,6 +1,6 @@
-- name: "Transfering oauth2-proxy-keycloak.cfg.j2 to {{docker_compose.directories.instance}}"
+- name: "Transfering oauth2-proxy-keycloak.cfg.j2 to {{docker_compose.directories.volumes}}"
   template:
     src: oauth2-proxy-keycloak.cfg.j2
-    dest: "{{docker_compose.directories.instance}}{{applications.oauth2_proxy.configuration_file}}"
+    dest: "{{docker_compose.directories.volumes}}{{applications.oauth2_proxy.configuration_file}}"
   notify:
     - docker compose project setup

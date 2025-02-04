@@ -6,5 +6,5 @@
     ports:
       - {{ports.localhost.oauth2_proxy_ports[application_id]}}:4180/tcp
     volumes:
-      - "./{{applications.oauth2_proxy.configuration_file}}:/oauth2-proxy.cfg"
+      - "{{docker_compose.directories.volumes}}{{applications.oauth2_proxy.configuration_file}}:/oauth2-proxy.cfg"
 {% include 'templates/docker/container/networks.yml.j2' %}

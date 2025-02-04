@@ -6,28 +6,8 @@ services:
 
   web:
     image: "gitlab/gitlab-ee:{{applications.gitlab.version}}"
-    restart: {{docker_restart_policy}}
     hostname: '{{domain}}'
-    environment:
-      GITLAB_OMNIBUS_CONFIG: |
-        external_url 'https://{{domain}}'
-        postgresql['enable']                  = false
-        gitlab_rails['gitlab_shell_ssh_port'] = {{ports.public.ssh_ports[application_id]}}
-        gitlab_rails['db_adapter']            = 'postgresql'
-        gitlab_rails['db_encoding']           = 'utf8'
-        gitlab_rails['db_host']               = '{{database_host}}'
-        gitlab_rails['db_port']               = '{{database_port}}''
-        gitlab_rails['db_username']           = '{{database_username}}'
-        gitlab_rails['db_password']           = '{{database_password}}'
-        gitlab_rails['db_database']           = "{{database_name}}"
-        nginx['listen_port']                  = 80
-        nginx['listen_https']                 = false
-
-        gitlab_rails['initial_root_password'] = "{{gitlab_initial_root_password}}"
-        
-        redis['enable']                       = false
-        gitlab_rails['redis_host']            = 'redis'
-        gitlab_rails['redis_port']            = '6379'
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     ports:
       - "127.0.0.1:{{http_port}}:80"
       - "{{ports.public.ssh_ports[application_id]}}:22"

@@ -5,27 +5,12 @@ services:
     image: docker.io/bitnami/moodle:{{applications.moodle.version}}
     ports:
       - 127.0.0.1:{{http_port}}:8080
-    restart: {{docker_restart_policy}}
-    logging:
-      driver: journald
-    environment:
-      - MOODLE_DATABASE_HOST={{database_host}}
-      - MOODLE_DATABASE_PORT_NUMBER={{database_port}}
-      - MOODLE_DATABASE_USER={{database_username}}
-      - MOODLE_DATABASE_NAME={{database_name}}
-      - MOODLE_DATABASE_PASSWORD={{database_password}}
-      - ALLOW_EMPTY_PASSWORD=no
-      - MOODLE_SITE_NAME="{{applications.moodle.site_titel}}"
-      - MOODLE_SSLPROXY=yes
-      - MOODLE_REVERSE_PROXY=yes
-      - MOODLE_USERNAME={{applications.moodle.administrator_name}}
-      - MOODLE_PASSWORD={{moodle_user_password}}
-      - MOODLE_EMAIL={{applications.moodle.administrator_email}}
-      - BITNAMI_DEBUG={% if mode_debug | bool %}true{% else %}false{% endif %} 
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - 'moodle:/bitnami/moodle'
       - 'data:/bitnami/moodledata'
 # Healthcheck is not possible due to missing curl and wget in container
+# @todo implement healthcheck
 #    healthcheck:
 #      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080"]
 #      interval: 1m

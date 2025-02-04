@@ -27,6 +27,17 @@
     - docker compose project setup
     - rebuild wordpress container
 
-- name: "add docker-compose.yml to {{docker_compose.directories.instance}}"
-  template: src=docker-compose.yml.j2 dest={{docker_compose.directories.instance}}docker-compose.yml
+- name: "create {{docker_compose.files.docker_compose}}"
+  template:
+    src:	"docker-compose.yml.j2"
+    dest:	"{{docker_compose.files.docker_compose}}"
   notify: docker compose project setup
+
+- name: "create {{docker_compose.files.env}}"
+  template: 
+    src:  "env.j2" 
+    dest: "{{docker_compose.files.env}}"
+    mode: '770'
+    force: yes
+  notify: docker compose project setup
+  

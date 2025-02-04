@@ -3,24 +3,8 @@ services:
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
   application:
-    logging:
-      driver: journald
-    restart: {{docker_restart_policy}}
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     image: "gitea/gitea:{{applications.gitea.version}}"
-    environment:
-      - USER_UID=1000
-      - USER_GID=1000
-      - DB_TYPE=mysql
-      - DB_HOST={{database_host}}:{{database_port}}
-      - DB_NAME={{database_name}}
-      - DB_USER={{database_username}}
-      - DB_PASSWD={{database_password}}
-      - SSH_PORT={{ports.public.ssh_ports[application_id]}}
-      - SSH_LISTEN_PORT=22
-      - DOMAIN={{domain}}
-      - SSH_DOMAIN={{domain}}
-      - RUN_MODE="{{run_mode}}"
-      - ROOT_URL="https://{{domain}}/"
     ports:
       - "127.0.0.1:{{http_port}}:3000"
       - "{{ports.public.ssh_ports[application_id]}}:22"

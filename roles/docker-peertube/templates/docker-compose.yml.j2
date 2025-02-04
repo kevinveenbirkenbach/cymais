@@ -6,8 +6,7 @@ services:
 
   application:
     image: chocobozzz/peertube:production-{{applications.peertube.version}}
-    env_file:
-      - .env
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     ports:
      - "1935:1935"
      - "{{http_port}}:9000" 
@@ -15,7 +14,6 @@ services:
       - assets:/app/client/dist
       - data:/data
       - config:/config
-    restart: "always"
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 

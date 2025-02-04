@@ -41,14 +41,6 @@ If you need to receive emails from another account, follow these steps:
 2. Export all data from your original account.
 3. Import all data to your new account.
 
-### Data Deletion
-
-To delete all volumes and data, execute the following command with caution:
-
-```bash
-rm -vr /etc/mailu/; docker volume rm $(docker volume ls -q | grep mailu_)
-```
-
 ### Port Management
 
 Check for any port conflicts and manually change the conflicting ports if necessary. Use the following command to verify:

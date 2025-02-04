@@ -4,7 +4,7 @@ services:
 
   application:
     image: "friendica:{{applications.friendica.version}}"
-    restart: {{docker_restart_policy}}
+    {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - data:/var/www/html
     ports:
@@ -25,36 +25,6 @@ services:
       interval: 1m
       timeout: 10s
       retries: 3
-    environment:
-      FRIENDICA_URL: https://{{domain}}
-      HOSTNAME: {{domain}}
-      FRIENDICA_NO_VALIDATION: false
-      
-      # Debugging
-      FRIENDICA_DEBUGGING: false
-      FRIENDICA_LOGLEVEL: 5
-      FRIENDICA_LOGGER: stream
-      FRIENDICA_LOGFILE: php://stdout
-
-      # Database Configuration 
-      MYSQL_HOST:     "{{database_host}}:{{database_port}}"
-      MYSQL_DATABASE: {{database_name}}
-      MYSQL_USER:     {{database_username}}
-      MYSQL_PASSWORD: {{database_password}}
-
-      # Email Configuration
-      SMTP:           {{system_email.host}}
-      SMTP_DOMAIN:    {{system_email.domain}}
-      SMTP_PORT:      {{system_email.smtp_port}}
-      SMTP_AUTH_USER: {{system_email.username}}
-      SMTP_AUTH_PASS: {{system_email.password}}
-      SMTP_TLS:       {{ 'on' if system_email.tls else 'off' }}
-      SMTP_STARTTLS:  {{ 'on' if system_email.start_tls else 'off' }}
-      SMTP_FROM:      {{system_email.local}}
-
-      # Administrator Credentials
-      FRIENDICA_ADMIN_MAIL: {{administrator_email}}
-      MAILNAME: {{administrator_email}}
 {% include 'templates/docker/container/networks.yml.j2' %}
 {% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
 

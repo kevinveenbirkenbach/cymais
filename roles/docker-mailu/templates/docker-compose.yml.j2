@@ -7,19 +7,13 @@ services:
   # Core services
   resolver:
     image: ghcr.io/mailu/unbound:{{applications.mailu.version}}
-    env_file: .env
-    restart: {{docker_restart_policy}}
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
         ipv4_address: {{networks.local.mailu.dns}}
-    logging:
-      driver: journald
 
   front:
     image: ghcr.io/mailu/nginx:{{applications.mailu.version}}
-    restart: {{docker_restart_policy}}
-    env_file: .env
-    logging:
-      driver: journald
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     ports:
       - "127.0.0.1:{{ http_port }}:80"
       - "{{networks.internet.ip4}}:25:25"
@@ -31,7 +25,7 @@ services:
       - "{{networks.internet.ip4}}:993:993"
       - "{{networks.internet.ip4}}:4190:4190"
     volumes:
-      - "/etc/mailu/overrides/nginx:/overrides:ro"
+      - "{{docker_compose.directories.volumes}}overrides/nginx:/overrides:ro"
       - "{{cert_mount_directory}}:/certs:ro"
 {% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
       resolver:
@@ -44,8 +38,7 @@ services:
       
   admin:
     image: ghcr.io/mailu/admin:{{applications.mailu.version}}
-    restart: {{docker_restart_policy}}
-    env_file: .env
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - "admin_data:/data"
       - "dkim:/dkim"
@@ -54,42 +47,34 @@ services:
         condition: service_started
       front:
         condition: service_started
-    logging:
-      driver: journald
     dns:
       - {{networks.local.mailu.dns}}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   imap:
     image: ghcr.io/mailu/dovecot:{{applications.mailu.version}}
-    restart: {{docker_restart_policy}}
-    env_file: .env
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - "dovecot_mail:/mail"
-      - "/etc/mailu/overrides:/overrides:ro"
+      - "{{docker_compose.directories.volumes}}overrides:/overrides:ro"
     depends_on:
       - front
       - resolver
     dns:
       - {{networks.local.mailu.dns}}
-    logging:
-      driver: journald
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   smtp:
     image: ghcr.io/mailu/postfix:{{applications.mailu.version}}
-    restart: {{docker_restart_policy}}
-    env_file: .env
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
-      - "/etc/mailu/overrides:/overrides:ro"
+      - "{{docker_compose.directories.volumes}}overrides:/overrides:ro"
       - "smtp_queue:/queue"
     depends_on:
       - front
       - resolver
     dns:
       - {{networks.local.mailu.dns}}
-    logging:
-      driver: journald
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   oletools:
@@ -105,12 +90,11 @@ services:
 
   antispam:
     image: ghcr.io/mailu/rspamd:{{applications.mailu.version}}
-    restart: {{docker_restart_policy}}
-    env_file: .env
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - "filter:/var/lib/rspamd"
       - "dkim:/dkim"
-      - "/etc/mailu/overrides/rspamd:/overrides:ro"
+      - "{{docker_compose.directories.volumes}}overrides/rspamd:/overrides:ro"
     depends_on:
       - front
       - redis 
@@ -118,8 +102,6 @@ services:
       - resolver
     dns:
       - {{networks.local.mailu.dns}}
-    logging:
-      driver: journald
 {% include 'templates/docker/container/networks.yml.j2' %}
       noinet:  
 
@@ -127,26 +109,20 @@ services:
   # Optional services
   antivirus:
     image: clamav/clamav-debian:latest
-    restart: {{docker_restart_policy}}
-    env_file: .env
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - "filter:/data"
     depends_on:
       - resolver
     dns:
       - {{networks.local.mailu.dns}}
-    logging:
-      driver: journald
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   webdav:
     image: ghcr.io/mailu/radicale:{{applications.mailu.version}}
-    restart: {{docker_restart_policy}}
-    env_file: .env
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - "webdav_data:/data"
-    logging:
-      driver: journald
     depends_on:
       - resolver
     dns:
@@ -158,10 +134,7 @@ services:
     image: ghcr.io/mailu/fetchmail:{{applications.mailu.version}}
     volumes:
       - "admin_data:/data"
-    restart: {{docker_restart_policy}}
-    env_file: .env
-    logging:
-      driver: journald
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     depends_on:
       - admin
       - smtp
@@ -173,17 +146,14 @@ services:
 
   webmail:
     image: ghcr.io/mailu/webmail:{{applications.mailu.version}}
-    restart: {{docker_restart_policy}}
-    env_file: .env
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - "webmail_data:/data"
-      - "/etc/mailu/overrides:/overrides:ro"
+      - "{{docker_compose.directories.volumes}}overrides:/overrides:ro"
     depends_on:
       - imap
       - front
       - resolver
-    logging:
-      driver: journald
     dns:
       - {{networks.local.mailu.dns}}
 {% include 'templates/docker/container/networks.yml.j2' %}

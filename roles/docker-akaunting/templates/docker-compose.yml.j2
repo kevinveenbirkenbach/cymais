@@ -3,6 +3,9 @@ services:
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
   application:
+
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+
     image: docker.io/akaunting/akaunting:{{applications.akaunting.version}}
     build:
       context: .
@@ -10,9 +13,6 @@ services:
       - 127.0.0.1:{{http_port}}:80
     volumes:
       - data:/var/www/html
-    restart: {{docker_restart_policy}}
-    env_file:
-      - env/run.env
     environment:
       - AKAUNTING_SETUP
 {% include 'templates/docker/container/networks.yml.j2' %}

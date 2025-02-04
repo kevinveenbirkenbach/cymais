@@ -13,9 +13,8 @@ services:
     # of CPUs. You can adjust this, by explicitly setting the --concurrency
     # flag:
     #   celery -A funkwhale_api.taskapp worker -l INFO --concurrency=4
-    restart: {{docker_restart_policy}}
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     image: funkwhale/api:${FUNKWHALE_VERSION}
-    env_file: .env
     command: celery -A funkwhale_api.taskapp worker -l INFO --concurrency=${CELERYD_CONCURRENCY-0}
     environment:
       - C_FORCE_ROOT=true
@@ -26,17 +25,15 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   celerybeat:
-    restart: {{docker_restart_policy}}
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     image: funkwhale/api:${FUNKWHALE_VERSION}
-    env_file: .env
     command: celery -A funkwhale_api.taskapp beat --pidfile= -l INFO
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   api:
-    restart: {{docker_restart_policy}}
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     image: funkwhale/api:${FUNKWHALE_VERSION}
-    env_file: .env
     volumes:
       - "music:${MUSIC_DIRECTORY_PATH}:ro"
       - "data:${MEDIA_ROOT}"
@@ -47,12 +44,10 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   front:
-    restart: {{docker_restart_policy}}
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     image: funkwhale/front:${FUNKWHALE_VERSION}
     depends_on:
       - api
-    env_file:
-      - .env
     environment:
       # Override those variables in your .env file if needed
       - "NGINX_MAX_BODY_SIZE=${NGINX_MAX_BODY_SIZE-100M}"
@@ -65,9 +60,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
   
   typesense:
-    restart: {{docker_restart_policy}}
-    env_file:
-      - .env
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     image: typesense/typesense:0.24.0
     volumes:
       - ./typesense/data:/data

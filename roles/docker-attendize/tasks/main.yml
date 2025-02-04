@@ -17,5 +17,8 @@
     dest: "{{nginx.directories.http.servers}}{{domain}}.conf"
   notify: restart nginx
 
-- name: "include tasks update-repository-with-docker-compose.yml"
-  include_tasks: update-repository-with-docker-compose.yml
+- name: "include tasks update-repository-with-files.yml"
+  include_tasks: update-repository-with-files.yml
+  vars:
+    detached_files: 
+      - "docker-compose.yml"

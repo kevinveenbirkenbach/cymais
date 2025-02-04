@@ -3,17 +3,9 @@ services:
 {% include 'roles/docker-oauth2-proxy/templates/container.yml.j2' %}
 
   application:
-    logging:
-      driver: journald
     image: phpmyadmin/phpmyadmin:{{applications.phpmyadmin.version}}
     container_name: phpmyadmin
-    environment:
-      PMA_HOST: central-mariadb
-{% if applications.phpmyadmin.autologin | bool %}
-      PMA_USER: root
-      PMA_PASSWORD: "{{central_mariadb_root_password}}"
-{% endif %}
-    restart: {{docker_restart_policy}}
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     ports:
       - "127.0.0.1:{{http_port}}:80"
 {% include 'templates/docker/container/depends-on-just-database.yml.j2' %}

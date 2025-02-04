@@ -5,16 +5,7 @@ services:
   application:
     image: quay.io/keycloak/keycloak:{{applications.keycloak.version}}
     command: start
-    environment:
-      KC_HOSTNAME:                    https://{{domain}}
-      KC_HTTP_ENABLED:                true
-      KC_HEALTH_ENABLED:              true
-      KEYCLOAK_ADMIN:                 "{{applications.keycloak.administrator_username}}"
-      KEYCLOAK_ADMIN_PASSWORD:        "{{keycloak_administrator_password}}"
-      KC_DB:                          postgres
-      KC_DB_URL:                      jdbc:postgresql://{{database_host}}/{{database_name}}
-      KC_DB_USERNAME:                 {{database_username}}
-      KC_DB_PASSWORD:                 {{database_password}}
+    {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     ports:
       - "127.0.0.1:{{http_port}}:8080"
     restart: {{docker_restart_policy}}

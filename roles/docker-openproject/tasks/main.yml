@@ -6,24 +6,43 @@
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
 
-- name: "include tasks update-repository-with-docker-compose.yml"
-  include_tasks: update-repository-with-docker-compose.yml
+#- name: "include tasks update-repository-with-files.yml"
+#  include_tasks: update-repository-with-files.yml
+#  vars:
+#    detached_files: 
+#      - "docker-compose.yml"
 
-- name: "Transfering Gemfile.plugins to {{docker_compose.directories.instance}}"
+- name: "Create {{openproject_plugins_service}}"
+  file:
+    path: "{{openproject_plugins_service}}"
+    state: directory
+    mode: '0755'
+
+- name: "Transfering Gemfile.plugins to {{openproject_plugins_service}}"
   copy:
     src: Gemfile.plugins
-    dest: "{{docker_compose.directories.instance}}Gemfile.plugins"
+    dest: "{{openproject_plugins_service}}Gemfile.plugins"
   notify:
     - docker compose project setup
-    - rebuild docker image
+    - rebuild custom openproject docker image
 
-- name: "Transfering Dockerfile to {{docker_compose.directories.instance}}"
-  copy:
+- name: "Transfering Dockerfile to {{openproject_plugins_service}}Dockerfile"
+  template:
     src: Dockerfile
-    dest: "{{docker_compose.directories.instance}}Dockerfile"
+    dest: "{{openproject_plugins_service}}Dockerfile"
   notify:
     - docker compose project setup
-    - rebuild docker image
+    - rebuild custom openproject docker image
+
+- name: pull docker repository
+  git:
+    repo: "{{ repository_address }}"
+    dest: "{{ openproject_repository_service }}"
+    update: yes
+  notify:
+    - docker compose project setup
+    - rebuild openproject repository
+  become: true
 
 - name: "create {{dummy_volume}}"
   file:
@@ -31,8 +50,16 @@
     state: directory
     mode: 0755
 
-- name: "copy .env"
+- name: "create {{docker_compose.files.docker_compose}}"
+  template:
+    src:	"docker-compose.yml.j2"
+    dest:	"{{docker_compose.files.docker_compose}}"
+  notify: docker compose project setup
+
+- name: "create {{docker_compose.files.env}}"
   template: 
-    src: env.j2
-    dest: "{{ docker_compose.directories.instance }}.env"
+    src:  "env.j2" 
+    dest: "{{docker_compose.files.env}}"
+    mode: '770'
+    force: yes
   notify: docker compose project setup

@@ -1,5 +1,10 @@
 application_id:               "mailu"
 database_password:  	        "{{mailu_database_password}}"
 database_type:                "mariadb"
-cert_mount_directory:         "{{docker_compose.directories.instance}}/certs/"
+cert_mount_directory:         "{{docker_compose.directories.volumes}}certs/"
 enable_wildcard_certificate:  false
+
+# I don't know why this configuration is necessary.
+# Propabldy due to a database migration problem, or dificulties to configure an external db in mailu
+# @todo research
+enable_central_database:      "{{enable_central_database_mailu}}" 

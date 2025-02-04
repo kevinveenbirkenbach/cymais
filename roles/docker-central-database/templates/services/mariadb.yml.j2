@@ -7,12 +7,12 @@
     image: mariadb
     restart: {{docker_restart_policy}}
     env_file:
-      - mein_env_file.env
+      - {{database_env}}
     command: "--transaction-isolation=READ-COMMITTED --binlog-format=ROW"
     volumes:
       - database:/var/lib/mysql
     healthcheck:
-      test: "/usr/bin/mariadb --user={{database_username}} --password={{database_password}} --execute \"SHOW DATABASES;\""
+      test: [ "CMD", "sh", "-c", "/usr/bin/mariadb --user=$$MYSQL_USER --password=$$MYSQL_PASSWORD --execute 'SHOW DATABASES;'" ]
       interval: 3s
       timeout: 1s
       retries: 5

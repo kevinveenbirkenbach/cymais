@@ -3,20 +3,13 @@ services:
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
   application:
-    logging:
-      driver: journald
-    image: custom_wordpress
+    {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+    image: {{custom_wordpress_image}}
     container_name: wordpress-application
     build:
       context: .
-    restart: {{docker_restart_policy}}
     ports:
       - "127.0.0.1:{{http_port}}:80"
-    environment:
-      WORDPRESS_DB_HOST:      "{{database_host}}:{{database_port}}"
-      WORDPRESS_DB_USER:      "{{database_username}}"
-      WORDPRESS_DB_PASSWORD:  "{{database_password}}"
-      WORDPRESS_DB_NAME:      "{{database_name}}"
     volumes:
       - data:/var/www/html
     healthcheck:

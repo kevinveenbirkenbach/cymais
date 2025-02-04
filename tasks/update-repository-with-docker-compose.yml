@@ -1,5 +1,0 @@
-- name: "include tasks update-repository-with-files.yml"
-  include_tasks: update-repository-with-files.yml
-  vars:
-    detached_files: 
-      - "docker-compose.yml"

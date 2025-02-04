@@ -1,4 +1,4 @@
-FROM openproject/community:13
+FROM openproject/community:{{applications.openproject.version}}
 
 # If installing a local plugin (using `path:` in the `Gemfile.plugins` above),
 # you will have to copy the plugin code into the container here and use the

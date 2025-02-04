@@ -10,6 +10,6 @@
   include_tasks: update-repository-with-files.yml
   vars:
     detached_files: 
-      - .env
-      - docker-compose.yml
-      - docker-compose-inits.yml
+      - "{{docker_compose.directories.env}}env"
+      - "{{docker_compose.directories.instance}}docker-compose.yml"
+      - "{{docker_compose.directories.instance}}docker-compose-inits.yml"

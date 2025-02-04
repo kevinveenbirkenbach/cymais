@@ -147,11 +147,15 @@ defaults_applications:
 
   ## OAuth2 Proxy
   oauth2_proxy:
-    configuration_file: "oauth2-proxy-keycloak.cfg"                                  # Needs to be set true in the roles which use it
+    configuration_file: "oauth2-proxy-keycloak.cfg"                                                                 # Needs to be set true in the roles which use it
     version:            "latest"
     redirect_url:       "https://{{domains.keycloak}}/auth/realms/{{primary_domain}}/protocol/openid-connect/auth"  # The redirect URL for the OAuth2 flow. It should match the redirect URL configured in Keycloak.
-    allowed_roles:      admin                                     # Restrict it default to admin role. Use the vars/main.yml to open the specific role for other groups  
-    cookie_secret:      "{{applications.oauth2_proxy.cookie_secret}}"          # Default use wildcard for primary domain, subdomain client specific configuration in vars files in the roles is possible openssl rand -hex 16
+    allowed_roles:      admin                                                                                       # Restrict it default to admin role. Use the vars/main.yml to open the specific role for other groups  
+    cookie_secret:      "{{applications.oauth2_proxy.cookie_secret}}"                                               # Default use wildcard for primary domain, subdomain client specific configuration in vars files in the roles is possible openssl rand -hex 16
+
+  ## Open Project
+  openproject:
+    version:            "13" # Update when available. Sadly no rolling release implemented
 
   ## Peertube
   peertube:

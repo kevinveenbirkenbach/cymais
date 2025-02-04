@@ -3,18 +3,10 @@ services:
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
   application:
-    logging:
-      driver: journald
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     image: matomo:{{applications.matomo.version}}
-    restart: {{docker_restart_policy}}
     ports:
       - "127.0.0.1:{{http_port}}:80"
-    environment:
-      MATOMO_DATABASE_HOST:     "{{database_host}}:{{database_port}}"
-      MATOMO_DATABASE_ADAPTER:  "mysql"
-      MATOMO_DATABASE_USERNAME: "{{database_username}}"
-      MATOMO_DATABASE_PASSWORD: "{{database_password}}"
-      MATOMO_DATABASE_DBNAME:   "{{database_name}}"
     volumes:
       - data:/var/www/html
 {% include 'templates/docker/container/depends-on-just-database.yml.j2' %}

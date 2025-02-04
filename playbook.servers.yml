@@ -59,9 +59,7 @@
   become: true
   roles:
    -  role: docker-mailu
-      vars:
-        enable_central_database: "{{enable_central_database_mailu}}"
-        
+
 - name: setup elk hosts
   hosts: elk
   become: true

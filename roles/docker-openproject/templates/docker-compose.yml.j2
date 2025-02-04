@@ -1,7 +1,7 @@
 x-op-app: &app
   logging:
     driver: journald
-  image: custom_openproject
+  image: {{custom_openproject_image}}
   environment:
     OPENPROJECT_HTTPS: "${OPENPROJECT_HTTPS}"
     OPENPROJECT_HOST__NAME: "${OPENPROJECT_HOST__NAME}"
@@ -27,16 +27,12 @@ services:
   cache:
     image: memcached
     container_name: openproject-memcached
-    restart: {{docker_restart_policy}}
-    logging:
-      driver: journald
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   proxy:
-    restart: {{docker_restart_policy}}
-    logging:
-      driver: journald
-    image: custom_openproject
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+    image: {{custom_openproject_image}}
     container_name: openproject-proxy
     command: "./docker/prod/proxy"
     ports:
@@ -53,7 +49,7 @@ services:
 
   web:
     <<: *app
-    restart: {{docker_restart_policy}}
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     command: "./docker/prod/web"
     container_name: openproject-web
 {% include 'templates/docker/container/networks.yml.j2' %}
@@ -74,9 +70,7 @@ services:
   autoheal:
     image: willfarrell/autoheal:1.2.0
     container_name: openproject-autoheal
-    restart: {{docker_restart_policy}}
-    logging:
-      driver: journald
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
     environment:
@@ -86,7 +80,7 @@ services:
 
   worker:
     <<: *app
-    restart: {{docker_restart_policy}}
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     command: "./docker/prod/worker"
     container_name: openproject-worker
 {% include 'templates/docker/container/networks.yml.j2' %}
@@ -98,7 +92,7 @@ services:
 
   cron:
     <<: *app
-    restart: {{docker_restart_policy}}
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     command: "./docker/prod/cron"
     container_name: openproject-cron
 {% include 'templates/docker/container/networks.yml.j2' %}
@@ -112,6 +106,10 @@ services:
     <<: *app
     command: "./docker/prod/seeder"
     container_name: openproject-seeder
+    env_file:
+      - "{{docker_compose.files.env}}"
+    logging:
+      driver: journald
     restart: on-failure
 {% include 'templates/docker/container/networks.yml.j2' %}
 

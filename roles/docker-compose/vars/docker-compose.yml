@@ -4,7 +4,11 @@ _docker_compose_directories_instance: "{{ path_docker_compose_instances }}{{ app
 # @See https://chatgpt.com/share/67a23d18-fb54-800f-983c-d6d00752b0b4
 docker_compose: 
   directories:
-    instance: "{{_docker_compose_directories_instance}}"          # Folder for docker-compose.yml file
-    env:      "{{_docker_compose_directories_instance}}/.env/"     # Folder for env files
-    services: "{{_docker_compose_directories_instance}}/services/" # Folder for services
-    volumes:  "{{_docker_compose_directories_instance}}/volumes/"  # Folder for volumes
+    instance:       "{{_docker_compose_directories_instance}}"                    # Folder for docker-compose.yml file
+    env:            "{{_docker_compose_directories_instance}}.env/"               # Folder for env files
+    services:       "{{_docker_compose_directories_instance}}services/"           # Folder for services
+    volumes:        "{{_docker_compose_directories_instance}}volumes/"            # Folder for volumes
+    config:         "{{_docker_compose_directories_instance}}config/"             # Folder for configuration files
+  files:
+    env:            "{{_docker_compose_directories_instance}}.env/env"            # General env file
+    docker_compose: "{{_docker_compose_directories_instance}}docker-compose.yml"  # Docker Compose file

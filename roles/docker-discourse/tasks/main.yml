@@ -43,10 +43,10 @@
     mode: '700'
     state: directory
 
-- name: "copy configuration to {{discourse_repository_directory}}containers/discourse_application.yml"
+- name: "copy configuration to {{discourse_application_yml_destination}}"
   template: 
     src: discourse_application.yml.j2
-    dest: "{{discourse_repository_directory}}containers/discourse_application.yml"
+    dest: "{{discourse_application_yml_destination}}"
   notify: recreate discourse
 
 - name: "destroy container discourse_application"

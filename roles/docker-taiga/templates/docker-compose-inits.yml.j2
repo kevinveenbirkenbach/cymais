@@ -32,6 +32,7 @@ services:
   taiga-manage:
     image: taigaio/taiga-back:latest
     environment: *default-back-environment
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
 {% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 

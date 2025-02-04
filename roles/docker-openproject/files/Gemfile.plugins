@@ -1,3 +1,4 @@
 group :opf_plugins do
-  gem "openproject-gitlab_integration", git: "https://github.com/btey/openproject-gitlab-integration", branch: "master"
+  # Deactivated plugin because it seems like it's already included in the basic image
+  #gem "openproject-gitlab_integration", git: "https://github.com/btey/openproject-gitlab-integration", branch: "master"
 end

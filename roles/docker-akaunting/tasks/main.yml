@@ -6,9 +6,16 @@
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
 
-- name: "include tasks update-repository-with-docker-compose.yml"
-  include_tasks: update-repository-with-docker-compose.yml
+- name: "include tasks update-repository-with-files.yml"
+  include_tasks: update-repository-with-files.yml
+  vars:
+    detached_files: 
+      - "docker-compose.yml"
 
-- name: configure run.env
-  template: src=run.env.j2 dest={{docker_compose.directories.instance}}/env/run.env
+- name: "create {{docker_compose.files.env}}"
+  template: 
+    src:  "env.j2" 
+    dest: "{{docker_compose.files.env}}"
+    mode: '770'
+    force: yes
   notify: docker compose project setup

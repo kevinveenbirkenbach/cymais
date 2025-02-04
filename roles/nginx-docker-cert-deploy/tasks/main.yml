@@ -3,6 +3,7 @@
     src: "nginx-docker-cert-deploy.sh" 
     dest: "{{nginx_docker_cert_deploy_script}}"
   when: run_once_nginx_docker_cert_deploy is not defined
+  notify: restart nginx-docker-cert-deploy.cymais.service
 
 - name: run the nginx_docker_cert_deploy tasks once
   set_fact:
@@ -14,6 +15,7 @@
     path:     "{{cert_mount_directory}}"
     state:    directory
     mode:     0755
+  notify: restart nginx-docker-cert-deploy.cymais.service
 
 - name: configure nginx-docker-cert-deploy.cymais.service
   template: 

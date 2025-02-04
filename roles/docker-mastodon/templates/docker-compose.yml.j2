@@ -6,8 +6,7 @@ services:
 
   web:
     image: ghcr.io/mastodon/mastodon:{{applications.mastodon.version}}
-    restart: {{docker_restart_policy}}
-    env_file: .env.production
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
     healthcheck:
       test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:3000/health || exit 1']
@@ -16,36 +15,28 @@ services:
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
     volumes:
       - data:/mastodon/public/system
-    logging:
-      driver: journald
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   streaming:
     image: ghcr.io/mastodon/mastodon-streaming:{{applications.mastodon.version}}
-    restart: {{docker_restart_policy}}
-    env_file: .env.production
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     command: node ./streaming
     healthcheck:
       test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:4000/api/v1/streaming/health || exit 1']
     ports:
       - "127.0.0.1:{{ports.localhost.web_socket[application_id]}}:4000"
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
-    logging:
-      driver: journald
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   sidekiq:
     image: ghcr.io/mastodon/mastodon:{{applications.mastodon.version}}
-    restart: {{docker_restart_policy}}
-    env_file: .env.production
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     command: bundle exec sidekiq
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
     volumes:
       - data:/mastodon/public/system
     healthcheck:
       test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 6' || false"]
-    logging:
-      driver: journald
 {% include 'templates/docker/container/networks.yml.j2' %}
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}

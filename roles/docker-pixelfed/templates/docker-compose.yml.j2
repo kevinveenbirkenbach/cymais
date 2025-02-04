@@ -6,11 +6,7 @@ services:
 
   application:
     image: zknt/pixelfed:{{applications.pixelfed.version}}
-    restart: {{docker_restart_policy}}
-    logging:
-      driver: journald
-    env_file:
-      - ./env
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - "data:/var/www/storage"
       - "./env:/var/www/.env"
@@ -20,11 +16,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
   worker:
     image: zknt/pixelfed:{{applications.pixelfed.version}}
-    restart: {{docker_restart_policy}}
-    logging:
-      driver: journald
-    env_file:
-      - ./env
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - "data:/var/www/storage"
       - "./env:/var/www/.env"

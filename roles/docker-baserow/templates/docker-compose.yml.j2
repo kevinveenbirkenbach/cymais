@@ -5,13 +5,9 @@ services:
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
   application:
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     image: "baserow/baserow:{{applications.baserow.version}}"
     container_name: baserow-application
-    restart: {{docker_restart_policy}}
-    logging:
-      driver: journald
-    env_file:
-      - ./env
     volumes:
       - data:/baserow/data
     ports:
