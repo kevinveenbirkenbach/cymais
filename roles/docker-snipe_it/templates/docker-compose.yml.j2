@@ -1,13 +1,10 @@
-volumes:
-  db_data:
-  storage:
+services:
 
 {% include 'templates/docker/services/redis.yml.j2' %}
 
 {% include 'templates/docker/services/' + database_type + '.yml.j2' %}
 
-services:
-  app:
+  application:
     image: snipe/snipe-it:${APP_VERSION}
     restart: {{docker_restart_policy}}
     volumes:
@@ -16,7 +13,7 @@ services:
       - "${APP_PORT}:80"
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
     env_file:
-      - .env  # Will also be read, without this parameter
+      - .env  # Will also be read, without explicit declaring it here
 {% include 'templates/docker/container/networks.yml.j2' %}
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}
