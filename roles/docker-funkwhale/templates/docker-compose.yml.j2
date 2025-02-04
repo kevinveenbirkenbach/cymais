@@ -14,30 +14,30 @@ services:
     # flag:
     #   celery -A funkwhale_api.taskapp worker -l INFO --concurrency=4
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    image: funkwhale/api:${FUNKWHALE_VERSION}
-    command: celery -A funkwhale_api.taskapp worker -l INFO --concurrency=${CELERYD_CONCURRENCY-0}
+    image: funkwhale/api:{{applications.funkwhale.version}}
+    command: celery -A funkwhale_api.taskapp worker -l INFO --concurrency={{celeryd_concurrency}}
     environment:
       - C_FORCE_ROOT=true
     volumes:
-      - "data:${MEDIA_ROOT}"
-      - "music:${MUSIC_DIRECTORY_PATH}:ro"
+      - "data:{{media_root}}"
+      - "music:{{music_directory_path}}:ro"
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   celerybeat:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    image: funkwhale/api:${FUNKWHALE_VERSION}
+    image: funkwhale/api:{{applications.funkwhale.version}}
     command: celery -A funkwhale_api.taskapp beat --pidfile= -l INFO
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   api:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    image: funkwhale/api:${FUNKWHALE_VERSION}
+    image: funkwhale/api:{{applications.funkwhale.version}}
     volumes:
-      - "music:${MUSIC_DIRECTORY_PATH}:ro"
-      - "data:${MEDIA_ROOT}"
-      - "static_root:${STATIC_ROOT}"
+      - "music:{{music_directory_path}}:ro"
+      - "data:{{media_root}}"
+      - "static_root:{{static_root}}"
     ports:
       - "5000"
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
@@ -45,18 +45,18 @@ services:
 
   front:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    image: funkwhale/front:${FUNKWHALE_VERSION}
+    image: funkwhale/front:{{applications.funkwhale.version}}
     depends_on:
       - api
     environment:
       # Override those variables in your .env file if needed
-      - "NGINX_MAX_BODY_SIZE=${NGINX_MAX_BODY_SIZE-100M}"
+      - "NGINX_MAX_BODY_SIZE=100M"
     volumes:
-      - "data:${MEDIA_ROOT}:ro"
-      #- "${STATIC_ROOT}:${STATIC_ROOT}:ro"
+      - "data:{{media_root}}:ro"
+      #- "{{static_root}}:{{static_root}}:ro"
     ports:
       # override those variables in your .env file if needed
-      - "${FUNKWHALE_API_IP}:${FUNKWHALE_API_PORT}:80"
+      - "127.0.0.1:{{http_port}}:80"
 {% include 'templates/docker/container/networks.yml.j2' %}
   
   typesense:
