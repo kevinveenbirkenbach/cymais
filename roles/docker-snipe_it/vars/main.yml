@@ -1,3 +1,8 @@
-application_id:     "snipe_it"
-database_password:  "{{applications.snipe_it.database_password}}"
-database_type:      "mariadb"
+application_id:           "snipe_it"
+database_password:        "{{applications.snipe_it.database_password}}"
+database_type:            "mariadb"
+
+# deactivated due to error
+# SQLSTATE[42000]: Syntax error or access violation: 1067 Invalid default value for 'locale'
+# alter table `users` add `locale` varchar(5) null default 'locale'
+enable_central_database:  false

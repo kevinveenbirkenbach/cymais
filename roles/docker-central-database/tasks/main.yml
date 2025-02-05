@@ -7,11 +7,14 @@
 - name: "load variables from {{ role_path }}/vars/database.yml for whole play"
   include_vars: "{{ role_path }}/vars/database.yml"
 
+# The following env file will just be used from the dedicated mariadb container
+# and not the central-mariadb-database
 - name: "create {{database_env}}"
   template: 
     src: "env/{{database_type}}.env.j2"
     dest: "{{database_env}}"
   notify: docker compose project build and setup
+  when: not enable_central_database | bool
 
 - name: create central database
   include_role:
