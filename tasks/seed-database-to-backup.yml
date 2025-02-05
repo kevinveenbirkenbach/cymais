@@ -5,7 +5,7 @@
       database_name: "{{ database_name | default('undefined') }}"
       database_username: "{{ database_username | default('undefined') }}"
       database_password: "{{ database_password | default('undefined') }}"
-  when: mode_debug | bool
+  when: enable_debug | bool
 
 - name: seed database values
   command:

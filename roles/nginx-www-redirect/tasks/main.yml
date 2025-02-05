@@ -17,7 +17,7 @@
 - name: The domains for which a www. redirect will be implemented
   debug:
     var: filtered_domains
-  when: mode_debug | bool
+  when: enable_debug | bool
 
 # Routine for domains with primary domain included
 
@@ -28,7 +28,7 @@
 - name: Debug with primary domain
   debug:
     var: filtered_domains_with_primary_domain
-  when: mode_debug | bool
+  when: enable_debug | bool
 
 - name: Include nginx-domain-redirect role with dynamic domain mappings for domains with {{primary_domain}} included
   include_role:
@@ -55,7 +55,7 @@
 - name: Debug domains without primary domain
   debug:
     var: filtered_domains_without_primary_domain
-  when: mode_debug | bool
+  when: enable_debug | bool
 
 - name: Include nginx-domain-redirect role with dynamic domain mappings for domains without primary domain
   include_role:

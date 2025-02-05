@@ -8,7 +8,7 @@
 - name: The domains for which a www. redirect will be implemented
   debug:
     var: domain_mappings
-  when: mode_debug | bool
+  when: enable_debug | bool
 
 - name: configure nginx redirect configurations
   vars:

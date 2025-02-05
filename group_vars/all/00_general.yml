@@ -3,7 +3,7 @@ pause_duration:         "120"         # Database delay to wait for the central d
 
 backups_folder_path:    "/Backups/"   # Path to the backups folder
 timezone:               "UTC"
-locale:                 "locale"
+locale:                 "en"
 
 ## Domain
 primary_domain_tld:     "localhost"                                     # Top Level Domain of the server
@@ -43,4 +43,7 @@ nginx_matomo_tracking:                false   # Activates matomo tracking on all
 # To enable, update your inventory file.
 # For detailed setup instructions, visit: 
 # https://github.com/kevinveenbirkenbach/cymais/tree/master/roles/nginx-docker-cert-deploy
-enable_wildcard_certificate:          false    
+enable_wildcard_certificate:          false  
+
+# This enables debugging in ansible and in the apps
+enable_debug:   false
