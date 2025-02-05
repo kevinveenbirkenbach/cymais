@@ -1,6 +1,47 @@
+# CyMaIS Role
 
-## more
-- https://github.com/snipe/snipe-it
-- https://snipeitapp.com/
+🚀 **CyMaIS** - Centralized Management and Integration System for **[Snipe-IT](https://github.com/snipe/snipe-it)**
+
+## About 📖
+This role provides an automated deployment and configuration for **Snipe-IT**, an open-source asset management system. It leverages **Docker Compose**, **Ansible**, and **centralized database integration** to streamline deployment and maintenance.
+
+👤 **Author:** Kevin Veen-Birkenbach  
+🔗 **Website:** [veen.world](https://veen.world)
+
+## Features ✨
+- Automated setup using **Docker Compose** 🐳
+- Centralized **MariaDB** database support 🛢️
+- Secure environment configurations 🔐
+- Configurable **SMTP email settings** 📧
+- **SAML Authentication Support** (Pending Fix) 🔐
+- **Redis Caching** for improved performance ⚡
+
+## Administration 🛠️
+Clear and restart the application:
+```bash
+docker-compose exec application php artisan config:clear
+docker-compose exec application php artisan cache:clear
+docker-compose restart application
+```
+
+## Configuration
+- **Database:** The role supports **MariaDB** as the primary database.
+- **Environment Variables:** Defined in `templates/env.j2`.
+- **Nginx Proxy Support:** Automated through `nginx-docker-proxy-domain.yml`.
+
+## Pending Issue 🚧
+To ensure full **SAML authentication integration**, this issue still needs to be resolved:  
+🔗 [GitHub Issue #16186](https://github.com/snipe/snipe-it/issues/16186)
+
+## Additional Resources 📚
+For more details, visit the official documentation and related links:
+- 🔗 [Snipe-IT Documentation](https://snipe-it.readme.io/docs/ldap-sync-login)
+- 🔗 [SAML Setup](https://snipe-it.readme.io/docs/saml)
+- 🔗 [Mattermost SSO Integration](https://docs.mattermost.com/onboard/sso-saml-keycloak.html)
 - https://snipe-it.readme.io/docs/ldap-sync-login
-- https://snipe-it.readme.io/docs/saml
+- https://github.com/snipe/snipe-it/issues/8584
+- https://chatgpt.com/c/67a34927-a994-800f-a3d5-86a5b0205c8b
+- https://github.com/snipe/snipe-it/issues/14895
+- https://github.com/snipe/snipe-it/issues/16186
+
+🚀 Happy Deploying! 🏗️

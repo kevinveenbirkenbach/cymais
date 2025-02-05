@@ -1,3 +1,4 @@
 application_id:           "snipe_it"
 database_password:        "{{applications.snipe_it.database_password}}"
 database_type:            "mariadb"
+# enable_central_database:  false For debugging reasons here
