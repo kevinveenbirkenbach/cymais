@@ -6,10 +6,30 @@
 - name: "include tasks nginx-docker-proxy-domain.yml"
   include_tasks: nginx-docker-proxy-domain.yml
 
-- name: "include tasks update-repository-with-files.yml"
-  include_tasks: update-repository-with-files.yml
-  vars:
-    detached_files: 
-      - "{{docker_compose.directories.env}}env"
-      - "{{docker_compose.directories.instance}}docker-compose.yml"
-      - "{{docker_compose.directories.instance}}docker-compose-inits.yml"
+- name: pull docker repository
+  git:
+    repo: "{{ repository_address }}"
+    dest: "{{ docker_compose.directories.services }}"
+    update: yes
+  notify: docker compose project setup
+  become: true
+
+- name: "create {{docker_compose_init}}"
+  template:
+    src:	"docker-compose-inits.yml.j2"
+    dest:	"{{docker_compose_init}}"
+  notify: docker compose project setup
+
+- name: "create {{docker_compose.files.docker_compose}}"
+  template:
+    src:	"docker-compose.yml.j2"
+    dest:	"{{docker_compose.files.docker_compose}}"
+  notify: docker compose project setup
+
+- name: "create {{docker_compose.files.env}}"
+  template: 
+    src:  "env.j2" 
+    dest: "{{docker_compose.files.env}}"
+    mode: '770'
+    force: yes
+  notify: docker compose project setup
