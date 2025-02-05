@@ -8,7 +8,6 @@ services:
     {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     ports:
       - "127.0.0.1:{{http_port}}:8080"
-    restart: {{docker_restart_policy}}
 {% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
