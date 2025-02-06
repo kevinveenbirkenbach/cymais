@@ -40,6 +40,12 @@ To ensure all required database tables and structures are in place after an upda
 docker compose exec -it web bash -c "RAILS_ENV=production bin/rails db:migrate"
 ```
 
+### delete cache
+```bash
+docker-compose exec web bundle exec rails assets:precompile
+docker-compose restart
+```
+
 This command enters the web container and runs migrations in production mode, updating the database structure to match the current version of the Mastodon software. If your Mastodon web container is named differently in your `docker-compose.yml`, replace `web` with the appropriate container name.
 
 ## further information
@@ -48,4 +54,5 @@ This command enters the web container and runs migrations in production mode, up
 - https://www.2daygeek.com/linux-command-check-website-is-up-down-alive/
 - https://vitobotta.com/2022/11/07/setting-up-a-personal-mastodon-instance/
 - https://www.digitalocean.com/community/tutorials/how-to-scale-your-mastodon-server
+- https://github.com/mastodon/mastodon/issues/7958
 
