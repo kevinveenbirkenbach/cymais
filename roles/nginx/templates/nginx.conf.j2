@@ -17,8 +17,22 @@ http
   # caching
   proxy_cache_path /tmp/cache levels=1:2 keys_zone=cache:20m max_size=20g inactive=14d use_temp_path=off;
 
-  # logs
+  # logging and debugging
+{% if enable_debug | bool %}
+  # individual log format for better debugging
+  log_format debug '$host - $remote_addr [$time_local] '
+                  '"$request" $status $body_bytes_sent '
+                  '"Referer: $http_referer" '
+                  '"User-Agent: $http_user_agent" '
+                  '"ReqTime: $request_time" "UpstreamTime: $upstream_response_time" '
+                  '"ReqLength: $request_length" "BytesSent: $bytes_sent" '
+                  '"ConnRequests: $connection_requests" '
+                  '"X-Forwarded-For: $http_x_forwarded_for" '
+                  '"Scheme: $scheme" "Protocol: $server_protocol" "ServerName: $server_name"';
+  access_log syslog:server=unix:/dev/log debug;
+{% else %}
   access_log syslog:server=unix:/dev/log;
+{% endif %}
   error_log syslog:server=unix:/dev/log;
 
   sendfile on;

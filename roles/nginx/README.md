@@ -1,9 +1,22 @@
 # role nginx
+This role sets up an nginx server. It was developed by [Kevin Veen-Birkenbach](https://www.veen.world).
+## Debug
 
-## debug
+### General Debugging
 ```bash 
 journalctl -f -u nginx
 ```
+
+### Detailled Debugging
+Set ``enable_debugenable_debug: true``.
+#### Follow logs of one host
+```bash
+journalctl -u nginx -f | grep "<<hostname>>"
+```
+
+
+### Activate detailled Debugging:
+
 ## performance
 - https://www.monitis.com/blog/6-best-practices-for-optimizing-your-nginx-performance/
 - https://www.nginx.com/blog/tuning-nginx/
