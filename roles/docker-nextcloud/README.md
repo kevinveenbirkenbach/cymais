@@ -2,11 +2,6 @@
 
 This repository contains an Ansible role for deploying and managing [Nextcloud](https://nextcloud.com/) using [Docker](https://www.docker.com/). It covers configuration modifications, updates, backups, database management, and more. Additionally, OIDC (OpenID Connect) is supported (for example, via **Keycloak**).
 
-> **Developed by:** Kevin Veen-Birkenbach  
-> **Website:** [https://www.veen.world/](https://www.veen.world/)  
->  
-> *This README.md was created with the help of [ChatGPT](https://chatgpt.com/share/67a5312c-7248-800f-ae27-0288c1c82f1d).*
-
 ---
 
 ## Modify Config 🔧
@@ -168,5 +163,14 @@ docker-compose logs web --tail 1000 | grep 504
 OIDC is supported in this role—for example, via **Keycloak**. OIDC-specific tasks are included when enabled, allowing integration of external authentication providers seamlessly.
 
 ---
+## Author
 
+**Developed by:** Kevin Veen-Birkenbach  
+**Website:** [https://www.veen.world/](https://www.veen.world/)
+
+*This README.md was created with the help of [ChatGPT](https://chatgpt.com/share/67a5312c-7248-800f-ae27-0288c1c82f1d).*
+
+---
 *Enjoy and happy containerizing! 😄*
+
+
