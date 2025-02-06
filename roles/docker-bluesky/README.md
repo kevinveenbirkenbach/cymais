@@ -2,19 +2,6 @@
 
 
 ## Setup 
-### Set variables
-
-#### applications.bluesky.pds.jwt_secret
-```bash
-openssl rand -base64 64 | tr -d '\n'
-```
-for 
-
-#### applications.bluesky.pds.plc_rotation_key_k256_private_key_hex
-openssl rand -hex 32
-
-#### applications.bluesky.pds.admin_password
-openssl rand -base64 16
 
 ### Configure DNS
 - https://bsky.social/about/blog/4-28-2023-domain-handle-tutorial
