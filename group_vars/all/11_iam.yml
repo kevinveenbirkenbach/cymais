@@ -23,6 +23,7 @@ defaults_oidc:
     toke_url:             "{{_oidc_client_issuer_url}}/protocol/openid-connect/token"
     user_info_url:        "{{_oidc_client_issuer_url}}/protocol/openid-connect/userinfo"
     logout_url:           "{{_oidc_client_issuer_url}}/protocol/openid-connect/logout"
+    change_credentials:   "{{_oidc_client_issuer_url}}account/account-security/signing-in"
 
 #############################################
 ### OAuth2-Proxy                          ###
