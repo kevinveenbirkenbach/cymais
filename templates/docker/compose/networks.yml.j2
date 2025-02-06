@@ -4,8 +4,9 @@ networks:
   central_{{ database_type }}:
     external: true
 {% endif %}
-{% if ldap_network_enabled %}
+{% if ldap_network_enabled | bool %}
   central_ldap:
+    external: true
 {% endif %}
   default:
 {% if application_id in networks.local and networks.local[application_id].subnet is defined %}

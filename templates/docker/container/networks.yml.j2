@@ -3,7 +3,7 @@
 {% if enable_central_database | bool and database_type is defined %}
       central_{{ database_type }}:
 {% endif %}
-{% if ldap_network_enabled %}
+{% if ldap_network_enabled | bool %}
       central_ldap:
 {% endif %}
       default:

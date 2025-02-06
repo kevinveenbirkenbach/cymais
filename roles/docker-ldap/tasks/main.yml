@@ -19,6 +19,11 @@
     state: absent
   when: not applications.ldap.openldap.expose_to_internet | bool
 
+- name: create docker network for LDAP, so that other applications can access it
+  docker_network:
+    name: central_ldap
+    state: present
+
 - name: "create {{docker_compose.files.docker_compose}}"
   template:
     src:	"docker-compose.yml.j2"

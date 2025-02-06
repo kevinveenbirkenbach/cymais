@@ -25,9 +25,11 @@ services:
     image: bitnami/openldap:{{applications.ldap.openldap.version}}
     container_name: openldap
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% if applications.ldap.openldap.expose_to_internet | bool %}
     ports:
       - 127.0.0.1:{{ldap_localhost_port}}:{{ldap_localhost_port}}               # Expose just on localhost so that nginx stream proxy can use it
       - 127.0.0.1:{{ldap_secure_localhost_port}}:{{ldap_secure_localhost_port}} # Expose just on localhost
+{% endif %}
     volumes:
       - 'data:/bitnami/openldap'
     healthcheck:
