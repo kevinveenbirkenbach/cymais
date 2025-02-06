@@ -1,16 +1,24 @@
-# docker mastodon
+# 🚀 Docker Mastodon with OIDC Support
 
-## create configuration
+## 📌 Overview
+This project provides a **Docker-based setup for Mastodon**, including full **OIDC (OpenID Connect) authentication support**. It is maintained by **[Kevin Veen-Birkenbach](https://www.veen.world)**.
+
+This README and some parts of the code were created with the assistance of ChatGPT. You can follow the discussion and evolution of this project in [this conversation](https://chatgpt.com/c/67a4e19b-3884-800f-9d45-621dda2a6572).
+
+## ⚙️ Configuration & Setup
+
+### 🔧 Create Configuration
+Run the following command to generate a new configuration setup:
 ```bash
     docker-compose run --rm web bundle exec rake mastodon:setup
 ```
 
-## Setup with existing configuration
-```bash 
+### 🔄 Setup with an Existing Configuration
+```bash
 docker-compose run --rm web bundle exec rails db:migrate
 ```
 
-## cleanup
+### 🗑️ Cleanup (Remove Instance & Volumes)
 ```bash
 cd {{path_docker_compose_instances}}mastodon/
 docker-compose down
@@ -19,40 +27,45 @@ cd {{path_docker_compose_instances}} &&
 rm -vR {{path_docker_compose_instances}}mastodon
 ```
 
-## access terminal
+### 🔍 Access Mastodon Terminal
 ```bash
 docker-compose exec -it web /bin/bash
 ```
 
-## set rights
-
-After setting up mastodon you need to give the rights 
-
+### 🛠️ Set File Permissions
+After setting up Mastodon, apply the correct file permissions:
 ```bash
 docker-compose exec -it -u root web chown -R 991:991 public
 ```
 
-### Running Database Migrations
+## 📦 Database Management
 
-To ensure all required database tables and structures are in place after an update, you can run database migrations directly within the Mastodon web container. Use the following command:
-
+### 🏗️ Running Database Migrations
+Ensure all required database structures are up to date:
 ```bash
 docker compose exec -it web bash -c "RAILS_ENV=production bin/rails db:migrate"
 ```
 
-### delete cache
+## 🚀 Performance Optimization
+
+### 🗑️ Delete Cache & Recompile Assets
 ```bash
 docker-compose exec web bundle exec rails assets:precompile
 docker-compose restart
 ```
 
-This command enters the web container and runs migrations in production mode, updating the database structure to match the current version of the Mastodon software. If your Mastodon web container is named differently in your `docker-compose.yml`, replace `web` with the appropriate container name.
+This ensures your Mastodon instance is loading the latest assets after updates.
 
-## further information
-- https://goneuland.de/mastodon-mit-docker-und-traefik-installieren/
-- https://gist.github.com/TrillCyborg/84939cd4013ace9960031b803a0590c4
-- https://www.2daygeek.com/linux-command-check-website-is-up-down-alive/
-- https://vitobotta.com/2022/11/07/setting-up-a-personal-mastodon-instance/
-- https://www.digitalocean.com/community/tutorials/how-to-scale-your-mastodon-server
-- https://github.com/mastodon/mastodon/issues/7958
+## 🔐 OIDC (OpenID Connect) Authentication Support
+This Mastodon role now **fully supports OpenID Connect (OIDC)**, allowing seamless authentication via identity providers like **Keycloak, Auth0, Google, or other OIDC-compliant services**.
+
+## 📚 Further Reading
+- [Mastodon with Docker & Traefik](https://goneuland.de/mastodon-mit-docker-und-traefik-installieren/)
+- [Mastodon Configuration Guide](https://gist.github.com/TrillCyborg/84939cd4013ace9960031b803a0590c4)
+- [Check Website Availability](https://www.2daygeek.com/linux-command-check-website-is-up-down-alive/)
+- [Personal Mastodon Setup](https://vitobotta.com/2022/11/07/setting-up-a-personal-mastodon-instance/)
+- [Scaling a Mastodon Server](https://www.digitalocean.com/community/tutorials/how-to-scale-your-mastodon-server)
+- [Mastodon GitHub Issues](https://github.com/mastodon/mastodon/issues/7958)
+
+
 
