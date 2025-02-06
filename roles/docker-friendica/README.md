@@ -111,6 +111,7 @@ docker compose exec -it application msmtp --account=system_email -t test@test.de
 - [Friendica Docker Hub](https://hub.docker.com/_/friendica)
 - [Friendica Installation Docs](https://wiki.friendi.ca/docs/install)
 - [Friendica GitHub Repository](https://github.com/friendica/docker)
+- [Open Issue: Login Mask does not change with OIDC activated](https://github.com/friendica/friendica/issues/14743)
 
 ---
 
