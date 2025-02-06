@@ -11,4 +11,4 @@ oauth2_proxy_active:                        true
 
 enable_wildcard_certificate:  false # Activate dedicated Certificate
 
-ldap_network_enabled:                 true  # Activate LDAP network
+ldap_network_enabled:         true  # Activate LDAP network

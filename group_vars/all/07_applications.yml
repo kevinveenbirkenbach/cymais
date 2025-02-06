@@ -3,6 +3,13 @@
 ## Docker Role Specific Parameters
 docker_restart_policy:        "unless-stopped"
 
+##############################################
+## Private Helper variables                ### 
+##############################################
+
+# By default don't expose openldap to the internet, just if explicit configured
+_ldap_openldap_expose_to_internet:       "{{ applications.ldap.openldap.expose_to_internet if applications.ldap is defined and applications.ldap.openldap is defined else false}}"
+
 defaults_applications:
 
   ## Akaunting
@@ -62,13 +69,14 @@ defaults_applications:
       administrator_password:         "{{user_administrator_initial_password}}" # CHANGE for security reasons
     openldap:
       version:                        "latest"
-      expose_to_internet:             false     # Set to true if you want to expose the LDAP port to the internet. Keep in mind to
+      expose_to_internet:             "{{_ldap_openldap_expose_to_internet}}"   # Set to true if you want to expose the LDAP port to the internet
+      domain:                         "{{domains.ldap if _ldap_openldap_expose_to_internet else 'openldap'}}" # Mapping for public or locale access
     phpldapadmin:
       version:                        "2.0.0-dev"                               # @todo Attention: Change this as fast as released to latest
     webinterface:                     "lam"                                     # The webinterface which should be used. Possible: lam and phpldapadmin
     administrator_username:           "{{administrator_username}}"
     administrator_password:           "{{user_administrator_initial_password}}" # CHANGE for security reasons
-    administrator_database_password:  "{{user_administrator_initial_password}}" # CHANGE for security reasons                                    
+    administrator_database_password:  "{{user_administrator_initial_password}}" # CHANGE for security reasons         
 
   ## Listmonk
   listmonk:

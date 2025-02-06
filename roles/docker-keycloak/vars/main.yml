@@ -1,3 +1,4 @@
-application_id:  	  "keycloak"
-database_type:      "postgres"
-database_password:  "{{keycloak_database_password}}"
+application_id:  	    "keycloak"
+database_type:        "postgres"
+database_password:    "{{keycloak_database_password}}"
+ldap_network_enabled: true  # Activate LDAP network

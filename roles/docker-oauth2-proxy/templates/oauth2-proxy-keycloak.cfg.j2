@@ -3,14 +3,14 @@ cookie_secret           =   "{{applications.oauth2_proxy.cookie_secret}}"
 email_domains           =   "{{primary_domain}}"
 cookie_secure           =   "false"
 upstreams               =   "http://{{oauth2_proxy_upstream_application_and_port}}"
-cookie_domains          =   ["{{domain}}", "{{domains.keycloak}}"]                   # Required so cookie can be read on all subdomains.
+cookie_domains          =   ["{{domain}}", "{{domains.keycloak}}"]                  # Required so cookie can be read on all subdomains.
 whitelist_domains       =   [".{{primary_domain}}"]                                 # Required to allow redirection back to original requested target.
 
 # keycloak provider
 client_secret           =   "{{oidc.client.secret}}"
 client_id               =   "{{oidc.client.id}}"
 redirect_url            =   "https://{{domain}}/oauth2/callback"
-oidc_issuer_url         =   "{{oidc_client_issuer_url}}"
+oidc_issuer_url         =   "{{oidc.client.issuer_url}}"
 provider                =   "oidc"
 provider_display_name   =   "Keycloak"
 
