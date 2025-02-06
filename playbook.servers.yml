@@ -196,11 +196,6 @@
   become: true
   roles:
    -  role: docker-bluesky
-      vars:
-        domain_api:   "{{domains.bluesky_api}}"
-        domain_web:   "{{domains.bluesky_web}}"
-        http_port_api: 8030
-        http_port_web: 8031
 
 - name: setup keycloak
   hosts: keycloak

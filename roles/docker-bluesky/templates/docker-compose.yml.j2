@@ -6,7 +6,7 @@ services:
         - pds_data:/pds
         - {{pdsadmin_file_path}}:/usr/local/bin/pdsadmin:ro
     ports:
-      - "127.0.0.1:{{http_port_api}}:3000"
+      - "127.0.0.1:{{ports.localhost.http_ports.bluesky_api}}:3000"
     healthcheck:
       test: ["CMD", "wget", "--spider", "http://127.0.0.1:3000/xrpc/_health"]
       interval: 1m
@@ -22,12 +22,12 @@ services:
       dockerfile: Dockerfile 
       # It doesn't compile yet with this parameters. @todo Fix it
       args:
-        REACT_APP_PDS_URL: "http://{{domain_api}}" # URL des PDS
-        REACT_APP_API_URL: "http://{{domain_api}}" # API-URL des PDS
+        REACT_APP_PDS_URL: "http://{{domains.bluesky_api}}" # URL des PDS
+        REACT_APP_API_URL: "http://{{domains.bluesky_api}}" # API-URL des PDS
         REACT_APP_SITE_NAME: "{{primary_domain | upper}} - Bluesky"
         REACT_APP_SITE_DESCRIPTION: "Decentral Social "
     ports:
-      - "127.0.0.1:{{http_port_web}}:8100"
+      - "127.0.0.1:{{ports.localhost.http_ports.bluesky_web}}:8100"
     healthcheck:
       test: ["CMD", "sh", "-c", "for pid in $(ls /proc | grep -E '^[0-9]+$'); do if cat /proc/$pid/cmdline 2>/dev/null | grep -q 'bskywebserve'; then exit 0; fi; done; exit 1"]
       interval: 30s
