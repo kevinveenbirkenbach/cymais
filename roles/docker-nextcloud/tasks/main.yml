@@ -32,7 +32,6 @@
     force: yes
   notify: docker compose project setup
 
-# @todo activate
-#- name: Include OIDC-specific tasks if OIDC client is active
-#  include_tasks: oidc_tasks.yml
-#  when: oidc.enabled | bool
+- name: Include OIDC-specific tasks if OIDC client is active
+  include_tasks: oidc_tasks.yml
+  when: oidc.enabled | bool
