@@ -7,4 +7,8 @@ enable_wildcard_certificate:  false
 # I don't know why this configuration is necessary.
 # Propabldy due to a database migration problem, or dificulties to configure an external db in mailu
 # @todo research
-enable_central_database:      "{{enable_central_database_mailu}}" 
+enable_central_database:      "{{enable_central_database_mailu}}"
+
+# Use dedicated source for oidc if activated  
+# @see https://github.com/heviat/Mailu-OIDC/tree/2024.06
+docker_source:                "{{ 'ghcr.io/heviat' if oidc.enabled | bool else 'ghcr.io/mailu' }}"

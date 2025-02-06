@@ -22,6 +22,15 @@
   - name: Merge networks definitions
     set_fact:
       networks: "{{ defaults_networks | combine(networks | default({}, true), recursive=True) }}"
+  
+  - name: Merge oidc configuration
+    set_fact:
+      oidc: "{{ defaults_oidc | combine(oidc | default({}, true), recursive=True) }}"
+
+  - name: print oidc dict
+    debug:
+      var: oidc
+    when: enable_debug | bool
 
 - name: update device
   hosts:  all

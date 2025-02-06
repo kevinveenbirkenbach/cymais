@@ -35,4 +35,4 @@
 # @todo activate
 #- name: Include OIDC-specific tasks if OIDC client is active
 #  include_tasks: oidc_tasks.yml
-#  when: oidc_client_active | bool
+#  when: oidc.enabled | bool

@@ -6,13 +6,13 @@ services:
 
   # Core services
   resolver:
-    image: ghcr.io/mailu/unbound:{{applications.mailu.version}}
+    image: {{docker_source}}/unbound:{{applications.mailu.version}}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
         ipv4_address: {{networks.local.mailu.dns}}
 
   front:
-    image: ghcr.io/mailu/nginx:{{applications.mailu.version}}
+    image: {{docker_source}}/nginx:{{applications.mailu.version}}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     ports:
       - "127.0.0.1:{{ http_port }}:80"
@@ -37,7 +37,7 @@ services:
       - {{networks.local.mailu.dns}}
       
   admin:
-    image: ghcr.io/mailu/admin:{{applications.mailu.version}}
+    image: {{docker_source}}/admin:{{applications.mailu.version}}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - "admin_data:/data"
@@ -52,7 +52,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   imap:
-    image: ghcr.io/mailu/dovecot:{{applications.mailu.version}}
+    image: {{docker_source}}/dovecot:{{applications.mailu.version}}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - "dovecot_mail:/mail"
@@ -65,7 +65,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   smtp:
-    image: ghcr.io/mailu/postfix:{{applications.mailu.version}}
+    image: {{docker_source}}/postfix:{{applications.mailu.version}}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - "{{docker_compose.directories.volumes}}overrides:/overrides:ro"
@@ -78,7 +78,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   oletools:
-    image: ghcr.io/mailu/oletools:{{applications.mailu.version}}
+    image: {{docker_source}}/oletools:{{applications.mailu.version}}
     hostname: oletools
     restart: {{docker_restart_policy}}
     depends_on:
@@ -89,7 +89,7 @@ services:
       noinet:
 
   antispam:
-    image: ghcr.io/mailu/rspamd:{{applications.mailu.version}}
+    image: {{docker_source}}/rspamd:{{applications.mailu.version}}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - "filter:/var/lib/rspamd"
@@ -119,7 +119,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   webdav:
-    image: ghcr.io/mailu/radicale:{{applications.mailu.version}}
+    image: {{docker_source}}/radicale:{{applications.mailu.version}}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - "webdav_data:/data"
@@ -131,7 +131,7 @@ services:
       radicale:
 
   fetchmail:
-    image: ghcr.io/mailu/fetchmail:{{applications.mailu.version}}
+    image: {{docker_source}}/fetchmail:{{applications.mailu.version}}
     volumes:
       - "admin_data:/data"
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
@@ -145,7 +145,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   webmail:
-    image: ghcr.io/mailu/webmail:{{applications.mailu.version}}
+    image: {{docker_source}}/webmail:{{applications.mailu.version}}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - "webmail_data:/data"

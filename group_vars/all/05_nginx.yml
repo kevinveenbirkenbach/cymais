@@ -14,3 +14,5 @@ nginx:
 
 ## Nginx static repository
 nginx_static_repository_address: NULL #This should contain the url to an git repository which has a static homepage included and an index.html file. @todo move this variable to the role
+
+nginx_matomo_tracking:                false   # Activates matomo tracking on all html pages

@@ -112,16 +112,16 @@ run:
   ## If you want to set the 'From' email address for your first registration, uncomment and change:
   ## After getting the first signup email, re-comment the line. It only needs to run once.
   #- exec: rails r "SiteSetting.notification_email='info@unconfigured.discourse.org'"
-{% if oidc_client_active | bool %}
+{% if oidc.enabled | bool %}
   # Deactivate Default Login
   - exec: rails r "SiteSetting.enable_local_logins = false"
   - exec: rails r "SiteSetting.enable_passkeys = false" # https://meta.discourse.org/t/passwordless-login-using-passkeys/285589
 
   # OIDC Activation
   - exec: rails r "SiteSetting.openid_connect_enabled = true"
-  - exec: rails r "SiteSetting.openid_connect_discovery_document = '{{oidc_client_discovery_document}}'"
-  - exec: rails r "SiteSetting.openid_connect_client_id = '{{oidc_client_id}}'"         
-  - exec: rails r "SiteSetting.openid_connect_client_secret = '{{oidc_client_secret}}'"     
+  - exec: rails r "SiteSetting.openid_connect_discovery_document = '{{oidc.client.discovery_document}}'"
+  - exec: rails r "SiteSetting.openid_connect_client_id = '{{oidc.client.id}}'"         
+  - exec: rails r "SiteSetting.openid_connect_client_secret = '{{oidc.client.secret}}'"     
   - exec: rails r "SiteSetting.openid_connect_rp_initiated_logout_redirect = 'https://{{domain}}'"
   - exec: rails r "SiteSetting.openid_connect_allow_association_change = false"
   - exec: rails r "SiteSetting.openid_connect_rp_initiated_logout = true"

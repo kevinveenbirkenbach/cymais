@@ -1,31 +1,7 @@
 # Docker Applications
 
-## Enable Central MariaDB
-enable_central_database: true
-enable_central_database_mailu: "{{enable_central_database}}"
-
-## Enable Storage Optimizer for Docker Volumes
-enable_system_storage_optimizer: true
-
 ## Docker Role Specific Parameters
 docker_restart_policy:        "unless-stopped"
-
-### Keycloak Client Configuration
-oidc_client_active:               true  # Implement OpenID Connect https://en.wikipedia.org/wiki/OpenID_Connect
-oidc_client_id:                   "{{primary_domain}}"
-oidc_client_realm:                "{{primary_domain}}"   
-oidc_client_issuer_url:           "https://{{domains.keycloak}}/realms/{{oidc_client_realm}}"
-oidc_client_discovery_document:   "{{oidc_client_issuer_url}}/.well-known/openid-configuration"
-oidc_client_authorize_url:        "{{oidc_client_issuer_url}}/protocol/openid-connect/auth"
-oidc_client_toke_url:             "{{oidc_client_issuer_url}}/protocol/openid-connect/token"
-oidc_client_user_info_url:        "{{oidc_client_issuer_url}}/protocol/openid-connect/userinfo"
-oidc_client_logout_url:           "{{oidc_client_issuer_url}}/protocol/openid-connect/logout"
-# oidc_client_secret:             "{{oidc_client_secret}}"  # Default use wildcard for primary domain, subdomain client specific configuration in vars files in the roles is possible
-
-ldap_network_enabled:                  false                                     # Activate LDAP network for insecure communitation on localhot between different container instances. Set in vars/main.yml
-
-oauth2_proxy_upstream_application_and_port:  "application:80"                          # The name of the application which the server redirects to. Needs to be defined in role vars.
-oauth2_proxy_active:                         false   
 
 defaults_applications:
 

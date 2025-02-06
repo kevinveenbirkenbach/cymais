@@ -1,8 +1,8 @@
-# Mailu Server Docker Role
+# Mailu Server Docker Role 🚀
 
-This guide provides instructions for setting up, operating, and maintaining the Mailu server docker role.
+This guide provides instructions for setting up, operating, and maintaining the [Mailu](https://mailu.io/) server Docker role.
 
-## Table of Contents
+## Table of Contents 📖
 
 - [Setup](#setup)
   - [Fetchmail Issues](#fetchmail-issues)
@@ -16,24 +16,25 @@ This guide provides instructions for setting up, operating, and maintaining the 
 - [Updates](#updates)
 - [Queue Management](#queue-management)
 - [Spam Issues](#spam-issues)
+- [OIDC Support](#oidc-support)
 - [To-Do](#to-do)
 - [References](#references)
 
-## Setup
+## Setup ⚙️
 
-### Fetchmail Issues
+### Fetchmail Issues 📨
 
 Fetchmail might not work properly with large amounts of data. For more information, refer to this [issue](https://github.com/Mailu/Mailu/issues/1719).
 
-#### Deactivating Fetchmail
+#### Deactivating Fetchmail ❌
 
 Before uninstalling Fetchmail, ensure you remove all fetched accounts from the administration panel.
 
-#### Fetchmail Security Concerns
+#### Fetchmail Security Concerns 🔐
 
 There are known security concerns with Fetchmail as stated in the [German Wikipedia](https://de.wikipedia.org/wiki/Fetchmail). If you require Fetchmail functions in the future, consider creating a Docker container for [Getmail](https://en.wikipedia.org/wiki/Getmail) as it is considered more secure.
 
-#### Fetchmail Workaround
+#### Fetchmail Workaround 🔄
 
 If you need to receive emails from another account, follow these steps:
 
@@ -41,7 +42,7 @@ If you need to receive emails from another account, follow these steps:
 2. Export all data from your original account.
 3. Import all data to your new account.
 
-### Port Management
+### Port Management 🌐
 
 Check for any port conflicts and manually change the conflicting ports if necessary. Use the following command to verify:
 
@@ -49,7 +50,7 @@ Check for any port conflicts and manually change the conflicting ports if necess
 netstat -tulpn
 ```
 
-### Admin Account Creation
+### Admin Account Creation 👤
 
 To use Mailu, create the primary administrator user account, `admin@{{hostname}}`, using the command below. Replace `PASSWORD` with your preferred password:
 
@@ -57,11 +58,11 @@ To use Mailu, create the primary administrator user account, `admin@{{hostname}}
 docker-compose -p mailu exec admin flask mailu admin {{admin}} {{hostname}} PASSWORD
 ```
 
-### CLI User Management
+### CLI User Management 🛠️
 
 For managing users, follow the instructions in the official [Mailu CLI documentation](https://mailu.io/master/cli.html).
 
-### Starting the Server
+### Starting the Server ▶️
 
 To start the server, use the following command:
 
@@ -69,9 +70,9 @@ To start the server, use the following command:
 docker-compose -p mailu up -d
 ```
 
-## Debugging
+## Debugging 🕵️‍♂️
 
-### Database Access
+### Database Access 📂
 
 To access the database, use the following command:
 
@@ -79,7 +80,7 @@ To access the database, use the following command:
 docker-compose exec -it database mysql -u root -D mailu -p
 ```
 
-### Container Access
+### Container Access 🖥️
 
 To access the front container, use this command:
 
@@ -87,15 +88,15 @@ To access the front container, use this command:
 docker-compose exec -it front /bin/bash
 ```
 
-### Restarting Services
+### Restarting Services 🔄
 
 To restart all services, use the following command:
 
 ```bash
-docker-compose restart 
+docker-compose restart
 ```
 
-### Resending Queued Mails
+### Resending Queued Mails ✉️
 
 To resend queued mails, use this command:
 
@@ -103,63 +104,69 @@ To resend queued mails, use this command:
 docker-compose exec -it smtp postqueue -f
 ```
 
-## Testing
+## Testing 🧪
 
 Use the following tools for testing:
 
-- SSL-Tools Mailserver Test (URL: https://de.ssl-tools.net/mailservers/)
-- TestEmail.de (URL: http://testemail.de/)
+- [SSL-Tools Mailserver Test](https://de.ssl-tools.net/mailservers/)
+- [TestEmail.de](http://testemail.de/)
 
-## Updates
+## Updates 🔄
 
 For instructions on updating your Mailu setup, follow the official [Mailu maintenance guide](https://mailu.io/master/maintain.html).
 
-## Queue Management
+## Queue Management 📬
 
 To manage the Postfix email queue in Mailu, you can use the following commands:
 
-- **Display the email queue**: This command shows all queued emails.
+- **Display the email queue**:
+
   ```bash
   docker compose exec -it smtp postqueue -p
   ```
 
-- **Delete all emails in the queue**: To remove all queued emails permanently, use the command:
+- **Delete all emails in the queue**:
+
   ```bash
   docker compose exec -it smtp postsuper -d ALL
   ```
 
-These commands can help control the email queue, especially for clearing out emails with delivery issues or delays.
+## Spam Issues 🚨
 
-## Spam Issues
-
-### Inspect
+### Inspect 🔎
 
 Use the following tools to monitor your domain and email deliverability:
 
 - [Google Postmaster](https://postmaster.google.com/) - Analyzes deliverability and spam issues for Gmail.
 - [Yahoo Postmaster](https://postmaster.yahooinc.com) - Provides insights and delivery reports for Yahoo.
 
-### Blacklist Check
+### Blacklist Check 🚫
 
 If your domain is blacklisted, you can check the status with these services and take steps to remove your domain if necessary:
 
-- [Spamhaus](https://check.spamhaus.org/) - One of the most widely used blacklists for spam.
-- [Barracuda](https://www.barracudacentral.org/lookups) - Checks if your IP is on the Barracuda blacklist.
+- [Spamhaus](https://check.spamhaus.org/)
+- [Barracuda](https://www.barracudacentral.org/lookups)
 
-### Cloudmark Reset Request
+### Cloudmark Reset Request 🔄
 
-If your IP or domain is flagged by Cloudmark, you can submit a **reset request** to help restore deliverability:
+If your IP or domain is flagged by Cloudmark, you can submit a **reset request**:
 
 - [Cloudmark Reset](https://csi.cloudmark.com/en/reset/)
 
-## To-Do
+## OIDC Support 🔐
 
-- Implement two-factor authentication in Roundcube Webmail. More information can be found [here](https://blog.kuepper.nrw/2019/03/30/roundcube-webmail-mit-zwei-faktor-authentifizierung/).
-- Integrate Nextcloud 15 and newer with Mailu. Learn more about this [here](https://mailu.io/master/faq.html#i-want-to-integrate-nextcloud-15-and-newer-with-mailu).
-- User authentication with Nextcloud. Find more information [here](https://docs.nextcloud.com/server/9.0/admin_manual/configuration_user/user_auth_ftp_smb_imap.html).
+This role now supports OpenID Connect (OIDC) authentication with [Mailu-OIDC](https://github.com/heviat/Mailu-OIDC)! 🎉
 
-## References
+To enable OIDC authentication, simply set the following variable:
 
+```yaml
+oidc:
+  enabled: true
+```
+
+For more details, check out the [Mailu-OIDC repository](https://github.com/heviat/Mailu-OIDC/tree/2024.06).
+
+## References 🔗
 - [Mailu compose setup guide](https://mailu.io/1.7/compose/setup.html)
 - [SysPass issue #1299](https://github.com/nuxsmin/sysPass/issues/1299)
 - [Mailu issue #1719](https://github.com/Mailu/Mailu/issues/1719)
@@ -169,8 +176,18 @@ If your IP or domain is flagged by Cloudmark, you can submit a **reset request**
 - [Mailu GitHub repository](https://github.com/Mailu/Mailu)
 - [Plesk support article on RoundCube connection issue](https://support.plesk.com/hc/en-us/articles/115001264814-Unable-to-log-into-RoundCube-Connection-to-storage-server-failed)
 - [Gist by marienfressinaud](https://gist.github.com/marienfressinaud/f284a59b18aad395eb0de2d22836ae6b)
-- [Implementing OpenID with Mailu](https://github.com/heviat/Mailu-OIDC)
 
-For more information about this role, visit the [GitHub repository](https://github.com/kevinveenbirkenbach/cymais/tree/master/roles/docker-mailu).
+---
 
-This README.md was optimized with [Chat-GPT](https://chat.openai.com/share/d1ad5ce7-3aa1-4a14-a959-63393b39374a)
+For more information about this role, visit the GitHub repositories:
+- [Mailu](https://github.com/kevinveenbirkenbach/cymais/tree/master/roles/docker-mailu)
+- [Mailu-OIDC](https://github.com/heviat/Mailu-OIDC)
+
+### About this Role ✨
+
+This Mailu Docker role was developed by **[Kevin Veen-Birkenbach](https://veen.world)**.
+
+This `README.md` was optimized with the help of [ChatGPT](https://chat.openai.com)🚀 and this conversations: 
+
+- https://chat.openai.com/share/d1ad5ce7-3aa1-4a14-a959-63393b39374a
+- https://chatgpt.com/share/67a4bffb-9330-800f-aed5-715c6a8ced2f

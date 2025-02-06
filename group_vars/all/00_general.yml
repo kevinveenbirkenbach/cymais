@@ -1,7 +1,6 @@
 # General
 pause_duration:         "120"         # Database delay to wait for the central database before continue tasks
 
-backups_folder_path:    "/Backups/"   # Path to the backups folder
 timezone:               "UTC"
 locale:                 "en"
 
@@ -26,14 +25,8 @@ hours_server_awake:               "0..23"
 ## Random delay for systemd timers to avoid peak loads.
 randomized_delay_sec:             "5min" 
 
-# Storage Space-Related Configurations          
-size_percent_maximum_backup:      75  # Maximum storage space in percent for backups
-size_percent_cleanup_disc_space:  85  # Threshold for triggering cleanup actions
-size_percent_disc_space_warning:  90  # Warning threshold in percent for free disk space
-
 # Runtime Variables for Process Control
 activate_all_timers:                  false   # Activates all timers, independend if the handlers had been triggered
-nginx_matomo_tracking:                false   # Activates matomo tracking on all html pages
 
 # One Wildcard Certificate for All Subdomains
 # Enables a single Let's Encrypt wildcard certificate for all subdomains instead of individual certificates.
@@ -46,4 +39,5 @@ nginx_matomo_tracking:                false   # Activates matomo tracking on all
 enable_wildcard_certificate:          false  
 
 # This enables debugging in ansible and in the apps
+# You SHOULD NOT enable this on production servers
 enable_debug:   false
