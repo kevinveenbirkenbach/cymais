@@ -10,7 +10,7 @@
       domains: "{{ defaults_domains | combine(domains | default({}, true), recursive=True) }}"
   - name: Merge redirect domain definitions
     set_fact:
-      merged_redirect_domain_mappings: >-
+      redirect_domain_mappings: >-
         {{
           (defaults_redirect_domain_mappings | items2dict(key_name='source', value_name='target'))
           | combine((redirect_domain_mappings | items2dict(key_name='source', value_name='target')), recursive=True)
