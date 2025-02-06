@@ -4,16 +4,16 @@
 ## Setup 
 ### Set variables
 
-#### bluesky_pds_jwt_secret
+#### applications.bluesky.pds.jwt_secret
 ```bash
 openssl rand -base64 64 | tr -d '\n'
 ```
 for 
 
-#### bluesky_pds_plc_rotation_key_k256_private_key_hex
+#### applications.bluesky.pds.plc_rotation_key_k256_private_key_hex
 openssl rand -hex 32
 
-#### bluesky_pds_admin_password
+#### applications.bluesky.pds.admin_password
 openssl rand -base64 16
 
 ### Configure DNS
@@ -58,4 +58,4 @@ Initial setup keine top level domain
 - https://github.com/bluesky-social/pds/issues/52
 - https://github.com/lhaig/pdsadmin
 - https://github.com/bluesky-social/pds/issues/147
-- 
+- https://docs.bsky.app/docs/advanced-guides/oauth-client

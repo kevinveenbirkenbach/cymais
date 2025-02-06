@@ -20,16 +20,5 @@
     dest:	"{{docker_compose_init}}"
   notify: docker compose project setup
 
-- name: "create {{docker_compose.files.docker_compose}}"
-  template:
-    src:	"docker-compose.yml.j2"
-    dest:	"{{docker_compose.files.docker_compose}}"
-  notify: docker compose project setup
-
-- name: "create {{docker_compose.files.env}}"
-  template: 
-    src:  "env.j2" 
-    dest: "{{docker_compose.files.env}}"
-    mode: '770'
-    force: yes
-  notify: docker compose project setup
+- name: "copy docker-compose.yml and env file"
+  include_tasks: copy-docker-compose-and-env.yml

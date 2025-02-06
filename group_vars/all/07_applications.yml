@@ -36,6 +36,9 @@ defaults_applications:
     administrator_email:    "{{administrator_email}}"
     pds:
       version:              "latest"
+      #jwt_secret:                            # Needs to be defined in inventory file  
+      #plc_rotation_key_k256_private_key_hex: # Needs to be defined in inventory file  
+      #admin_password:                        # Needs to be defined in inventory file  
 
   ## Friendica
   friendica:
