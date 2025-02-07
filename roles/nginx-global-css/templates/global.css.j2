@@ -1,4 +1,4 @@
-/* Global Theming Styles – Overrides Application Defaults */
+/* Global Theming Styles – Color and Shadow Variables */
 :root {
     --primary-color: {{ global_theming.css.colors.primary }};
     --secondary-color: {{ global_theming.css.colors.secondary }};
@@ -16,7 +16,7 @@
     --border-color: {{ global_theming.css.colors.border }};
 }
 
-/* Bootstrap Overrides */
+/* Bootstrap Overrides (Color/Shadow Variables Only) */
 :root {
     --bs-primary: var(--primary-color);
     --bs-secondary: var(--secondary-color);
@@ -30,48 +30,34 @@
     --bs-btn-color: var(--button-text-color);
 }
 
-/* Ensure Styles Take Priority */
-*,
-*::before,
-*::after {
-    all: unset;
-    all: revert;
-}
-
-/* Global Defaults */
+/* Global Defaults (Colors Only) */
 body {
     background-color: var(--background-color) !important;
     color: var(--text-color) !important;
     /* Use the corporate-design font family */
     font-family: "Liberation Sans", Arial, sans-serif;
-    line-height: 1.6;
 }
 
-/* Links */
+/* Links (Color Only) */
 a {
     color: var(--link-color) !important;
-    text-decoration: none;
-}
-a:hover {
-    text-decoration: underline;
 }
 
-/* Buttons */
+/* Buttons (Background, Text, Border, and Shadow) */
 button, .btn {
     background-color: var(--primary-color) !important;
     color: var(--button-text-color) !important;
     border: 1px solid var(--border-color) !important;
     box-shadow: 2px 2px 5px var(--shadow-color) !important;
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-weight: bold;
     cursor: pointer;
 }
+
 button:hover, .btn:hover {
     filter: brightness(0.9);
 }
 
-/* Success, Warning, Error States */
+
+/* States: Success, Warning, Error, Info (Background and Text Colors) */
 .success, .alert-success {
     background-color: var(--success-color) !important;
     color: var(--text-color) !important;
@@ -89,21 +75,18 @@ button:hover, .btn:hover {
     color: var(--text-color) !important;
 }
 
-/* Inputs & Forms */
+/* Inputs & Forms (Background, Text, Border, and Focus Shadow) */
 input, textarea, select {
     background-color: var(--background-color) !important;
     color: var(--text-color) !important;
-    border: 1px solid var(--border-color) !important;
-    padding: 8px;
-    border-radius: 4px;
+    border-color: var(--border-color) !important;
 }
 input:focus, textarea:focus, select:focus {
     border-color: var(--primary-color) !important;
-    outline: none;
     box-shadow: 0 0 5px var(--shadow-color);
 }
 
-/* Navigation */
+/* Navigation (Background and Text Colors) */
 .navbar, .navbar-light, .navbar-dark {
     background-color: var(--primary-color) !important;
     color: var(--button-text-color) !important;
@@ -112,13 +95,8 @@ input:focus, textarea:focus, select:focus {
     color: var(--button-text-color) !important;
 }
 
-/* Tables */
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
+/* Tables (Borders and Header Colors) */
 th, td {
-    padding: 10px;
     border: 1px solid var(--border-color);
 }
 thead {
@@ -126,15 +104,14 @@ thead {
     color: var(--button-text-color);
 }
 
-/* Cards / Containers */
+/* Cards / Containers (Background, Border, and Shadow) */
 .card {
     background-color: var(--background-color) !important;
     box-shadow: 2px 2px 10px var(--shadow-color) !important;
     border: 1px solid var(--border-color);
-    border-radius: 8px;
 }
 
-/* Headings */
+/* Headings (Text Color) */
 h1, h2 {
     color: var(--text-color);
 }
@@ -146,7 +123,7 @@ h1, h2 {
     }
 }
 
-/* Dark Mode */
+/* Dark Mode Adjustments (Background and Text Colors) */
 @media (prefers-color-scheme: dark) {
     body {
         background-color: var(--background-dark-color) !important;
@@ -158,13 +135,7 @@ h1, h2 {
     }
 }
 
-/* Enforce Style Priority */
-html, body, * {
-    /* No additional !important directives */
-}
-
-
-/* Dropdown Menu and Submenu */
+/* Dropdown Menu and Submenu (Background, Text, and Shadow) */
 .navbar .dropdown-menu,
 .nav-item .dropdown-menu {
     background-color: var(--background-color) !important;
@@ -175,20 +146,15 @@ html, body, * {
 .dropdown-item {
     color: var(--text-color) !important;
     background-color: var(--background-color) !important;
-    padding: 8px 12px;
 }
 
 .dropdown-item:hover,
 .dropdown-item:focus {
     background-color: var(--secondary-color) !important;
     color: var(--text-color) !important;
-    text-decoration: none;
 }
 
-/** Portfolio Specific **/
-/* Always use a light text color in the input field */
+/* Portfolio Specific: Input Field Text Color */
 #dynamicModalContent {
     color: var(--button-text-color) !important;
 }
-
-
