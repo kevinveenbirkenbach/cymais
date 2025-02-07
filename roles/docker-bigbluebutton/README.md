@@ -32,4 +32,4 @@ watch -n 2 "docker compose ps -a"
 - https://www.cyberciti.biz/faq/linux-restart-network-interface/
 - https://stackoverflow.com/questions/53347951/docker-network-not-found
 - https://github.com/bigbluebutton/docker/issues/325
-
+- https://mattdyson.org/blog/2024/11/self-hosting-bluesky-pds/

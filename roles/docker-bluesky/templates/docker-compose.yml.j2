@@ -3,7 +3,7 @@ services:
     image: "ghcr.io/bluesky-social/pds:{{applications.bluesky.pds.version}}"
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
-        - pds_data:/pds
+        - pds_data:/opt/pds
         - {{pdsadmin_file_path}}:/usr/local/bin/pdsadmin:ro
     ports:
       - "127.0.0.1:{{ports.localhost.http_ports.bluesky_api}}:3000"
@@ -22,8 +22,8 @@ services:
       dockerfile: Dockerfile 
       # It doesn't compile yet with this parameters. @todo Fix it
       args:
-        REACT_APP_PDS_URL: "http://{{domains.bluesky_api}}" # URL des PDS
-        REACT_APP_API_URL: "http://{{domains.bluesky_api}}" # API-URL des PDS
+        REACT_APP_PDS_URL: "https://{{domains.bluesky_api}}" # URL des PDS
+        REACT_APP_API_URL: "https://{{domains.bluesky_api}}" # API-URL des PDS
         REACT_APP_SITE_NAME: "{{primary_domain | upper}} - Bluesky"
         REACT_APP_SITE_DESCRIPTION: "Decentral Social "
     ports:
