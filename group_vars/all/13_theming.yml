@@ -29,5 +29,13 @@ global_theming:
       # Shadows & borders (unchanged)
       shadow: "rgba(0, 0, 0, 0.1)"
       border: "#DDDDDD"
-
+      # New settings for cards and buttons:
+      # Cards: a slightly lighter tone than the background for subtle differentiation
+      card_bg_color: "#E6EFF9"
+      # Buttons: a background that is only a bit darker than the main background and in a blue tone
+      button_bg_color: "#C6D7E6"
+      # Bold, larger shadow for containers (cards, dropdowns, etc.)
+      large_shadow: "4px 4px 15px rgba(0, 0, 0, 0.2)"
+      # Reduced shadow for buttons
+      small_shadow: "1px 1px 3px rgba(0, 0, 0, 0.1)"
 global_theming_enabled: true

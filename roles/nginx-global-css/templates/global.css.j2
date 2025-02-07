@@ -1,19 +1,25 @@
 /* Global Theming Styles – Color and Shadow Variables */
 :root {
-    --primary-color: {{ global_theming.css.colors.primary }};
-    --secondary-color: {{ global_theming.css.colors.secondary }};
-    --background-color: {{ global_theming.css.colors.background }};
+    --primary-color:         {{ global_theming.css.colors.primary }};
+    --secondary-color:       {{ global_theming.css.colors.secondary }};
+    --background-color:      {{ global_theming.css.colors.background }};
     --background-dark-color: {{ global_theming.css.colors.background_dark }};
-    --text-color: {{ global_theming.css.colors.text }};
-    --accent-color: {{ global_theming.css.colors.accent }};
-    --success-color: {{ global_theming.css.colors.success }};
-    --warning-color: {{ global_theming.css.colors.warning }};
-    --error-color: {{ global_theming.css.colors.error }};
-    --info-color: {{ global_theming.css.colors.info }};
-    --link-color: {{ global_theming.css.colors.link }};
-    --button-text-color: {{ global_theming.css.colors.button_text }};
-    --shadow-color: {{ global_theming.css.colors.shadow }};
-    --border-color: {{ global_theming.css.colors.border }};
+    --text-color:            {{ global_theming.css.colors.text }};
+    --accent-color:          {{ global_theming.css.colors.accent }};
+    --success-color:         {{ global_theming.css.colors.success }};
+    --warning-color:         {{ global_theming.css.colors.warning }};
+    --error-color:           {{ global_theming.css.colors.error }};
+    --info-color:            {{ global_theming.css.colors.info }};
+    --link-color:            {{ global_theming.css.colors.link }};
+    --button-text-color:     {{ global_theming.css.colors.button_text }};
+    --shadow-color:          {{ global_theming.css.colors.shadow }};
+    --border-color:          {{ global_theming.css.colors.border }};
+    
+    /* New variables for cards and buttons */
+    --card-bg-color:         {{ global_theming.css.colors.card_bg_color }};
+    --large-shadow:          {{ global_theming.css.colors.large_shadow }};
+    --button-bg-color:       {{ global_theming.css.colors.button_bg_color }};
+    --small-shadow:          {{ global_theming.css.colors.small_shadow }};
 }
 
 /* Bootstrap Overrides (Color/Shadow Variables Only) */
@@ -27,7 +33,7 @@
     --bs-success: var(--success-color);
     --bs-info: var(--info-color);
     --bs-link-color: var(--link-color);
-    --bs-btn-color: var(--button-text-color);
+    --bs-btn-color: var(--background-dark-color);
 }
 
 /* Peertube Overrides */
@@ -48,19 +54,19 @@ a {
     color: var(--link-color) !important;
 }
 
-/* Buttons (Background, Text, Border, and Shadow) */
+/* Buttons (Background, Text, Border, and Shadow)
+   Now using a button background that is only slightly darker than the overall background */
 button, .btn {
-    background-color: var(--primary-color) !important;
-    color: var(--button-text-color) !important;
-    border: 1px solid var(--border-color) !important;
-    box-shadow: 2px 2px 5px var(--shadow-color) !important;
+    background-color: var(--button-bg-color) !important;
+    color: var(--primary-color) !important;
+    border-color: var(--border-color) !important;
+    box-shadow: var(--small-shadow) !important;
     cursor: pointer;
 }
 
 button:hover, .btn:hover {
     filter: brightness(0.9);
 }
-
 
 /* States: Success, Warning, Error, Info (Background and Text Colors) */
 .success, .alert-success {
@@ -73,7 +79,7 @@ button:hover, .btn:hover {
 }
 .error, .alert-danger {
     background-color: var(--error-color) !important;
-    color: var(--button-text-color) !important;
+    color: var(--background-dark-color) !important;
 }
 .info, .alert-info {
     background-color: var(--info-color) !important;
@@ -94,42 +100,47 @@ input:focus, textarea:focus, select:focus {
 /* Navigation (Background and Text Colors) */
 .navbar, .navbar-light, .navbar-dark {
     background-color: var(--background-color) !important;
-    color: var(--button-text-color) !important;
+    color: var(--primary-color) !important;
 }
 
 .navbar a {
-    color: var(--button-text-color) !important;
-}
-
-.navbar a.dropdown-item{
     color: var(--background-dark-color) !important;
 }
 
-.card-body{
+.navbar a.dropdown-item {
     color: var(--background-dark-color) !important;
 }
 
+.card-body {
+    color: var(--background-dark-color) !important;
+}
 
 /* Tables (Borders and Header Colors) */
 th, td {
-    border: 1px solid var(--border-color);
+    border-color: var(--border-color) !important;
 }
 thead {
     background-color: var(--primary-color);
-    color: var(--button-text-color);
+    color: var(--background-dark-color);
 }
 
-/* Cards / Containers (Background, Border, and Shadow) */
+/* Cards / Containers (Background, Border, and Shadow)
+   Cards now use a slightly lighter background and a bold, clear shadow */
 .card {
-    background-color: var(--background-color) !important;
-    box-shadow: 2px 2px 10px var(--shadow-color) !important;
-    border: 1px solid var(--border-color);
+    background-color: var(--card-bg-color) !important;
+    box-shadow: var(--large-shadow) !important;
+    border-color: var(--border-color) !important;
 }
 
 /* Headings (Text Color) */
 h1, h2 {
     color: var(--text-color);
 }
+
+div#mastodon p{
+    color: var(--background-dark-color) !important;
+}
+
 
 /* Dark Mode Adjustments (Background and Text Colors) */
 @media (prefers-color-scheme: dark) {
@@ -144,7 +155,9 @@ h1, h2 {
     input, textarea, select {
         color: var(--button-text-color) !important;
         background-color: var(--background-dark-color) !important;
-        color: var(--text-color) !important;
+    }
+    div#mastodon p{
+        color: var(--button-text-color) !important;
     }
 }
 
@@ -166,16 +179,18 @@ h1, h2 {
     background-color: var(--secondary-color) !important;
     color: var(--text-color) !important;
 }
-/* Ensure the button itself uses the light text color. Occured in Mastodon */
+
+/* Ensure the button itself uses the light text color. Occurred in Mastodon */
 button.icon-button {
-  color: var(--button-text-color) !important;
+    color: var(--button-text-color) !important;
+}
+
+/** Nextcloud specific **/
+button.files-list__row-name-link, button.button-vue{
+    background-color: transparent !important;
 }
 
 /* Peertube specific configuration */
-.peertube-container button{
-  background-color: transparent !important;
-}
-
-.peertube-container .title-col{
-
+.peertube-container button {
+    background-color: transparent !important;
 }
