@@ -30,6 +30,11 @@
     --bs-btn-color: var(--button-text-color);
 }
 
+/* Peertube Overrides */
+:root {
+    --mainColor: var(--primary-color);
+}
+
 /* Global Defaults (Colors Only) */
 body {
     background-color: var(--background-color) !important;
@@ -100,6 +105,9 @@ input:focus, textarea:focus, select:focus {
     color: var(--background-dark-color) !important;
 }
 
+.card-body{
+    color: var(--background-dark-color) !important;
+}
 
 
 /* Tables (Borders and Header Colors) */
@@ -161,4 +169,13 @@ h1, h2 {
 /* Ensure the button itself uses the light text color. Occured in Mastodon */
 button.icon-button {
   color: var(--button-text-color) !important;
+}
+
+/* Peertube specific configuration */
+.peertube-container button{
+  background-color: transparent !important;
+}
+
+.peertube-container .title-col{
+
 }
