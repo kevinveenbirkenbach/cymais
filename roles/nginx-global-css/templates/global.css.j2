@@ -1,4 +1,4 @@
-/* Global Theming Styles - Overrides Application Defaults */
+/* Global Theming Styles – Overrides Application Defaults */
 :root {
     --primary-color: {{ global_theming.css.colors.primary }};
     --secondary-color: {{ global_theming.css.colors.secondary }};
@@ -42,7 +42,8 @@
 body {
     background-color: var(--background-color) !important;
     color: var(--text-color) !important;
-    font-family: Arial, sans-serif;
+    /* Use the corporate-design font family */
+    font-family: "Liberation Sans", Arial, sans-serif;
     line-height: 1.6;
 }
 
@@ -73,19 +74,19 @@ button:hover, .btn:hover {
 /* Success, Warning, Error States */
 .success, .alert-success {
     background-color: var(--success-color) !important;
-    color: white !important;
+    color: var(--text-color) !important;
 }
 .warning, .alert-warning {
     background-color: var(--warning-color) !important;
-    color: black !important;
+    color: var(--text-color) !important;
 }
 .error, .alert-danger {
     background-color: var(--error-color) !important;
-    color: white !important;
+    color: var(--button-text-color) !important;
 }
 .info, .alert-info {
     background-color: var(--info-color) !important;
-    color: white !important;
+    color: var(--text-color) !important;
 }
 
 /* Inputs & Forms */
@@ -133,6 +134,18 @@ thead {
     border-radius: 8px;
 }
 
+/* Headings */
+h1, h2 {
+    color: var(--text-color);
+}
+
+@media (prefers-color-scheme: dark) {
+    h1, h2 {
+        color: #ffffff !important;
+        text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3);
+    }
+}
+
 /* Dark Mode */
 @media (prefers-color-scheme: dark) {
     body {
@@ -147,5 +160,27 @@ thead {
 
 /* Enforce Style Priority */
 html, body, * {
-    !important;
+    /* No additional !important directives */
+}
+
+
+/* Dropdown Menu and Submenu */
+.navbar .dropdown-menu,
+.nav-item .dropdown-menu {
+    background-color: var(--background-color) !important;
+    color: var(--text-color) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.dropdown-item {
+    color: var(--text-color) !important;
+    background-color: var(--background-color) !important;
+    padding: 8px 12px;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: var(--secondary-color) !important;
+    color: var(--text-color) !important;
+    text-decoration: none;
 }

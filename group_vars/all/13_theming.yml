@@ -2,19 +2,32 @@ global_theming:
   enabled: true
   css:
     colors:
-      primary: "#007BFF"            # Main brand color (e.g., buttons, highlights)
-      secondary: "#0056B3"          # Secondary color (e.g., navigation, footers)
-      background: "#FFFFFF"         # Background color (light mode)
-      background_dark: "#1E1E1E"    # Background color (dark mode)
-      text: "#333333"               # Main text color (dark mode text: "#EAEAEA")
-      accent: "#FF9900"             # Accent color (used for highlights, CTAs)
-      success: "#28A745"            # Success color (e.g., confirmation messages)
-      warning: "#FFC107"            # Warning color (e.g., alerts, notifications)
-      error: "#DC3545"              # Error color (e.g., form validation errors)
-      info: "#17A2B8"               # Information color (e.g., tooltips, messages)
-      link: "#0056B3"               # Link color (often matches primary/secondary)
-      button_text: "#FFFFFF"        # Button text color
-      shadow: "rgba(0, 0, 0, 0.1)"  # Shadow color for UI elements
-      border: "#DDDDDD"             # Border color for UI components
+      # For buttons and highlights – symbolizes the sea (slate blue)
+      primary: "#4F6D7A"
+      # For navigation, footers, etc. – a subtly light brown with a grayish tint (earth)
+      secondary: "#C8A28F"
+      # For the general (light mode) background – an azul, blue–gray tone
+      background: "#DCE6F2"
+      # For dark mode: a dark, blue–gray background
+      background_dark: "#2E3B4E"
+      # For the text – true black
+      text: "#000000"
+      # Accent color (e.g., for links or buttons) – a golden tone symbolizing the sun
+      accent: "#FFD700"
+      # As the positive/success color – a light, slightly grayish green (forest)
+      success: "#B2D3B2"
+      # As the warning color – a light brown (earth)
+      warning: "#D2B48C"
+      # For error messages (standard red)
+      error: "#DC3545"
+      # As the info color – a very light blue (symbolizing the sky)
+      info: "#F0F8FF"
+      # Links – in this case, identical to primary (sea)
+      link: "#4F6D7A"
+      # Button text – white
+      button_text: "#FFFFFF"
+      # Shadows & borders (unchanged)
+      shadow: "rgba(0, 0, 0, 0.1)"
+      border: "#DDDDDD"
 
-global_theming_enabled: false       # Needs to be set to true in every vars/main.yml of every role which supports this
+global_theming_enabled: true
