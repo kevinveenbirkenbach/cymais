@@ -159,8 +159,7 @@ h1, h2 {
     color: var(--button-text-color) !important;
 }
 
-/* Fix for mastodon svgs */
-button svg {
-  fill: var(--button-text-color) !important;
+/* Ensure the button itself uses the light text color. Occured in Mastodon */
+button.icon-button {
   color: var(--button-text-color) !important;
 }
