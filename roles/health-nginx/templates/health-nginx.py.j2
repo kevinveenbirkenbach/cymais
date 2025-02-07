@@ -31,7 +31,7 @@ for filename in os.listdir(config_path):
         # Determine expected status codes based on the domain
         if domain == '{{domains.listmonk}}':
             expected_statuses = [404]
-{% if nginx_matomo_tracking | bool %}
+{% if global_matomo_tracking_enabled | bool %}
         elif parts[0] == 'www' or domain in redirected_domains:
             expected_statuses = [301]
 {% endif %}

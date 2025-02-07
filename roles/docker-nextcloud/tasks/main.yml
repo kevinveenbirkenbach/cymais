@@ -3,8 +3,8 @@
   include_role: 
     name: docker-central-database
 
-- name: "include task certbot-matomo.yml"
-  include_tasks: certbot-matomo.yml
+- name: "include task certbot-and-globals.yml"
+  include_tasks: certbot-and-globals.yml
 
 - name: configure {{domain}}.conf
   template: 

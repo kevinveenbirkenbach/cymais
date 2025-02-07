@@ -1,5 +1,6 @@
 - name: "include task receive certbot certificate"
   include_tasks: recieve-certbot-certificate.yml
 
-- name: "include task implement-matomo-tracking.yml"
-  include_tasks: implement-matomo-tracking.yml
+- name: Load global Nginx Configuration
+  include_role:
+    name: nginx-global

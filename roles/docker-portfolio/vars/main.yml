@@ -1,2 +1,3 @@
-application_id:     "portfolio"
-repository_address: "https://github.com/kevinveenbirkenbach/portfolio"
+application_id:         "portfolio"
+repository_address:     "https://github.com/kevinveenbirkenbach/portfolio"
+global_theming_enabled: true # Activate Global CSS for Portfolio

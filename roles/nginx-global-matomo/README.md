@@ -25,11 +25,11 @@ To enable Matomo tracking on your Nginx website, include the role in your playbo
 ```yaml
 - hosts: webserver
   roles:
-    - { role: nginx-matomo-tracking, matomo_domain: 'matomo.example.com', base_domain: 'example.com', matomo_site_id: '1' }
+    - { role: nginx-global-matomo, matomo_domain: 'matomo.example.com', base_domain: 'example.com', matomo_site_id: '1' }
 ```
 
 ## Customization
-You can customize the tracking script and the noscript image tracker by editing the `matomo-tracking.js.j2` and `matomo-tracking.conf.j2` templates.
+You can customize the tracking script and the noscript image tracker by editing the `matomo-tracking.js.j2` and `matomo.subfilter.conf.j2` templates.
 
 ## Author Information
-This role was created in 2023 by Kevin Veen Birkenbach, providing a seamless way to add Matomo analytics to any website served via Nginx.
+This role was created in 2023 by [Kevin Veen Birkenbach](https://www.veen.world/), providing a seamless way to add Matomo analytics to any website served via Nginx.

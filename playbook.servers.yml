@@ -242,6 +242,6 @@
   hosts: www_redirect
   become: true
   roles:
-   -  role: nginx-www-redirect
+   -  role: nginx-global-www
 
 - import_playbook: playbook.destructor.yml

@@ -1,0 +1,151 @@
+/* Global Theming Styles - Overrides Application Defaults */
+:root {
+    --primary-color: {{ global_theming.css.colors.primary }};
+    --secondary-color: {{ global_theming.css.colors.secondary }};
+    --background-color: {{ global_theming.css.colors.background }};
+    --background-dark-color: {{ global_theming.css.colors.background_dark }};
+    --text-color: {{ global_theming.css.colors.text }};
+    --accent-color: {{ global_theming.css.colors.accent }};
+    --success-color: {{ global_theming.css.colors.success }};
+    --warning-color: {{ global_theming.css.colors.warning }};
+    --error-color: {{ global_theming.css.colors.error }};
+    --info-color: {{ global_theming.css.colors.info }};
+    --link-color: {{ global_theming.css.colors.link }};
+    --button-text-color: {{ global_theming.css.colors.button_text }};
+    --shadow-color: {{ global_theming.css.colors.shadow }};
+    --border-color: {{ global_theming.css.colors.border }};
+}
+
+/* Bootstrap Overrides */
+:root {
+    --bs-primary: var(--primary-color);
+    --bs-secondary: var(--secondary-color);
+    --bs-body-bg: var(--background-color);
+    --bs-body-color: var(--text-color);
+    --bs-danger: var(--error-color);
+    --bs-warning: var(--warning-color);
+    --bs-success: var(--success-color);
+    --bs-info: var(--info-color);
+    --bs-link-color: var(--link-color);
+    --bs-btn-color: var(--button-text-color);
+}
+
+/* Ensure Styles Take Priority */
+*,
+*::before,
+*::after {
+    all: unset;
+    all: revert;
+}
+
+/* Global Defaults */
+body {
+    background-color: var(--background-color) !important;
+    color: var(--text-color) !important;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Links */
+a {
+    color: var(--link-color) !important;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* Buttons */
+button, .btn {
+    background-color: var(--primary-color) !important;
+    color: var(--button-text-color) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 2px 2px 5px var(--shadow-color) !important;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+button:hover, .btn:hover {
+    filter: brightness(0.9);
+}
+
+/* Success, Warning, Error States */
+.success, .alert-success {
+    background-color: var(--success-color) !important;
+    color: white !important;
+}
+.warning, .alert-warning {
+    background-color: var(--warning-color) !important;
+    color: black !important;
+}
+.error, .alert-danger {
+    background-color: var(--error-color) !important;
+    color: white !important;
+}
+.info, .alert-info {
+    background-color: var(--info-color) !important;
+    color: white !important;
+}
+
+/* Inputs & Forms */
+input, textarea, select {
+    background-color: var(--background-color) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-color) !important;
+    padding: 8px;
+    border-radius: 4px;
+}
+input:focus, textarea:focus, select:focus {
+    border-color: var(--primary-color) !important;
+    outline: none;
+    box-shadow: 0 0 5px var(--shadow-color);
+}
+
+/* Navigation */
+.navbar, .navbar-light, .navbar-dark {
+    background-color: var(--primary-color) !important;
+    color: var(--button-text-color) !important;
+}
+.navbar a {
+    color: var(--button-text-color) !important;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+}
+thead {
+    background-color: var(--primary-color);
+    color: var(--button-text-color);
+}
+
+/* Cards / Containers */
+.card {
+    background-color: var(--background-color) !important;
+    box-shadow: 2px 2px 10px var(--shadow-color) !important;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: var(--background-dark-color) !important;
+        color: var(--text-color) !important;
+    }
+    input, textarea, select {
+        background-color: var(--background-dark-color) !important;
+        color: var(--text-color) !important;
+    }
+}
+
+/* Enforce Style Priority */
+html, body, * {
+    !important;
+}

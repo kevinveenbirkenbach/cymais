@@ -1,0 +1,28 @@
+- name: Get the current Unix timestamp as version
+  set_fact:
+    global_css_version: "{{ ansible_date_time.epoch }}"
+  when: run_once_nginx_global_css is not defined
+
+- name: Ensure {{nginx.directories.global}} directory exists
+  file:
+    path: "{{nginx.directories.global}}"
+    state: directory
+    owner: "{{nginx.user}}"
+    group: "{{nginx.user}}"
+    mode: '0755'
+  when: run_once_nginx_global_css is not defined
+
+- name: Deploy global.css from template
+  template:
+    src: global.css.j2
+    dest: "{{global_css_destination}}"
+    owner: "{{nginx.user}}"
+    group: "{{nginx.user}}"
+    mode: '0644'
+  when: run_once_nginx_global_css is not defined
+
+- name: run the global css tasks once
+  set_fact:
+    run_once_nginx_global_css: true
+  when: run_once_nginx_global_css is not defined
+

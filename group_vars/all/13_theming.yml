@@ -1,0 +1,20 @@
+global_theming:
+  enabled: true
+  css:
+    colors:
+      primary: "#007BFF"            # Main brand color (e.g., buttons, highlights)
+      secondary: "#0056B3"          # Secondary color (e.g., navigation, footers)
+      background: "#FFFFFF"         # Background color (light mode)
+      background_dark: "#1E1E1E"    # Background color (dark mode)
+      text: "#333333"               # Main text color (dark mode text: "#EAEAEA")
+      accent: "#FF9900"             # Accent color (used for highlights, CTAs)
+      success: "#28A745"            # Success color (e.g., confirmation messages)
+      warning: "#FFC107"            # Warning color (e.g., alerts, notifications)
+      error: "#DC3545"              # Error color (e.g., form validation errors)
+      info: "#17A2B8"               # Information color (e.g., tooltips, messages)
+      link: "#0056B3"               # Link color (often matches primary/secondary)
+      button_text: "#FFFFFF"        # Button text color
+      shadow: "rgba(0, 0, 0, 0.1)"  # Shadow color for UI elements
+      border: "#DDDDDD"             # Border color for UI components
+
+global_theming_enabled: false       # Needs to be set to true in every vars/main.yml of every role which supports this

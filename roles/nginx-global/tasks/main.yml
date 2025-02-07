@@ -1,0 +1,13 @@
+- name: Activate Global Matomo tracking
+  include_role:
+    name: nginx-global-matomo
+  when: global_matomo_tracking_enabled | bool and domain is defined # @toto: Do I try run without is defined checking for domain
+
+- name: Activate Global CSS
+  include_role:
+    name: nginx-global-css
+  when:
+    - global_theming_enabled | bool 
+    - run_once_nginx_global_css is not defined
+# - nginx-global-www Has to be loaded somehow different
+#  @todo implement better loading

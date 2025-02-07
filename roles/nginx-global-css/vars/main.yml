@@ -1,0 +1,1 @@
+global_css_destination: "{{nginx.directories.global}}global.css"

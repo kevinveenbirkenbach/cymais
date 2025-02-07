@@ -21,9 +21,9 @@ Focuses on web server roles and applications, covering SSL certificates, Nginx c
 - **[Nginx-Docker-Reverse-Proxy](./roles/nginx-docker-reverse-proxy/)**: Sets up a reverse proxy for Docker containers.
 - **[nginx-static-repository](./roles/nginx-static-repository/)**: Configures a homepage for Nginx.
 - **[Nginx-Https](./roles/nginx-https/)**: Enables HTTPS configuration for Nginx.
-- **[Nginx-Matomo-Tracking](./roles/nginx-matomo-tracking/)**: Integrates Matomo tracking with Nginx.
+- **[nginx-global-matomo](./roles/nginx-global-matomo/)**: Integrates Matomo tracking with Nginx.
 - **[Nginx-Domain-Redirect](./roles/nginx-domain-redirect/)**: Manages URL redirects in Nginx.
-- **[Nginx-WWW-Redirect](./roles/nginx-www-redirect/)**: Redirects all domains with the prefix www. from www.domain.tld to domain.tld
+- **[nginx-global-www](./roles/nginx-global-www/)**: Redirects all domains with the prefix www. from www.domain.tld to domain.tld
 - **[Nginx-Certbot](./roles/nginx-certbot/)**: Integrates Certbot with Nginx for SSL certificates.
 - **[Postfix](./roles/postfix/)**: Setup for the Postfix mail transfer agent.
 

@@ -1,7 +1,7 @@
-# README.md for nginx-www-redirect Role
+# README.md for nginx-global-www Role
 
 ## Overview
-The `nginx-www-redirect` role is designed to automate the process of setting up redirects from `www.domain.tld` to `domain.tld` for all domains and subdomains configured within the `{{nginx.directories.http.servers}}` directory. This role dynamically identifies configuration files following the pattern `*domain.tld.conf` and creates corresponding redirection rules.
+The `nginx-global-www` role is designed to automate the process of setting up redirects from `www.domain.tld` to `domain.tld` for all domains and subdomains configured within the `{{nginx.directories.http.servers}}` directory. This role dynamically identifies configuration files following the pattern `*domain.tld.conf` and creates corresponding redirection rules.
 
 ## Role Description
 This role performs several key tasks:
@@ -20,7 +20,7 @@ Example playbook:
 ```yaml
 - hosts: web-servers
   roles:
-    - nginx-www-redirect
+    - nginx-global-www
 ```
 
 ## Requirements
@@ -34,4 +34,4 @@ Example playbook:
 
 ---
 
-This `nginx-www-redirect` role was crafted with insights and guidance provided by ChatGPT, an advanced AI language model from OpenAI. The development process, including the discussions with ChatGPT that shaped this role, can be [here](https://chat.openai.com/share/a68e3574-f543-467d-aea7-0895f0e00bbb) explored in detail.
+This `nginx-global-www` role was crafted by [Kevin Veen-Birkenbach](https://www.veen.world) with insights and guidance provided by ChatGPT, an advanced AI language model from OpenAI. The development process, including the discussions with ChatGPT that shaped this role, can be [here](https://chat.openai.com/share/a68e3574-f543-467d-aea7-0895f0e00bbb) explored in detail.

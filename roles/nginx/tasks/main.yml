@@ -9,7 +9,7 @@
     name: nginx-mod-headers-more
     state: present
   notify: restart nginx
-  when: run_once_nginx is not defined and nginx_matomo_tracking | bool
+  when: run_once_nginx is not defined and global_matomo_tracking_enabled | bool
 
 - name: "Delete {{nginx.directories.configuration}} directory, when mode_reset"
   file:
@@ -33,8 +33,8 @@
   notify: restart nginx
   when: run_once_nginx is not defined
 
-- name: "include task certbot-matomo.yml"
-  include_tasks: certbot-matomo.yml
+- name: "include task certbot-and-globals.yml"
+  include_tasks: certbot-and-globals.yml
   vars:
     domain: "{{primary_domain}}"
   when: run_once_nginx is not defined

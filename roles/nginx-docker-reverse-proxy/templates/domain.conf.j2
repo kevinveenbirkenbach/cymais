@@ -21,11 +21,8 @@ server
   }
   {% endif %}
 
-  {% if nginx_matomo_tracking | bool %}
-    # Include Matomo Tracking Code
-    {% include 'roles/nginx-matomo-tracking/templates/matomo-tracking.conf.j2' %}
-  {% endif %}
-
+  {% include 'roles/nginx-global/templates/global.includes.conf.j2'%}
+  
   {% if nginx_docker_reverse_proxy_extra_configuration is defined %}
     # Additional Domain Specific Configuration
     {{nginx_docker_reverse_proxy_extra_configuration}}

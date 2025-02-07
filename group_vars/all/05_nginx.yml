@@ -11,8 +11,10 @@ nginx:
     streams:        "/etc/nginx/conf.d/streams/"      # Contains streams configuration e.g. for ldaps
     well_known:     "/usr/share/nginx/well-known/"    # Path where well-known files are stored
     homepage:       "/usr/share/nginx/homepage/"      # Path where the static homepage files are stored. @todo Move this variable to the role
+    global:         "/var/www/global/"                # Directory containing files which will be globaly accessable
+  user:             "http"                            # Default nginx user in ArchLinux
 
 ## Nginx static repository
 nginx_static_repository_address: NULL #This should contain the url to an git repository which has a static homepage included and an index.html file. @todo move this variable to the role
 
-nginx_matomo_tracking:                false   # Activates matomo tracking on all html pages
+global_matomo_tracking_enabled:                false   # Activates matomo tracking on all html pages
