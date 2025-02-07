@@ -75,9 +75,9 @@ button:hover, .btn:hover {
     color: var(--text-color) !important;
 }
 
-/* Inputs & Forms (Background, Text, Border, and Focus Shadow) */
+/* Inputs & Forms in Light Mode (Using a Light Tone from the Corporate Design) */
 input, textarea, select {
-    background-color: var(--background-color) !important;
+    background-color: var(--info-color) !important;  /* Instead of var(--background-color) */
     color: var(--text-color) !important;
     border-color: var(--border-color) !important;
 }
@@ -86,14 +86,25 @@ input:focus, textarea:focus, select:focus {
     box-shadow: 0 0 5px var(--shadow-color);
 }
 
+.bg-light{
+    background-color: var(--background-color) !important;
+}
+
 /* Navigation (Background and Text Colors) */
 .navbar, .navbar-light, .navbar-dark {
-    background-color: var(--primary-color) !important;
+    background-color: var(--background-color) !important;
     color: var(--button-text-color) !important;
 }
+
 .navbar a {
     color: var(--button-text-color) !important;
 }
+
+.navbar .dropdown-item a {
+    color: var(--background-color) !important;
+}
+
+
 
 /* Tables (Borders and Header Colors) */
 th, td {
@@ -116,20 +127,18 @@ h1, h2 {
     color: var(--text-color);
 }
 
+/* Dark Mode Adjustments (Background and Text Colors) */
 @media (prefers-color-scheme: dark) {
     h1, h2 {
         color: #ffffff !important;
         text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3);
     }
-}
-
-/* Dark Mode Adjustments (Background and Text Colors) */
-@media (prefers-color-scheme: dark) {
     body {
         background-color: var(--background-dark-color) !important;
         color: var(--text-color) !important;
     }
     input, textarea, select {
+        color: var(--button-text-color) !important;
         background-color: var(--background-dark-color) !important;
         color: var(--text-color) !important;
     }
@@ -153,12 +162,6 @@ h1, h2 {
     background-color: var(--secondary-color) !important;
     color: var(--text-color) !important;
 }
-
-/* Portfolio Specific: Input Field Text Color */
-#dynamicModalContent {
-    color: var(--button-text-color) !important;
-}
-
 /* Ensure the button itself uses the light text color. Occured in Mastodon */
 button.icon-button {
   color: var(--button-text-color) !important;

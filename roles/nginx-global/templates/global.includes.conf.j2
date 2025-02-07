@@ -7,9 +7,11 @@ sub_filter_types text/html;
   {% include 'roles/nginx-global-matomo/templates/matomo-tracking.conf.j2' %}
 {% endif %}
 
+{% if global_theming_enabled | bool or global_matomo_tracking_enabled | bool%}
+  sub_filter '</head>' '{% if global_matomo_tracking_enabled | bool %}{% include 'roles/nginx-global-matomo/templates/script.j2' %}{% endif %}{% if global_theming_enabled | bool %}{% include 'roles/nginx-global-css/templates/link.j2' %}{% endif %}</head>';
+{% endif %}
+
 {% if global_theming_enabled | bool %}
-  # Include Global Theming
-  {% include 'roles/nginx-global-css/templates/sub_filter.conf.j2' %}
   # Include Global CSS Location
   {% include 'roles/nginx-global-css/templates/location.conf.j2' %}
 {% endif %}
