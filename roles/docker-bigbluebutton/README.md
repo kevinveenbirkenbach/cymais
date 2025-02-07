@@ -33,3 +33,4 @@ watch -n 2 "docker compose ps -a"
 - https://stackoverflow.com/questions/53347951/docker-network-not-found
 - https://github.com/bigbluebutton/docker/issues/325
 - https://mattdyson.org/blog/2024/11/self-hosting-bluesky-pds/
+- https://atproto.com/specs/handle#handle-resolution @toto micoservice für dynamische did auflösung implementieren
