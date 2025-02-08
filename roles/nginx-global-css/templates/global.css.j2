@@ -168,8 +168,8 @@ button.icon-button {
 /* Dark Mode Adjustments (Background and Text Colors) */
 @media (prefers-color-scheme: dark) {
     h1, h2 {
-        color: #ffffff !important;
-        text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3);
+        color: var(--background-color) !important;
+        text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3) !important;
     }
     body {
         background-color: var(--background-dark-color) !important;
@@ -182,6 +182,11 @@ button.icon-button {
     div#mastodon p{
         color: var(--button-text-color) !important;
     }
+    /** Nextcloud **/ 
+    div#content-vue p, div#content-vue span{
+        color: var(--background-color) !important;
+    }
+
 }
 
 /** Nextcloud specific **/
@@ -200,7 +205,11 @@ section.main.kanban{
     background-color: transparent !important;
 }
 
-div.kanban-header, div.kanban-table-inner, section.kanban button{
-    background-color: var(--background-color) !important;
+div.master, div.kanban-header, div.kanban-table-inner, section.kanban button,a.dropdown-project-list-projects{
+    background-color: var(--info-color) !important;
+    color: var(--background-dark-color) !important;
+}
+
+section.kanban h1, section.kanban h2{
     color: var(--background-dark-color) !important;
 }
