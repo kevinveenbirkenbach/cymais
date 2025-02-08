@@ -141,26 +141,6 @@ div#mastodon p{
     color: var(--background-dark-color) !important;
 }
 
-
-/* Dark Mode Adjustments (Background and Text Colors) */
-@media (prefers-color-scheme: dark) {
-    h1, h2 {
-        color: #ffffff !important;
-        text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3);
-    }
-    body {
-        background-color: var(--background-dark-color) !important;
-        color: var(--text-color) !important;
-    }
-    input, textarea, select {
-        color: var(--button-text-color) !important;
-        background-color: var(--background-dark-color) !important;
-    }
-    div#mastodon p{
-        color: var(--button-text-color) !important;
-    }
-}
-
 /* Dropdown Menu and Submenu (Background, Text, and Shadow) */
 .navbar .dropdown-menu,
 .nav-item .dropdown-menu {
@@ -185,6 +165,25 @@ button.icon-button {
     color: var(--button-text-color) !important;
 }
 
+/* Dark Mode Adjustments (Background and Text Colors) */
+@media (prefers-color-scheme: dark) {
+    h1, h2 {
+        color: #ffffff !important;
+        text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3);
+    }
+    body {
+        background-color: var(--background-dark-color) !important;
+        color: var(--text-color) !important;
+    }
+    input, textarea, select {
+        color: var(--button-text-color) !important;
+        background-color: var(--background-dark-color) !important;
+    }
+    div#mastodon p{
+        color: var(--button-text-color) !important;
+    }
+}
+
 /** Nextcloud specific **/
 button.files-list__row-name-link, button.button-vue{
     background-color: transparent !important;
@@ -193,4 +192,15 @@ button.files-list__row-name-link, button.button-vue{
 /* Peertube specific configuration */
 .peertube-container button {
     background-color: transparent !important;
+}
+
+/** Taiga specific configuration  **/
+
+section.main.kanban{
+    background-color: transparent !important;
+}
+
+div.kanban-header, div.kanban-table-inner, section.kanban button{
+    background-color: var(--background-color) !important;
+    color: var(--background-dark-color) !important;
 }
