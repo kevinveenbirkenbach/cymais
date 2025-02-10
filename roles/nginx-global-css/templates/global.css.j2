@@ -36,14 +36,20 @@
     --bs-btn-color: var(--background-dark-color);
 }
 
-/* Peertube Overrides */
-:root {
-    --mainColor: var(--primary-color);
-}
-
 /** Mastodon Overrides **/
 :root{
     --surface-variant-background-color: var(--button-bg-color)
+}
+
+/** Nextcloud Specific**/
+:root{
+    --color-main-background: var(--background-color);
+    --color-main-background-rgb: var(--background-color);
+}
+
+/* Peertube Overrides */
+:root {
+    --mainColor: var(--primary-color);
 }
 
 /* Global Defaults (Colors Only) */
@@ -65,7 +71,6 @@ button, .btn {
     background-color: var(--button-bg-color) !important;
     color: var(--primary-color) !important;
     border-color: var(--border-color) !important;
-    box-shadow: var(--small-shadow) !important;
     cursor: pointer;
 }
 
@@ -124,9 +129,10 @@ input:focus, textarea:focus, select:focus {
 th, td {
     border-color: var(--border-color) !important;
 }
+
 thead {
-    background-color: var(--primary-color);
-    color: var(--background-dark-color);
+    background-color: var(--button-bg-color) !important;
+    color: var(--background-dark-color) !important;
 }
 
 /* Cards / Containers (Background, Border, and Shadow)
@@ -138,11 +144,7 @@ thead {
 }
 
 /* Headings (Text Color) */
-h1, h2 {
-    color: var(--text-color);
-}
-
-p{
+h1, h2, p{
     color: var(--background-dark-color) !important;
 }
 
@@ -178,6 +180,21 @@ div#mastodon strong{
     color: var(--background-dark-color) !important;
 }
 
+/** Nextcloud specific **/
+html.ng-csp header#header{
+    color: var(--background-color) !important;
+    background-color: var(--button-bg-color) !important;
+}
+
+html.ng-csp button.files-list__row-name-link, html.ng-csp button.button-vue{
+    background-color: transparent !important;
+    color: background-color: var(--button-bg-color) !important;
+}
+
+div#content-vue p, div#content-vue span{
+    color: var(--background-dark-color) !important;
+}
+
 /** OpenProject **/
 header.op-app-header{
     background-color: var(--background-dark-color) !important;
@@ -191,11 +208,6 @@ div#wrapper button, div#wrapper input, button.top-menu-search-button, div.menu-s
 
 main-menu-toggle button{
     border: 0px none !important;
-}
-
-/** Nextcloud specific **/
-button.files-list__row-name-link, button.button-vue{
-    background-color: transparent !important;
 }
 
 /* Peertube specific configuration */
@@ -217,39 +229,3 @@ div.master, div.kanban-header, div.kanban-table-inner, section.kanban button,a.d
 section.kanban h1, section.kanban h2{
     color: var(--background-dark-color) !important;
 }
-
-/* Dark Mode Adjustments (Background and Text Colors) */
-/*** !!! Contiously Deactivated: First focusing on Optimizing everything for bright mode ***
-@media (prefers-color-scheme: dark) {
-    h1, h2 {
-        color: var(--background-color) !important;
-        text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3) !important;
-    }
-    body {
-        background-color: var(--background-dark-color) !important;
-        color: var(--text-color) !important;
-    }
-    input, textarea, select {
-        color: var(--button-text-color) !important;
-        background-color: var(--background-dark-color) !important;
-    }
-    div#mastodon p{
-        color: var(--button-text-color) !important;
-    }
-
-    // Keycloak Specific
-    html.pf-v5-theme-dark main#kc-main-content-page-container section{
-        background-color: var(--background-color) !important;
-    }
-
-    // Nextcloud
-    div#content-vue p, div#content-vue span{
-        color: var(--background-color) !important;
-    }
-
-    // Open Project
-    div#wrapper button, div#wrapper input, button.top-menu-search-button, div.menu-sidebar a{
-        color: var(--background-color) !important;
-    }
-}
-*/
