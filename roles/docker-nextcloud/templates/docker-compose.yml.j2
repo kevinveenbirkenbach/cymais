@@ -9,6 +9,11 @@ services:
     container_name: {{nextcloud_application_container_name}} 
     volumes:
       - data:/var/www/html
+    healthcheck:
+      test: ["CMD", "su", "www-data", "-s", "/bin/sh", "-c", "php /var/www/html/occ status"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
@@ -41,6 +46,11 @@ services:
     volumes:
       - data:/var/www/html
     entrypoint: /cron.sh
+    healthcheck:
+      test: ["CMD", "su", "www-data", "-s", "/bin/sh", "-c", "php /var/www/html/occ status"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
