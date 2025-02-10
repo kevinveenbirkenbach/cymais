@@ -47,6 +47,11 @@
     --color-main-background-rgb: var(--background-color);
     --color-primary-element: var(--button-bg-color);
     --color-main-text: var(--background-dark-color);
+    --color-background-hover: var(--secondary-color);
+
+    /** Calendar **/
+    --color-background-dark: var(--info-color); /** Days which aren't in the current month **/
+    --color-primary-element-light: var(--secondary-color);
 }
 
 /* Peertube Overrides */
@@ -106,7 +111,7 @@ input, textarea, select {
 }
 input:focus, textarea:focus, select:focus {
     border-color: var(--primary-color) !important;
-    box-shadow: 0 0 5px var(--shadow-color);
+    /** box-shadow: 0 0 5px var(--shadow-color);**/
 }
 
 /* Navigation (Background and Text Colors) */
@@ -141,7 +146,7 @@ thead {
    Cards now use a slightly lighter background and a bold, clear shadow */
 .card {
     background-color: var(--card-bg-color) !important;
-    box-shadow: var(--large-shadow) !important;
+    /** box-shadow: var(--large-shadow) !important;**/
     border-color: var(--border-color) !important;
 }
 
@@ -155,7 +160,7 @@ h1, h2, h3, h4, h5, h6, p{
 .nav-item .dropdown-menu {
     background-color: var(--background-color) !important;
     color: var(--text-color) !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    /**box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);**/
 }
 
 .dropdown-item {
