@@ -8,8 +8,8 @@ services:
     image: chocobozzz/peertube:production-{{applications.peertube.version}}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     ports:
-     - "1935:1935"
-     - "{{http_port}}:9000" 
+     - "1935:1935"  # @todo Add to ports
+     - "127.0.0.1:{{http_port}}:9000" 
     volumes:
       - assets:/app/client/dist
       - data:/data
