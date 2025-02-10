@@ -11,7 +11,7 @@ global_theming:
       # For dark mode: a dark, blue–gray background
       background_dark: "#2E3B4E"
       # For the text – true black
-      text: "#000000"
+      text: "#2E3B4E"
       # Accent color (e.g., for links or buttons) – a golden tone symbolizing the sun
       accent: "#FFD700"
       # As the positive/success color – a light, slightly grayish green (forest)

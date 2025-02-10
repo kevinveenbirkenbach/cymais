@@ -41,6 +41,11 @@
     --mainColor: var(--primary-color);
 }
 
+/** Mastodon Overrides **/
+:root{
+    --surface-variant-background-color: var(--button-bg-color)
+}
+
 /* Global Defaults (Colors Only) */
 body {
     background-color: var(--background-color) !important;
@@ -137,7 +142,7 @@ h1, h2 {
     color: var(--text-color);
 }
 
-div#mastodon p{
+p{
     color: var(--background-dark-color) !important;
 }
 
@@ -164,41 +169,19 @@ div#mastodon p{
 button.icon-button {
     color: var(--button-text-color) !important;
 }
+ /** Mastodon Specific **/ 
+div#mastodon div.compose-panel div.compose-form__highlightable{
+    background-color: var(--background-color) !important;
+}
+
+div#mastodon strong{
+    color: var(--background-dark-color) !important;
+}
 
 /** OpenProject **/
 header.op-app-header{
     background-color: var(--background-dark-color) !important;
     color: var(--text-color) !important;
-}
-
-/* Dark Mode Adjustments (Background and Text Colors) */
-@media (prefers-color-scheme: dark) {
-    h1, h2 {
-        color: var(--background-color) !important;
-        text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3) !important;
-    }
-    body {
-        background-color: var(--background-dark-color) !important;
-        color: var(--text-color) !important;
-    }
-    input, textarea, select {
-        color: var(--button-text-color) !important;
-        background-color: var(--background-dark-color) !important;
-    }
-    div#mastodon p{
-        color: var(--button-text-color) !important;
-    }
-    /** Nextcloud **/ 
-    div#content-vue p, div#content-vue span{
-        color: var(--background-color) !important;
-    }
-
-    /** Open Project **/
-    div#wrapper button, div#wrapper input, button.top-menu-search-button, div.menu-sidebar a{
-        color: var(--background-color) !important;
-    }
-
-
 }
 
 /** Open Project **/
@@ -234,3 +217,39 @@ div.master, div.kanban-header, div.kanban-table-inner, section.kanban button,a.d
 section.kanban h1, section.kanban h2{
     color: var(--background-dark-color) !important;
 }
+
+/* Dark Mode Adjustments (Background and Text Colors) */
+/*** !!! Contiously Deactivated: First focusing on Optimizing everything for bright mode ***
+@media (prefers-color-scheme: dark) {
+    h1, h2 {
+        color: var(--background-color) !important;
+        text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3) !important;
+    }
+    body {
+        background-color: var(--background-dark-color) !important;
+        color: var(--text-color) !important;
+    }
+    input, textarea, select {
+        color: var(--button-text-color) !important;
+        background-color: var(--background-dark-color) !important;
+    }
+    div#mastodon p{
+        color: var(--button-text-color) !important;
+    }
+
+    // Keycloak Specific
+    html.pf-v5-theme-dark main#kc-main-content-page-container section{
+        background-color: var(--background-color) !important;
+    }
+
+    // Nextcloud
+    div#content-vue p, div#content-vue span{
+        color: var(--background-color) !important;
+    }
+
+    // Open Project
+    div#wrapper button, div#wrapper input, button.top-menu-search-button, div.menu-sidebar a{
+        color: var(--background-color) !important;
+    }
+}
+*/
