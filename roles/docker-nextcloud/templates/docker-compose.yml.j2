@@ -15,7 +15,7 @@ services:
 
   web:
     image: nginx:alpine
-    container_name: nextcloud-web
+    container_name: {{nextcloud_nginx_container_name}}
     logging:
       driver: journald
     restart: {{docker_restart_policy}}

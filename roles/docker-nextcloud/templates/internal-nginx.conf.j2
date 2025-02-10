@@ -1,6 +1,11 @@
+# Internal configuration file for nextcloud
+# Verify time by time, that this rules are valid:
+# https://docs.nextcloud.com/server/latest/admin_manual/installation/nginx.html
+
 worker_processes auto;
 
-error_log  /var/log/nginx/error.log warn;
+# @see https://chatgpt.com/share/67aa3ce9-eea0-800f-85e8-ac54a3810b13
+error_log   /proc/self/fd/2 {% if enable_debug | bool %}debug{% else %}warn{% endif %};
 pid        /var/run/nginx.pid;
 
 
@@ -19,7 +24,7 @@ http {
                       '$status $body_bytes_sent "$http_referer" '
                       '"$http_user_agent" "$http_x_forwarded_for"';
 
-    access_log  /var/log/nginx/access.log  main;
+    access_log /proc/self/fd/1 main;
 
     sendfile        on;
     #tcp_nopush     on;
@@ -132,6 +137,10 @@ http {
         # then Nginx will encounter an infinite rewriting loop when it prepends `/index.php`
         # to the URI, resulting in a HTTP 500 error response.
         location ~ \.php(?:$|/) {
+            # Required for legacy support
+            # Added due to this error: https://help.nextcloud.com/t/ldap-ad-authnetication-500-error-on-ajax-request/107168/3
+            rewrite ^/(?!index|remote|public|cron|core\/ajax\/update|status|ocs\/v[12]|updater\/.+|ocs-provider\/.+|.+\/richdocumentscode(_arm64)?\/proxy) /index.php$request_uri;
+
             fastcgi_split_path_info ^(.+?\.php)(/.*)$;
             set $path_info $fastcgi_path_info;
 
@@ -150,13 +159,13 @@ http {
             fastcgi_request_buffering off;
         }
 
-        location ~ \.(?:css|js|svg|gif)$ {
+        location ~ \.(?:css|js|mjs|svg|gif|ico|jpg|png|webp|wasm|tflite|map|ogg|flac)$ {
             try_files $uri /index.php$request_uri;
             expires 6M;         # Cache-Control policy borrowed from `.htaccess`
             access_log off;     # Optional: Don't log access to assets
         }
 
-        location ~ \.woff2?$ {
+        location ~ \.(otf|woff2?)$ {
             try_files $uri /index.php$request_uri;
             expires 7d;         # Cache-Control policy borrowed from `.htaccess`
             access_log off;     # Optional: Don't log access to assets

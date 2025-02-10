@@ -6,21 +6,25 @@
 - name: "include task certbot-and-globals.yml"
   include_tasks: certbot-and-globals.yml
 
-- name: configure {{domain}}.conf
+- name: create nextcloud nginx proxy configuration file
   template: 
-    src:  "templates/nextcloud.conf.j2" 
+    src:  "proxy-nginx.conf.j2" 
     dest: "{{nginx.directories.http.servers}}{{domain}}.conf"
   notify: restart nginx
 
-- name: create nginx.conf
+- name: create internal nextcloud nginx configuration
   template: 
-    src:  "templates/nginx.conf.j2" 
+    src:  "internal-nginx.conf.j2" 
     dest: "{{docker_compose.directories.volumes}}nginx.conf"
-  notify: docker compose project setup
+  notify: restart docker nginx service
 
 - name: "copy docker-compose.yml and env file"
   include_tasks: copy-docker-compose-and-env.yml
 
-- name: Include OIDC-specific tasks if OIDC client is active
-  include_tasks: oidc_tasks.yml
+- name: Include OIDC-specific tasks
+  include_tasks: oidc.yml
   when: oidc.enabled | bool
+
+- name: Include LDAP specific tasks
+  include_tasks: ldap.yml
+  when: ldap.enabled | bool

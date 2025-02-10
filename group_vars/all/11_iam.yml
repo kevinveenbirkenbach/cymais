@@ -35,5 +35,15 @@ oauth2_proxy_active:                         false
 #############################################
 ### LDAP                                  ###
 #############################################
-# Activate LDAP network for insecure communitation on localhot between different container instances. Set in vars/main.yml
+
+
+# Activate local LDAP network for communitation on localhot between different docker containers
+# 
+# Set in vars/main.yml via:
+#   ldap_network_enabled: "{{ldap.enabled}}"
+#
+# This leads to that the local ldap networks get enabled, if LDAP is enabled
 ldap_network_enabled:                  false
+
+ldap:
+  enabled:  true # Enable or disable LDAP

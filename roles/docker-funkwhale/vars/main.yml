@@ -2,7 +2,7 @@ application_id:                                 "funkwhale"
 nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size 512M;"
 database_password:                              "{{funkwhale_database_password}}"
 database_type:                                  "postgres"
-ldap_network_enabled:                           true  # Activate LDAP network
+ldap_network_enabled:                           "{{ldap.enabled}}"
 media_root:                                     "/srv/funkwhale/data/"
 static_root:                                    "{{media_root}}static"
 celeryd_concurrency:                            1

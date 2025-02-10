@@ -119,6 +119,17 @@ docker-compose exec -it -u www-data application /var/www/html/occ maintenance:mo
 
 ---
 
+# Identity and Access Management (IAM)
+
+## OpenID Connect (OIDC) Support 🔐
+
+OIDC is supported in this role—for example, via **Keycloak**. OIDC-specific tasks are included when enabled, allowing integration of external authentication providers seamlessly.
+
+## LDAP 
+
+
+---
+
 ## Architecture
 
 ### MariaDB
@@ -155,12 +166,6 @@ docker-compose logs web --tail 1000 | grep 504
 - [Issues After Upgrading to Nextcloud 21](https://help.nextcloud.com/t/several-issues-after-upgrading-to-nextcloud-21/113118/3)
 - [Nextcloud Talk Plugin and Turnserver in Docker](https://forum.openmediavault.org/index.php?thread/31782-docker-nextcloud-talk-plugin-and-turnserver/)
 - [Nextcloud Talk on Docker: Turn Server Issues](https://help.nextcloud.com/t/nextcloud-talk-im-docker/container/turn-server-auf-docker-host-kein-video/84133/10)
-
----
-
-## OIDC (OpenID Connect) Support 🔐
-
-OIDC is supported in this role—for example, via **Keycloak**. OIDC-specific tasks are included when enabled, allowing integration of external authentication providers seamlessly.
 
 ---
 ## Author
