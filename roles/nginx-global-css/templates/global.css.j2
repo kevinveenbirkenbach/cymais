@@ -165,6 +165,12 @@ button.icon-button {
     color: var(--button-text-color) !important;
 }
 
+/** OpenProject **/
+header.op-app-header{
+    background-color: var(--background-dark-color) !important;
+    color: var(--text-color) !important;
+}
+
 /* Dark Mode Adjustments (Background and Text Colors) */
 @media (prefers-color-scheme: dark) {
     h1, h2 {
@@ -187,6 +193,21 @@ button.icon-button {
         color: var(--background-color) !important;
     }
 
+    /** Open Project **/
+    div#wrapper button, div#wrapper input, button.top-menu-search-button, div.menu-sidebar a{
+        color: var(--background-color) !important;
+    }
+
+
+}
+
+/** Open Project **/
+div#wrapper button, div#wrapper input, button.top-menu-search-button, div.menu-sidebar a{
+    background-color: transparent !important;
+}
+
+main-menu-toggle button{
+    border: 0px none !important;
 }
 
 /** Nextcloud specific **/
