@@ -11,7 +11,7 @@
 # default setup for docker compose files
 - name: docker compose project setup
   command:
-    cmd: docker-compose -p "{{application_id}}" up -d --force-recreate
+    cmd: "docker-compose -p {{application_id}} up -d --force-recreate{% if mode_cleanup | bool %} --remove-orphans{% endif %}"
     chdir: "{{docker_compose.directories.instance}}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
@@ -22,7 +22,7 @@
 # for performance reasons it's not recommended to use this if there is no build tag specified
 - name: docker compose project build and setup 
   command:
-    cmd: docker-compose -p "{{application_id}}" up -d --force-recreate --build
+    cmd: "docker-compose -p {{application_id}} up -d --force-recreate --build{% if mode_cleanup | bool %} --remove-orphans{% endif %}"
     chdir: "{{docker_compose.directories.instance}}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
