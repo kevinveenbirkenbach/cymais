@@ -1,0 +1,8 @@
+- name: "import missing groups from {{groups_ldif_docker_path}} to OpenLDAP"
+  shell: >
+    docker exec -i openldap ldapadd -x -D "{{ldap_admin_dn}}" -w "{{applications.ldap.administrator_database_password}}" -c -f "{{groups_ldif_docker_path}}"
+  register: ldapadd_result
+  changed_when: "'adding new entry' in ldapadd_result.stdout"
+  # Allow return code 0 (all entries added) or 68 (entry already exists)
+  failed_when: ldapadd_result.rc not in [0, 68]
+  listen: "Import missing groups to OpenLDAP"

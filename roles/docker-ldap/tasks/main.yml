@@ -44,3 +44,13 @@
     force: yes
   notify: docker compose project setup
   when: applications.ldap.webinterface == 'lam'
+
+- name: flush docker service
+  meta: flush_handlers
+
+- name: "create {{groups_ldif_host_path}}"
+  template:
+    src:  "groups.ldif.j2" 
+    dest: "{{groups_ldif_host_path}}"
+    mode: '770'
+  notify: Import missing groups to OpenLDAP

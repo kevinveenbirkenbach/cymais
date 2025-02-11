@@ -16,80 +16,21 @@ This Ansible role provides a streamlined implementation of an LDAP server with T
 - **Healthcheck Support**:
   - Ensures that the LDAP service is healthy and accessible using `ldapsearch`.
 
----
-
-## 📋 **Requirements**
-
-### Prerequisites
-- A valid domain name.
-- Ansible installed on the deployment host.
-- Docker and Docker Compose installed on the target host.
-
----
-
-## 🔧 **Role Variables**
-
-### Key Variables
-| Variable                      | Description                                              | Default Value                        |
-|-------------------------------|----------------------------------------------------------|--------------------------------------|
-| `application_id` | Name of the Docker Compose project.                     | `ldap`                               |
-| `ldap_root`                   | Base DN for the LDAP directory.                         | `dc={{primary_domain_sld}},dc={{primary_domain_tld}}` |
-| `ldap_admin_dn`               | Distinguished Name (DN) for the LDAP administrator.     | `cn={{applications.ldap.administrator_username}},{{ldap_root}}` |
-| `cert_mount_directory`        | Directory to mount SSL/TLS certificates.                | `{{docker_compose.directories.instance}}/certs/` |
-| `applications.ldap.administrator_username` | Username for the LDAP admin.                            | `admin`                              |
-| `applications.ldap.administrator_password` | Password for the LDAP admin.                            | _Required_                           |
-| `applications.ldap.phpldapadmin.version`          | Version of phpLDAPadmin Docker image.                   | `latest`                             |
-| `applications.ldap.openldap.version`                | Version of OpenLDAP Docker image.                       | `latest`                             |
-
----
-
-## 📂 **Role Structure**
-
-```
-roles/
-  docker-ldap/
-    README.md
-    vars/
-      main.yml
-    tasks/
-      main.yml
-    templates/
-      docker-compose.yml.j2
-      nginx.stream.conf.j2
+--
+## Maintanance
+### Show all Entires
+```bash 
+docker exec --env LDAP_ADMIN_PASSWORD="$LDAP_ADMIN_PASSWORD" -it openldap bash -c "ldapsearch -LLL -o ldif-wrap=no -x -D 'cn=administrator,dc=veen,dc=world' -w \"\$LDAP_ADMIN_PASSWORD\" -b 'dc=veen,dc=world'
 ```
 
----
+### Delete Groups and Subgroup
+To delete the group inclusive all subgroups use:
+```bash
+docker exec --env LDAP_ADMIN_PASSWORD="$LDAP_ADMIN_PASSWORD" -it openldap bash -c "ldapsearch -LLL -o ldif-wrap=no -x -D 'cn=administrator,dc=veen,dc=world' -w \"\$LDAP_ADMIN_PASSWORD\" -b 'ou=applications,ou=groups,dc=veen,dc=world' dn | sed -n 's/^dn: //p' | tac | while read -r dn; do echo \"Deleting \$dn\"; ldapdelete -x -D 'cn=administrator,dc=veen,dc=world' -w \"\$LDAP_ADMIN_PASSWORD\" \"\$dn\"; done"
 
-## 📖 **Usage**
-
-Here’s an example playbook to use this role:
-
-```yaml
-- name: Deploy LDAP
-  hosts: ldap_servers
-  roles:
-    - role: docker-ldap
-      vars:
-        docker_compose.directories.instance: "/opt/docker/ldap/"
-        primary_domain_sld: "veen"
-        primary_domain_tld: "world"
-        applications.ldap.administrator_username: "administrator"
-        applications.ldap.administrator_password: "secure_password_here"
-        applications.ldap.phpldapadmin.version: "latest"
-        applications.ldap.openldap.version: "latest"
 ```
 
-### **Steps to Deploy:**
-1. Clone your playbook repository to the target server.
-2. Run the playbook:
-   ```bash
-   ansible-playbook -i inventory playbook.yml
-   ```
-3. Access phpLDAPadmin:
-   - URL: `http://localhost:8080` (or your configured port)
-   - Login: Use the admin DN and password.
-
----
+--
 
 ## 🛠️ **Technical Details**
 

@@ -1,4 +1,8 @@
 #######################################################################
+# This file contains the CyMaIS default groups
+#######################################################################
+
+#######################################################################
 # Base container for all role-based groups
 #######################################################################
 dn: ou=groups,dc=veen,dc=world
@@ -7,156 +11,136 @@ ou: groups
 description: Container for all role-based groups (by function/profession)
 
 #######################################################################
-# Role: System Administrator
+# Role: Administrators
 #######################################################################
-dn: cn=systemadministrator,ou=groups,dc=veen,dc=world
-objectClass: groupOfNames
-cn: systemadministrator
-description: Role: System Administrator (infrastructure, security, database management, etc.)
-member: cn=dummy,ou=users,dc=veen,dc=world
+dn: cn=administrator,ou=groups,dc=veen,dc=world
+objectClass: groupOfUniqueNames
+cn: administrators
+description: Role: Administrators of this system
+uniqueMember: cn=dummy,ou=users,dc=veen,dc=world
 
 #######################################################################
 # Role: Developer
 #######################################################################
 dn: cn=developer,ou=groups,dc=veen,dc=world
-objectClass: groupOfNames
+objectClass: groupOfUniqueNames
 cn: developer
 description: Role: Developer and DevOps (coding, automation, CI/CD, etc.)
-member: cn=dummy,ou=users,dc=veen,dc=world
+uniqueMember: cn=dummy,ou=users,dc=veen,dc=world
 
 #######################################################################
 # Role: Project Manager
 #######################################################################
 dn: cn=projectmanager,ou=groups,dc=veen,dc=world
-objectClass: groupOfNames
+objectClass: groupOfUniqueNames
 cn: projectmanager
 description: Role: Project Manager and Collaboration (project planning, task management, etc.)
-member: cn=dummy,ou=users,dc=veen,dc=world
+uniqueMember: cn=dummy,ou=users,dc=veen,dc=world
 
 #######################################################################
 # Role: Communication Specialist
 #######################################################################
 dn: cn=communicationspecialist,ou=groups,dc=veen,dc=world
-objectClass: groupOfNames
+objectClass: groupOfUniqueNames
 cn: communicationspecialist
 description: Role: Communication Specialist (community management, messaging, social networks, etc.)
-member: cn=dummy,ou=users,dc=veen,dc=world
+uniqueMember: cn=dummy,ou=users,dc=veen,dc=world
 
 #######################################################################
 # Role: Content Manager
 #######################################################################
 dn: cn=contentmanager,ou=groups,dc=veen,dc=world
-objectClass: groupOfNames
+objectClass: groupOfUniqueNames
 cn: contentmanager
 description: Role: Content Manager/CMS Administrator (content creation, website management, etc.)
-member: cn=dummy,ou=users,dc=veen,dc=world
+uniqueMember: cn=dummy,ou=users,dc=veen,dc=world
 
 #######################################################################
 # Role: Marketing Analyst
 #######################################################################
 dn: cn=marketinganalyst,ou=groups,dc=veen,dc=world
-objectClass: groupOfNames
-cn: marketinganalyst
-description: Role: Marketing, Finance & Analytics (marketing platforms, financial reporting, analytics, etc.)
-member: cn=dummy,ou=users,dc=veen,dc=world
-
-#######################################################################
-# Role: Developer
-#######################################################################
-dn: cn=developer,ou=groups,dc=veen,dc=world
-objectClass: groupOfNames
-cn: developer
-description: Role: Developer (coding, software development, and DevOps tasks)
-member: cn=dummy,ou=users,dc=veen,dc=world
-
-
-#######################################################################
-# Role: Marketing Analyst
-#######################################################################
-dn: cn=marketinganalyst,ou=groups,dc=veen,dc=world
-objectClass: groupOfNames
+objectClass: groupOfUniqueNames
 cn: marketinganalyst
 description: Role: Marketing Analyst (marketing, finance, and analytics)
-member: cn=dummy,ou=users,dc=veen,dc=world
+uniqueMember: cn=dummy,ou=users,dc=veen,dc=world
 
 #######################################################################
 # Role: DevOps Engineer
 #######################################################################
 dn: cn=devopsengineer,ou=groups,dc=veen,dc=world
-objectClass: groupOfNames
+objectClass: groupOfUniqueNames
 cn: devopsengineer
 description: Role: DevOps Engineer (continuous integration, deployment, and container orchestration)
-member: cn=dummy,ou=users,dc=veen,dc=world
+uniqueMember: cn=dummy,ou=users,dc=veen,dc=world
 
 #######################################################################
 # Role: Database Administrator
 #######################################################################
 dn: cn=databaseadministrator,ou=groups,dc=veen,dc=world
-objectClass: groupOfNames
+objectClass: groupOfUniqueNames
 cn: databaseadministrator
 description: Role: Database Administrator (database management and data integrity)
-member: cn=dummy,ou=users,dc=veen,dc=world
+uniqueMember: cn=dummy,ou=users,dc=veen,dc=world
 
 #######################################################################
 # Role: Security Specialist
 #######################################################################
 dn: cn=securityspecialist,ou=groups,dc=veen,dc=world
-objectClass: groupOfNames
+objectClass: groupOfUniqueNames
 cn: securityspecialist
 description: Role: Security Specialist (container security, vulnerability assessments, and compliance)
-member: cn=dummy,ou=users,dc=veen,dc=world
+uniqueMember: cn=dummy,ou=users,dc=veen,dc=world
 
 #######################################################################
 # Role: Network Administrator
 #######################################################################
 dn: cn=networkadministrator,ou=groups,dc=veen,dc=world
-objectClass: groupOfNames
+objectClass: groupOfUniqueNames
 cn: networkadministrator
 description: Role: Network Administrator (network configuration, connectivity, and firewall management)
-member: cn=dummy,ou=users,dc=veen,dc=world
+uniqueMember: cn=dummy,ou=users,dc=veen,dc=world
 
 #######################################################################
 # Role: IT Support Specialist
 #######################################################################
 dn: cn=itsupportspecialist,ou=groups,dc=veen,dc=world
-objectClass: groupOfNames
+objectClass: groupOfUniqueNames
 cn: itsupportspecialist
 description: Role: IT Support Specialist (technical support and troubleshooting)
-member: cn=dummy,ou=users,dc=veen,dc=world
+uniqueMember: cn=dummy,ou=users,dc=veen,dc=world
 
 #######################################################################
 # Role: Quality Assurance Engineer
 #######################################################################
 dn: cn=qualityassuranceengineer,ou=groups,dc=veen,dc=world
-objectClass: groupOfNames
+objectClass: groupOfUniqueNames
 cn: qualityassuranceengineer
 description: Role: Quality Assurance Engineer (testing and ensuring software quality)
-member: cn=dummy,ou=users,dc=veen,dc=world
+uniqueMember: cn=dummy,ou=users,dc=veen,dc=world
 
 #######################################################################
 # Role: Business Analyst
 #######################################################################
 dn: cn=businessanalyst,ou=groups,dc=veen,dc=world
-objectClass: groupOfNames
+objectClass: groupOfUniqueNames
 cn: businessanalyst
 description: Role: Business Analyst (analyzing business requirements and translating them into technical needs)
-member: cn=dummy,ou=users,dc=veen,dc=world
+uniqueMember: cn=dummy,ou=users,dc=veen,dc=world
 
 #######################################################################
 # Role: Product Owner
 #######################################################################
 dn: cn=productowner,ou=groups,dc=veen,dc=world
-objectClass: groupOfNames
+objectClass: groupOfUniqueNames
 cn: productowner
 description: Role: Product Owner (oversees product strategy and manages feature prioritization)
-member: cn=dummy,ou=users,dc=veen,dc=world
+uniqueMember: cn=dummy,ou=users,dc=veen,dc=world
 
 #######################################################################
 # Role: Operations Manager
 #######################################################################
 dn: cn=operationsmanager,ou=groups,dc=veen,dc=world
-objectClass: groupOfNames
+objectClass: groupOfUniqueNames
 cn: operationsmanager
 description: Role: Operations Manager (oversees daily operations and ensures system performance)
-member: cn=dummy,ou=users,dc=veen,dc=world
-
+uniqueMember: cn=dummy,ou=users,dc=veen,dc=world

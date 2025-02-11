@@ -4,11 +4,12 @@ ldap_admin_dn:                "cn={{applications.ldap.administrator_username}},{
 ldap_secure_localhost_port:   1636
 ldap_secure_internet_port:    636
 ldap_localhost_port:          389
-
+ldap_network_enabled:         "{{ldap.enabled}}"
 # OAuth2 Proxy Configuration
 oauth2_proxy_upstream_application_and_port: "{{ applications.ldap.webinterface }}:{% if applications.ldap.webinterface == 'phpldapadmin' %}8080{% else %}80{% endif %}"
 oauth2_proxy_active:                        true
 
 enable_wildcard_certificate:  false # Activate dedicated Certificate
 
-ldap_network_enabled:         "{{ldap.enabled}}"
+groups_ldif_host_path:    "{{docker_compose.directories.volumes}}groups.ldif" # Path inside the host
+groups_ldif_docker_path:  "/tmp/groups.ldif"                                  # Path inside the docker container

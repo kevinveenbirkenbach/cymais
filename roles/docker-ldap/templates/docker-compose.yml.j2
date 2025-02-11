@@ -32,6 +32,7 @@ services:
 {% endif %}
     volumes:
       - 'data:/bitnami/openldap'
+      - '{{groups_ldif_host_path}}:{{groups_ldif_docker_path}}:ro'  # Mounting the groups for importing
     healthcheck:
       test: >
         ldapsearch -x -H ldap://localhost:389 -b "{{ldap_root}}" -D "{{ldap_admin_dn}}" -w "{{applications.ldap.administrator_database_password}}"
