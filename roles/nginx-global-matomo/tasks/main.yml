@@ -1,6 +1,6 @@
 - name: Check if site already exists in Matomo
   uri:
-    url: "https://{{matomo_domain}}/index.php?module=API&method=SitesManager.getSitesIdFromSiteUrl&url=https://{{base_domain}}&format=json&token_auth={{matomo_auth_token}}"
+    url: "https://{{domains.matomo}}/index.php?module=API&method=SitesManager.getSitesIdFromSiteUrl&url=https://{{base_domain}}&format=json&token_auth={{matomo_auth_token}}"
     method: GET
     return_content: yes
     status_code: 200
@@ -14,7 +14,7 @@
 
 - name: Add site to Matomo and get ID if not exists
   uri:
-    url: "https://{{ matomo_domain }}/index.php"
+    url: "https://{{ domains.matomo }}/index.php"
     method: POST
     body: "module=API&method=SitesManager.addSite&siteName={{ base_domain }}&urls=https://{{ base_domain }}&token_auth={{ matomo_auth_token }}&format=json"
     body_format: form-urlencoded

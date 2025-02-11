@@ -1,5 +1,5 @@
 services:
-
+#  @todo Test which containers can be removed crom cental_database networks 
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
 {% include 'templates/docker/services/redis.yml.j2' %}
@@ -57,7 +57,6 @@ services:
     ports:
       # override those variables in your .env file if needed
       - "127.0.0.1:{{http_port}}:80"
-{% include 'templates/docker/container/networks.yml.j2' %}
   
   typesense:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}

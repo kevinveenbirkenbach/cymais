@@ -17,6 +17,7 @@ services:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
+        ipv4_address: 192.168.102.66
 
   web:
     image: nginx:alpine
@@ -35,7 +36,9 @@ services:
       interval: 1m
       timeout: 10s
       retries: 3
-{% include 'templates/docker/container/networks.yml.j2' %}
+    networks:
+      default:
+        ipv4_address: 192.168.102.67
 
   cron:
     container_name: nextcloud-cron
@@ -53,6 +56,7 @@ services:
       retries: 3
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
+        ipv4_address: 192.168.102.68
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}
   data:

@@ -13,7 +13,36 @@
     - health-btrfs
     - system-btrfs-auto-balancer
 
-# Docker Roles
+#########################################################################
+### Docker Roles                                                      ###
+#########################################################################
+
+# Priority: 1
+# Almost all other roles depend on the Matomo tracking
+- hosts: all
+  tasks:
+    - name: "setup matomo hosts if matomo hosts set or global_matomo_tracking_enabled"
+      include_role:
+        name: docker-matomo
+      when: "'matomo' in group_names or (global_matomo_tracking_enabled | bool)"
+  become: true
+
+# Priority: 2
+# Much other roles rely on a working ldap setup
+- name: setup ldap
+  hosts: ldap
+  become: true
+  roles:
+   -  role: docker-ldap
+
+# Priority: 3
+# Much other roles use OICD via Keycloak
+- name: setup keycloak
+  hosts: keycloak
+  become: true
+  roles:
+   -  role: docker-keycloak
+
 - name: setup nextcloud hosts
   hosts: nextcloud_server
   become: true
@@ -122,12 +151,6 @@
   roles:
    -  role: docker-baserow
 
-- name: setup matomo hosts
-  hosts: matomo
-  become: true
-  roles:
-   -  role: docker-matomo
-
 - name: setup listmonk
   hosts: listmonk
   become: true
@@ -196,18 +219,6 @@
   become: true
   roles:
    -  role: docker-bluesky
-
-- name: setup keycloak
-  hosts: keycloak
-  become: true
-  roles:
-   -  role: docker-keycloak
-
-- name: setup ldap
-  hosts: ldap
-  become: true
-  roles:
-   -  role: docker-ldap
 
 - name: setup PHPMyAdmin
   hosts: phpmyadmin

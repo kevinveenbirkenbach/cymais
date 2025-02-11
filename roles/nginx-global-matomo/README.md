@@ -11,22 +11,8 @@ This Ansible role automates the integration of Matomo tracking code into Nginx-s
 - Nginx installed on the target server.
 - Matomo analytics platform set up and accessible.
 
-## Role Variables
-- `matomo_domain`: The domain of your Matomo installation.
-- `domain`: The domain of the website you wish to track.
-- `matomo_auth_token`: Matomo auth token
-
 ## Dependencies
 - None. This role is designed to be included in Nginx server block configurations.
-
-## Example Usage
-To enable Matomo tracking on your Nginx website, include the role in your playbook and set the required variables.
-
-```yaml
-- hosts: webserver
-  roles:
-    - { role: nginx-global-matomo, matomo_domain: 'matomo.example.com', base_domain: 'example.com', matomo_site_id: '1' }
-```
 
 ## Customization
 You can customize the tracking script and the noscript image tracker by editing the `matomo-tracking.js.j2` and `matomo.subfilter.conf.j2` templates.

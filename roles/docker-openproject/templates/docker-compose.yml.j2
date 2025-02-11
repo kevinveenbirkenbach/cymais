@@ -1,3 +1,4 @@
+# @todo Test which containers can be removed crom cental_database networks
 x-op-app: &app
   logging:
     driver: journald
@@ -15,7 +16,6 @@ services:
     image: memcached
     container_name: openproject-memcached
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-{% include 'templates/docker/container/networks.yml.j2' %}
 
   proxy:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
@@ -28,7 +28,6 @@ services:
       APP_HOST: web
     depends_on:
       - web
-{% include 'templates/docker/container/networks.yml.j2' %}
     volumes:
       - "data:/var/openproject/assets"
       - "{{dummy_volume}}:/var/openproject/pgdata" # This mount is unnecessary and just done to prevent anonymous volumes

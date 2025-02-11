@@ -1,4 +1,7 @@
 ---
-application_id:  	  "matomo"
-database_type:      "mariadb"
-database_password:  "{{matomo_database_password}}"
+application_id:  	              "matomo"
+database_type:                  "mariadb"
+database_password:              "{{matomo_database_password}}"
+
+# Disable matomo tracking for matomo, because otherwise recursiv loading technics would be neccessary
+# global_matomo_tracking_enabled: false 
