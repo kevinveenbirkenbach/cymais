@@ -48,9 +48,16 @@
 - name: flush docker service
   meta: flush_handlers
 
-- name: "create {{groups_ldif_host_path}}"
+- name: "create directory {{ldif_host_path}}"
+  file:
+    path: "{{ldif_host_path}}"
+    state: directory
+    mode: 0755
+
+- name: "Create LDIF files at {{ldif_host_path}}"
   template:
-    src:  "groups.ldif.j2" 
-    dest: "{{groups_ldif_host_path}}"
+    src:  "templates/ldif/{{item}}.j2" 
+    dest: "{{ldif_host_path}}{{item}}"
     mode: '770'
   notify: Import missing groups to OpenLDAP
+  loop: "{{ldif_files}}"

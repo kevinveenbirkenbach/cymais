@@ -11,5 +11,10 @@ oauth2_proxy_active:                        true
 
 enable_wildcard_certificate:  false # Activate dedicated Certificate
 
-groups_ldif_host_path:    "{{docker_compose.directories.volumes}}groups.ldif" # Path inside the host
-groups_ldif_docker_path:  "/tmp/groups.ldif"                                  # Path inside the docker container
+# Configuration for ldif import
+ldif_files:
+  - "groups.ldif"
+  - "roles.ldif"
+  - "users.ldif"
+ldif_host_path:     "{{docker_compose.directories.volumes}}ldif/"
+ldif_docker_path:   "/tmp/ldif/"

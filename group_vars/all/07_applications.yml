@@ -8,7 +8,7 @@ docker_restart_policy:        "unless-stopped"
 ##############################################
 
 # By default don't expose openldap to the internet, just if explicit configured
-_ldap_openldap_expose_to_internet:       "{{ applications.ldap.openldap.expose_to_internet if applications.ldap is defined and applications.ldap.openldap is defined else false}}"
+_ldap_openldap_expose_to_internet:       "{{ applications.ldap.openldap.expose_to_internet | default(False) if applications.ldap is defined and applications.ldap.openldap is defined else false}}"
 
 defaults_applications:
 
@@ -74,6 +74,7 @@ defaults_applications:
       version:                        "latest"
       expose_to_internet:             "{{_ldap_openldap_expose_to_internet}}"   # Set to true if you want to expose the LDAP port to the internet
       domain:                         "{{domains.ldap if _ldap_openldap_expose_to_internet else 'openldap'}}" # Mapping for public or locale access
+      modify:                         False                                     # When false entries will just be added, when true existing entries will be modified during import procedure
     phpldapadmin:
       version:                        "2.0.0-dev"                               # @todo Attention: Change this as fast as released to latest
     webinterface:                     "lam"                                     # The webinterface which should be used. Possible: lam and phpldapadmin
