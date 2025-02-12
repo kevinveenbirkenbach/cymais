@@ -1,9 +1,27 @@
-- name: "import missing groups from {{ldif_docker_path}} to OpenLDAP"
+- name: Load memberof module from file in OpenLDAP container
   shell: >
-    docker exec -i openldap {{ 'ldapmodify' if applications.ldap.openldap.modify|bool else 'ldapadd' }} -x -D "{{ldap.dn.administrator}}" -w "{{applications.ldap.administrator_database_password}}" -c -f "{{ldif_docker_path}}{{ item }}"
-  loop: "{{ ldif_files }}"
+    docker exec -i openldap ldapmodify -Y EXTERNAL -H ldapi:/// -f {{ldif_docker_path}}01_member_of_configuration.ldif
+  listen: "Import LDIF files"
+
+- name: Refint Module Activation for OpenLDAP
+  shell: >
+    docker exec -i openldap ldapadd -Y EXTERNAL -H ldapi:/// -f {{ldif_docker_path}}02_member_of_configuration.ldif
+  listen: "Import LDIF files"
+  register: ldapadd_result
+  failed_when: ldapadd_result.rc not in [0, 68]
+
+- name: Refint Overlay Configuration for OpenLDAP
+  shell: >
+    docker exec -i openldap modify -Y EXTERNAL -H ldapi:/// -f {{ldif_docker_path}}02_member_of_configuration.ldif
+  listen: "Import LDIF files"
+  register: ldapadd_result
+  failed_when: ldapadd_result.rc not in [0, 68]
+
+- name: "Import Access Roles to OpenLDAP"
+  shell: >
+    docker exec -i openldap ldapadd -x -D "{{ldap.dn.administrator}}" -w "{{applications.ldap.administrator_database_password}}" -c -f "{{ldif_docker_path}}04_access_profiles.ldif"
   register: ldapadd_result
   changed_when: "'adding new entry' in ldapadd_result.stdout"
   # Allow return code 0 (all entries added) or 68 (entry already exists)
   failed_when: ldapadd_result.rc not in [0, 68]
-  listen: "Import missing groups to OpenLDAP"
+  listen: "Import LDIF files"

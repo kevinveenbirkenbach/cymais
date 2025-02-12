@@ -76,7 +76,6 @@ defaults_applications:
         local:                        True                                      # Activates local network to allow other docker containers to connect
         public:                       False                                     # Set to true in inventory file if you want to expose the LDAP port to the internet
       hostname:                       "openldap"                                # Hostname of the LDAP Server in the central_ldap network
-      modify:                         False                                     # When false entries will just be added, when true existing entries will be modified during import procedure
     phpldapadmin:
       version:                        "2.0.0-dev"                               # @todo Attention: Change this as fast as released to latest
     webinterface:                     "lam"                                     # The webinterface which should be used. Possible: lam and phpldapadmin

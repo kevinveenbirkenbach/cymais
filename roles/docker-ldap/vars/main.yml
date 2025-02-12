@@ -11,8 +11,11 @@ enable_wildcard_certificate:  false # Activate dedicated Certificate
 
 # Configuration for ldif import
 ldif_files:
-  - "groups.ldif"
-  - "roles.ldif"
-  - "users.ldif"
+  - "01_member_of_configuration.ldif"
+  - "02_member_of_configuration.ldif"
+  - "03_member_of_configuration.ldif"
+  - "04_access_profiles.ldif"
+
 ldif_host_path:     "{{docker_compose.directories.volumes}}ldif/"
 ldif_docker_path:   "/tmp/ldif/"
+dn_roles:           "ou=access_roles,{{ldap.dn.root}}"

@@ -127,28 +127,7 @@ OIDC is supported in this role—for example, via **Keycloak**. OIDC-specific ta
 
 ## LDAP 
 
-
----
-
-## Architecture
-
-### MariaDB
-Until Nextcloud 24, the MariaDB version must be used.
-
----
-
-## Performance: 504 Gateway Timeout ⏱️
-
-```bash
-docker-compose logs web --tail 1000 | grep 504
-```
-
-#### See:
-- [F5 Support: K48373902](https://support.f5.com/csp/article/K48373902)
-- [Nextcloud Server Issue #25436](https://github.com/nextcloud/server/issues/25436)
-- [Nextcloud 21.0.2 Update Error](https://help.nextcloud.com/t/update-to-next-cloud-21-0-2-has-get-an-error/117028/23?page=2)
-- [ServerFault: Nginx PHP-FPM 504 Error](https://serverfault.com/questions/178671/nginx-php-fpm-504-gateway-time-out-error-with-almost-zero-load-on-a-test-se)
-- [Manual LEMP Install Timeout](https://help.nextcloud.com/t/solved-manual-lemp-install-php-fpm-timing-out/39070)
+More information: https://docs.nextcloud.com/server/latest/admin_manual/configuration_user/user_auth_ldap.html
 
 ---
 

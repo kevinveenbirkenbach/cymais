@@ -54,10 +54,10 @@
     state: directory
     mode: 0755
 
-- name: "Create LDIF files at {{ldif_host_path}}"
+- name: "Create LDIF files at {{ ldif_host_path }}"
   template:
-    src:  "templates/ldif/{{item}}.j2" 
-    dest: "{{ldif_host_path}}{{item}}"
+    src: "{{ item }}"
+    dest: "{{ ldif_host_path }}/{{ item | basename | regex_replace('\\.j2$', '') }}"
     mode: '770'
-  notify: Import missing groups to OpenLDAP
-  loop: "{{ldif_files}}"
+  loop: "{{ lookup('fileglob', '{{ role_path }}/templates/ldif/*.j2', wantlist=True) }}"
+  notify: Import LDIF files

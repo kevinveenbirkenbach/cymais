@@ -18,6 +18,46 @@ This Ansible role provides a streamlined implementation of an LDAP server with T
 
 --
 ## Maintanance
+
+### Show Config
+```bash
+docker exec -it openldap bash -c "ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b 'cn=config'"
+```
+
+```bash
+docker exec -it openldap bash -c "ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b 'cn=config' -s base '(objectClass=*)'"
+```
+
+```bash
+docker exec -it openldap bash -c "ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b 'cn=config' -s base '(objectClass=olcModuleList)'"
+```
+
+## install
+
+### MemberOf
+```bash
+ldapmodify -Y EXTERNAL -H ldapi:/// <<EOF
+dn: cn=module{0},cn=config
+changetype: modify
+add: olcModuleLoad
+olcModuleLoad: /opt/bitnami/openldap/lib/openldap/memberof.so
+EOF
+
+ldapadd -Y EXTERNAL -H ldapi:/// <<EOF
+dn: olcOverlay=memberof,olcDatabase={2}mdb,cn=config
+objectClass: olcOverlayConfig
+objectClass: olcMemberOf
+olcOverlay: memberof
+olcMemberOfRefInt: TRUE
+olcMemberOfDangling: ignore
+olcMemberOfGroupOC: groupOfNames
+olcMemberOfMemberAD: member
+olcMemberOfMemberOfAD: memberOf
+EOF
+
+
+```
+
 ### Show all Entires
 ```bash 
 docker exec --env LDAP_ADMIN_PASSWORD="$LDAP_ADMIN_PASSWORD" -it openldap bash -c "ldapsearch -LLL -o ldif-wrap=no -x -D 'cn=administrator,dc=veen,dc=world' -w \"\$LDAP_ADMIN_PASSWORD\" -b 'dc=veen,dc=world'";
