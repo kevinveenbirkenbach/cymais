@@ -39,7 +39,7 @@ services:
       - "data:{{media_root}}"
       - "static_root:{{static_root}}"
     ports:
-      - "5000"
+      - "5000" # Exposes API just in local docker network to be used by front container
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
