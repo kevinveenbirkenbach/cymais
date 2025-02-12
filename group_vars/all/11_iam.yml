@@ -36,14 +36,25 @@ oauth2_proxy_active:                         false
 ### LDAP                                  ###
 #############################################
 
+# Helper variables
+_ldap_dn_base: "dc={{primary_domain_sld}},dc={{primary_domain_tld}}"
 
-# Activate local LDAP network for communitation on localhot between different docker containers
-# 
-# Set in vars/main.yml via:
-#   ldap_network_enabled: "{{ldap.enabled}}"
-#
-# This leads to that the local ldap networks get enabled, if LDAP is enabled
-ldap_network_enabled:                  false
+
+# This leads to that the role gets configured to use ldap
+ldap_enabled:                  false
 
 ldap:
-  enabled:  true # Enable or disable LDAP
+  # Enables LDAP for all roles in play if true
+  enabled:          true
+  # Distinguished Names (DN)
+  dn:
+    # Defines the base Distinguished Name (DN) for the LDAP directory, constructed from the second-level domain (SLD) and top-level domain (TLD).
+    root:           "{{_ldap_dn_base}}"
+    # Specifies the Distinguished Name (DN) of the LDAP administrator, combining the admin's username with the LDAP root domain.
+    administrator:  "cn={{applications.ldap.administrator_username}},{{_ldap_dn_base}}"
+  server:
+    domain: "{{applications.ldap.openldap.hostname if applications.ldap.openldap.network.local | bool else domains.ldap}}" # Mapping for public or locale access
+    uri:    "{% if applications.ldap.openldap.network.local | bool %}ldap://{{ applications.ldap.openldap.hostname }}:{{ ports.localhost.ldap.openldap }}{% else %}ldaps://{{ domains.ldap }}:{{ ports.public.ldaps.openldap }}{% endif %}"
+  network:
+    local:  "{{applications.ldap.openldap.network.local}}" # Uses the application configuration to define if local network should be available or not
+  

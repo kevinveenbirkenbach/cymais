@@ -6,7 +6,7 @@ services:
         - pds_data:/opt/pds
         - {{pdsadmin_file_path}}:/usr/local/bin/pdsadmin:ro
     ports:
-      - "127.0.0.1:{{ports.localhost.http_ports.bluesky_api}}:3000"
+      - "127.0.0.1:{{ports.localhost.http.bluesky_api}}:3000"
     healthcheck:
       test: ["CMD", "wget", "--spider", "http://127.0.0.1:3000/xrpc/_health"]
       interval: 1m
@@ -27,7 +27,7 @@ services:
         REACT_APP_SITE_NAME: "{{primary_domain | upper}} - Bluesky"
         REACT_APP_SITE_DESCRIPTION: "Decentral Social "
     ports:
-      - "127.0.0.1:{{ports.localhost.http_ports.bluesky_web}}:8100"
+      - "127.0.0.1:{{ports.localhost.http.bluesky_web}}:8100"
     healthcheck:
       test: ["CMD", "sh", "-c", "for pid in $(ls /proc | grep -E '^[0-9]+$'); do if cat /proc/$pid/cmdline 2>/dev/null | grep -q 'bskywebserve'; then exit 0; fi; done; exit 1"]
       interval: 30s

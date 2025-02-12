@@ -1,6 +1,6 @@
 server {
-    listen {{ldap_secure_internet_port}} ssl;
-    proxy_pass 127.0.0.1:{{ldap_localhost_port}};
+    listen {{ports.public.ldaps.openldap}}ssl;
+    proxy_pass 127.0.0.1:{{ports.localhost.ldap.openldap}};
 
     # SSL Configuration for LDAPS
     {% include 'roles/letsencrypt/templates/ssl_credentials.j2' %}

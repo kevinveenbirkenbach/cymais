@@ -4,11 +4,11 @@
 docker_restart_policy:        "unless-stopped"
 
 ##############################################
-## Private Helper variables                ### 
+## Applications Configuration              
 ##############################################
 
-# By default don't expose openldap to the internet, just if explicit configured
-_ldap_openldap_expose_to_internet:       "{{ applications.ldap.openldap.expose_to_internet | default(False) if applications.ldap is defined and applications.ldap.openldap is defined else false}}"
+# Keep in mind, that this configuration should in general just apply to the roles which set the applications up.
+# If other applications depend on this variables, propably it makes sense to define it in e.g. IMA or other variable files.
 
 defaults_applications:
 
@@ -72,15 +72,17 @@ defaults_applications:
       administrator_password:         "{{user_administrator_initial_password}}" # CHANGE for security reasons
     openldap:
       version:                        "latest"
-      expose_to_internet:             "{{_ldap_openldap_expose_to_internet}}"   # Set to true if you want to expose the LDAP port to the internet
-      domain:                         "{{domains.ldap if _ldap_openldap_expose_to_internet else 'openldap'}}" # Mapping for public or locale access
+      network:
+        local:                        True                                      # Activates local network to allow other docker containers to connect
+        public:                       False                                     # Set to true in inventory file if you want to expose the LDAP port to the internet
+      hostname:                       "openldap"                                # Hostname of the LDAP Server in the central_ldap network
       modify:                         False                                     # When false entries will just be added, when true existing entries will be modified during import procedure
     phpldapadmin:
       version:                        "2.0.0-dev"                               # @todo Attention: Change this as fast as released to latest
     webinterface:                     "lam"                                     # The webinterface which should be used. Possible: lam and phpldapadmin
     administrator_username:           "{{administrator_username}}"
-    administrator_password:           "{{user_administrator_initial_password}}" # CHANGE for security reasons
-    administrator_database_password:  "{{user_administrator_initial_password}}" # CHANGE for security reasons         
+    administrator_password:           "{{user_administrator_initial_password}}" # CHANGE for security reasons in inventory file
+    administrator_database_password:  "{{user_administrator_initial_password}}" # CHANGE for security reasons in inventory file
 
   ## Listmonk
   listmonk:

@@ -3,13 +3,13 @@ ports:
   localhost:
     web_socket:
       mastodon:       4001
-    oauth2_proxy_ports:
+    oauth2_proxy:
       phpmyadmin:     4181
       ldap:           4182
       openproject:    4183
-    ldap_ports:
-      openldap:
-    http_ports:
+    ldap:
+      openldap:       389
+    http:
       nextcloud:      8001
       gitea:          8002
       wordpress:      8003
@@ -49,6 +49,8 @@ ports:
   # Ports which are exposed to the World Wide Web
   public:
     # The following ports should be changed to 22 on the subdomain via stream mapping
-    ssh_ports:
+    ssh:
       gitea:         2201
       gitlab:        2202
+    ldaps:
+      openldap:      636

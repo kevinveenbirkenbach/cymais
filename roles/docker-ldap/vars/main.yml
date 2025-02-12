@@ -1,10 +1,8 @@
-application_id:               "ldap"
-ldap_root:                    "dc={{primary_domain_sld}},dc={{primary_domain_tld}}"
-ldap_admin_dn:                "cn={{applications.ldap.administrator_username}},{{ldap_root}}"
-ldap_secure_localhost_port:   1636
-ldap_secure_internet_port:    636
-ldap_localhost_port:          389
-ldap_network_enabled:         "{{ldap.enabled}}"
+application_id:       "ldap"
+ldaps_docker_port:    636
+ldap_docker_port:     389
+ldap_enabled:         True
+
 # OAuth2 Proxy Configuration
 oauth2_proxy_upstream_application_and_port: "{{ applications.ldap.webinterface }}:{% if applications.ldap.webinterface == 'phpldapadmin' %}8080{% else %}80{% endif %}"
 oauth2_proxy_active:                        true

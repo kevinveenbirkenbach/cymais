@@ -10,7 +10,7 @@ services:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     ports:
       - "127.0.0.1:{{http_port}}:80"
-      - "{{ports.public.ssh_ports[application_id]}}:22"
+      - "{{ports.public.ssh[application_id]}}:22"
     volumes:
       - 'config:/etc/gitlab'
       - 'logs:/var/log/gitlab'

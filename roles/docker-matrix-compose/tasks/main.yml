@@ -7,7 +7,7 @@
   include_tasks: certbot-and-globals.yml
   vars:
     domain:     "{{domains.matrix_synapse}}"
-    http_port:  "{{ports.localhost.http_ports.matrix_synapse}}"
+    http_port:  "{{ports.localhost.http.matrix_synapse}}"
 
 - name: create {{well_known_directory}}
   file:
@@ -26,14 +26,14 @@
     dest: "{{nginx.directories.http.servers}}{{domains.matrix_synapse}}.conf"
   vars:
     # domain:     "{{domains.matrix_synapse}}" This does not seem to work @todo Check how to solve without declaring set_fact, seems a bug at templates
-    http_port:  "{{ports.localhost.http_ports.matrix_synapse}}"
+    http_port:  "{{ports.localhost.http.matrix_synapse}}"
   notify: restart nginx
         
 - name: "include tasks nginx-docker-proxy-domain.yml for element"
   include_tasks: nginx-docker-proxy-domain.yml
   vars:        
     domain:     "{{domains.matrix_element}}"
-    http_port:  "{{ports.localhost.http_ports.matrix_element}}"
+    http_port:  "{{ports.localhost.http.matrix_element}}"
 
 - name: include create-and-seed-database.yml for multiple bridges
   include_tasks: create-and-seed-database.yml

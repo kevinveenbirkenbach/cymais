@@ -7,13 +7,13 @@
   include_tasks: nginx-docker-proxy-domain.yml
   vars:
     domain: "{{ domains.bluesky_api }}"
-    http_port: "{{ ports.localhost.http_ports.bluesky_api }}"
+    http_port: "{{ ports.localhost.http.bluesky_api }}"
 
 - name: "Include tasks for Web domain"
   include_tasks: nginx-docker-proxy-domain.yml
   vars:
     domain: "{{ domains.bluesky_web }}"
-    http_port: "{{ ports.localhost.http_ports.bluesky_web }}" 
+    http_port: "{{ ports.localhost.http.bluesky_web }}" 
 
 # The following lines should be removed when the following issue is closed:
 # https://github.com/bluesky-social/pds/issues/52

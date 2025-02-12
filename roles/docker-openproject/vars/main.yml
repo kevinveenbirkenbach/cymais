@@ -15,4 +15,4 @@ dummy_volume:                                 "{{docker_compose.directories.volu
 oauth2_proxy_upstream_application_and_port:   "proxy:80"
 oauth2_proxy_active:                          true
 
-ldap_network_enabled:                         "{{ldap.enabled}}"
+ldap_enabled:                                 True

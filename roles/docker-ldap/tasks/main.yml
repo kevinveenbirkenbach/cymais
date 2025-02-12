@@ -11,13 +11,13 @@
     src:  "nginx.stream.conf.j2" 
     dest: "{{nginx.directories.streams}}{{domain}}.conf"
   notify: restart nginx
-  when: applications.ldap.openldap.expose_to_internet | bool
+  when: applications.ldap.openldap.network.public | bool
 
 - name: Remove {{domain}}.conf if LDAP is not exposed to internet
   file:
     path: "{{ nginx.directories.streams }}{{ domain }}.conf"
     state: absent
-  when: not applications.ldap.openldap.expose_to_internet | bool
+  when: not applications.ldap.openldap.network.public | bool
 
 - name: create docker network for LDAP, so that other applications can access it
   docker_network:

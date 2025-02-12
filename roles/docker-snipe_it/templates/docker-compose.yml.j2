@@ -10,7 +10,7 @@ services:
     volumes:
       - data:/var/lib/snipeit
     ports:
-      - "127.0.0.1:{{ports.localhost.http_ports.snipe_it}}:80"
+      - "127.0.0.1:{{ports.localhost.http.snipe_it}}:80"
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 

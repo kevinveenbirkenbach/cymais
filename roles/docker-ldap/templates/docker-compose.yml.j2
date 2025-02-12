@@ -23,19 +23,18 @@ services:
 {% endif %}
   openldap:
     image: bitnami/openldap:{{applications.ldap.openldap.version}}
-    container_name: openldap
+    container_name: {{applications.ldap.openldap.hostname}}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-{% if applications.ldap.openldap.expose_to_internet | bool %}
+{% if applications.ldap.openldap.network.public | bool %}
     ports:
-      - 127.0.0.1:{{ldap_localhost_port}}:{{ldap_localhost_port}}               # Expose just on localhost so that nginx stream proxy can use it
-      - 127.0.0.1:{{ldap_secure_localhost_port}}:{{ldap_secure_localhost_port}} # Expose just on localhost
+      - 127.0.0.1:{{ports.localhost.ldap.openldap}}:{{ldap_docker_port}}  # Expose just on localhost so that nginx stream proxy can use it
 {% endif %}
     volumes:
       - 'data:/bitnami/openldap'
-      - '{{ldif_host_path}}:{{ldif_docker_path}}:ro' # Mounting all ldif files for import
+      - '{{ldif_host_path}}:{{ldif_docker_path}}:ro'                      # Mounting all ldif files for import
     healthcheck:
       test: >
-        ldapsearch -x -H ldap://localhost:389 -b "{{ldap_root}}" -D "{{ldap_admin_dn}}" -w "{{applications.ldap.administrator_database_password}}"
+        ldapsearch -x -H ldap://localhost:{{ldap_docker_port}} -b "{{ldap.dn.root}}" -D "{{ldap.dn.administrator}}" -w "{{applications.ldap.administrator_database_password}}"
       interval: 30s
       timeout: 10s
       retries: 3
