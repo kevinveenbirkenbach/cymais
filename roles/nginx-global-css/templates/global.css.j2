@@ -1,4 +1,11 @@
-/* Global Theming Styles – Color and Shadow Variables */
+/***
+
+Global Theming Styles – Color and Shadow Variables 
+
+HINT: Better overwritte CSS variables instead of individual elements.
+
+*/
+
 :root {
     --primary-color:    {{ global_theming.css.colors.primary }};
     --secondary-color:  {{ global_theming.css.colors.secondary }};
@@ -33,22 +40,31 @@
     --bs-btn-color: var(--dark-color);
 }
 
+/** Keycloak Overrides **/ 
+:root{
+    --pf-v5-global--Color--100:         {{global_theming.css.colors.background_dark | adjust_color(10) }};
+    --pf-v5-global--Color--200:         {{global_theming.css.colors.background_dark | adjust_color(30) }};
+    --pf-v5-global--Color--light-100:   {{global_theming.css.colors.background_dark | adjust_color(0) }};
+    --pf-v5-global--Color--light-200:   {{global_theming.css.colors.background_dark | adjust_color(20) }};
+    --pf-v5-global--Color--light-300:   {{global_theming.css.colors.background_dark | adjust_color(40) }};
+} 
+
 /** Mastodon Overrides **/
 :root{
-    --surface-variant-background-color: var(--button-bg-color)
+    --surface-variant-background-color: var(--button-bg-color);
 }
 
 /** Nextcloud Specific**/
 :root{
-    --color-main-background: var(--bright-color);
-    --color-main-background-rgb: var(--bright-color);
-    --color-primary-element: var(--button-bg-color);
-    --color-main-text: var(--dark-color);
-    --color-background-hover: var(--secondary-color);
+    --color-main-background:        var(--bright-color);
+    --color-main-background-rgb:    var(--bright-color);
+    --color-primary-element:        var(--button-bg-color);
+    --color-main-text:              var(--dark-color);
+    --color-background-hover:       var(--secondary-color);
 
     /** Calendar **/
-    --color-background-dark: var(--info-color); /** Days which aren't in the current month **/
-    --color-primary-element-light: var(--secondary-color);
+    --color-background-dark:        var(--info-color); /** Days which aren't in the current month **/
+    --color-primary-element-light:  var(--secondary-color);
 }
 
 /* Peertube Overrides */
@@ -204,6 +220,12 @@ div#app main#kc-main-content-page-container section a
     background-color: transparent !important;
     border-color: transparent !important;
 }
+
+/** Mailu **/
+[class*=sidebar-dark-], .bg-mailu-logo {
+    background-color: var(--bright-color) !important;
+}
+
 
 /** Mastodon Specific **/ 
 div#mastodon div.compose-panel div.compose-form__highlightable{
