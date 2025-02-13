@@ -60,9 +60,9 @@
 - name: flush, to recreate discourse app
   meta: flush_handlers
 
-- name: "add {{discourse_application_container}} to network central_postgres"
+- name: "add {{applications.discourse.container}} to network central_postgres"
   command:
-    cmd: "docker network connect central_postgres {{discourse_application_container}}"
+    cmd: "docker network connect central_postgres {{applications.discourse.container}}"
   ignore_errors: true
   when: enable_central_database | bool
   

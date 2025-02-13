@@ -4,6 +4,11 @@ import sys
 import time
 
 def run_command(command):
+    """
+    Executes the specified shell command, streaming and collecting its output in real-time.
+    If the command exits with a non-zero status, a subprocess.CalledProcessError is raised,
+    including the exit code, the executed command, and the full output (as bytes) for debugging purposes.
+    """
     process = None
     try:
         process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -25,19 +30,35 @@ def run_command(command):
 def git_pull():
     """
     Checks whether the Git repository in the specified directory is up to date and performs a git pull if necessary.
-    """
-    print(f"Checking if the git repository is up to date.")
-    local = subprocess.check_output("git rev-parse @", shell=True).decode().strip()
-    remote = subprocess.check_output("git rev-parse @{u}", shell=True).decode().strip()
     
+    Raises:
+        Exception: If retrieving the local or remote git revision fails because the command returns a non-zero exit code.
+    """
+    print("Checking if the git repository is up to date.")
+
+    # Run 'git rev-parse @' and check its exit code explicitly.
+    local_proc = subprocess.run("git rev-parse @", shell=True, capture_output=True)
+    if local_proc.returncode != 0:
+        error_msg = local_proc.stderr.decode().strip() or "Unknown error while retrieving local revision."
+        raise Exception(f"Failed to retrieve local git revision: {error_msg}")
+    local = local_proc.stdout.decode().strip()
+
+    # Run 'git rev-parse @{u}' and check its exit code explicitly.
+    remote_proc = subprocess.run("git rev-parse @{u}", shell=True, capture_output=True)
+    if remote_proc.returncode != 0:
+        error_msg = remote_proc.stderr.decode().strip() or "Unknown error while retrieving remote revision."
+        raise Exception(f"Failed to retrieve remote git revision: {error_msg}")
+    remote = remote_proc.stdout.decode().strip()
+
     if local != remote:
         print("Repository is not up to date. Performing git pull.")
         run_command("git pull")
         return True
-    
+
     print("Repository is already up to date.")
     return False
-        
+
+{% raw %}        
 def get_image_digests(directory):
     """
     Retrieves the image digests for all images in the specified Docker Compose project.
@@ -54,6 +75,7 @@ def get_image_digests(directory):
             return {}
         else:
             raise  # Other errors are still raised
+{% endraw %}
 
 def is_any_service_up():
     """
@@ -98,6 +120,20 @@ def update_docker(directory):
     else:
         print("Docker images are up to date. No rebuild necessary.")
 
+def update_discourse(directory):
+    """
+    Updates Discourse by running the rebuild command on the launcher script.
+    """
+    repository_directory = os.path.join(directory, "services", "{{applications.discourse.repository}}")
+    print(f"Using path {repository_directory} to pull discourse repository.")
+    os.chdir(repository_directory)
+    if git_pull():
+        print("Start Discourse update procedure.")
+        update_procedure("docker stop {{applications.discourse.container}}")
+        update_procedure("./launcher rebuild {{applications.discourse.container}}")
+    else:
+        print("Discourse update skipped. No changes in git repository.")
+
 def update_mastodon():
     """
     Runs the database migration for Mastodon to ensure all required tables are up to date.
@@ -130,14 +166,6 @@ def update_nextcloud():
     update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ db:add-missing-primary-keys")
     print("Deacitvate Maintanance Mode")
     update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ maintenance:mode --off")
-    
-def update_discourse(directory):
-    """
-    Updates Discourse by running the rebuild command on the launcher script.
-    """
-    os.chdir(directory)
-    print("Start Discourse update procedure.")
-    update_procedure("./launcher rebuild app")
 
 def update_procedure(command):
     """
@@ -178,16 +206,13 @@ if __name__ == "__main__":
             print(f"Checking for updates in: {dir_path}")
             os.chdir(dir_path)
             
+            # Pull git repository if it exist
+            # @deprecated: This function should be removed in the future, as soon as all docker applications use the correct folder path
             if os.path.isdir(os.path.join(dir_path, ".git")):
-                git_repository_was_pulled = git_pull()
+                print("DEPRECATED: Docker .git repositories should be saved under /opt/docker/{instance}/services/{repository_name} ")
+                git_pull()
             
-            # Discourse is an exception and uses own update command instead of docker compose
-            if os.path.basename(dir_path) == "discourse":
-                if git_repository_was_pulled:
-                    update_discourse(dir_path)
-                else:
-                    print("Discourse update skipped. No changes in git repository.")
-            elif os.path.basename(dir_path) == "matrix":
+            if os.path.basename(dir_path) == "matrix":
                 # No autoupdate for matrix is possible atm, 
                 # due to the reason that the role has to be executed every time.
                 # The update has to be executed in the role
@@ -198,9 +223,15 @@ if __name__ == "__main__":
                 update_docker(dir_path)
                 
                 # The following instances need additional update and upgrade procedures
-                if os.path.basename(dir_path) == "nextcloud":
-                    update_nextcloud()
+                if os.path.basename(dir_path) == "discourse":
+                    update_discourse(dir_path)
                 elif os.path.basename(dir_path) == "listmonk":
                     upgrade_listmonk()
                 elif os.path.basename(dir_path) == "mastodon":
                     update_mastodon()
+                elif os.path.basename(dir_path) == "nextcloud":
+                    update_nextcloud()
+                    
+                # @todo implement dedicated procedure for bluesky
+                # @todo implement dedicated procedure for openproject
+                # @todo implement dedicated procedure for taiga

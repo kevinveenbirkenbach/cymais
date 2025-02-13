@@ -40,6 +40,12 @@ defaults_applications:
       #plc_rotation_key_k256_private_key_hex: # Needs to be defined in inventory file - Use: openssl rand -hex 32 
       #admin_password:                        # Needs to be defined in inventory file - Use: openssl rand -base64 16
 
+  ## Discourse:
+  discourse:
+    container:  "discourse_application"       # Name of the container application
+    repository: "discourse_repository"        # Name of the repository folder
+    # database_password:                      # Needs to be defined in inventory file
+
   ## Friendica
   friendica:
     version:              "latest"
