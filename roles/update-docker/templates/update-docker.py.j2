@@ -130,6 +130,7 @@ def update_discourse(directory):
     if git_pull():
         print("Start Discourse update procedure.")
         update_procedure("docker stop {{applications.discourse.container}}")
+        update_procedure("docker network connect discourse_default central-postgres")
         update_procedure("./launcher rebuild {{applications.discourse.container}}")
     else:
         print("Discourse update skipped. No changes in git repository.")
