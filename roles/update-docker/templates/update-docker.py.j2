@@ -130,7 +130,15 @@ def update_discourse(directory):
     if git_pull():
         print("Start Discourse update procedure.")
         update_procedure("docker stop {{applications.discourse.container}}")
-        update_procedure("docker network connect discourse_default central-postgres")
+        update_procedure("docker rm {{applications.discourse.container}}")
+        try:
+            update_procedure("docker network connect {{applications.discourse.network}} central-postgres")
+        except subprocess.CalledProcessError as e:
+            error_message = e.output.decode()
+            if "already exists" in error_message or "is already connected" in error_message:
+                print("Network connection already exists. Skipping...")
+            else:
+                raise
         update_procedure("./launcher rebuild {{applications.discourse.container}}")
     else:
         print("Discourse update skipped. No changes in git repository.")

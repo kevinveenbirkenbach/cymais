@@ -9,7 +9,7 @@
   
 - name: "add central database temporary to {{application_id}}_default"
   command:
-    cmd: "docker network connect discourse_default central-{{ database_type }}"
+    cmd: "docker network connect {{applications.discourse.network}} central-{{ database_type }}"
   ignore_errors: true
   when: enable_central_database | bool
   listen: recreate discourse
