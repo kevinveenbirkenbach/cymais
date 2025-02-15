@@ -147,7 +147,7 @@ defaults_applications:
     version:            "latest"
     redirect_url:       "https://{{domains.keycloak}}/auth/realms/{{primary_domain}}/protocol/openid-connect/auth"  # The redirect URL for the OAuth2 flow. It should match the redirect URL configured in Keycloak.
     allowed_roles:      admin                                                                                       # Restrict it default to admin role. Use the vars/main.yml to open the specific role for other groups  
-    cookie_secret:      "{{applications.oauth2_proxy.cookie_secret}}"                                               # Default use wildcard for primary domain, subdomain client specific configuration in vars files in the roles is possible openssl rand -hex 16
+    cookie_secret: "{{ applications.oauth2_proxy.cookie_secret if applications.oauth2_proxy is defined else '' }}"  # Default use wildcard for primary domain, subdomain client specific configuration in vars files in the roles is possible openssl rand -hex 16
 
   ## Open Project
   openproject:

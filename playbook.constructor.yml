@@ -15,7 +15,7 @@
         {{
           (defaults_redirect_domain_mappings | items2dict(key_name='source', value_name='target'))
           | combine(
-              (redirect_domain_mappings | items2dict(key_name='source', value_name='target')),
+              (redirect_domain_mappings | default([]) | items2dict(key_name='source', value_name='target')),
               recursive=True
             )
         }}

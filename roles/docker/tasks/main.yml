@@ -16,6 +16,11 @@
     group: administrator
   when: run_once_docker is not defined
 
+- name: Set docker_enabled to true, to activate system-storage-optimizer 
+  set_fact:
+    docker_enabled: true
+  when: run_once_docker is not defined
+
 - name: flush docker service
   meta: flush_handlers
   when: run_once_docker is not defined
