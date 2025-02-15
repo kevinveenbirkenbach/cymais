@@ -2,19 +2,12 @@ global_theming:
   enabled: true
   css:
     colors:
-      # For buttons and highlights – symbolizes the sea (slate blue)
-      primary: "#4F6D7A"
-      # For navigation, footers, etc. – a subtly light brown with a grayish tint (earth)
-      secondary: "#C8A28F"
-      # For the general (light mode) background – an azul, blue–gray tone
-      background: "#DCE6F2"
-      # For dark mode: a dark, blue–gray background
-      background_dark: "#2E3B4E"
-      # For the text – true black
-      text: "#2E3B4E"
-      # Accent color (e.g., for links or buttons) – a golden tone symbolizing the sun
-      accent: "#FFD700"
-      # As the positive/success color – a light, slightly grayish green (forest)
+      # General Colors
+      base: "#001f3f"
+
+      # Special Action Colors
+
+      # Sucess Color
       success: "#B2D3B2"
       # As the warning color – a light brown (earth)
       warning: "#D2B48C"
@@ -22,20 +15,4 @@ global_theming:
       error: "#DC3545"
       # As the info color – a very light blue (symbolizing the sky)
       info: "#F0F8FF"
-      # Links – in this case, identical to primary (sea)
-      link: "#4F6D7A"
-      # Button text – white
-      button_text: "#FFFFFF"
-      # Shadows & borders (unchanged)
-      shadow: "rgba(0, 0, 0, 0.1)"
-      border: "#DDDDDD"
-      # New settings for cards and buttons:
-      # Cards: a slightly lighter tone than the background for subtle differentiation
-      card_bg_color: "#E6EFF9"
-      # Buttons: a background that is only a bit darker than the main background and in a blue tone
-      button_bg_color: "#C6D7E6"
-      # Bold, larger shadow for containers (cards, dropdowns, etc.)
-      large_shadow: "4px 4px 15px rgba(0, 0, 0, 0.2)"
-      # Reduced shadow for buttons
-      small_shadow: "1px 1px 3px rgba(0, 0, 0, 0.1)"
 global_theming_enabled: true

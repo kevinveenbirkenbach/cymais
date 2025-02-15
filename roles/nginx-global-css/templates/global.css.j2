@@ -7,24 +7,41 @@ HINT: Better overwritte CSS variables instead of individual elements.
 */
 
 :root {
-    --primary-color:    {{ global_theming.css.colors.primary }};
-    --secondary-color:  {{ global_theming.css.colors.secondary }};
-    --brightest-color:  {{ global_theming.css.colors.button_text }};
-    --bright-color:     {{ global_theming.css.colors.background }};
-    --dark-color:       {{ global_theming.css.colors.background_dark }};
+    /** Derived Colors from the Base Color **/
+
+    /* Primary Color: the base color itself */
+    --primary-color:       {{ global_theming.css.colors.base }};
+    
+    /* Secondary Color: slightly lightened */
+    --secondary-color:     {{ global_theming.css.colors.base | adjust_color(15) }};
+    
+    /* Complementary Color: moderately lightened to fall within a mid-brightness range */
+    --complementary-color: {{ global_theming.css.colors.base | adjust_color(30) }};
+    
+    /* Bright Background: significantly lightened */
+    --bright-color:        {{ global_theming.css.colors.base | adjust_color(45) }};
+    
+    /* Brightest Tone (e.g., for button text or accents): nearly white */
+    --brightest-color:     {{ global_theming.css.colors.base | adjust_color(60) }};
+    
+    /* Dark Background: a darker variant of the base color */
+    --dark-color:          {{ global_theming.css.colors.base | adjust_color(-30) }};
+    
+    /* Border Color: slightly offset with a light adjustment */
+    --border-color:        {{ global_theming.css.colors.base | adjust_color(10) }};
+    
+    /* Button Background: a gentle lightening for soft contrast */
+    --button-bg-color:     {{ global_theming.css.colors.base | adjust_color(20) }};
+
+    /** Special Action Colors **/
     --success-color:    {{ global_theming.css.colors.success }};
     --warning-color:    {{ global_theming.css.colors.warning }};
     --error-color:      {{ global_theming.css.colors.error }};
     --info-color:       {{ global_theming.css.colors.info }};
-    --shadow-color:     {{ global_theming.css.colors.shadow }};
-    --border-color:     {{ global_theming.css.colors.border }};
-    
-    /* New variables for cards and buttons */
-    --card-bg-color:    {{ global_theming.css.colors.card_bg_color }};
-    --large-shadow:     {{ global_theming.css.colors.large_shadow }};
-    --button-bg-color:  {{ global_theming.css.colors.button_bg_color }};
-    --small-shadow:     {{ global_theming.css.colors.small_shadow }};
+
 }
+
+
 
 /* Bootstrap Overrides (Color/Shadow Variables Only) */
 :root {
@@ -42,11 +59,11 @@ HINT: Better overwritte CSS variables instead of individual elements.
 
 /** Keycloak Overrides **/ 
 :root{
-    --pf-v5-global--Color--100:         {{global_theming.css.colors.background_dark | adjust_color(10) }};
-    --pf-v5-global--Color--200:         {{global_theming.css.colors.background_dark | adjust_color(30) }};
-    --pf-v5-global--Color--light-100:   {{global_theming.css.colors.background_dark | adjust_color(0) }};
-    --pf-v5-global--Color--light-200:   {{global_theming.css.colors.background_dark | adjust_color(20) }};
-    --pf-v5-global--Color--light-300:   {{global_theming.css.colors.background_dark | adjust_color(40) }};
+    --pf-v5-global--Color--100:         {{  global_theming.css.colors.base | adjust_color(-30) }};
+    --pf-v5-global--Color--200:         {{  global_theming.css.colors.base | adjust_color(-10) }};
+    --pf-v5-global--Color--light-100:   {{  global_theming.css.colors.base | adjust_color(-30) }};
+    --pf-v5-global--Color--light-200:   {{  global_theming.css.colors.base | adjust_color(-10) }};
+    --pf-v5-global--Color--light-300:   {{  global_theming.css.colors.base | adjust_color(10) }};
 } 
 
 /** Mastodon Overrides **/
@@ -67,10 +84,17 @@ HINT: Better overwritte CSS variables instead of individual elements.
     --color-primary-element-light:  var(--secondary-color);
 }
 
-/* Peertube Overrides */
+/** Peertube **/
 :root {
     --mainColor: var(--primary-color);
 }
+
+/** Pixelfed **/
+:root {
+    --card-bg:          var(--complementary-color);
+    --light-gray:       var(--complementary-color);
+}
+
 
 /* Global Defaults (Colors Only) */
 body {
@@ -125,7 +149,6 @@ input, textarea, select {
 }
 input:focus, textarea:focus, select:focus {
     border-color: var(--primary-color) !important;
-    /** box-shadow: 0 0 5px var(--shadow-color);**/
 }
 
 /* Navigation (Background and Text Colors) */
@@ -159,8 +182,7 @@ thead {
 /* Cards / Containers (Background, Border, and Shadow)
    Cards now use a slightly lighter background and a bold, clear shadow */
 .card {
-    background-color: var(--card-bg-color) !important;
-    /** box-shadow: var(--large-shadow) !important;**/
+    background-color: var(--complementary-color) !important;
     border-color: var(--border-color) !important;
 }
 
@@ -195,7 +217,7 @@ button.icon-button {
 
 /** Keycloak **/
 body#keycloak-bg main{
-    background-color: var(--card-bg-color) !important;
+    background-color: var(--complementary-color) !important;
 }
 
 div#app header, div#app header *{
@@ -204,7 +226,7 @@ div#app header, div#app header *{
 }
 
 div#app div#page-sidebar, div#app main#kc-main-content-page-container{
-    background-color: var(--card-bg-color) !important;
+    background-color: var(--complementary-color) !important;
 }
 
 div#app main#kc-main-content-page-container section, 
