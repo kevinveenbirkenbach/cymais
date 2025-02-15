@@ -4,7 +4,8 @@
     name: docker-central-database
 
 - name: "include tasks to receive attendize certbot certificate"
-  include_tasks: recieve-certbot-certificate.yml
+  include_role: 
+    name: nginx-https-recieve-certificate
   vars:
     domain: "{{ item }}"
   loop:

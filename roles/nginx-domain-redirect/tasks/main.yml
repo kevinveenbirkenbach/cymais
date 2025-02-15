@@ -1,6 +1,7 @@
 ---
 - name: "include task receive certbot certificate"
-  include_tasks: recieve-certbot-certificate.yml
+  include_role: 
+    name: nginx-https-recieve-certificate
   vars:
     domain: "{{item.source}}"
   loop: "{{domain_mappings}}"

@@ -1,5 +1,6 @@
-- name: "include task certbot-and-globals.yml"
-  include_tasks: certbot-and-globals.yml
+- name: "include role receive certbot certificate"
+  include_role: 
+    name: nginx-https-recieve-certificate
 
 - name: "include task create-domain-conf.yml"
   include_tasks: create-domain-conf.yml

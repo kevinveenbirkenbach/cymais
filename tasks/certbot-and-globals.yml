@@ -1,6 +1,0 @@
-- name: "include task receive certbot certificate"
-  include_tasks: recieve-certbot-certificate.yml
-
-- name: Load global Nginx Configuration
-  include_role:
-    name: nginx-global

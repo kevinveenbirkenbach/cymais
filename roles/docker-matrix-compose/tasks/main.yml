@@ -3,8 +3,9 @@
   include_role: 
     name: docker-central-database
 
-- name: "include task certbot-and-globals.yml"
-  include_tasks: certbot-and-globals.yml
+- name: "include role receive certbot certificate"
+  include_role: 
+    name: nginx-https-recieve-certificate
   vars:
     domain:     "{{domains.matrix_synapse}}"
     http_port:  "{{ports.localhost.http.matrix_synapse}}"
