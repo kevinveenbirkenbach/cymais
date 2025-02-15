@@ -17,32 +17,6 @@ The role integrates Keycloak with PostgreSQL as a database and supports operatio
 - Docker and Docker Compose must be installed on the target system.
 - A working NGINX proxy for forwarding requests to Keycloak (optional).
 
-## Variables ⚙️
-
-### Main Variables
-
-Defined in `vars/main.yml`:
-
-| Variable                        | Description                                                      |
-|---------------------------------|------------------------------------------------------------------|
-| `application_id`   | Name of the Docker Compose project. Default: `keycloak`.         |
-| `database_type`                 | Type of the database. Default: `postgres`.                      |
-| `database_password`             | Password for the PostgreSQL database user.                      |
-
-### Additional Variables (Templates)
-
-| Variable                        | Description                                                      |
-|---------------------------------|------------------------------------------------------------------|
-| `applications.keycloak.version`              | Version of the Keycloak image.                                  |
-| `domain`                        | Domain where Keycloak will be accessible.                       |
-| `applications.keycloak.administrator_username` | Admin username for Keycloak.                                   |
-| `keycloak_administrator_password` | Admin password for Keycloak.                                   |
-| `database_host`                 | Host of the PostgreSQL database.                                |
-| `database_name`                 | Name of the PostgreSQL database.                                |
-| `database_username`             | Username for the PostgreSQL database.                          |
-| `http_port`                     | Port where Keycloak will be accessible (default: `8080`).       |
-| `docker_restart_policy`         | Docker restart policy (e.g., `always`, `unless-stopped`).       |
-
 ## Tasks 🛠️
 
 The role performs the following main tasks:

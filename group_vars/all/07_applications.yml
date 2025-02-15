@@ -71,6 +71,9 @@ defaults_applications:
   keycloak:
     version:              "latest"
     administrator_username:  "{{administrator_username}}"  # Administrator Username for Keycloak
+#   database_password:        # Needs to be defined in inventory file   
+#   administrator_password:   # Needs to be defined in inventory file      
+
 
   ## LDAP
   ldap:
