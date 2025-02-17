@@ -40,22 +40,22 @@ HINT: Better overwritte CSS variables instead of individual elements.
     /* For Dark Mode Plugin
      * @See https://chromewebstore.google.com/detail/dark-mode/dmghijelimhndkbmpgbldicpogfkceaj
      */
-    --native-dark-accent-color:      var(--color-60);  /* was #a9a9a9 */
-    --native-dark-bg-blend-mode:      multiply;
-    --native-dark-bg-color:           var(--color-10);  /* was #292929 */
-    --native-dark-bg-image-color:     rgba(0, 0, 0, 0.10); /* remains the same, or adjust if needed */
-    --native-dark-bg-image-filter:    brightness(50%) contrast(200%);
-    --native-dark-border-color:       var(--color-40);  /* was #555555 */
-    --native-dark-box-shadow:         0 0 0 1px rgb(255 255 255 / 10%);
-    --native-dark-brightness:         0.85;
-    --native-dark-cite-color:         var(--color-70);  /* was #92de92 – you might adjust if a green tone is needed */
-    --native-dark-fill-color:         var(--color-50);  /* was #7d7d7d */
-    --native-dark-font-color:         var(--color-95);  /* was #dcdcdc */
-    --native-dark-link-color:         var(--color-80);  /* was #8db2e5 */
-    --native-dark-opacity:            0.85;
-    --native-dark-text-shadow:        none;
-    --native-dark-transparent-color:  transparent;
-    --native-dark-visited-link-color: var(--color-85);  /* was #c76ed7 */
+    --native-dark-accent-color:         var(--color-60);  /* was #a9a9a9 */
+    --native-dark-bg-blend-mode:        multiply;
+    --native-dark-bg-color:             var(--color-10);  /* was #292929 */
+    --native-dark-bg-image-color:      rgba(0, 0, 0, 0.10); /* remains the same, or adjust if needed */
+    --native-dark-bg-image-filter:      brightness(50%) contrast(200%);
+    --native-dark-border-color:         var(--color-40);  /* was #555555 */
+    --native-dark-box-shadow:           0 0 0 1px rgb(255 255 255 / 10%);
+    --native-dark-brightness:           0.85;
+    --native-dark-cite-color:           var(--color-70);  /* was #92de92 – you might adjust if a green tone is needed */
+    --native-dark-fill-color:           var(--color-50);  /* was #7d7d7d */
+    --native-dark-font-color:           var(--color-95);  /* was #dcdcdc */
+    --native-dark-link-color:           var(--color-80);  /* was #8db2e5 */
+    --native-dark-opacity:              0.85;
+    --native-dark-text-shadow:          none;
+    --native-dark-transparent-color:    transparent;
+    --native-dark-visited-link-color:   var(--color-85);  /* was #c76ed7 */
 }
 
 /* Bootstrap Overrides (Color/Shadow Variables Only) */
@@ -139,6 +139,203 @@ HINT: Better overwritte CSS variables instead of individual elements.
     --dropdown-item-hover-color: var(--color-60);  /* Hover text: a bit lighter */
     --dropdown-item-color:     var(--color-70);    /* Regular dropdown item text */
     --dropdown-item-active-color: var(--color-99);/* Active state: very light (white) */
+}
+
+/* Keycloak */
+:root{
+  /* --- Palette Black (Graustufen) --- */
+  --pf-v5-global--palette--black-100:   var(--color-95);  /* #fafafa */
+  --pf-v5-global--palette--black-150:   var(--color-90);  /* #f5f5f5 */
+  --pf-v5-global--palette--black-200:   var(--color-85);  /* #f0f0f0 */
+  --pf-v5-global--palette--black-300:   var(--color-75);  /* #d2d2d2 */
+  --pf-v5-global--palette--black-400:   var(--color-65);  /* #b8bbbe */
+  --pf-v5-global--palette--black-500:   var(--color-50);  /* #8a8d90 */
+  --pf-v5-global--palette--black-600:   var(--color-40);  /* #6a6e73 */
+  --pf-v5-global--palette--black-700:   var(--color-30);  /* #4f5255 */
+  --pf-v5-global--palette--black-800:   var(--color-25);  /* #3c3f42 */
+  --pf-v5-global--palette--black-850:   var(--color-20);  /* #212427 */
+  --pf-v5-global--palette--black-900:   var(--color-10);  /* #151515 */
+  --pf-v5-global--palette--black-1000:  var(--color-05);  /* #030303 */
+
+  /* --- Blue Palette --- */
+  --pf-v5-global--palette--blue-50:    var(--color-98);  /* #e7f1fa */
+  --pf-v5-global--palette--blue-100:   var(--color-95);  /* #bee1f4 */
+  --pf-v5-global--palette--blue-200:   var(--color-85);  /* #73bcf7 */
+  --pf-v5-global--palette--blue-300:   var(--color-75);  /* #2b9af3 */
+  --pf-v5-global--palette--blue-400:   var(--color-65);  /* #06c */
+  --pf-v5-global--palette--blue-500:   var(--color-40);  /* #004080 */
+  --pf-v5-global--palette--blue-600:   var(--color-30);  /* #002952 */
+  --pf-v5-global--palette--blue-700:   var(--color-10);  /* #001223 */
+
+  /* --- Cyan Palette --- */
+  --pf-v5-global--palette--cyan-50:    var(--color-98);  /* #f2f9f9 */
+  --pf-v5-global--palette--cyan-100:   var(--color-85);  /* #a2d9d9 */
+  --pf-v5-global--palette--cyan-200:   var(--color-75);  /* #73c5c5 */
+  --pf-v5-global--palette--cyan-300:   var(--color-65);  /* #009596 */
+  --pf-v5-global--palette--cyan-400:   var(--color-40);  /* #005f60 */
+  --pf-v5-global--palette--cyan-500:   var(--color-30);  /* #003737 */
+  --pf-v5-global--palette--cyan-600:   var(--color-20);  /* #002323 */
+  --pf-v5-global--palette--cyan-700:   var(--color-10);  /* #000f0f */
+
+  /* --- Gold Palette --- */
+  --pf-v5-global--palette--gold-50:    var(--color-98);  /* #fdf7e7 */
+  --pf-v5-global--palette--gold-100:   var(--color-90);  /* #f9e0a2 */
+  --pf-v5-global--palette--gold-200:   var(--color-80);  /* #f6d173 */
+  --pf-v5-global--palette--gold-300:   var(--color-70);  /* #f4c145 */
+  --pf-v5-global--palette--gold-400:   var(--color-60);  /* #f0ab00 */
+  --pf-v5-global--palette--gold-500:   var(--color-50);  /* #c58c00 */
+  --pf-v5-global--palette--gold-600:   var(--color-40);  /* #795600 */
+  --pf-v5-global--palette--gold-700:   var(--color-30);  /* #3d2c00 */
+
+  /* --- Green Palette --- */
+  --pf-v5-global--palette--green-50:   var(--color-98);  /* #f3faf2 */
+  --pf-v5-global--palette--green-100:  var(--color-85);  /* #bde5b8 */
+  --pf-v5-global--palette--green-200:  var(--color-75);  /* #95d58e */
+  --pf-v5-global--palette--green-300:  var(--color-65);  /* #6ec664 */
+  --pf-v5-global--palette--green-400:  var(--color-60);  /* #5ba352 */
+  --pf-v5-global--palette--green-500:  var(--color-50);  /* #3e8635 */
+  --pf-v5-global--palette--green-600:  var(--color-40);  /* #1e4f18 */
+  --pf-v5-global--palette--green-700:  var(--color-20);  /* #0f280d */
+
+  /* --- Light Blue Palette --- */
+  --pf-v5-global--palette--light-blue-100: var(--color-95);  /* #beedf9 */
+  --pf-v5-global--palette--light-blue-200: var(--color-85);  /* #7cdbf3 */
+  --pf-v5-global--palette--light-blue-300: var(--color-75);  /* #35caed */
+  --pf-v5-global--palette--light-blue-400: var(--color-65);  /* #00b9e4 */
+  --pf-v5-global--palette--light-blue-500: var(--color-50);  /* #008bad */
+  --pf-v5-global--palette--light-blue-600: var(--color-40);  /* #005c73 */
+  --pf-v5-global--palette--light-blue-700: var(--color-20);  /* #002d39 */
+
+  /* --- Light Green Palette --- */
+  --pf-v5-global--palette--light-green-100: var(--color-95); /* #e4f5bc */
+  --pf-v5-global--palette--light-green-200: var(--color-85); /* #c8eb79 */
+  --pf-v5-global--palette--light-green-300: var(--color-75); /* #ace12e */
+  --pf-v5-global--palette--light-green-400: var(--color-65); /* #92d400 */
+  --pf-v5-global--palette--light-green-500: var(--color-50); /* #6ca100 */
+  --pf-v5-global--palette--light-green-600: var(--color-40); /* #486b00 */
+  --pf-v5-global--palette--light-green-700: var(--color-20); /* #253600 */
+
+  /* --- Orange Palette --- */
+  --pf-v5-global--palette--orange-50:  var(--color-98);  /* #fff6ec */
+  --pf-v5-global--palette--orange-100: var(--color-85);  /* #f4b678 */
+  --pf-v5-global--palette--orange-200: var(--color-75);  /* #ef9234 */
+  --pf-v5-global--palette--orange-300: var(--color-65);  /* #ec7a08 */
+  --pf-v5-global--palette--orange-400: var(--color-50);  /* #c46100 */
+  --pf-v5-global--palette--orange-500: var(--color-40);  /* #8f4700 */
+  --pf-v5-global--palette--orange-600: var(--color-30);  /* #773d00 */
+  --pf-v5-global--palette--orange-700: var(--color-20);  /* #3b1f00 */
+
+  /* --- Purple Palette --- */
+  --pf-v5-global--palette--purple-50:   var(--color-98);  /* #f2f0fc */
+  --pf-v5-global--palette--purple-100:  var(--color-90);  /* #cbc1ff */
+  --pf-v5-global--palette--purple-200:  var(--color-80);  /* #b2a3ff */
+  --pf-v5-global--palette--purple-300:  var(--color-70);  /* #a18fff */
+  --pf-v5-global--palette--purple-400:  var(--color-60);  /* #8476d1 */
+  --pf-v5-global--palette--purple-500:  var(--color-50);  /* #6753ac */
+  --pf-v5-global--palette--purple-600:  var(--color-40);  /* #40199a */
+  --pf-v5-global--palette--purple-700:  var(--color-20);  /* #1f0066 */
+
+  /* --- Red Palette --- */
+  --pf-v5-global--palette--red-50:    var(--color-98);  /* #faeae8 */
+  --pf-v5-global--palette--red-100:   var(--color-70);  /* #c9190b */
+  --pf-v5-global--palette--red-200:   var(--color-50);  /* #a30000 */
+  --pf-v5-global--palette--red-300:   var(--color-40);  /* #7d1007 */
+  --pf-v5-global--palette--red-400:   var(--color-30);  /* #470000 */
+  --pf-v5-global--palette--red-500:   var(--color-20);  /* #2c0000 */
+
+  /* --- White --- */
+  --pf-v5-global--palette--white:      var(--color-99);
+
+  /* --- Background Colors --- */
+  --pf-v5-global--BackgroundColor--100:              var(--color-99);
+  --pf-v5-global--BackgroundColor--150:              var(--color-95);
+  --pf-v5-global--BackgroundColor--200:              var(--color-85);
+  --pf-v5-global--BackgroundColor--light-100:        var(--color-100);
+  --pf-v5-global--BackgroundColor--light-200:        var(--color-95);
+  --pf-v5-global--BackgroundColor--light-300:        var(--color-85);
+  --pf-v5-global--BackgroundColor--dark-100:         var(--color-10);
+  --pf-v5-global--BackgroundColor--dark-200:         var(--color-25);
+  --pf-v5-global--BackgroundColor--dark-300:         var(--color-20);
+  --pf-v5-global--BackgroundColor--dark-400:         var(--color-30);
+  --pf-v5-global--BackgroundColor--dark-transparent-100: var(--color-05);
+  --pf-v5-global--BackgroundColor--dark-transparent-200: var(--color-05);
+
+  /* --- Color Variables --- */
+  --pf-v5-global--Color--100:           var(--color-10);
+  --pf-v5-global--Color--200:           var(--color-40);
+  --pf-v5-global--Color--300:           var(--color-25);
+  --pf-v5-global--Color--400:           var(--color-50);
+  --pf-v5-global--Color--light-100:     var(--color-100);
+  --pf-v5-global--Color--light-200:     var(--color-85);
+  --pf-v5-global--Color--light-300:     var(--color-75);
+  --pf-v5-global--Color--dark-100:      var(--color-10);
+  --pf-v5-global--Color--dark-200:      var(--color-40);
+
+  /* --- Active Colors --- */
+  --pf-v5-global--active-color--100:    var(--color-65);
+  --pf-v5-global--active-color--200:    var(--color-95);
+  --pf-v5-global--active-color--300:    var(--color-75);
+  --pf-v5-global--active-color--400:    var(--color-85);
+
+  /* --- Disabled Colors --- */
+  --pf-v5-global--disabled-color--100:  var(--color-40);
+  --pf-v5-global--disabled-color--200:  var(--color-75);
+  --pf-v5-global--disabled-color--300:  var(--color-85);
+
+  /* --- Primary Colors --- */
+  --pf-v5-global--primary-color--100:   var(--color-65);
+  --pf-v5-global--primary-color--200:   var(--color-40);
+  --pf-v5-global--primary-color--light-100: var(--color-75);
+  --pf-v5-global--primary-color--dark-100:  var(--color-65);
+
+  /* --- Secondary Colors --- */
+  --pf-v5-global--secondary-color--100: var(--color-40);
+
+  /* --- Custom Colors --- */
+  --pf-v5-global--custom-color--100:    var(--color-65);
+  --pf-v5-global--custom-color--200:    var(--color-65);
+  --pf-v5-global--custom-color--300:    var(--color-30);
+
+  /* --- Success Colors --- */
+  --pf-v5-global--success-color--100:   var(--color-50);
+  --pf-v5-global--success-color--200:   var(--color-40);
+
+  /* --- Info Colors --- */
+  --pf-v5-global--info-color--100:      var(--color-75);
+  --pf-v5-global--info-color--200:      var(--color-30);
+
+  /* --- Warning Colors --- */
+  --pf-v5-global--warning-color--100:   var(--color-60);
+  --pf-v5-global--warning-color--200:   var(--color-40);
+
+  /* --- Danger Colors --- */
+  --pf-v5-global--danger-color--100:    var(--color-70);
+  --pf-v5-global--danger-color--200:    var(--color-50);
+  --pf-v5-global--danger-color--300:    var(--color-30);
+
+  /* --- Link Colors --- */
+  --pf-v5-global--link--Color:                var(--color-65);
+  --pf-v5-global--link--Color--hover:          var(--color-40);
+  --pf-v5-global--link--Color--light:          var(--color-75);
+  --pf-v5-global--link--Color--light--hover:    var(--color-85);
+  --pf-v5-global--link--Color--dark:           var(--color-65);
+  --pf-v5-global--link--Color--dark--hover:     var(--color-40);
+  --pf-v5-global--link--Color--visited:         var(--color-40);
+
+  /* --- Border Colors --- */
+  --pf-v5-global--BorderColor--100:          var(--color-75);
+  --pf-v5-global--BorderColor--200:          var(--color-50);
+  --pf-v5-global--BorderColor--300:          var(--color-85);
+  --pf-v5-global--BorderColor--dark-100:      var(--color-75);
+  --pf-v5-global--BorderColor--light-100:     var(--color-65);
+
+  /* --- Icon Colors --- */
+  --pf-v5-global--icon--Color--light:         var(--color-40);
+  --pf-v5-global--icon--Color--dark:          var(--color-10);
+  --pf-v5-global--icon--Color--light--light:   var(--color-85);
+  --pf-v5-global--icon--Color--dark--light:    var(--color-100);
+  --pf-v5-global--icon--Color--light--dark:    var(--color-40);
+  --pf-v5-global--icon--Color--dark--dark:     var(--color-10);
 }
 
 /* Wordpress */
@@ -271,7 +468,7 @@ button.icon-button {
     color: var(--color-99) !important;
 }
 
-/** Keycloak
+/* Keycloak 
 body#keycloak-bg main{
     background-color: var(--color-75) !important;
 }
