@@ -9,7 +9,7 @@ HINT: Better overwritte CSS variables instead of individual elements.
 :root {
     /** Derived Colors from the Base Color **/
     {% for i in range(1, 100) %}
-        --color-{{ "%02d"|format(i) }}: {{ global_theming.css.colors.base | adjust_color(target_lightness=(i / 100)) }};
+        --color-{{ "%02d"|format(i) }}: {{ global_theming.css.colors.base | adjust_color(target_lightness=(i / 100),saturation_change=global_theming.css.filters.saturation_change,hue_shift=global_theming.css.filters.hue_shift) }};
     {% endfor %}
 
     /** Special Action Colors **/
@@ -24,7 +24,7 @@ HINT: Better overwritte CSS variables instead of individual elements.
     :root {
         /** Dark Mode Derived Colors from the Base Color **/
         {% for i in range(1, 100) %}
-            --color-{{ "%02d"|format(i) }}: {{ global_theming.css.colors.base | adjust_color(target_lightness=(1 - (i / 100))) }};
+            --color-{{ "%02d"|format(i) }}: {{ global_theming.css.colors.base | adjust_color(target_lightness=(1 - (i / 100)),saturation_change=global_theming.css.filters.saturation_change,hue_shift=global_theming.css.filters.hue_shift) }};
         {% endfor %}
 
         /** Special Action Colors **/
