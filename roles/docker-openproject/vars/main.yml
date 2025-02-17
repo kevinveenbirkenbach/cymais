@@ -13,6 +13,6 @@ dummy_volume:                                 "{{docker_compose.directories.volu
 
 # OAuth2 Proxy Configuration
 oauth2_proxy_upstream_application_and_port:   "proxy:80"
-oauth2_proxy_active:                          true
+oauth2_proxy_active:                          "{{ applications.openproject.oauth2_proxy_active | bool }}"
 
 ldap_enabled:                                 True

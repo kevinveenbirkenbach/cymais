@@ -1,5 +1,4 @@
 application_id:       "phpmyadmin"
 database_type:        "mariadb"
 database_host:        "{{ 'central-' + database_type if enable_central_database}}"
-# OAuth2 Proxy Configuration
-oauth2_proxy_active:  true
+oauth2_proxy_active:  "{{ applications.phpmyadmin.oauth2_proxy_active | bool }}"

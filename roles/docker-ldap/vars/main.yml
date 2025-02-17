@@ -5,7 +5,7 @@ ldap_enabled:         True
 
 # OAuth2 Proxy Configuration
 oauth2_proxy_upstream_application_and_port: "{{ applications.ldap.webinterface }}:{% if applications.ldap.webinterface == 'phpldapadmin' %}8080{% else %}80{% endif %}"
-oauth2_proxy_active:                        true
+oauth2_proxy_active:                        "{{ applications.ldap.lam.oauth2_proxy_active | bool }}"
 
 enable_wildcard_certificate:  false # Activate dedicated Certificate
 

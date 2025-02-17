@@ -80,6 +80,7 @@ defaults_applications:
     lam:
       version:                        "latest"
       administrator_password:         "{{user_administrator_initial_password}}" # CHANGE for security reasons
+      oauth2_proxy_active:            true
     openldap:
       version:                        "latest"
       network:
@@ -154,7 +155,8 @@ defaults_applications:
 
   ## Open Project
   openproject:
-    version:            "13" # Update when available. Sadly no rolling release implemented
+    version:              "13" # Update when available. Sadly no rolling release implemented
+    oauth2_proxy_active:  true
 
   ## Peertube
   peertube:
@@ -162,8 +164,9 @@ defaults_applications:
 
   ## PHPMyAdmin
   phpmyadmin:
-    version:         "latest"
-    autologin:       false     # This is a high security risk. Just activate this option if you know what you're doing
+    version:              "latest"
+    autologin:            false     # This is a high security risk. Just activate this option if you know what you're doing
+    oauth2_proxy_active:  true
 
   ## Pixelfed
   pixelfed:
