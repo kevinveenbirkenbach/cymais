@@ -1,7 +1,7 @@
 - name: Activate Global Matomo tracking
   include_role:
     name: nginx-global-matomo
-  when: global_matomo_tracking_enabled | bool and domain is defined # @toto: Do I try run without is defined checking for domain
+  when: global_matomo_tracking_enabled | bool and domain is defined # @todo: Do I try run without is defined checking for domain
 
 - name: Activate Global CSS
   include_role:

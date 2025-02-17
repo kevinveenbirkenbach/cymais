@@ -1,6 +1,6 @@
 # Docker Matomo Role
 
-This Ansible role deploys a Matomo analytics platform instance using Docker.
+This Ansible role deploys a [Matomo](https://matomo.org/) analytics platform instance using Docker.
 
 ## Requirements
 
@@ -16,17 +16,8 @@ This Ansible role deploys a Matomo analytics platform instance using Docker.
 - `http_port`: The host port that Matomo will be accessible on.
 - `matomo_database_password`: Password for the Matomo database.
 
-## Dependencies
-
-- `nginx-docker-reverse-proxy`: An Ansible role for configuring the reverse proxy.
-
-## Example Playbook
-
-```yaml
-- hosts: servers
-  roles:
-    - { role: docker-matomo, domain: 'example.com', http_port: 8080 }
-```
-
 ## AI Generated
 This script was created with the help of ChatGPT. The full conversation is [here](https://chat.openai.com/share/49e0c7e4-a2af-4a04-adad-7a735bdd85c4) available.
+
+## Author
+-  [Kevin Veen-Birkenbach](https://www.veen.world/)

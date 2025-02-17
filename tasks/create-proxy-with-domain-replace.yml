@@ -1,8 +1,0 @@
-- name: "include role receive certbot certificate"
-  include_role: 
-    name: nginx-https-recieve-certificate
-
-- name: "include task create-domain-conf.yml"
-  include_tasks: create-domain-conf.yml
-  vars: 
-    nginx_docker_reverse_proxy_extra_configuration: "sub_filter '{{source_domain}}' '{{domain}}';"
