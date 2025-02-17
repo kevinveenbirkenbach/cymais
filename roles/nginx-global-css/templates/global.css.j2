@@ -141,8 +141,19 @@ HINT: Better overwritte CSS variables instead of individual elements.
     --dropdown-item-active-color: var(--color-99);/* Active state: very light (white) */
 }
 
+/* Wordpress */
+:root {
+  --wp--preset--color--black:              var(--color-05);
+  --wp--preset--color--contrast:           var(--color-22);
+  --wp--preset--color--contrast-2:         var(--color-40);
+  --wp--preset--color--contrast-3:         var(--color-50);
+  --wp--preset--color--base:               var(--color-90);
+  --wp--preset--color--base-2:             var(--color-95);
+  --wp--preset--color--white:              var(--color-99);
+}
+
 /* Global Defaults (Colors Only) */
-body {
+body, html[native-dark-active] {
     background-color: var(--color-93) !important;
     background-image: none !important;
     color: var(--color-40) !important;
@@ -260,7 +271,7 @@ button.icon-button {
     color: var(--color-99) !important;
 }
 
-/** Keycloak **/
+/** Keycloak
 body#keycloak-bg main{
     background-color: var(--color-75) !important;
 }
@@ -280,7 +291,7 @@ div#app main#kc-main-content-page-container section a
 {
     background-color: transparent !important;
     color: var(--color-40);
-}
+} */
 
 /** LAM Specific **/
 .lam-vertical-tabs-navigation li, .lam-vertical-tabs-navigation{
@@ -361,4 +372,9 @@ div.master, div.kanban-header, div.kanban-table-inner, section.kanban button,a.d
 
 section.kanban h1, section.kanban h2{
     color: var(--color-40) !important;
+}
+
+/* Wordpress */
+.has-contrast-background-color{
+    color: var(--color-90) !important;
 }
