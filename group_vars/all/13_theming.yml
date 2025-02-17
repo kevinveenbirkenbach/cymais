@@ -4,8 +4,8 @@ global_theming:
     colors:
       # General Colors
       base: "#001f3f"
-
-      # Special Action Colors
+      
+      lightness_change:
 
       # Sucess Color
       success: "#B2D3B2"

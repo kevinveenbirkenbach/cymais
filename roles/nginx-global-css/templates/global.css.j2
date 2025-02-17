@@ -8,30 +8,9 @@ HINT: Better overwritte CSS variables instead of individual elements.
 
 :root {
     /** Derived Colors from the Base Color **/
-
-    /* Primary Color: the base color itself */
-    --primary-color:       {{ global_theming.css.colors.base }};
-    
-    /* Secondary Color: slightly lightened */
-    --secondary-color:     {{ global_theming.css.colors.base | adjust_color(15) }};
-    
-    /* Complementary Color: moderately lightened to fall within a mid-brightness range */
-    --complementary-color: {{ global_theming.css.colors.base | adjust_color(30) }};
-    
-    /* Bright Background: significantly lightened */
-    --bright-color:        {{ global_theming.css.colors.base | adjust_color(45) }};
-    
-    /* Brightest Tone (e.g., for button text or accents): nearly white */
-    --brightest-color:     {{ global_theming.css.colors.base | adjust_color(60) }};
-    
-    /* Dark Background: a darker variant of the base color */
-    --dark-color:          {{ global_theming.css.colors.base | adjust_color(-30) }};
-    
-    /* Border Color: slightly offset with a light adjustment */
-    --border-color:        {{ global_theming.css.colors.base | adjust_color(10) }};
-    
-    /* Button Background: a gentle lightening for soft contrast */
-    --button-bg-color:     {{ global_theming.css.colors.base | adjust_color(20) }};
+    {% for i in range(1, 100) %}
+        --color-{{ "%02d"|format(i) }}: {{ global_theming.css.colors.base | adjust_color(target_lightness=(i / 100)) }};
+    {% endfor %}
 
     /** Special Action Colors **/
     --success-color:    {{ global_theming.css.colors.success }};
@@ -41,81 +20,147 @@ HINT: Better overwritte CSS variables instead of individual elements.
 
 }
 
+@media (prefers-color-scheme: dark) {
+    :root {
+        /** Dark Mode Derived Colors from the Base Color **/
+        {% for i in range(1, 100) %}
+            --color-{{ "%02d"|format(i) }}: {{ global_theming.css.colors.base | adjust_color(target_lightness=(1 - (i / 100))) }};
+        {% endfor %}
 
+        /** Special Action Colors **/
+        --success-color:    {{ global_theming.css.colors.success | adjust_color(target_lightness=(1 - 0.2)) }};
+        --warning-color:    {{ global_theming.css.colors.warning | adjust_color(target_lightness=(1 - 0.3)) }};
+        --error-color:      {{ global_theming.css.colors.error   | adjust_color(target_lightness=(1 - 0.3)) }};
+        --info-color:       {{ global_theming.css.colors.info    | adjust_color(target_lightness=(1 - 0.2)) }};
+    }
+}
+
+
+:root, ::after, ::before, ::backdrop {
+    /* For Dark Mode Plugin
+     * @See https://chromewebstore.google.com/detail/dark-mode/dmghijelimhndkbmpgbldicpogfkceaj
+     */
+    --native-dark-accent-color:      var(--color-60);  /* was #a9a9a9 */
+    --native-dark-bg-blend-mode:      multiply;
+    --native-dark-bg-color:           var(--color-10);  /* was #292929 */
+    --native-dark-bg-image-color:     rgba(0, 0, 0, 0.10); /* remains the same, or adjust if needed */
+    --native-dark-bg-image-filter:    brightness(50%) contrast(200%);
+    --native-dark-border-color:       var(--color-40);  /* was #555555 */
+    --native-dark-box-shadow:         0 0 0 1px rgb(255 255 255 / 10%);
+    --native-dark-brightness:         0.85;
+    --native-dark-cite-color:         var(--color-70);  /* was #92de92 – you might adjust if a green tone is needed */
+    --native-dark-fill-color:         var(--color-50);  /* was #7d7d7d */
+    --native-dark-font-color:         var(--color-95);  /* was #dcdcdc */
+    --native-dark-link-color:         var(--color-80);  /* was #8db2e5 */
+    --native-dark-opacity:            0.85;
+    --native-dark-text-shadow:        none;
+    --native-dark-transparent-color:  transparent;
+    --native-dark-visited-link-color: var(--color-85);  /* was #c76ed7 */
+}
 
 /* Bootstrap Overrides (Color/Shadow Variables Only) */
 :root {
-    --bs-primary: var(--primary-color);
-    --bs-secondary: var(--secondary-color);
-    --bs-body-bg: var(--bright-color);
-    --bs-body-color: var(--dark-color);
+    --bs-primary: var(--color-50);
+    --bs-secondary: var(--color-65);
+    --bs-body-bg: var(--color-90);
+    --bs-body-color: var(--color-40);
     --bs-danger: var(--error-color);
     --bs-warning: var(--warning-color);
     --bs-success: var(--success-color);
     --bs-info: var(--info-color);
-    --bs-link-color: var(--primary-color);
-    --bs-btn-color: var(--dark-color);
+    --bs-link-color: var(--color-50);
+    --bs-btn-color: var(--color-40);
 }
 
 /** Keycloak Overrides **/ 
 :root{
-    --pf-v5-global--Color--100:         {{  global_theming.css.colors.base | adjust_color(-30) }};
-    --pf-v5-global--Color--200:         {{  global_theming.css.colors.base | adjust_color(-10) }};
-    --pf-v5-global--Color--light-100:   {{  global_theming.css.colors.base | adjust_color(-30) }};
-    --pf-v5-global--Color--light-200:   {{  global_theming.css.colors.base | adjust_color(-10) }};
-    --pf-v5-global--Color--light-300:   {{  global_theming.css.colors.base | adjust_color(10) }};
+    --pf-v5-global--Color--100:         var(--color-40);
+    --pf-v5-global--Color--200:         var(--color-60);
+    --pf-v5-global--Color--light-100:   var(--color-40);
+    --pf-v5-global--Color--light-200:   var(--color-60);
+    --pf-v5-global--Color--light-300:   var(--color-70);
 } 
 
 /** Mastodon Overrides **/
 :root{
-    --surface-variant-background-color: var(--button-bg-color);
+    --surface-variant-background-color: var(--color-80);
 }
 
 /** Nextcloud Specific**/
 :root{
-    --color-main-background:        var(--bright-color);
-    --color-main-background-rgb:    var(--bright-color);
-    --color-primary-element:        var(--button-bg-color);
-    --color-main-text:              var(--dark-color);
-    --color-background-hover:       var(--secondary-color);
+    --color-main-background:        None;
+    --color-main-background-rgb:    None;
+    --color-primary-element:        var(--color-80);
+    --color-main-text:              var(--color-40);
+    --color-background-hover:       var(--color-65);
 
     /** Calendar **/
     --color-background-dark:        var(--info-color); /** Days which aren't in the current month **/
-    --color-primary-element-light:  var(--secondary-color);
+    --color-primary-element-light:  var(--color-65);
 }
 
 /** Peertube **/
 :root {
-    --mainColor: var(--primary-color);
+    --mainColor: var(--color-50);
 }
 
 /** Pixelfed **/
-:root {
-    --card-bg:          var(--complementary-color);
-    --light-gray:       var(--complementary-color);
-}
 
+:root {
+    /* Base Colors */
+    --light:                  var(--color-05);    /* Very dark (was #000) */
+    --dark:                   var(--color-100);   /* Very light (was #fff) */
+    
+    /* Backgrounds */
+    --body-bg:                var(--color-05);    /* Main background: very dark */
+    --nav-bg:                 var(--color-05);    /* Navigation background: very dark */
+    
+    /* Text Colors */
+    --body-color:             var(--color-70);    /* Main text – mid brightness */
+    --text-lighter:           var(--color-60);    /* Lighter text for less prominent elements */
+    
+    /* Section Backgrounds and Cards */
+    --bg-light:               var(--color-95);    /* Lighter background areas */
+    --card-bg:                var(--color-90);    /* Card background */
+    --light-gray:             var(--color-75);    /* For less dominant elements */
+    --light-hover-bg:         var(--color-85);    /* Slightly lighter hover background */
+    
+    /* Borders and Input Fields */
+    --btn-light-border:       var(--color-10);    /* Dark border for buttons */
+    --input-border:           var(--color-10);    /* Border color for inputs */
+    --border-color:           var(--color-85);    /* General border: slightly lighter than background */
+    
+    /* Other Areas */
+    --comment-bg:             var(--color-85);    /* Background for comments */
+    --card-header-accent:     var(--color-85);    /* Accent color in card headers */
+    
+    /* Dropdown Menus */
+    --dropdown-item-hover-bg: var(--color-05);    /* Hover background: very dark */
+    --dropdown-item-hover-color: var(--color-60);  /* Hover text: a bit lighter */
+    --dropdown-item-color:     var(--color-70);    /* Regular dropdown item text */
+    --dropdown-item-active-color: var(--color-99);/* Active state: very light (white) */
+}
 
 /* Global Defaults (Colors Only) */
 body {
-    background-color: var(--bright-color) !important;
+    background-color: var(--color-93) !important;
     background-image: none !important;
-    color: var(--dark-color) !important;
+    color: var(--color-40) !important;
     /* Use the corporate-design font family */
     font-family: "Liberation Sans", Arial, sans-serif;
 }
 
 /* Links (Color Only) */
 a {
-    color: var(--primary-color) !important;
+    color: var(--color-50) !important;
 }
 
 /* Buttons (Background, Text, Border, and Shadow)
    Now using a button background that is only slightly darker than the overall background */
 button, .btn {
-    background-color: var(--button-bg-color) !important;
-    color: var(--primary-color) !important;
-    border-color: var(--border-color) !important;
+    background-color: var(--color-87) !important;
+    color: var(--color-50) !important;
+    border-color: var(--color-80) !important;
     cursor: pointer;
 }
 
@@ -126,107 +171,107 @@ button:hover, .btn:hover {
 /* States: Success, Warning, Error, Info (Background and Text Colors) */
 .success, .alert-success {
     background-color: var(--success-color) !important;
-    color: var(--dark-color) !important;
+    color: var(--color-40) !important;
 }
 .warning, .alert-warning {
     background-color: var(--warning-color) !important;
-    color: var(--dark-color) !important;
+    color: var(--color-40) !important;
 }
 .error, .alert-danger {
     background-color: var(--error-color) !important;
-    color: var(--dark-color) !important;
+    color: var(--color-40) !important;
 }
 .info, .alert-info {
     background-color: var(--info-color) !important;
-    color: var(--dark-color) !important;
+    color: var(--color-40) !important;
 }
 
 /* Inputs & Forms in Light Mode (Using a Light Tone from the Corporate Design) */
 input, textarea, select {
-    background-color: var(--info-color) !important;  /* Instead of var(--bright-color) */
-    color: var(--dark-color) !important;
-    border-color: var(--border-color) !important;
+    background-color: var(--info-color) !important;  /* Instead of var(--color-90) */
+    color: var(--color-40) !important;
+    border-color: var(--color-70) !important;
 }
 input:focus, textarea:focus, select:focus {
-    border-color: var(--primary-color) !important;
+    border-color: var(--color-50) !important;
 }
 
 /* Navigation (Background and Text Colors) */
 .navbar, .navbar-light, .navbar-dark {
-    background-color: var(--bright-color) !important;
-    color: var(--primary-color) !important;
+    background-color: var(--color-90) !important;
+    color: var(--color-50) !important;
+    border-color: var(--color-85) !important;
 }
 
 .navbar a {
-    color: var(--dark-color) !important;
+    color: var(--color-40) !important;
 }
 
 .navbar a.dropdown-item {
-    color: var(--dark-color) !important;
+    color: var(--color-40) !important;
 }
 
 .card-body {
-    color: var(--dark-color) !important;
+    color: var(--color-40) !important;
 }
 
 /* Tables (Borders and Header Colors) */
 th, td {
-    border-color: var(--border-color) !important;
+    border-color: var(--color-70) !important;
 }
 
 thead {
-    background-color: var(--button-bg-color) !important;
-    color: var(--dark-color) !important;
+    background-color: var(--color-80) !important;
+    color: var(--color-40) !important;
 }
 
 /* Cards / Containers (Background, Border, and Shadow)
    Cards now use a slightly lighter background and a bold, clear shadow */
 .card {
-    background-color: var(--complementary-color) !important;
-    border-color: var(--border-color) !important;
+    background-color: var(--color-90) !important;
+    border-color: var(--color-85) !important;
 }
 
 /* Headings (Text Color) */
 h1, h2, h3, h4, h5, h6, p{
-    color: var(--dark-color) !important;
+    color: var(--color-10) !important;
 }
 
 /* Dropdown Menu and Submenu (Background, Text, and Shadow) */
 .navbar .dropdown-menu,
 .nav-item .dropdown-menu {
-    background-color: var(--bright-color) !important;
-    color: var(--dark-color) !important;
-    /**box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);**/
+    background-color: var(--color-80) !important;
+    color: var(--color-40) !important;
 }
 
 .dropdown-item {
-    color: var(--dark-color) !important;
-    background-color: var(--bright-color) !important;
+    color: var(--color-40) !important;
+    background-color: var(--color-80) !important;
 }
 
 .dropdown-item:hover,
 .dropdown-item:focus {
-    background-color: var(--secondary-color) !important;
-    color: var(--dark-color) !important;
+    background-color: var(--color-65) !important;
+    color: var(--color-40) !important;
 }
 
 /* Ensure the button itself uses the light text color. Occurred in Mastodon */
 button.icon-button {
-    color: var(--most-bright) !important;
+    color: var(--color-99) !important;
 }
 
 /** Keycloak **/
 body#keycloak-bg main{
-    background-color: var(--complementary-color) !important;
+    background-color: var(--color-75) !important;
 }
 
 div#app header, div#app header *{
-    background-color: var(--primary-color) !important;
-    color: var(--brightest-color);
+    background-color: var(--color-50) !important;
+    color: var(--color-98);
 }
 
 div#app div#page-sidebar, div#app main#kc-main-content-page-container{
-    background-color: var(--complementary-color) !important;
+    background-color: var(--color-75) !important;
 }
 
 div#app main#kc-main-content-page-container section, 
@@ -234,7 +279,7 @@ div#app main#kc-main-content-page-container section *,
 div#app main#kc-main-content-page-container section a
 {
     background-color: transparent !important;
-    color: var(--dark-color);
+    color: var(--color-40);
 }
 
 /** LAM Specific **/
@@ -245,28 +290,28 @@ div#app main#kc-main-content-page-container section a
 
 /** Mailu **/
 [class*=sidebar-dark-], .bg-mailu-logo {
-    background-color: var(--bright-color) !important;
+    background-color: var(--color-90) !important;
 }
 
 
 /** Mastodon Specific **/ 
 div#mastodon div.compose-panel div.compose-form__highlightable{
-    background-color: var(--bright-color) !important;
+    background-color: var(--color-90) !important;
 }
 
 div#mastodon strong{
-    color: var(--dark-color) !important;
+    color: var(--color-40) !important;
 }
 
 /** Nextcloud specific **/
 html.ng-csp header#header{
-    color: var(--bright-color) !important;
-    background-color: var(--button-bg-color) !important;
+    color: var(--color-90) !important;
+    background-color: var(--color-80) !important;
 }
 
 html.ng-csp button.files-list__row-name-link, html.ng-csp button.button-vue{
     background-color: transparent !important;
-    color: background-color: var(--button-bg-color) !important;
+    color: background-color: var(--color-80) !important;
 }
 
 html.ng-csp div#postsetupchecks ul.warnings{
@@ -278,13 +323,13 @@ html.ng-csp div#postsetupchecks ul.info{
 }
 
 div#content-vue p, div#content-vue span{
-    color: var(--dark-color) !important;
+    color: var(--color-40) !important;
 }
 
 /** OpenProject **/
 header.op-app-header{
-    background-color: var(--dark-color) !important;
-    color: var(--dark-color) !important;
+    background-color: var(--color-40) !important;
+    color: var(--color-40) !important;
 }
 
 /** Open Project **/
@@ -292,13 +337,15 @@ div#wrapper button, div#wrapper input, button.top-menu-search-button, div.menu-s
     background-color: transparent !important;
 }
 
-main-menu-toggle button{
-    border: 0px none !important;
-}
-
 /* Peertube specific configuration */
 .peertube-container button {
     background-color: transparent !important;
+}
+
+/* Pixelfed */
+div.page-wrapper{
+    background: none !important;
+    background-color: none !important;
 }
 
 /** Taiga specific configuration  **/
@@ -309,9 +356,9 @@ section.main.kanban{
 
 div.master, div.kanban-header, div.kanban-table-inner, section.kanban button,a.dropdown-project-list-projects{
     background-color: var(--info-color) !important;
-    color: var(--dark-color) !important;
+    color: var(--color-40) !important;
 }
 
 section.kanban h1, section.kanban h2{
-    color: var(--dark-color) !important;
+    color: var(--color-40) !important;
 }
