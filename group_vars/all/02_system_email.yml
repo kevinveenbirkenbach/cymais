@@ -9,3 +9,4 @@ default_system_email:
   start_tls: false
   from:      "no-reply@{{primary_domain}}"
   smtp:      true
+# password:  # Needs to be defined in inventory file  
