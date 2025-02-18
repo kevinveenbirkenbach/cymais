@@ -101,13 +101,13 @@ HINT: Better overwritte CSS variables instead of individual elements.
   --success-rgb:               112, 219, 130;
 
   /* Primary Scale */
-  --primary-very-low:          var(--color-100); /* originally #f7f9fb */
+  --primary-very-low:          var(--color-99); /* originally #f7f9fb */
   --primary-low:               var(--color-95);  /* originally #e3ebf2 */
   --primary-low-mid:           var(--color-75);  /* originally #acc2d7 */
   --primary-medium:            var(--color-60);  /* originally #7499bd */
   --primary-high:              var(--color-40);  /* originally #487096 */
   --primary-very-high:         var(--color-20);  /* originally #34516d */
-  --primary-50:                var(--color-100); /* originally #f7f9fb */
+  --primary-50:                var(--color-99); /* originally #f7f9fb */
   --primary-100:               var(--color-95);  /* originally #eef3f7 */
   --primary-200:               var(--color-90);  /* originally #e3ebf2 */
   --primary-300:               var(--color-80);  /* originally #c7d6e4 */
@@ -132,12 +132,12 @@ HINT: Better overwritte CSS variables instead of individual elements.
   --secondary-very-high:       var(--color-90);  /* originally #d7e5ec */
 
   /* Tertiary Scale */
-  --tertiary-very-low:         var(--color-100); /* originally #eaf0f3 */
+  --tertiary-very-low:         var(--color-99); /* originally #eaf0f3 */
   --tertiary-low:              var(--color-95);  /* originally #dfe8ee */
   --tertiary-medium:           var(--color-60);  /* originally #96b4c5 */
   --tertiary-high:             var(--color-40);  /* originally #5886a0 */
   --tertiary-hover:            var(--color-20);  /* originally #314a59 */
-  --tertiary-50:               var(--color-100); /* originally #eaf0f3 */
+  --tertiary-50:               var(--color-99); /* originally #eaf0f3 */
   --tertiary-100:              var(--color-95);  /* originally #e6edf1 */
   --tertiary-200:              var(--color-90);  /* originally #e4ebf0 */
   --tertiary-300:              var(--color-85);  /* originally #dfe8ee */
@@ -177,74 +177,6 @@ HINT: Better overwritte CSS variables instead of individual elements.
   --float-kit-arrow-fill-color:         var(--secondary);      /* already mapped above */
 }
 
-/** Keycloak Overrides **/ 
-:root{
-    --pf-v5-global--Color--100:         var(--color-40);
-    --pf-v5-global--Color--200:         var(--color-60);
-    --pf-v5-global--Color--light-100:   var(--color-40);
-    --pf-v5-global--Color--light-200:   var(--color-60);
-    --pf-v5-global--Color--light-300:   var(--color-70);
-} 
-
-/** Mastodon Overrides **/
-:root{
-    --surface-variant-background-color: var(--color-80);
-}
-
-/** Nextcloud Specific**/
-:root{
-    --color-main-background:        None;
-    --color-main-background-rgb:    None;
-    --color-primary-element:        var(--color-80);
-    --color-main-text:              var(--color-40);
-    --color-background-hover:       var(--color-65);
-
-    /** Calendar **/
-    --color-background-dark:        var(--info-color); /** Days which aren't in the current month **/
-    --color-primary-element-light:  var(--color-65);
-}
-
-/** Peertube **/
-:root {
-    --mainColor: var(--color-50);
-}
-
-/** Pixelfed **/
-
-:root {
-    /* Base Colors */
-    --light:                  var(--color-05);    /* Very dark (was #000) */
-    --dark:                   var(--color-100);   /* Very light (was #fff) */
-    
-    /* Backgrounds */
-    --body-bg:                var(--color-05);    /* Main background: very dark */
-    --nav-bg:                 var(--color-05);    /* Navigation background: very dark */
-    
-    /* Text Colors */
-    --body-color:             var(--color-70);    /* Main text – mid brightness */
-    --text-lighter:           var(--color-60);    /* Lighter text for less prominent elements */
-    
-    /* Section Backgrounds and Cards */
-    --bg-light:               var(--color-95);    /* Lighter background areas */
-    --card-bg:                var(--color-90);    /* Card background */
-    --light-gray:             var(--color-75);    /* For less dominant elements */
-    --light-hover-bg:         var(--color-85);    /* Slightly lighter hover background */
-    
-    /* Borders and Input Fields */
-    --btn-light-border:       var(--color-10);    /* Dark border for buttons */
-    --input-border:           var(--color-10);    /* Border color for inputs */
-    --border-color:           var(--color-85);    /* General border: slightly lighter than background */
-    
-    /* Other Areas */
-    --comment-bg:             var(--color-85);    /* Background for comments */
-    --card-header-accent:     var(--color-85);    /* Accent color in card headers */
-    
-    /* Dropdown Menus */
-    --dropdown-item-hover-bg: var(--color-05);    /* Hover background: very dark */
-    --dropdown-item-hover-color: var(--color-60);  /* Hover text: a bit lighter */
-    --dropdown-item-color:     var(--color-70);    /* Regular dropdown item text */
-    --dropdown-item-active-color: var(--color-99);/* Active state: very light (white) */
-}
 
 /* Keycloak */
 :root{
@@ -357,7 +289,7 @@ HINT: Better overwritte CSS variables instead of individual elements.
   --pf-v5-global--BackgroundColor--200:              var(--color-85);
   --pf-v5-global--BackgroundColor--300:              var(--color-75);
   --pf-v5-global--BackgroundColor--400:              var(--color-65);
-  --pf-v5-global--BackgroundColor--light-100:        var(--color-100);
+  --pf-v5-global--BackgroundColor--light-100:        var(--color-99);
   --pf-v5-global--BackgroundColor--light-200:        var(--color-95);
   --pf-v5-global--BackgroundColor--light-300:        var(--color-85);
   --pf-v5-global--BackgroundColor--dark-100:         var(--color-10);
@@ -372,7 +304,7 @@ HINT: Better overwritte CSS variables instead of individual elements.
   --pf-v5-global--Color--200:           var(--color-40);
   --pf-v5-global--Color--300:           var(--color-25);
   --pf-v5-global--Color--400:           var(--color-50);
-  --pf-v5-global--Color--light-100:     var(--color-100);
+  --pf-v5-global--Color--light-100:     var(--color-99);
   --pf-v5-global--Color--light-200:     var(--color-85);
   --pf-v5-global--Color--light-300:     var(--color-75);
   --pf-v5-global--Color--dark-100:      var(--color-10);
@@ -421,29 +353,89 @@ HINT: Better overwritte CSS variables instead of individual elements.
   --pf-v5-global--danger-color--300:    var(--color-30);
 
   /* --- Link Colors --- */
-  --pf-v5-global--link--Color:                var(--color-65);
-  --pf-v5-global--link--Color--hover:          var(--color-40);
-  --pf-v5-global--link--Color--light:          var(--color-75);
+  --pf-v5-global--link--Color:                  var(--color-65);
+  --pf-v5-global--link--Color--hover:           var(--color-40);
+  --pf-v5-global--link--Color--light:           var(--color-75);
   --pf-v5-global--link--Color--light--hover:    var(--color-85);
-  --pf-v5-global--link--Color--dark:           var(--color-65);
+  --pf-v5-global--link--Color--dark:            var(--color-65);
   --pf-v5-global--link--Color--dark--hover:     var(--color-40);
   --pf-v5-global--link--Color--visited:         var(--color-40);
 
   /* --- Border Colors --- */
-  --pf-v5-global--BorderColor--100:          var(--color-75);
-  --pf-v5-global--BorderColor--200:          var(--color-50);
-  --pf-v5-global--BorderColor--300:          var(--color-85);
-  --pf-v5-global--BorderColor--400:          var(--color-65);
-  --pf-v5-global--BorderColor--dark-100:      var(--color-75);
-  --pf-v5-global--BorderColor--light-100:     var(--color-65);
+  --pf-v5-global--BorderColor--100:             var(--color-75);
+  --pf-v5-global--BorderColor--200:             var(--color-50);
+  --pf-v5-global--BorderColor--300:             var(--color-85);
+  --pf-v5-global--BorderColor--400:             var(--color-65);
+  --pf-v5-global--BorderColor--dark-100:        var(--color-75);
+  --pf-v5-global--BorderColor--light-100:       var(--color-65);
 
   /* --- Icon Colors --- */
   --pf-v5-global--icon--Color--light:         var(--color-40);
   --pf-v5-global--icon--Color--dark:          var(--color-10);
   --pf-v5-global--icon--Color--light--light:   var(--color-85);
-  --pf-v5-global--icon--Color--dark--light:    var(--color-100);
+  --pf-v5-global--icon--Color--dark--light:    var(--color-99);
   --pf-v5-global--icon--Color--light--dark:    var(--color-40);
   --pf-v5-global--icon--Color--dark--dark:     var(--color-10);
+}
+
+/** Mastodon Overrides **/
+:root{
+    --surface-variant-background-color: var(--color-80);
+}
+
+/** Nextcloud Specific**/
+:root{
+    --color-main-background:        None;
+    --color-main-background-rgb:    None;
+    --color-primary-element:        var(--color-80);
+    --color-main-text:              var(--color-40);
+    --color-background-hover:       var(--color-65);
+
+    /** Calendar **/
+    --color-background-dark:        var(--info-color); /** Days which aren't in the current month **/
+    --color-primary-element-light:  var(--color-65);
+}
+
+/** Peertube **/
+:root {
+    --mainColor: var(--color-50);
+}
+
+/** Pixelfed **/
+
+:root {
+    /* Base Colors */
+    --light:                  var(--color-05);    /* Very dark (was #000) */
+    --dark:                   var(--color-99);   /* Very light (was #fff) */
+    
+    /* Backgrounds */
+    --body-bg:                var(--color-05);    /* Main background: very dark */
+    --nav-bg:                 var(--color-05);    /* Navigation background: very dark */
+    
+    /* Text Colors */
+    --body-color:             var(--color-70);    /* Main text – mid brightness */
+    --text-lighter:           var(--color-60);    /* Lighter text for less prominent elements */
+    
+    /* Section Backgrounds and Cards */
+    --bg-light:               var(--color-95);    /* Lighter background areas */
+    --card-bg:                var(--color-90);    /* Card background */
+    --light-gray:             var(--color-75);    /* For less dominant elements */
+    --light-hover-bg:         var(--color-85);    /* Slightly lighter hover background */
+    
+    /* Borders and Input Fields */
+    --btn-light-border:       var(--color-10);    /* Dark border for buttons */
+    --input-border:           var(--color-10);    /* Border color for inputs */
+    --border-color:           var(--color-85);    /* General border: slightly lighter than background */
+    
+    /* Other Areas */
+    --comment-bg:             var(--color-85);    /* Background for comments */
+    --card-header-accent:     var(--color-85);    /* Accent color in card headers */
+    
+    /* Dropdown Menus */
+    --dropdown-item-hover-bg: var(--color-05);    /* Hover background: very dark */
+    --dropdown-item-hover-color: var(--color-60);  /* Hover text: a bit lighter */
+    --dropdown-item-color:     var(--color-70);    /* Regular dropdown item text */
+    --dropdown-item-active-color: var(--color-99);/* Active state: very light (white) */
 }
 
 /* Wordpress */
@@ -514,9 +506,9 @@ input:focus, textarea:focus, select:focus {
 
 /* Navigation (Background and Text Colors) */
 .navbar, .navbar-light, .navbar-dark {
-    background-color: var(--color-90) !important;
-    color: var(--color-50) !important;
-    border-color: var(--color-85) !important;
+    background-color:   var(--color-90) !important;
+    color:              var(--color-50) !important;
+    border-color:       var(--color-85) !important;
 }
 
 .navbar a {
@@ -605,13 +597,13 @@ div#mastodon strong{
 
 /** Nextcloud specific **/
 html.ng-csp header#header{
-    color: var(--color-90) !important;
-    background-color: var(--color-80) !important;
+    color:              var(--color-90) !important;
+    background-color:   var(--color-80) !important;
 }
 
 html.ng-csp button.files-list__row-name-link, html.ng-csp button.button-vue{
-    background-color: transparent !important;
-    color: var(--color-80) !important;
+    background-color:   transparent !important;
+    color:              var(--color-80) !important;
 }
 
 html.ng-csp div#postsetupchecks ul.warnings{
@@ -620,6 +612,10 @@ html.ng-csp div#postsetupchecks ul.warnings{
 
 html.ng-csp div#postsetupchecks ul.info{
     background-color: transparent !important;
+}
+
+html.ng-csp div#header-menu-user-menu{
+    --color-main-background:    var(--color-78) !important;
 }
 
 div#content-vue p, div#content-vue span{
