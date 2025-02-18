@@ -380,6 +380,158 @@ HINT:
   --pf-v5-global--icon--Color--dark--dark:     var(--color-10);
 }
 
+
+/* gitea */
+:root {
+  /* Base and derived colors are now referenced from the computed scale */
+  --color-primary:           var(--color-50);
+  --color-primary-contrast:  var(--color-99);
+  --color-primary-dark-1:    var(--color-48);
+  --color-primary-dark-2:    var(--color-47);
+  --color-primary-dark-3:    var(--color-46);
+  --color-primary-dark-4:    var(--color-45);
+  --color-primary-dark-5:    var(--color-44);
+  --color-primary-dark-6:    var(--color-43);
+  --color-primary-dark-7:    var(--color-42);
+  --color-primary-light-1:   var(--color-52);
+  --color-primary-light-2:   var(--color-53);
+  --color-primary-light-3:   var(--color-54);
+  --color-primary-light-4:   var(--color-55);
+  --color-primary-light-5:   var(--color-57);
+  --color-primary-light-6:   var(--color-59);
+  --color-primary-light-7:   var(--color-61);
+
+  /* Alpha variants reference the base RGB variable */
+  --color-primary-alpha-10:  rgba(var(--color-rgb-50), 0.10);
+  --color-primary-alpha-20:  rgba(var(--color-rgb-50), 0.20);
+  --color-primary-alpha-30:  rgba(var(--color-rgb-50), 0.30);
+  --color-primary-alpha-40:  rgba(var(--color-rgb-50), 0.40);
+  --color-primary-alpha-50:  rgba(var(--color-rgb-50), 0.50);
+  --color-primary-alpha-60:  rgba(var(--color-rgb-50), 0.60);
+  --color-primary-alpha-70:  rgba(var(--color-rgb-50), 0.70);
+  --color-primary-alpha-80:  rgba(var(--color-rgb-50), 0.80);
+  --color-primary-alpha-90:  rgba(var(--color-rgb-50), 0.90);
+
+  --color-primary-hover:     var(--color-primary-dark-1);
+  --color-primary-active:    var(--color-primary-dark-2);
+
+  /* Secondary colors */
+  --color-secondary:         var(--color-80);
+  --color-secondary-dark-1:  var(--color-78);
+  --color-secondary-dark-2:  var(--color-76);
+  --color-secondary-dark-3:  var(--color-74);
+  --color-secondary-dark-4:  var(--color-72);
+  --color-secondary-dark-5:  var(--color-70);
+  --color-secondary-dark-6:  var(--color-68);
+  --color-secondary-dark-7:  var(--color-66);
+  --color-secondary-dark-8:  var(--color-64);
+  --color-secondary-dark-9:  var(--color-62);
+  --color-secondary-dark-10: var(--color-60);
+  --color-secondary-dark-11: var(--color-58);
+  --color-secondary-dark-12: var(--color-56);
+  --color-secondary-dark-13: var(--color-54);
+  --color-secondary-light-1: var(--color-92);
+  --color-secondary-light-2: var(--color-93);
+  --color-secondary-light-3: var(--color-94);
+  --color-secondary-light-4: var(--color-95);
+
+  --color-secondary-alpha-10: rgba(var(--color-rgb-80), 0.10);
+  --color-secondary-alpha-20: rgba(var(--color-rgb-80), 0.20);
+  --color-secondary-alpha-30: rgba(var(--color-rgb-80), 0.30);
+  --color-secondary-alpha-40: rgba(var(--color-rgb-80), 0.40);
+  --color-secondary-alpha-50: rgba(var(--color-rgb-80), 0.50);
+  --color-secondary-alpha-60: rgba(var(--color-rgb-80), 0.60);
+  --color-secondary-alpha-70: rgba(var(--color-rgb-80), 0.70);
+  --color-secondary-alpha-80: rgba(var(--color-rgb-80), 0.80);
+  --color-secondary-alpha-90: rgba(var(--color-rgb-80), 0.90);
+
+  --color-secondary-button:  var(--color-secondary-dark-4);
+  --color-secondary-hover:   var(--color-secondary-dark-5);
+  --color-secondary-active:  var(--color-secondary-dark-6);
+
+  /* Console Colors */
+  --color-console-fg:         var(--color-98);
+  --color-console-fg-subtle:  var(--color-85);
+  --color-console-bg:         var(--color-10);
+  --color-console-border:     var(--color-40);
+  --color-console-hover-bg:   var(--color-42);
+  --color-console-active-bg:  var(--color-40);
+  --color-console-menu-bg:    var(--color-38);
+  --color-console-menu-border:var(--color-45);
+
+  /* Body, Text, and Miscellaneous Colors */
+  --color-white:      var(--color-99);
+  --color-grey:       var(--color-60);
+  --color-grey-light: var(--color-65);
+
+  --color-body:       var(--color-white);
+  --color-text-dark:  var(--color-10);
+  --color-text:       var(--color-40);
+  --color-text-light: var(--color-60);
+  --color-text-light-1: var(--color-65);
+  --color-text-light-2: var(--color-70);
+  --color-text-light-3: var(--color-75);
+
+  --color-footer:     var(--color-nav-bg);
+  --color-timeline:   var(--color-80);
+
+  /* Input Colors */
+  --color-input-text: var(--color-10);
+  --color-input-background: var(--color-white);
+  --color-input-toggle-background: var(--color-80);
+  --color-input-border: var(--color-secondary);
+  --color-input-border-hover: var(--color-secondary-dark-1);
+
+  /* Effects */
+  --color-light: var(--color-05);
+  --color-light-mimic-enabled: rgba(var(--color-rgb-05), calc(6 / 255 * 222 / 255 / 0.55));
+  --color-light-border: var(--color-05);
+  --color-hover: var(--color-05);
+  --color-hover-opaque: var(--color-95);
+  --color-active: var(--color-05);
+
+  /* Menu, Card, and Markup Colors */
+  --color-menu: var(--color-99);
+  --color-card: var(--color-99);
+  --color-markup-table-row: var(--color-01);
+  --color-markup-code-block: var(--color-01);
+  --color-markup-code-inline: var(--color-01);
+  --color-button: var(--color-99);
+  --color-code-bg: var(--color-99);
+  --color-shadow: var(--color-05);
+  --color-shadow-opaque: var(--color-85);
+  --color-secondary-bg: var(--color-95);
+  --color-expand-button: var(--color-98);
+  --color-placeholder-text: var(--color-text-light-3);
+  --color-editor-line-highlight: var(--color-primary-light-6);
+  --color-project-column-bg: var(--color-secondary-light-4);
+  --color-caret: var(--color-10);
+
+  /* Reaction and Tooltip Colors */
+  --color-reaction-bg: var(--color-05);
+  --color-reaction-hover-bg: var(--color-primary-light-5);
+  --color-reaction-active-bg: var(--color-primary-light-6);
+  --color-tooltip-text: var(--color-99);
+  --color-tooltip-bg: var(--color-05);
+
+  /* Navigation Colors */
+  --color-nav-bg: var(--color-99);
+  --color-nav-hover-bg: var(--color-secondary-light-1);
+  --color-nav-text: var(--color-40);
+  --color-secondary-nav-bg: var(--color-99);
+
+  /* Label and Accent Colors */
+  --color-label-text: var(--color-40);
+  --color-label-bg: var(--color-50);
+  --color-label-hover-bg: var(--color-60);
+  --color-label-active-bg: var(--color-70);
+  --color-accent: var(--color-primary-light-1);
+  --color-small-accent: var(--color-primary-light-6);
+  --color-highlight-fg: var(--color-10);
+  --color-highlight-bg: var(--color-99);
+  --color-overlay-backdrop: var(--color-05);
+}
+
 /** Mastodon Overrides **/
 :root{
     --surface-variant-background-color: var(--color-80);
