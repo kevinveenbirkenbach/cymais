@@ -52,6 +52,8 @@ ldap:
     root:           "{{_ldap_dn_base}}"
     # Specifies the Distinguished Name (DN) of the LDAP administrator, combining the admin's username with the LDAP root domain.
     administrator:  "cn={{applications.ldap.administrator_username}},{{_ldap_dn_base}}"
+    # Dn from which the users should be read
+    users:          "ou=users,{{_ldap_dn_base}}"
   server:
     domain: "{{applications.ldap.openldap.hostname if applications.ldap.openldap.network.local | bool else domains.ldap}}" # Mapping for public or locale access
     uri:    "{% if applications.ldap.openldap.network.local | bool %}ldap://{{ applications.ldap.openldap.hostname }}:{{ ports.localhost.ldap.openldap }}{% else %}ldaps://{{ domains.ldap }}:{{ ports.public.ldaps.openldap }}{% endif %}"

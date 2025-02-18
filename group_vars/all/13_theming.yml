@@ -14,7 +14,7 @@ global_theming:
       # As the info color – a very light blue (symbolizing the sky)
       info: "#F0F8FF"
     filters:
-      saturation_change:  100
+      saturation_change:  50
       hue_shift:          0
 
 global_theming_enabled: true

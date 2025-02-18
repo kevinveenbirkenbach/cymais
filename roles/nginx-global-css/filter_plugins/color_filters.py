@@ -61,9 +61,34 @@ def adjust_color(hex_color, target_lightness=None, lightness_change=0, hue_shift
     
     return '#{:02x}{:02x}{:02x}'.format(new_r, new_g, new_b)
 
+def adjust_color_rgb(hex_color, target_lightness=None, lightness_change=0, hue_shift=0, saturation_change=0):
+    """
+    Wrapper function for adjust_color.
+    
+    Calls adjust_color to get the adjusted HEX color and then converts it to a string 
+    of comma-separated RGB values.
+    """
+    adjusted_hex = adjust_color(
+        hex_color,
+        target_lightness=target_lightness,
+        lightness_change=lightness_change,
+        hue_shift=hue_shift,
+        saturation_change=saturation_change
+    )
+    
+    # Remove '#' and parse the RGB components
+    hex_val = adjusted_hex.lstrip('#')
+    r = int(hex_val[0:2], 16)
+    g = int(hex_val[2:4], 16)
+    b = int(hex_val[4:6], 16)
+    
+    return f"{r},{g},{b}"
+
+# Integration in the FilterModule for Ansible
 class FilterModule(object):
     '''Custom filters for Ansible'''
     def filters(self):
         return {
             'adjust_color': adjust_color,
+            'adjust_color_rgb': adjust_color_rgb,
         }

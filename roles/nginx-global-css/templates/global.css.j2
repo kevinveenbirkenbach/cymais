@@ -10,6 +10,7 @@ HINT: Better overwritte CSS variables instead of individual elements.
     /** Derived Colors from the Base Color **/
     {% for i in range(1, 100) %}
         --color-{{ "%02d"|format(i) }}: {{ global_theming.css.colors.base | adjust_color(target_lightness=(i / 100),saturation_change=global_theming.css.filters.saturation_change,hue_shift=global_theming.css.filters.hue_shift) }};
+        --color-rgb-{{ "%02d"|format(i) }}: {{ global_theming.css.colors.base | adjust_color_rgb(target_lightness=(i / 100),saturation_change=global_theming.css.filters.saturation_change,hue_shift=global_theming.css.filters.hue_shift) }};
     {% endfor %}
 
     /** Special Action Colors **/
@@ -25,6 +26,7 @@ HINT: Better overwritte CSS variables instead of individual elements.
         /** Dark Mode Derived Colors from the Base Color **/
         {% for i in range(1, 100) %}
             --color-{{ "%02d"|format(i) }}: {{ global_theming.css.colors.base | adjust_color(target_lightness=(1 - (i / 100)),saturation_change=global_theming.css.filters.saturation_change,hue_shift=global_theming.css.filters.hue_shift) }};
+            --color-rgb-{{ "%02d"|format(i) }}: {{ global_theming.css.colors.base | adjust_color_rgb(target_lightness=(1 - (i / 100)),saturation_change=global_theming.css.filters.saturation_change,hue_shift=global_theming.css.filters.hue_shift) }};
         {% endfor %}
 
         /** Special Action Colors **/
@@ -41,20 +43,14 @@ HINT: Better overwritte CSS variables instead of individual elements.
      * @See https://chromewebstore.google.com/detail/dark-mode/dmghijelimhndkbmpgbldicpogfkceaj
      */
     --native-dark-accent-color:         var(--color-60);  /* was #a9a9a9 */
-    --native-dark-bg-blend-mode:        multiply;
     --native-dark-bg-color:             var(--color-10);  /* was #292929 */
-    --native-dark-bg-image-color:      rgba(0, 0, 0, 0.10); /* remains the same, or adjust if needed */
-    --native-dark-bg-image-filter:      brightness(50%) contrast(200%);
+    --native-dark-bg-image-color:       rgba(var(--color-rgb-01), 0.10); /* remains the same, or adjust if needed */
     --native-dark-border-color:         var(--color-40);  /* was #555555 */
-    --native-dark-box-shadow:           0 0 0 1px rgb(255 255 255 / 10%);
-    --native-dark-brightness:           0.85;
+    --native-dark-box-shadow:           0 0 0 1px rgb(var(--color-rgb-99), / 10%);
     --native-dark-cite-color:           var(--color-70);  /* was #92de92 – you might adjust if a green tone is needed */
     --native-dark-fill-color:           var(--color-50);  /* was #7d7d7d */
     --native-dark-font-color:           var(--color-95);  /* was #dcdcdc */
     --native-dark-link-color:           var(--color-80);  /* was #8db2e5 */
-    --native-dark-opacity:              0.85;
-    --native-dark-text-shadow:          none;
-    --native-dark-transparent-color:    transparent;
     --native-dark-visited-link-color:   var(--color-85);  /* was #c76ed7 */
 }
 
@@ -73,9 +69,7 @@ HINT: Better overwritte CSS variables instead of individual elements.
 }
 
 /* Discourse */
-:root {
-  --scheme-type: light;
-
+:root section#main{
   /* Base Colors */
   --primary:                   var(--color-20); /* originally #203243 */
   --secondary:                 var(--color-95); /* originally #eef4f7 */
@@ -88,17 +82,23 @@ HINT: Better overwritte CSS variables instead of individual elements.
   --highlight:                 var(--color-70); /* same as header_background */
   --d-selected:                var(--color-85); /* originally #bee0f2 */
   --d-hover:                   var(--color-90); /* originally #d2efff */
+  
+  /* Normally refers to secondary. Somehow this reference does not work.*/
+  --d-sidebar-background:      var(--color-92); 
+  --d-sidebar-footer-fade:     var(--color-92);
 
-  /* RGB values remain unchanged */
-  --always-black-rgb:          0, 0, 0;
-  --primary-rgb:               32, 50, 67;
-  --primary-low-rgb:           227, 235, 242;
-  --primary-very-low-rgb:      247, 249, 251;
-  --secondary-rgb:             238, 244, 247;
-  --header_background-rgb:     134, 189, 219;
-  --tertiary-rgb:              65, 99, 118;
-  --highlight-rgb:             134, 189, 219;
-  --success-rgb:               112, 219, 130;
+
+  /* RGB values */
+  --always-black-rgb:          var(--color-rgb-01);
+  --primary-rgb:               var(--color-rgb-20);
+  --primary-low-rgb:           var(--color-rgb-95);
+  --primary-very-low-rgb:      var(--color-rgb-99);
+  --secondary-rgb:             var(--color-rgb-95);
+  --header_background-rgb:     var(--color-rgb-70);
+  --tertiary-rgb:              var(--color-rgb-40);
+  --highlight-rgb:             var(--color-rgb-70);
+  --success-rgb:               var(--color-rgb-50);
+
 
   /* Primary Scale */
   --primary-very-low:          var(--color-99); /* originally #f7f9fb */
@@ -119,11 +119,11 @@ HINT: Better overwritte CSS variables instead of individual elements.
   --primary-900:               var(--color-20);  /* originally #34516d */
 
   /* Header Primary Scale */
-  --header_primary-low:        var(--color-75);  /* rgb(128, 180, 209) */
-  --header_primary-low-mid:    var(--color-70);  /* rgb(110, 155, 181) */
-  --header_primary-medium:     var(--color-60);  /* rgb(93, 132, 155) */
-  --header_primary-high:       var(--color-50);  /* rgb(78, 112, 132) */
-  --header_primary-very-high:  var(--color-20);  /* rgb(52, 76, 94) */
+  --header_primary-low:        rgb(var(--color-rgb-75));  /* rgb(128, 180, 209) */
+  --header_primary-low-mid:    rgb(var(--color-rgb-70));  /* rgb(110, 155, 181) */
+  --header_primary-medium:     rgb(var(--color-rgb-60));  /* rgb(93, 132, 155) */
+  --header_primary-high:       rgb(var(--color-rgb-50));  /* rgb(78, 112, 132) */
+  --header_primary-very-high:  rgb(var(--color-rgb-20));  /* rgb(52, 76, 94) */
 
   /* Secondary Scale */
   --secondary-low:             var(--color-20);  /* originally #2f5163 */
@@ -158,17 +158,17 @@ HINT: Better overwritte CSS variables instead of individual elements.
   --highlight-high:           var(--color-30);  /* originally #286688 */
 
   /* Combination Variables */
-  --blend-primary-secondary-5:        var(--color-95);  /* originally rgb(232, 238, 241) */
+  --blend-primary-secondary-5:          rgb(var(--color-rgb-95));  /* originally rgb(232, 238, 241) */
   --primary-med-or-secondary-med:       var(--color-60);  /* originally #7499bd */
   --primary-med-or-secondary-high:      var(--color-60);  /* originally #7499bd */
   --primary-high-or-secondary-low:      var(--color-40);  /* originally #487096 */
-  --primary-low-mid-or-secondary-high:   var(--color-75);  /* originally #acc2d7 */
-  --primary-low-mid-or-secondary-low:    var(--color-75);  /* originally #acc2d7 */
+  --primary-low-mid-or-secondary-high:  var(--color-75);  /* originally #acc2d7 */
+  --primary-low-mid-or-secondary-low:   var(--color-75);  /* originally #acc2d7 */
   --primary-or-primary-low-mid:         var(--color-20);  /* originally #203243 */
   --highlight-low-or-medium:            var(--color-90);  /* originally #dbebf4 */
   --tertiary-or-tertiary-low:           var(--color-40);  /* originally #416376 */
-  --tertiary-low-or-tertiary-high:        var(--color-95);  /* originally #dfe8ee */
-  --tertiary-med-or-tertiary:             var(--color-60);  /* originally #96b4c5 */
+  --tertiary-low-or-tertiary-high:      var(--color-95);  /* originally #dfe8ee */
+  --tertiary-med-or-tertiary:           var(--color-60);  /* originally #96b4c5 */
   --secondary-or-primary:               var(--color-95);  /* originally #eef4f7 */
   --tertiary-or-white:                  var(--color-40);  /* originally #416376 */
 
@@ -370,8 +370,8 @@ HINT: Better overwritte CSS variables instead of individual elements.
   --pf-v5-global--BorderColor--light-100:       var(--color-65);
 
   /* --- Icon Colors --- */
-  --pf-v5-global--icon--Color--light:         var(--color-40);
-  --pf-v5-global--icon--Color--dark:          var(--color-10);
+  --pf-v5-global--icon--Color--light:          var(--color-40);
+  --pf-v5-global--icon--Color--dark:           var(--color-10);
   --pf-v5-global--icon--Color--light--light:   var(--color-85);
   --pf-v5-global--icon--Color--dark--light:    var(--color-99);
   --pf-v5-global--icon--Color--light--dark:    var(--color-40);
@@ -385,14 +385,14 @@ HINT: Better overwritte CSS variables instead of individual elements.
 
 /** Nextcloud Specific**/
 :root{
-    --color-main-background:        None;
-    --color-main-background-rgb:    None;
+    --color-main-background:        var(--color-84);
+    --color-main-background-rgb:    rgba(var(--color-rgb-84),0.83);
     --color-primary-element:        var(--color-80);
     --color-main-text:              var(--color-40);
     --color-background-hover:       var(--color-65);
 
     /** Calendar **/
-    --color-background-dark:        var(--info-color); /** Days which aren't in the current month **/
+    --color-background-dark:        var(--color-73); /** Days which aren't in the current month **/
     --color-primary-element-light:  var(--color-65);
 }
 
@@ -601,25 +601,12 @@ html.ng-csp header#header{
     background-color:   var(--color-80) !important;
 }
 
-html.ng-csp button.files-list__row-name-link, html.ng-csp button.button-vue{
-    background-color:   transparent !important;
-    color:              var(--color-80) !important;
-}
-
 html.ng-csp div#postsetupchecks ul.warnings{
     color: var(--error-color) !important;
 }
 
 html.ng-csp div#postsetupchecks ul.info{
     background-color: transparent !important;
-}
-
-html.ng-csp div#header-menu-user-menu{
-    --color-main-background:    var(--color-78) !important;
-}
-
-div#content-vue p, div#content-vue span{
-    color: var(--color-40) !important;
 }
 
 /** OpenProject **/
