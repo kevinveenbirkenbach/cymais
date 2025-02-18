@@ -12,18 +12,18 @@ _oidc_client_realm:       "{{ oidc.client.realm if oidc.client is defined and oi
 _oidc_client_issuer_url:  "https://{{domains.keycloak}}/realms/{{_oidc_client_realm}}"
 
 defaults_oidc:
-  enabled:               true
+  enabled:               true # Enable OIDC functionality for all apps 
   client:
-    id:                   "{{primary_domain}}"
-#   secret:               # Define in inventory file
-    realm:                "{{_oidc_client_realm}}"
-    issuer_url:           "{{_oidc_client_issuer_url}}"
-    discovery_document:   "{{_oidc_client_issuer_url}}/.well-known/openid-configuration"
-    authorize_url:        "{{_oidc_client_issuer_url}}/protocol/openid-connect/auth"
-    toke_url:             "{{_oidc_client_issuer_url}}/protocol/openid-connect/token"
-    user_info_url:        "{{_oidc_client_issuer_url}}/protocol/openid-connect/userinfo"
-    logout_url:           "{{_oidc_client_issuer_url}}/protocol/openid-connect/logout"
-    change_credentials:   "{{_oidc_client_issuer_url}}account/account-security/signing-in"
+    id:                   "{{primary_domain}}"                                              # Client identifier, typically matching your primary domain
+#   secret:                                                                                 # Client secret for authenticating with the OIDC provider (set in the inventory file). Recommend greater then 32 characters
+    realm:                "{{_oidc_client_realm}}"                                          # The realm to which the client belongs in the OIDC provider
+    issuer_url:           "{{_oidc_client_issuer_url}}"                                     # Base URL of the OIDC provider (issuer)
+    discovery_document:   "{{_oidc_client_issuer_url}}/.well-known/openid-configuration"    # URL for fetching the provider's configuration details
+    authorize_url:        "{{_oidc_client_issuer_url}}/protocol/openid-connect/auth"        # Endpoint to start the authorization process
+    toke_url:             "{{_oidc_client_issuer_url}}/protocol/openid-connect/token"       # Endpoint to exchange authorization codes for tokens (note: 'toke_url' may be a typo for 'token_url')
+    user_info_url:        "{{_oidc_client_issuer_url}}/protocol/openid-connect/userinfo"    # Endpoint to retrieve user information
+    logout_url:           "{{_oidc_client_issuer_url}}/protocol/openid-connect/logout"      # Endpoint to log out the user
+    change_credentials:   "{{_oidc_client_issuer_url}}account/account-security/signing-in"  # URL for managing or changing user credentials
 
 #############################################
 ### OAuth2-Proxy                          ###

@@ -865,7 +865,7 @@
       "attributes": {
         "realm_client": "false",
         "oidc.ciba.grant.enabled": "false",
-        "client.secret.creation.time": "1737924347",
+        "client.secret.creation.time": "{{ ansible_date_time.epoch | int }}",
         "backchannel.logout.session.required": "true",
         "post.logout.redirect.uris": "https://{{primary_domain}}/*##+",
         "frontchannel.logout.session.required": "true",
