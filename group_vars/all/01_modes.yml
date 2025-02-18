@@ -5,5 +5,4 @@ mode_reset:   false # Cleans up all CyMaIS files. It's necessary to run to whole
 mode_test:    false # Executes test routines instead of productive routines
 mode_update:  true  # Executes updates
 mode_backup:  true  # Activates the backup before the update procedure
-mode_setup:   false # Execute the setup and initializing procedures
 mode_cleanup: false # Cleanup unused files and configurations

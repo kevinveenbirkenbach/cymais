@@ -30,6 +30,7 @@ defaults_applications:
   ## Big Blue Button
   bigbluebutton:
     enable_greenlight:    "true"
+    setup:                false # Set to true in inventory file for initial setup
 
   ## Bluesky
   bluesky:
@@ -99,6 +100,7 @@ defaults_applications:
     administrator_username:           "{{administrator_username}}"
     public_api_activated:             False # Security hole. Can be used for spaming
     version:                          "latest"
+    setup:                            false # Set true in inventory file to execute the setup and initializing procedures
 
   ## MariaDB
   mariadb:
@@ -111,7 +113,8 @@ defaults_applications:
   ## Mastodon
   mastodon:
     version:                          "latest"
-    single_user_mode:                 false
+    single_user_mode:                 false                         # Set true for initial setup
+    setup:                            false                         # Set true in inventory file to execute the setup and initializing procedures
 
   ## Matrix
   matrix:
@@ -123,12 +126,13 @@ defaults_applications:
       version:                        "latest"
     element:
       version:                        "latest"
+    setup:                            false                         # Set true in inventory file to execute the setup and initializing procedures
 
   ## Mailu
   mailu:
     version:                  "2024.06"
     domain:                   "{{primary_domain}}"
-    subnet:                   "192.168.203.0/24"
+    setup:                    false                                 # Set true in inventory file to execute the setup and initializing procedures
 
   ## Moodle
   moodle:
