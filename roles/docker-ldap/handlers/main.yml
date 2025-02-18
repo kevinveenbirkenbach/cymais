@@ -19,7 +19,7 @@
 
 - name: "Import Access Roles to OpenLDAP"
   shell: >
-    docker exec -i openldap ldapadd -x -D "{{ldap.dn.bind}}" -w "{{ldap.dn.bind_credential}}" -c -f "{{ldif_docker_path}}04_access_profiles.ldif"
+    docker exec -i openldap ldapadd -x -D "{{ldap.dn.bind}}" -w "{{ldap.bind_credential}}" -c -f "{{ldif_docker_path}}04_access_profiles.ldif"
   register: ldapadd_result
   changed_when: "'adding new entry' in ldapadd_result.stdout"
   # Allow return code 0 (all entries added) or 68 (entry already exists)

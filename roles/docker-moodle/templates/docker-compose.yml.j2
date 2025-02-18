@@ -10,16 +10,13 @@ services:
     volumes:
       - 'moodle:/bitnami/moodle'
       - 'data:/bitnami/moodledata'
-# Healthcheck is not possible due to missing curl and wget in container
-# @todo implement healthcheck
-#    healthcheck:
-#      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080"]
-#      interval: 1m
-#      timeout: 10s
-#      retries: 3
+    healthcheck:
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/localhost/8080 && echo -e 'GET / HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && cat <&3 | grep -q 'HTTP/1.1'"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 {% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
-
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}
   moodle:

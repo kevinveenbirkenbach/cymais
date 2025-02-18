@@ -4,12 +4,12 @@ networks:
   central_{{ database_type }}:
     external: true
 {% endif %}
-{% if ldap_enabled | bool and applications.ldap.openldap.network.local | bool %}
+{% if applications[application_id].ldap_enabled is defined and applications[application_id].ldap_enabled | bool and applications.ldap.openldap.network.local | bool %}
   central_ldap:
     external: true
 {% endif %}
   default:
-{% if application_id in networks.local and networks.local[application_id].subnet is defined %}
+{% if applications[application_id].ldap_enabled is defined and applications[application_id].ldap_enabled | bool and applications.ldap.openldap.network.local | bool %}
     driver: bridge
     ipam:
       driver: default

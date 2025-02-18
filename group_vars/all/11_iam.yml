@@ -39,10 +39,6 @@ oauth2_proxy_active:                         false
 # Helper variables
 _ldap_dn_base: "dc={{primary_domain_sld}},dc={{primary_domain_tld}}"
 
-
-# This leads to that the role gets configured to use ldap
-ldap_enabled:                  false
-
 ldap:
   # Enables LDAP for all roles in play if true
   enabled:  true

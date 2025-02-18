@@ -1,7 +1,6 @@
 application_id:       "ldap"
 ldaps_docker_port:    636
 ldap_docker_port:     389
-ldap_enabled:         True
 
 # OAuth2 Proxy Configuration
 oauth2_proxy_upstream_application_and_port: "{{ applications.ldap.webinterface }}:{% if applications.ldap.webinterface == 'phpldapadmin' %}8080{% else %}80{% endif %}"

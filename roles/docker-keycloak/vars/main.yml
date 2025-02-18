@@ -1,5 +1,7 @@
-application_id:  	  "keycloak"
-database_type:      "postgres"
-database_password:  "{{applications.keycloak.database_password}}"
-ldap_enabled:       True
-realm:              "{{primary_domain}}" # This is the name of the default realm which is used by the applications
+application_id:  	        "keycloak"
+database_type:            "postgres"
+database_password:        "{{applications.keycloak.database_password}}"
+container_name:           "{{application_id}}_application"
+realm:                    "{{primary_domain}}"                              # This is the name of the default realm which is used by the applications
+import_directory_host:    "{{docker_compose.directories.volumes}}import/"   # Directory in which keycloack import files are placed on the host
+import_directory_docker:  "/opt/keycloak/data/import/"                      # Directory in which keycloack import files are placed in the running docker container

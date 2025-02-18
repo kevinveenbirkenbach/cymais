@@ -11,6 +11,8 @@ services:
       - {{docker_compose.directories.config}}config.toml:/listmonk/config.toml
 {% include 'templates/docker/container/networks.yml.j2' %}
 {% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:9000/health || exit 1']
 
 {% include 'templates/docker/compose/volumes-just-database.yml.j2' %}
 

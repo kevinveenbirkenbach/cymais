@@ -4,4 +4,3 @@ database_password:  	                "{{nextcloud_database_password}}"
 database_type:                        "mariadb"
 nextcloud_application_container_name: "nextcloud-application"
 nextcloud_nginx_container_name:       "nextcloud-web"
-ldap_enabled:                         True
