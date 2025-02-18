@@ -1941,7 +1941,7 @@
             "true"
           ],
           "bindCredential": [
-            "**********"
+            "{{ldap.bind_credential}}"
           ],
           "changedSyncPeriod": [
             "-1"
@@ -1950,7 +1950,7 @@
             "uid"
           ],
           "bindDn": [
-            "{{ldap.dn.administrator}}"
+            "{{ldap.dn.bind}}"
           ],
           "lastSync": [
             "1737578007"
@@ -1965,7 +1965,7 @@
             "false"
           ],
           "connectionUrl": [
-            "ldap://openldap"
+            "{{ldap.dn.server.uri}}"
           ],
           "syncRegistrations": [
             "true"

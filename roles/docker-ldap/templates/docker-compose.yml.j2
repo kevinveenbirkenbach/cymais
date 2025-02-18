@@ -34,7 +34,7 @@ services:
       - '{{ldif_host_path}}:{{ldif_docker_path}}:ro'                      # Mounting all ldif files for import
     healthcheck:
       test: >
-        ldapsearch -x -H ldap://localhost:{{ldap_docker_port}} -b "{{ldap.dn.root}}" -D "{{ldap.dn.administrator}}" -w "{{applications.ldap.administrator_database_password}}"
+        ldapsearch -x -H ldap://localhost:{{ldap_docker_port}} -b "{{ldap.dn.root}}" -D "{{ldap.dn.bind}}" -w "{{ldap.dn.bind_credential}}"
       interval: 30s
       timeout: 10s
       retries: 3
