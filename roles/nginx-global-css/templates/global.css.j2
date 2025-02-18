@@ -2,7 +2,9 @@
 
 Global Theming Styles – Color and Shadow Variables 
 
-HINT: Better overwritte CSS variables instead of individual elements.
+HINT: 
+- Better overwritte CSS variables instead of individual elements.
+- Don't use !important. If possible use a specific selector.
 
 */
 
@@ -383,6 +385,17 @@ HINT: Better overwritte CSS variables instead of individual elements.
     --surface-variant-background-color: var(--color-80);
 }
 
+/* Modal Overwrittes */ 
+div.modal div.modal-content {
+  /* Colors – adjusted to the existing scheme */
+  --bs-modal-color: var(--color-21);                /* Text color: dark contrast against the light modal background */
+  --bs-modal-bg: var(--color-82);                   /* Background color, as desired */
+  --bs-modal-border-color: var(--color-82);         /* A slightly darker border than the background */
+  --bs-modal-header-border-color: var(--color-87);  /* Same shade as the modal border */
+  --bs-modal-footer-bg: var(--color-87);            /* A slightly offset footer background (a bit darker than the main area) */
+  --bs-modal-footer-border-color: var(--color-87);
+}
+
 /** Nextcloud Specific**/
 :root{
     --color-main-background:        var(--color-84);
@@ -451,30 +464,57 @@ HINT: Better overwritte CSS variables instead of individual elements.
 
 /* Global Defaults (Colors Only) */
 body, html[native-dark-active] {
-    background-color: var(--color-93) !important;
-    background-image: none !important;
-    color: var(--color-40) !important;
+    background-color: var(--color-93);
+    background-image: none;
+    color: var(--color-40);
     /* Use the corporate-design font family */
     font-family: "Liberation Sans", Arial, sans-serif;
 }
 
 /* Links (Color Only) */
 a {
-    color: var(--color-50) !important;
+    color: var(--color-50);
 }
 
 /* Buttons (Background, Text, Border, and Shadow)
    Now using a button background that is only slightly darker than the overall background */
 html[native-dark-active] button, html[native-dark-active] .btn, button, .btn {
-    background-color: var(--color-87) !important;
-    color: var(--color-50) !important;
-    border-color: var(--color-80) !important;
+    background-color: var(--color-87);
+    color: var(--color-50);
+    border-color: var(--color-80);
     cursor: pointer;
 }
 
 button:hover, .btn:hover {
     filter: brightness(0.9);
 }
+
+/* Inputs & Forms in Light Mode (Using a Light Tone from the Corporate Design) */
+input, textarea, select {
+    background-color: var(--color-82);  /* Instead of var(--color-90) */
+    color: var(--color-40);
+    border-color: var(--color-70);
+}
+input:focus, textarea:focus, select:focus {
+    border-color: var(--color-50);
+}
+
+/* Tables (Borders and Header Colors) */
+th, td {
+    border-color: var(--color-70) !important;
+}
+
+thead {
+    background-color: var(--color-80) !important;
+    color: var(--color-40) !important;
+}
+
+/* Headings (Text Color) */
+h1, h2, h3, h4, h5, h6, p{
+    color: var(--color-10) !important;
+}
+
+/* Bootstrap */
 
 /* States: Success, Warning, Error, Info (Background and Text Colors) */
 .success, .alert-success {
@@ -494,16 +534,6 @@ button:hover, .btn:hover {
     color: var(--color-40) !important;
 }
 
-/* Inputs & Forms in Light Mode (Using a Light Tone from the Corporate Design) */
-input, textarea, select {
-    background-color: var(--color-82) !important;  /* Instead of var(--color-90) */
-    color: var(--color-40) !important;
-    border-color: var(--color-70) !important;
-}
-input:focus, textarea:focus, select:focus {
-    border-color: var(--color-50) !important;
-}
-
 /* Navigation (Background and Text Colors) */
 .navbar, .navbar-light, .navbar-dark {
     background-color:   var(--color-90) !important;
@@ -519,20 +549,6 @@ input:focus, textarea:focus, select:focus {
     color: var(--color-40) !important;
 }
 
-.card-body {
-    color: var(--color-40) !important;
-}
-
-/* Tables (Borders and Header Colors) */
-th, td {
-    border-color: var(--color-70) !important;
-}
-
-thead {
-    background-color: var(--color-80) !important;
-    color: var(--color-40) !important;
-}
-
 /* Cards / Containers (Background, Border, and Shadow)
    Cards now use a slightly lighter background and a bold, clear shadow */
 .card {
@@ -540,9 +556,8 @@ thead {
     border-color: var(--color-85) !important;
 }
 
-/* Headings (Text Color) */
-h1, h2, h3, h4, h5, h6, p{
-    color: var(--color-10) !important;
+.card-body {
+    color: var(--color-40) !important;
 }
 
 /* Dropdown Menu and Submenu (Background, Text, and Shadow) */
