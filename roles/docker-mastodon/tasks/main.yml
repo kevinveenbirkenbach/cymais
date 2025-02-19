@@ -14,10 +14,10 @@
 
 - name: flush docker service
   meta: flush_handlers
-  when: appplications.mastodon.setup |bool 
+  when: applications.mastodon.setup |bool 
 
 - name: setup routine for mastodon
   command:
     cmd: "docker-compose run --rm web bundle exec rails db:migrate"
     chdir: "{{docker_compose.directories.instance}}"
-  when: appplications.mastodon.setup |bool 
+  when: applications.mastodon.setup |bool 

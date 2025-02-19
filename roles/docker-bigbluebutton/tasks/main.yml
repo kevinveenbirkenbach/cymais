@@ -45,17 +45,17 @@
 - name: wait for database
   pause:
     seconds: "{{pause_duration}}"
-  when: appplications.bigbluebutton.setup | bool
+  when: applications.bigbluebutton.setup | bool
 
 - name: create admin
   command:
     cmd: docker compose exec greenlight bundle exec rake admin:create
     chdir: "{{docker_compose.directories.instance}}"
-  when: appplications.bigbluebutton.setup | bool
+  when: applications.bigbluebutton.setup | bool
   ignore_errors: true
   register: admin_creation_result
 
 - name: print admin user data
   debug:
     msg: "{{ admin_creation_result.stdout }}"
-  when: appplications.bigbluebutton.setup | bool
+  when: applications.bigbluebutton.setup | bool
