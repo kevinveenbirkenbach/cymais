@@ -1,14 +1,24 @@
 # This is just a dummy person.
 # Adapt the values in your inventory file
 person:
-  type:           "legal"                   # Accepted Values: natural, legal
+  type:           "legal"                                           # Accepted Values: natural, legal
   name:           "CyMaIS Demo Instance"
+  description:    
+    subtitel:        "Infrastructure Demo solutions"                   # Should be the length of su
+    summary:         "We offer infrastructure solutions for the world"
+    detailed:        ""
   address:
     street:       "Binary Avenue 01"
     city:         "Cybertown"
     postal_code:  "00001"
     country:      "Nexusland"
   contact:
+    bluesky:      "@{{administrator_username}}.{{domains.bluesky_api}}"
     email:        "contact@{{primary_domain}}"
-    phone:        "+0 000 000 404"
     mastodon:     "@{{administrator_username}}@{{domains.mastodon}}"
+    matrix:       "@{{administrator_username}}:{{domains.matrix_synapse}}"
+    peertube:     "@{{administrator_username}}@{{domains.peertube}}"
+    pixelfed:     "@{{administrator_username}}@{{domains.pixelfed}}"
+    phone:        "+0 000 000 404"
+    wordpress:    "@{{administrator_username}}@{{domains.wordpress}}[0]"
+  code:           "https://github.com/kevinveenbirkenbach/cymais"

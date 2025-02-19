@@ -11,181 +11,67 @@ accounts:
       class: fas fa-newspaper
     children:
     - name: Microblogs
-      description: Stay updated with {{ 'our' if person.type == 'legal' else 'my' }} microblog posts.
+      description: Stay updated with {{ 'our' if person.type == 'legal' else 'my' }} microblogs.
       icon:
         class: fa-solid fa-pen-nib
       children:
+{% if person.contact.mastodon is defined %}
       - name: Mastodon
         description: Follow {{ 'our' if person.type == 'legal' else 'my' }} updates on Mastodon.
         icon:
           class: fa-brands fa-mastodon
-        url: https://{{ person.contact.mastodon.split('@')[2] }}/@{{ person.contact.mastodon.split('@')[1] }}
+        url: "https://{{ person.contact.mastodon.split('@')[2] }}/@{{ person.contact.mastodon.split('@')[1] }}"
         identifier: "{{person.contact.mastodon}}"
+{% end %}
+{% if person.contact.bluesky is defined %}
       - name: Bluesky
-        description: Follow me on Bluesky (coming soon).
+        description: Follow {{ 'our' if person.type == 'legal' else 'my' }} on Bluesky.
         icon:
           class: fa-brands fa-bluesky
-        info: Bluesky is coming soon.
         alternatives:
         - link: accounts.publishingchannels.microblogs.mastodon
-
+        identifier: "{{person.contact.bluesky}}"
+{% end %}
+{% if person.contact.pixelfed is defined %}
     - name: Pictures
-      description: View {{ 'our' if person.type == 'legal' else 'my' }} photography.
+      description: Explore {{ 'our' if person.type == 'legal' else 'my' }} photo gallery on Pixelfed.
       icon:
-        class: fa-solid fa-images
-      children:
-      - name: Pixelfed
-        description: Explore {{ 'our' if person.type == 'legal' else 'my' }} photo gallery on Pixelfed.
-        icon:
-            class: fa-solid fa-camera
-        url: https://s.veen.world/pictures
-      - name: Instagram
-        description: Follow me on Instagram.
-        icon:
-          class: fa-brands fa-instagram
-        url: https://www.instagram.com/kevinveenbirkenbach/
-        identifier: kevinveenbirkenbach
-        warning: Platforms by Meta (e.g., Instagram, Facebook) may compromise your data privacy. Consider using decentralized alternatives.
-        alternatives:
-        - link: accounts.publishingchannels.pictures.pixelfed
-
-    - name: Videos
-      description: Watch {{ 'our' if person.type == 'legal' else 'my' }} video content.
+          class: fa-solid fa-camera
+      identifier: "{{person.contact.pixelfed}}"
+      url: "https://{{ person.contact.pixelfed.split('@')[2] }}/@{{ person.contact.pixelfed.split('@')[1] }}"
+{% end %}
+{% if person.contact.peertube is defined %}
+    - name: Peertube
+      description: Discover {{ 'our' if person.type == 'legal' else 'my' }} videos on Peertube.
       icon:
-          class: fa-solid fa-video
-      children:
-      - name: Peertube
-        description: Discover {{ 'our' if person.type == 'legal' else 'my' }} videos on Peertube.
-        icon:
-          class: fa-solid fa-video
-        url: https://s.veen.world/videos
-      - name: YouTube
-        description: Follow me on YouTube (inactive).
-        icon:
-          class: fa-brands fa-youtube
-        url: https://s.veen.world/youtube
-        warning: I no longer publish videos on YouTube. Please visit {{ 'our' if person.type == 'legal' else 'my' }} Peertube channel instead.
-        alternatives:
-        - link: accounts.publishingchannels.videos.peertube
-
+        class: fa-solid fa-video
+      identifier: "{{person.contact.peertube}}"
+      url: "https://{{ person.contact.peertube.split('@')[2] }}/@{{ person.contact.peertube.split('@')[1] }}"
+{% end %}
+{% if person.contact.wordpress is defined %}
     - name: Blog
       description: Read {{ 'our' if person.type == 'legal' else 'my' }} articles and stories.
       icon:
           class: fa-solid fa-blog
-      url: https://blog.veen.world
-
+      identifier: "{{person.contact.wordpress}}"
+      url: "https://{{ person.contact.wordpress.split('@')[2] }}/@{{ person.contact.wordpress.split('@')[1] }}"
+{% end %}
+{% if person.contact.code is defined %}
     - name: Code
-      description: Access {{ 'our' if person.type == 'legal' else 'my' }} coding projects.
+      description: Explore {{ 'our' if person.type == 'legal' else 'my' }} code.
       icon:
-          class: fa-solid fa-laptop-code
-      children:
-      - name: GitHub
-        description: View {{ 'our' if person.type == 'legal' else 'my' }} GitHub repositories.
-        icon:
-          class: bi bi-github
-        url: https://github.com/kevinveenbirkenbach
-      - name: Gitea
-        description: Explore {{ 'our' if person.type == 'legal' else 'my' }} self-hosted repositories.
-        icon:
-          class: fa-solid fa-code
-        url: https://git.veen.world/kevinveenbirkenbach
-
+        class: fa-solid fa-code
+      url: "{{person.code}}"
+{% end %}
+{% if person.contact.friendica is defined %}
   - name: Social Networks
-    description: Social and developer platforms.
+    description: Visit {{ 'our' if person.type == 'legal' else 'my' }} friendica profile
     icon:
-      class: fa fa-users
-    children:
-    - name: Facebook
-      warning: I recommend to don't use Facebook and connect instead with me via the Fediverse. Check out the listed alternatives.
-      description: Visit {{ 'our' if person.type == 'legal' else 'my' }} Facebook page.
-      icon:
-        class: fa-brands fa-facebook
-      url: https://www.facebook.com/kevinveenbirkenbach
-      alternatives:
-      - link: accounts.socialnetworks.friendica
-    - name: Friendica
-      description: Visit {{ 'our' if person.type == 'legal' else 'my' }} friendica profile
-      icon:
-        class: fas fa-network-wired
-      url: https://s.veen.world/friendica
-      identifier: "kevinveenbirkenbach@friendica.veen.world"
+      class: fas fa-network-wired
+    identifier: "{{person.contact.friendica}}"
+    url: "https://{{ person.contact.friendica.split('@')[2] }}/@{{ person.contact.friendica.split('@')[1] }}"
+{% end %}
   - link: navigation.header.contact.messenger
-
-  - name: Career Profiles
-    description: Professional networking profiles.
-    icon:
-      class: fa-solid fa-user-tie
-    children:
-    - name: XING
-      description: View {{ 'our' if person.type == 'legal' else 'my' }} XING profile.
-      icon:
-        class: bi bi-building
-      url: https://s.veen.world/xing
-    - name: LinkedIn
-      description: Connect with me on LinkedIn.
-      icon:
-        class: bi bi-linkedin
-      url: https://s.veen.world/linkedin
-    - name: upwork.com
-      description: Check out {{ 'our' if person.type == 'legal' else 'my' }} profile on upwork
-      icon:
-        class: fas fa-users
-      url: https://s.veen.world/upwork
-    - name: freelancermap.de
-      description: Check out {{ 'our' if person.type == 'legal' else 'my' }} profile on freelancermap.de
-      icon:
-        class: fas fa-people-arrows
-      url: https://s.veen.world/freelancermap
-    - name: malt
-      description: Check out {{ 'our' if person.type == 'legal' else 'my' }} profile on malt
-      icon:
-        class: fas fa-sun
-      url: https://s.veen.world/malt
-  - name: Sports
-    description: My sports activities and logs.
-    icon:
-      class: fa-solid fa-running
-    children:
-    - name: Garmin
-      description: Explore {{ 'our' if person.type == 'legal' else 'my' }} Garmin activity records.
-      icon:
-        class: fa-solid fa-person-running
-      url: https://s.veen.world/garmin
-    - name: Eversports
-      description: View {{ 'our' if person.type == 'legal' else 'my' }} Eversports sessions.
-      icon:
-        class: fa-solid fa-dumbbell
-      url: https://s.veen.world/eversports
-
-  - name: Duolingo
-    description: Join me in language learning.
-    icon:
-      class: fa-solid fa-language
-    url: https://www.duolingo.com/profile/kevinbirkenbach
-
-  - name: Spotify
-    description: Listen to {{ 'our' if person.type == 'legal' else 'my' }} playlists.
-    icon:
-      class: fa-brands fa-spotify
-    url: https://open.spotify.com/user/31vebfzbjf3p7oualis76qfpr5ty
-
-  - name: Patreon
-    description: Support {{ 'our' if person.type == 'legal' else 'my' }} work on Patreon.
-    icon:
-      class: fa-brands fa-patreon
-    url: https://patreon.com/kevinveenbirkenbach
-
-  - name: Discourse
-    description: Join discussions on {{ 'our' if person.type == 'legal' else 'my' }} forum.
-    icon:
-      class: fa-brands fa-discourse
-    url: https://forum.veen.world/u/kevinveenbirkenbach
-
-  - name: Nextcloud
-    description: Share data with me via nextcloud
-    icon:
-      class: fa fa-cloud
-    url: https://s.veen.world/cloud
 
 cards:
 - icon: 
@@ -212,18 +98,23 @@ cards:
     skipper, my expertise ensures a safe and enjoyable experience on the water.
   url: https://www.yachtmaster.world
   link_text: www.yachtmaster.world
+- icon: 
+    source: https://cloud.veen.world/s/logo_yachtmaster_512x512/download
+  title: Yachtmaster
+  text: As a Yachtmaster, I provide comprehensive sailing education, yacht delivery,
+    and voyage planning services. Whether you're learning to sail or need an experienced
+    skipper, my expertise ensures a safe and enjoyable experience on the water.
+  url: https://www.yachtmaster.world
+  link_text: www.yachtmaster.world
 company:
-  titel: Kevin Veen-Birkenbach
-  subtitel: Consulting and Coaching Solutions
+  titel: {{person.name}}
+  subtitel: {{person.description.subtitel}}
   logo:
     source: https://cloud.veen.world/s/logo_face_512x512/download
   favicon:
     source: https://cloud.veen.world/s/veen_world_favicon/download
   address:
-    street: Afrikanische Straße 43
-    postal_code: DE-13351
-    city: Berlin
-    country: Germany
+{{ person.address | to_nice_yaml(indent=4) | indent(2) }}
   imprint_url: https://s.veen.world/imprint
 navigation:
   header:
@@ -231,81 +122,37 @@ navigation:
     - link: accounts.publishingchannels.children
     - link: accounts.socialnetworks
     - name: Contact
-      description: Get in touch
+      description: Get in touch with {{ 'us' if person.type == 'legal' else 'me' }} 
       icon:
           class: fa-solid fa-envelope
       children:
+{% end %}
+{% if person.contact.email is defined %}
       - name: Email
-        description: Send me an email
+        description: Send {{ 'us' if person.type == 'legal' else 'me' }} an email
         icon:
           class: fa-solid fa-envelope
-        children:
-        - name: Email
-          description: Send me an email
-          icon:
-            class: fa-solid fa-envelope
-          url: mailto:kevin@veen.world
-          identifier: kevin@veen.world
-          alternatives:
-            - link: navigation.header.contact.messenger.matrix
+        url: mailto:{{person.contact.email}}
+        identifier: {{person.contact.email}}
+        alternatives:
+          - link: navigation.header.contact.messenger.matrix
+{% end %}
+{% if person.contact.phone is defined %}
       - name: Mobile
-        description: Call me
+        description: Call {{ 'us' if person.type == 'legal' else 'me' }}
         icon:
           class: fa-solid fa-phone
-        url: "tel:+491781798023"
-        identifier: "+491781798023"
+        url: "tel:{{person.contact.phone}}"
+        identifier: "{{person.contact.phone}}"
         target: _top
-      - name: Messenger
-        description: Social and developer networks
+{% end %}
+{% if person.contact.matrix is defined %}
+      - name: Matrix
+        description: Chat with {{ 'us' if person.type == 'legal' else 'me' }} on Matrix
         icon:
-          class: fa-solid fa-comments
-        children: 
-        - name: Matrix
-          description: Chat with me on Matrix
-          icon:
-            class: fa-solid fa-cubes
-          identifier: "@kevinveenbirkenbach:veen.world"
-          info: |
-            #### Why Use Matrix?
-            Matrix is a secure, decentralized communication platform that ensures privacy and control over your data. Learn more about [Matrix](https://matrix.org/).
-
-            #### Privacy and Security
-            End-to-end encryption keeps your conversations private and secure.
-
-            #### Decentralized and Open
-            Matrix's federated network means you can host your own server or use any provider while staying connected.
-
-            #### A Movement for Digital Freedom
-            By using Matrix, you support open, transparent, and secure communication.
-        - name: Signal
-          description: Message me on Signal
-          icon:
-            class: fa-brands fa-signal-messenger
-          identifier: "+491781798023"
-          warning: Signal is not hosted by me!
-          alternatives:
-            - link: navigation.header.contact.messenger.matrix
-        - name: Telegram
-          description: Message me on Telegram
-          icon:
-            class: fa-brands fa-telegram
-          target: _blank
-          url: https://t.me/kevinveenbirkenbach
-          identifier: kevinveenbirkenbach
-          warning: Telegram is not hosted by me!
-          alternatives:
-            - link: navigation.header.contact.messenger.matrix
-        - name: WhatsApp
-          description: Chat with me on WhatsApp
-          icon:
-            class: fa-brands fa-whatsapp
-          url: https://wa.me/491781798023
-          identifier: "+491781798023"
-          info: Consider using decentralized and privacy-respecting alternatives to maintain control over your data, improve security, and foster healthier online interactions.
-          alternatives:
-            - link: navigation.header.contact.messenger.matrix
-            - link: navigation.header.contact.messenger.signal
-            - link: navigation.header.contact.messenger.telegram
+          class: fa-solid fa-cubes
+        identifier: "{{person.contact.matrix}}"
+{% end %}
   footer:
     children:
     - link: accounts
@@ -320,21 +167,29 @@ navigation:
         icon:
             class: fa-solid fa-users
         children:
+{% end %}
+{% if "discourse" in group_names %}
         - name: Forum
           description: Join the discussion
           icon:
             class: fa-brands fa-discourse
-          url: https://forum.veen.world/
+          url: https://{{domains.discourse}}/
+{% end %}
+{% if "moodle" in group_names %}
         - name: Learning Platform
           description: Learn with {{ 'our' if person.type == 'legal' else 'my' }} academy
           icon:
             class: fa-solid fa-graduation-cap
-          url: https://academy.veen.world/
+          url: https://{{domains.moodle}}/
+{% end %}
+{% if "listmonk" in group_names %}
         - name: Newsletter
           description: Subscribe to {{ 'our' if person.type == 'legal' else 'my' }} newsletter
           icon:
             class: fa-solid fa-envelope-open-text
-          url: https://newsletter.veen.world/subscription/form
+          url: https://{{domains.listmonk}}/subscription/form
+{% end %}
+{% if "openproject" in group_names %}
       - name: Project Management
         description: Project Management Tools
         icon:
@@ -344,85 +199,107 @@ navigation:
           description: Explore {{ 'our' if person.type == 'legal' else 'my' }} projects
           icon:
             class: fa-solid fa-tasks
-          url: https://project.veen.world/
-          
+          url: https://{{domains.openproject}}/
+{% end %}
+{% if "taiga" in group_names %}       
         - name: Taiga
           description: View {{ 'our' if person.type == 'legal' else 'my' }} Kanban board
           icon:
             class: bi bi-clipboard2-check-fill
-          url: https://kanban.veen.world/
-        
+          url: https://{{domains.taiga}}/
+{% end %}
+{% if "snipe_it" in group_names %}        
         - name: Snipe IT
           description: Manage {{ 'our' if person.type == 'legal' else 'my' }} inventory
           icon:
             class: fas fa-box-open
-          url: https://inventory.veen.world/
-          
+          url: https://{{domains.snipe_it}}/
+{% end %}          
       - name: Communication
         icon:
           class: fa-solid fa-comments
         children:
+{% end %}
+{% if "matrix" in group_names %}   
         - name: Elements
-          description: Chat with me
+          description: Chat with the world
           icon:
             class: fa-solid fa-comment
-          url: https://element.veen.world/
-          
+          url: https://{{domains.matrix_element}}/
+{% end %}
+{% if "bigbluebutton" in group_names %}             
         - name: Big Blue Button
           description: Join live events
           icon:
             class: fa-solid fa-video
-          url: https://meet.veen.world/
-          
+          url: https://{{domains.bigbluebutton}}/
+{% end %}
+{% if "mailu" in group_names %}            
         - name: Mailu
-          description: Send me a mail
+          description: Send{{ 'our' if person.type == 'legal' else 'my' }}a mail
           icon:
             class: fa-solid fa-envelope
-          url: https://mail.veen.world/
+          url: https://{{domains.mailu}}/
+{% end %}
       - name: Administration
         icon:
           class: fas fa-building
         children:
+{% end %}
+{% if "matomo" in group_names %}   
         - name: Matomo
           description: Analyze with Matomo
           icon:
             class: fa-solid fa-chart-simple
-          url: https://matomo.veen.world/
+          url: https://{{domains.matomo}}/
+{% end %}
+{% if "phpmyadmin" in group_names %}   
         - name: phpMyAdmin
           description: Administrate MySQL and MariaDB databases
           icon:
             class: fas fa-database
-          url: https://phpmyadmin.veen.world/
+          url: https://{{domains.phpmyadmin}}/
+{% end %}
+{% if "keycloak" in group_names %}   
         - name: Keycloak
           description: Manage User via Keycloak
           icon:
             class: fas fa-user-shield
-          url: https://auth.veen.world/admin
+          url: https://{{domains.keycloak}}/admin
+{% end %}
+{% if "ldap" in group_names %}   
         - name: LDAP
           description: Manage LDAP
           icon:
             class: fas fa-key
-          url: https://ldap.veen.world/
+          url: https://{{domains.ldap}}/
+{% end %}
       - name: Tools
         icon:
           class: fas fa-tools
         children:
+{% end %}
+{% if "baserow" in group_names %}   
         - name: Baserow
           description: Organize with Baserow
           icon:
             class: fa-solid fa-table
-          url: https://baserow.veen.world/    
+          url: https://{{domains.baserow}}/    
+{% end %}
+{% if "yourls" in group_names %}   
         - name: Yourls
-          description: Find {{ 'our' if person.type == 'legal' else 'my' }} curated links
+          description: Create Shortlinks
           icon:
             class: bi bi-link
-          url: https://s.veen.world/admin/
-          
+          url: https://{{domains.yourls}}/admin/
+{% end %}
+{% if "nextcloud" in group_names %}             
         - name: Nextcloud
-          description: Access {{ 'our' if person.type == 'legal' else 'my' }} cloud storage
+          description: Access your cloud storage
           icon:
             class: fa-solid fa-cloud
-          url: https://cloud.veen.world/
+          url: https://{{domains.nextcloud}}/
+{% end %}
     - name: Imprint
       description: Check out the imprint information
       icon:
