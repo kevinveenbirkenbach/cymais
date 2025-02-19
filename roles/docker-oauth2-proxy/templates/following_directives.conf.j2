@@ -1,0 +1,9 @@
+# The following directives enforce OAuth2 authentication:
+
+auth_request /oauth2/auth;
+# This directive issues an internal sub-request to '/oauth2/auth' for every incoming request.
+# The sub-request checks if the client is authenticated.
+
+error_page 401 = /oauth2/start;
+# If the authentication check fails (i.e., a 401 Unauthorized is returned),
+# this directive redirects the client to '/oauth2/start', which typically initiates the OAuth2 login process.
