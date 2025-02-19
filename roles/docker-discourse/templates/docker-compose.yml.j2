@@ -8,3 +8,5 @@ services:
   redis:
 
 {% include 'templates/docker/compose/networks.yml.j2' %}
+  discourse_default:
+    external: true
