@@ -1,0 +1,431 @@
+---
+accounts:
+  name: Online Presence
+  description: Discover {{ 'our' if person.type == 'legal' else 'my' }} online presence.
+  icon:
+      class: fa-solid fa-users
+  children:
+  - name: Publishing Channels
+    description: Platforms where I share content.
+    icon:
+      class: fas fa-newspaper
+    children:
+    - name: Microblogs
+      description: Stay updated with {{ 'our' if person.type == 'legal' else 'my' }} microblog posts.
+      icon:
+        class: fa-solid fa-pen-nib
+      children:
+      - name: Mastodon
+        description: Follow {{ 'our' if person.type == 'legal' else 'my' }} updates on Mastodon.
+        icon:
+          class: fa-brands fa-mastodon
+        url: https://{{ person.contact.mastodon.split('@')[2] }}/@{{ person.contact.mastodon.split('@')[1] }}
+        identifier: "{{person.contact.mastodon}}"
+      - name: Bluesky
+        description: Follow me on Bluesky (coming soon).
+        icon:
+          class: fa-brands fa-bluesky
+        info: Bluesky is coming soon.
+        alternatives:
+        - link: accounts.publishingchannels.microblogs.mastodon
+
+    - name: Pictures
+      description: View {{ 'our' if person.type == 'legal' else 'my' }} photography.
+      icon:
+        class: fa-solid fa-images
+      children:
+      - name: Pixelfed
+        description: Explore {{ 'our' if person.type == 'legal' else 'my' }} photo gallery on Pixelfed.
+        icon:
+            class: fa-solid fa-camera
+        url: https://s.veen.world/pictures
+      - name: Instagram
+        description: Follow me on Instagram.
+        icon:
+          class: fa-brands fa-instagram
+        url: https://www.instagram.com/kevinveenbirkenbach/
+        identifier: kevinveenbirkenbach
+        warning: Platforms by Meta (e.g., Instagram, Facebook) may compromise your data privacy. Consider using decentralized alternatives.
+        alternatives:
+        - link: accounts.publishingchannels.pictures.pixelfed
+
+    - name: Videos
+      description: Watch {{ 'our' if person.type == 'legal' else 'my' }} video content.
+      icon:
+          class: fa-solid fa-video
+      children:
+      - name: Peertube
+        description: Discover {{ 'our' if person.type == 'legal' else 'my' }} videos on Peertube.
+        icon:
+          class: fa-solid fa-video
+        url: https://s.veen.world/videos
+      - name: YouTube
+        description: Follow me on YouTube (inactive).
+        icon:
+          class: fa-brands fa-youtube
+        url: https://s.veen.world/youtube
+        warning: I no longer publish videos on YouTube. Please visit {{ 'our' if person.type == 'legal' else 'my' }} Peertube channel instead.
+        alternatives:
+        - link: accounts.publishingchannels.videos.peertube
+
+    - name: Blog
+      description: Read {{ 'our' if person.type == 'legal' else 'my' }} articles and stories.
+      icon:
+          class: fa-solid fa-blog
+      url: https://blog.veen.world
+
+    - name: Code
+      description: Access {{ 'our' if person.type == 'legal' else 'my' }} coding projects.
+      icon:
+          class: fa-solid fa-laptop-code
+      children:
+      - name: GitHub
+        description: View {{ 'our' if person.type == 'legal' else 'my' }} GitHub repositories.
+        icon:
+          class: bi bi-github
+        url: https://github.com/kevinveenbirkenbach
+      - name: Gitea
+        description: Explore {{ 'our' if person.type == 'legal' else 'my' }} self-hosted repositories.
+        icon:
+          class: fa-solid fa-code
+        url: https://git.veen.world/kevinveenbirkenbach
+
+  - name: Social Networks
+    description: Social and developer platforms.
+    icon:
+      class: fa fa-users
+    children:
+    - name: Facebook
+      warning: I recommend to don't use Facebook and connect instead with me via the Fediverse. Check out the listed alternatives.
+      description: Visit {{ 'our' if person.type == 'legal' else 'my' }} Facebook page.
+      icon:
+        class: fa-brands fa-facebook
+      url: https://www.facebook.com/kevinveenbirkenbach
+      alternatives:
+      - link: accounts.socialnetworks.friendica
+    - name: Friendica
+      description: Visit {{ 'our' if person.type == 'legal' else 'my' }} friendica profile
+      icon:
+        class: fas fa-network-wired
+      url: https://s.veen.world/friendica
+      identifier: "kevinveenbirkenbach@friendica.veen.world"
+  - link: navigation.header.contact.messenger
+
+  - name: Career Profiles
+    description: Professional networking profiles.
+    icon:
+      class: fa-solid fa-user-tie
+    children:
+    - name: XING
+      description: View {{ 'our' if person.type == 'legal' else 'my' }} XING profile.
+      icon:
+        class: bi bi-building
+      url: https://s.veen.world/xing
+    - name: LinkedIn
+      description: Connect with me on LinkedIn.
+      icon:
+        class: bi bi-linkedin
+      url: https://s.veen.world/linkedin
+    - name: upwork.com
+      description: Check out {{ 'our' if person.type == 'legal' else 'my' }} profile on upwork
+      icon:
+        class: fas fa-users
+      url: https://s.veen.world/upwork
+    - name: freelancermap.de
+      description: Check out {{ 'our' if person.type == 'legal' else 'my' }} profile on freelancermap.de
+      icon:
+        class: fas fa-people-arrows
+      url: https://s.veen.world/freelancermap
+    - name: malt
+      description: Check out {{ 'our' if person.type == 'legal' else 'my' }} profile on malt
+      icon:
+        class: fas fa-sun
+      url: https://s.veen.world/malt
+  - name: Sports
+    description: My sports activities and logs.
+    icon:
+      class: fa-solid fa-running
+    children:
+    - name: Garmin
+      description: Explore {{ 'our' if person.type == 'legal' else 'my' }} Garmin activity records.
+      icon:
+        class: fa-solid fa-person-running
+      url: https://s.veen.world/garmin
+    - name: Eversports
+      description: View {{ 'our' if person.type == 'legal' else 'my' }} Eversports sessions.
+      icon:
+        class: fa-solid fa-dumbbell
+      url: https://s.veen.world/eversports
+
+  - name: Duolingo
+    description: Join me in language learning.
+    icon:
+      class: fa-solid fa-language
+    url: https://www.duolingo.com/profile/kevinbirkenbach
+
+  - name: Spotify
+    description: Listen to {{ 'our' if person.type == 'legal' else 'my' }} playlists.
+    icon:
+      class: fa-brands fa-spotify
+    url: https://open.spotify.com/user/31vebfzbjf3p7oualis76qfpr5ty
+
+  - name: Patreon
+    description: Support {{ 'our' if person.type == 'legal' else 'my' }} work on Patreon.
+    icon:
+      class: fa-brands fa-patreon
+    url: https://patreon.com/kevinveenbirkenbach
+
+  - name: Discourse
+    description: Join discussions on {{ 'our' if person.type == 'legal' else 'my' }} forum.
+    icon:
+      class: fa-brands fa-discourse
+    url: https://forum.veen.world/u/kevinveenbirkenbach
+
+  - name: Nextcloud
+    description: Share data with me via nextcloud
+    icon:
+      class: fa fa-cloud
+    url: https://s.veen.world/cloud
+
+cards:
+- icon: 
+    source: https://cloud.veen.world/s/logo_agile_coach_512x512/download
+  title: Agile Coach
+  text: I lead agile transformations and improve team dynamics through Scrum, DevOps,
+    and Agile Coaching. My goal is to enhance collaboration and efficiency in organizations,
+    ensuring agile principles are effectively implemented for sustainable success.
+  url: https://www.agile-coach.world
+  link_text: www.agile-coach.world
+- icon: 
+    source: https://cloud.veen.world/s/logo_personal_coach_512x512/download
+  title: Personal Coach
+  text: Offering personalized coaching for growth and development, I utilize a blend
+    of hypnotherapy, mediation, and holistic techniques. My approach is tailored to
+    help you achieve personal and professional milestones, fostering holistic well-being.
+  url: https://www.personalcoach.berlin
+  link_text: www.personalcoach.berlin
+- icon: 
+    source: https://cloud.veen.world/s/logo_yachtmaster_512x512/download
+  title: Yachtmaster
+  text: As a Yachtmaster, I provide comprehensive sailing education, yacht delivery,
+    and voyage planning services. Whether you're learning to sail or need an experienced
+    skipper, my expertise ensures a safe and enjoyable experience on the water.
+  url: https://www.yachtmaster.world
+  link_text: www.yachtmaster.world
+company:
+  titel: Kevin Veen-Birkenbach
+  subtitel: Consulting and Coaching Solutions
+  logo:
+    source: https://cloud.veen.world/s/logo_face_512x512/download
+  favicon:
+    source: https://cloud.veen.world/s/veen_world_favicon/download
+  address:
+    street: Afrikanische Straße 43
+    postal_code: DE-13351
+    city: Berlin
+    country: Germany
+  imprint_url: https://s.veen.world/imprint
+navigation:
+  header:
+    children:
+    - link: accounts.publishingchannels.children
+    - link: accounts.socialnetworks
+    - name: Contact
+      description: Get in touch
+      icon:
+          class: fa-solid fa-envelope
+      children:
+      - name: Email
+        description: Send me an email
+        icon:
+          class: fa-solid fa-envelope
+        children:
+        - name: Email
+          description: Send me an email
+          icon:
+            class: fa-solid fa-envelope
+          url: mailto:kevin@veen.world
+          identifier: kevin@veen.world
+          alternatives:
+            - link: navigation.header.contact.messenger.matrix
+      - name: Mobile
+        description: Call me
+        icon:
+          class: fa-solid fa-phone
+        url: "tel:+491781798023"
+        identifier: "+491781798023"
+        target: _top
+      - name: Messenger
+        description: Social and developer networks
+        icon:
+          class: fa-solid fa-comments
+        children: 
+        - name: Matrix
+          description: Chat with me on Matrix
+          icon:
+            class: fa-solid fa-cubes
+          identifier: "@kevinveenbirkenbach:veen.world"
+          info: |
+            #### Why Use Matrix?
+            Matrix is a secure, decentralized communication platform that ensures privacy and control over your data. Learn more about [Matrix](https://matrix.org/).
+
+            #### Privacy and Security
+            End-to-end encryption keeps your conversations private and secure.
+
+            #### Decentralized and Open
+            Matrix's federated network means you can host your own server or use any provider while staying connected.
+
+            #### A Movement for Digital Freedom
+            By using Matrix, you support open, transparent, and secure communication.
+        - name: Signal
+          description: Message me on Signal
+          icon:
+            class: fa-brands fa-signal-messenger
+          identifier: "+491781798023"
+          warning: Signal is not hosted by me!
+          alternatives:
+            - link: navigation.header.contact.messenger.matrix
+        - name: Telegram
+          description: Message me on Telegram
+          icon:
+            class: fa-brands fa-telegram
+          target: _blank
+          url: https://t.me/kevinveenbirkenbach
+          identifier: kevinveenbirkenbach
+          warning: Telegram is not hosted by me!
+          alternatives:
+            - link: navigation.header.contact.messenger.matrix
+        - name: WhatsApp
+          description: Chat with me on WhatsApp
+          icon:
+            class: fa-brands fa-whatsapp
+          url: https://wa.me/491781798023
+          identifier: "+491781798023"
+          info: Consider using decentralized and privacy-respecting alternatives to maintain control over your data, improve security, and foster healthier online interactions.
+          alternatives:
+            - link: navigation.header.contact.messenger.matrix
+            - link: navigation.header.contact.messenger.signal
+            - link: navigation.header.contact.messenger.telegram
+  footer:
+    children:
+    - link: accounts
+    - name: Solution Hub
+      description: Curated collection of self hosted tools
+      icon:
+          class: fa-solid fa-network-wired
+      url: 
+      children:
+      - name: Community
+        description: Tools to manage the community
+        icon:
+            class: fa-solid fa-users
+        children:
+        - name: Forum
+          description: Join the discussion
+          icon:
+            class: fa-brands fa-discourse
+          url: https://forum.veen.world/
+        - name: Learning Platform
+          description: Learn with {{ 'our' if person.type == 'legal' else 'my' }} academy
+          icon:
+            class: fa-solid fa-graduation-cap
+          url: https://academy.veen.world/
+        - name: Newsletter
+          description: Subscribe to {{ 'our' if person.type == 'legal' else 'my' }} newsletter
+          icon:
+            class: fa-solid fa-envelope-open-text
+          url: https://newsletter.veen.world/subscription/form
+      - name: Project Management
+        description: Project Management Tools
+        icon:
+            class: fa-solid fa-chart-line
+        children:
+        - name: Open Project
+          description: Explore {{ 'our' if person.type == 'legal' else 'my' }} projects
+          icon:
+            class: fa-solid fa-tasks
+          url: https://project.veen.world/
+          
+        - name: Taiga
+          description: View {{ 'our' if person.type == 'legal' else 'my' }} Kanban board
+          icon:
+            class: bi bi-clipboard2-check-fill
+          url: https://kanban.veen.world/
+        
+        - name: Snipe IT
+          description: Manage {{ 'our' if person.type == 'legal' else 'my' }} inventory
+          icon:
+            class: fas fa-box-open
+          url: https://inventory.veen.world/
+          
+      - name: Communication
+        icon:
+          class: fa-solid fa-comments
+        children:
+        - name: Elements
+          description: Chat with me
+          icon:
+            class: fa-solid fa-comment
+          url: https://element.veen.world/
+          
+        - name: Big Blue Button
+          description: Join live events
+          icon:
+            class: fa-solid fa-video
+          url: https://meet.veen.world/
+          
+        - name: Mailu
+          description: Send me a mail
+          icon:
+            class: fa-solid fa-envelope
+          url: https://mail.veen.world/
+      - name: Administration
+        icon:
+          class: fas fa-building
+        children:
+        - name: Matomo
+          description: Analyze with Matomo
+          icon:
+            class: fa-solid fa-chart-simple
+          url: https://matomo.veen.world/
+        - name: phpMyAdmin
+          description: Administrate MySQL and MariaDB databases
+          icon:
+            class: fas fa-database
+          url: https://phpmyadmin.veen.world/
+        - name: Keycloak
+          description: Manage User via Keycloak
+          icon:
+            class: fas fa-user-shield
+          url: https://auth.veen.world/admin
+        - name: LDAP
+          description: Manage LDAP
+          icon:
+            class: fas fa-key
+          url: https://ldap.veen.world/
+      - name: Tools
+        icon:
+          class: fas fa-tools
+        children:
+        - name: Baserow
+          description: Organize with Baserow
+          icon:
+            class: fa-solid fa-table
+          url: https://baserow.veen.world/    
+        - name: Yourls
+          description: Find {{ 'our' if person.type == 'legal' else 'my' }} curated links
+          icon:
+            class: bi bi-link
+          url: https://s.veen.world/admin/
+          
+        - name: Nextcloud
+          description: Access {{ 'our' if person.type == 'legal' else 'my' }} cloud storage
+          icon:
+            class: fa-solid fa-cloud
+          url: https://cloud.veen.world/
+    - name: Imprint
+      description: Check out the imprint information
+      icon:
+          class: fa-solid fa-scale-balanced
+      url: https://s.veen.world/imprint
+  

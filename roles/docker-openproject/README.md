@@ -1,22 +1,8 @@
-# README.md for Docker OpenProject Role
+# OpenProject Role
 
 ## Overview
 
-This role is designed to deploy the OpenProject application using Docker. It includes tasks for setting up the environment, pulling the Docker repository, and configuring a reverse proxy with Nginx.
-
-## Requirements
-
-- Ansible
-- Docker
-- Docker Compose
-- Access to the GitHub repository "opf/openproject-deploy"
-
-## Role Variables
-
-The role uses several variables, defined in `vars/main.yml`:
-
-- `repository_directory`: The directory for the OpenProject repository.
-- `docker_compose.directories.instance`: Directory for Docker Compose instances.
+This role is designed to deploy the [OpenProject](https://www.openproject.org/) application using Docker. It includes tasks for setting up the environment, pulling the Docker repository, and configuring a reverse proxy with Nginx. It was developed by [Kevin Veen-Birkenbach](https://www.veen.world/)
 
 ## Handlers
 
@@ -31,14 +17,6 @@ Outlined in `tasks/main.yml`, the role includes tasks for:
 - Pulling the OpenProject Docker repository.
 - Warning if the repository is not reachable.
 - Copying the `.env` file from a template.
-
-## Templates
-
-`env.j2` in `templates/` folder is a Jinja2 template for the `.env` file, setting up environment variables for the OpenProject container.
-
-## Dependencies
-
-This role depends on `nginx-docker-reverse-proxy`, as defined in `meta/main.yml`.
 
 ## Usage
 

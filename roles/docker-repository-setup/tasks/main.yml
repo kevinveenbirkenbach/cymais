@@ -1,0 +1,14 @@
+- name: Set default docker_repository_path if not defined
+  set_fact:
+    docker_repository_path: "{{docker_compose.directories.services}}repository/"
+  when: docker_repository_path is not defined
+
+- name: pull docker repository
+  git:
+    repo: "{{ docker_repository_address }}"
+    dest: "{{ docker_repository_path }}"
+    update: yes
+  notify:
+    - docker compose project setup
+    - rebuild docker repository
+  become: true

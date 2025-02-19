@@ -1,14 +1,14 @@
 services:
   portfolio:
     build:
-      context: .
+      context: {{docker_repository_path}}
       dockerfile: Dockerfile
     image: application-portfolio
     container_name: portfolio
     ports:
       - 127.0.0.1:{{http_port}}:5000
     volumes:
-      - ./app:/app
+      - {{docker_repository_path}}app:/app
     restart: unless-stopped
 {% include 'templates/docker/container/networks.yml.j2' %}
     healthcheck:

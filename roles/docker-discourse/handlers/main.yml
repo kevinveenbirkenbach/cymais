@@ -17,5 +17,5 @@
 - name: rebuild discourse
   command:
     cmd: "./launcher rebuild {{applications.discourse.container}}"
-    chdir: "{{discourse_repository_directory}}"
+    chdir: "{{docker_repository_directory }}"
   listen: recreate discourse

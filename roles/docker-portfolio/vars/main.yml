@@ -1,2 +1,3 @@
-application_id:         "portfolio"
-repository_address:     "https://github.com/kevinveenbirkenbach/portfolio"
+application_id:             "portfolio"
+docker_repository_address:  "https://github.com/kevinveenbirkenbach/portfolio"
+config_inventory_path:      "{{ inventory_dir }}/files/{{ inventory_hostname }}/docker/portfolio/config.yaml"

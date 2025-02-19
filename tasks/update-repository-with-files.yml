@@ -21,10 +21,12 @@
     chdir: "{{docker_compose.directories.instance}}"
   ignore_errors: true
 
+# This could be replaced by include_role: docker-repository-setup
+# Attendize and Akaunting still use this. When you refactor this code replace this.
 - name: pull docker repository
   git:
-    repo: "{{ repository_address }}"
-    dest: "{{ repository_directory | default(docker_compose.directories.instance) }}"
+    repo: "{{ docker_repository_address }}"
+    dest: "{{ docker_repository_directory  | default(docker_compose.directories.instance) }}"
     update: yes
   notify: docker compose project setup
   become: true

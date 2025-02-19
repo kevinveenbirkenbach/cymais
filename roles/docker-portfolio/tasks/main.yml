@@ -7,17 +7,28 @@
   include_role: 
     name: nginx-domain-setup
 
-- name: "include tasks update-repository-with-files.yml"
-  include_tasks: update-repository-with-files.yml
-  vars:
-    detached_files: 
-      - "docker-compose.yml"
+- name: "include role docker-repository-setup for {{application_id}}"
+  include_role: 
+    name: docker-repository-setup
 
-- name: create {{docker_compose.directories.instance}}/app/config.yaml
+- name: Check if host-specific config.yaml exists
+  stat:
+    path: "{{ config_inventory_path }}"
+  register: config_file
+
+- name: Copy host-specific config.yaml if it exists
   copy:
-    src: "{{ inventory_dir }}/files/{{ inventory_hostname }}/docker/portfolio/config.yaml"
-    dest: "{{docker_compose.directories.instance}}/app/config.yaml"
+    src: "{{ config_inventory_path }}"
+    dest: "{{docker_repository_path}}/app/config.yaml"
   notify: docker compose project setup
+  when: config_file.stat.exists
+
+- name: Copy default config.yaml from the role template if host-specific file does not exist
+  template:
+    src: "config.yaml.j2"
+    dest: "{{docker_repository_path}}/app/config.yaml"
+  notify: docker compose project setup
+  when: not config_file.stat.exists
 
 - name: add docker-compose.yml
   template: src=docker-compose.yml.j2 dest={{docker_compose.directories.instance}}docker-compose.yml

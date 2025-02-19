@@ -7,12 +7,6 @@
   include_role: 
     name: nginx-domain-setup
 
-#- name: "include tasks update-repository-with-files.yml"
-#  include_tasks: update-repository-with-files.yml
-#  vars:
-#    detached_files: 
-#      - "docker-compose.yml"
-
 - name: "Create {{openproject_plugins_service}}"
   file:
     path: "{{openproject_plugins_service}}"
@@ -35,15 +29,9 @@
     - docker compose project setup
     - rebuild custom openproject docker image
 
-- name: pull docker repository
-  git:
-    repo: "{{ repository_address }}"
-    dest: "{{ openproject_repository_service }}"
-    update: yes
-  notify:
-    - docker compose project setup
-    - rebuild openproject repository
-  become: true
+- name: "include role docker-repository-setup for {{application_id}}"
+  include_role: 
+    name: docker-repository-setup
 
 - name: "create {{dummy_volume}}"
   file:

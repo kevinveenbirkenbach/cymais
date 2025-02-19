@@ -6,11 +6,3 @@
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600
-
-- name: rebuild openproject repository
-  command:
-    cmd: docker compose build 
-    chdir: "{{openproject_repository_service}}"
-  environment:
-    COMPOSE_HTTP_TIMEOUT: 600
-    DOCKER_CLIENT_TIMEOUT: 600

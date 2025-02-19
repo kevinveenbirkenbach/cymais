@@ -32,15 +32,15 @@
 - name: pull docker repository
   git:
     repo: "https://github.com/discourse/discourse_docker.git"
-    dest: "{{discourse_repository_directory}}"
+    dest: "{{docker_repository_directory }}"
     update: yes
   notify: recreate discourse
   become: true
   ignore_errors: true
 
-- name: set chmod 700 for {{discourse_repository_directory}}containers
+- name: set chmod 700 for {{docker_repository_directory }}containers
   ansible.builtin.file:
-    path: "{{discourse_repository_directory}}/containers"
+    path: "{{docker_repository_directory }}/containers"
     mode: '700'
     state: directory
 
@@ -53,7 +53,7 @@
 - name: "destroy container discourse_application"
   command:
     cmd: "./launcher destroy discourse_application"
-    chdir: "{{discourse_repository_directory}}"
+    chdir: "{{docker_repository_directory }}"
   ignore_errors: true
   notify: recreate discourse
   when: mode_reset | bool

@@ -1,12 +1,10 @@
-application_id:                               "openproject"
-repository_address:                           "https://github.com/opf/openproject-deploy"
-database_password:                            "{{openproject_database_password}}"
-database_type:                                "postgres"
+application_id:               "openproject"
+docker_repository_address:    "https://github.com/opf/openproject-deploy"
+database_password:            "{{openproject_database_password}}"
+database_type:                "postgres"
 
-openproject_plugins_service:                  "{{docker_compose.directories.services}}plugins/"
-openproject_repository_service:               "{{docker_compose.directories.services}}repository/"
-custom_openproject_image:                     "custom_openproject"
-
+openproject_plugins_service:  "{{docker_compose.directories.services}}plugins/"
+custom_openproject_image:     "custom_openproject"
 
 # The following volume doesn't have a practcical function. It just exist to prevent the creation of unnecessary anonymous volumes
-dummy_volume:                                 "{{docker_compose.directories.volumes}}dummy_volume"
+dummy_volume:                 "{{docker_compose.directories.volumes}}dummy_volume"

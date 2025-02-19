@@ -1,0 +1,14 @@
+# This is just a dummy person.
+# Adapt the values in your inventory file
+person:
+  type:           "legal"                   # Accepted Values: natural, legal
+  name:           "CyMaIS Demo Instance"
+  address:
+    street:       "Binary Avenue 01"
+    city:         "Cybertown"
+    postal_code:  "00001"
+    country:      "Nexusland"
+  contact:
+    email:        "contact@{{primary_domain}}"
+    phone:        "+0 000 000 404"
+    mastodon:     "@{{administrator_username}}@{{domains.mastodon}}"

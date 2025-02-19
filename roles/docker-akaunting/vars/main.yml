@@ -1,4 +1,4 @@
-application_id:     "akaunting"
-database_type:      "mariadb"
-database_password:  "{{akaunting_database_password}}"
-repository_address: "https://github.com/akaunting/docker.git"
+application_id:             "akaunting"
+database_type:              "mariadb"
+database_password:          "{{akaunting_database_password}}"
+docker_repository_address:  "https://github.com/akaunting/docker.git"

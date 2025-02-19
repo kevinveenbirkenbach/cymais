@@ -124,9 +124,9 @@ def update_discourse(directory):
     """
     Updates Discourse by running the rebuild command on the launcher script.
     """
-    repository_directory = os.path.join(directory, "services", "{{applications.discourse.repository}}")
-    print(f"Using path {repository_directory} to pull discourse repository.")
-    os.chdir(repository_directory)
+    docker_repository_directory   = os.path.join(directory, "services", "{{applications.discourse.repository}}")
+    print(f"Using path {docker_repository_directory } to pull discourse repository.")
+    os.chdir(docker_repository_directory )
     if git_pull():
         print("Start Discourse update procedure.")
         update_procedure("docker stop {{applications.discourse.container}}")

@@ -7,13 +7,9 @@
   include_role: 
     name: nginx-domain-setup
 
-- name: pull docker repository
-  git:
-    repo: "{{ repository_address }}"
-    dest: "{{ docker_compose.directories.services }}"
-    update: yes
-  notify: docker compose project setup
-  become: true
+- name: "include role docker-repository-setup for {{application_id}}"
+  include_role: 
+    name: docker-repository-setup
 
 - name: "create {{docker_compose_init}}"
   template:

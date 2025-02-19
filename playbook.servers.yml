@@ -42,7 +42,7 @@
    -  role: docker-keycloak
 
 - name: setup nextcloud hosts
-  hosts: nextcloud_server
+  hosts: nextcloud
   become: true
   roles:
    -  role: docker-nextcloud

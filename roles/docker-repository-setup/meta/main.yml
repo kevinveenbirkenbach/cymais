@@ -1,0 +1,2 @@
+dependencies:
+- docker-compose  # To load handlers and make dependencies visible
