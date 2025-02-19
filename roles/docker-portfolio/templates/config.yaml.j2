@@ -126,7 +126,6 @@ navigation:
       icon:
           class: fa-solid fa-envelope
       children:
-{% endif %}
 {% if person.contact.email is defined %}
       - name: Email
         description: Send {{ 'us' if person.type == 'legal' else 'me' }} an email
@@ -167,7 +166,6 @@ navigation:
         icon:
             class: fa-solid fa-users
         children:
-{% endif %}
 {% if "discourse" in group_names %}
         - name: Forum
           description: Join the discussion
@@ -189,12 +187,12 @@ navigation:
             class: fa-solid fa-envelope-open-text
           url: https://{{domains.listmonk}}/subscription/form
 {% endif %}
-{% if "openproject" in group_names %}
       - name: Project Management
         description: Project Management Tools
         icon:
             class: fa-solid fa-chart-line
         children:
+{% if "openproject" in group_names %}
         - name: Open Project
           description: Explore {{ 'our' if person.type == 'legal' else 'my' }} projects
           icon:
@@ -219,7 +217,6 @@ navigation:
         icon:
           class: fa-solid fa-comments
         children:
-{% endif %}
 {% if "matrix" in group_names %}   
         - name: Elements
           description: Chat with the world
@@ -245,7 +242,6 @@ navigation:
         icon:
           class: fas fa-building
         children:
-{% endif %}
 {% if "matomo" in group_names %}   
         - name: Matomo
           description: Analyze with Matomo
@@ -278,7 +274,6 @@ navigation:
         icon:
           class: fas fa-tools
         children:
-{% endif %}
 {% if "baserow" in group_names %}   
         - name: Baserow
           description: Organize with Baserow
