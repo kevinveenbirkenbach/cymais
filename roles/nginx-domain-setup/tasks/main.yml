@@ -6,10 +6,18 @@
   include_role: 
     name: nginx-https-recieve-certificate
 
-- name: "copy nginx domain configuration to {{nginx.directories.http.servers}}{{domain}}.conf"
+- name: "Relevant variables for role: {{ role_path | basename }}"
+  debug:
+    msg:
+      oauth2_proxy_active:  "{{oauth2_proxy_active}}"
+      domains:              "{{domains}}"
+      applications:         "{{applications}}"
+  when: enable_debug | bool
+
+- name: "copy nginx domain configuration to {{configuration_destination}}"
   template: 
     src:  "roles/nginx-docker-reverse-proxy/templates/domain.conf.j2" 
-    dest: "{{nginx.directories.http.servers}}{{domain}}.conf"
+    dest: "{{configuration_destination}}"
   notify: restart nginx
   
 - name: "include the docker-oauth2-proxy role {{domain}}"

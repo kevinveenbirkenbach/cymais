@@ -100,10 +100,10 @@ defaults_applications:
 
   ## Listmonk
   listmonk:
-    administrator_username:           "{{administrator_username}}"
-    public_api_activated:             False     # Security hole. Can be used for spaming
-    version:                          "latest"  # Docker Image version
-    setup:                            false     # Set true in inventory file to execute the setup and initializing procedures
+    administrator_username:           "{{administrator_username}}"              # Listmonk administrator account username
+    public_api_activated:             False                                     # Security hole. Can be used for spaming
+    version:                          "latest"                                  # Docker Image version
+    setup:                            false                                     # Set true in inventory file to execute the setup and initializing procedures
 
   ## MariaDB
   mariadb:
@@ -133,16 +133,16 @@ defaults_applications:
 
   ## Mailu
   mailu:
-    version:                  "2024.06"
-    domain:                   "{{primary_domain}}"
-    setup:                    false                                 # Set true in inventory file to execute the setup and initializing procedures
+    version:                          "2024.06"
+    domain:                           "{{primary_domain}}"
+    setup:                            false                                 # Set true in inventory file to execute the setup and initializing procedures
 
   ## Moodle
   moodle:
-    site_titel:              "Global Learning Academy on {{primary_domain}}"
-    administrator_name:      "{{administrator_username}}"
-    administrator_email:     "{{administrator_email}}"
-    version:                 "latest"
+    site_titel:                       "Global Learning Academy on {{primary_domain}}"
+    administrator_name:               "{{administrator_username}}"
+    administrator_email:              "{{administrator_email}}"
+    version:                          "latest"
 
   ## MyBB
   mybb:
