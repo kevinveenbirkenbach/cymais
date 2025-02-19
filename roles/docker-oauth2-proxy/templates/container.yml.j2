@@ -1,3 +1,4 @@
+{% if applications[application_id].oauth2_proxy.enabled | default(false) | bool %}
   oauth2-proxy:
     image: quay.io/oauth2-proxy/oauth2-proxy:{{applications.oauth2_proxy.version}}
     restart: {{docker_restart_policy}}
@@ -7,3 +8,4 @@
       - {{ports.localhost.oauth2_proxy[application_id]}}:4180/tcp
     volumes:
       - "{{docker_compose.directories.volumes}}{{applications.oauth2_proxy.configuration_file}}:/oauth2-proxy.cfg"
+{% endif %}

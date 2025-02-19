@@ -2,19 +2,34 @@ server
 {
   server_name {{domain}};
 
-  {% if oauth2_proxy_active | bool %}
+  {% if applications[application_id].oauth2_proxy.enabled | default(false) | bool %}
     {% include 'roles/docker-oauth2-proxy/templates/endpoint.conf.j2'%}
   {% endif %}
 
   {% include 'roles/nginx-modifier-all/templates/global.includes.conf.j2'%}
   
   {% if nginx_docker_reverse_proxy_extra_configuration is defined %}
-    # Additional Domain Specific Configuration
+    {# Additional Domain Specific Configuration #}
     {{nginx_docker_reverse_proxy_extra_configuration}}
   {% endif %}
 
   {% include 'roles/letsencrypt/templates/ssl_header.j2' %}
 
-  {% include 'proxy_pass.conf.j2' %}
-
+  {% if applications[application_id].oauth2_proxy.enabled | default(false) %}
+    {% if applications[application_id].oauth2_proxy.location is defined %}
+      {# Exposed and Unprotected Location #}
+      {% include 'proxy_pass.conf.j2' %}
+      {% set oauth2_proxy_enabled = true %}
+      {% set location = applications[application_id].oauth2_proxy.location %}
+      {# Gated Location by OAuth2 Proxy #}
+      {% include 'proxy_pass.conf.j2' %}
+    {% else %}
+      {% set oauth2_proxy_enabled = true %}
+      {# Protected Domain by OAuth2 Proxy #}
+      {% include 'proxy_pass.conf.j2'%}
+    {% endif %}
+  {% else %}
+    {# Exposed Domain - Not protected by OAuth2 Proxy #}
+    {% include 'proxy_pass.conf.j2' %}
+  {% endif %}
 }

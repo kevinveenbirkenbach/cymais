@@ -7,6 +7,7 @@ ports:
       phpmyadmin:     4181
       ldap:           4182
       openproject:    4183
+      yourls:         4184
     ldap:
       openldap:       389
     http:
@@ -25,7 +26,7 @@ ports:
       roulette-wheel: 8013
       joomla:         8014
       attendize:      8015
-      #matrix:         8016 Not used anymore
+      #matrix:        8016 Not used anymore
       baserow:        8017
       matomo:         8018
       listmonk:       8019

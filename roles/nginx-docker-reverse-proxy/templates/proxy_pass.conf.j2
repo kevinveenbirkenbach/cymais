@@ -1,6 +1,6 @@
-location /
+location {{location | default("/")}}
 {
-  {% if oauth2_proxy_active | bool %}
+  {% if oauth2_proxy_enabled | default(false) | bool %}
     {% include 'roles/docker-oauth2-proxy/templates/following_directives.conf.j2'%}
   {% endif %}
 

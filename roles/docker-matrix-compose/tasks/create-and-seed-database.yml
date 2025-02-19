@@ -10,4 +10,4 @@
   when: enable_central_database | bool
 
 - name: "include seed-database-to-backup.yml"
-  include_tasks: ""{{ playbook_dir }}/roles/backup-docker-to-local/tasks/seed-database-to-backup.yml"
+  include_tasks: "{{ playbook_dir }}/roles/backup-docker-to-local/tasks/seed-database-to-backup.yml"

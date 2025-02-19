@@ -82,7 +82,6 @@ defaults_applications:
     lam:
       version:                        "latest"
       administrator_password:         "{{user_administrator_initial_password}}" # CHANGE for security reasons
-      oauth2_proxy_active:            true
     openldap:
       version:                        "latest"
       network:
@@ -94,7 +93,10 @@ defaults_applications:
     webinterface:                     "lam"                                     # The webinterface which should be used. Possible: lam and phpldapadmin
     administrator_username:           "{{administrator_username}}"
     ldap_enabled:                     True                                      # Should have the same value as applications.ldap.openldap.network.local.
-                                                                                # Both need to be set to True to load the ldap_network in the docker compose file
+    oauth2_proxy:
+      enabled:                        true                                      # Activate the OAuth2 Proxy for the LDAP Webinterface
+      application:                    lam                                       # Needs to be the same as webinterface
+      port:                           80                                        # If you use phpldapadmin set it to 8080
     # administrator_password:                                                   # CHANGE for security reasons in inventory file
     # administrator_database_password:                                          # CHANGE for security reasons in inventory file
 
@@ -112,6 +114,8 @@ defaults_applications:
   ## Matomo
   matomo:
     version:                          "latest"
+    oauth2_proxy:
+      enabled:                        false                                     # Deactivated atm. @todo implement 
 
   ## Mastodon
   mastodon:
@@ -163,9 +167,12 @@ defaults_applications:
 
   ## Open Project
   openproject:
-    version:              "13"  # Update when available. Sadly no rolling release implemented
-    oauth2_proxy_active:  true
-    ldap_enabled:         True  # Enables LDAP by default 
+    version:              "13"    # Update when available. Sadly no rolling release implemented
+    oauth2_proxy:  
+      enabled:            true    # OpenProject doesn't support OIDC, so this procy in combination with LDAP is needed
+      application:        "proxy"
+      port:               "80"
+    ldap_enabled:         True    # Enables LDAP by default 
 
   ## Peertube
   peertube:
@@ -175,7 +182,10 @@ defaults_applications:
   phpmyadmin:
     version:              "latest"
     autologin:            false     # This is a high security risk. Just activate this option if you know what you're doing
-    oauth2_proxy_active:  true
+    oauth2_proxy:  
+      enabled:            true
+      port:               "80"
+      application:        "application"
 
   ## Pixelfed
   pixelfed:
@@ -199,3 +209,8 @@ defaults_applications:
   yourls:
     administrator_username:  "{{administrator_username}}"
     version:                 "latest"
+    oauth2_proxy:  
+      enabled:                true
+      application:            "application"
+      port:                   "80"
+      location:               "/admin/"                       # Protects the admin arear

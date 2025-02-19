@@ -23,8 +23,6 @@
 - name: "include role nginx-domain-setup for {{application_id}}"
   include_role: 
     name: nginx-domain-setup
-  vars:
-    oauth2_proxy_active: false # Deactivate prox, in case it got activated by another app
   when: run_once_docker_matomo is not defined
 
 - name: "copy docker-compose.yml and env file"

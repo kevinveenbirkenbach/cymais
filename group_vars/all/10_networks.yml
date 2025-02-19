@@ -50,8 +50,9 @@ defaults_networks:
       subnet: 192.168.102.48/28
     nextcloud:
       subnet: 192.168.102.64/28
-    oauth2_proxy:
-      subnet: 192.168.102.80/28
+    # This network should be free. Use it for another application ->
+    #oauth2_proxy:
+    #  subnet: 192.168.102.80/28
     peertube:
       subnet: 192.168.102.96/28
     phpmyadmin:

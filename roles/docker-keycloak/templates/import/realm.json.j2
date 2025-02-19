@@ -836,7 +836,7 @@
       "redirectUris": [
         {%- set redirect_uris = [] -%}
         {%- for application, domain in defaults_domains.items() -%}
-          {%- if applications[application] is defined and applications[application].oauth2_proxy_active is defined and applications[application].oauth2_proxy_active -%}
+          {%- if applications[application_id] is defined and applications[application_id].oauth2_proxy.enabled | default(false) | bool -%}
             {%- if domain is string -%}
               {%- set _ = redirect_uris.append("https://" ~ domain ~ "/*") -%}
             {%- else -%}

@@ -10,7 +10,3 @@ custom_openproject_image:                     "custom_openproject"
 
 # The following volume doesn't have a practcical function. It just exist to prevent the creation of unnecessary anonymous volumes
 dummy_volume:                                 "{{docker_compose.directories.volumes}}dummy_volume"
-
-# OAuth2 Proxy Configuration
-oauth2_proxy_upstream_application_and_port:   "proxy:80"
-oauth2_proxy_active:                          "{{ applications.openproject.oauth2_proxy_active | bool }}"
