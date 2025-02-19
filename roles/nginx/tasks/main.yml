@@ -4,6 +4,9 @@
   notify: restart nginx
   when: run_once_nginx is not defined
 
+# I assume the following can be deleted
+# @todo Delete
+
 - name: install nginx-mod-headers-more for matomo
   pacman: 
     name: nginx-mod-headers-more
