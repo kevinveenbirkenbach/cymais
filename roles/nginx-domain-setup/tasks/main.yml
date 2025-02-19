@@ -22,4 +22,4 @@
 - name: "include the docker-oauth2-proxy role {{domain}}"
   include_role:
     name: docker-oauth2-proxy
-  when: applications[application_id].oauth2_proxy.enabled | default(false) | bool
+  when: applications | get_oauth2_enabled(application_id)

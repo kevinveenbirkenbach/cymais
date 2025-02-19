@@ -213,4 +213,15 @@ defaults_applications:
       enabled:                true
       application:            "application"
       port:                   "80"
-      location:               "/admin/"                       # Protects the admin arear
+      location:               "/admin/"                       # Protects the admin area
+    
+
+  wordpress:
+# Deactivate Global theming for wordpress role
+# due to the reason that wordpress has to much different themes
+# and one styling for all is not possible.
+#
+# May a solution could be to generate a template or css file dedicated
+# for wordpress based on the theming values and import it. 
+    css:
+      enabled:       false

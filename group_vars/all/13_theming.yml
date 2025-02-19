@@ -16,9 +16,3 @@ global_theming:
     filters:
       saturation_change:  70
       hue_shift:          0
-
-# Global Theming is default enabled for all roles
-# If you want to disable the global css for a role, set 
-# global_theming_enabled: false
-# in var/main.yml
-global_theming_enabled: true

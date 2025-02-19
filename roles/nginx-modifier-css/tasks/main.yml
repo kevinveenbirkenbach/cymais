@@ -1,3 +1,5 @@
+# Load this role via nginx-modifier-all for consistency
+
 - name: Ensure {{nginx.directories.global}} directory exists
   file:
     path: "{{nginx.directories.global}}"
@@ -5,7 +7,7 @@
     owner: "{{nginx.user}}"
     group: "{{nginx.user}}"
     mode: '0755'
-  when: run_once_nginx_global_css is not defined and global_theming_enabled | bool
+  when: run_once_nginx_global_css is not defined
 
 - name: Deploy global.css from template
   template:
@@ -14,18 +16,18 @@
     owner: "{{nginx.user}}"
     group: "{{nginx.user}}"
     mode: '0644'
-  when: run_once_nginx_global_css is not defined and global_theming_enabled | bool
+  when: run_once_nginx_global_css is not defined
 
 - name: Get stat for global.css destination file
   stat:
     path: "{{ global_css_destination }}"
   register: global_css_stat
-  when: run_once_nginx_global_css is not defined and global_theming_enabled | bool
+  when: run_once_nginx_global_css is not defined
 
 - name: Set global_css_version to file modification time
   set_fact:
     global_css_version: "{{ global_css_stat.stat.mtime }}"
-  when: run_once_nginx_global_css is not defined and global_theming_enabled | bool
+  when: run_once_nginx_global_css is not defined
 
 - name: Mark global css tasks as run once
   set_fact:

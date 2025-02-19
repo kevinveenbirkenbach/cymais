@@ -7,10 +7,10 @@ This role enhances your Nginx configuration by conditionally injecting global Ma
 ## Features
 
 - **Global Matomo Tracking**  
-  When enabled (`global_matomo_tracking_enabled` is `true`), the role includes Matomo tracking configuration and injects the corresponding tracking script into your HTML.
+  The role includes Matomo tracking configuration and injects the corresponding tracking script into your HTML.
 
 - **Global Theming**  
-  When enabled (`global_theming_enabled` is `true`), the role injects a global CSS link for consistent theming across your site.
+  The role injects a global CSS link for consistent theming across your site.
 
 - **Smart Injection**  
   Uses Nginx's `sub_filter` to insert the tracking and theming snippets right before the closing `</head>` tag of your HTML documents.

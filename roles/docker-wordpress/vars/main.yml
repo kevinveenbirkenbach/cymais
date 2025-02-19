@@ -3,11 +3,3 @@ wordpress_max_upload_size:  "64M"
 database_type:              "mariadb"
 database_password:  	      "{{wordpress_database_password}}"
 custom_wordpress_image:     "custom_wordpress"
-
-# Deactivate Global theming for wordpress role
-# due to the reason that wordpress has to much different themes
-# and one styling for all is not possible.
-#
-# May a solution could be to generate a template or css file dedicated
-# for wordpress based on the theming values and import it. 
-global_theming_enabled:     false 

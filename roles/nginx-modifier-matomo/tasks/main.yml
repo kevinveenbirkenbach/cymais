@@ -1,3 +1,5 @@
+# Load this role via nginx-modifier-all for consistency
+
 - name: "Relevant variables for role: {{ role_path | basename }}"
   debug:
     msg:
