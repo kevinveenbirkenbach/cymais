@@ -28,6 +28,7 @@
   - name: Merge application definitions
     set_fact:
       applications: "{{ defaults_applications | combine(applications | default({}, true), recursive=True) }}"
+
   - name: Merge networks definitions
     set_fact:
       networks: "{{ defaults_networks | combine(networks | default({}, true), recursive=True) }}"
@@ -35,6 +36,14 @@
   - name: Merge oidc configuration
     set_fact:
       oidc: "{{ defaults_oidc | combine(oidc | default({}, true), recursive=True) }}"
+
+  - name: Merge design configuration
+    set_fact:
+      design: "{{ defaults_design | combine(design | default({}, true), recursive=True) }}"
+
+  - name: Merge service_provider configuration
+    set_fact:
+      service_provider: "{{ defaults_service_provider | combine(service_provider | default({}, true), recursive=True) }}"
 
   - name: print oidc dict
     debug:

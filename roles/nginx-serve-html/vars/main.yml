@@ -1,1 +1,2 @@
 application_id: "html_server"
+domain:         "{{domains[application_id]}}"

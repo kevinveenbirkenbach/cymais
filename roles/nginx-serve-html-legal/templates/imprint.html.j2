@@ -10,29 +10,29 @@
 
   <h2>Information in accordance with § 5 TMG</h2>
   <p>
-    <strong>{{ person.name }}</strong><br>
-    {{ person.description.subtitel }}<br>
+    <strong>{{ service_provider.name }}</strong><br>
+    {{ service_provider.description.subtitel }}<br>
     <br>
     <strong>Address:</strong><br>
-    {{ person.address.street }}<br>
-    {{ person.address.postal_code }} {{ person.address.city }}<br>
-    {{ person.address.country }}
+    {{ service_provider.address.street }}<br>
+    {{ service_provider.address.postal_code }} {{ service_provider.address.city }}<br>
+    {{ service_provider.address.country }}
   </p>
 
   <h2>Contact</h2>
   <p>
-    Telephone: {{ person.contact.phone }}<br>
-    Email: <a href="mailto:{{ person.contact.email }}">{{ person.contact.email }}</a>
+    Telephone: {{ service_provider.contact.phone }}<br>
+    Email: <a href="mailto:{{ service_provider.contact.email }}">{{ service_provider.contact.email }}</a>
   </p>
 
   <h2>Editorial Responsibility</h2>
   <p>
-    {{ person.legal.editorial_responsible }}
+    {{ service_provider.legal.editorial_responsible }}
   </p>
 
   <h2>Source Code</h2>
   <p>
-    Code repository available at: <a href="{{ person.legal.source_code }}">{{ person.legal.source_code }}</a>
+    Code repository available at: <a href="{{ service_provider.legal.source_code }}">{{ service_provider.legal.source_code }}</a>
   </p>
 
   <h2>Consumer Dispute Resolution / Universal Arbitration Board</h2>

@@ -1,14 +1,5 @@
 # Load this role via nginx-modifier-all for consistency
 
-- name: Ensure {{nginx.directories.global}} directory exists
-  file:
-    path: "{{nginx.directories.global}}"
-    state: directory
-    owner: "{{nginx.user}}"
-    group: "{{nginx.user}}"
-    mode: '0755'
-  when: run_once_nginx_global_css is not defined
-
 - name: Deploy global.css from template
   template:
     src: global.css.j2

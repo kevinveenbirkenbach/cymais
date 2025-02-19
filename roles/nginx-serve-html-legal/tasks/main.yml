@@ -2,4 +2,4 @@
 - name: copy imprint.html
   template: 
     src:  "imprint.html.j2" 
-    dest: "{{nginx.directories.html}}imprint.html"
+    dest: "{{nginx.directories.data.html}}imprint.html"

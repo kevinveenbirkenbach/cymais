@@ -14,9 +14,28 @@
   file:
     path: "{{ item }}"
     state: directory
+    owner: "{{nginx.user}}"
+    group: "{{nginx.user}}"
     mode: '0755'
     recurse: yes
-  loop: "{{ nginx.directories.http.values() | list + [nginx.directories.streams] }}"
+  loop: >
+    {{
+      [ nginx.directories.configuration ] +
+      (nginx.directories.http.values() | list) +
+      [ nginx.directories.streams ] 
+    }}
+  when: run_once_nginx is not defined
+
+- name: Ensure nginx data storage directories are present
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: yes
+    owner: "{{nginx.user}}"
+    group: "{{nginx.user}}"
+    mode:  '0755'
+  loop: >
+    {{ nginx.directories.data.values() | list }}
   when: run_once_nginx is not defined
 
 - name: create nginx config file

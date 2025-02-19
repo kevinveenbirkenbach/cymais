@@ -5,7 +5,7 @@ This **Ansible role** provides a **global theming solution** for Nginx-based web
 
 ## 🚀 Features
 ✅ **Automatic CSS Deployment** – Injects `global.css` into all Nginx-served applications.  
-✅ **Dynamic Theming** – Uses `global_theming.css.colors` from Ansible variables for **full customization**.  
+✅ **Dynamic Theming** – Uses `design.css.colors` from Ansible variables for **full customization**.  
 ✅ **Bootstrap Override Support** – Ensures Bootstrap-based apps use the **unified global styles**.  
 ✅ **Versioning System** – Prevents caching issues with automatic **timestamp-based versioning**.  
 ✅ **Dark Mode Support** – Automatically adapts to user preferences.  

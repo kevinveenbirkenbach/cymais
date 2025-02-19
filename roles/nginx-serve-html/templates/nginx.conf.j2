@@ -9,12 +9,12 @@ server
   
   location /
   {
-    root {{nginx.directories.homepage.html}};
+    root {{nginx.directories.data.html}};
     index index.html index.htm;
   }
 
   location /.well-known/ {
-    alias {{nginx.directories.well_known}};
+    alias {{nginx.directories.data.well_known}};
     allow all;
     default_type "text/plain";
     autoindex on;

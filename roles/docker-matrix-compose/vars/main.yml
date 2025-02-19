@@ -3,7 +3,7 @@ application_id:  	        "matrix"
 database_password:  	    "{{matrix_database_password}}"
 database_type:            "postgres"
 registration_file_folder: "/data/"
-well_known_directory:     "{{nginx.directories.well_known}}/matrix/"
+well_known_directory:     "{{nginx.directories.data.well_known}}/matrix/"
 
 bridges:
   - database_password: "{{ mautrix_whatsapp_bridge_database_password }}"

@@ -1,4 +1,4 @@
-global_theming:
+defaults_design:
   enabled: true
   css:
     colors:

@@ -11,15 +11,15 @@ HINT:
 :root {
     /** Derived Colors from the Base Color **/
     {% for i in range(1, 100) %}
-        --color-{{ "%02d"|format(i) }}: {{ global_theming.css.colors.base | adjust_color(target_lightness=(i / 100),saturation_change=global_theming.css.filters.saturation_change,hue_shift=global_theming.css.filters.hue_shift) }};
-        --color-rgb-{{ "%02d"|format(i) }}: {{ global_theming.css.colors.base | adjust_color_rgb(target_lightness=(i / 100),saturation_change=global_theming.css.filters.saturation_change,hue_shift=global_theming.css.filters.hue_shift) }};
+        --color-{{ "%02d"|format(i) }}: {{ design.css.colors.base | adjust_color(target_lightness=(i / 100),saturation_change=design.css.filters.saturation_change,hue_shift=design.css.filters.hue_shift) }};
+        --color-rgb-{{ "%02d"|format(i) }}: {{ design.css.colors.base | adjust_color_rgb(target_lightness=(i / 100),saturation_change=design.css.filters.saturation_change,hue_shift=design.css.filters.hue_shift) }};
     {% endfor %}
 
     /** Special Action Colors **/
-    --success-color:    {{ global_theming.css.colors.success }};
-    --warning-color:    {{ global_theming.css.colors.warning }};
-    --error-color:      {{ global_theming.css.colors.error }};
-    --info-color:       {{ global_theming.css.colors.info }};
+    --success-color:    {{ design.css.colors.success }};
+    --warning-color:    {{ design.css.colors.warning }};
+    --error-color:      {{ design.css.colors.error }};
+    --info-color:       {{ design.css.colors.info }};
 
 }
 
@@ -27,15 +27,15 @@ HINT:
     :root {
         /** Dark Mode Derived Colors from the Base Color **/
         {% for i in range(1, 100) %}
-            --color-{{ "%02d"|format(i) }}: {{ global_theming.css.colors.base | adjust_color(target_lightness=(1 - (i / 100)),saturation_change=global_theming.css.filters.saturation_change,hue_shift=global_theming.css.filters.hue_shift) }};
-            --color-rgb-{{ "%02d"|format(i) }}: {{ global_theming.css.colors.base | adjust_color_rgb(target_lightness=(1 - (i / 100)),saturation_change=global_theming.css.filters.saturation_change,hue_shift=global_theming.css.filters.hue_shift) }};
+            --color-{{ "%02d"|format(i) }}: {{ design.css.colors.base | adjust_color(target_lightness=(1 - (i / 100)),saturation_change=design.css.filters.saturation_change,hue_shift=design.css.filters.hue_shift) }};
+            --color-rgb-{{ "%02d"|format(i) }}: {{ design.css.colors.base | adjust_color_rgb(target_lightness=(1 - (i / 100)),saturation_change=design.css.filters.saturation_change,hue_shift=design.css.filters.hue_shift) }};
         {% endfor %}
 
         /** Special Action Colors **/
-        --success-color:    {{ global_theming.css.colors.success | adjust_color(target_lightness=(1 - 0.2)) }};
-        --warning-color:    {{ global_theming.css.colors.warning | adjust_color(target_lightness=(1 - 0.3)) }};
-        --error-color:      {{ global_theming.css.colors.error   | adjust_color(target_lightness=(1 - 0.3)) }};
-        --info-color:       {{ global_theming.css.colors.info    | adjust_color(target_lightness=(1 - 0.2)) }};
+        --success-color:    {{ design.css.colors.success | adjust_color(target_lightness=(1 - 0.2)) }};
+        --warning-color:    {{ design.css.colors.warning | adjust_color(target_lightness=(1 - 0.3)) }};
+        --error-color:      {{ design.css.colors.error   | adjust_color(target_lightness=(1 - 0.3)) }};
+        --info-color:       {{ design.css.colors.info    | adjust_color(target_lightness=(1 - 0.2)) }};
     }
 }
 

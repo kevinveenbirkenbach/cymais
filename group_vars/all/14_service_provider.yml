@@ -1,6 +1,5 @@
-# This is just a dummy person.
 # Adapt the values in your inventory file
-person:
+defaults_service_provider:
   type:           "legal"                                           # Accepted Values: natural, legal
   name:           "CyMaIS Demo Instance"
   description:    
