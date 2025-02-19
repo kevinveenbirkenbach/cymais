@@ -4,16 +4,6 @@
   notify: restart nginx
   when: run_once_nginx is not defined
 
-# I assume the following can be deleted
-# @todo Delete
-
-- name: install nginx-mod-headers-more for matomo
-  pacman: 
-    name: nginx-mod-headers-more
-    state: present
-  notify: restart nginx
-  when: run_once_nginx is not defined and global_matomo_tracking_enabled | bool
-
 - name: "Delete {{nginx.directories.configuration}} directory, when mode_reset"
   file:
     path: "{{ nginx.directories.configuration }}"

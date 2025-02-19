@@ -19,13 +19,11 @@
 
 # Priority: 1
 # Almost all other roles depend on the Matomo tracking
-- hosts: all
-  tasks:
-    - name: "setup matomo hosts if matomo hosts set or global_matomo_tracking_enabled"
-      include_role:
-        name: docker-matomo
-      when: "'matomo' in group_names or (global_matomo_tracking_enabled | bool)"
+- name: "setup matomo"
+  hosts: matomo
   become: true
+  roles:
+   -  role: docker-matomo
 
 # Priority: 2
 # Much other roles rely on a working ldap setup

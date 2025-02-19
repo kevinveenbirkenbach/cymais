@@ -1,9 +1,9 @@
-# Allow multiple sub_filters
+{# Allow multiple sub_filters #}
 sub_filter_once off;
 sub_filter_types text/html;
 
 {% if global_matomo_tracking_enabled | bool %}
-  # Include Global Matomo Tracking
+  {# Include Global Matomo Tracking #}
   {% include 'roles/nginx-modifier-matomo/templates/matomo-tracking.conf.j2' %}
 {% endif %}
 
@@ -12,6 +12,6 @@ sub_filter_types text/html;
 {% endif %}
 
 {% if global_theming_enabled | bool %}
-  # Include Global CSS Location
+  {# Include Global CSS Location #}
   {% include 'roles/nginx-modifier-css/templates/location.conf.j2' %}
 {% endif %}
