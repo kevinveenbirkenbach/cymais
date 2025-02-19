@@ -52,26 +52,26 @@ accounts:
     - name: Blog
       description: Read {{ 'our' if person.type == 'legal' else 'my' }} articles and stories.
       icon:
-          class: fa-solid fa-blog
+        class: fa-solid fa-blog
       identifier: "{{person.contact.wordpress}}"
       url: "https://{{ person.contact.wordpress.split('@')[2] }}/@{{ person.contact.wordpress.split('@')[1] }}"
 {% endif %}
-{% if person.contact.code is defined %}
-    - name: Code
+{% if person.legal.source_code is defined %}
+    - name: Our Code
       description: Explore {{ 'our' if person.type == 'legal' else 'my' }} code.
       icon:
         class: fa-solid fa-code
-      url: "{{person.code}}"
+      url: "{{person.legal.source_code}}"
 {% endif %}
 {% if person.contact.friendica is defined %}
-  - name: Social Networks
+  - name: Social Network
     description: Visit {{ 'our' if person.type == 'legal' else 'my' }} friendica profile
     icon:
       class: fas fa-network-wired
     identifier: "{{person.contact.friendica}}"
     url: "https://{{ person.contact.friendica.split('@')[2] }}/@{{ person.contact.friendica.split('@')[1] }}"
 {% endif %}
-  - link: navigation.header.contact.messenger
+  - link: navigation.header.contact
 
 cards:
 - icon: 
@@ -114,13 +114,12 @@ company:
   favicon:
     source: https://cloud.veen.world/s/veen_world_favicon/download
   address:
-{{ person.address | to_nice_yaml(indent=4) | indent(2) }}
+{{ person.address | to_nice_yaml(indent=4) | indent(4, true) }}
   imprint_url: https://s.veen.world/imprint
 navigation:
   header:
     children:
     - link: accounts.publishingchannels.children
-    - link: accounts.socialnetworks
     - name: Contact
       description: Get in touch with {{ 'us' if person.type == 'legal' else 'me' }} 
       icon:
@@ -133,8 +132,6 @@ navigation:
           class: fa-solid fa-envelope
         url: mailto:{{person.contact.email}}
         identifier: {{person.contact.email}}
-        alternatives:
-          - link: navigation.header.contact.messenger.matrix
 {% endif %}
 {% if person.contact.phone is defined %}
       - name: Mobile
@@ -155,149 +152,162 @@ navigation:
   footer:
     children:
     - link: accounts
+{% if ["discourse","moodle","listmonk","openproject","taiga","snipe_it","matrix","bigbluebutton","mailu", "matomo","phpadmin","keycloak", "ldap", "baserow","yourls","nextcloud"] | any_in(group_names) %}
     - name: Solution Hub
       description: Curated collection of self hosted tools
       icon:
           class: fa-solid fa-network-wired
       url: 
       children:
+  {% if ["discourse","moodle","listmonk"] | any_in(group_names) %}
       - name: Community
         description: Tools to manage the community
         icon:
             class: fa-solid fa-users
         children:
-{% if "discourse" in group_names %}
+    {% if "discourse" in group_names %}
         - name: Forum
           description: Join the discussion
           icon:
             class: fa-brands fa-discourse
           url: https://{{domains.discourse}}/
-{% endif %}
-{% if "moodle" in group_names %}
+    {% endif %}
+    {% if "moodle" in group_names %}
         - name: Learning Platform
           description: Learn with {{ 'our' if person.type == 'legal' else 'my' }} academy
           icon:
             class: fa-solid fa-graduation-cap
           url: https://{{domains.moodle}}/
-{% endif %}
-{% if "listmonk" in group_names %}
+    {% endif %}
+    {% if "listmonk" in group_names %}
         - name: Newsletter
           description: Subscribe to {{ 'our' if person.type == 'legal' else 'my' }} newsletter
           icon:
             class: fa-solid fa-envelope-open-text
           url: https://{{domains.listmonk}}/subscription/form
-{% endif %}
+    {% endif %}
+  {% endif %}
+  {% if ["openproject","taiga","snipe_it"] | any_in(group_names) %}
       - name: Project Management
         description: Project Management Tools
         icon:
             class: fa-solid fa-chart-line
         children:
-{% if "openproject" in group_names %}
+    {% if "openproject" in group_names %}
         - name: Open Project
           description: Explore {{ 'our' if person.type == 'legal' else 'my' }} projects
           icon:
             class: fa-solid fa-tasks
           url: https://{{domains.openproject}}/
-{% endif %}
-{% if "taiga" in group_names %}       
+    {% endif %}
+    {% if "taiga" in group_names %}       
         - name: Taiga
           description: View {{ 'our' if person.type == 'legal' else 'my' }} Kanban board
           icon:
             class: bi bi-clipboard2-check-fill
           url: https://{{domains.taiga}}/
-{% endif %}
-{% if "snipe_it" in group_names %}        
+    {% endif %}
+    {% if "snipe_it" in group_names %}        
         - name: Snipe IT
           description: Manage {{ 'our' if person.type == 'legal' else 'my' }} inventory
           icon:
             class: fas fa-box-open
           url: https://{{domains.snipe_it}}/
-{% endif %}          
+    {% endif %}
+  {% endif %}
+  {% if ["matrix","bigbluebutton","mailu"] | any_in(group_names) %}  
       - name: Communication
         icon:
           class: fa-solid fa-comments
         children:
-{% if "matrix" in group_names %}   
+    {% if "matrix" in group_names %}   
         - name: Elements
           description: Chat with the world
           icon:
             class: fa-solid fa-comment
           url: https://{{domains.matrix_element}}/
-{% endif %}
-{% if "bigbluebutton" in group_names %}             
+    {% endif %}
+    {% if "bigbluebutton" in group_names %}             
         - name: Big Blue Button
           description: Join live events
           icon:
             class: fa-solid fa-video
           url: https://{{domains.bigbluebutton}}/
-{% endif %}
-{% if "mailu" in group_names %}            
+    {% endif %}
+    {% if "mailu" in group_names %}            
         - name: Mailu
           description: Send{{ 'our' if person.type == 'legal' else 'my' }}a mail
           icon:
             class: fa-solid fa-envelope
           url: https://{{domains.mailu}}/
-{% endif %}
+    {% endif %}
+  {% endif %}
+  {% if ["matomo","phpadmin","keycloak", "ldap"] | any_in(group_names) %}  
       - name: Administration
         icon:
           class: fas fa-building
         children:
-{% if "matomo" in group_names %}   
+    {% if "matomo" in group_names %}   
         - name: Matomo
           description: Analyze with Matomo
           icon:
             class: fa-solid fa-chart-simple
           url: https://{{domains.matomo}}/
-{% endif %}
-{% if "phpmyadmin" in group_names %}   
+    {% endif %}
+    {% if "phpmyadmin" in group_names %}   
         - name: phpMyAdmin
           description: Administrate MySQL and MariaDB databases
           icon:
             class: fas fa-database
           url: https://{{domains.phpmyadmin}}/
-{% endif %}
-{% if "keycloak" in group_names %}   
+    {% endif %}
+    {% if "keycloak" in group_names %}   
         - name: Keycloak
           description: Manage User via Keycloak
           icon:
             class: fas fa-user-shield
           url: https://{{domains.keycloak}}/admin
-{% endif %}
-{% if "ldap" in group_names %}   
+    {% endif %}
+    {% if "ldap" in group_names %}   
         - name: LDAP
           description: Manage LDAP
           icon:
             class: fas fa-key
           url: https://{{domains.ldap}}/
-{% endif %}
+    {% endif %}
+  {% endif %}
+  {% if ["baserow","yourls","nextcloud"] | any_in(group_names) %}
       - name: Tools
         icon:
           class: fas fa-tools
         children:
-{% if "baserow" in group_names %}   
+    {% if "baserow" in group_names %}
         - name: Baserow
           description: Organize with Baserow
           icon:
             class: fa-solid fa-table
           url: https://{{domains.baserow}}/    
-{% endif %}
-{% if "yourls" in group_names %}   
+    {% endif %}
+    {% if "yourls" in group_names %}   
         - name: Yourls
           description: Create Shortlinks
           icon:
             class: bi bi-link
           url: https://{{domains.yourls}}/admin/
-{% endif %}
-{% if "nextcloud" in group_names %}             
+    {% endif %}
+    {% if "nextcloud" in group_names %}
         - name: Nextcloud
           description: Access your cloud storage
           icon:
             class: fa-solid fa-cloud
           url: https://{{domains.nextcloud}}/
+    {% endif %}
+  {% endif %}
 {% endif %}
+
     - name: Imprint
       description: Check out the imprint information
       icon:
           class: fa-solid fa-scale-balanced
-      url: https://s.veen.world/imprint
+      url: "{{person.legal.imprint}}"
   

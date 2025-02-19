@@ -1,0 +1,3 @@
+dependencies:
+- nginx-serve-html-legal
+- docker-portfolio

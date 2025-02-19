@@ -1,7 +1,6 @@
-#default
 server
 {
-  server_name {{domain}};
+  server_name {{domains[application_id]}};
   
   {% include 'roles/letsencrypt/templates/ssl_header.j2' %}
 
@@ -10,7 +9,7 @@ server
   
   location /
   {
-    root {{nginx.directories.homepage}};
+    root {{nginx.directories.homepage.html}};
     index index.html index.htm;
   }
 

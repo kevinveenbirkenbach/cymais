@@ -10,12 +10,10 @@ nginx:
       maps:                       "/etc/nginx/conf.d/http/maps/"    # Contains mappings
     streams:                      "/etc/nginx/conf.d/streams/"      # Contains streams configuration e.g. for ldaps
     well_known:                   "/usr/share/nginx/well-known/"    # Path where well-known files are stored
-    homepage:                     "/usr/share/nginx/homepage/"      # Path where the static homepage files are stored. @todo Move this variable to the role
+    html:                         "/var/www/public_html/"           # Path where the static homepage files are stored
+    files:                        "/var/www/public_files/"          # Path where the web accessable files are stored
     global:                       "/var/www/global/"                # Directory containing files which will be globaly accessable
   user:                           "http"                            # Default nginx user in ArchLinux
 
-## Nginx static repository
-nginx_static_repository_address:  NULL                              # This should contain the url to an git repository which has a static homepage included and an index.html file. @todo move this variable to the role
-                                                                    # @todo Move this to the dedicated role configuration
 ## Matomo Tracking
 global_matomo_tracking_enabled:   false                             # Activates matomo tracking on all html pages. Change this in inventory.

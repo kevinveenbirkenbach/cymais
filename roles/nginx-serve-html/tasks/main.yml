@@ -1,0 +1,6 @@
+---
+- name: generate {{domains[application_id]}}.conf
+  template: 
+    src:  "nginx.conf.j2" 
+    dest: "{{nginx.directories.http.servers}}{{domains[application_id]}}.conf"
+  notify: restart nginx

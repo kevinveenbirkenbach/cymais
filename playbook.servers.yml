@@ -13,28 +13,28 @@
     - health-btrfs
     - system-btrfs-auto-balancer
 
+- name: "setup corporate identity"
+  hosts: corporate_identity
+  become: true
+  roles:
+   -  role: corporate-identity
+
 #########################################################################
 ### Docker Roles                                                      ###
 #########################################################################
 
-# Priority: 1
-# Almost all other roles depend on the Matomo tracking
 - name: "setup matomo"
   hosts: matomo
   become: true
   roles:
    -  role: docker-matomo
 
-# Priority: 2
-# Much other roles rely on a working ldap setup
 - name: setup ldap
   hosts: ldap
   become: true
   roles:
    -  role: docker-ldap
 
-# Priority: 3
-# Much other roles use OICD via Keycloak
 - name: setup keycloak
   hosts: keycloak
   become: true
@@ -231,11 +231,11 @@
    -  role: docker-snipe_it
 
 # Native Webserver Roles
-- name: setup nginx-static-repositorys
-  hosts: nginx-static-repositorys
+- name: setup nginx-serve-htmls
+  hosts: nginx-serve-htmls
   become: true
   roles:
-   -  role: nginx-static-repository
+   -  role: nginx-serve-html
       vars:
         domain: "{{primary_domain}}"
 

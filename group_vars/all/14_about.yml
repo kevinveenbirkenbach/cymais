@@ -4,9 +4,9 @@ person:
   type:           "legal"                                           # Accepted Values: natural, legal
   name:           "CyMaIS Demo Instance"
   description:    
-    subtitel:        "Infrastructure Demo solutions"                   # Should be the length of su
-    summary:         "We offer infrastructure solutions for the world"
-    detailed:        ""
+    subtitel:     "Infrastructure Demo solutions"
+    summary:      "We offer infrastructure solutions for the world"
+    detailed:     ""
   address:
     street:       "Binary Avenue 01"
     city:         "Cybertown"
@@ -20,5 +20,8 @@ person:
     peertube:     "@{{administrator_username}}@{{domains.peertube}}"
     pixelfed:     "@{{administrator_username}}@{{domains.pixelfed}}"
     phone:        "+0 000 000 404"
-    wordpress:    "@{{administrator_username}}@{{domains.wordpress}}[0]"
-  code:           "https://github.com/kevinveenbirkenbach/cymais"
+    wordpress:    "@{{administrator_username}}@{{domains.wordpress[0]}}"
+  legal:
+    editorial_responsible:  "Johannes Gutenberg"
+    source_code:            "https://github.com/kevinveenbirkenbach/cymais"
+    imprint:                "https://{{domains.html_server}}/imprint.html"
