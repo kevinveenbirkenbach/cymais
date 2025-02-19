@@ -3,8 +3,9 @@
   include_role: 
     name: docker-compose
 
-- name: "include tasks nginx-docker-proxy-domain.yml"
-  include_tasks: nginx-docker-proxy-domain.yml
+- name: "include role nginx-domain-setup for {{application_id}}"
+  include_role: 
+    name: nginx-domain-setup
 
 - name: Create {{domain}}.conf if LDAP is exposed to internet
   template: 

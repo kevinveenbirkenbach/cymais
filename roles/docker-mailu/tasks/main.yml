@@ -3,8 +3,9 @@
   include_role: 
     name: docker-central-database
 
-- name: "include tasks nginx-docker-proxy-domain.yml"
-  include_tasks: nginx-docker-proxy-domain.yml
+- name: "include role nginx-domain-setup for {{application_id}}"
+  include_role: 
+    name: nginx-domain-setup
   vars:
     nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size 31M;"
 

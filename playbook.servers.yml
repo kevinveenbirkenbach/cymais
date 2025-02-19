@@ -245,7 +245,7 @@
   hosts: redirect
   become: true
   roles:
-   -  role: nginx-domain-redirect
+   -  role: nginx-redirect-domain
       vars:
         domain_mappings: "{{redirect_domain_mappings}}"
 
@@ -253,13 +253,13 @@
   hosts: www_redirect
   become: true
   roles:
-   -  role: nginx-global-www
+   -  role: nginx-redirect-www
 
 # Helper Roles for partial deployment
 - name: Copy global css 
-  hosts: nginx-global-css
+  hosts: nginx-modifier-css
   become: true
   roles:
-   -  role: nginx-global-css
+   -  role: nginx-modifier-css
 
 - import_playbook: playbook.destructor.yml

@@ -3,8 +3,9 @@
   include_role: 
     name: docker-central-database
 
-- name: "include tasks nginx-docker-proxy-domain.yml"
-  include_tasks: nginx-docker-proxy-domain.yml
+- name: "include role nginx-domain-setup for {{application_id}}"
+  include_role: 
+    name: nginx-domain-setup
   loop: "{{ domains }}"
   loop_control:
     loop_var: domain

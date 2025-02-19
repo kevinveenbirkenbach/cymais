@@ -1,9 +1,6 @@
-# CyMaIS Role
+# Docker Snipe-IT
 
-🚀 **CyMaIS** - Centralized Management and Integration System for **[Snipe-IT](https://github.com/snipe/snipe-it)**
-
-## About 📖
-This role provides an automated deployment and configuration for **Snipe-IT**, an open-source asset management system. It leverages **Docker Compose**, **Ansible**, and **centralized database integration** to streamline deployment and maintenance.
+This 🚀 **CyMaIS** role provides an automated deployment and configuration for **[Snipe-IT](https://github.com/snipe/snipe-it)**, an open-source asset management system. It leverages **Docker Compose**, **Ansible**, and **centralized database integration** to streamline deployment and maintenance.
 
 👤 **Author:** Kevin Veen-Birkenbach  
 🔗 **Website:** [veen.world](https://veen.world)
@@ -23,11 +20,6 @@ docker-compose exec application php artisan config:clear
 docker-compose exec application php artisan cache:clear
 docker-compose restart application
 ```
-
-## Configuration
-- **Database:** The role supports **MariaDB** as the primary database.
-- **Environment Variables:** Defined in `templates/env.j2`.
-- **Nginx Proxy Support:** Automated through `nginx-docker-proxy-domain.yml`.
 
 ## Pending Issue 🚧
 To ensure full **SAML authentication integration**, this issue still needs to be resolved:  

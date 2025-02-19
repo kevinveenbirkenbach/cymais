@@ -1,11 +1,23 @@
-- name: Check if site already exists in Matomo
+- name: "Relevant variables for role: {{ role_path | basename }}"
+  debug:
+    msg:
+      domain: "{{ domain }}"
+      base_domain: "{{ base_domain }}"
+      verification_url: "{{ verification_url }}"
+  when: enable_debug | bool
+
+- name: Check if site {{ domain }} is allready registered at Matomo
   uri:
-    url: "https://{{domains.matomo}}/index.php?module=API&method=SitesManager.getSitesIdFromSiteUrl&url=https://{{base_domain}}&format=json&token_auth={{matomo_auth_token}}"
-    method: GET
+    url:            "{{verification_url}}"
+    method:         GET
     return_content: yes
-    status_code: 200
+    status_code:    200
     validate_certs: yes
-  register: site_check
+  register:         site_check
+
+- name: Set matomo_site_id to Null
+  set_fact:
+    matomo_site_id: Null
 
 - name: Set fact for site ID if site already exists
   set_fact:
@@ -22,12 +34,12 @@
     return_content: yes
     validate_certs: yes
   register: add_site
-  when: "matomo_site_id is not defined"
+  when: "matomo_site_id is not defined or matomo_site_id is none"
 
 - name: Set fact for site ID if site was added
   set_fact:
     matomo_site_id: "{{ add_site.json.value }}"
-  when: "matomo_site_id is not defined"
+  when: "matomo_site_id is not defined or matomo_site_id is none"
 
 - name: Set the Matomo tracking code from a template file
   set_fact:

@@ -33,16 +33,6 @@
   notify: restart nginx
   when: run_once_nginx is not defined
 
-# Activated due to the reason that certificate management should be part of role nginx-https
-# I don't know why this is activated here. 
-# Propably solved on 2025-02-15 . Please remove latest on 2025-12-31 if no errors appear or earlier
-#
-#- name: "include task certbot-and-globals.yml"
-#  include_tasks: certbot-and-globals.yml
-#  vars:
-#    domain: "{{primary_domain}}"
-#  when: run_once_nginx is not defined
-
 - name: flush nginx service
   meta: flush_handlers
   when: run_once_nginx is not defined

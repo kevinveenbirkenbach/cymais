@@ -1,0 +1,2 @@
+dependencies:
+  - nginx-modifier-css # Just required to load once

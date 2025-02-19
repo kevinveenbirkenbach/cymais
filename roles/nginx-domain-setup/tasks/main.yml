@@ -1,4 +1,8 @@
-- name: "include role receive certbot certificate"
+- name: "include role nginx-modifier-all for {{domain}}"
+  include_role: 
+    name: nginx-modifier-all
+
+- name: "include role nginx-https-recieve-certificate for {{domain}}"
   include_role: 
     name: nginx-https-recieve-certificate
 
@@ -8,7 +12,7 @@
     dest: "{{nginx.directories.http.servers}}{{domain}}.conf"
   notify: restart nginx
   
-- name: include the docker-oauth2-proxy role
+- name: "include the docker-oauth2-proxy role {{domain}}"
   include_role:
     name: docker-oauth2-proxy
   when: oauth2_proxy_active | bool

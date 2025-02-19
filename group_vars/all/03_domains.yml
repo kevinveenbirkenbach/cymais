@@ -19,6 +19,7 @@ defaults_domains:
   listmonk:                "newsletter.{{primary_domain}}"
   mailu:                   "{{system_email.host}}"
   mastodon:                "microblog.{{primary_domain}}"
+  # ATTENTION: Will be owerwritten by the values in domains. Not merged.
   mastodon_alternates:    ["mastodon.{{primary_domain}}"]
   matomo:                  "matomo.{{primary_domain}}"
   matrix_synapse:          "matrix.{{primary_domain}}"
@@ -28,6 +29,7 @@ defaults_domains:
   nextcloud:               "cloud.{{primary_domain}}"
   openproject:             "project.{{primary_domain}}"
   peertube:                "video.{{primary_domain}}"
+  # ATTENTION: Will be owerwritten by the values in domains. Not merged.
   peertube_alternates:     []
   phpmyadmin:              "phpmyadmin.{{primary_domain}}"
   pixelfed:                "picture.{{primary_domain}}"
@@ -36,7 +38,10 @@ defaults_domains:
   snipe_it:                "inventory.{{primary_domain}}"
   taiga:                   "kanban.{{primary_domain}}"
   yourls:                  "s.{{primary_domain}}"
-  wordpress:              ["wordpress.{{primary_domain}}","blog.{{primary_domain}}"]
+  # ATTENTION: Will be owerwritten by the values in domains. Not merged.
+  wordpress:              
+    - "wordpress.{{primary_domain}}"
+    - "blog.{{primary_domain}}"
 
 ## Domain Redirects
 defaults_redirect_domain_mappings:

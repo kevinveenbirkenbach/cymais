@@ -3,7 +3,10 @@
 
 - name: "Set global domain based on application_id"
   set_fact:
-    domain: "{{ domains[application_id] if application_id in domains else None }}"
+    domain: "{{ domains[application_id] }}"
+  when:
+    - application_id in domains
+    - domains[application_id] is string
   # Default case: One domain exists. Some applications like matrix don't have an default domain
 
 - name: "Set global http_port to {{ ports.localhost.http[application_id] }}"

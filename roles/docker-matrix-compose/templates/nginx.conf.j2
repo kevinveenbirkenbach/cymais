@@ -10,6 +10,6 @@ server {
     listen 8448 ssl default_server;
     listen [::]:8448 ssl default_server;
 
-    {% include 'roles/nginx-global/templates/global.includes.conf.j2'%}
+    {% include 'roles/nginx-modifier-all/templates/global.includes.conf.j2'%}
     {% include 'roles/nginx-docker-reverse-proxy/templates/proxy_pass.conf.j2' %}
 }

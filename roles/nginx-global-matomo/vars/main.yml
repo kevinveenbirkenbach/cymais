@@ -1,1 +1,0 @@
-base_domain: "{{ domain | regex_replace('^(?:.*\\.)?(.+\\..+)$', '\\1') }}"

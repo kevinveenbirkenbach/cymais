@@ -13,23 +13,6 @@ This **Ansible role** provides a **global theming solution** for Nginx-based web
 
 ---
 
-## 📂 File Structure
-
-```
-.
-├── tasks/
-│   ├── main.yml        # Main Ansible tasks for deploying the global CSS
-├── vars/
-│   ├── main.yml        # Global variables (CSS paths, file names, etc.)
-├── templates/
-│   ├── global.css.j2   # Jinja2 template for generating the global CSS
-│   ├── location.conf.j2     # Nginx configuration for serving global.css
-│   ├── sub_filter.conf.j2   # Injects the global CSS link into served pages
-└── README.md           # You are here 🚀
-```
-
----
-
 ## 🎨 Theming Details
 
 The **CSS template (`global.css.j2`)** dynamically applies the defined theme colors and ensures **Bootstrap, buttons, alerts, forms, and other UI elements** follow the **unified design**.

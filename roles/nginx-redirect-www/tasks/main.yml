@@ -30,9 +30,9 @@
     var: filtered_domains_with_primary_domain
   when: enable_debug | bool
 
-- name: Include nginx-domain-redirect role with dynamic domain mappings for domains with {{primary_domain}} included
+- name: Include nginx-redirect-domain role with dynamic domain mappings for domains with {{primary_domain}} included
   include_role:
-    name: nginx-domain-redirect
+    name: nginx-redirect-domain
   vars:
     domain_mappings: "{{ filtered_domains_with_primary_domain | map('regex_replace', '^(.*)$', '{ source: \"www.\\1\", target: \"\\1\" }') | map('from_yaml') | list }}"
   when: not enable_wildcard_certificate | bool
@@ -57,9 +57,9 @@
     var: filtered_domains_without_primary_domain
   when: enable_debug | bool
 
-- name: Include nginx-domain-redirect role with dynamic domain mappings for domains without primary domain
+- name: Include nginx-redirect-domain role with dynamic domain mappings for domains without primary domain
   include_role:
-    name: nginx-domain-redirect
+    name: nginx-redirect-domain
   vars:
     domain_mappings: "{{ filtered_domains_without_primary_domain | map('regex_replace', '^(.*)$', '{ source: \"www.\\1\", target: \"\\1\" }') | map('from_yaml') | list }}"
 

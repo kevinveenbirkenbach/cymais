@@ -30,8 +30,9 @@
     http_port:  "{{ports.localhost.http.matrix_synapse}}"
   notify: restart nginx
         
-- name: "include tasks nginx-docker-proxy-domain.yml for element"
-  include_tasks: nginx-docker-proxy-domain.yml
+- name: "include role nginx-domain-setup for {{application_id}}"
+  include_role: 
+    name: nginx-domain-setup
   vars:        
     domain:     "{{domains.matrix_element}}"
     http_port:  "{{ports.localhost.http.matrix_element}}"

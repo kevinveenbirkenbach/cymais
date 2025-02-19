@@ -3,17 +3,15 @@
   include_role: 
     name: docker-compose
 
-- name: "Include tasks for API domain"
-  include_tasks: nginx-docker-proxy-domain.yml
+- name: "include role nginx-domain-setup for {{application_id}}"
+  include_role:
+    name: nginx-domain-setup
   vars:
-    domain: "{{ domains.bluesky_api }}"
-    http_port: "{{ ports.localhost.http.bluesky_api }}"
-
-- name: "Include tasks for Web domain"
-  include_tasks: nginx-docker-proxy-domain.yml
-  vars:
-    domain: "{{ domains.bluesky_web }}"
-    http_port: "{{ ports.localhost.http.bluesky_web }}" 
+    domain: "{{ item.domain }}"
+    http_port: "{{ item.http_port }}"
+  loop:
+    - { domain: domains.bluesky_api, http_port: ports.localhost.http.bluesky_api }
+    - { domain: domains.bluesky_web, http_port: ports.localhost.http.bluesky_web }
 
 # The following lines should be removed when the following issue is closed:
 # https://github.com/bluesky-social/pds/issues/52

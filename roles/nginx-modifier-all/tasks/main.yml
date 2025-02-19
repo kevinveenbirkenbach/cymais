@@ -1,0 +1,4 @@
+- name: "Activate Global Matomo Tracking for {{domain}}"
+  include_role:
+    name: nginx-modifier-matomo
+  when: global_matomo_tracking_enabled | bool
