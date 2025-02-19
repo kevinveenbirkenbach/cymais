@@ -4,7 +4,7 @@ location {{location | default("/")}}
     {% include 'roles/docker-oauth2-proxy/templates/following_directives.conf.j2'%}
   {% endif %}
 
-  proxy_pass http://127.0.0.1:{{http_port}}/;
+  proxy_pass http://127.0.0.1:{{http_port}}{{location | default("/")}};
 
   # headers
   proxy_set_header Host $host;
