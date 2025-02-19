@@ -122,6 +122,17 @@ defaults_applications:
     version:                          "latest"
     single_user_mode:                 false                         # Set true for initial setup
     setup:                            false                         # Set true in inventory file to execute the setup and initializing procedures
+#    credentials:
+#      database_password:                              
+#      secret_key_base:                                
+#      otp_secret:                                     
+#      vapid:
+#        private_key:                                  
+#        public_key:                                   
+#      active_record_encryption:
+#        deterministic_key:                            
+#        key_derivation_salt:                          
+#        primary_key:                                  
 
   ## Matrix
   matrix:

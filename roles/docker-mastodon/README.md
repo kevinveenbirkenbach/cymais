@@ -7,10 +7,11 @@ This README and some parts of the code were created with the assistance of ChatG
 
 ## ⚙️ Configuration & Setup
 
-### 🔧 Create Configuration
+### 🔧 Create Credentials
 Run the following command to generate a new configuration setup:
 ```bash
-    docker-compose run --rm web bundle exec rake mastodon:setup
+    docker pull ghcr.io/mastodon/mastodon:latest
+    docker run --rm ghcr.io/mastodon/mastodon:latest bundle exec rails secret
 ```
 
 ### 🔄 Setup with an Existing Configuration
