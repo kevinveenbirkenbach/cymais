@@ -1,16 +1,20 @@
 # Adapt the values in your inventory file
 defaults_service_provider:
-  type:           "legal"                                           # Accepted Values: natural, legal
-  name:           "CyMaIS Demo Instance"
-  description:    
-    subtitel:     "Infrastructure Demo solutions"
-    summary:      "We offer infrastructure solutions for the world"
-    detailed:     ""
-  address:
-    street:       "Binary Avenue 01"
-    city:         "Cybertown"
-    postal_code:  "00001"
-    country:      "Nexusland"
+  type:           "legal"                                                       # Accepted Values: natural, legal
+  company:
+    titel:        "CyMaIS Example GbR"
+    slogan:       "We keep your 0 and 1 in line"
+    address:
+      street:       "Binary Avenue 01"
+      city:         "Cybertown"
+      postal_code:  "00001"
+      country:      "Nexusland"
+    logo:           https://cloud.veen.world/s/logo_cymais_512x512/download
+  platform:    
+    titel:        "CyMaIS Plattform Demo"
+    subtitel:     "Demo of the Cyber Master Infrastructur Solution Plattform"
+    logo:           https://cloud.veen.world/s/logo_cymais_512x512/download
+    favicon:        https://cloud.veen.world/s/veen_world_favicon/download
   contact:
     bluesky:      "@{{administrator_username}}.{{domains.bluesky_api}}"
     email:        "contact@{{primary_domain}}"

@@ -122,6 +122,9 @@ defaults_applications:
     version:                          "latest"
     single_user_mode:                 false                         # Set true for initial setup
     setup:                            false                         # Set true in inventory file to execute the setup and initializing procedures
+#
+# Check out the README.md of the docker-mastodon role to get detailled instructions about how to setup the credentials
+#
 #    credentials:
 #      database_password:                              
 #      secret_key_base:                                
@@ -150,7 +153,7 @@ defaults_applications:
   mailu:
     version:                          "2024.06"
     domain:                           "{{primary_domain}}"
-    setup:                            false                                 # Set true in inventory file to execute the setup and initializing procedures
+    setup:                            false                         # Set true in inventory file to execute the setup and initializing procedures
 
   ## Moodle
   moodle:

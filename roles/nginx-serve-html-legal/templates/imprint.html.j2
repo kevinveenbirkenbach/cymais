@@ -10,13 +10,13 @@
 
   <h2>Information in accordance with § 5 TMG</h2>
   <p>
-    <strong>{{ service_provider.name }}</strong><br>
-    {{ service_provider.description.subtitel }}<br>
+    <strong>{{ service_provider.company.titel }}</strong><br>
+    {{ service_provider.company.subtitel }}<br>
     <br>
     <strong>Address:</strong><br>
-    {{ service_provider.address.street }}<br>
-    {{ service_provider.address.postal_code }} {{ service_provider.address.city }}<br>
-    {{ service_provider.address.country }}
+    {{ service_provider.company.address.street }}<br>
+    {{ service_provider.company.address.postal_code }} {{ service_provider.company.address.city }}<br>
+    {{ service_provider.company.address.country }}
   </p>
 
   <h2>Contact</h2>
