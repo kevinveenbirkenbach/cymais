@@ -22,7 +22,7 @@ accounts:
           class: fa-brands fa-mastodon
         url: "https://{{ person.contact.mastodon.split('@')[2] }}/@{{ person.contact.mastodon.split('@')[1] }}"
         identifier: "{{person.contact.mastodon}}"
-{% end %}
+{% endif %}
 {% if person.contact.bluesky is defined %}
       - name: Bluesky
         description: Follow {{ 'our' if person.type == 'legal' else 'my' }} on Bluesky.
@@ -31,7 +31,7 @@ accounts:
         alternatives:
         - link: accounts.publishingchannels.microblogs.mastodon
         identifier: "{{person.contact.bluesky}}"
-{% end %}
+{% endif %}
 {% if person.contact.pixelfed is defined %}
     - name: Pictures
       description: Explore {{ 'our' if person.type == 'legal' else 'my' }} photo gallery on Pixelfed.
@@ -39,7 +39,7 @@ accounts:
           class: fa-solid fa-camera
       identifier: "{{person.contact.pixelfed}}"
       url: "https://{{ person.contact.pixelfed.split('@')[2] }}/@{{ person.contact.pixelfed.split('@')[1] }}"
-{% end %}
+{% endif %}
 {% if person.contact.peertube is defined %}
     - name: Peertube
       description: Discover {{ 'our' if person.type == 'legal' else 'my' }} videos on Peertube.
@@ -47,7 +47,7 @@ accounts:
         class: fa-solid fa-video
       identifier: "{{person.contact.peertube}}"
       url: "https://{{ person.contact.peertube.split('@')[2] }}/@{{ person.contact.peertube.split('@')[1] }}"
-{% end %}
+{% endif %}
 {% if person.contact.wordpress is defined %}
     - name: Blog
       description: Read {{ 'our' if person.type == 'legal' else 'my' }} articles and stories.
@@ -55,14 +55,14 @@ accounts:
           class: fa-solid fa-blog
       identifier: "{{person.contact.wordpress}}"
       url: "https://{{ person.contact.wordpress.split('@')[2] }}/@{{ person.contact.wordpress.split('@')[1] }}"
-{% end %}
+{% endif %}
 {% if person.contact.code is defined %}
     - name: Code
       description: Explore {{ 'our' if person.type == 'legal' else 'my' }} code.
       icon:
         class: fa-solid fa-code
       url: "{{person.code}}"
-{% end %}
+{% endif %}
 {% if person.contact.friendica is defined %}
   - name: Social Networks
     description: Visit {{ 'our' if person.type == 'legal' else 'my' }} friendica profile
@@ -70,7 +70,7 @@ accounts:
       class: fas fa-network-wired
     identifier: "{{person.contact.friendica}}"
     url: "https://{{ person.contact.friendica.split('@')[2] }}/@{{ person.contact.friendica.split('@')[1] }}"
-{% end %}
+{% endif %}
   - link: navigation.header.contact.messenger
 
 cards:
@@ -126,7 +126,7 @@ navigation:
       icon:
           class: fa-solid fa-envelope
       children:
-{% end %}
+{% endif %}
 {% if person.contact.email is defined %}
       - name: Email
         description: Send {{ 'us' if person.type == 'legal' else 'me' }} an email
@@ -136,7 +136,7 @@ navigation:
         identifier: {{person.contact.email}}
         alternatives:
           - link: navigation.header.contact.messenger.matrix
-{% end %}
+{% endif %}
 {% if person.contact.phone is defined %}
       - name: Mobile
         description: Call {{ 'us' if person.type == 'legal' else 'me' }}
@@ -145,14 +145,14 @@ navigation:
         url: "tel:{{person.contact.phone}}"
         identifier: "{{person.contact.phone}}"
         target: _top
-{% end %}
+{% endif %}
 {% if person.contact.matrix is defined %}
       - name: Matrix
         description: Chat with {{ 'us' if person.type == 'legal' else 'me' }} on Matrix
         icon:
           class: fa-solid fa-cubes
         identifier: "{{person.contact.matrix}}"
-{% end %}
+{% endif %}
   footer:
     children:
     - link: accounts
@@ -167,28 +167,28 @@ navigation:
         icon:
             class: fa-solid fa-users
         children:
-{% end %}
+{% endif %}
 {% if "discourse" in group_names %}
         - name: Forum
           description: Join the discussion
           icon:
             class: fa-brands fa-discourse
           url: https://{{domains.discourse}}/
-{% end %}
+{% endif %}
 {% if "moodle" in group_names %}
         - name: Learning Platform
           description: Learn with {{ 'our' if person.type == 'legal' else 'my' }} academy
           icon:
             class: fa-solid fa-graduation-cap
           url: https://{{domains.moodle}}/
-{% end %}
+{% endif %}
 {% if "listmonk" in group_names %}
         - name: Newsletter
           description: Subscribe to {{ 'our' if person.type == 'legal' else 'my' }} newsletter
           icon:
             class: fa-solid fa-envelope-open-text
           url: https://{{domains.listmonk}}/subscription/form
-{% end %}
+{% endif %}
 {% if "openproject" in group_names %}
       - name: Project Management
         description: Project Management Tools
@@ -200,106 +200,106 @@ navigation:
           icon:
             class: fa-solid fa-tasks
           url: https://{{domains.openproject}}/
-{% end %}
+{% endif %}
 {% if "taiga" in group_names %}       
         - name: Taiga
           description: View {{ 'our' if person.type == 'legal' else 'my' }} Kanban board
           icon:
             class: bi bi-clipboard2-check-fill
           url: https://{{domains.taiga}}/
-{% end %}
+{% endif %}
 {% if "snipe_it" in group_names %}        
         - name: Snipe IT
           description: Manage {{ 'our' if person.type == 'legal' else 'my' }} inventory
           icon:
             class: fas fa-box-open
           url: https://{{domains.snipe_it}}/
-{% end %}          
+{% endif %}          
       - name: Communication
         icon:
           class: fa-solid fa-comments
         children:
-{% end %}
+{% endif %}
 {% if "matrix" in group_names %}   
         - name: Elements
           description: Chat with the world
           icon:
             class: fa-solid fa-comment
           url: https://{{domains.matrix_element}}/
-{% end %}
+{% endif %}
 {% if "bigbluebutton" in group_names %}             
         - name: Big Blue Button
           description: Join live events
           icon:
             class: fa-solid fa-video
           url: https://{{domains.bigbluebutton}}/
-{% end %}
+{% endif %}
 {% if "mailu" in group_names %}            
         - name: Mailu
           description: Send{{ 'our' if person.type == 'legal' else 'my' }}a mail
           icon:
             class: fa-solid fa-envelope
           url: https://{{domains.mailu}}/
-{% end %}
+{% endif %}
       - name: Administration
         icon:
           class: fas fa-building
         children:
-{% end %}
+{% endif %}
 {% if "matomo" in group_names %}   
         - name: Matomo
           description: Analyze with Matomo
           icon:
             class: fa-solid fa-chart-simple
           url: https://{{domains.matomo}}/
-{% end %}
+{% endif %}
 {% if "phpmyadmin" in group_names %}   
         - name: phpMyAdmin
           description: Administrate MySQL and MariaDB databases
           icon:
             class: fas fa-database
           url: https://{{domains.phpmyadmin}}/
-{% end %}
+{% endif %}
 {% if "keycloak" in group_names %}   
         - name: Keycloak
           description: Manage User via Keycloak
           icon:
             class: fas fa-user-shield
           url: https://{{domains.keycloak}}/admin
-{% end %}
+{% endif %}
 {% if "ldap" in group_names %}   
         - name: LDAP
           description: Manage LDAP
           icon:
             class: fas fa-key
           url: https://{{domains.ldap}}/
-{% end %}
+{% endif %}
       - name: Tools
         icon:
           class: fas fa-tools
         children:
-{% end %}
+{% endif %}
 {% if "baserow" in group_names %}   
         - name: Baserow
           description: Organize with Baserow
           icon:
             class: fa-solid fa-table
           url: https://{{domains.baserow}}/    
-{% end %}
+{% endif %}
 {% if "yourls" in group_names %}   
         - name: Yourls
           description: Create Shortlinks
           icon:
             class: bi bi-link
           url: https://{{domains.yourls}}/admin/
-{% end %}
+{% endif %}
 {% if "nextcloud" in group_names %}             
         - name: Nextcloud
           description: Access your cloud storage
           icon:
             class: fa-solid fa-cloud
           url: https://{{domains.nextcloud}}/
-{% end %}
+{% endif %}
     - name: Imprint
       description: Check out the imprint information
       icon:
