@@ -171,7 +171,8 @@ defaults_applications:
   ## Nextcloud
   nextcloud:
     version:              "production"  # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
-    ldap_enabled:         True          # Enables LDAP by default 
+    ldap_enabled:         True          # Enables LDAP by default
+#   database_password:    Null          # Needs to be set in inventory file
 
   ## OAuth2 Proxy
   oauth2_proxy:
