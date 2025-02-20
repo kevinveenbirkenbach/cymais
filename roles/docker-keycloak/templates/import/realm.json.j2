@@ -833,19 +833,20 @@
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "{{oidc.client.secret}}",
-      "redirectUris": [
-        {%- for application, domain in domains.items() -%}
-          {%- if applications[application] is defined and ( applications | get_oauth2_enabled(application) or applications | get_oidc_enabled(application)) -%}
-            {%- if domain is string -%}
-              "https://{{ domain }}/*"{% if not loop.last %},{% endif %}
-            {%- else -%}
-              {%- for d in domain -%}
-                "https://{{ d }}/*"{% if not (loop.last and loop.parent.last) %},{% endif %}
-              {%- endfor -%}
-            {%- endif -%}
-          {%- endif -%}
-        {%- endfor -%}
-      ],
+      {%- set redirect_uris = [] %}
+      {%- for application, domain in domains.items() %}
+        {%- if applications[application] is defined and (applications | get_oauth2_enabled(application) or applications | get_oidc_enabled(application)) %}
+          {%- if domain is string %}
+            {%- set _ = redirect_uris.append("https://{}/*".format(domain)) %}
+          {%- else %}
+            {%- for d in domain %}
+              {%- set _ = redirect_uris.append("https://{}/*".format(d)) %}
+            {%- endfor %}
+          {%- endif %}
+        {%- endif %}
+      {%- endfor %}
+      
+      "redirectUris": {{ redirect_uris | tojson }},
       "webOrigins": [
         "https://*.{{primary_domain}}"
       ],
