@@ -51,19 +51,18 @@
 - name: flush docker service
   meta: flush_handlers
 
-- name: "create directory {{ldif_host_path}}"
+- name: "create directory {{ldif_host_path}}{{item}}"
   file:
-    path: "{{ldif_host_path}}"
+    path: "{{ldif_host_path}}{{item}}"
     state: directory
     mode: 0755
+  loop: "{{ldif_types}}"
 
-- name: "Create LDIF files at {{ ldif_host_path }}"
-  template:
-    src: "{{ item }}"
-    dest: "{{ ldif_host_path }}/{{ item | basename | regex_replace('\\.j2$', '') }}"
-    mode: '770'
-  loop: "{{ lookup('fileglob', '{{ role_path }}/templates/ldif/*.j2', wantlist=True) }}"
-  notify: Import LDIF files
+- name: "Process all LDIF types"
+  include_tasks: create_ldif_files.yml
+  loop: "{{ ldif_types }}"
+  loop_control:
+    loop_var: folder
 
 - name: Force LDIF files import
   command: /bin/true

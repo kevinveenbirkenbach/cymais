@@ -1,0 +1,29 @@
+
+#######################################################################
+# Generic container for Application roles
+#######################################################################
+dn: {{ldap.dn.application_roles}}
+objectClass: organizationalUnit
+ou: roles
+description: Container for application access profiles
+
+{# 
+  This template generates two LDIF entries for each application in defaults_applications:
+  one for the administrator role and one for the standard user role.
+  Please adjust the base DN (dc=example,dc=com) and other attributes as necessary.
+#}
+
+{% for app, config in defaults_applications.items() %}
+dn: cn={{ app }}-administrator,{{ldap.dn.application_roles}}
+objectClass: top
+objectClass: organizationalRole
+cn: {{ app }}-administrator
+description: Administrator role for {{ app }} (automatically generated)
+
+dn: cn={{ app }}-user,{{ldap.dn.application_roles}}
+objectClass: top
+objectClass: organizationalRole
+cn: {{ app }}-user
+description: Standard user role for {{ app }} (automatically generated)
+
+{% endfor %}

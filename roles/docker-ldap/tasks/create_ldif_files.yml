@@ -1,0 +1,7 @@
+- name: "Create LDIF files at {{ ldif_host_path }}/{{ folder }}"
+  template:
+    src: "{{ item }}"
+    dest: "{{ ldif_host_path }}/{{ folder }}/{{ item | basename | regex_replace('\\.j2$', '') }}"
+    mode: '770'
+  loop: "{{ lookup('fileglob', role_path ~ '/templates/ldif/' ~ folder ~ '/*.j2', wantlist=True) }}"
+  notify: Import LDIF files

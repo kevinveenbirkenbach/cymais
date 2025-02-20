@@ -36,12 +36,16 @@ docker exec -it openldap bash -c "ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b 'c
 
 ### MemberOf
 ```bash
+# Activate
 ldapmodify -Y EXTERNAL -H ldapi:/// <<EOF
 dn: cn=module{0},cn=config
 changetype: modify
 add: olcModuleLoad
 olcModuleLoad: /opt/bitnami/openldap/lib/openldap/memberof.so
 EOF
+
+# Verify
+ldapsearch -Q -Y EXTERNAL -H ldapi:/// -b "cn=module{0},cn=config" olcModuleLoad
 
 ldapadd -Y EXTERNAL -H ldapi:/// <<EOF
 dn: olcOverlay=memberof,olcDatabase={2}mdb,cn=config
@@ -104,6 +108,8 @@ The following directories are mounted in the container:
 - [Bitnami OpenLDAP](https://hub.docker.com/r/bitnami/openldap)
 - [phpLDAPadmin Documentation](https://github.com/leenooks/phpLDAPadmin/wiki/Docker-Container)
 - [LDAP Account Manager](https://github.com/LDAPAccountManager/docker)
+- [RBAC](https://www.entrust.com/de/resources/learn/what-is-role-based-access-control#:~:text=Rollenbasierte%20Zugriffskontrolle%20(Role%2Dbased%20Access,eine%20Ressource%20gew%C3%A4hrt%20werden%20soll.)
+- [RBAC Wikipedia](https://de.wikipedia.org/wiki/Role_Based_Access_Control)
 ---
 
 

@@ -2,15 +2,11 @@ application_id:       "ldap"
 ldaps_docker_port:    636
 ldap_docker_port:     389
 
-enable_wildcard_certificate:  false # Activate dedicated Certificate
+enable_wildcard_certificate:  false # Deactivate dedicated Certificate
 
-# Configuration for ldif import
-ldif_files:
-  - "01_member_of_configuration.ldif"
-  - "02_member_of_configuration.ldif"
-  - "03_member_of_configuration.ldif"
-  - "04_access_profiles.ldif"
-
-ldif_host_path:     "{{docker_compose.directories.volumes}}ldif/"
-ldif_docker_path:   "/tmp/ldif/"
-dn_roles:           "ou=access_roles,{{ldap.dn.root}}"
+ldif_host_path:             "{{docker_compose.directories.volumes}}ldif/"
+ldif_docker_path:           "/tmp/ldif/"
+ldap.dn.application_roles:  "ou=application_roles,{{ldap.dn.root}}"
+ldif_types:
+  - configuration
+  - import 

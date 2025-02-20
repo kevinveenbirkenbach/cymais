@@ -1,0 +1,39 @@
+#######################################################################
+# Container for Application Roles (if not already created)
+#######################################################################
+dn: {{ ldap.dn.application_roles }}
+objectClass: organizationalUnit
+ou: roles
+description: Container for application access profiles
+
+#######################################################################
+# Create Admin User
+#######################################################################
+dn: uid={{administrator_username}},{{ldap.dn.users}}
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: posixAccount
+uid: {{administrator_username}}
+sn: Administrator
+cn: Administrator
+userPassword: {SSHA}CHANGE_THIS_PASSWORD
+loginShell: /bin/bash
+homeDirectory: /home/admin
+
+#######################################################################
+# Add Admin User to All Application Role Groups
+#######################################################################
+{# Loop over each application defined in defaults_applications #}
+{% for app, config in defaults_applications.items() %}
+
+dn: cn={{ app }}-administrator,{{ ldap.dn.application_roles }}
+changetype: modify
+add: roleOccupant
+roleOccupant: uid={{administrator_username}},{{ldap.dn.users}}
+
+dn: cn={{ app }}-user,{{ ldap.dn.application_roles }}
+changetype: modify
+add: roleOccupant
+roleOccupant: uid={{administrator_username}},{{ldap.dn.users}}
+
+{% endfor %}
