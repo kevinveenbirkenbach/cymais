@@ -1,6 +1,5 @@
 ## Enable Central Postgress and MariaDB instead of dedicated container per application
 enable_central_database:          true
-enable_central_database_mailu:    "{{enable_central_database}}"
 
 ## Enable Storage Optimizer for Docker Volumes
 enable_system_storage_optimizer:  true

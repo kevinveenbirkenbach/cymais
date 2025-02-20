@@ -24,8 +24,8 @@
 
 - name: Include OIDC-specific tasks
   include_tasks: oidc.yml
-  when: oidc.enabled | bool
+  when: applications[application_id].oidc.enabled | bool
 
-#- name: Include LDAP specific tasks
-#  include_tasks: ldap.yml
-#  when: ldap.enabled | bool
+- name: Include LDAP specific tasks
+  include_tasks: ldap.yml
+  when: applications[application_id].ldap_enabled | bool

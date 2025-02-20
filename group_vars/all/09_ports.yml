@@ -55,3 +55,7 @@ ports:
       gitlab:        2202
     ldaps:
       openldap:      636
+    stun:   
+      bigbluebutton: 3478 # Not sure if it's right placed here or if it should be moved to localhost section
+    turn:
+      bigbluebutton: 5349 # Not sure if it's right placed here or if it should be moved to localhost section

@@ -30,7 +30,9 @@ defaults_applications:
   ## Big Blue Button
   bigbluebutton:
     enable_greenlight:    "true"
-    setup:                false # Set to true in inventory file for initial setup
+    setup:                false                           # Set to true in inventory file for initial setup
+    oidc:
+      enabled:               true                         # Activate OIDC
 
   ## Bluesky
   bluesky:
@@ -47,15 +49,19 @@ defaults_applications:
     container:  "discourse_application"       # Name of the container application
     repository: "discourse_repository"        # Name of the repository folder
     # database_password:                      # Needs to be defined in inventory file
+    oidc:
+      enabled:               true             # Activate OIDC
 
   ## Friendica
   friendica:
     version:              "latest"
+    oidc:
+      enabled:               true             # Activate OIDC. Plugin is not working yet
 
   ## Funkwhale
   funkwhale:
     version:        "1.4.0"
-    ldap_enabled:   True    # Enables LDAP by default 
+    ldap_enabled:   True                      # Enables LDAP by default 
 
   ## Gitea
   gitea:
@@ -107,6 +113,16 @@ defaults_applications:
     version:                          "latest"                                  # Docker Image version
     setup:                            false                                     # Set true in inventory file to execute the setup and initializing procedures
 
+  mailu:
+    oidc:
+      enabled:                        true                                      # Activate OIDC for Mailu
+    domain:                           "{{primary_domain}}"                      # The main domain from which mails will be send \ email suffix behind @
+    # I don't know why the database deactivation is necessary
+    enable_central_database:          False                                     # Deactivate central database for mailu
+#    secret_key:                                                                # Needs to be set in inventory file
+#    database_password:                                                         # Needs to be set in inventory file
+#    api_token:                                                                 # Needs to be set in inventory file
+
   ## MariaDB
   mariadb:
     version:                          "latest"
@@ -126,6 +142,8 @@ defaults_applications:
     version:                          "latest"
     single_user_mode:                 false                         # Set true for initial setup
     setup:                            false                         # Set true in inventory file to execute the setup and initializing procedures
+    oidc:
+      enabled:               true                                   # Activate OIDC for Mailu
 #
 # Check out the README.md of the docker-mastodon role to get detailled instructions about how to setup the credentials
 #
@@ -173,8 +191,10 @@ defaults_applications:
   ## Nextcloud
   nextcloud:
     version:              "production"  # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
-    ldap_enabled:         True          # Enables LDAP by default
+    ldap_enabled:         True          # Enables LDAP by default, missing ansible setup tasks @todo setup
 #   database_password:    Null          # Needs to be set in inventory file
+    oidc:
+      enabled:            true          # Activate OIDC for Nextcloud
 
   ## OAuth2 Proxy
   oauth2_proxy:

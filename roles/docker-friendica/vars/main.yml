@@ -1,4 +1,4 @@
 application_id:     "friendica"
 database_password:  "{{friendica_database_password}}"
 database_type:      "mariadb"
-no_validation:      "{{oidc.enabled}}"                # Email validation is not neccessary if OIDC is active
+no_validation:      "{{applications[application_id].oidc.enabled}}" # Email validation is not neccessary if OIDC is active

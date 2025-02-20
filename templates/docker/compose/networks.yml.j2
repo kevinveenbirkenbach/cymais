@@ -9,7 +9,7 @@ networks:
     external: true
 {% endif %}
   default:
-{% if applications[application_id].ldap_enabled is defined and applications[application_id].ldap_enabled | bool and applications.ldap.openldap.network.local | bool %}
+{% if application_id in networks.local and networks.local[application_id].subnet is defined %}
     driver: bridge
     ipam:
       driver: default
