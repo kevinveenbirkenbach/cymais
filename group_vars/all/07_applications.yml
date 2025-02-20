@@ -190,6 +190,7 @@ defaults_applications:
 #   database_password:    Null          # Needs to be set in inventory file
     oidc:
       enabled:            true          # Activate OIDC for Nextcloud
+    force_import:         False         # Forces the import of the LDIF files
 
   ## OAuth2 Proxy
   oauth2_proxy:

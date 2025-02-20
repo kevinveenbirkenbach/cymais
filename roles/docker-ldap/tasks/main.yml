@@ -64,3 +64,8 @@
     mode: '770'
   loop: "{{ lookup('fileglob', '{{ role_path }}/templates/ldif/*.j2', wantlist=True) }}"
   notify: Import LDIF files
+
+- name: Force LDIF files import
+  command: /bin/true
+  notify: Import LDIF files
+  when: applications.ldap.force_import | bool
