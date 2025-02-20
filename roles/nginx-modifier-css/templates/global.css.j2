@@ -866,10 +866,12 @@ html.ng-csp header#header{
     color: var(--color-90);
 }
 
+.files-list__row-name button, button.button-vue{
+    background: transparent;
+}
+
 html.ng-csp div#postsetupchecks ul.info{
     background-color: transparent;
-    /* New Gradient with transparent values */
-    background: linear-gradient({{ range(0, 361) | random }}deg, transparent, transparent, transparent, transparent);
 }
 
 div#mastodon .column-link{
@@ -919,15 +921,11 @@ header.op-app-header{
 /** Open Project **/
 div#wrapper button, div#wrapper input, button.top-menu-search-button, div.menu-sidebar a{
     background-color: transparent;
-    /* New Gradient with transparent values */
-    background: linear-gradient({{ range(0, 361) | random }}deg, transparent, transparent, transparent, transparent);
 }
 
  /* Peertube specific configuration */
 .peertube-container button {
     background-color: transparent;
-    /* New Gradient with transparent values */
-    background: linear-gradient({{ range(0, 361) | random }}deg, transparent, transparent, transparent, transparent);
 }
 
 /* Pixelfed */
@@ -940,8 +938,6 @@ div.page-wrapper{
 
 section.main.kanban{
     background-color: transparent;
-    /* New Gradient with transparent values */
-    background: linear-gradient({{ range(0, 361) | random }}deg, transparent, transparent, transparent, transparent);
 }
 
 div.master, div.kanban-header, div.kanban-table-inner, section.kanban button,a.dropdown-project-list-projects{

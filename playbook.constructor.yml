@@ -45,9 +45,14 @@
     set_fact:
       service_provider: "{{ defaults_service_provider | combine(service_provider | default({}, true), recursive=True) }}"
 
-  - name: print oidc dict
+  - name: "Merged Variables"
+    # Add new merged variables here
     debug:
-      var: oidc
+      msg:
+        domains:              "{{domains}}"
+        applications:         "{{applications}}"
+        oidc:                 "{{oidc}}"
+        service_provider:     "{{service_provider}}"
     when: enable_debug | bool
 
 - name: update device
