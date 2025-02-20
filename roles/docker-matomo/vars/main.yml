@@ -1,7 +1,7 @@
 ---
 application_id:  	  "matomo"
 database_type:      "mariadb"
-database_password:  "{{matomo_database_password}}"
+database_password:  "{{applications.matomo.database_password}}"
 domain:             "{{domains.matomo}}"            # Don't know if this is still necessary
 
 # Disable matomo tracking for matomo, because otherwise recursiv loading technics would be neccessary

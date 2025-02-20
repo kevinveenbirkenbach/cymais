@@ -115,7 +115,9 @@ defaults_applications:
   matomo:
     version:                          "latest"
     oauth2_proxy:
-      enabled:                        false                                     # Deactivated atm. @todo implement 
+      enabled:                        false                         # Deactivated atm. @todo implement 
+#   database_password:                Null                          # Needs to be set in inventory file
+#   auth_token:                       Null                          # Needs to be set in inventory file
 
   ## Mastodon
   mastodon:
