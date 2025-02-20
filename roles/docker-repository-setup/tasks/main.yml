@@ -1,7 +1,6 @@
-- name: Set default docker_repository_path if not defined
+- name: Set default docker_repository_path
   set_fact:
     docker_repository_path: "{{docker_compose.directories.services}}repository/"
-  when: docker_repository_path is not defined
 
 - name: pull docker repository
   git:

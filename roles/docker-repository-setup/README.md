@@ -5,7 +5,7 @@ This Ansible role sets up and manages your Docker repository. It ensures that th
 ## Features 🔧
 
 - **Default Path Setup:**  
-  Automatically sets a default `docker_repository_path` if not already defined.
+  Automatically sets a default `docker_repository_path`
 
 - **Repository Management:**  
   Clones or updates your Docker repository from a specified Git repository.
@@ -33,12 +33,6 @@ Ensure that you have set the following variables (either via your inventory, `gr
 - `docker_repository_address`: The Git repository URL of your Docker repository.
 - `docker_compose.directories.services`: The base directory where your Docker services are stored.  
   The role will append `repository/` to this path to form `docker_repository_path`.
-
-If `docker_repository_path` is not defined, the role will automatically set it to:
-  
-```yaml
-"{{ docker_compose.directories.services }}repository/"
-```
 
 ## Author
 
