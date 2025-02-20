@@ -585,7 +585,7 @@ input:invalid,
 textarea:invalid,
 select:invalid {
     background-color: var(--color-01);
-    background: linear-gradient(45deg, var(--color-01), var(--color-10));
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-01), var(--color-10));
     /* Use Bootstrap danger color for error messages */
     color: var(--bs-danger);
     border-color: var(--color-20);
@@ -596,7 +596,7 @@ input:valid,
 textarea:valid,
 select:valid {
     background-color: var(--color-80);
-    background: linear-gradient(45deg, var(--color-80), var(--color-90));
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-80), var(--color-90));
     /* Use Bootstrap success color for confirmation messages */
     color: var(--bs-success);
     border-color: var(--color-70);
@@ -607,7 +607,7 @@ input:required,
 textarea:required,
 select:required {
     background-color: var(--color-50);
-    background: linear-gradient(45deg, var(--color-50), var(--color-60));
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-50), var(--color-60));
     /* Use Bootstrap warning color to indicate a required field */
     color: var(--bs-warning);
     border-color: var(--color-70);
@@ -618,7 +618,7 @@ input:optional,
 textarea:optional,
 select:optional {
     background-color: var(--color-60);
-    background: linear-gradient(45deg, var(--color-60), var(--color-70));
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-60), var(--color-70));
     /* Use Bootstrap info color to indicate optional information */
     color: var(--bs-info);
     border-color: var(--color-70);
@@ -629,7 +629,7 @@ input:read-only,
 textarea:read-only,
 select:read-only {
     background-color: var(--color-80);
-    background: linear-gradient(45deg, var(--color-90), var(--color-70));
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-90), var(--color-70));
     color: var(--color-20);
     border-color: var(--color-50);
 }
@@ -639,7 +639,7 @@ input:read-write,
 textarea:read-write,
 select:read-write {
     background-color: var(--color-70);
-    background: linear-gradient(45deg, var(--color-70), var(--color-80));
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-70), var(--color-80));
     color: var(--color-40);
     border-color: var(--color-70);
 }
@@ -649,7 +649,7 @@ input:in-range,
 textarea:in-range,
 select:in-range {
     background-color: var(--color-70);
-    background: linear-gradient(45deg, var(--color-70), var(--color-85));
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-70), var(--color-85));
     color: var(--color-40);
     border-color: var(--color-70);
 }
