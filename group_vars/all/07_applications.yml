@@ -118,6 +118,8 @@ defaults_applications:
       enabled:                        false                         # Deactivated atm. @todo implement 
 #   database_password:                Null                          # Needs to be set in inventory file
 #   auth_token:                       Null                          # Needs to be set in inventory file
+    css:
+      enabled:       false                                          # The css isn't optimized yet for Matomo
 
   ## Mastodon
   mastodon:

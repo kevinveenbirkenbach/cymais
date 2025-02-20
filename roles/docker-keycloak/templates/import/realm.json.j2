@@ -835,7 +835,7 @@
       "secret": "{{oidc.client.secret}}",
       "redirectUris": [
         {%- set redirect_uris = [] -%}
-        {%- for application, domain in defaults_domains.items() -%}
+        {%- for application, domain in domains.items() -%}
           {%- if applications[application_id] is defined and applications | get_oauth2_enabled(application_id) -%}
             {%- if domain is string -%}
               {%- set _ = redirect_uris.append("https://" ~ domain ~ "/*") -%}

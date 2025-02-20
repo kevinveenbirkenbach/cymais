@@ -14,13 +14,6 @@ HINT:
         --color-{{ "%02d"|format(i) }}: {{ design.css.colors.base | adjust_color(target_lightness=(i / 100),saturation_change=design.css.filters.saturation_change,hue_shift=design.css.filters.hue_shift) }};
         --color-rgb-{{ "%02d"|format(i) }}: {{ design.css.colors.base | adjust_color_rgb(target_lightness=(i / 100),saturation_change=design.css.filters.saturation_change,hue_shift=design.css.filters.hue_shift) }};
     {% endfor %}
-
-    /** Special Action Colors **/
-    --success-color:    {{ design.css.colors.success }};
-    --warning-color:    {{ design.css.colors.warning }};
-    --error-color:      {{ design.css.colors.error }};
-    --info-color:       {{ design.css.colors.info }};
-
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,12 +23,6 @@ HINT:
             --color-{{ "%02d"|format(i) }}: {{ design.css.colors.base | adjust_color(target_lightness=(1 - (i / 100)),saturation_change=design.css.filters.saturation_change,hue_shift=design.css.filters.hue_shift) }};
             --color-rgb-{{ "%02d"|format(i) }}: {{ design.css.colors.base | adjust_color_rgb(target_lightness=(1 - (i / 100)),saturation_change=design.css.filters.saturation_change,hue_shift=design.css.filters.hue_shift) }};
         {% endfor %}
-
-        /** Special Action Colors **/
-        --success-color:    {{ design.css.colors.success | adjust_color(target_lightness=(1 - 0.2)) }};
-        --warning-color:    {{ design.css.colors.warning | adjust_color(target_lightness=(1 - 0.3)) }};
-        --error-color:      {{ design.css.colors.error   | adjust_color(target_lightness=(1 - 0.3)) }};
-        --info-color:       {{ design.css.colors.info    | adjust_color(target_lightness=(1 - 0.2)) }};
     }
 }
 
@@ -62,10 +49,6 @@ HINT:
     --bs-secondary: var(--color-65);
     --bs-body-bg: var(--color-90);
     --bs-body-color: var(--color-40);
-    --bs-danger: var(--error-color);
-    --bs-warning: var(--warning-color);
-    --bs-success: var(--success-color);
-    --bs-info: var(--info-color);
     --bs-link-color: var(--color-50);
     --bs-btn-color: var(--color-40);
 }
@@ -275,8 +258,13 @@ HINT:
   --pf-v5-global--icon--Color--dark--light:    var(--color-99);
   --pf-v5-global--icon--Color--light--dark:    var(--color-40);
   --pf-v5-global--icon--Color--dark--dark:     var(--color-10);
+
 }
 
+/* Additional Keykloak Configuration */
+a.pf-v5-c-nav__link{
+    --pf-v5-c-nav__link--BackgroundColor: rgba(var(--color-rgb-56), 0.4);
+}
 
 /* gitea */
 :root {
@@ -577,26 +565,6 @@ h1, h2, h3, h4, h5, h6, p{
     color: var(--color-10) !important;
 }
 
-/* Bootstrap */
-
-/* States: Success, Warning, Error, Info (Background and Text Colors) */
-.success, .alert-success {
-    background-color: var(--success-color) !important;
-    color: var(--color-40) !important;
-}
-.warning, .alert-warning {
-    background-color: var(--warning-color) !important;
-    color: var(--color-40) !important;
-}
-.error, .alert-danger {
-    background-color: var(--error-color) !important;
-    color: var(--color-40) !important;
-}
-.info, .alert-info {
-    background-color: var(--info-color) !important;
-    color: var(--color-40) !important;
-}
-
 /* Navigation (Background and Text Colors) */
 .navbar, .navbar-light, .navbar-dark {
     background-color:   var(--color-90) !important;
@@ -664,10 +632,6 @@ html.ng-csp header#header{
     background-color:   var(--color-80) !important;
 }
 
-html.ng-csp div#postsetupchecks ul.warnings{
-    color: var(--error-color) !important;
-}
-
 html.ng-csp div#postsetupchecks ul.info{
     background-color: transparent !important;
 }
@@ -733,7 +697,7 @@ section.main.kanban{
 }
 
 div.master, div.kanban-header, div.kanban-table-inner, section.kanban button,a.dropdown-project-list-projects{
-    background-color: var(--info-color) !important;
+    background-color: var(--color-92) !important;
     color: var(--color-40) !important;
 }
 

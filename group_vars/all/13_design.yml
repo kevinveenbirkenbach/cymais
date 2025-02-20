@@ -4,15 +4,6 @@ defaults_design:
     colors:
       # General Colors
       base: "#001f3f"
-      
-      # Sucess Color
-      success:  "#B2D3B2"
-      # As the warning color – a light brown (earth)
-      warning:  "#D2B48C"
-      # For error messages (standard red)
-      error:    "#DC3545"
-      # As the info color – a very light blue (symbolizing the sky)
-      info:     "#F0F8FF"
     filters:
       saturation_change:  70
       hue_shift:          0
