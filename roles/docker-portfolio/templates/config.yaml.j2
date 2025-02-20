@@ -16,7 +16,8 @@ accounts:
       icon:
         class: fa-solid fa-pen-nib
       children:
-{% if service_provider.contact.mastodon is defined %}
+{% if service_provider.contact.mastodon is defined and service_provider.contact.mastodon != "" %}
+
 
       - name: Mastodon
         description: Follow {{ 'our' if service_provider.type == 'legal' else 'my' }} updates on Mastodon.
@@ -26,7 +27,8 @@ accounts:
         identifier: "{{service_provider.contact.mastodon}}"
 
 {% endif %}
-{% if service_provider.contact.bluesky is defined %}
+{% if service_provider.contact.bluesky is defined and service_provider.contact.bluesky != "" %}
+
 
       - name: Bluesky
         description: Follow {{ 'our' if service_provider.type == 'legal' else 'my' }} on Bluesky.
@@ -37,7 +39,7 @@ accounts:
         identifier: "{{service_provider.contact.bluesky}}"
 
 {% endif %}
-{% if service_provider.contact.pixelfed is defined %}
+{% if service_provider.contact.pixelfed  is defined and service_provider.contact.pixelfed  != "" %}
 
     - name: Pictures
       description: Explore {{ 'our' if service_provider.type == 'legal' else 'my' }} photo gallery on Pixelfed.
@@ -47,7 +49,8 @@ accounts:
       url: "https://{{ service_provider.contact.pixelfed.split('@')[2] }}/@{{ service_provider.contact.pixelfed.split('@')[1] }}"
 
 {% endif %}
-{% if service_provider.contact.peertube is defined %}
+{% if service_provider.contact.peertube  is defined and service_provider.contact.peertube  != "" %}
+
 
     - name: Peertube
       description: Discover {{ 'our' if service_provider.type == 'legal' else 'my' }} videos on Peertube.
@@ -57,7 +60,8 @@ accounts:
       url: "https://{{ service_provider.contact.peertube.split('@')[2] }}/@{{ service_provider.contact.peertube.split('@')[1] }}"
 
 {% endif %}
-{% if service_provider.contact.wordpress is defined %}
+{% if service_provider.contact.wordpress is defined and service_provider.contact.wordpress != "" %}
+
 
     - name: Blog
       description: Read {{ 'our' if service_provider.type == 'legal' else 'my' }} articles and stories.
@@ -67,7 +71,8 @@ accounts:
       url: "https://{{ service_provider.contact.wordpress.split('@')[2] }}/@{{ service_provider.contact.wordpress.split('@')[1] }}"
 
 {% endif %}
-{% if service_provider.legal.source_code is defined %}
+{% if service_provider.contact.source_code is defined and service_provider.contact.source_code != "" %}
+
     
     - name: Our Code
       description: Explore {{ 'our' if service_provider.type == 'legal' else 'my' }} code.
@@ -76,7 +81,8 @@ accounts:
       url: "{{service_provider.legal.source_code}}"
 
 {% endif %}
-{% if service_provider.contact.friendica is defined %}
+{% if service_provider.contact.friendica is defined and service_provider.contact.friendica != "" %}
+
 
   - name: Social Network
     description: Visit {{ 'our' if service_provider.type == 'legal' else 'my' }} friendica profile
@@ -297,7 +303,7 @@ cards:
     class: "fa-solid fa-satellite-dish"
   title: "Matrix"
   text: "Step into the future of communication with Matrix, a dynamic and decentralized platform that delivers secure, real-time messaging and collaboration. Enjoy an innovative ecosystem that energizes your digital interactions and connects you globally."
-  url: https://{{domains.matrix}}
+  url: https://{{domains.matrix_synapse}}
   link_text: "Connect on Matrix Now!"
 
 {% endif %}

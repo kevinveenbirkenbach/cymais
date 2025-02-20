@@ -11,13 +11,15 @@
   include_role: 
     name: docker-repository-setup
 
-- name: Check if host-specific config.yaml exists
+- name: "Check if host-specific config.yaml exists in {{ config_inventory_path }}"
   stat:
     path: "{{ config_inventory_path }}"
+  delegate_to: localhost
+  become: false
   register: config_file
 
 - name: Copy host-specific config.yaml if it exists
-  copy:
+  template:
     src: "{{ config_inventory_path }}"
     dest: "{{docker_repository_path}}/app/config.yaml"
   notify: docker compose project setup

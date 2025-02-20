@@ -561,7 +561,8 @@ div.modal div.modal-content {
 /* Global Defaults (Colors Only) */
 body, html[native-dark-active] {
     background-color: var(--color-93);
-    background: linear-gradient(45deg, var(--color-93), var(--color-91), var(--color-95), var(--color-93));
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-93), var(--color-91), var(--color-95), var(--color-93));
+    background-attachment: fixed;
     color: var(--color-40);
     /* Use the corporate-design font family */
     font-family: "Liberation Sans", Arial, sans-serif;
@@ -685,7 +686,7 @@ input:out-of-range,
 textarea:out-of-range,
 select:out-of-range {
     background-color: var(--color-10);
-    background: linear-gradient(45deg, var(--color-10), var(--color-30));
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-10), var(--color-30));
     color: var(--color-10);
     border-color: var(--color-50);
 }
@@ -695,7 +696,7 @@ input:placeholder-shown,
 textarea:placeholder-shown,
 select:placeholder-shown {
     background-color: var(--color-82);
-    background: linear-gradient(45deg, var(--color-82), var(--color-90));
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-82), var(--color-90));
     color: var(--color-40);
     border-color: var(--color-70);
 }
@@ -705,7 +706,7 @@ input:focus,
 textarea:focus,
 select:focus {
     background-color: var(--color-75);
-    background: linear-gradient(45deg, var(--color-75), var(--color-85));
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-75), var(--color-85));
     color: var(--color-40);
     border-color: var(--color-50);
 }
@@ -715,7 +716,7 @@ input:hover,
 textarea:hover,
 select:hover {
     background-color: var(--color-78);
-    background: linear-gradient(45deg, var(--color-78), var(--color-88));
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-78), var(--color-88));
     color: var(--color-40);
     border-color: var(--color-65);
 }
@@ -725,7 +726,7 @@ input:active,
 textarea:active,
 select:active {
     background-color: var(--color-68);
-    background: linear-gradient(45deg, var(--color-68), var(--color-78));
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-68), var(--color-78));
     color: var(--color-40);
     border-color: var(--color-60);
 }
@@ -733,7 +734,7 @@ select:active {
 /* {# Checked state: specifically for radio buttons and checkboxes when selected. #} */
 input:checked {
     background-color: var(--color-90);
-    background: linear-gradient(45deg, var(--color-90), var(--color-99));
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-90), var(--color-99));
     color: var(--color-40);
     border-color: var(--color-70);
 }
@@ -819,10 +820,8 @@ div#app header, div#app header *{
 
 /** LAM Specific **/
 .lam-vertical-tabs-navigation li, .lam-vertical-tabs-navigation{
-    background-color: transparent;
-    /* New Gradient with transparent values */
-    background: linear-gradient({{ range(0, 361) | random }}deg, transparent, transparent, transparent, transparent);
-    border-color: transparent;
+    background-color: transparent !important;
+    border-color:     transparent;
 }
 
 /* Not changable due to inline css */
