@@ -1,4 +1,3 @@
-Certainly! Below is a README file in English for an Ansible role that includes the tasks you've provided:
 # Root User
 
 ## Overview
@@ -14,16 +13,9 @@ This Ansible role is designed to manage the generation and handling of an SSH ke
 4. **Output the public SSH key**: Debug task to display the SSH public key in the Ansible output.
 5. **Run the user_root tasks once**: Sets a fact to ensure that the tasks for generating and displaying the key are executed only once.
 
-## Usage
-To use this role, include it in your playbook and set any necessary variables in your playbook's `vars` section. Ensure you have the necessary permissions to execute tasks as the root user.
-
-```yaml
-- hosts: servers
-  become: yes
-  roles:
-    - ssh_key_generator_root
-```
-
 ## Important Notes
 - Running this role will affect the root user's SSH configuration on the target system. Ensure you understand the implications of modifying root SSH keys.
 - Always test the role in a controlled environment before deploying to production.
+
+## Author
+This role was created by [Kevin Veen-Birkenbach](https://www.veen.world/)

@@ -20,6 +20,13 @@
     msg: "{{ public_key.stdout }}"
   when: not ssh_key.stat.exists and run_once_user_root is not defined
 
+- name: "embed user routines for {{ role_path | basename }}"
+  include_role:
+    name: user
+  vars:
+    user_name:  "root"
+  when: run_once_user_root is not defined
+
 - name: run the user_root tasks once
   set_fact:
     run_once_user_root: true

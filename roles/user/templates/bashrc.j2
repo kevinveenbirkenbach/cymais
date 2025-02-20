@@ -1,0 +1,59 @@
+  GNU nano 8.3                                                                                                                                                                              .bashrc                                                                                                                                                                                         
+#!/bin/bash
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# Set color variables based on the current user
+if [ "$USER" = "root" ]; then
+    HEADER_COLOR="\033[1;31m"      # Bold red for root
+elif [ "$USER" = "administrator" ]; then
+    HEADER_COLOR="\033[1;38;5;208m"  # Bold orange for administrator
+else
+    HEADER_COLOR="\033[1;33m"      # Bold yellow for other users
+fi
+RESET_COLOR="\033[0m"
+
+# Welcome message
+echo -e "${HEADER_COLOR}Welcome, $USER on $HOSTNAME!${RESET_COLOR}"
+echo -e "${HEADER_COLOR}Today is $(date +"%A, %d.%m.%Y %T")${RESET_COLOR}"
+echo ""
+
+# System Load (shows load averages and uptime)
+echo -e "${HEADER_COLOR}System Load:${RESET_COLOR}"
+uptime
+echo ""
+
+# Memory Usage (RAM and swap)
+echo -e "${HEADER_COLOR}Memory Usage:${RESET_COLOR}"
+free -h
+echo ""
+
+# Disk Usage
+echo -e "${HEADER_COLOR}Disk Usage:${RESET_COLOR}"
+df -h
+echo ""
+
+# CPU Information (e.g., model name)
+echo -e "${HEADER_COLOR}CPU Information:${RESET_COLOR}"
+lscpu | grep "Model name"
+echo ""
+
+# Top 5 Processes by CPU Usage
+echo -e "${HEADER_COLOR}Top 5 Processes by CPU Usage:${RESET_COLOR}"
+ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head -n 6
+echo ""
+
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+PS1="\$(if [ \"\$USER\" = \"administrator\" ]; then \
+    echo \"\[\033[4;38;5;208m\]$USER\"; \
+  elif [ \"\$USER\" = \"root\" ]; then \
+    echo \"\[\033[4;5;1;31m\]$USER\"; \
+  else \
+    echo \"\[\033[4;33m\]\$USER\"; \
+  fi)@\$(if [ \"\$USER\" = \"root\" ]; then \
+    echo \"\[\033[1;4;5;32m\]\h\"; \
+  else \
+    echo \"\[\033[1;4;32m\]\h\"; \
+  fi) \[\033[90m\]\$(date +%H:%M:%S)\[\033[0m\]:\[\033[38;5;13m\]\w \[\033[0m\]\$ "

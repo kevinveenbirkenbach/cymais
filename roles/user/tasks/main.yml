@@ -1,0 +1,6 @@
+- name: create .bashrc
+  template:
+    src: "bashrc.j2"
+    dest: "/home/{{user_name}}/.bashrc"
+    owner: {{user_name}}
+    group: {{user_name}}

@@ -46,6 +46,13 @@
   notify: sshd restart
   when: run_once_user_administrator is not defined
 
+- name: "embed user routines for {{ role_path | basename }}"
+  include_role:
+    name: user
+  vars:
+    user_name:  "administrator"
+  when: run_once_user_administrator is not defined
+
 - name: run the user_administrator tasks once
   set_fact:
     run_once_user_administrator: true

@@ -1,0 +1,1 @@
+This role executes tasks which are relevant for all users
