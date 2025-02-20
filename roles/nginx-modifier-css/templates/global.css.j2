@@ -535,7 +535,7 @@ div.modal div.modal-content {
 /* Global Defaults (Colors Only) */
 body, html[native-dark-active] {
     background-color: var(--color-93);
-    background-image: none;
+    background: linear-gradient(45deg, var(--color-93), var(--color-91), var(--color-95), var(--color-93));
     color: var(--color-40);
     /* Use the corporate-design font family */
     font-family: "Liberation Sans", Arial, sans-serif;
@@ -570,6 +570,7 @@ a:active {
    Now using a button background that is only slightly darker than the overall background */
 html[native-dark-active] button, html[native-dark-active] .btn, button, .btn {
     background-color: var(--color-87);
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-70), var(--color-91), var(--color-95), var(--color-95));
     color: var(--color-50);
     border-color: var(--color-80);
     cursor: pointer;
@@ -579,14 +580,136 @@ button:hover, .btn:hover {
     filter: brightness(0.9);
 }
 
-/* Inputs & Forms in Light Mode (Using a Light Tone from the Corporate Design) */
-input, textarea, select {
-    background-color: var(--color-82);  /* Instead of var(--color-90) */
+/* {# Invalid state: when the input value fails validation criteria. Use danger color for error indication. #} */
+input:invalid,
+textarea:invalid,
+select:invalid {
+    background-color: var(--color-01);
+    background: linear-gradient(45deg, var(--color-01), var(--color-10));
+    /* Use Bootstrap danger color for error messages */
+    color: var(--bs-danger);
+    border-color: var(--color-20);
+}
+
+/* {# Valid state: when the input value meets all validation criteria. Use success color for confirmation. #} */
+input:valid,
+textarea:valid,
+select:valid {
+    background-color: var(--color-80);
+    background: linear-gradient(45deg, var(--color-80), var(--color-90));
+    /* Use Bootstrap success color for confirmation messages */
+    color: var(--bs-success);
+    border-color: var(--color-70);
+}
+
+/* {# Required field: applied to elements that must be filled out by the user. Use warning color for emphasis. #} */
+input:required,
+textarea:required,
+select:required {
+    background-color: var(--color-50);
+    background: linear-gradient(45deg, var(--color-50), var(--color-60));
+    /* Use Bootstrap warning color to indicate a required field */
+    color: var(--bs-warning);
+    border-color: var(--color-70);
+}
+
+/* {# Optional field: applied to elements that are not mandatory. Use info color to denote additional information. #} */
+input:optional,
+textarea:optional,
+select:optional {
+    background-color: var(--color-60);
+    background: linear-gradient(45deg, var(--color-60), var(--color-70));
+    /* Use Bootstrap info color to indicate optional information */
+    color: var(--bs-info);
+    border-color: var(--color-70);
+}
+
+/* {# Read-only state: when an element is not editable by the user. #} */
+input:read-only,
+textarea:read-only,
+select:read-only {
+    background-color: var(--color-80);
+    background: linear-gradient(45deg, var(--color-90), var(--color-70));
+    color: var(--color-20);
+    border-color: var(--color-50);
+}
+
+/* {# Read-write state: when an element is editable by the user. #} */
+input:read-write,
+textarea:read-write,
+select:read-write {
+    background-color: var(--color-70);
+    background: linear-gradient(45deg, var(--color-70), var(--color-80));
     color: var(--color-40);
     border-color: var(--color-70);
 }
-input:focus, textarea:focus, select:focus {
+
+/* {# In-range: for inputs with a defined range, when the value is within the allowed limits. #} */
+input:in-range,
+textarea:in-range,
+select:in-range {
+    background-color: var(--color-70);
+    background: linear-gradient(45deg, var(--color-70), var(--color-85));
+    color: var(--color-40);
+    border-color: var(--color-70);
+}
+
+/* {# Out-of-range: for inputs with a defined range, when the value falls outside the allowed limits. #} */
+input:out-of-range,
+textarea:out-of-range,
+select:out-of-range {
+    background-color: var(--color-10);
+    background: linear-gradient(45deg, var(--color-10), var(--color-30));
+    color: var(--color-10);
     border-color: var(--color-50);
+}
+
+/* {# Placeholder-shown: when the input field is displaying its placeholder text. #} */
+input:placeholder-shown,
+textarea:placeholder-shown,
+select:placeholder-shown {
+    background-color: var(--color-82);
+    background: linear-gradient(45deg, var(--color-82), var(--color-90));
+    color: var(--color-40);
+    border-color: var(--color-70);
+}
+
+/* {# Focus state: when the element is focused by the user. #} */
+input:focus,
+textarea:focus,
+select:focus {
+    background-color: var(--color-75);
+    background: linear-gradient(45deg, var(--color-75), var(--color-85));
+    color: var(--color-40);
+    border-color: var(--color-50);
+}
+
+/* {# Hover state: when the mouse pointer is over the element. #} */
+input:hover,
+textarea:hover,
+select:hover {
+    background-color: var(--color-78);
+    background: linear-gradient(45deg, var(--color-78), var(--color-88));
+    color: var(--color-40);
+    border-color: var(--color-65);
+}
+
+/* {# Active state: when the element is being activated (e.g., clicked). #} */
+input:active,
+textarea:active,
+select:active {
+    background-color: var(--color-68);
+    background: linear-gradient(45deg, var(--color-68), var(--color-78));
+    color: var(--color-40);
+    border-color: var(--color-60);
+}
+
+/* {# Checked state: specifically for radio buttons and checkboxes when selected. #} */
+input:checked {
+    background-color: var(--color-90);
+    background: linear-gradient(45deg, var(--color-90), var(--color-99));
+    color: var(--color-40);
+    border-color: var(--color-70);
 }
 
 /* Tables (Borders and Header Colors) */
@@ -665,14 +788,31 @@ div#app header, div#app header *{
     color: #000000;
 }
 
+.titleBar {
+    background-image:   linear-gradient(var(--color-83), var(--color-92));
+    border-top-color:   var(--color-78);
+    border-left-color:  var(--color-87);
+    border-right-color: var(--color-87);
+}
+
+div.statusInfo {
+    background-color: var(--color-81);
+    color:            var(--color-23);
+}
+
 /** Mailu **/
 [class*=sidebar-dark-], .bg-mailu-logo {
     background-color: var(--color-90) !important;
 }
 
+/** Lead to errors in portfolio
 .content-wrapper, .main-footer {
     background-color: var(--color-92);
     color: var(--color-18);
+} */
+
+div.statusError {
+    background-color:   var(--color-60);
 }
 
 /** Nextcloud specific **/
