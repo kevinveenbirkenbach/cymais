@@ -2,21 +2,29 @@
 
 # Set color variables for the welcome text based on the current user
 if [ "$USER" = "root" ]; then
-    HEADER_COLOR="\033[1;31m"      # Bold red for root
+    HEADER_COLOR="\033[1;31m"             # Bold red for root
 elif [ "$USER" = "administrator" ]; then
-    HEADER_COLOR="\033[1;38;5;208m"  # Bold orange for administrator
+    HEADER_COLOR="\033[1;38;5;208m"       # Bold orange for administrator
 else
-    HEADER_COLOR="\033[1;33m"      # Bold yellow for other users
+    HEADER_COLOR="\033[1;33m"             # Bold yellow for other users
 fi
 RESET_COLOR="\033[0m"
 
 # Color code for the hostname (set to green, bold, underlined, and blinking)
-HOSTNAME_COLOR="\[\033[1;4;5;32m\]"
+# (Note: \[ and \] are used for PS1 only; for echo, use plain escapes)
+HOSTNAME_COLOR="\033[1;4;5;32m"
+
+clear
 
 # Print welcome message
 echo -e "${HEADER_COLOR}Welcome, $USER on ${HOSTNAME_COLOR}$HOSTNAME!${RESET_COLOR}"
-echo ""
 echo -e "${HEADER_COLOR}Today is $(date +"%A, %d.%m.%Y %T")${RESET_COLOR}"
+echo -e "\033[94mPowered by: CyMaIS - Cyber Master Infrastructure Solutions!"
+echo -e "\033[1;31mWARNING: This software is not to be used for generating commercial profits.\033[94m"
+echo -e "If you require a license for commercial use, please contact Kevin Veen-Birkenbach, the author and copyright holder.\n"
+echo -e "More Information:"
+echo -e "- About CyMaIS:      \033[35mhttps://s.veen.world/cymais\033[94m"
+echo -e "- About the author:  \033[35mhttps://www.veen.world\033[94m"
 echo ""
 
 # System Load (shows load averages and uptime)
@@ -56,11 +64,12 @@ if [ "$USER" = "root" ]; then
 elif [ "$USER" = "administrator" ]; then
     PROMPT_USER_COLOR="\[\033[4;38;5;208m\]"      # Underlined, bold orange for administrator
 else
-    PROMPT_USER_COLOR="\[\033[33m\]"              # yellow for other users
+    PROMPT_USER_COLOR="\[\033[33m\]"              # Yellow for other users
 fi
 
 # Reset code for the prompt (must be wrapped in \[ \])
 PROMPT_RESET="\[\033[0m\]"
 
 # Configure PS1: username, hostname in green, time and current directory
-PS1="${PROMPT_USER_COLOR}\u${PROMPT_RESET}@${HOSTNAME_COLOR}\h${PROMPT_RESET} \[\033[90m\]\$(date +%H:%M:%S)\[\033[0m\]:\[\033[38;5;13m\]\w ${PROMPT_RESET}\$ "
+PS1="${PROMPT_USER_COLOR}\u${PROMPT_RESET}@\[\033[1;4;5;32m\]\h${PROMPT_RESET} \[\033[90m\]\$(date +%H:%M:%S)\[\033[0m\]:\[\033[38;5;13m\]\w ${PROMPT_RESET}\$ "
+
