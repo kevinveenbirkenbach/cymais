@@ -45,12 +45,38 @@ HINT:
 
 /* Bootstrap Overrides (Color/Shadow Variables Only) */
 :root {
-    --bs-primary: var(--color-50);
-    --bs-secondary: var(--color-65);
-    --bs-body-bg: var(--color-90);
-    --bs-body-color: var(--color-40);
-    --bs-link-color: var(--color-50);
-    --bs-btn-color: var(--color-40);
+    --bs-black: var(--color-01); /* Original tone: Black (#000) */
+    --bs-white: var(--color-99); /* Original tone: White (#fff) */
+    --bs-gray: var(--color-50); /* Original tone: Gray (#6c757d) */
+    --bs-gray-dark: var(--color-20); /* Original tone: Dark Gray (#343a40) */
+    --bs-gray-100: var(--color-95); /* Original tone: Very Light Gray (#f8f9fa) */
+    --bs-gray-200: var(--color-90); /* Original tone: Lighter Gray (#e9ecef) */
+    --bs-gray-300: var(--color-85); /* Original tone: Light Gray (#dee2e6) */
+    --bs-gray-400: var(--color-80); /* Original tone: Gray (#ced4da) */
+    --bs-gray-500: var(--color-70); /* Original tone: Medium Gray (#adb5bd) */
+    --bs-gray-600: var(--color-50); /* Original tone: Gray (#6c757d) */
+    --bs-gray-700: var(--color-40); /* Original tone: Darker Gray (#495057) */
+    --bs-gray-800: var(--color-20); /* Original tone: Dark Gray (#343a40) */
+    --bs-gray-900: var(--color-10); /* Original tone: Very Dark Gray (#212529) */
+    --bs-primary: var(--color-65); /* Original tone: Blue (#0d6efd) */
+    --bs-light: var(--color-95); /* Original tone: Light (#f8f9fa) */
+    --bs-dark: var(--color-10); /* Original tone: Dark (#212529) */
+    --bs-primary-rgb: var(--color-rgb-65); /* Original tone: Blue (13, 110, 253) */
+    --bs-secondary-rgb: var(--color-rgb-50); /* Original tone: Grayish (#6c757d / 108, 117, 125) */
+    --bs-light-rgb: var(--color-rgb-95); /* Original tone: Light (248, 249, 250) */
+    --bs-dark-rgb: var(--color-rgb-10); /* Original tone: Dark (33, 37, 41) */
+    --bs-white-rgb: var(--color-rgb-99); /* Original tone: White (255, 255, 255) */
+    --bs-black-rgb: var(--color-rgb-01); /* Original tone: Black (0, 0, 0) */
+    --bs-body-color-rgb: var(--color-rgb-10); /* Original tone: Dark (#212529 / 33, 37, 41) */
+    --bs-body-bg-rgb: var(--color-rgb-99); /* Original tone: White (#fff / 255, 255, 255) */
+    --bs-body-color: var(--color-10); /* Original tone: Dark (#212529) */
+    --bs-body-bg: var(--color-99); /* Original tone: White (#fff) */
+    --bs-border-color: var(--color-85); /* Original tone: Gray (#dee2e6) */
+    --bs-link-color: var(--color-65); /* Original tone: Blue (#0d6efd) */
+    --bs-link-hover-color: var(--color-60); /* Original tone: Darker Blue (#0a58ca) */
+    --bs-code-color: var(--color-55); /* Original tone: Pink (#d63384) */
+    --bs-highlight-bg: var(--color-93); /* Original tone: Light Yellow (#fff3cd) */
+    --bs-list-group-bg: var(--color-40);
 }
 
 /* Discourse */
@@ -714,73 +740,89 @@ input:checked {
 
 /* Tables (Borders and Header Colors) */
 th, td {
-    border-color: var(--color-70) !important;
+    border-color: var(--color-70);
 }
 
 thead {
-    background-color: var(--color-80) !important;
-    color: var(--color-40) !important;
+    background-color: var(--color-80);
+    /* New Gradient based on original background (80 -5, 80, 80 +1, 80 +5) */
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-75), var(--color-80), var(--color-81), var(--color-85));
+    color: var(--color-40);
 }
 
 /* Headings (Text Color) */
 h1, h2, h3, h4, h5, h6, p{
-    color: var(--color-10) !important;
+    color: var(--color-10);
 }
 
 /* Navigation (Background and Text Colors) */
 .navbar, .navbar-light, .navbar-dark {
-    background-color:   var(--color-90) !important;
-    color:              var(--color-50) !important;
-    border-color:       var(--color-85) !important;
+    background-color: var(--color-90);
+    /* New Gradient based on original background (90 -5, 90, 90 +1, 90 +5) */
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-85), var(--color-90), var(--color-91), var(--color-95));
+    color: var(--color-50);
+    border-color: var(--color-85);
 }
 
 .navbar a {
-    color: var(--color-40) !important;
+    color: var(--color-40);
 }
 
 .navbar a.dropdown-item {
-    color: var(--color-40) !important;
+    color: var(--color-43);
 }
 
 /* Cards / Containers (Background, Border, and Shadow)
    Cards now use a slightly lighter background and a bold, clear shadow */
 .card {
-    background-color: var(--color-90) !important;
-    border-color: var(--color-85) !important;
+    background-color: var(--color-90);
+    /* New Gradient based on original background (90 -5, 90, 90 +1, 90 +5) */
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-85), var(--color-90), var(--color-91), var(--color-95));
+    border-color: var(--color-85);
 }
 
 .card-body {
-    color: var(--color-40) !important;
+    color: var(--color-40);
 }
 
 /* Dropdown Menu and Submenu (Background, Text, and Shadow) */
 .navbar .dropdown-menu,
 .nav-item .dropdown-menu {
-    background-color: var(--color-80) !important;
-    color: var(--color-40) !important;
+    background-color: var(--color-80);
+    /* New Gradient based on original background (80 -5, 80, 80 +1, 80 +5) */
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-75), var(--color-80), var(--color-81), var(--color-85));
+    color: var(--color-40);
 }
 
 .dropdown-item {
-    color: var(--color-40) !important;
-    background-color: var(--color-80) !important;
+    color: var(--color-40);
+    background-color: var(--color-80);
+    /* New Gradient based on original background (80 -5, 80, 80 +1, 80 +5) */
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-75), var(--color-80), var(--color-81), var(--color-85));
 }
 
 .dropdown-item:hover,
 .dropdown-item:focus {
-    background-color: var(--color-65) !important;
-    color: var(--color-40) !important;
+    background-color: var(--color-65);
+    /* New Gradient based on original background (65 -5, 65, 65 +1, 65 +5) */
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-60), var(--color-65), var(--color-66), var(--color-70));
+    color: var(--color-40);
 }
 
 /* Keycloak Header */
 div#app header, div#app header *{
-    background-color: var(--color-60) !important;
+    background-color: var(--color-60);
+    /* New Gradient based on original background (60 -5, 60, 60 +1, 60 +5) */
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-55), var(--color-60), var(--color-61), var(--color-65));
     color: var(--color-98);
 }
 
 /** LAM Specific **/
 .lam-vertical-tabs-navigation li, .lam-vertical-tabs-navigation{
-    background-color: transparent !important;
-    border-color: transparent !important;
+    background-color: transparent;
+    /* New Gradient with transparent values */
+    background: linear-gradient({{ range(0, 361) | random }}deg, transparent, transparent, transparent, transparent);
+    border-color: transparent;
 }
 
 /* Not changable due to inline css */
@@ -789,40 +831,46 @@ div#app header, div#app header *{
 }
 
 .titleBar {
-    background-image:   linear-gradient(var(--color-83), var(--color-92));
-    border-top-color:   var(--color-78);
-    border-left-color:  var(--color-87);
+    background-image: linear-gradient(var(--color-83), var(--color-92));
+    /* New Gradient based on original background (83 -5, 83, 83 +1, 83 +5) */
+    background-image: linear-gradient({{ range(0, 361) | random }}deg, var(--color-78), var(--color-83), var(--color-84), var(--color-88));
+    border-top-color: var(--color-78);
+    border-left-color: var(--color-87);
     border-right-color: var(--color-87);
 }
 
 div.statusInfo {
     background-color: var(--color-81);
-    color:            var(--color-23);
+    /* New Gradient based on original background (81 -5, 81, 81 +1, 81 +5) */
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-76), var(--color-81), var(--color-82), var(--color-86));
+    color: var(--color-23);
 }
 
 /** Mailu **/
 [class*=sidebar-dark-], .bg-mailu-logo {
-    background-color: var(--color-90) !important;
+    background-color: var(--color-90);
+    /* New Gradient based on original background (90 -5, 90, 90 +1, 90 +5) */
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-85), var(--color-90), var(--color-91), var(--color-95));
 }
 
-/** Lead to errors in portfolio
-.content-wrapper, .main-footer {
-    background-color: var(--color-92);
-    color: var(--color-18);
-} */
-
 div.statusError {
-    background-color:   var(--color-60);
+    background-color: var(--color-60);
+    /* New Gradient based on original background (60 -5, 60, 60 +1, 60 +5) */
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-55), var(--color-60), var(--color-61), var(--color-65));
 }
 
 /** Nextcloud specific **/
 html.ng-csp header#header{
-    color:              var(--color-90) !important;
-    background-color:   var(--color-80) !important;
+    background-color: var(--color-80);
+    /* New Gradient based on original background (80 -5, 80, 80 +1, 80 +5) */
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-75), var(--color-80), var(--color-81), var(--color-85));
+    color: var(--color-90);
 }
 
 html.ng-csp div#postsetupchecks ul.info{
-    background-color: transparent !important;
+    background-color: transparent;
+    /* New Gradient with transparent values */
+    background: linear-gradient({{ range(0, 361) | random }}deg, transparent, transparent, transparent, transparent);
 }
 
 div#mastodon .column-link{
@@ -835,6 +883,8 @@ div#mastodon .column-back-button {
 
 div#mastodon textarea, div#mastodon input, div#mastodon .compose-form__highlightable {
     background-color: var(--color-89);
+    /* New Gradient based on original background (89 -5, 89, 89 +1, 89 +5) */
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-84), var(--color-89), var(--color-90), var(--color-94));
     color: var(--color-19);
 }
 
@@ -851,6 +901,8 @@ div#mastodon .dropdown-button{
 
 div#mastodon .button, div#mastodon .button:active, div#mastodon .button:focus, div#mastodon .button:hover{
     background-color: var(--color-71);
+    /* New Gradient based on original background (71 -5, 71, 71 +1, 71 +5) */
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-66), var(--color-71), var(--color-72), var(--color-76));
 }
 
 .compose-form__actions .icon-button {
@@ -859,47 +911,61 @@ div#mastodon .button, div#mastodon .button:active, div#mastodon .button:focus, d
 
 /** OpenProject **/
 header.op-app-header{
-    background-color: var(--color-40) !important;
-    color: var(--color-40) !important;
+    background-color: var(--color-40);
+    /* New Gradient based on original background (40 -5, 40, 40 +1, 40 +5) */
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-35), var(--color-40), var(--color-41), var(--color-45));
+    color: var(--color-40);
 }
 
 /** Open Project **/
 div#wrapper button, div#wrapper input, button.top-menu-search-button, div.menu-sidebar a{
-    background-color: transparent !important;
+    background-color: transparent;
+    /* New Gradient with transparent values */
+    background: linear-gradient({{ range(0, 361) | random }}deg, transparent, transparent, transparent, transparent);
 }
 
-/* Peertube specific configuration */
+ /* Peertube specific configuration */
 .peertube-container button {
-    background-color: transparent !important;
+    background-color: transparent;
+    /* New Gradient with transparent values */
+    background: linear-gradient({{ range(0, 361) | random }}deg, transparent, transparent, transparent, transparent);
 }
 
 /* Pixelfed */
 div.page-wrapper{
-    background: none !important;
-    background-color: none !important;
+    background: none;
+    background-color: none;
 }
 
 /** Taiga specific configuration  **/
 
 section.main.kanban{
-    background-color: transparent !important;
+    background-color: transparent;
+    /* New Gradient with transparent values */
+    background: linear-gradient({{ range(0, 361) | random }}deg, transparent, transparent, transparent, transparent);
 }
 
 div.master, div.kanban-header, div.kanban-table-inner, section.kanban button,a.dropdown-project-list-projects{
-    background-color: var(--color-92) !important;
-    color: var(--color-40) !important;
+    background-color: var(--color-92);
+    /* New Gradient based on original background (92 -5, 92, 92 +1, 92 +5) */
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-87), var(--color-92), var(--color-93), var(--color-97));
+    color: var(--color-40);
 }
 
 section.kanban h1, section.kanban h2{
-    color: var(--color-40) !important;
+    color: var(--color-40);
 }
 
 .home-project {
     background: var(--color-88);
+    /* New Gradient based on original background (88 -5, 88, 88 +1, 88 +5) */
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-83), var(--color-88), var(--color-89), var(--color-93));
     border-color: var(--color-60);
     color: var(--color-12);
 }
 
 .home-wrapper .title-bar {
     background: var(--color-75);
+    /* New Gradient based on original background (75 -5, 75, 75 +1, 75 +5) */
+    background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-70), var(--color-75), var(--color-76), var(--color-80));
 }
