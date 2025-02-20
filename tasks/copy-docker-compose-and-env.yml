@@ -1,13 +1,24 @@
-- name: "create {{docker_compose.files.docker_compose}}"
+- name: "create {{ docker_compose.files.docker_compose }}"
   template:
-    src:	"docker-compose.yml.j2"
-    dest:	"{{docker_compose.files.docker_compose}}"
+    src: "docker-compose.yml.j2"
+    dest: "{{ docker_compose.files.docker_compose }}"
   notify: docker compose project setup
+  register: docker_compose_template
 
-- name: "create {{docker_compose.files.env}}"
-  template: 
-    src:  "env.j2" 
-    dest: "{{docker_compose.files.env}}"
+- name: "create {{ docker_compose.files.env }}"
+  template:
+    src: "env.j2"
+    dest: "{{ docker_compose.files.env }}"
     mode: '770'
     force: yes
   notify: docker compose project setup
+  register: env_template
+
+- name: Check if docker compose has any running container and trigger setup if needed
+  command: docker compose ps -q --filter status=running
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  register: docker_ps
+  changed_when: (docker_ps.stdout | trim) == ""
+  notify: docker compose project setup
+  when: not (docker_compose_template.changed or env_template.changed)

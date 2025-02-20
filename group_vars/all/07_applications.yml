@@ -114,14 +114,17 @@ defaults_applications:
     setup:                            false                                     # Set true in inventory file to execute the setup and initializing procedures
 
   mailu:
+    version:                          "2024.06"                                 # Docker Image Version
+    setup:                            false                                     # Set true in inventory file to execute the setup and initializing procedures
     oidc:
       enabled:                        true                                      # Activate OIDC for Mailu
     domain:                           "{{primary_domain}}"                      # The main domain from which mails will be send \ email suffix behind @
     # I don't know why the database deactivation is necessary
     enable_central_database:          False                                     # Deactivate central database for mailu
-#    secret_key:                                                                # Needs to be set in inventory file
-#    database_password:                                                         # Needs to be set in inventory file
-#    api_token:                                                                 # Needs to be set in inventory file
+    credentials:                                     
+#     secret_key:                                                               # Needs to be set in inventory file
+#     database_password:                                                        # Needs to be set in inventory file
+#     api_token:                                                                # Needs to be set in inventory file
 
   ## MariaDB
   mariadb:
@@ -143,21 +146,19 @@ defaults_applications:
     single_user_mode:                 false                         # Set true for initial setup
     setup:                            false                         # Set true in inventory file to execute the setup and initializing procedures
     oidc:
-      enabled:               true                                   # Activate OIDC for Mailu
-#
+        enabled:                        true                          # Activate OIDC for Mastodon
+    credentials:
 # Check out the README.md of the docker-mastodon role to get detailled instructions about how to setup the credentials
-#
-#    credentials:
-#      database_password:                              
-#      secret_key_base:                                
-#      otp_secret:                                     
-#      vapid:
-#        private_key:                                  
-#        public_key:                                   
-#      active_record_encryption:
-#        deterministic_key:                            
-#        key_derivation_salt:                          
-#        primary_key:                                  
+#     database_password:                              
+#     secret_key_base:                                
+#     otp_secret:                                     
+#     vapid:
+#       private_key:                                  
+#       public_key:                                   
+#     active_record_encryption:
+#       deterministic_key:                            
+#       key_derivation_salt:                          
+#       primary_key:                                  
 
   ## Matrix
   matrix:
@@ -169,12 +170,6 @@ defaults_applications:
       version:                        "latest"
     element:
       version:                        "latest"
-    setup:                            false                         # Set true in inventory file to execute the setup and initializing procedures
-
-  ## Mailu
-  mailu:
-    version:                          "2024.06"
-    domain:                           "{{primary_domain}}"
     setup:                            false                         # Set true in inventory file to execute the setup and initializing procedures
 
   ## Moodle

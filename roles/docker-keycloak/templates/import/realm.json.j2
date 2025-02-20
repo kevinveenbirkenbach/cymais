@@ -834,19 +834,17 @@
       "clientAuthenticatorType": "client-secret",
       "secret": "{{oidc.client.secret}}",
       "redirectUris": [
-        {%- set redirect_uris = [] -%}
         {%- for application, domain in domains.items() -%}
           {%- if applications[application_id] is defined and applications | get_oauth2_enabled(application_id) -%}
             {%- if domain is string -%}
-              {%- set _ = redirect_uris.append("https://" ~ domain ~ "/*") -%}
+                "https://" {{ domain }} "/*",
             {%- else -%}
               {%- for d in domain -%}
-                {%- set _ = redirect_uris.append("https://" ~ domain ~ "/*") -%}
+                "https://" {{ domain }} "/*",
               {%- endfor -%}
             {%- endif -%}
           {%- endif -%}
         {%- endfor -%}
-        {{ redirect_uris | map('tojson') | join(",\n") }}
       ],
 
       "webOrigins": [

@@ -31,4 +31,6 @@ docker exec -it central-postgres psql -U postgres
 
 ## Notes
 - The PostgreSQL server is bound to `127.0.0.1:5432` on the host machine, making it accessible only from localhost.
-- Ensure that the provided passwords are secure and stored securely, preferably using Ansible Vault or another encryption method.
+
+## Author
+This role was created by [Kevin Veen-Birkenbach](https://www.veen.world).

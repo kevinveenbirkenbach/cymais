@@ -18,5 +18,5 @@
 
 - name: create central database
   include_role:
-    name: docker-{{database_type}}
+    name: "docker-{{database_type}}"
   when: enable_central_database | bool

@@ -2,6 +2,8 @@
   docker_network:
     name: central_mariadb
     state: present
+    ipam_config:
+      - subnet: "{{ networks.local.mariadb.subnet }}"
   when: run_once_docker_mariadb is not defined
 
 - name: install MariaDB

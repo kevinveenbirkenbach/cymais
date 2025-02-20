@@ -1,6 +1,6 @@
 - name: create .bashrc
   template:
     src: "bashrc.j2"
-    dest: "/home/{{user_name}}/.bashrc"
+    dest: "{{ '/root/.bashrc' if user_name == 'root' else '/home/' ~ user_name ~ '/.bashrc' }}"
     owner: "{{user_name}}"
     group: "{{user_name}}"

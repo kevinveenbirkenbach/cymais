@@ -2,6 +2,8 @@
   docker_network:
     name: central_postgres
     state: present
+    ipam_config:
+      - subnet: "{{ networks.local.postgres.subnet }}"
   when: run_once_docker_postgres is not defined
 
 - name: Install PostgreSQL

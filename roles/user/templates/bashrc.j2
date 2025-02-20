@@ -1,10 +1,6 @@
-  GNU nano 8.3                                                                                                                                                                              .bashrc                                                                                                                                                                                         
 #!/bin/bash
 
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
-
-# Set color variables based on the current user
+# Set color variables for the welcome text based on the current user
 if [ "$USER" = "root" ]; then
     HEADER_COLOR="\033[1;31m"      # Bold red for root
 elif [ "$USER" = "administrator" ]; then
@@ -14,8 +10,12 @@ else
 fi
 RESET_COLOR="\033[0m"
 
-# Welcome message
-echo -e "${HEADER_COLOR}Welcome, $USER on $HOSTNAME!${RESET_COLOR}"
+# Color code for the hostname (set to green, bold, underlined, and blinking)
+HOSTNAME_COLOR="\[\033[1;4;5;32m\]"
+
+# Print welcome message
+echo -e "${HEADER_COLOR}Welcome, $USER on ${HOSTNAME_COLOR}$HOSTNAME!${RESET_COLOR}"
+echo ""
 echo -e "${HEADER_COLOR}Today is $(date +"%A, %d.%m.%Y %T")${RESET_COLOR}"
 echo ""
 
@@ -44,16 +44,23 @@ echo -e "${HEADER_COLOR}Top 5 Processes by CPU Usage:${RESET_COLOR}"
 ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head -n 6
 echo ""
 
+# Set aliases for colored output for ls and grep
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-PS1="\$(if [ \"\$USER\" = \"administrator\" ]; then \
-    echo \"\[\033[4;38;5;208m\]$USER\"; \
-  elif [ \"\$USER\" = \"root\" ]; then \
-    echo \"\[\033[4;5;1;31m\]$USER\"; \
-  else \
-    echo \"\[\033[4;33m\]\$USER\"; \
-  fi)@\$(if [ \"\$USER\" = \"root\" ]; then \
-    echo \"\[\033[1;4;5;32m\]\h\"; \
-  else \
-    echo \"\[\033[1;4;32m\]\h\"; \
-  fi) \[\033[90m\]\$(date +%H:%M:%S)\[\033[0m\]:\[\033[38;5;13m\]\w \[\033[0m\]\$ "
+
+# --- Prompt Configuration ---
+
+# Define color codes for the username in the prompt based on the current user
+if [ "$USER" = "root" ]; then
+    PROMPT_USER_COLOR="\[\033[4;5;1;31m\]"        # Underlined, bold red for root
+elif [ "$USER" = "administrator" ]; then
+    PROMPT_USER_COLOR="\[\033[4;38;5;208m\]"      # Underlined, bold orange for administrator
+else
+    PROMPT_USER_COLOR="\[\033[33m\]"              # yellow for other users
+fi
+
+# Reset code for the prompt (must be wrapped in \[ \])
+PROMPT_RESET="\[\033[0m\]"
+
+# Configure PS1: username, hostname in green, time and current directory
+PS1="${PROMPT_USER_COLOR}\u${PROMPT_RESET}@${HOSTNAME_COLOR}\h${PROMPT_RESET} \[\033[90m\]\$(date +%H:%M:%S)\[\033[0m\]:\[\033[38;5;13m\]\w ${PROMPT_RESET}\$ "
