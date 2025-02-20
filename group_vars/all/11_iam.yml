@@ -12,7 +12,6 @@ _oidc_client_realm:       "{{ oidc.client.realm if oidc.client is defined and oi
 _oidc_client_issuer_url:  "https://{{domains.keycloak}}/realms/{{_oidc_client_realm}}"
 
 defaults_oidc:
-  enabled:               true # Enable OIDC functionality for all apps 
   client:
     id:                   "{{primary_domain}}"                                              # Client identifier, typically matching your primary domain
 #   secret:                                                                                 # Client secret for authenticating with the OIDC provider (set in the inventory file). Recommend greater then 32 characters
