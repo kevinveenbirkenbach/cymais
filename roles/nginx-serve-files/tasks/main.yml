@@ -1,13 +1,10 @@
 ---
-- name: "include role nginx-modifier-all for {{domains[application_id]}}"
-  include_role: 
-    name: nginx-modifier-all
-
-- name: "include role nginx-https-recieve-certificate for {{domains[application_id]}}"
-  include_role: 
-    name: nginx-https-recieve-certificate
+- name: "include role for {{application_id}} to recieve certs & do modification routines"
+  include_role:
+    name: nginx-https-get-cert-modify-all
   vars:
     domain: "{{domains[application_id]}}"
+    http:   "{{ ports.localhost.http[application_id] }}"
 
 - name: "generate {{domains[application_id]}}.conf"
   template: 

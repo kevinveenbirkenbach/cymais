@@ -1,19 +1,7 @@
-- name: "include role nginx-modifier-all for {{domain}}"
-  include_role: 
-    name: nginx-modifier-all
-
-- name: "Relevant variables for role: {{ role_path | basename }}"
-  debug:
-    msg:
-      domain:       "{{domain}}"
-      domains:      "{{domains}}"
-      applications: "{{applications}}"
-  when: enable_debug | bool
-
-- name: "include role nginx-https-recieve-certificate for {{domain}}"
-  include_role: 
-    name: nginx-https-recieve-certificate
-
+- name: "include role for {{domain}} to recieve certificates and do the modification routines"
+  include_role:
+    name: nginx-https-get-cert-modify-all
+    
 - name: "copy nginx domain configuration to {{configuration_destination}}"
   template: 
     src:  "roles/nginx-docker-reverse-proxy/templates/domain.conf.j2" 

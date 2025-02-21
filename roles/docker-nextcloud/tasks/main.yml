@@ -3,11 +3,12 @@
   include_role: 
     name: docker-central-database
 
-- name: "include role receive certbot certificate"
-  include_role: 
-    name: nginx-https-recieve-certificate
+- name: "include role for {{application_id}} to recieve certs & do modification routines"
+  include_role:
+    name: nginx-https-get-cert-modify-all
   vars:
     domain: "{{domains[application_id]}}"
+    http:   "{{ ports.localhost.http[application_id] }}"
 
 - name: create nextcloud nginx proxy configuration file
   template: 

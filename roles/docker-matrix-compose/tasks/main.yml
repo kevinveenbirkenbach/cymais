@@ -3,9 +3,9 @@
   include_role: 
     name: docker-central-database
 
-- name: "include role receive certbot certificate"
-  include_role: 
-    name: nginx-https-recieve-certificate
+- name: "include role for {{application_id}} to recieve certs & do modification routines"
+  include_role:
+    name: nginx-https-get-cert-modify-all
   vars:
     domain:     "{{domains.matrix_synapse}}"
     http_port:  "{{ports.localhost.http.matrix_synapse}}"
