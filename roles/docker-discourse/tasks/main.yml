@@ -11,8 +11,11 @@
     name: docker-central-database
 
 - name: "include role nginx-domain-setup for {{application_id}}"
-  include_role: 
+  include_role:
     name: nginx-domain-setup
+  vars:
+    domain: 	"{{ domains[application_id] }}"
+    http_port: 	"{{ ports.localhost.http[application_id] }}"
 
 - name: "cleanup central database from {{application_id}}_default network"
   command:

@@ -4,8 +4,11 @@
     name: docker-central-database
 
 - name: "include role nginx-domain-setup for {{application_id}}"
-  include_role: 
+  include_role:
     name: nginx-domain-setup
+  vars:
+    domain: 	"{{ domains[application_id] }}"
+    http_port: 	"{{ ports.localhost.http[application_id] }}"
 
 - name: add docker-compose.yml
   template: src=docker-compose.yml.j2 dest={{docker_compose.directories.instance}}docker-compose.yml

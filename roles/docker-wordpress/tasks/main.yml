@@ -4,13 +4,14 @@
     name: docker-central-database
   
 - name: "include role nginx-domain-setup for {{application_id}}"
-  include_role: 
+  include_role:
     name: nginx-domain-setup
   loop: "{{ domains.wordpress }}"
   loop_control:
     loop_var: domain
   vars:
     nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size {{wordpress_max_upload_size}};"
+    http_port: 	                                    "{{ ports.localhost.http[application_id] }}"
 
 - name: "Transfering upload.ini to {{docker_compose.directories.instance}}"
   template:

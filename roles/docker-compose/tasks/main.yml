@@ -9,11 +9,6 @@
     - domains[application_id] is string
   # Default case: One domain exists. Some applications like matrix don't have an default domain
 
-- name: "Set global http_port to {{ ports.localhost.http[application_id] }}"
-  set_fact:
-    http_port: "{{ ports.localhost.http[application_id] if application_id in ports.localhost.http else None }}"
-  # Default case: One port exists. Some applications like matrix don't have an default port
-
 - name: "remove {{ docker_compose.directories.instance }} and all its contents"
   file:
     path: "{{ docker_compose.directories.instance }}"
