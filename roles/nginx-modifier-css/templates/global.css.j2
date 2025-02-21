@@ -376,8 +376,8 @@ HINT:
   --pf-v5-global--BackgroundColor--dark-200:         var(--color-25);
   --pf-v5-global--BackgroundColor--dark-300:         var(--color-20);
   --pf-v5-global--BackgroundColor--dark-400:         var(--color-30);
-  --pf-v5-global--BackgroundColor--dark-transparent-100: var(--color-05);
-  --pf-v5-global--BackgroundColor--dark-transparent-200: var(--color-05);
+  --pf-v5-global--BackgroundColor--dark-transparent-100: rgba(var(--color-rgb-10),0.7);
+  --pf-v5-global--BackgroundColor--dark-transparent-200: rgba(var(--color-rgb-20),0.8);
 
   /* --- Color Variables --- */
   --pf-v5-global--Color--100:           var(--color-10);
@@ -549,7 +549,6 @@ body#custom-css {
     --textareaBackgroundColor: var(--color-99); /* Original tone: #fff – white */
     --markdownTextareaBackgroundColor: var(--color-91); /* Original tone: #EFEFEF – very light gray */
     --actionButtonColor: var(--color-50); /* Original tone: #585858 – medium gray */
-    --supportButtonBackgroundColor: transparent; /* Original tone: transparent */
     --supportButtonColor: var(--actionButtonColor); /* Original tone: same as actionButtonColor (#585858) */
     --activatedActionButtonColor: var(--color-10); /* Original tone: #212529 – dark gray */
     color: var(--mainForegroundColor);
@@ -867,6 +866,11 @@ div#app header, div#app header *{
 .lam-vertical-tabs-navigation li, .lam-vertical-tabs-navigation{
     background-color: transparent !important;
     border-color:     transparent;
+}
+
+ul.lam-tab-navigation {
+    background: rgba(var(--color-rgb-90), 0.1);
+    border-color:      transparent;
 }
 
 /* Not changable due to inline css */

@@ -19,7 +19,7 @@ defaults_domains:
   keycloak:                "auth.{{primary_domain}}"
   ldap:                    "ldap.{{primary_domain}}"
   listmonk:                "newsletter.{{primary_domain}}"
-  mailu:                   "{{system_email.host}}"
+  mailu:                   "mail.{{primary_domain}}"
   mastodon:                "microblog.{{primary_domain}}"
   # ATTENTION: Will be owerwritten by the values in domains. Not merged.
   mastodon_alternates:    ["mastodon.{{primary_domain}}"]
@@ -54,6 +54,7 @@ defaults_redirect_domain_mappings:
 - { source: "gitea.{{primary_domain}}",       target: "{{domains.gitea}}" }
 - { source: "keycloak.{{primary_domain}}",    target: "{{domains.keycloak}}" }
 - { source: "listmonk.{{primary_domain}}",    target: "{{domains.listmonk}}" }
+- { source: "mail.{{primary_domain}}",        target: "{{domains.mailu}}" }
 - { source: "moodle.{{primary_domain}}",      target: "{{domains.moodle}}" }
 - { source: "nextcloud.{{primary_domain}}",   target: "{{domains.nextcloud}}" }
 - { source: "openproject.{{primary_domain}}", target: "{{domains.openproject}}" }
