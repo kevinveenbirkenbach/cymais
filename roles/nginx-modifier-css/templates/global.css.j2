@@ -8,6 +8,11 @@ HINT:
 
 */
 
+{% if design.font.import_url %}
+@import url('{{design.font.import_url}}');
+{% endif %}
+
+
 :root {
     /** Derived Colors from the Base Color **/
     {% for i in range(1, 100) %}
@@ -435,6 +440,9 @@ HINT:
   --pf-v5-global--icon--Color--light--dark:    var(--color-40);
   --pf-v5-global--icon--Color--dark--dark:     var(--color-10);
 
+  {# Additional Configuration #}
+  --pf-v5-c-button--m-tertiary--BackgroundColor: var(--color-62);
+
 }
 
 /* Additional Keykloak Configuration */
@@ -597,8 +605,7 @@ body, html[native-dark-active] {
     background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-93), var(--color-91), var(--color-95), var(--color-93));
     background-attachment: fixed;
     color: var(--color-40);
-    /* Use the corporate-design font family */
-    font-family: "Liberation Sans", Arial, sans-serif;
+    font-family: {{design.font.type}};
 }
 
 {# All links (applies to all anchor elements regardless of state) #}
