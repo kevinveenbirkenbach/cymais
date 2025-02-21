@@ -21,11 +21,9 @@
 
 - name: flush docker service
   meta: flush_handlers
-  when: applications.mailu.setup |bool 
 
 - name: execute database migration
   command:
-    cmd: "docker compose -p mailu exec admin flask mailu admin admin {{primary_domain}} {{mailu_initial_root_password}}"
+    cmd: "docker compose -p mailu exec admin flask mailu admin admin {{primary_domain}} {{applications.mailu.initial_administrator_password}}"
     chdir: "{{docker_compose.directories.instance}}"
   ignore_errors: true
-  when: applications.mailu.setup |bool 

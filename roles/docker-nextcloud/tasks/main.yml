@@ -14,6 +14,9 @@
     src:  "proxy-nginx.conf.j2" 
     dest: "{{nginx.directories.http.servers}}{{domains[application_id]}}.conf"
   notify: restart nginx
+  vars:
+    domain:    "{{domains[application_id]}}"
+    http_port: "{{ports.localhost.http[application_id]}}"
 
 - name: create internal nextcloud nginx configuration
   template: 

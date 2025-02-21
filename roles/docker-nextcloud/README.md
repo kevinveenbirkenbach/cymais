@@ -84,11 +84,6 @@ docker-compose exec -it database mysql -u nextcloud -D nextcloud -p
 docker-compose run --detach --name database --env MYSQL_USER="nextcloud" --env MYSQL_PASSWORD=PASSWORD --env MYSQL_ROOT_PASSWORD=PASSWORD --env MYSQL_DATABASE="nextcloud" -v nextcloud_database:/var/lib/mysql
 ```
 
-Check the process with:
-```sql
-show processlist;
-```
-
 ---
 
 ## OCC (Nextcloud Command Line) 🔧
@@ -124,6 +119,12 @@ docker-compose exec -it -u www-data application /var/www/html/occ maintenance:mo
 ## OpenID Connect (OIDC) Support 🔐
 
 OIDC is supported in this role—for example, via **Keycloak**. OIDC-specific tasks are included when enabled, allowing integration of external authentication providers seamlessly.
+
+### Verify OIDC Configuration
+
+```bash
+docker compose exec -u www-data application /var/www/html/occ config:app:get sociallogin custom_providers
+```
 
 ## LDAP 
 

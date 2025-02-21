@@ -153,6 +153,7 @@ defaults_applications:
 #     secret_key:                                                               # Set to a randomly generated 16 bytes string
 #     database_password:                                                        # Needs to be set in inventory file
 #     api_token:                                                                # Configures the authentication token. The minimum length is 3 characters. This is a mandatory setting for using the RESTful API.
+#     initial_administrator_password:                                           # Initial administrator password for setup 
 
   ## MariaDB
   mariadb:
@@ -279,6 +280,10 @@ defaults_applications:
   # Please set an version in your inventory file - Rolling release for postgres isn't recommended
   postgres:
     database.version:  "latest"
+
+  portfolio:
+    database:
+      central_storage:  False # Portfolio doesn't use any database
 
   # Snipe-IT
   snipe_it:
