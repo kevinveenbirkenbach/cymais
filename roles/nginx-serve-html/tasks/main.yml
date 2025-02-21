@@ -3,8 +3,8 @@
   include_role:
     name: nginx-https-get-cert-modify-all
   vars:
-    domain: "{{domains[application_id]}}"
-    http:   "{{ ports.localhost.http[application_id] }}"
+    domain:     "{{domains[application_id]}}"
+    http_port:  "{{ ports.localhost.http[application_id] }}"
 
 - name: "generate {{domains[application_id]}}.conf"
   template: 

@@ -8,7 +8,7 @@
     name: nginx-https-get-cert-modify-all
   vars:
     domain: "{{ item }}"
-    http:   "{{ ports.localhost.http[application_id] }}"
+    http_port:   "{{ ports.localhost.http[application_id] }}"
   loop:
     - "{{ domains.mailu }}"
     - "{{ domain }}"

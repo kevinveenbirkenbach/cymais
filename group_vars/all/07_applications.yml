@@ -234,7 +234,7 @@ defaults_applications:
     credentials:
 #     database_password:  Null          # Needs to be set in inventory file
       administrator_username:           "{{administrator_username}}"
-      administrator_initial_passwords:  "{{administrator_initial_password}}"
+      administrator_initial_password:   "{{administrator_initial_password}}"
 
 
   ## OAuth2 Proxy

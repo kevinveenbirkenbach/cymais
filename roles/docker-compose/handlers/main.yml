@@ -28,3 +28,9 @@
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600
   listen: docker compose project build and setup
+
+- name: docker compose restart
+  command:
+    cmd: "docker compose restart"
+    chdir: "{{docker_compose.directories.instance}}"
+  listen: docker compose restart

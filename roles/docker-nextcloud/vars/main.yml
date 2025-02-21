@@ -4,3 +4,6 @@ database_password:  	                "{{applications.nextcloud.credentials.datab
 database_type:                        "mariadb"
 nextcloud_application_container_name: "nextcloud-application"
 nextcloud_nginx_container_name:       "nextcloud-web"
+nextcloud_config_file_path:           "/var/lib/docker/volumes/nextcloud_data/_data/config/config.php"
+domain:                               "{{domains[application_id]}}"
+http_port:                            "{{ ports.localhost.http[application_id] }}"

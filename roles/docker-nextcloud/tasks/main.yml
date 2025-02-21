@@ -6,18 +6,12 @@
 - name: "include role for {{application_id}} to recieve certs & do modification routines"
   include_role:
     name: nginx-https-get-cert-modify-all
-  vars:
-    domain: "{{domains[application_id]}}"
-    http:   "{{ ports.localhost.http[application_id] }}"
 
 - name: create nextcloud nginx proxy configuration file
   template: 
     src:  "proxy-nginx.conf.j2" 
     dest: "{{nginx.directories.http.servers}}{{domains[application_id]}}.conf"
   notify: restart nginx
-  vars:
-    domain:    "{{domains[application_id]}}"
-    http_port: "{{ports.localhost.http[application_id]}}"
 
 - name: create internal nextcloud nginx configuration
   template: 
@@ -35,3 +29,6 @@
 - name: Include LDAP specific tasks
   include_tasks: ldap.yml
   when: applications[application_id].ldap_enabled | bool
+
+- name: Include Config specific tasks
+  include_tasks: config.yml
