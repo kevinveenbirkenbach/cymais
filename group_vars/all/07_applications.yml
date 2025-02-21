@@ -126,6 +126,8 @@ defaults_applications:
       enabled:                        true                                      # Activate the OAuth2 Proxy for the LDAP Webinterface
       application:                    lam                                       # Needs to be the same as webinterface
       port:                           80                                        # If you use phpldapadmin set it to 8080
+    database:
+      central_storage:                false                                     # LDAP doesn't use an database in the current configuration. Propably a good idea to implement one later. 
     # administrator_password:                                                   # CHANGE for security reasons in inventory file
     # administrator_database_password:                                          # CHANGE for security reasons in inventory file
 

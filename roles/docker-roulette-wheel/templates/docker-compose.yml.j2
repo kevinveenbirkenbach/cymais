@@ -4,5 +4,5 @@ services:
         build:
             context: .
         ports:
-        - 127.0.0.1:{{http_port}}:8080
+        - 127.0.0.1:{{ports.localhost.http[application_id]}}:8080
         restart: {{docker_restart_policy}}

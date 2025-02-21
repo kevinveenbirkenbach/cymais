@@ -22,7 +22,7 @@ services:
     image: nginx:mainline
     restart: {{docker_restart_policy}}
     ports:
-      - "127.0.0.1:{{http_port}}:80"
+      - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
     volumes:
     - "{{docker_compose_instance_confd_directory}}:{{target_mount_conf_d_directory}}:ro"
     - "data:/var/www/html:ro"

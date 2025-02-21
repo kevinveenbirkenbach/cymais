@@ -10,7 +10,7 @@
         image: jenkins/jenkins:lts
         restart: "{{docker_restart_policy}}"
         ports:
-          - "127.0.0.1:{{http_port}}:8080"
+          - "127.0.0.1:{{ports.localhost.http[application_id]}}:8080"
         volumes:
           - jenkins_data:/var/jenkins_home
         log_driver: journald

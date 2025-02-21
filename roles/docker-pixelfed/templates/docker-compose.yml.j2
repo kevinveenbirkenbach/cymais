@@ -11,7 +11,7 @@ services:
       - "data:/var/www/storage"
       - "./env:/var/www/.env"
     ports:
-      - "{{http_port}}:80"
+      - "{{ports.localhost.http[application_id]}}:80"
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
   worker:

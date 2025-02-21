@@ -56,7 +56,7 @@ services:
       #- "{{static_root}}:{{static_root}}:ro"
     ports:
       # override those variables in your .env file if needed
-      - "127.0.0.1:{{http_port}}:80"
+      - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
   
   typesense:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}

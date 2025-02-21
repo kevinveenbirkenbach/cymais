@@ -15,7 +15,7 @@ services:
     image: {{docker_source}}/nginx:{{applications.mailu.version}}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     ports:
-      - "127.0.0.1:{{ http_port }}:80"
+      - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
       - "{{networks.internet.ip4}}:25:25"
       - "{{networks.internet.ip4}}:465:465"
       - "{{networks.internet.ip4}}:587:587"

@@ -6,7 +6,7 @@ services:
     image: application-portfolio
     container_name: portfolio
     ports:
-      - 127.0.0.1:{{http_port}}:5000
+      - 127.0.0.1:{{ports.localhost.http[application_id]}}:5000
     volumes:
       - {{docker_repository_path}}app:/app
     restart: unless-stopped

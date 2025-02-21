@@ -5,7 +5,7 @@ services:
     container_name: moodle
     image: docker.io/bitnami/moodle:{{applications.moodle.version}}
     ports:
-      - 127.0.0.1:{{http_port}}:8080
+      - 127.0.0.1:{{ports.localhost.http[application_id]}}:8080
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - 'moodle:/bitnami/moodle'

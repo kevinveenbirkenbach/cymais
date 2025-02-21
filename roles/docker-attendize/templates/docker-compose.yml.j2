@@ -7,7 +7,7 @@ services:
   web:
     image: "attendize_web:{{applications.attendize.version}}"
     ports:
-    - "{{http_port}}:80"
+    - "{{ports.localhost.http[application_id]}}:80"
     volumes:
       - .:/usr/share/nginx/html
       - .:/var/www

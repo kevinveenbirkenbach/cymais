@@ -6,7 +6,7 @@ services:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     image: "gitea/gitea:{{applications.gitea.version}}"
     ports:
-      - "127.0.0.1:{{http_port}}:3000"
+      - "127.0.0.1:{{ports.localhost.http[application_id]}}:3000"
       - "{{ports.public.ssh[application_id]}}:22"
     volumes:
       - data:/data

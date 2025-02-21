@@ -32,7 +32,7 @@ matrix_playbook_ssl_enabled: true
 devture_traefik_config_entrypoint_web_secure_enabled: false
 
 # If your reverse-proxy runs on another machine, consider using `0.0.0.0:81`, just `81` or `SOME_IP_ADDRESS_OF_THIS_MACHINE:81`
-devture_traefik_container_web_host_bind_port: "127.0.0.1:{{http_port}}"
+devture_traefik_container_web_host_bind_port: "127.0.0.1:{{ports.localhost.http[application_id]}}"
 
 # We bind to `127.0.0.1` by default (see above), so trusting `X-Forwarded-*` headers from
 # a reverse-proxy running on the local machine is safe enough.

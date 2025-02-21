@@ -10,7 +10,7 @@ services:
     build:
       context: .
     ports:
-      - 127.0.0.1:{{http_port}}:80
+      - 127.0.0.1:{{ports.localhost.http[application_id]}}:80
     volumes:
       - data:/var/www/html
     environment:

@@ -6,7 +6,7 @@ services:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     image: listmonk/listmonk:{{applications.listmonk.version}}
     ports:
-      - "127.0.0.1:{{http_port}}:9000"
+      - "127.0.0.1:{{ports.localhost.http[application_id]}}:9000"
     volumes:
       - {{docker_compose.directories.config}}config.toml:/listmonk/config.toml
 {% include 'templates/docker/container/networks.yml.j2' %}

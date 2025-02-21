@@ -7,7 +7,7 @@ services:
     container_name: phpmyadmin
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     ports:
-      - "127.0.0.1:{{http_port}}:80"
+      - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
 {% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
     healthcheck:
