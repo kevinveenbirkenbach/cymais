@@ -1,9 +1,11 @@
 - name: "include role receive certbot certificate"
   include_role: 
     name: nginx-https-recieve-certificate
+  vars:
+    domain: "{{domains[application_id]}}"
     
-- name: configure {{domain}}.conf
+- name: configure {{domains[application_id]}}.conf
   template: 
     src:  "mastodon.conf.j2" 
-    dest: "{{nginx.directories.http.servers}}{{domain}}.conf"
+    dest: "{{nginx.directories.http.servers}}{{domains[application_id]}}.conf"
   notify: restart nginx

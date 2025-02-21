@@ -41,7 +41,7 @@ env:
   UNICORN_WORKERS: 8
 
   ## Required. Discourse will not work with a bare IP number.
-  DISCOURSE_HOSTNAME: {{domain}}
+  DISCOURSE_HOSTNAME: {{domains[application_id]}}
 
   ## Uncomment if you want the container to be started with the same
   ## hostname (-h option) as specified above (default "$hostname-$config")
@@ -122,7 +122,7 @@ run:
   - exec: rails r "SiteSetting.openid_connect_discovery_document = '{{oidc.client.discovery_document}}'"
   - exec: rails r "SiteSetting.openid_connect_client_id = '{{oidc.client.id}}'"         
   - exec: rails r "SiteSetting.openid_connect_client_secret = '{{oidc.client.secret}}'"     
-  - exec: rails r "SiteSetting.openid_connect_rp_initiated_logout_redirect = 'https://{{domain}}'"
+  - exec: rails r "SiteSetting.openid_connect_rp_initiated_logout_redirect = 'https://{{domains[application_id]}}'"
   - exec: rails r "SiteSetting.openid_connect_allow_association_change = false"
   - exec: rails r "SiteSetting.openid_connect_rp_initiated_logout = true"
 {% endif %}

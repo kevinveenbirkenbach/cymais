@@ -254,6 +254,8 @@ defaults_applications:
   ## Peertube
   peertube:
     version:              "bookworm"
+    database:
+      central_storage:    True 
 
   ## PHPMyAdmin
   phpmyadmin:

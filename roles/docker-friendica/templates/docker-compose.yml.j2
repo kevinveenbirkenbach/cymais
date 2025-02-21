@@ -20,7 +20,7 @@ services:
       test:
         [
           "CMD-SHELL",
-          "(if [ ! -f /tmp/email_sent ]; then echo 'Subject: testmessage from {{domain}}\n\nSUCCESSFULL' | msmtp -t {{test_email}} && touch /tmp/email_sent; fi && curl -f http://127.0.0.1:80) || exit 1"
+          "(if [ ! -f /tmp/email_sent ]; then echo 'Subject: testmessage from {{domains[application_id]}}\n\nSUCCESSFULL' | msmtp -t {{test_email}} && touch /tmp/email_sent; fi && curl -f http://127.0.0.1:80) || exit 1"
         ]
       interval: 1m
       timeout: 10s

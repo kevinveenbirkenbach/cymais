@@ -9,10 +9,10 @@
 #- name: "include task certbot-and-globals.yml"
 #  include_tasks: certbot-and-globals.yml
 #
-#- name: configure {{domain}}.conf
+#- name: configure {{domains[application_id]}}.conf
 #  template: 
 #    src:  "nginx-proxy.conf.j2"
-#    dest: "{{nginx.directories.http.servers}}{{domain}}.conf"
+#    dest: "{{nginx.directories.http.servers}}{{domains[application_id]}}.conf"
 #  notify: restart nginx
 
 - name: "include role nginx-domain-setup for {{application_id}}"

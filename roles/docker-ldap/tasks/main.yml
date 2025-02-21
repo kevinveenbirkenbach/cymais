@@ -10,16 +10,16 @@
     domain: 	"{{ domains[application_id] }}"
     http_port: 	"{{ ports.localhost.http[application_id] }}"
 
-- name: Create {{domain}}.conf if LDAP is exposed to internet
+- name: Create {{domains[application_id]}}.conf if LDAP is exposed to internet
   template: 
     src:  "nginx.stream.conf.j2" 
-    dest: "{{nginx.directories.streams}}{{domain}}.conf"
+    dest: "{{nginx.directories.streams}}{{domains[application_id]}}.conf"
   notify: restart nginx
   when: applications.ldap.openldap.network.public | bool
 
-- name: Remove {{domain}}.conf if LDAP is not exposed to internet
+- name: Remove {{domains[application_id]}}.conf if LDAP is not exposed to internet
   file:
-    path: "{{ nginx.directories.streams }}{{ domain }}.conf"
+    path: "{{ nginx.directories.streams }}{{ domains[application_id] }}.conf"
     state: absent
   when: not applications.ldap.openldap.network.public | bool
 

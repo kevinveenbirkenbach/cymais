@@ -4,3 +4,5 @@ database_name:      "{{ application_id }}"
 database_username:  "{{ application_id }}"
 database_port:      "{{ 3306 if database_type == 'mariadb' else 5432 }}"
 database_env:       "{{docker_compose.directories.env}}{{database_type}}.env"
+
+# Don't set application_id . It would conflict with central database logic

@@ -6,11 +6,13 @@
 - name: "include role receive certbot certificate"
   include_role: 
     name: nginx-https-recieve-certificate
+  vars:
+    domain: "{{domains[application_id]}}"
 
 - name: create nextcloud nginx proxy configuration file
   template: 
     src:  "proxy-nginx.conf.j2" 
-    dest: "{{nginx.directories.http.servers}}{{domain}}.conf"
+    dest: "{{nginx.directories.http.servers}}{{domains[application_id]}}.conf"
   notify: restart nginx
 
 - name: create internal nextcloud nginx configuration

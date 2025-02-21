@@ -26,7 +26,7 @@
     src:  "templates/nginx.conf.j2" 
     dest: "{{nginx.directories.http.servers}}{{domains.matrix_synapse}}.conf"
   vars:
-    # domain:     "{{domains.matrix_synapse}}" This does not seem to work @todo Check how to solve without declaring set_fact, seems a bug at templates
+    domain:     "{{domains.matrix_synapse}}" # Didn't work in the past. May it works now. This does not seem to work @todo Check how to solve without declaring set_fact, seems a bug at templates
     http_port:  "{{ports.localhost.http.matrix_synapse}}"
   notify: restart nginx
         
