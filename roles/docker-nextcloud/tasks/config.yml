@@ -6,26 +6,28 @@
   notify:
     - docker compose restart
 
-- name: "Ensure 'overwriteprotocol' is set to 'https' in Nextcloud {{ nextcloud_config_file_path }}"
-  block:
-    - name: Check if 'overwriteprotocol' is already set
-      lineinfile:
-        path: "{{ nextcloud_config_file_path }}"
-        regexp: "^\s*'overwriteprotocol'\s*=>\s*'http'"
-        line: "'overwriteprotocol' => 'https',"
-        backrefs: yes
-        state: present
-        notify:
-          - docker compose restart
-
-    - name: Add 'overwriteprotocol' => 'https' if not present
-      lineinfile:
-        path: "{{ nextcloud_config_file_path }}"
-        regexp: "^\s*\);$"
-        line: "'overwriteprotocol' => 'https',"
-        insertafter: "^\s*\);$"
-        state: present
-        notify:
-          - docker compose restart        
-  notify:
-    - docker compose restart
+#- name: Ensure 'overwriteprotocol' is set to 'https' in Nextcloud {{ nextcloud_config_file_path }}
+#  block:
+#     Deactivated because it was really heavy to fix. 
+#     @todo implement
+#    - name: Check if 'overwriteprotocol' is already set
+#      lineinfile:
+#        path: "{{ nextcloud_config_file_path }}"
+#        regexp: "^\s*overwriteprotocol\s*=>\s*http"
+#        line: "overwriteprotocol => 'https',"
+#        backrefs: yes
+#        state: present
+#        notify:
+#          - docker compose restart
+#
+#    - name: Add 'overwriteprotocol' => 'https' if not present
+#      lineinfile:
+#        path: "{{ nextcloud_config_file_path }}"
+#        regexp: "^\s*\);$"
+#        line: "overwriteprotocol => 'https',"
+#        insertafter: "^\s*\);$"
+#        state: present
+#        notify:
+#          - docker compose restart        
+#  notify:
+#    - docker compose restart
