@@ -22,7 +22,7 @@
 
 - name: "Import users, groups, etc. to LDAP"
   shell: >
-    docker exec -i openldap ldapadd -x -D "{{ldap.dn.bind}}" -w "{{ldap.bind_credential}}" -c -f "{{ldif_docker_path}}/import/{{ item | basename | regex_replace('\\.j2$', '') }}"
+    docker exec -i openldap ldapadd -x -D "{{ldap.dn.bind}}" -w "{{ldap.bind_credential}}" -c -f "{{ldif_docker_path}}import/{{ item | basename | regex_replace(r'\.j2$', '') }}"
   register: ldapadd_result
   changed_when: "'adding new entry' in ldapadd_result.stdout"
   # Allow return code 0 (all entries added) or 68 (entry already exists)

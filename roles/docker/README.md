@@ -21,8 +21,9 @@ docker volume rm $(docker volume ls -q -f "dangling=true")
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 docker network prune -f
-sudo iptables -t nat -F DOCKER
-sudo iptables -t nat -F DOCKER-USER
+systemctl stop docker
+rm -fv /var/lib/docker/network/files/local-kv.db
+systemctl start docker
 ```
 
 ---

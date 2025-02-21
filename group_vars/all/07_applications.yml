@@ -60,8 +60,8 @@ defaults_applications:
 
   ## Funkwhale
   funkwhale:
-    version:        "1.4.0"
-    ldap_enabled:   True                      # Enables LDAP by default 
+    version:              "1.4.0"
+    ldap_enabled:         True                # Enables LDAP by default 
 
   ## Gitea
   gitea:
@@ -99,6 +99,7 @@ defaults_applications:
     webinterface:                     "lam"                                     # The webinterface which should be used. Possible: lam and phpldapadmin
     administrator_username:           "{{administrator_username}}"
     ldap_enabled:                     True                                      # Should have the same value as applications.ldap.openldap.network.local.
+    force_import:                     false                                     # Forces the import of the LDIF files when set to true
     oauth2_proxy:
       enabled:                        true                                      # Activate the OAuth2 Proxy for the LDAP Webinterface
       application:                    lam                                       # Needs to be the same as webinterface
@@ -122,9 +123,9 @@ defaults_applications:
     # I don't know why the database deactivation is necessary
     enable_central_database:          False                                     # Deactivate central database for mailu
     credentials:                                     
-#     secret_key:                                                               # Needs to be set in inventory file
+#     secret_key:                                                               # Set to a randomly generated 16 bytes string
 #     database_password:                                                        # Needs to be set in inventory file
-#     api_token:                                                                # Needs to be set in inventory file
+#     api_token:                                                                # Configures the authentication token. The minimum length is 3 characters. This is a mandatory setting for using the RESTful API.
 
   ## MariaDB
   mariadb:

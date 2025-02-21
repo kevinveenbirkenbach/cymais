@@ -27,9 +27,6 @@
     ipam_config:
       - subnet: "{{ networks.local.central_ldap.subnet }}"
 
-- name: "copy docker-compose.yml and env file"
-  include_tasks: copy-docker-compose-and-env.yml
-
 - name: "create {{docker_compose.directories.env}}phpldapadmin.env"
   template: 
     src:  "phpldapadmin.env.j2" 
@@ -48,8 +45,8 @@
   notify: docker compose project setup
   when: applications.ldap.webinterface == 'lam'
 
-- name: flush docker service
-  meta: flush_handlers
+- name: "copy docker-compose.yml and env file"
+  include_tasks: copy-docker-compose-and-env.yml
 
 - name: "create directory {{ldif_host_path}}{{item}}"
   file:

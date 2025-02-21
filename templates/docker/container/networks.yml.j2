@@ -1,9 +1,9 @@
-# This template needs to be included in docker-compose.yml containers
+{# This template needs to be included in docker-compose.yml containers #}
     networks:
 {% if enable_central_database | bool and database_type is defined %}
       central_{{ database_type }}:
 {% endif %}
-{% if applications[application_id].ldap_enabled is defined and applications[application_id].ldap_enabled | bool and applications.ldap.openldap.network.local | bool %}
+{% if applications[application_id].ldap_enabled|default(false)|bool and applications.ldap.openldap.network.local|bool %}
       central_ldap:
 {% endif %}
       default:

@@ -14,7 +14,7 @@
   notify: docker compose project setup
   register: env_template
 
-- name: Check if docker compose has any running container and trigger setup if needed
+- name: "Check if any container is running in {{ docker_compose.directories.instance }}"
   command: docker compose ps -q --filter status=running
   args:
     chdir: "{{ docker_compose.directories.instance }}"
@@ -22,3 +22,6 @@
   changed_when: (docker_ps.stdout | trim) == ""
   notify: docker compose project setup
   when: not (docker_compose_template.changed or env_template.changed)
+
+- name: flush docker compose project setup
+  meta: flush_handlers

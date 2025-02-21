@@ -10,14 +10,14 @@ services:
 {% if applications.ldap.webinterface == 'lam' %}
     image: ghcr.io/ldapaccountmanager/lam:{{applications.ldap.lam.version}}      # Dies ist das Docker-Image für LAM
     ports:
-      - 127.0.0.1:{{http_port}}:80 
+      - 127.0.0.1:{{ports.localhost.http.ldap}}:80 
     env_file:
       - "{{docker_compose.directories.env}}lam.env"
 
 {% elif applications.ldap.webinterface == 'phpldapadmin' %}
     image: leenooks/phpldapadmin:{{applications.ldap.phpldapadmin.version}}
     ports:
-      - 127.0.0.1:{{http_port}}:8080
+      - 127.0.0.1:{{ports.localhost.http.ldap}}:8080
     env_file:
       - "{{docker_compose.directories.env}}phpldapadmin.env"
 {% endif %}
