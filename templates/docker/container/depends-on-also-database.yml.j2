@@ -1,6 +1,6 @@
 {# This template needs to be included in docker-compose.yml containers which depend on a database and additional containers #}
     depends_on:
-{% if not enable_central_database | bool %}
+{% if not applications[application_id].database.central_storage | bool %}
       database:
         condition: service_healthy
 {% endif %}

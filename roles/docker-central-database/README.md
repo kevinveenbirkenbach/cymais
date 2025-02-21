@@ -47,7 +47,7 @@ When executed, the role will:
 1. Load database configuration variables.
 2. Generate the appropriate environment file for the database.
 3. Incorporate the Docker Compose routines.
-4. Create a central database if `enable_central_database` is set to `true`.
+4. Create a central database if `applications[application_id].database.central_storage` is set to `true`.
 
 ---
 

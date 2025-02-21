@@ -1,5 +1,5 @@
 templates:
-{% if not enable_central_database | bool %}
+{% if not applications[application_id].database.central_storage | bool %}
   - "templates/postgres.template.yml"
 {% endif %}
   #- "templates/redis.template.yml"

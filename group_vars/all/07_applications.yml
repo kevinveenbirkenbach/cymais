@@ -18,14 +18,20 @@ defaults_applications:
     company_name:         "{{primary_domain}}"
     company_email:        "{{administrator_email}}"
     setup_admin_email:    "{{administrator_email}}"
+    database:
+      central_storage:                True
 
   ## Attendize 
   attendize:
     version:              "latest"
+    database:
+      central_storage:                True
 
   ## Baserow 
   baserow:
     version:              "latest"
+    database:
+      central_storage:                True
 
   ## Big Blue Button
   bigbluebutton:
@@ -33,6 +39,8 @@ defaults_applications:
     setup:                false                           # Set to true in inventory file for initial setup
     oidc:
       enabled:               true                         # Activate OIDC
+    database:
+      central_storage:                True
 
   ## Bluesky
   bluesky:
@@ -42,6 +50,8 @@ defaults_applications:
       #jwt_secret:                            # Needs to be defined in inventory file - Use: openssl rand -base64 64 | tr -d '\n'
       #plc_rotation_key_k256_private_key_hex: # Needs to be defined in inventory file - Use: openssl rand -hex 32 
       #admin_password:                        # Needs to be defined in inventory file - Use: openssl rand -base64 16
+    database:
+      central_storage:                True
 
   ## Discourse:
   discourse:
@@ -51,25 +61,35 @@ defaults_applications:
     # database_password:                      # Needs to be defined in inventory file
     oidc:
       enabled:               true             # Activate OIDC
+    database:
+      central_storage:                True
 
   ## Friendica
   friendica:
     version:              "latest"
     oidc:
       enabled:               true             # Activate OIDC. Plugin is not working yet
+    database:
+      central_storage:                True
 
   ## Funkwhale
   funkwhale:
     version:              "1.4.0"
-    ldap_enabled:         True                # Enables LDAP by default 
+    ldap_enabled:         True                # Enables LDAP by default
+    database:
+      central_storage:                True
 
   ## Gitea
   gitea:
     version:              "latest"
+    database:
+      central_storage:                True
 
   ## Gitlab
   gitlab:
     version:              "latest"
+    database:
+      central_storage:                True
 
   ## Joomla
   joomla:
@@ -79,7 +99,9 @@ defaults_applications:
   keycloak:
     version:                  "latest"
     administrator_username:   "{{administrator_username}}"  # Administrator Username for Keycloak
-    ldap_enabled:             True                          # Enables LDAP by default 
+    ldap_enabled:             True                          # Enables LDAP by default
+    database:
+      central_storage:                True
 #   database_password:                                      # Needs to be defined in inventory file   
 #   administrator_password:                                 # Needs to be defined in inventory file      
 
@@ -113,6 +135,8 @@ defaults_applications:
     public_api_activated:             False                                     # Security hole. Can be used for spaming
     version:                          "latest"                                  # Docker Image version
     setup:                            false                                     # Set true in inventory file to execute the setup and initializing procedures
+    database:
+      central_storage:                True
 
   mailu:
     version:                          "2024.06"                                 # Docker Image Version
@@ -121,7 +145,8 @@ defaults_applications:
       enabled:                        true                                      # Activate OIDC for Mailu
     domain:                           "{{primary_domain}}"                      # The main domain from which mails will be send \ email suffix behind @
     # I don't know why the database deactivation is necessary
-    enable_central_database:          False                                     # Deactivate central database for mailu
+    database:
+      central_storage:                False                                     # Deactivate central database for mailu
     credentials:                                     
 #     secret_key:                                                               # Set to a randomly generated 16 bytes string
 #     database_password:                                                        # Needs to be set in inventory file
@@ -139,13 +164,17 @@ defaults_applications:
 #   database_password:                Null                          # Needs to be set in inventory file
 #   auth_token:                       Null                          # Needs to be set in inventory file
     css:
-      enabled:       false                                          # The css isn't optimized yet for Matomo
+      enabled:                        false                         # The css isn't optimized yet for Matomo
+    database:
+      central_storage:                True
 
   ## Mastodon
   mastodon:
     version:                          "latest"
     single_user_mode:                 false                         # Set true for initial setup
     setup:                            false                         # Set true in inventory file to execute the setup and initializing procedures
+    database:
+      central_storage:                True
     oidc:
         enabled:                        true                          # Activate OIDC for Mastodon
     credentials:
@@ -172,6 +201,8 @@ defaults_applications:
     element:
       version:                        "latest"
     setup:                            false                         # Set true in inventory file to execute the setup and initializing procedures
+    database:
+      central_storage:                True
 
   ## Moodle
   moodle:
@@ -179,10 +210,14 @@ defaults_applications:
     administrator_name:               "{{administrator_username}}"
     administrator_email:              "{{administrator_email}}"
     version:                          "latest"
+    database:
+      central_storage:                True
 
   ## MyBB
   mybb:
     version:                   "latest"
+    database:
+      central_storage:                True
 
   ## Nextcloud
   nextcloud:
@@ -192,6 +227,8 @@ defaults_applications:
     oidc:
       enabled:            true          # Activate OIDC for Nextcloud
     force_import:         False         # Forces the import of the LDIF files
+    database:
+      central_storage:                True
 
   ## OAuth2 Proxy
   oauth2_proxy:
@@ -208,7 +245,9 @@ defaults_applications:
       enabled:            true    # OpenProject doesn't support OIDC, so this procy in combination with LDAP is needed
       application:        "proxy"
       port:               "80"
-    ldap_enabled:         True    # Enables LDAP by default 
+    ldap_enabled:         True    # Enables LDAP by default
+    database:
+      central_storage:    True 
 
   ## Peertube
   peertube:
@@ -222,11 +261,15 @@ defaults_applications:
       enabled:            true
       port:               "80"
       application:        "application"
+    database:
+      central_storage:    True
 
   ## Pixelfed
   pixelfed:
-    titel:    "Pictures on {{primary_domain}}"
-    version:  "latest"
+    titel:                "Pictures on {{primary_domain}}"
+    version:              "latest"
+    database:
+      central_storage:    True
 
   ## Postgres
   # Please set an version in your inventory file - Rolling release for postgres isn't recommended
@@ -236,10 +279,14 @@ defaults_applications:
   # Snipe-IT
   snipe_it:
     version:           "latest"
+    database:
+      central_storage:  True
 
   ## Taiga
   taiga:
     version:           "latest"
+    database:
+      central_storage:  True
 
   ## YOURLS
   yourls:
@@ -250,7 +297,8 @@ defaults_applications:
       application:            "application"
       port:                   "80"
       location:               "/admin/"                       # Protects the admin area
-    
+    database:
+      central_storage:        True
 
   wordpress:
 # Deactivate Global theming for wordpress role
@@ -260,4 +308,6 @@ defaults_applications:
 # May a solution could be to generate a template or css file dedicated
 # for wordpress based on the theming values and import it. 
     css:
-      enabled:       false
+      enabled:          false
+    database:
+      central_storage:  True

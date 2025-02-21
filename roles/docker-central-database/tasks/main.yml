@@ -14,9 +14,9 @@
     src: "env/{{database_type}}.env.j2"
     dest: "{{database_env}}"
   notify: docker compose project build and setup
-  when: not enable_central_database | bool
+  when: not applications[application_id].database.central_storage | bool
 
 - name: create central database
   include_role:
     name: "docker-{{database_type}}"
-  when: enable_central_database | bool
+  when: applications[application_id].database.central_storage | bool
