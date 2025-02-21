@@ -9,7 +9,7 @@
   loop_control:
     loop_var: domain
   vars:
-    http: "{{ ports.localhost.http[application_id] }}"
+    http_port: "{{ ports.localhost.http[application_id] }}"
 
 - name: "copy docker-compose.yml and env file"
   include_tasks: copy-docker-compose-and-env.yml
