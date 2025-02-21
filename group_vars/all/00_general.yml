@@ -10,9 +10,9 @@ primary_domain_sld:     "cymais"                                        # Second
 primary_domain:         "{{primary_domain_sld}}.{{primary_domain_tld}}" # Primary Domain of the server
 
 # Administrator
-administrator_username: "administrator"                                 # Username of the administrator
-administrator_email:    "{{administrator_username}}@{{primary_domain}}" # Email of the administrator
-#user_administrator_initial_password: EXAMPLE_PASSWORD_123456           # Example initialisation password needs to be set in inventory file
+administrator_username:           "administrator"                                 # Username of the administrator
+administrator_email:              "{{administrator_username}}@{{primary_domain}}" # Email of the administrator
+# administrator_initial_password: Null                                            # Example initialisation password needs to be set in inventory file
 
 # Test Email
 test_email:             "test@{{primary_domain}}"

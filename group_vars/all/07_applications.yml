@@ -109,7 +109,7 @@ defaults_applications:
   ldap:
     lam:
       version:                        "latest"
-      administrator_password:         "{{user_administrator_initial_password}}" # CHANGE for security reasons
+      administrator_password:         "{{administrator_initial_password}}" # CHANGE for security reasons
     openldap:
       version:                        "latest"
       network:
@@ -226,12 +226,16 @@ defaults_applications:
   nextcloud:
     version:              "production"  # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
     ldap_enabled:         True          # Enables LDAP by default, missing ansible setup tasks @todo setup
-#   database_password:    Null          # Needs to be set in inventory file
     oidc:
       enabled:            true          # Activate OIDC for Nextcloud
     force_import:         False         # Forces the import of the LDIF files
     database:
-      central_storage:                True
+      central_storage:    True
+    credentials:
+#     database_password:  Null          # Needs to be set in inventory file
+      administrator_username:           "{{administrator_username}}"
+      administrator_initial_passwords:  "{{administrator_initial_password}}"
+
 
   ## OAuth2 Proxy
   oauth2_proxy:

@@ -3,11 +3,13 @@
   include_role: 
     name: docker-central-database
   
-- name: "include create-domains.yml"
+- name: "include create-domains.yml for peertube"
   include_tasks: create-domains.yml
-  loop: "{{ [domain] + domains.peertube_alternates }}"
+  loop: "{{ [domains.peertube] + domains.peertube_alternates }}"
   loop_control:
     loop_var: domain
+  vars:
+    http: "{{ ports.localhost.http[application_id] }}"
 
 - name: "copy docker-compose.yml and env file"
   include_tasks: copy-docker-compose-and-env.yml

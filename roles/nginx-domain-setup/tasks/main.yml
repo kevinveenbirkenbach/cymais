@@ -13,8 +13,6 @@
 - name: "include role nginx-https-recieve-certificate for {{domain}}"
   include_role: 
     name: nginx-https-recieve-certificate
-  vars:
-    domain: "{{domain}}"
 
 - name: "copy nginx domain configuration to {{configuration_destination}}"
   template: 
