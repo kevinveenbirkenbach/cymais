@@ -82,7 +82,6 @@ HINT:
   --bs-code-color: var(--color-55); /* Original tone: Pink (#d63384) */
   --bs-highlight-bg: var(--color-93); /* Original tone: Light Yellow (#fff3cd) */
   --bs-list-group-bg: var(--color-40);
-
   --bs-emphasis-color: var(--color-01); /* Gemappt von #000 */
   --bs-emphasis-color-rgb: var(--color-rgb-01); /* Gemappt von 0, 0, 0 */
   --bs-secondary-color: rgba(var(--color-rgb-10), 0.75); /* Gemappt von rgba(33, 37, 41, 0.75) */
@@ -110,7 +109,7 @@ HINT:
   --quaternary:                var(--color-50); /* originally #5e99b9 */
 
   /* Header & Highlight */
-  --header_background:         var(--color-70); /* originally #86bddb */
+  --header_background:         var(--color-86); /* originally #86bddb */
   --header_primary:            var(--color-20); /* same as --primary */
   --highlight:                 var(--color-70); /* same as header_background */
   --d-selected:                var(--color-85); /* originally #bee0f2 */
@@ -941,6 +940,11 @@ html.dark-mode #taskmenu a.selected, html.dark-mode .menu.toolbar a.selected {
 html.dark-mode .listing li.selected, html.dark-mode .listing li.selected>a, html.dark-mode .listing li.selected>div>a, html.dark-mode .listing tr.selected td {
     color: var(--color-30);
     background-color: rgba(var(--color-rgb-82), 0.5);
+}
+
+html.dark-mode .message-htmlpart {
+    background-color: rgba(var(--color-rgb-99), 0.08);
+    color: var(--color-15);
 }
 
 /** Nextcloud specific **/
