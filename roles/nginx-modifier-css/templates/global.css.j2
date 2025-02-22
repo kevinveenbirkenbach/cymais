@@ -50,39 +50,56 @@ HINT:
 
 /* Bootstrap Overrides (Color/Shadow Variables Only) */
 :root {
-    --bs-black: var(--color-01); /* Original tone: Black (#000) */
-    --bs-white: var(--color-99); /* Original tone: White (#fff) */
-    --bs-gray: var(--color-50); /* Original tone: Gray (#6c757d) */
-    --bs-gray-dark: var(--color-20); /* Original tone: Dark Gray (#343a40) */
-    --bs-gray-100: var(--color-95); /* Original tone: Very Light Gray (#f8f9fa) */
-    --bs-gray-200: var(--color-90); /* Original tone: Lighter Gray (#e9ecef) */
-    --bs-gray-300: var(--color-85); /* Original tone: Light Gray (#dee2e6) */
-    --bs-gray-400: var(--color-80); /* Original tone: Gray (#ced4da) */
-    --bs-gray-500: var(--color-70); /* Original tone: Medium Gray (#adb5bd) */
-    --bs-gray-600: var(--color-50); /* Original tone: Gray (#6c757d) */
-    --bs-gray-700: var(--color-40); /* Original tone: Darker Gray (#495057) */
-    --bs-gray-800: var(--color-20); /* Original tone: Dark Gray (#343a40) */
-    --bs-gray-900: var(--color-10); /* Original tone: Very Dark Gray (#212529) */
-    --bs-primary: var(--color-65); /* Original tone: Blue (#0d6efd) */
-    --bs-light: var(--color-95); /* Original tone: Light (#f8f9fa) */
-    --bs-dark: var(--color-10); /* Original tone: Dark (#212529) */
-    --bs-primary-rgb: var(--color-rgb-65); /* Original tone: Blue (13, 110, 253) */
-    --bs-secondary-rgb: var(--color-rgb-50); /* Original tone: Grayish (#6c757d / 108, 117, 125) */
-    --bs-light-rgb: var(--color-rgb-95); /* Original tone: Light (248, 249, 250) */
-    --bs-dark-rgb: var(--color-rgb-10); /* Original tone: Dark (33, 37, 41) */
-    --bs-white-rgb: var(--color-rgb-99); /* Original tone: White (255, 255, 255) */
-    --bs-black-rgb: var(--color-rgb-01); /* Original tone: Black (0, 0, 0) */
-    --bs-body-color-rgb: var(--color-rgb-10); /* Original tone: Dark (#212529 / 33, 37, 41) */
-    --bs-body-bg-rgb: var(--color-rgb-99); /* Original tone: White (#fff / 255, 255, 255) */
-    --bs-body-color: var(--color-10); /* Original tone: Dark (#212529) */
-    --bs-body-bg: var(--color-99); /* Original tone: White (#fff) */
-    --bs-border-color: var(--color-85); /* Original tone: Gray (#dee2e6) */
-    --bs-link-color: var(--color-65); /* Original tone: Blue (#0d6efd) */
-    --bs-link-hover-color: var(--color-60); /* Original tone: Darker Blue (#0a58ca) */
-    --bs-code-color: var(--color-55); /* Original tone: Pink (#d63384) */
-    --bs-highlight-bg: var(--color-93); /* Original tone: Light Yellow (#fff3cd) */
-    --bs-list-group-bg: var(--color-40);
+  --bs-black: var(--color-01); /* Original tone: Black (#000) */
+  --bs-white: var(--color-99); /* Original tone: White (#fff) */
+  --bs-gray: var(--color-50); /* Original tone: Gray (#6c757d) */
+  --bs-gray-dark: var(--color-20); /* Original tone: Dark Gray (#343a40) */
+  --bs-gray-100: var(--color-95); /* Original tone: Very Light Gray (#f8f9fa) */
+  --bs-gray-200: var(--color-90); /* Original tone: Lighter Gray (#e9ecef) */
+  --bs-gray-300: var(--color-85); /* Original tone: Light Gray (#dee2e6) */
+  --bs-gray-400: var(--color-80); /* Original tone: Gray (#ced4da) */
+  --bs-gray-500: var(--color-70); /* Original tone: Medium Gray (#adb5bd) */
+  --bs-gray-600: var(--color-50); /* Original tone: Gray (#6c757d) */
+  --bs-gray-700: var(--color-40); /* Original tone: Darker Gray (#495057) */
+  --bs-gray-800: var(--color-20); /* Original tone: Dark Gray (#343a40) */
+  --bs-gray-900: var(--color-10); /* Original tone: Very Dark Gray (#212529) */
+  --bs-primary: var(--color-65); /* Original tone: Blue (#0d6efd) */
+  --bs-light: var(--color-95); /* Original tone: Light (#f8f9fa) */
+  --bs-dark: var(--color-10); /* Original tone: Dark (#212529) */
+  --bs-primary-rgb: var(--color-rgb-65); /* Original tone: Blue (13, 110, 253) */
+  --bs-secondary-rgb: var(--color-rgb-50); /* Original tone: Grayish (#6c757d / 108, 117, 125) */
+  --bs-light-rgb: var(--color-rgb-95); /* Original tone: Light (248, 249, 250) */
+  --bs-dark-rgb: var(--color-rgb-10); /* Original tone: Dark (33, 37, 41) */
+  --bs-white-rgb: var(--color-rgb-99); /* Original tone: White (255, 255, 255) */
+  --bs-black-rgb: var(--color-rgb-01); /* Original tone: Black (0, 0, 0) */
+  --bs-body-color-rgb: var(--color-rgb-10); /* Original tone: Dark (#212529 / 33, 37, 41) */
+  --bs-body-bg-rgb: var(--color-rgb-99); /* Original tone: White (#fff / 255, 255, 255) */
+  --bs-body-color: var(--color-10); /* Original tone: Dark (#212529) */
+  --bs-body-bg: var(--color-99); /* Original tone: White (#fff) */
+  --bs-border-color: var(--color-85); /* Original tone: Gray (#dee2e6) */
+  --bs-link-color: var(--color-65); /* Original tone: Blue (#0d6efd) */
+  --bs-link-hover-color: var(--color-60); /* Original tone: Darker Blue (#0a58ca) */
+  --bs-code-color: var(--color-55); /* Original tone: Pink (#d63384) */
+  --bs-highlight-bg: var(--color-93); /* Original tone: Light Yellow (#fff3cd) */
+  --bs-list-group-bg: var(--color-40);
+
+  --bs-emphasis-color: var(--color-01); /* Gemappt von #000 */
+  --bs-emphasis-color-rgb: var(--color-rgb-01); /* Gemappt von 0, 0, 0 */
+  --bs-secondary-color: rgba(var(--color-rgb-10), 0.75); /* Gemappt von rgba(33, 37, 41, 0.75) */
+  --bs-secondary-color-rgb: var(--color-rgb-10); /* Gemappt von 33, 37, 41 */
+  --bs-secondary-bg: var(--color-90); /* Gemappt von #e9ecef */
+  --bs-secondary-bg-rgb: var(--color-rgb-90); /* Gemappt von 233, 236, 239 */
+  --bs-tertiary-color: rgba(var(--color-rgb-10), 0.5); /* Gemappt von rgba(33, 37, 41, 0.5) */
+  --bs-tertiary-color-rgb: var(--color-rgb-10); /* Gemappt von 33, 37, 41 */
+  --bs-tertiary-bg: var(--color-95); /* Gemappt von #f8f9fa */
+  --bs-tertiary-bg-rgb: var(--color-rgb-95); /* Gemappt von 248, 249, 250 */
+  --bs-link-color-rgb: var(--color-rgb-65); /* Gemappt von 13, 110, 253 */
+  --bs-link-hover-color-rgb: var(--color-rgb-60); /* Gemappt von 10, 88, 202 */
+  --bs-highlight-color: var(--color-10); /* Gemappt von #212529 */
+  --bs-border-color-translucent: rgba(var(--color-rgb-01), 0.175); /* Gemappt von rgba(0, 0, 0, 0.175) */
+  --bs-focus-ring-color: rgba(var(--color-rgb-65), 0.25); /* Gemappt von rgba(13, 110, 253, 0.25) */
 }
+
 
 /* Discourse */
 :root section#main{

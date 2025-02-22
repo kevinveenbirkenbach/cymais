@@ -13,24 +13,6 @@ The role integrates Keycloak with PostgreSQL as a database and supports operatio
 - Support for running behind a reverse proxy (e.g., NGINX).
 - Automatic creation and management of Docker Compose files.
 
-## Requirements 📋
-- Docker and Docker Compose must be installed on the target system.
-- A working NGINX proxy for forwarding requests to Keycloak (optional).
-
-## Tasks 🛠️
-
-The role performs the following main tasks:
-
-1. **Include database and proxy configuration files:**
-   - Integration of a PostgreSQL database.
-   - Setup of a reverse proxy for the domain.
-
-2. **Generate `docker-compose.yml`:**
-   - Automatically generate the Docker Compose file based on templates and variables.
-
-3. **Start Docker containers:**
-   - The role launches the Keycloak project using Docker Compose.
-
 ## More Information 📚
 
 For more details about Keycloak, check out:
