@@ -23,3 +23,6 @@
     cmd: "docker-compose run --rm web bundle exec rails db:migrate"
     chdir: "{{docker_compose.directories.instance}}"
   when: applications.mastodon.setup |bool 
+
+- name: "include create-administrator.yml for mastodon"
+  include_tasks: create-administrator.yml

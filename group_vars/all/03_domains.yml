@@ -54,7 +54,7 @@ defaults_redirect_domain_mappings:
 - { source: "gitea.{{primary_domain}}",       target: "{{domains.gitea}}" }
 - { source: "keycloak.{{primary_domain}}",    target: "{{domains.keycloak}}" }
 - { source: "listmonk.{{primary_domain}}",    target: "{{domains.listmonk}}" }
-- { source: "mail.{{primary_domain}}",        target: "{{domains.mailu}}" }
+- { source: "mailu.{{primary_domain}}",        target: "{{domains.mailu}}" }
 - { source: "moodle.{{primary_domain}}",      target: "{{domains.moodle}}" }
 - { source: "nextcloud.{{primary_domain}}",   target: "{{domains.nextcloud}}" }
 - { source: "openproject.{{primary_domain}}", target: "{{domains.openproject}}" }
