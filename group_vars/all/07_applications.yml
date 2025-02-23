@@ -206,6 +206,8 @@ defaults_applications:
     setup:                            false                         # Set true in inventory file to execute the setup and initializing procedures
     database:
       central_storage:                True
+    oidc:
+      enabled:                        False                        # Deactivated OIDC due to this issue https://github.com/matrix-org/synapse/issues/10492
 
   ## Moodle
   moodle:
