@@ -255,6 +255,9 @@ defaults_applications:
     ldap_enabled:         True    # Enables LDAP by default
     database:
       central_storage:    True 
+    css:
+      enabled:            false   # Temporary deactivated due to bugs
+                                  # @todo Solve and reactivate
 
   ## Peertube
   peertube:
