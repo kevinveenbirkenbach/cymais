@@ -54,15 +54,12 @@ HINT:
   --bs-white: var(--color-99); /* Original tone: White (#fff) */
   --bs-gray: var(--color-50); /* Original tone: Gray (#6c757d) */
   --bs-gray-dark: var(--color-20); /* Original tone: Dark Gray (#343a40) */
-  --bs-gray-100: var(--color-95); /* Original tone: Very Light Gray (#f8f9fa) */
-  --bs-gray-200: var(--color-90); /* Original tone: Lighter Gray (#e9ecef) */
-  --bs-gray-300: var(--color-85); /* Original tone: Light Gray (#dee2e6) */
-  --bs-gray-400: var(--color-80); /* Original tone: Gray (#ced4da) */
-  --bs-gray-500: var(--color-70); /* Original tone: Medium Gray (#adb5bd) */
-  --bs-gray-600: var(--color-50); /* Original tone: Gray (#6c757d) */
-  --bs-gray-700: var(--color-40); /* Original tone: Darker Gray (#495057) */
-  --bs-gray-800: var(--color-20); /* Original tone: Dark Gray (#343a40) */
-  --bs-gray-900: var(--color-10); /* Original tone: Very Dark Gray (#212529) */
+{% for i in range(1, 10) %}
+{# @see https://chatgpt.com/share/67bcd94e-bb44-800f-bf63-06d1ae0f5096 #}
+  {% set gray = i * 100 %}
+  {% set color = 100 - i * 10 %}
+  --bs-gray-{{ gray }}: var(--color-{{ "%02d" % color }});
+{% endfor %}
   --bs-primary: var(--color-65); /* Original tone: Blue (#0d6efd) */
   --bs-light: var(--color-95); /* Original tone: Light (#f8f9fa) */
   --bs-dark: var(--color-10); /* Original tone: Dark (#212529) */
@@ -147,15 +144,12 @@ HINT:
   --primary-high:              var(--color-40);  /* originally #487096 */
   --primary-very-high:         var(--color-20);  /* originally #34516d */
   --primary-50:                var(--color-99); /* originally #f7f9fb */
-  --primary-100:               var(--color-95);  /* originally #eef3f7 */
-  --primary-200:               var(--color-90);  /* originally #e3ebf2 */
-  --primary-300:               var(--color-80);  /* originally #c7d6e4 */
-  --primary-400:               var(--color-75);  /* originally #acc2d7 */
-  --primary-500:               var(--color-70);  /* originally #90aeca */
-  --primary-600:               var(--color-60);  /* originally #7499bd */
-  --primary-700:               var(--color-50);  /* originally #5381ad */
-  --primary-800:               var(--color-40);  /* originally #487096 */
-  --primary-900:               var(--color-20);  /* originally #34516d */
+{% for i in range(1, 10) %}
+{# @see https://chatgpt.com/share/67bcd94e-bb44-800f-bf63-06d1ae0f5096 #}
+  {% set primary = i * 100 %}
+  {% set color = 100 - i * 8 %}
+  --primary-{{ primary }}: var(--color-{{ "%02d" % color }});
+{% endfor %}
 
   /* Header Primary Scale */
   --header_primary-low:        rgb(var(--color-rgb-75));  /* rgb(128, 180, 209) */
@@ -177,15 +171,12 @@ HINT:
   --tertiary-high:             var(--color-40);  /* originally #5886a0 */
   --tertiary-hover:            var(--color-20);  /* originally #314a59 */
   --tertiary-50:               var(--color-99); /* originally #eaf0f3 */
-  --tertiary-100:              var(--color-95);  /* originally #e6edf1 */
-  --tertiary-200:              var(--color-90);  /* originally #e4ebf0 */
-  --tertiary-300:              var(--color-85);  /* originally #dfe8ee */
-  --tertiary-400:              var(--color-75);  /* originally #c8d8e1 */
-  --tertiary-500:              var(--color-65);  /* originally #b1c7d4 */
-  --tertiary-600:              var(--color-60);  /* originally #96b4c5 */
-  --tertiary-700:              var(--color-55);  /* originally #80a5b9 */
-  --tertiary-800:              var(--color-50);  /* originally #6b96ae */
-  --tertiary-900:              var(--color-40);  /* originally #5886a0 */
+{% for i in range(1, 10) %}
+{# @see https://chatgpt.com/share/67bcd94e-bb44-800f-bf63-06d1ae0f5096 #}
+  {% set tertiary = i * 100 %}
+  {% set color = 100 - i * 5 %}
+  --tertiary-{{ tertiary }}: var(--color-{{ "%02d" % color }});
+{% endfor %}
 
   /* Quaternary */
   --quaternary-low:           var(--color-80);  /* originally #cfe0ea */
@@ -237,15 +228,11 @@ HINT:
   --color-primary-light-7:   var(--color-61);
 
   /* Alpha variants reference the base RGB variable */
-  --color-primary-alpha-10:  rgba(var(--color-rgb-50), 0.10);
-  --color-primary-alpha-20:  rgba(var(--color-rgb-50), 0.20);
-  --color-primary-alpha-30:  rgba(var(--color-rgb-50), 0.30);
-  --color-primary-alpha-40:  rgba(var(--color-rgb-50), 0.40);
-  --color-primary-alpha-50:  rgba(var(--color-rgb-50), 0.50);
-  --color-primary-alpha-60:  rgba(var(--color-rgb-50), 0.60);
-  --color-primary-alpha-70:  rgba(var(--color-rgb-50), 0.70);
-  --color-primary-alpha-80:  rgba(var(--color-rgb-50), 0.80);
-  --color-primary-alpha-90:  rgba(var(--color-rgb-50), 0.90);
+{% for i in range(1, 10) %}
+{# @see https://chatgpt.com/share/67bcd94e-bb44-800f-bf63-06d1ae0f5096 #}
+  {% set alpha = i * 10 %}
+  --color-primary-alpha-{{ alpha }}: rgba(var(--color-rgb-50), 0.{{ alpha }});
+{% endfor %}
 
   --color-primary-hover:     var(--color-primary-dark-1);
   --color-primary-active:    var(--color-primary-dark-2);
@@ -270,15 +257,11 @@ HINT:
   --color-secondary-light-3: var(--color-94);
   --color-secondary-light-4: var(--color-95);
 
-  --color-secondary-alpha-10: rgba(var(--color-rgb-80), 0.10);
-  --color-secondary-alpha-20: rgba(var(--color-rgb-80), 0.20);
-  --color-secondary-alpha-30: rgba(var(--color-rgb-80), 0.30);
-  --color-secondary-alpha-40: rgba(var(--color-rgb-80), 0.40);
-  --color-secondary-alpha-50: rgba(var(--color-rgb-80), 0.50);
-  --color-secondary-alpha-60: rgba(var(--color-rgb-80), 0.60);
-  --color-secondary-alpha-70: rgba(var(--color-rgb-80), 0.70);
-  --color-secondary-alpha-80: rgba(var(--color-rgb-80), 0.80);
-  --color-secondary-alpha-90: rgba(var(--color-rgb-80), 0.90);
+{% for i in range(1, 10) %}
+{# @see https://chatgpt.com/share/67bcd94e-bb44-800f-bf63-06d1ae0f5096 #}
+  {% set alpha = i * 10 %}
+  --color-secondary-alpha-{{ alpha }}: rgba(var(--color-rgb-80), 0.{{ alpha }});
+{% endfor %}
 
   --color-secondary-button:  var(--color-secondary-dark-4);
   --color-secondary-hover:   var(--color-secondary-dark-5);
@@ -370,18 +353,12 @@ HINT:
 /* Keycloak */
 :root{
   /* --- Palette Black (Graustufen) --- */
-  --pf-v5-global--palette--black-100:   var(--color-95);  /* #fafafa */
-  --pf-v5-global--palette--black-150:   var(--color-90);  /* #f5f5f5 */
-  --pf-v5-global--palette--black-200:   var(--color-85);  /* #f0f0f0 */
-  --pf-v5-global--palette--black-300:   var(--color-75);  /* #d2d2d2 */
-  --pf-v5-global--palette--black-400:   var(--color-65);  /* #b8bbbe */
-  --pf-v5-global--palette--black-500:   var(--color-50);  /* #8a8d90 */
-  --pf-v5-global--palette--black-600:   var(--color-40);  /* #6a6e73 */
-  --pf-v5-global--palette--black-700:   var(--color-30);  /* #4f5255 */
-  --pf-v5-global--palette--black-800:   var(--color-25);  /* #3c3f42 */
-  --pf-v5-global--palette--black-850:   var(--color-20);  /* #212427 */
-  --pf-v5-global--palette--black-900:   var(--color-10);  /* #151515 */
-  --pf-v5-global--palette--black-1000:  var(--color-05);  /* #030303 */
+{% for i in range(1, 21) %}
+{# @see https://chatgpt.com/share/67bcd94e-bb44-800f-bf63-06d1ae0f5096 #}
+  {% set black = i * 50 %}
+  {% set color = 100 - i * 5 %}
+  --pf-v5-global--palette--black-{{ black }}: var(--color-{{ "%02d" % color }});
+{% endfor %}
 
   /* --- White --- */
   --pf-v5-global--palette--white:      var(--color-99);
@@ -463,9 +440,12 @@ HINT:
   --pf-v5-global--icon--Color--light--dark:    var(--color-40);
   --pf-v5-global--icon--Color--dark--dark:     var(--color-10);
 
-  {# Additional Configuration #}
-  --pf-v5-c-button--m-tertiary--BackgroundColor: var(--color-62);
+}
 
+.pf-v5-c-button.pf-m-tertiary {
+    --pf-v5-c-button--m-tertiary--BackgroundColor: var(--color-70);
+    {# Assume that the following line is necessary due to load order #}
+    background-color: var(--pf-v5-c-button--m-tertiary--BackgroundColor); 
 }
 
 /* Additional Keykloak Configuration */
@@ -863,6 +843,10 @@ html[native-dark-active] .btn, .btn {
     color: var(--color-40);
 }
 
+.navbar-nav {
+    --bs-nav-link-hover-color: var(--color-17);
+}
+
 .dropdown-item {
     color: var(--color-40);
     background-color: var(--color-80);
@@ -960,7 +944,7 @@ html.ng-csp header#header{
     background-color: var(--color-80);
     /* New Gradient based on original background (80 -5, 80, 80 +1, 80 +5) */
     background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-75), var(--color-80), var(--color-81), var(--color-85));
-    color: var(--color-90);
+    color: var(--color-17);
 }
 
 .files-list__row-name button, button.button-vue{
@@ -1036,6 +1020,10 @@ div#wrapper button, div#wrapper input, button.top-menu-search-button, div.menu-s
 div.page-wrapper{
     background: none;
     background-color: none;
+}
+
+.card-header-title {
+    color: var(--color-37);
 }
 
 /* PHP MyAdmin */

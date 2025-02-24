@@ -1,0 +1,183 @@
+nextcloud_ldap_configuration:
+  -
+    appid: "user_ldap"
+    configkey: "background_sync_interval"
+    configvalue: 43200
+
+  -
+    appid: "user_ldap"
+    configkey: "background_sync_offset"
+    configvalue: 0
+
+  -
+    appid: "user_ldap"
+    configkey: "background_sync_prefix"
+    configvalue: "s01"
+
+  -
+    appid: "user_ldap"
+    configkey: "enabled"
+    configvalue: "yes"
+
+  -
+    appid: "user_ldap"
+    configkey: "s01last_jpegPhoto_lookup"
+    configvalue: 0
+
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_agent_password"
+    configvalue: "{{ldap.bind_credential}}"
+
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_backup_port"
+    configvalue: "{{ ports.localhost.ldap.openldap }}" # This is just optimized for local port @todo implement for external ports as well
+
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_base"
+    configvalue: "{{ldap.dn.root}}"
+
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_base_groups"
+    configvalue: "{{ldap.dn.groups}}"
+
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_base_users"
+    configvalue: "{{ldap.dn.users}}"
+
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_cache_ttl"
+    configvalue: 600
+
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_configuration_active"
+    configvalue: 1
+
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_connection_timeout"
+    configvalue: 15
+
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_display_name"
+    configvalue: "cn"
+
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_dn"
+    configvalue: "{{ldap.dn.administrator}}"
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_email_attr"
+    configvalue: "mail"
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_experienced_admin"
+    configvalue: 0
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_gid_number"
+    configvalue: "gidNumber"
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_group_display_name"
+    configvalue: "cn"
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_group_filter"
+    configvalue: "(&(|(objectclass=groupOfUniqueNames)(objectclass=posixGroup)))"
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_group_filter_mode"
+    configvalue: 0
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_group_member_assoc_attribute"
+    configvalue: "uniqueMember"
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_groupfilter_objectclass"
+    configvalue: "groupOfUniqueNames\nposixGroup"
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_host"
+    configvalue: "openldap"
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_login_filter"
+    configvalue: "(&(|(objectclass=inetOrgPerson))(uid=%uid))"
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_login_filter_mode"
+    configvalue: 0
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_loginfilter_email"
+    configvalue: 0
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_loginfilter_username"
+    configvalue: 1
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_mark_remnants_as_disabled"
+    configvalue: 0
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_matching_rule_in_chain_state"
+    configvalue: "unknown"
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_nested_groups"
+    configvalue: 0
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_paging_size"
+    configvalue: 500
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_port"
+    configvalue: 389
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_turn_off_cert_check"
+    configvalue: 0
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_turn_on_pwd_change"
+    configvalue: 0
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_user_avatar_rule"
+    configvalue: "default"
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_user_filter_mode"
+    configvalue: 0
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_userfilter_objectclass"
+    configvalue: "inetOrgPerson"
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_userlist_filter"
+    configvalue: "(|(objectclass=inetOrgPerson))"
+  -
+    appid: "user_ldap"
+    configkey: "s01use_memberof_to_detect_membership"
+    configvalue: 1
+  -
+    appid: "user_ldap"
+    configkey: "types"
+    configvalue: "authentication"
+  -
+    appid: "user_ldap"
+    configkey: "s01ldap_expert_username_attr"
+    configvalue: "uid"
