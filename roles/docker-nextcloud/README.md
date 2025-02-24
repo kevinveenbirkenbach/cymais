@@ -93,7 +93,18 @@ To use OCC, run:
 docker-compose exec -it -u www-data application /var/www/html/occ
 ```
 
+### Make user admin via cli
+```bash
+docker compose exec -it -u www-data application php occ group:adduser admin {{username}}
+```
+
+### Delete user via CLI
+```bash
+docker compose exec -it -u www-data application php occ user:delete {{username}}
+```
 ---
+
+
 
 ## App Relevant Tables 🗃️
 
@@ -129,6 +140,10 @@ docker compose exec -u www-data application /var/www/html/occ config:app:get soc
 ## LDAP 
 
 More information: https://docs.nextcloud.com/server/latest/admin_manual/configuration_user/user_auth_ldap.html
+
+## Federation
+
+If users are just created via Keycloak and not via LDAP, they have a different username. Due to this reaso concider to use LDAP to guaranty that the username is valid. 
 
 ---
 
