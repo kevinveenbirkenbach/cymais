@@ -270,13 +270,15 @@ defaults_applications:
   ## PHPMyAdmin
   phpmyadmin:
     version:              "latest"
-    autologin:            false     # This is a high security risk. Just activate this option if you know what you're doing
+    autologin:            false           # This is a high security risk. Just activate this option if you know what you're doing
     oauth2_proxy:  
       enabled:            true
       port:               "80"
       application:        "application"
     database:
       central_storage:    True
+    css:
+      enabled:            True           # The css needs more optimation for PHPMyAdmin
 
   ## Pixelfed
   pixelfed:

@@ -2,3 +2,5 @@
 # @See https://chatgpt.com/c/67aa2d21-cb4c-800f-b1be-8629b6bd3f55
 # @todo implement
 #docker compose exec -u www-data application php occ app:enable user_ldap
+
+occ config:app:set user_ldap installed_version --value "1.21.0"

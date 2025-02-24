@@ -97,6 +97,13 @@ HINT:
   --bs-highlight-color: var(--color-10); /* Gemappt von #212529 */
   --bs-border-color-translucent: rgba(var(--color-rgb-01), 0.175); /* Gemappt von rgba(0, 0, 0, 0.175) */
   --bs-focus-ring-color: rgba(var(--color-rgb-65), 0.25); /* Gemappt von rgba(13, 110, 253, 0.25) */
+  
+  --bs-table-color: var(--bs-emphasis-color);
+  --bs-table-bg: var(--color-99);          /* White (#fff) */
+  --bs-table-border-color: var(--color-99);  /* White (#fff) */
+  --bs-table-striped-bg: var(--color-85);    /* Light Gray (entspricht ca. #dee2e6) */
+  --bs-table-hover-color: var(--color-01);   /* Black (#000) */
+  --bs-table-hover-bg: rgba(var(--bs-emphasis-color-rgb), 0.075);
 }
 
 
@@ -817,7 +824,7 @@ html[native-dark-active] .btn, .btn {
 }
 
 /* Navigation (Background and Text Colors) */
-.navbar, .navbar-light, .navbar-dark {
+.navbar, .navbar-light, .navbar-dark, .navbar.bg-light {
     background-color: var(--color-90);
     /* New Gradient based on original background (90 -5, 90, 90 +1, 90 +5) */
     background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-85), var(--color-90), var(--color-91), var(--color-95));
@@ -1018,6 +1025,36 @@ div.page-wrapper{
     background-color: none;
 }
 
+/* PHP MyAdmin */
+#pma_navigation {
+    background: linear-gradient(to right, var(--color-95), var(--color-85));
+    color: var(--color-05);
+}
+
+#pma_navigation_tree a {
+    color: var(--color-05);
+}
+
+#pma_navigation_tree li.activePointer, #pma_navigation_tree li.selected {
+    color: var(--color-05);
+    background-color: var(--color-70);
+}
+
+.breadcrumb-navbar {
+    background-color: var(--color-86);
+}
+
+.navbar-nav .nav-item {
+    background: linear-gradient(var(--color-99), var(--color-85));
+    border-right-color: var(--color-99);
+    border-left-color: var(--color-80);
+    border-bottom-color: var(--color-80);
+}
+
+.result_query div.sqlOuter {
+    background: var(--color-50);
+}
+
 /** Taiga specific configuration  **/
 
 section.main.kanban{
@@ -1047,6 +1084,15 @@ section.kanban h1, section.kanban h2{
     background: var(--color-75);
     /* New Gradient based on original background (75 -5, 75, 75 +1, 75 +5) */
     background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-70), var(--color-75), var(--color-76), var(--color-80));
+}
+
+.kanban.swimlane .kanban-header {
+    background: none;
+}
+
+.kanban-table-header .task-colum-name {
+    background-color: var(--color-70);
+    color: var(--color-10);
 }
 
 /* Portfolio */ 

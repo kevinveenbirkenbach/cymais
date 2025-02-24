@@ -92,19 +92,23 @@ To use OCC, run:
 ```bash
 docker-compose exec -it -u www-data application /var/www/html/occ
 ```
+### User Administration 
 
-### Make user admin via cli
+#### Make user admin via cli
 ```bash
 docker compose exec -it -u www-data application php occ group:adduser admin {{username}}
 ```
 
-### Delete user via CLI
+#### Delete user via CLI
 ```bash
 docker compose exec -it -u www-data application php occ user:delete {{username}}
 ```
 ---
 
-
+### App Administration
+```bash
+docker compose exec -u www-data application php occ config:list {{app_name}}
+```
 
 ## App Relevant Tables 🗃️
 
