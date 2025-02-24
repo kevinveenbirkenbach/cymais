@@ -126,6 +126,7 @@ defaults_applications:
       enabled:                        true                                      # Activate the OAuth2 Proxy for the LDAP Webinterface
       application:                    lam                                       # Needs to be the same as webinterface
       port:                           80                                        # If you use phpldapadmin set it to 8080
+#     cookie_secret:                  None                                      # Set via openssl rand -hex 16
     database:
       central_storage:                false                                     # LDAP doesn't use an database in the current configuration. Propably a good idea to implement one later. 
     # administrator_password:                                                   # CHANGE for security reasons in inventory file
@@ -164,6 +165,7 @@ defaults_applications:
     version:                          "latest"
     oauth2_proxy:
       enabled:                        false                         # Deactivated atm. @todo implement 
+#     cookie_secret:                  None                          # Set via openssl rand -hex 16
 #   database_password:                Null                          # Needs to be set in inventory file
 #   auth_token:                       Null                          # Needs to be set in inventory file
     css:
@@ -237,15 +239,13 @@ defaults_applications:
 #     database_password:  Null          # Needs to be set in inventory file
       administrator_username:           "{{administrator_username}}"
       administrator_initial_password:   "{{administrator_initial_password}}"
-
-
+      
   ## OAuth2 Proxy
   oauth2_proxy:
     configuration_file: "oauth2-proxy-keycloak.cfg"                                                                     # Needs to be set true in the roles which use it
     version:            "latest"                                                                                        # Docker Image version
     redirect_url:       "https://{{domains.keycloak}}/auth/realms/{{primary_domain}}/protocol/openid-connect/auth"      # The redirect URL for the OAuth2 flow. It should match the redirect URL configured in Keycloak.
     allowed_roles:      admin                                                                                           # Restrict it default to admin role. Use the vars/main.yml to open the specific role for other groups  
-    cookie_secret:      "{{ applications.oauth2_proxy.cookie_secret if applications.oauth2_proxy is defined else '' }}" # Default use wildcard for primary domain, subdomain client specific configuration in vars files in the roles is possible openssl rand -hex 16
 
   ## Open Project
   openproject:
@@ -254,6 +254,7 @@ defaults_applications:
       enabled:            true    # OpenProject doesn't support OIDC, so this procy in combination with LDAP is needed
       application:        "proxy"
       port:               "80"
+#     cookie_secret:      None    # Set via openssl rand -hex 16
     ldap_enabled:         True    # Enables LDAP by default
     database:
       central_storage:    True 
@@ -275,10 +276,11 @@ defaults_applications:
       enabled:            true
       port:               "80"
       application:        "application"
+#     cookie_secret:      None            # Set via openssl rand -hex 16
     database:
       central_storage:    True
     css:
-      enabled:            True           # The css needs more optimation for PHPMyAdmin
+      enabled:            False           # The css needs more optimation for PHPMyAdmin
 
   ## Pixelfed
   pixelfed:
@@ -316,7 +318,8 @@ defaults_applications:
       enabled:                true
       application:            "application"
       port:                   "80"
-      location:               "/admin/"                       # Protects the admin area
+      location:               "/admin/"       # Protects the admin area
+#     cookie_secret:          None            # Set via openssl rand -hex 16
     database:
       central_storage:        True
 

@@ -1,7 +1,7 @@
 http_address            =   "0.0.0.0:4180"
-cookie_secret           =   "{{applications.oauth2_proxy.cookie_secret}}"
+cookie_secret           =   "{{applications[application_id].oauth2_proxy.cookie_secret}}"
 email_domains           =   "{{primary_domain}}"
-cookie_secure           =   "false"
+cookie_secure           =   "true"                                                  # True is necessary to force the cookie set via https
 upstreams               =   "http://{{applications[application_id].oauth2_proxy.application}}:{{applications[application_id].oauth2_proxy.port}}"
 cookie_domains          =   ["{{domain}}", "{{domains.keycloak}}"]                  # Required so cookie can be read on all subdomains.
 whitelist_domains       =   [".{{primary_domain}}"]                                 # Required to allow redirection back to original requested target.
@@ -15,5 +15,5 @@ provider                =   "oidc"
 provider_display_name   =   "Keycloak"
 
 # role restrictions
-#cookie_roles            =   "realm_access.roles"
-allowed_roles           =   "{{applications.oauth2_proxy.allowed_roles}}"
+#cookie_roles           =   "realm_access.roles"
+allowed_roles           =   "{{applications.oauth2_proxy.allowed_roles}}"           # This is not correct here. needs to be placed in applications @todo move there when implementing

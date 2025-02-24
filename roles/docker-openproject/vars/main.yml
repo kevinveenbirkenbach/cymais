@@ -1,6 +1,6 @@
 application_id:               "openproject"
 docker_repository_address:    "https://github.com/opf/openproject-deploy"
-database_password:            "{{openproject_database_password}}"
+database_password:            "{{applications[application_id].credentials.database_password}}"
 database_type:                "postgres"
 
 openproject_plugins_service:  "{{docker_compose.directories.services}}plugins/"
