@@ -1,0 +1,1 @@
+This folder contains schemas for the different applications to import

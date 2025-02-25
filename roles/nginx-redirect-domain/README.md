@@ -5,7 +5,7 @@ This Ansible role configures Nginx to perform 301 redirects from one domain to a
 ## Role Variables
 
 - `domain_mappings`: A list of objects with `source` and `target` properties specifying the domains to redirect from and to.
-- `administrator_email`: The email used for SSL certificate registration with Let's Encrypt.
+- `users.administrator.email`: The email used for SSL certificate registration with Let's Encrypt.
 
 ## Dependencies
 

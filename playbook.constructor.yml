@@ -2,6 +2,10 @@
 - name: Merge variables
   hosts: all
   tasks:
+  - name: Merge users
+    set_fact:
+      users: "{{ default_users | combine(users, recursive=True) }}"
+
   - name: Merge system_email definitions
     set_fact:
       system_email: "{{ default_system_email | combine(system_email | default({}, true), recursive=True) }}"
@@ -49,10 +53,11 @@
     # Add new merged variables here
     debug:
       msg:
-        domains:              "{{domains}}"
-        applications:         "{{applications}}"
-        oidc:                 "{{oidc}}"
-        service_provider:     "{{service_provider}}"
+        domains:          "{{domains}}"
+        applications:     "{{applications}}"
+        oidc:             "{{oidc}}"
+        service_provider: "{{service_provider}}"
+        users:            "{{users}}"
     when: enable_debug | bool
 
 - name: update device

@@ -16,14 +16,14 @@ defaults_service_provider:
     logo:           https://cloud.veen.world/s/logo_cymais_512x512/download
     favicon:        https://cloud.veen.world/s/veen_world_favicon/download
   contact:
-    bluesky: "{{ '@' ~ administrator_username ~ '.' ~ domains.bluesky_api if 'bluesky' in group_names else '' }}"
+    bluesky: "{{ '@' ~ users.administrator.username ~ '.' ~ domains.bluesky_api if 'bluesky' in group_names else '' }}"
     email: "contact@{{ primary_domain }}"
-    mastodon: "{{ '@' ~ administrator_username ~ '@' ~ domains.mastodon if 'mastodon' in group_names else '' }}"
-    matrix: "{{ '@' ~ administrator_username ~ ':' ~ domains.matrix_synapse if 'matrix' in group_names else '' }}"
-    peertube: "{{ '@' ~ administrator_username ~ '@' ~ domains.peertube if 'peertube' in group_names else '' }}"
-    pixelfed: "{{ '@' ~ administrator_username ~ '@' ~ domains.pixelfed if 'pixelfed' in group_names else '' }}"
+    mastodon: "{{ '@' ~ users.administrator.username ~ '@' ~ domains.mastodon if 'mastodon' in group_names else '' }}"
+    matrix: "{{ '@' ~ users.administrator.username ~ ':' ~ domains.matrix_synapse if 'matrix' in group_names else '' }}"
+    peertube: "{{ '@' ~ users.administrator.username ~ '@' ~ domains.peertube if 'peertube' in group_names else '' }}"
+    pixelfed: "{{ '@' ~ users.administrator.username ~ '@' ~ domains.pixelfed if 'pixelfed' in group_names else '' }}"
     phone: "+0 000 000 404"
-    wordpress: "{{ '@' ~ administrator_username ~ '@' ~ domains.wordpress[0] if 'wordpress' in group_names else '' }}"
+    wordpress: "{{ '@' ~ users.administrator.username ~ '@' ~ domains.wordpress[0] if 'wordpress' in group_names else '' }}"
 
   legal:
     editorial_responsible:  "Johannes Gutenberg"

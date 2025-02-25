@@ -3,7 +3,7 @@
 {% if applications[application_id].database.central_storage | bool and database_type is defined %}
       central_{{ database_type }}:
 {% endif %}
-{% if applications[application_id].ldap_enabled|default(false)|bool and applications.ldap.openldap.network.local|bool %}
+{% if applications[application_id].get('ldap', {}).get('enabled', false)|bool and applications.ldap.openldap.network.local|bool %}
       central_ldap:
 {% endif %}
       default:

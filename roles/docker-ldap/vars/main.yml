@@ -9,4 +9,5 @@ ldif_docker_path:           "/tmp/ldif/"
 ldap.dn.application_roles:  "ou=application_roles,{{ldap.dn.root}}"
 ldif_types:
   - configuration
-  - import 
+  - data
+  - schema

@@ -22,13 +22,13 @@
 - name: "copy docker-compose.yml and env file"
   include_tasks: copy-docker-compose-and-env.yml
 
-- name: Include OIDC-specific tasks
-  include_tasks: oidc.yml
+- name: "Include OIDC-specific tasks with flavor {{applications[application_id].oidc.flavor}}"
+  include_tasks: "oidc_{{applications[application_id].oidc.flavor}}.yml"
   when: applications[application_id].oidc.enabled | bool
 
 - name: Include LDAP specific tasks
   include_tasks: ldap.yml
-  when: applications[application_id].ldap_enabled | bool
+  when: applications[application_id].ldap.enabled | bool
 
 - name: Include Config specific tasks
   include_tasks: config.yml

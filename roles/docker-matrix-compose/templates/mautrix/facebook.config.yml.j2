@@ -381,7 +381,7 @@ bridge:
     permissions:
         "*": relay
         "{{applications.matrix.server_name}}": user
-        "@{{applications.matrix.administrator_username}}:{{applications.matrix.server_name}}": admin
+        "@{{applications.matrix.users.administrator.username}}:{{applications.matrix.server_name}}": admin
 
     relay:
         # Whether relay mode should be allowed. If allowed, `!fb set-relay` can be used to turn any

@@ -4,7 +4,7 @@ networks:
   central_{{ database_type }}:
     external: true
 {% endif %}
-{% if applications[application_id].ldap_enabled|default(false)|bool and applications.ldap.openldap.network.local|bool %}
+{% if applications[application_id].get('ldap', {}).get('enabled', false)|bool and applications.ldap.openldap.network.local|bool %}
   central_ldap:
     external: true
 {% endif %}

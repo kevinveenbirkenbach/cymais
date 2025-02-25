@@ -9,10 +9,18 @@ primary_domain_tld:     "localhost"                                     # Top Le
 primary_domain_sld:     "cymais"                                        # Second Level Domain of the server
 primary_domain:         "{{primary_domain_sld}}.{{primary_domain_tld}}" # Primary Domain of the server
 
+# Helper Variables
+_users_administrator_username:  "{{ users.administrator.username | default('administrator') }}"
+_users_administrator_email:     "{{ users.administrator.email | default(_users_administrator_username ~ '@' ~ primary_domain) }}"
+
 # Administrator
-administrator_username:           "administrator"                                 # Username of the administrator
-administrator_email:              "{{administrator_username}}@{{primary_domain}}" # Email of the administrator
-# administrator_initial_password: Null                                            # Example initialisation password needs to be set in inventory file
+default_users:
+  administrator:
+    username:           "{{_users_administrator_username}}"   # Username of the administrator
+    email:              "{{_users_administrator_email}}"      # Email of the administrator
+#   initial_password:   Null                                  # Example initialisation password needs to be set in inventory file
+    uid:                1001                                  # Posix User ID
+    gid:                1001                                  # Posix Group ID
 
 # Test Email
 test_email:             "test@{{primary_domain}}"

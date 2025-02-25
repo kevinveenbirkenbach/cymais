@@ -776,6 +776,11 @@ input:checked {
     border-color: var(--color-70);
 }
 
+option {
+    background-color: var(--color-82);
+    color: var(--color-99);
+}
+
 /* Tables (Borders and Header Colors) */
 th, td {
     border-color: var(--color-70);
@@ -863,7 +868,7 @@ html[native-dark-active] .btn, .btn {
 }
 
 /* Keycloak */
-div#app header, div#app header *{
+div#app header{
     background-color: var(--color-60);
     /* New Gradient based on original background (60 -5, 60, 60 +1, 60 +5) */
     background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-55), var(--color-60), var(--color-61), var(--color-65));

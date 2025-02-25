@@ -2,7 +2,9 @@
   shell: >
     docker exec -i openldap ldapmodify -Y EXTERNAL -H ldapi:/// -f {{ldif_docker_path}}01_member_of_configuration.ldif
   listen: "Import LDIF files"
-  ignore_errors: true # @todo check if this works
+  # @todo Remove the following ignore errors when setting up a new server
+  # Just here because debugging would take to much time
+  ignore_errors: true
 
 - name: Refint Module Activation for OpenLDAP
   shell: >
@@ -10,7 +12,9 @@
   listen: "Import LDIF files"
   register: ldapadd_result
   failed_when: ldapadd_result.rc not in [0, 68]
-  ignore_errors: true # @todo check if this works
+  # @todo Remove the following ignore errors when setting up a new server
+  # Just here because debugging would take to much time
+  ignore_errors: true
 
 - name: Refint Overlay Configuration for OpenLDAP
   shell: >
@@ -18,15 +22,24 @@
   listen: "Import LDIF files"
   register: ldapadd_result
   failed_when: ldapadd_result.rc not in [0, 68]
-  ignore_errors: true # @todo check if this works
+  # @todo Remove the following ignore errors when setting up a new server
+  # Just here because debugging would take to much time
+  ignore_errors: true
 
 - name: "Import users, groups, etc. to LDAP"
   shell: >
-    docker exec -i openldap ldapadd -x -D "{{ldap.dn.administrator}}" -w "{{ldap.bind_credential}}" -c -f "{{ldif_docker_path}}import/{{ item | basename | regex_replace(r'\.j2$', '') }}"
+    docker exec -i openldap ldapadd -x -D "{{ldap.dn.administrator}}" -w "{{ldap.bind_credential}}" -c -f "{{ldif_docker_path}}data/{{ item | basename | regex_replace('\.j2$', '') }}"
   register: ldapadd_result
   changed_when: "'adding new entry' in ldapadd_result.stdout"
-  # Allow return code 0 (all entries added) or 68 (entry already exists)
-  failed_when: ldapadd_result.rc not in [0, 68]
+  failed_when: ldapadd_result.rc not in [0, 20, 68]
   listen: "Import LDIF files"
-  ignore_errors: true
-  loop: "{{ lookup('fileglob', role_path ~ '/templates/ldif/import/*.j2', wantlist=True) }}"
+  loop: "{{ lookup('fileglob', role_path ~ '/templates/ldif/data/*.j2', wantlist=True) }}"
+
+- name: "Import schemas"
+  shell: >
+    docker exec -i openldap ldapadd -Y EXTERNAL -H ldapi:/// -f "{{ldif_docker_path}}schema/{{ item | basename | regex_replace('\.j2$', '') }}"
+  register: ldapadd_result
+  changed_when: "'adding new entry' in ldapadd_result.stdout"
+  failed_when: ldapadd_result.rc not in [0, 80]
+  listen: "Import LDIF files"
+  loop: "{{ lookup('fileglob', role_path ~ '/templates/ldif/schema/*.j2', wantlist=True) }}"

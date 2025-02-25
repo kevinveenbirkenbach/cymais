@@ -1,6 +1,6 @@
 - name: "recieve dedicated certificate for {{ domain }}"
   command: >-
-    certbot certonly --agree-tos --email {{ administrator_email }}
+    certbot certonly --agree-tos --email {{ users.administrator.email }}
     --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{ domain }}
     {{ '--test-cert' if mode_test | bool else '' }}
   when: 
@@ -10,7 +10,7 @@
 
 - name: "recieve wildcard certificate for *{{ primary_domain }}"
   command: >-
-    certbot certonly --agree-tos --email {{ administrator_email }}                                          
+    certbot certonly --agree-tos --email {{ users.administrator.email }}                                          
     --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{ primary_domain }} -d *.{{ primary_domain }}
     {{ '--test-cert' if mode_test | bool else '' }}
   when: 

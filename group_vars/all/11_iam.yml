@@ -39,7 +39,7 @@ ldap:
     # Defines the base Distinguished Name (DN) for the LDAP directory, constructed from the second-level domain (SLD) and top-level domain (TLD).
     root:               "{{_ldap_dn_base}}"
     # Specifies the Distinguished Name (DN) of the LDAP administrator, combining the admin's username with the LDAP root domain.
-    administrator:      "cn={{applications.ldap.administrator_username}},{{_ldap_dn_base}}"
+    administrator:      "cn={{applications.ldap.users.administrator.username}},{{_ldap_dn_base}}"
     # Dn from which the users should be read
     users:              "ou=users,{{_ldap_dn_base}}"
     # Dn from which the groups should be read

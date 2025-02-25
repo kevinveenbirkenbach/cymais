@@ -1,3 +1,5 @@
+# In own task file for easier looping
+
 - name: "Create LDIF files at {{ ldif_host_path }}/{{ folder }}"
   template:
     src: "{{ item }}"

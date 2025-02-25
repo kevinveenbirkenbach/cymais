@@ -5,15 +5,15 @@
   command: 
     cmd:  "docker compose exec -u root web sed -i '/- administrator/d' config/settings.yml"
     chdir: "{{docker_compose.directories.instance}}"
-  when: administrator_username == "administrator"
+  when: users.administrator.username == "administrator"
 
 - name: Create admin account via tootctl
   command: 
-    cmd: 'docker compose exec -u root web bash -c "RAILS_ENV=production bin/tootctl accounts create {{administrator_username}} --email {{administrator_email}} --confirmed --role Owner"'
+    cmd: 'docker compose exec -u root web bash -c "RAILS_ENV=production bin/tootctl accounts create {{users.administrator.username}} --email {{users.administrator.email}} --confirmed --role Owner"'
     chdir: "{{docker_compose.directories.instance}}"
   ignore_errors: true
 
 - name: Approve the administrator account in Mastodon
   command: 
-    cmd: docker compose exec -u root web bash -c "RAILS_ENV=production bin/tootctl accounts modify {{administrator_username}} --approve"
+    cmd: docker compose exec -u root web bash -c "RAILS_ENV=production bin/tootctl accounts modify {{users.administrator.username}} --approve"
     chdir: "{{docker_compose.directories.instance}}"

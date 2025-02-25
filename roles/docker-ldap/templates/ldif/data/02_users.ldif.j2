@@ -9,16 +9,18 @@ description: Container for application access profiles
 #######################################################################
 # Create Admin User
 #######################################################################
-dn: uid={{administrator_username}},{{ldap.dn.users}}
+dn: uid={{users.administrator.username}},{{ldap.dn.users}}
 objectClass: top
 objectClass: inetOrgPerson
 objectClass: posixAccount
-uid: {{administrator_username}}
+uid: {{users.administrator.username}}
 sn: Administrator
 cn: Administrator
 userPassword: {SSHA}CHANGE_THIS_PASSWORD
 loginShell: /bin/bash
 homeDirectory: /home/admin
+uidNumber: {{users.administrator.uid}}
+gidNumber: {{users.administrator.gid}}
 
 #######################################################################
 # Add Admin User to All Application Role Groups
@@ -29,11 +31,11 @@ homeDirectory: /home/admin
 dn: cn={{ app }}-administrator,{{ ldap.dn.application_roles }}
 changetype: modify
 add: roleOccupant
-roleOccupant: uid={{administrator_username}},{{ldap.dn.users}}
+roleOccupant: uid={{users.administrator.username}},{{ldap.dn.users}}
 
 dn: cn={{ app }}-user,{{ ldap.dn.application_roles }}
 changetype: modify
 add: roleOccupant
-roleOccupant: uid={{administrator_username}},{{ldap.dn.users}}
+roleOccupant: uid={{users.administrator.username}},{{ldap.dn.users}}
 
 {% endfor %}

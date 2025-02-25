@@ -26,6 +26,11 @@
 #
 # IMPORTANT: All groups created before enabling this module must be deleted and recreated,
 # as the overlay only assigns the "member" attribute when a new group is created.
+
+# @todo Solve the following error:
+#fatal: [echoserver]: FAILED! => {"changed": true, "cmd": "docker exec -i openldap ldapmodify -Y EXTERNAL -H ldapi:/// -f /tmp/ldif/01_member_of_configuration.ldif\n", "delta": "0:00:00.059605", "end": "2025-02-25 12:01:18.218851", "msg": "non-zero return code", "rc": 247, "start": "2025-02-25 12:01:18.159246", "stderr": "SASL/EXTERNAL authentication started\nSASL username: gidNumber=0+uidNumber=1001,cn=peercred,cn=external,cn=auth\nSASL SSF: 0\nldapmodify: modify operation type is missing at line 2, entry \"cn=module,cn=config\"", "stderr_lines": ["SASL/EXTERNAL authentication started", "SASL username: gidNumber=0+uidNumber=1001,cn=peercred,cn=external,cn=auth", "SASL SSF: 0", "ldapmodify: modify operation type is missing at line 2, entry \"cn=module,cn=config\""], "stdout": "", "stdout_lines": []}
+
+
 dn: cn=module,cn=config
 cn: module
 objectClass: olcModuleList

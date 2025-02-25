@@ -62,7 +62,7 @@ EOF
 
 ```
 
-### Show all Entires
+### Show all Entries
 ```bash 
 docker exec --env LDAP_ADMIN_PASSWORD="$LDAP_ADMIN_PASSWORD" -it openldap bash -c "ldapsearch -LLL -o ldif-wrap=no -x -D 'cn=administrator,dc=veen,dc=world' -w \"\$LDAP_ADMIN_PASSWORD\" -b 'dc=veen,dc=world'";
 ```

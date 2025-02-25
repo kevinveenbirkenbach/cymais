@@ -16,8 +16,8 @@ defaults_applications:
   akaunting:
     version:              "latest"
     company_name:         "{{primary_domain}}"
-    company_email:        "{{administrator_email}}"
-    setup_admin_email:    "{{administrator_email}}"
+    company_email:        "{{users.administrator.email}}"
+    setup_admin_email:    "{{users.administrator.email}}"
     database:
       central_storage:                True
 
@@ -44,7 +44,9 @@ defaults_applications:
 
   ## Bluesky
   bluesky:
-    administrator_email:    "{{administrator_email}}"
+    users:
+      administrator:
+        email:    "{{users.administrator.email}}"
     pds:
       version:              "latest"
       #jwt_secret:                            # Needs to be defined in inventory file - Use: openssl rand -base64 64 | tr -d '\n'
@@ -70,14 +72,15 @@ defaults_applications:
     oidc:
       enabled:               true             # Activate OIDC. Plugin is not working yet
     database:
-      central_storage:                True
+      central_storage:       True
 
   ## Funkwhale
   funkwhale:
     version:              "1.4.0"
-    ldap_enabled:         True                # Enables LDAP by default
+    ldap:
+      enabled:            True                # Enables LDAP by default
     database:
-      central_storage:                True
+      central_storage:    True
 
   ## Gitea
   gitea:
@@ -98,10 +101,13 @@ defaults_applications:
   ## Keycloak
   keycloak:
     version:                  "latest"
-    administrator_username:   "{{administrator_username}}"  # Administrator Username for Keycloak
-    ldap_enabled:             True                          # Enables LDAP by default
+    users:
+      administrator:
+        username:   "{{users.administrator.username}}"  # Administrator Username for Keycloak
+    ldap:
+      enabled:                True                          # Enables LDAP by default
     database:
-      central_storage:                True
+      central_storage:        True
 #   database_password:                                      # Needs to be defined in inventory file   
 #   administrator_password:                                 # Needs to be defined in inventory file      
 
@@ -109,7 +115,7 @@ defaults_applications:
   ldap:
     lam:
       version:                        "latest"
-      administrator_password:         "{{administrator_initial_password}}" # CHANGE for security reasons
+      administrator_password:         "{{users.administrator.initial_password}}" # CHANGE for security reasons
     openldap:
       version:                        "latest"
       network:
@@ -119,8 +125,11 @@ defaults_applications:
     phpldapadmin:
       version:                        "2.0.0-dev"                               # @todo Attention: Change this as fast as released to latest
     webinterface:                     "lam"                                     # The webinterface which should be used. Possible: lam and phpldapadmin
-    administrator_username:           "{{administrator_username}}"
-    ldap_enabled:                     True                                      # Should have the same value as applications.ldap.openldap.network.local.
+    users:  
+      administrator:
+        username:                     "{{users.administrator.username}}"
+    ldap:
+      enabled:                        True                                      # Should have the same value as applications.ldap.openldap.network.local.
     force_import:                     false                                     # Forces the import of the LDIF files when set to true
     oauth2_proxy:
       enabled:                        true                                      # Activate the OAuth2 Proxy for the LDAP Webinterface
@@ -134,7 +143,9 @@ defaults_applications:
 
   ## Listmonk
   listmonk:
-    administrator_username:           "{{administrator_username}}"              # Listmonk administrator account username
+    users:
+      administrator:
+        username:                     "{{users.administrator.username}}"              # Listmonk administrator account username
     public_api_activated:             False                                     # Security hole. Can be used for spaming
     version:                          "latest"                                  # Docker Image version
     setup:                            false                                     # Set true in inventory file to execute the setup and initializing procedures
@@ -197,7 +208,9 @@ defaults_applications:
 
   ## Matrix
   matrix:
-    administrator_username:           "{{administrator_username}}"  # Accountname of the matrix admin
+    users:
+      administrator:
+        username:                     "{{users.administrator.username}}"  # Accountname of the matrix admin
     playbook_tags:                    "setup-all,start"             # For the initial update use: install-all,ensure-matrix-users-created,start
     role:                             "compose"                     # Role to setup Matrix. Valid values: ansible, compose
     server_name:                      "{{primary_domain}}"          # Adress for the account names etc.
@@ -214,8 +227,10 @@ defaults_applications:
   ## Moodle
   moodle:
     site_titel:                       "Global Learning Academy on {{primary_domain}}"
-    administrator_name:               "{{administrator_username}}"
-    administrator_email:              "{{administrator_email}}"
+    users:
+      administrator:
+        username:                     "{{users.administrator.username}}"
+        email:                        "{{users.administrator.email}}"
     version:                          "latest"
     database:
       central_storage:                True
@@ -228,17 +243,26 @@ defaults_applications:
 
   ## Nextcloud
   nextcloud:
-    version:              "production"  # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
-    ldap_enabled:         True          # Enables LDAP by default, missing ansible setup tasks @todo setup
+    version:                "production"                          # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
+    ldap:
+      enabled:              True                                  # Enables LDAP by default, missing ansible setup tasks @todo setup
     oidc:
-      enabled:            true          # Activate OIDC for Nextcloud
-    force_import:         False         # Forces the import of the LDIF files
+      enabled:              true                                  # Activate OIDC for Nextcloud
+      # floavor decides which OICD plugin should be used. 
+      # Available options: login, sociallogin
+      # @see https://apps.nextcloud.com/apps/oidc_login
+      # @see https://apps.nextcloud.com/apps/sociallogin
+      flavor:               "sociallogin"                         # Keeping on sociallogin because the other option is not implemented yet                                             
+    force_import:           False                                 # Forces the import of the LDIF files
     database:
-      central_storage:    True
+      central_storage:      True
     credentials:
-#     database_password:  Null          # Needs to be set in inventory file
-      administrator_username:           "{{administrator_username}}"
-      administrator_initial_password:   "{{administrator_initial_password}}"
+#     database_password:    Null                                  # Needs to be set in inventory file
+    users:      
+      administrator:
+        username:           "{{users.administrator.username}}"
+        initial_password:   "{{users.administrator.initial_password}}"
+    default_quota:          '1000000000'                          # Quota to assign if no quota is specified in the OIDC response (bytes)
       
   ## OAuth2 Proxy
   oauth2_proxy:
@@ -255,7 +279,8 @@ defaults_applications:
       application:        "proxy"
       port:               "80"
 #     cookie_secret:      None    # Set via openssl rand -hex 16
-    ldap_enabled:         True    # Enables LDAP by default
+    ldap:
+      enabled:            True    # Enables LDAP by default
     database:
       central_storage:    True 
     css:
@@ -312,7 +337,9 @@ defaults_applications:
 
   ## YOURLS
   yourls:
-    administrator_username:  "{{administrator_username}}"
+    users:
+      administrator:
+        username:  "{{users.administrator.username}}"
     version:                 "latest"
     oauth2_proxy:  
       enabled:                true
