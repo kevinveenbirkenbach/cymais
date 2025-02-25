@@ -1,0 +1,13 @@
+- name: enable sociallogin plugin
+  command: "docker exec -u www-data {{nextcloud_application_container_name}} {{nextcloud_docker_path}}occ app:disable sociallogin"
+  ignore_errors: true
+  when: 
+    - mode_cleanup | bool
+
+- name: install oidc_login plugin
+  command: "docker exec -u www-data {{nextcloud_application_container_name}} {{nextcloud_docker_path}}occ app:install oidc_login"
+  ignore_errors: true
+
+- name: Add OIDC configuration if not implemented yet
+  command: >
+    docker exec -u www-data {{ nextcloud_application_container_name }} sh -c 'grep -q "CONFIG_EXTRA = include" ./config/config.php || echo -e "\n\$CONFIG_EXTRA = include '\''{{nextcloud_docker_oidc_login_config_path}}'\'';\n\$CONFIG = array_merge(\$CONFIG, \$CONFIG_EXTRA);" >> ./config/config.php'

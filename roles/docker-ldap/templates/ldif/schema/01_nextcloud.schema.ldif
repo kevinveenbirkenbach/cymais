@@ -1,7 +1,4 @@
 # nextcloud.schema
-# This schema is deactivated, because with keycloak it's impossible to set schemas to new created users
-# Until then the managament is done over keycloak
-# @todo activate in ldap 
 
 dn: cn=nextcloud,cn=schema,cn=config
 objectClass: olcSchemaConfig

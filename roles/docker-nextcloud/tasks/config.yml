@@ -1,18 +1,18 @@
-- name: "Substitute http with https in {{ nextcloud_config_file_path }}"
+- name: "Substitute http with https in {{ nextcloud_config_file_host_path }}"
   replace:
-    path: "{{ nextcloud_config_file_path }}"
+    path: "{{ nextcloud_config_file_host_path }}"
     regexp: "http://{{ domain | regex_escape }}"
     replace: "https://{{ domain }}"
   notify:
     - docker compose restart
 
-#- name: Ensure 'overwriteprotocol' is set to 'https' in Nextcloud {{ nextcloud_config_file_path }}
+#- name: Ensure 'overwriteprotocol' is set to 'https' in Nextcloud {{ nextcloud_config_file_host_path }}
 #  block:
 #     Deactivated because it was really heavy to fix. 
 #     @todo implement
 #    - name: Check if 'overwriteprotocol' is already set
 #      lineinfile:
-#        path: "{{ nextcloud_config_file_path }}"
+#        path: "{{ nextcloud_config_file_host_path }}"
 #        regexp: "^\s*overwriteprotocol\s*=>\s*http"
 #        line: "overwriteprotocol => 'https',"
 #        backrefs: yes
@@ -22,7 +22,7 @@
 #
 #    - name: Add 'overwriteprotocol' => 'https' if not present
 #      lineinfile:
-#        path: "{{ nextcloud_config_file_path }}"
+#        path: "{{ nextcloud_config_file_host_path }}"
 #        regexp: "^\s*\);$"
 #        line: "overwriteprotocol => 'https',"
 #        insertafter: "^\s*\);$"

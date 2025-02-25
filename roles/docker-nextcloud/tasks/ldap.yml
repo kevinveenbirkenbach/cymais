@@ -2,6 +2,10 @@
 # @See https://chatgpt.com/c/67aa2d21-cb4c-800f-b1be-8629b6bd3f55
 # @todo implement
 
+- name: install LDAP plugin
+  command: "docker exec -u www-data {{nextcloud_application_container_name}} {{nextcloud_docker_path}}occ app:install user_ldap"
+  ignore_errors: true
+
 - name: Activate Nextcloud LDAP App
   command: "docker exec -u www-data {{ nextcloud_application_container_name }} php occ app:enable user_ldap"
 
@@ -14,3 +18,8 @@
   command: >
     docker exec -u www-data {{ nextcloud_application_container_name }}
     php occ config:app:set {{ item.appid }} {{ item.configkey }} --value "{{ item.configvalue }}"
+
+- name: Set Nextcloud LDAP bind password
+  command: >
+    docker exec -u www-data {{ nextcloud_application_container_name }}
+    php occ ldap:set-config s01 ldapAgentPassword "{{ ldap.bind_credential }}"

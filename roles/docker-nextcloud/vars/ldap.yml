@@ -26,11 +26,6 @@ nextcloud_ldap_configuration:
 
   -
     appid: "user_ldap"
-    configkey: "s01ldap_agent_password"
-    configvalue: "{{ldap.bind_credential}}"
-
-  -
-    appid: "user_ldap"
     configkey: "s01ldap_backup_port"
     configvalue: "{{ ports.localhost.ldap.openldap }}" # This is just optimized for local port @todo implement for external ports as well
 
@@ -42,12 +37,12 @@ nextcloud_ldap_configuration:
   -
     appid: "user_ldap"
     configkey: "s01ldap_base_groups"
-    configvalue: "{{ldap.dn.groups}}"
+    configvalue: "{{ldap.dn.root}}"
 
   -
     appid: "user_ldap"
     configkey: "s01ldap_base_users"
-    configvalue: "{{ldap.dn.users}}"
+    configvalue: "{{ldap.dn.root}}}"
 
   -
     appid: "user_ldap"

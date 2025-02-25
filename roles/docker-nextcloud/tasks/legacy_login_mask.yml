@@ -1,0 +1,5 @@
+- name: Set hide_login_form to true
+  command: "docker exec -u www-data {{nextcloud_application_container_name}} {{nextcloud_docker_path}}occ config:system:set --type boolean --value {{ (not applications[application_id].legacy_login_mask.enabled) | lower }} hide_login_form"
+
+- name: "Set auth.webauthn.enabled to false"
+  command: "docker exec -u www-data {{nextcloud_application_container_name}} {{nextcloud_docker_path}}occ config:system:set --type boolean --value {{applications[application_id].legacy_login_mask.enabled | lower}} auth.webauthn.enabled"

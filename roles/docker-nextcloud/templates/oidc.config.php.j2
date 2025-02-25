@@ -1,12 +1,13 @@
+<?php
 # Check out: https://github.com/pulsejet/nextcloud-oidc-login
 
-$CONFIG = array (
+return array (
     // Some Nextcloud options that might make sense here
     'allow_user_to_change_display_name' => false,
     'lost_password_link' => 'disabled',
 
     // URL of provider. All other URLs are auto-discovered from .well-known
-    'oidc_login_provider_url' => 'https://{{domains.keycloak}}',
+    'oidc_login_provider_url' => 'https://{{oidc.client.issuer_url}}',
 
     // Client ID and secret registered with the provider
     'oidc_login_client_id' => '{{oidc.client.id}}',
@@ -95,10 +96,10 @@ $CONFIG = array (
         'id' => 'username',
         'name' => 'name',
         'mail' => 'email',
-        'quota' => 'nextcloudQuota',
-        'home' => 'homeDirectory',
+        # 'quota' => 'nextcloudQuota',  # Not implemented yet
+        # 'home' => 'homeDirectory',    # Not implemented yet
         'ldap_uid' => 'uid',
-        'groups' => 'ownCloudGroups',
+        # 'groups' => 'ownCloudGroups', # Not implemented yet
         'login_filter' => 'realm_access_roles',
     //    'photoURL' => 'picture',
     //    'is_admin' => 'ownCloudAdmin',
