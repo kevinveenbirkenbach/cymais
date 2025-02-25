@@ -9,7 +9,7 @@ services:
     container_name: {{nextcloud_application_container_name}}
     volumes:
       - data:{{nextcloud_docker_path}}
-{% if applications[application_id].oidc.flavor == "login" %}
+{% if applications[application_id].oidc.flavor == "oidc_login" %}
       - {{nextcloud_host_oidc_login_path}}:{{nextcloud_docker_oidc_login_config_path}}:ro
 {% endif %}
     healthcheck:

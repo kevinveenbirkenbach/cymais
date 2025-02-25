@@ -252,7 +252,7 @@ defaults_applications:
       # Available options: oidc_login, sociallogin
       # @see https://apps.nextcloud.com/apps/oidc_login
       # @see https://apps.nextcloud.com/apps/sociallogin
-      flavor:               "sociallogin"                         # Keeping on sociallogin because the other option is not implemented yet                                             
+      flavor:               "oidc_login"                          # Keeping on sociallogin because the other option is not implemented yet                                             
     force_import:           False                                 # Forces the import of the LDIF files
     database:
       central_storage:      True

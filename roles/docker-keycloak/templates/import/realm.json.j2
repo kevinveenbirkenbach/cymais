@@ -1193,6 +1193,39 @@
       ]
     },
     {
+      "id": "15dd4961-5b4f-4635-a3f1-a21e1fa7bf3a",
+      "name": "nextcloud",
+      "description": "",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "false",
+        "display.on.consent.screen": "true",
+        "gui.order": "",
+        "consent.screen.text": ""
+      },
+      "protocolMappers": [
+        {
+          "id": "62190b21-f649-4aa2-806a-2bf7ba103ce1",
+          "name": "nextcloudQuota",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "aggregate.attrs": "false",
+            "introspection.token.claim": "true",
+            "multivalued": "false",
+            "userinfo.token.claim": "true",
+            "user.attribute": "nextcloudQuota",
+            "id.token.claim": "true",
+            "lightweight.claim": "false",
+            "access.token.claim": "true",
+            "claim.name": "nextcloudQuota",
+            "jsonType.label": "int"
+          }
+        }
+      ]
+    },
+    {
       "id": "c07f07bc-c4f9-48c7-87e6-0a09fca6bfa0",
       "name": "web-origins",
       "description": "OpenID Connect scope for add allowed web origins to the access token",
@@ -1584,6 +1617,7 @@
     "basic"
   ],
   "defaultOptionalClientScopes": [
+    "nextcloud",
     "offline_access",
     "address",
     "phone",
@@ -1791,6 +1825,35 @@
               }
             },
             {
+              "id": "12b99578-e0bf-4eeb-b0fb-8e400c0cd73e",
+              "name": "nextcloudQuota",
+              "providerId": "user-attribute-ldap-mapper",
+              "subComponents": {},
+              "config": {
+                "ldap.attribute": [
+                  "nextcloudQuota"
+                ],
+                "is.mandatory.in.ldap": [
+                  "false"
+                ],
+                "attribute.force.default": [
+                  "false"
+                ],
+                "is.binary.attribute": [
+                  "false"
+                ],
+                "always.read.value.from.ldap": [
+                  "false"
+                ],
+                "read.only": [
+                  "false"
+                ],
+                "user.model.attribute": [
+                  "nextcloudQuota"
+                ]
+              }
+            },
+            {
               "id": "1ffab19c-4aeb-4038-a3e4-6444254fdd53",
               "name": "modify date",
               "providerId": "user-attribute-ldap-mapper",
@@ -1987,7 +2050,7 @@
             "false"
           ],
           "userObjectClasses": [
-            "person, inetOrgPerson"
+            "person, inetOrgPerson, nextcloudUser"
           ],
           "rdnLDAPAttribute": [
             "uid"
