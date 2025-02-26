@@ -1069,7 +1069,6 @@ section.main.kanban{
 
 div.master, div.kanban-header, div.kanban-table-inner, section.kanban button,a.dropdown-project-list-projects{
     background-color: var(--color-92);
-    /* New Gradient based on original background (92 -5, 92, 92 +1, 92 +5) */
     background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-87), var(--color-92), var(--color-93), var(--color-97));
     color: var(--color-40);
 }
@@ -1080,7 +1079,6 @@ section.kanban h1, section.kanban h2{
 
 .home-project {
     background: var(--color-88);
-    /* New Gradient based on original background (88 -5, 88, 88 +1, 88 +5) */
     background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-83), var(--color-88), var(--color-89), var(--color-93));
     border-color: var(--color-60);
     color: var(--color-12);
@@ -1088,7 +1086,6 @@ section.kanban h1, section.kanban h2{
 
 .home-wrapper .title-bar {
     background: var(--color-75);
-    /* New Gradient based on original background (75 -5, 75, 75 +1, 75 +5) */
     background: linear-gradient({{ range(0, 361) | random }}deg, var(--color-70), var(--color-75), var(--color-76), var(--color-80));
 }
 
@@ -1099,6 +1096,15 @@ section.kanban h1, section.kanban h2{
 .kanban-table-header .task-colum-name {
     background-color: var(--color-70);
     color: var(--color-10);
+}
+
+input.ng-empty::placeholder,.ng-empty::placeholder  {
+  color: rgba(var(--color-rgb-03),0.6); /* Beispiel: roter Platzhaltertext */
+}
+
+.lightbox {
+    background: rgba(var(--color-rgb-97), .93);
+    color: var(--color-03);
 }
 
 /* Portfolio */ 
