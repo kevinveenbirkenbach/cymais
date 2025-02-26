@@ -59,57 +59,57 @@ defaults_applications:
 
   ## Discourse:
   discourse:
-    network:    "discourse_default"           # Name of the docker network
-    container:  "discourse_application"       # Name of the container application
-    repository: "discourse_repository"        # Name of the repository folder
-    # database_password:                      # Needs to be defined in inventory file
+    network:              "discourse_default"     # Name of the docker network
+    container:            "discourse_application" # Name of the container application
+    repository:           "discourse_repository"  # Name of the repository folder
+    # database_password:                          # Needs to be defined in inventory file
     oidc:
-      enabled:               true             # Activate OIDC
+      enabled:            true                    # Activate OIDC
     database:
-      central_storage:                True
+      central_storage:    True                    # Activate Central Database Storage
 
   ## Friendica
   friendica:
     version:              "latest"
     oidc:
-      enabled:               true             # Activate OIDC. Plugin is not working yet
+      enabled:               true   # Activate OIDC. Plugin is not working yet
     database:
-      central_storage:       True
+      central_storage:       True   # Activate Central Database Storage
 
   ## Funkwhale
   funkwhale:
     version:              "1.4.0"
     ldap:
-      enabled:            True                # Enables LDAP by default @todo check implementation
+      enabled:            True    # Enables LDAP by default @todo check implementation
     database:
-      central_storage:    True
+      central_storage:    True    # Activate Central Database Storage
 
   ## Gitea
   gitea:
-    version:              "latest"
+    version:            "latest"
     database:
-      central_storage:                True
+      central_storage:  True      # Activate Central Database Storage
 
   ## Gitlab
   gitlab:
-    version:              "latest"
+    version:            "latest"
     database:
-      central_storage:                True
+      central_storage:  True      # Activate Central Database Storage
 
   ## Joomla
   joomla:
-    version:              "latest"
+    version:            "latest"
 
   ## Keycloak
   keycloak:
-    version:                  "latest"
+    version:            "latest"
     users:
       administrator:
-        username:   "{{users.administrator.username}}"  # Administrator Username for Keycloak
+        username:       "{{users.administrator.username}}"  # Administrator Username for Keycloak
     ldap:
-      enabled:                True                          # Enables LDAP by default
-    database:
-      central_storage:        True
+      enabled:          True                                # Enables LDAP by default
+    database: 
+      central_storage:  True                                # Activate Central Database Storage
 #   database_password:                                      # Needs to be defined in inventory file   
 #   administrator_password:                                 # Needs to be defined in inventory file      
 
@@ -117,57 +117,57 @@ defaults_applications:
   ldap:
     lam:
       version:                        "latest"
-      administrator_password:         "{{users.administrator.initial_password}}" # CHANGE for security reasons
+      administrator_password:         "{{users.administrator.initial_password}}"  # CHANGE for security reasons
     openldap:
       version:                        "latest"
       network:
-        local:                        True                                      # Activates local network to allow other docker containers to connect
-        public:                       False                                     # Set to true in inventory file if you want to expose the LDAP port to the internet
-      hostname:                       "openldap"                                # Hostname of the LDAP Server in the central_ldap network
+        local:                        True                                        # Activates local network to allow other docker containers to connect
+        public:                       False                                       # Set to true in inventory file if you want to expose the LDAP port to the internet
+      hostname:                       "openldap"                                  # Hostname of the LDAP Server in the central_ldap network
     phpldapadmin:
-      version:                        "2.0.0-dev"                               # @todo Attention: Change this as fast as released to latest
-    webinterface:                     "lam"                                     # The webinterface which should be used. Possible: lam and phpldapadmin
+      version:                        "2.0.0-dev"                                 # @todo Attention: Change this as fast as released to latest
+    webinterface:                     "lam"                                       # The webinterface which should be used. Possible: lam and phpldapadmin
     users:  
       administrator:
         username:                     "{{users.administrator.username}}"
     ldap:
-      enabled:                        True                                      # Should have the same value as applications.ldap.openldap.network.local.
-    force_import:                     false                                     # Forces the import of the LDIF files when set to true
+      enabled:                        True                                        # Should have the same value as applications.ldap.openldap.network.local.
+    force_import:                     false                                       # Forces the import of the LDIF files when set to true
     oauth2_proxy:
-      enabled:                        true                                      # Activate the OAuth2 Proxy for the LDAP Webinterface
-      application:                    lam                                       # Needs to be the same as webinterface
-      port:                           80                                        # If you use phpldapadmin set it to 8080
-#     cookie_secret:                  None                                      # Set via openssl rand -hex 16
+      enabled:                        true                                        # Activate the OAuth2 Proxy for the LDAP Webinterface
+      application:                    lam                                         # Needs to be the same as webinterface
+      port:                           80                                          # If you use phpldapadmin set it to 8080
+#     cookie_secret:                  None                                        # Set via openssl rand -hex 16
     database:
-      central_storage:                false                                     # LDAP doesn't use an database in the current configuration. Propably a good idea to implement one later. 
-    # administrator_password:                                                   # CHANGE for security reasons in inventory file
-    # administrator_database_password:                                          # CHANGE for security reasons in inventory file
+      central_storage:                false                                       # LDAP doesn't use an database in the current configuration. Propably a good idea to implement one later. 
+    # administrator_password:                                                     # CHANGE for security reasons in inventory file
+    # administrator_database_password:                                            # CHANGE for security reasons in inventory file
 
   ## Listmonk
   listmonk:
     users:
       administrator:
-        username:                     "{{users.administrator.username}}"              # Listmonk administrator account username
-    public_api_activated:             False                                     # Security hole. Can be used for spaming
-    version:                          "latest"                                  # Docker Image version
-    setup:                            false                                     # Set true in inventory file to execute the setup and initializing procedures
+        username:                     "{{users.administrator.username}}"  # Listmonk administrator account username
+    public_api_activated:             False                               # Security hole. Can be used for spaming
+    version:                          "latest"                            # Docker Image version
+    setup:                            false                               # Set true in inventory file to execute the setup and initializing procedures
     database:
-      central_storage:                True
+      central_storage:                True                                # Activate Central Database Storage
 
   mailu:
-    version:                          "2024.06"                                 # Docker Image Version
-    setup:                            false                                     # Set true in inventory file to execute the setup and initializing procedures
+    version:                          "2024.06"             # Docker Image Version
+    setup:                            false                 # Set true in inventory file to execute the setup and initializing procedures
     oidc:
-      enabled:                        true                                      # Activate OIDC for Mailu
-    domain:                           "{{primary_domain}}"                      # The main domain from which mails will be send \ email suffix behind @
+      enabled:                        true                  # Activate OIDC for Mailu
+    domain:                           "{{primary_domain}}"  # The main domain from which mails will be send \ email suffix behind @
     # I don't know why the database deactivation is necessary
     database:
-      central_storage:                False                                     # Deactivate central database for mailu
+      central_storage:                False                 # Deactivate central database for mailu
     credentials:                                     
-#     secret_key:                                                               # Set to a randomly generated 16 bytes string
-#     database_password:                                                        # Needs to be set in inventory file
-#     api_token:                                                                # Configures the authentication token. The minimum length is 3 characters. This is a mandatory setting for using the RESTful API.
-#     initial_administrator_password:                                           # Initial administrator password for setup 
+#     secret_key:                                           # Set to a randomly generated 16 bytes string
+#     database_password:                                    # Needs to be set in inventory file
+#     api_token:                                            # Configures the authentication token. The minimum length is 3 characters. This is a mandatory setting for using the RESTful API.
+#     initial_administrator_password:                       # Initial administrator password for setup 
 
   ## MariaDB
   mariadb:
@@ -175,26 +175,26 @@ defaults_applications:
 
   ## Matomo
   matomo:
-    version:                          "latest"
+    version:            "latest"
     oauth2_proxy:
-      enabled:                        false                         # Deactivated atm. @todo implement 
-#     cookie_secret:                  None                          # Set via openssl rand -hex 16
-#   database_password:                Null                          # Needs to be set in inventory file
-#   auth_token:                       Null                          # Needs to be set in inventory file
+      enabled:          false   # Deactivated atm. @todo implement 
+#     cookie_secret:    None    # Set via openssl rand -hex 16
+#   database_password:  Null    # Needs to be set in inventory file
+#   auth_token:         Null    # Needs to be set in inventory file
     css:
-      enabled:                        false                         # The css isn't optimized yet for Matomo
+      enabled:          false   # The css isn't optimized yet for Matomo
     database:
-      central_storage:                True
+      central_storage:  True    # Activate Central Database Storage
 
   ## Mastodon
   mastodon:
-    version:                          "latest"
-    single_user_mode:                 false                         # Set true for initial setup
-    setup:                            false                         # Set true in inventory file to execute the setup and initializing procedures
+    version:                      "latest"
+    single_user_mode:             false     # Set true for initial setup
+    setup:                        false     # Set true in inventory file to execute the setup and initializing procedures
     database:
-      central_storage:                True
+      central_storage:            True      # Activate Central Database Storage
     oidc:
-        enabled:                        true                          # Activate OIDC for Mastodon
+      enabled:                    True      # Activate OIDC for Mastodon
     credentials:
 # Check out the README.md of the docker-mastodon role to get detailled instructions about how to setup the credentials
 #     database_password:                              
@@ -212,68 +212,68 @@ defaults_applications:
   matrix:
     users:
       administrator:
-        username:                     "{{users.administrator.username}}"  # Accountname of the matrix admin
-    playbook_tags:                    "setup-all,start"             # For the initial update use: install-all,ensure-matrix-users-created,start
-    role:                             "compose"                     # Role to setup Matrix. Valid values: ansible, compose
-    server_name:                      "{{primary_domain}}"          # Adress for the account names etc.
+        username:       "{{users.administrator.username}}"  # Accountname of the matrix admin
+    playbook_tags:      "setup-all,start"                   # For the initial update use: install-all,ensure-matrix-users-created,start
+    role:               "compose"                           # Role to setup Matrix. Valid values: ansible, compose
+    server_name:        "{{primary_domain}}"                # Adress for the account names etc.
     synapse:
-      version:                        "latest"
+      version:          "latest"
     element:
-      version:                        "latest"
-    setup:                            false                         # Set true in inventory file to execute the setup and initializing procedures
+      version:          "latest"
+    setup:              false                               # Set true in inventory file to execute the setup and initializing procedures
     database:
-      central_storage:                True
+      central_storage:  True                                # Activate Central Database Storage
     oidc:
-      enabled:                        False                        # Deactivated OIDC due to this issue https://github.com/matrix-org/synapse/issues/10492
+      enabled:          False                               # Deactivated OIDC due to this issue https://github.com/matrix-org/synapse/issues/10492
 
   ## Moodle
   moodle:
-    site_titel:                       "Global Learning Academy on {{primary_domain}}"
+    site_titel:         "Global Learning Academy on {{primary_domain}}"
     users:
       administrator:
-        username:                     "{{users.administrator.username}}"
-        email:                        "{{users.administrator.email}}"
-    version:                          "latest"
+        username:       "{{users.administrator.username}}"
+        email:          "{{users.administrator.email}}"
+    version:            "latest"
     database:
-      central_storage:                True
+      central_storage:  True                                              # Activate Central Database Storage
 
   ## MyBB
   mybb:
-    version:                   "latest"
+    version:            "latest"
     database:
-      central_storage:                True
+      central_storage:  True      # Activate Central Database Storage
 
   ## Nextcloud
   nextcloud:
-    version:                "production"                          # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
+    version:                "production"                                # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
     ldap:
-      enabled:              True                                  # Enables LDAP by default
+      enabled:              True                                        # Enables LDAP by default
     oidc:
-      enabled:              true                                  # Activate OIDC for Nextcloud
+      enabled:              true                                        # Activate OIDC for Nextcloud
       # floavor decides which OICD plugin should be used. 
       # Available options: oidc_login, sociallogin
       # @see https://apps.nextcloud.com/apps/oidc_login
       # @see https://apps.nextcloud.com/apps/sociallogin
-      flavor:               "sociallogin"                          # Keeping on sociallogin because the other option is not implemented yet                                             
-    force_import:           False                                 # Forces the import of the LDIF files
+      flavor:               "oidc_login"                                # Keeping on sociallogin because the other option is not implemented yet                                             
+    force_import:           False                                       # Forces the import of the LDIF files
     database:
-      central_storage:      True
+      central_storage:      True                                        # Activate Central Database Storage
     credentials:
-#     database_password:    Null                                  # Needs to be set in inventory file
+#     database_password:    Null                                        # Needs to be set in inventory file
     users:      
       administrator:
         username:           "{{users.administrator.username}}"
         initial_password:   "{{users.administrator.initial_password}}"
-    default_quota:          '1000000000'                          # Quota to assign if no quota is specified in the OIDC response (bytes)
+    default_quota:          '1000000000'                                # Quota to assign if no quota is specified in the OIDC response (bytes)
     legacy_login_mask:   
-      enabled:              False                                 # If true, then legacy  login mask is shown. Otherwise just SSO 
+      enabled:              False                                       # If true, then legacy  login mask is shown. Otherwise just SSO 
       
   ## OAuth2 Proxy
   oauth2_proxy:
-    configuration_file: "oauth2-proxy-keycloak.cfg"                                                                     # Needs to be set true in the roles which use it
-    version:            "latest"                                                                                        # Docker Image version
-    redirect_url:       "https://{{domains.keycloak}}/auth/realms/{{primary_domain}}/protocol/openid-connect/auth"      # The redirect URL for the OAuth2 flow. It should match the redirect URL configured in Keycloak.
-    allowed_roles:      admin                                                                                           # Restrict it default to admin role. Use the vars/main.yml to open the specific role for other groups  
+    configuration_file: "oauth2-proxy-keycloak.cfg"                                                                 # Needs to be set true in the roles which use it
+    version:            "latest"                                                                                    # Docker Image version
+    redirect_url:       "https://{{domains.keycloak}}/auth/realms/{{primary_domain}}/protocol/openid-connect/auth"  # The redirect URL for the OAuth2 flow. It should match the redirect URL configured in Keycloak.
+    allowed_roles:      admin                                                                                       # Restrict it default to admin role. Use the vars/main.yml to open the specific role for other groups  
 
   ## Open Project
   openproject:
@@ -286,7 +286,7 @@ defaults_applications:
     ldap:
       enabled:            True    # Enables LDAP by default
     database:
-      central_storage:    True 
+      central_storage:    True    # Activate Central Database Storage
     css:
       enabled:            false   # Temporary deactivated due to bugs
                                   # @todo Solve and reactivate
@@ -295,7 +295,7 @@ defaults_applications:
   peertube:
     version:              "bookworm"
     database:
-      central_storage:    True 
+      central_storage:    True        # Activate Central Database Storage
 
   ## PHPMyAdmin
   phpmyadmin:
@@ -307,7 +307,7 @@ defaults_applications:
       application:        "application"
 #     cookie_secret:      None            # Set via openssl rand -hex 16
     database:
-      central_storage:    True
+      central_storage:    True            # Activate Central Database Storage
     css:
       enabled:            False           # The css needs more optimation for PHPMyAdmin
 
@@ -316,7 +316,7 @@ defaults_applications:
     titel:                "Pictures on {{primary_domain}}"
     version:              "latest"
     database:
-      central_storage:    True
+      central_storage:    True                              # Activate Central Database Storage
 
   ## Postgres
   # Please set an version in your inventory file - Rolling release for postgres isn't recommended
@@ -331,28 +331,28 @@ defaults_applications:
   snipe_it:
     version:           "latest"
     database:
-      central_storage:  True
+      central_storage:  True    # Activate Central Database Storage
 
   ## Taiga
   taiga:
     version:           "latest"
     database:
-      central_storage:  True
+      central_storage:  True    # Activate Central Database Storage
 
   ## YOURLS
   yourls:
     users:
       administrator:
-        username:  "{{users.administrator.username}}"
-    version:                 "latest"
+        username:       "{{users.administrator.username}}"
+    version:            "latest"
     oauth2_proxy:  
-      enabled:                true
-      application:            "application"
-      port:                   "80"
-      location:               "/admin/"       # Protects the admin area
-#     cookie_secret:          None            # Set via openssl rand -hex 16
+      enabled:          true
+      application:      "application"
+      port:             "80"
+      location:         "/admin/"                           # Protects the admin area
+#     cookie_secret:    None                                # Set via openssl rand -hex 16
     database:
-      central_storage:        True
+      central_storage:  True                                # Activate Central Database Storage
 
   wordpress:
 # Deactivate Global theming for wordpress role
@@ -364,4 +364,4 @@ defaults_applications:
     css:
       enabled:          false
     database:
-      central_storage:  True
+      central_storage:  True  # Activate Central Database Storage
