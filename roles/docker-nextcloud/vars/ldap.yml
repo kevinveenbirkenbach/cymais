@@ -42,7 +42,7 @@ nextcloud_ldap_configuration:
   -
     appid: "user_ldap"
     configkey: "s01ldap_base_users"
-    configvalue: "{{ldap.dn.root}}}"
+    configvalue: "{{ldap.dn.root}}"
 
   -
     appid: "user_ldap"

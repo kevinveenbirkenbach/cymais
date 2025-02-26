@@ -150,6 +150,12 @@ docker compose exec -u www-data application /var/www/html/occ config:app:get soc
 
 More information: https://docs.nextcloud.com/server/latest/admin_manual/configuration_user/user_auth_ldap.html
 
+## Get all relevant entries except password
+
+```sql
+SELECT * FROM `oc_appconfig` WHERE appid LIKE "%ldap%" and configkey != "s01ldap_agent_password";
+```
+
 ## Federation
 
 If users are just created via Keycloak and not via LDAP, they have a different username. Due to this reaso concider to use LDAP to guaranty that the username is valid. 
