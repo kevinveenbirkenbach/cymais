@@ -23,7 +23,21 @@ nextcloud_sociallogin_configuration:
     # In this case, it sets up a Keycloak provider with details like URLs for authorization,
     # token retrieval, user info, and logout, as well as the client ID and secret.
     configkey: "custom_providers"
-    configvalue: '{"custom_oidc":[{"name":"{{domains.keycloak}}","title":"keycloak","style":"keycloak","authorizeUrl":"{{oidc.client.authorize_url}}","tokenUrl":"{{oidc.client.toke_url}}","displayNameClaim":"","userInfoUrl":"{{oidc.client.user_info_url}}","logoutUrl":"{{oidc.client.logout_url}}","clientId":"{{oidc.client.id}}","clientSecret":"{{oidc.client.secret}}","scope":"openid","groupsClaim":"","style":"","defaultGroup":""}]}'
+    configvalue: 
+      custom_oidc:
+        - name: "{{ domains.keycloak }}"
+          title: "keycloak"
+          style: "keycloak"
+          authorizeUrl: "{{ oidc.client.authorize_url }}"
+          tokenUrl: "{{ oidc.client.toke_url }}"
+          displayNameClaim: ""
+          userInfoUrl: "{{ oidc.client.user_info_url }}"
+          logoutUrl: "{{ oidc.client.logout_url }}"
+          clientId: "{{ oidc.client.id }}"
+          clientSecret: "{{ oidc.client.secret }}"
+          scope: "openid"
+          groupsClaim: ""
+          defaultGroup: ""
   -
     appid: "sociallogin"
     configkey: "disable_notify_admins"
