@@ -94,6 +94,11 @@ docker-compose exec -it -u www-data application /var/www/html/occ
 ```
 ### User Administration 
 
+#### Create user via CLI
+```bash
+docker compose exec -it -u www-data application php occ user:add {{username}}
+```
+
 #### Make user admin via cli
 ```bash
 docker compose exec -it -u www-data application php occ group:adduser admin {{username}}
