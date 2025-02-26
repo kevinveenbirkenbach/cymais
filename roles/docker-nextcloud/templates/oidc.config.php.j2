@@ -98,9 +98,9 @@ return array (
         'mail' => 'email',
         # 'quota' => 'nextcloudQuota',  # Not implemented yet
         # 'home' => 'homeDirectory',    # Not implemented yet
-        'ldap_uid' => 'uid',
+        'ldap_uid' => '{{ldap.attributes.user_id}}',
         # 'groups' => 'ownCloudGroups', # Not implemented yet
-        'login_filter' => 'realm_access_roles',
+        # 'login_filter' => 'realm_access_roles',
     //    'photoURL' => 'picture',
     //    'is_admin' => 'ownCloudAdmin',
     ),

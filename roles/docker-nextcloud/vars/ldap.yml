@@ -107,7 +107,7 @@ nextcloud_ldap_configuration:
   -
     appid: "user_ldap"
     configkey: "s01ldap_login_filter"
-    configvalue: "(&(|(objectclass=inetOrgPerson))(uid=%uid))"
+    configvalue: "(&(|(objectclass=inetOrgPerson))({{ldap.attributes.user_id}}=%{{ldap.attributes.user_id}}))"
   -
     appid: "user_ldap"
     configkey: "s01ldap_login_filter_mode"
@@ -175,4 +175,4 @@ nextcloud_ldap_configuration:
   -
     appid: "user_ldap"
     configkey: "s01ldap_expert_username_attr"
-    configvalue: "uid"
+    configvalue: "{{ldap.attributes.user_id}}"

@@ -29,7 +29,9 @@ defaults_oidc:
 #############################################
 
 # Helper Variables:
-_ldap_dn_base: "dc={{primary_domain_sld}},dc={{primary_domain_tld}}"
+# Keep in mind to mapp this variables if there is ever the possibility for the user to define them in the inventory
+_ldap_dn_base:      "dc={{primary_domain_sld}},dc={{primary_domain_tld}}"
+_ldap_server_port:  "{% if applications.ldap.openldap.network.local | bool %}{{ ports.localhost.ldap.openldap }}{% else %}{{ ports.localhost.ldaps.openldap }}{% endif %}"
 
 ldap:
   # Enables LDAP for all roles in play if true
@@ -46,11 +48,15 @@ ldap:
     groups:             "ou=groups,{{_ldap_dn_base}}"
     # Dn for all application roles of the users
     application_roles:  "ou=application_roles,{{_ldap_dn_base}}"
+  attributes:
+    # Attribut to identify the user
+    user_id:            "uid" 
   # Password to access dn.bind
   bind_credential:      "{{applications.ldap.administrator_database_password}}"
   server:
     domain:             "{{applications.ldap.openldap.hostname if applications.ldap.openldap.network.local | bool else domains.ldap}}" # Mapping for public or locale access
-    uri:                "{% if applications.ldap.openldap.network.local | bool %}ldap://{{ applications.ldap.openldap.hostname }}:{{ ports.localhost.ldap.openldap }}{% else %}ldaps://{{ domains.ldap }}:{{ ports.public.ldaps.openldap }}{% endif %}"
+    port:               "{{_ldap_server_port}}"
+    uri:                "{% if applications.ldap.openldap.network.local | bool %}ldap://{{ applications.ldap.openldap.hostname }}{% else %}ldaps://{{ domains.ldap }}{% endif %}:{{ _ldap_server_port }}"
   network:
     local:              "{{applications.ldap.openldap.network.local}}" # Uses the application configuration to define if local network should be available or not
   

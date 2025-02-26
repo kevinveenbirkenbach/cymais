@@ -9,11 +9,11 @@ description: Container for application access profiles
 #######################################################################
 # Create Admin User
 #######################################################################
-dn: uid={{users.administrator.username}},{{ldap.dn.users}}
+dn: {{ldap.attributes.user_id}}={{users.administrator.username}},{{ldap.dn.users}}
 objectClass: top
 objectClass: inetOrgPerson
 objectClass: posixAccount
-uid: {{users.administrator.username}}
+{{ldap.attributes.user_id}}: {{users.administrator.username}}
 sn: Administrator
 cn: Administrator
 userPassword: {SSHA}CHANGE_THIS_PASSWORD
@@ -31,11 +31,11 @@ gidNumber: {{users.administrator.gid}}
 dn: cn={{ app }}-administrator,{{ ldap.dn.application_roles }}
 changetype: modify
 add: roleOccupant
-roleOccupant: uid={{users.administrator.username}},{{ldap.dn.users}}
+roleOccupant: {{ldap.attributes.user_id}}={{users.administrator.username}},{{ldap.dn.users}}
 
 dn: cn={{ app }}-user,{{ ldap.dn.application_roles }}
 changetype: modify
 add: roleOccupant
-roleOccupant: uid={{users.administrator.username}},{{ldap.dn.users}}
+roleOccupant: {{ldap.attributes.user_id}}={{users.administrator.username}},{{ldap.dn.users}}
 
 {% endfor %}

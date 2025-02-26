@@ -36,11 +36,13 @@ defaults_applications:
   ## Big Blue Button
   bigbluebutton:
     enable_greenlight:    "true"
-    setup:                false                           # Set to true in inventory file for initial setup
+    setup:                false               # Set to true in inventory file for initial setup
     oidc:
-      enabled:               true                         # Activate OIDC
+      enabled:            true                # Activate OIDC
     database:
-      central_storage:                True
+      central_storage:    True
+    ldap:
+      enabled:            False                # @todo LDAP needs to get propper implemented and tested, just set values during refactoring
 
   ## Bluesky
   bluesky:
@@ -78,7 +80,7 @@ defaults_applications:
   funkwhale:
     version:              "1.4.0"
     ldap:
-      enabled:            True                # Enables LDAP by default
+      enabled:            True                # Enables LDAP by default @todo check implementation
     database:
       central_storage:    True
 

@@ -1923,7 +1923,7 @@
               "subComponents": {},
               "config": {
                 "ldap.attribute": [
-                  "uid"
+                  "{{ldap.attributes.user_id}}"
                 ],
                 "is.mandatory.in.ldap": [
                   "true"
@@ -2008,7 +2008,7 @@
             "-1"
           ],
           "usernameLDAPAttribute": [
-            "uid"
+            "{{ldap.attributes.user_id}}"
           ],
           "bindDn": [
             "{{ldap.dn.administrator}}"
@@ -2020,7 +2020,7 @@
             "other"
           ],
           "uuidLDAPAttribute": [
-            "uid"
+            "{{ldap.attributes.user_id}}"
           ],
           "allowKerberosAuthentication": [
             "false"
@@ -2053,7 +2053,7 @@
             "person, inetOrgPerson, nextcloudUser"
           ],
           "rdnLDAPAttribute": [
-            "uid"
+            "{{ldap.attributes.user_id}}"
           ],
           "editMode": [
             "WRITABLE"
