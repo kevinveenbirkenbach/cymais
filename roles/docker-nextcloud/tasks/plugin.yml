@@ -3,12 +3,27 @@
   loop: "{{plugin_configuration.incompatible_plugins}}"
   loop_control: 
     loop_var: incompatible_plugin
-  when: plugin_configuration.incompatible_plugins is defined and plugin_configuration.incompatible_plugins | length > 0
+  register: disable_incompatible_plugin_result
+  changed_when: disable_incompatible_plugin_result.rc == 0 and ("No such app enabled" not in disable_incompatible_plugin_result.stdout)
+  when: 
+    - plugin_configuration.incompatible_plugins is defined and plugin_configuration.incompatible_plugins | length > 0
+    - plugin_configuration.enabled | bool
+
+- name: disable {{ plugin_name }} nextcloud plugin
+  command: "docker exec -u www-data {{ applications.nextcloud.container.application }} {{ nextcloud_docker_path }}occ app:disable {{ plugin_name }}"
+  register: disable_result
+  changed_when: disable_result.rc == 0 and ("No such app enabled" not in disable_result.stdout)
+  when: not (plugin_configuration.enabled | bool)
 
 - name: install {{ plugin_name }} nextcloud plugin
   command: "docker exec -u www-data {{ applications.nextcloud.container.application }} {{ nextcloud_docker_path }}occ app:install {{ plugin_name }}"
   register: install_result
   failed_when: install_result.rc != 0 and ("already installed" not in install_result.stdout)
+  changed_when: install_result.rc == 0 and ("already installed" not in install_result.stdout)
+  when: plugin_configuration.enabled | bool
 
 - name: enable {{plugin_name}} nextcloud plugin
   command: "docker exec -u www-data {{applications.nextcloud.container.application}} {{nextcloud_docker_path}}occ app:enable {{plugin_name}}"
+  register: enable_result
+  changed_when: enable_result.rc == 0 and ("already enabled" not in enable_result.stdout)
+  when: plugin_configuration.enabled | bool

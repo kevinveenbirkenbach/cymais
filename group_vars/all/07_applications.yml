@@ -424,7 +424,7 @@ defaults_applications:
         enabled: true
       recognize:
         # Nextcloud recognize: performs image recognition tasks (https://apps.nextcloud.com/apps/recognize)
-        enabled: true
+        enabled: false # Deactivated because it let to bugs
       richdocuments:
         # Nextcloud Rich Documents: provides collaborative document editing capabilities (https://apps.nextcloud.com/apps/richdocuments)
         enabled: true
@@ -446,9 +446,6 @@ defaults_applications:
       #terms_of_service 
       #  # Nextcloud Terms of Service: manages user acceptance of terms and conditions (https://apps.nextcloud.com/apps/terms_of_service)
       #  enabled: false
-      twofactor_backupcodes:
-        # Nextcloud two-factor backup codes: generates backup codes for two-factor authentication (https://apps.nextcloud.com/apps/twofactor_backupcodes)
-        enabled: "{{ (not _applications_nextcloud_oidc_enabled) | lower }}" # Deactivate 2FA if oidc is active
       twofactor_nextcloud_notification:
         # Nextcloud two-factor notification: sends notifications for two-factor authentication events (https://apps.nextcloud.com/apps/twofactor_nextcloud_notification)
         enabled: "{{ (not _applications_nextcloud_oidc_enabled) | lower }}" # Deactivate 2FA if oidc is active
