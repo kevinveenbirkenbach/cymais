@@ -125,11 +125,6 @@ docker compose exec -it -u www-data application php occ user:delete {{username}}
 docker compose exec -u www-data application php occ config:list {{app_name}}
 ```
 
-## App Relevant Tables 🗃️
-
-- `oc_appconfig`
-- `oc_migrations`
-
 ### Initialize Duplicates
 ```bash
 docker-compose exec -it -u www-data application /var/www/html/occ duplicates:find-all --output
@@ -143,6 +138,28 @@ docker-compose exec -it -u www-data application /var/www/html/occ maintenance:mo
 ```
 
 ---
+
+## Apps
+
+### App Relevant Tables 🗃️
+
+- `oc_appconfig`
+- `oc_migrations`
+
+### Cospend 
+
+#### Relevant SQL Commands for Cospend
+Debugguging Migrations: 
+
+https://github.com/julien-nc/cospend-nc/issues/325
+```sql
+-- Show all Cospend Tables
+SHOW TABLES where Tables_in_nextcloud LIKE "%cospend%";
+-- Show Cospend Configuration
+SELECT * FROM `oc_appconfig` WHERE appid LIKE "%cospend%";
+-- Show Cospend Database Migrations 
+SELECT * FROM `oc_migrations` WHERE app LIKE "%cospend%";
+```
 
 # Identity and Access Management (IAM)
 
