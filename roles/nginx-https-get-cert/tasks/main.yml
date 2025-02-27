@@ -35,7 +35,9 @@
       # AND: The domain is a direct first-level subdomain of the primary domain
     - domain != primary_domain  
       # The domain is not the primary domain
-  ignore_errors: true
+  register: certbot_result
+  failed_when: certbot_result.rc != 0 and ("No certificate found with name" not in certbot_result.stderr)
+  changed_when: certbot_result.rc == 0 and ("No certificate found with name" not in certbot_result.stderr)
 
 - name: run the recieve_certificate tasks once
   set_fact:

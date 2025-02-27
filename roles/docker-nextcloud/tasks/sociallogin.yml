@@ -1,21 +1,4 @@
 # @See https://chatgpt.com/share/6798189e-9c00-800f-923c-5ce3cfbdf405
-
-- name: Flush all handlers immediately so that occ can be used
-  meta: flush_handlers
-
-- name: disable oidc_login plugin
-  command: "docker exec -u www-data {{nextcloud_application_container_name}} {{nextcloud_docker_path}}occ app:disable oidc_login"
-  ignore_errors: true
-  when: 
-    - mode_cleanup | bool  
-
-- name: install sociallogin plugin
-  command: "docker exec -u www-data {{nextcloud_application_container_name}} {{nextcloud_docker_path}}occ app:install sociallogin"
-  ignore_errors: true
-
-- name: enable sociallogin plugin
-  command: "docker exec -u www-data {{nextcloud_application_container_name}} {{nextcloud_docker_path}}occ app:enable sociallogin"
-
 - name: Load Sociallogin configuration variables
   include_vars:
     file: sociallogin.yml
@@ -24,5 +7,5 @@
   loop: "{{ nextcloud_sociallogin_configuration}}"
   # The | to_json function is necessary to escape custom_providers correct.
   command: >
-    docker exec -u www-data {{ nextcloud_application_container_name }}
+    docker exec -u www-data {{ applications.nextcloud.container.application }}
     php occ config:app:set {{ item.appid }} {{ item.configkey }} --value '{{ item.configvalue | to_json if item.configvalue is mapping else item.configvalue }}'

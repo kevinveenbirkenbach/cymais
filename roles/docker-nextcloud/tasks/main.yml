@@ -13,7 +13,7 @@
 
 - name: Remove OIDC configuration lines from config.php if present (container)
   command: >
-    docker exec -u www-data {{ nextcloud_application_container_name }} sh -c "sed -i '/CONFIG_EXTRA = include.*oidc\.config\.php/d' /var/www/html/config/config.php && sed -i '/CONFIG = array_merge(\\$CONFIG, \\$CONFIG_EXTRA)/d' /var/www/html/config/config.php"
+    docker exec -u www-data {{ applications.nextcloud.container.application }} sh -c "sed -i '/CONFIG_EXTRA = include.*oidc\.config\.php/d' /var/www/html/config/config.php && sed -i '/CONFIG = array_merge(\\$CONFIG, \\$CONFIG_EXTRA)/d' /var/www/html/config/config.php"
   when: applications[application_id].oidc.flavor == "sociallogin" and mode_cleanup | bool 
 
 - name: "include role for {{application_id}} to recieve certs & do modification routines"
@@ -34,6 +34,18 @@
 
 - name: "copy docker-compose.yml and env file"
   include_tasks: copy-docker-compose-and-env.yml
+
+- name: Flush all handlers immediately so that occ can be used
+  meta: flush_handlers
+
+- name: Setup Nextcloud Plugins
+  include_tasks: plugin.yml
+  loop: "{{applications[application_id].plugins | dict2items }}"
+  loop_control:
+    loop_var: plugin_item
+  vars:
+    plugin_name: "{{ plugin_item.key }}"
+    plugin_configuration: "{{ plugin_item.value }}"
 
 - name: "Include OIDC-specific tasks with flavor {{applications[application_id].oidc.flavor}}"
   include_tasks: "{{applications[application_id].oidc.flavor}}.yml"

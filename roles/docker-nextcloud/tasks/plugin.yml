@@ -1,0 +1,14 @@
+- name: "Disable incompatible plugins for {{plugin_name}}."
+  command: "docker exec -u www-data {{applications.nextcloud.container.application}} {{nextcloud_docker_path}}occ app:disable {{incompatible_plugin}}"
+  loop: "{{plugin_configuration.incompatible_plugins}}"
+  loop_control: 
+    loop_var: incompatible_plugin
+  when: plugin_configuration.incompatible_plugins is defined and plugin_configuration.incompatible_plugins | length > 0
+
+- name: install {{ plugin_name }} nextcloud plugin
+  command: "docker exec -u www-data {{ applications.nextcloud.container.application }} {{ nextcloud_docker_path }}occ app:install {{ plugin_name }}"
+  register: install_result
+  failed_when: install_result.rc != 0 and ("already installed" not in install_result.stdout)
+
+- name: enable {{plugin_name}} nextcloud plugin
+  command: "docker exec -u www-data {{applications.nextcloud.container.application}} {{nextcloud_docker_path}}occ app:enable {{plugin_name}}"

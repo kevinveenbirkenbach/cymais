@@ -6,7 +6,7 @@ services:
 
   application:
     image: "nextcloud:{{applications.nextcloud.version}}-fpm-alpine"
-    container_name: {{nextcloud_application_container_name}}
+    container_name: {{applications.nextcloud.container.application}}
     volumes:
       - data:{{nextcloud_docker_path}}
 {% if applications[application_id].oidc.flavor == "oidc_login" %}
@@ -24,7 +24,7 @@ services:
 
   web:
     image: nginx:alpine
-    container_name: {{nextcloud_nginx_container_name}}
+    container_name: {{applications.nextcloud.container.proxy}}
     logging:
       driver: journald
     restart: {{docker_restart_policy}}
