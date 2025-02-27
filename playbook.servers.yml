@@ -253,11 +253,4 @@
   roles:
    -  role: nginx-redirect-www
 
-# Helper Roles for partial deployment
-- name: Copy global css 
-  hosts: nginx-modifier-css
-  become: true
-  roles:
-   -  role: nginx-modifier-css
-
 - import_playbook: playbook.destructor.yml

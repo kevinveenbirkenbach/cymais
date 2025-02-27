@@ -99,6 +99,11 @@ docker-compose exec -it -u www-data application /var/www/html/occ
 docker compose exec -it -u www-data application php occ user:list
 ```
 
+#### Sync Users
+```bash
+docker compose exec -it -u www-data application php occ user:sync
+```
+
 #### Create user via CLI
 ```bash
 docker compose exec -it -u www-data application php occ user:add {{username}}
@@ -159,6 +164,12 @@ More information: https://docs.nextcloud.com/server/latest/admin_manual/configur
 
 ```sql
 SELECT * FROM `oc_appconfig` WHERE appid LIKE "%ldap%" and configkey != "s01ldap_agent_password";
+```
+
+## Update User with LDAP values
+
+```bash
+docker compose exec -it -u www-data application php occ ldap:check-user --update {{username}}
 ```
 
 ## Federation
