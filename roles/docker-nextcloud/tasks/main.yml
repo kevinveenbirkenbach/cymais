@@ -56,7 +56,7 @@
     - name: Append generated config to config.php only if not present
       command: >
         docker exec -u {{nextcloud_docker_user}} {{ applications.nextcloud.container.application }} sh -c "
-          grep -q 'foreach (glob(\"{{ nextcloud_docker_config_additives_directory }}*.php\") as \$file)' {{ nextcloud_docker_config_file }} || 
+          grep -q '{{ nextcloud_docker_config_additives_directory }}' {{ nextcloud_docker_config_file }} || 
           cat {{nextcloud_docker_include_instructions_file}} >> {{ nextcloud_docker_config_file }}"
       notify: docker compose restart
 
