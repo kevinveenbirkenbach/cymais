@@ -13,11 +13,3 @@ nextcloud_system_config:
 
   - parameter: "default_phone_region"
     value: "{{ locale | upper }}"
-
-  # Force https  
-  - parameter: "overwrite.cli.url"
-    value: "https://{{domains[application_id]}}"
-
-  # Force https
-  - parameter: "overwriteprotocol"
-    value: "https"
