@@ -3,13 +3,13 @@
   include_role: 
     name: docker-central-database
 
-- name: "create {{ nextcloud_docker_config_additives_directory }}"
+- name: "create {{ nextcloud_host_config_additives_directory }}"
   file:
-    path: "{{ nextcloud_docker_config_additives_directory }}"
+    path: "{{ nextcloud_host_config_additives_directory }}"
     state: directory
     mode: 0755
 
-- name: "Create config files at {{ nextcloud_docker_config_additives_directory }}"
+- name: "Create config files at {{ nextcloud_host_config_additives_directory }}"
   template:
     src:    "{{ item }}"
     dest:   "{{ nextcloud_host_config_additives_directory }}/{{ item | basename | regex_replace('\\.j2$', '') }}"
