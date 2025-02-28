@@ -1,0 +1,3 @@
+application_id:     "coturn"
+#database_password:  "{{gitea_database_password}}"
+#database_type:      "mariadb"

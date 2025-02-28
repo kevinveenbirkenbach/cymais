@@ -63,6 +63,12 @@ defaults_applications:
     database:
       central_storage:                True
 
+  coturn:                     # @todo implement                
+    credentials:
+      user:       turnuser
+      # password:             # Need to be defined in invetory file
+      # secret:               # Need to be defined in invetory file
+
   ## Discourse:
   discourse:
     network:              "discourse_default"     # Name of the docker network

@@ -1,0 +1,69 @@
+services:
+
+{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
+
+  application:
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+    image: "gitea/gitea:{{applications.gitea.version}}"
+    ports:
+      - "127.0.0.1:{{ports.localhost.http[application_id]}}:3000"
+      - "{{ports.public.ssh[application_id]}}:22"
+    volumes:
+      - data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:3000"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+
+{% include 'templates/docker/compose/volumes.yml.j2' %}
+  data:
+
+{% include 'templates/docker/compose/networks.yml.j2' %}
+  coturn:
+    image: coturn/coturn
+    restart: always
+    network_mode: "host"  # Nutzt die Host-IP für externe Erreichbarkeit (optional)
+    ports:
+      - "3478:3478/udp"
+      - "3478:3478/tcp"
+      - "5349:5349/tcp"
+      - "5349:5349/udp"
+      - "49152-65535:49152-65535/udp"  # TURN-Relay-Ports (wichtig!)
+    #volumes:                         # In case customized config is required
+    #   - coturn-config:/etc/coturn
+    environment:
+      - TURN_PORT=3478
+      - TURN_PORT_TLS=5349
+      - TURN_SECRET=my-secret-key
+      - TURN_USER=turnuser
+      - TURN_PASSWORD=turnpassword
+    command: >
+      --log-file=stdout
+      --external-ip=$(detect-external-ip)
+      --lt-cred-mech
+      --user=turnuser:turnpassword
+      --realm=nextcloud
+      --total-quota=100
+      --stale-nonce
+      --no-multicast-peers
+      --denied-peer-ip=0.0.0.0-0.255.255.255
+      --denied-peer-ip=10.0.0.0-10.255.255.255
+      --denied-peer-ip=100.64.0.0-100.127.255.255
+      --denied-peer-ip=169.254.0.0-169.254.255.255
+      --denied-peer-ip=172.16.0.0-172.31.255.255
+      --denied-peer-ip=192.0.0.0-192.0.0.255
+      --denied-peer-ip=192.88.99.0-192.88.99.255
+      --denied-peer-ip=192.168.0.0-192.168.255.255
+      --denied-peer-ip=198.18.0.0-198.19.255.255
+      --denied-peer-ip=198.51.100.0-198.51.100.255
+      --denied-peer-ip=203.0.113.0-203.0.113.255
+      --denied-peer-ip=240.0.0.0-255.255.255.255
+
+volumes:
+  nextcloud:
+  coturn-config:
