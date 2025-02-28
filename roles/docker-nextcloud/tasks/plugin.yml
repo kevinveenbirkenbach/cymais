@@ -1,29 +1,47 @@
-- name: "Disable incompatible plugins for {{plugin_name}}."
-  command: "docker exec -u www-data {{applications.nextcloud.container.application}} {{nextcloud_docker_path}}occ app:disable {{incompatible_plugin}}"
-  loop: "{{plugin_configuration.incompatible_plugins}}"
+- name: "Disable incompatible plugins for {{plugin_key}}."
+  command: "{{nextcloud_docker_exec_occ}} app:disable {{incompatible_plugin}}"
+  loop: "{{plugin_value.incompatible_plugins}}"
   loop_control: 
     loop_var: incompatible_plugin
   register: disable_incompatible_plugin_result
   changed_when: disable_incompatible_plugin_result.rc == 0 and ("No such app enabled" not in disable_incompatible_plugin_result.stdout)
   when: 
-    - plugin_configuration.incompatible_plugins is defined and plugin_configuration.incompatible_plugins | length > 0
-    - plugin_configuration.enabled | bool
+    - plugin_value.incompatible_plugins is defined and plugin_value.incompatible_plugins | length > 0
+    - plugin_value.enabled | bool
 
-- name: disable {{ plugin_name }} nextcloud plugin
-  command: "docker exec -u www-data {{ applications.nextcloud.container.application }} {{ nextcloud_docker_path }}occ app:disable {{ plugin_name }}"
+- name: disable {{ plugin_key }} nextcloud plugin
+  command: "{{nextcloud_docker_exec_occ}} app:disable {{ plugin_key }}"
   register: disable_result
   changed_when: disable_result.rc == 0 and ("No such app enabled" not in disable_result.stdout)
-  when: not (plugin_configuration.enabled | bool)
+  when: not (plugin_value.enabled | bool)
 
-- name: install {{ plugin_name }} nextcloud plugin
-  command: "docker exec -u www-data {{ applications.nextcloud.container.application }} {{ nextcloud_docker_path }}occ app:install {{ plugin_name }}"
+- name: install {{ plugin_key }} nextcloud plugin
+  command: "{{nextcloud_docker_exec_occ}} app:install {{ plugin_key }}"
   register: install_result
   failed_when: install_result.rc != 0 and ("already installed" not in install_result.stdout)
   changed_when: install_result.rc == 0 and ("already installed" not in install_result.stdout)
-  when: plugin_configuration.enabled | bool
+  when: plugin_value.enabled | bool
 
-- name: enable {{plugin_name}} nextcloud plugin
-  command: "docker exec -u www-data {{applications.nextcloud.container.application}} {{nextcloud_docker_path}}occ app:enable {{plugin_name}}"
+- name: enable {{plugin_key}} nextcloud plugin
+  command: "{{nextcloud_docker_exec_occ}} app:enable {{plugin_key}}"
   register: enable_result
   changed_when: enable_result.rc == 0 and ("already enabled" not in enable_result.stdout)
-  when: plugin_configuration.enabled | bool
+  when: plugin_value.enabled | bool
+
+- name: Check if {{nextcloud_localhost_plugin_configuration_directory}}{{ plugin_key }}.yml exists
+  stat:
+    path: "{{nextcloud_localhost_plugin_configuration_directory}}{{ plugin_key }}.yml"
+  register: plugin_config_file
+
+- name: Apply configuration to {{ plugin_key }} 
+  block:
+  - name: Load {{ plugin_key }} configuration variables
+    include_vars:
+      file: "{{nextcloud_localhost_plugin_configuration_directory}}{{ plugin_key }}.yml"
+  
+  - name: "Set {{ item.configkey }} for {{ item.appid }}"
+    loop: "{{ plugin_configuration }}"
+    command: >
+      {{ nextcloud_docker_exec_occ }} config:app:set {{ item.appid }} {{ item.configkey }} --value '{{ item.configvalue | to_json if item.configvalue is mapping else item.configvalue }}'
+  
+  when: plugin_config_file.stat.exists

@@ -3,22 +3,20 @@
   include_role: 
     name: docker-central-database
 
-- name: copy oidc.config.php
-  template: 
-    src: oidc.config.php.j2
-    dest: "{{nextcloud_host_oidc_login_path}}"
-    owner: 82 # User www-data in Nextcloud container
-    group: 82 # User www-data in Nextcloud container
-  when: applications[application_id].oidc.flavor == "oidc_login" 
+- name: "create {{ nextcloud_docker_config_additives_directory }}"
+  file:
+    path: "{{ nextcloud_docker_config_additives_directory }}"
+    state: directory
+    mode: 0755
 
-- name: Remove OIDC configuration lines from config.php if present (container)
-  command: >
-    docker exec -u www-data {{ applications.nextcloud.container.application }} sh -c "sed -i '/CONFIG_EXTRA = include.*oidc\.config\.php/d' /var/www/html/config/config.php && sed -i '/CONFIG = array_merge(\\$CONFIG, \\$CONFIG_EXTRA)/d' /var/www/html/config/config.php"
-  when: applications[application_id].oidc.flavor == "sociallogin" and mode_cleanup | bool 
-
-- name: Set maintanance window 
-  command: >
-    docker exec -u www-data {{ applications.nextcloud.container.application }} php occ config:system:set maintenance_window_start --type=integer --value={{on_calendar_nextcloud}}"
+- name: "Create config files at {{ nextcloud_docker_config_additives_directory }}"
+  template:
+    src:    "{{ item }}"
+    dest:   "{{ nextcloud_docker_config_additives_directory }}/{{ item | basename | regex_replace('\\.j2$', '') }}"
+    owner:  "{{nextcloud_docker_user_id}}"
+    group:  "{{nextcloud_docker_user_id}}"
+  loop:     "{{ lookup('fileglob', role_path ~ '/templates/config/*.j2', wantlist=True) }}"
+  notify: docker compose restart
 
 - name: "include role for {{application_id}} to recieve certs & do modification routines"
   include_role:
@@ -26,15 +24,15 @@
 
 - name: create nextcloud nginx proxy configuration file
   template: 
-    src:  "proxy-nginx.conf.j2" 
+    src:  "nginx/host.conf.j2" 
     dest: "{{nginx.directories.http.servers}}{{domains[application_id]}}.conf"
   notify: restart nginx
 
 - name: create internal nextcloud nginx configuration
   template: 
-    src:  "internal-nginx.conf.j2" 
+    src:  "nginx/docker.conf.j2" 
     dest: "{{docker_compose.directories.volumes}}nginx.conf"
-  notify: restart docker nginx service
+  notify: restart nextcloud nginx service
 
 - name: "copy docker-compose.yml and env file"
   include_tasks: copy-docker-compose-and-env.yml
@@ -42,25 +40,43 @@
 - name: Flush all handlers immediately so that occ can be used
   meta: flush_handlers
 
+- name: Merge all files in cymais directory (container)
+  block:
+    - name: Add dynamic config merging from Jinja template
+      template:
+        src: include.php.j2
+        dest: "{{nextcloud_host_include_instructions_file}}"
+      notify: docker compose restart
+
+    - name: Copy include instructions to the container
+      command: >
+        docker cp {{ nextcloud_host_include_instructions_file }} {{ applications.nextcloud.container.application }}:{{nextcloud_docker_include_instructions_file}}
+
+    - name: Append generated config to config.php only if not present
+      command: >
+        docker exec -u {{nextcloud_docker_user}} {{ applications.nextcloud.container.application }} sh -c "
+          grep -q 'foreach (glob(\"{{ nextcloud_docker_config_additives_directory }}*.php\") as \$file)' {{ nextcloud_docker_config_file }} || 
+          cat {{nextcloud_docker_include_instructions_file}} >> {{ nextcloud_docker_config_file }}"
+      notify: docker compose restart
+
 - name: Setup Nextcloud Plugins
   include_tasks: plugin.yml
   loop: "{{applications[application_id].plugins | dict2items }}"
   loop_control:
     loop_var: plugin_item
   vars:
-    plugin_name: "{{ plugin_item.key }}"
-    plugin_configuration: "{{ plugin_item.value }}"
+    plugin_key:   "{{ plugin_item.key }}"
+    plugin_value: "{{ plugin_item.value }}"
 
-- name: "Include OIDC-specific tasks with flavor {{applications[application_id].oidc.flavor}}"
-  include_tasks: "{{applications[application_id].oidc.flavor}}.yml"
-  when: applications[application_id].oidc.enabled | bool
+- name: Load system configuration
+  include_tasks: system.yml
 
-- name: Include LDAP specific tasks
-  include_tasks: ldap.yml
-  when: applications[application_id].ldap.enabled | bool
-
-- name: Include Config specific tasks
-  include_tasks: config.yml
-
-- name: De\Activate legacy login mask
-  include_tasks: legacy_login_mask.yml
+- name: Add missing database indices in Nextcloud
+  command: >
+    {{nextcloud_docker_exec_occ}} db:add-missing-indices
+  register: db_indices_result
+  changed_when: >
+    'Adding additional' in db_indices_result.stdout or 
+    'Removing' in db_indices_result.stdout or 
+    'updated successfully' in db_indices_result.stdout
+  failed_when: db_indices_result.rc != 0

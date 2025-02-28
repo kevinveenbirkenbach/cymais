@@ -8,12 +8,12 @@ services:
     image: "nextcloud:{{applications.nextcloud.version}}-fpm-alpine"
     container_name: {{applications.nextcloud.container.application}}
     volumes:
-      - data:{{nextcloud_docker_path}}
+      - data:{{nextcloud_docker_work_directory}}
 {% if applications[application_id].oidc.flavor == "oidc_login" %}
-      - {{nextcloud_host_oidc_login_path}}:{{nextcloud_docker_oidc_login_config_path}}:ro
+      - {{nextcloud_host_config_additives_directory}}:{{nextcloud_docker_config_additives_directory}}:ro
 {% endif %}
     healthcheck:
-      test: ["CMD", "su", "www-data", "-s", "/bin/sh", "-c", "php {{nextcloud_docker_path}}occ status"]
+      test: ["CMD", "su", "www-data", "-s", "/bin/sh", "-c", "php {{nextcloud_docker_work_directory}}occ status"]
       interval: 1m
       timeout: 10s
       retries: 3
@@ -50,10 +50,10 @@ services:
     logging:
       driver: journald
     volumes:
-      - data:{{nextcloud_docker_path}}
+      - data:{{nextcloud_docker_work_directory}}
     entrypoint: /cron.sh
     healthcheck:
-      test: ["CMD", "su", "www-data", "-s", "/bin/sh", "-c", "php {{nextcloud_docker_path}}occ status"]
+      test: ["CMD", "su", "www-data", "-s", "/bin/sh", "-c", "php {{nextcloud_docker_work_directory}}occ status"]
       interval: 1m
       timeout: 10s
       retries: 3

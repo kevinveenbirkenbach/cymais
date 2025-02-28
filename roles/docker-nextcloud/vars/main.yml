@@ -1,10 +1,37 @@
 ---
-application_id:                           "nextcloud"
-database_password:  	                    "{{applications.nextcloud.credentials.database_password}}"
-database_type:                            "mariadb"
-nextcloud_config_file_host_path:          "/var/lib/docker/volumes/nextcloud_data/_data/config/config.php"
-domain:                                   "{{domains[application_id]}}"
-http_port:                                "{{ ports.localhost.http[application_id] }}"
-nextcloud_docker_path:                    "/var/www/html/"
-nextcloud_docker_oidc_login_config_path:  "{{nextcloud_docker_path}}config/oidc.config.php"
-nextcloud_host_oidc_login_path:           "{{docker_compose.directories.volumes}}/oidc.config.php"
+# General
+application_id:                                     "nextcloud"                                                   # Application identifier
+
+# Database
+database_password:  	                              "{{applications.nextcloud.credentials.database_password}}"    # Database password
+database_type:                                      "mariadb"                                                     # Database flavor
+
+# Networking
+domain:                                             "{{domains[application_id]}}"                                 # Public domain at which Nextcloud will be accessable
+http_port:                                          "{{ ports.localhost.http[application_id] }}"                  # Port at which nextcloud is reachable in the local network
+
+# Localhost
+nextcloud_localhost_plugin_configuration_directory: "{{role_path}}/plugins/"                                      # Folder in which the files for the plugin configuration are stored
+
+# Host 
+
+## Host Paths
+nextcloud_host_config_additives_directory:          "{{docker_compose.directories.volumes}}cymais/"               # This folder is the path to which the additive configurations will be copied
+nextcloud_host_include_instructions_file:           "{{docker_compose.directories.volumes}}includes.php"          # Path to the isntruction file on the host. Responsible for loading the additional configurations
+
+# Docker
+
+## User Configuration
+nextcloud_docker_user_id:                           82                                                            # UID of the www-data user
+nextcloud_docker_user:                              "www-data"                                                    # Name of the www-data user (Set here to easy change it in the future)
+
+## Internal Paths
+nextcloud_docker_work_directory:                    "/var/www/html/"                                              # Name of the workdir in which the application is stored
+nextcloud_docker_config_directory:                  "{{nextcloud_docker_work_directory}}config/"                  # Folder in which the Nextcloud configurations are stored     
+nextcloud_docker_config_file:                       "{{nextcloud_docker_config_directory}}config.php"             # Path to the Nextcloud configuration file
+nextcloud_docker_config_additives_directory:        "{{nextcloud_docker_config_directory}}cymais/"                # Path to the folder which contains additional configurations
+nextcloud_docker_include_instructions_file:         "/tmp/includes.php"                                           # Path to the temporary file which will be included to the config.php to load the additional configurations
+
+## Execution
+nextcloud_docker_exec:                              "docker exec -u {{ nextcloud_docker_user }} {{ applications.nextcloud.container.application }}" # General execute composition
+nextcloud_docker_exec_occ:                          "{{nextcloud_docker_exec}} {{ nextcloud_docker_work_directory }}occ"                            # Execute docker occ command

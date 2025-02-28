@@ -1,0 +1,11 @@
+{% raw %}
+// Include and merge all PHP config files from cymais
+
+$CONFIG_EXTRA = [];
+
+foreach (glob("{% endraw %}{{ nextcloud_docker_config_additives_directory }}{% raw %}*.php") as $file) {
+    $CONFIG_EXTRA = array_merge($CONFIG_EXTRA, include $file);
+}
+
+$CONFIG = array_merge($CONFIG, $CONFIG_EXTRA);
+{% endraw %}

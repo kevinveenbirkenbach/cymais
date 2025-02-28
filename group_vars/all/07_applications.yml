@@ -305,7 +305,8 @@ defaults_applications:
         enabled: true
       deck:
         # Nextcloud Deck: organizes tasks and projects using Kanban boards (https://apps.nextcloud.com/apps/deck)
-        enabled: true
+        # When Taiga is activated, this plugin is deactivated, because Taiga is the prefered application.
+        enabled: "{{ 'taiga' not in group_names | lower }}"
       drawio:
         # Nextcloud draw.io: integrates diagram creation and editing tools (https://apps.nextcloud.com/apps/drawio)
         enabled: true

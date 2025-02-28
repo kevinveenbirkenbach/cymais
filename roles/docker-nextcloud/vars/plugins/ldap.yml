@@ -1,4 +1,4 @@
-nextcloud_ldap_configuration:
+plugin_configuration:
   -
     appid: "user_ldap"
     configkey: "background_sync_interval"

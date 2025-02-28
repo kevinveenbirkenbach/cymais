@@ -1,4 +1,8 @@
 <?php
+# Implementing OICD configuration
+
+{% if applications[application_id].oidc.flavor == "oidc_login" | bool %}
+
 # Check out: https://github.com/pulsejet/nextcloud-oidc-login
 
 return array (
@@ -211,3 +215,6 @@ return array (
     // The default value is empty, which won't apply the PKCE flow.
     'oidc_login_code_challenge_method' => '',
 );
+{% else %}
+return [];
+{% endif %}

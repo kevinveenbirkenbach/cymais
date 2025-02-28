@@ -1,0 +1,1 @@
+This folder contains the plugin specific configurations which willö be applied

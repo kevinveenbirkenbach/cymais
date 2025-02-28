@@ -1,3 +1,0 @@
-- name: Add OIDC configuration if not implemented yet
-  command: >
-    docker exec -u www-data {{ applications.nextcloud.container.application }} sh -c 'grep -q "CONFIG_EXTRA = include" ./config/config.php || echo -e "\n\$CONFIG_EXTRA = include '\''{{nextcloud_docker_oidc_login_config_path}}'\'';\n\$CONFIG = array_merge(\$CONFIG, \$CONFIG_EXTRA);" >> ./config/config.php'

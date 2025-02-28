@@ -1,0 +1,6 @@
+# @See https://docs.nextcloud.com/server/latest/admin_manual/configuration_user/user_auth_ldap.html
+# @See https://chatgpt.com/c/67aa2d21-cb4c-800f-b1be-8629b6bd3f55
+
+- name: Set Nextcloud LDAP bind password
+  command: >
+    {{ nextcloud_docker_exec_occ }} ldap:set-config s01 ldapAgentPassword "{{ ldap.bind_credential }}"

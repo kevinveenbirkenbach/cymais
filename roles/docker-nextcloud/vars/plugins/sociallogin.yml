@@ -1,4 +1,4 @@
-nextcloud_sociallogin_configuration:
+plugin_configuration:
   -
     appid: "sociallogin"
     # This configuration allows users to connect multiple accounts to their Nextcloud profile
