@@ -12,7 +12,7 @@
 - name: "Create config files at {{ nextcloud_docker_config_additives_directory }}"
   template:
     src:    "{{ item }}"
-    dest:   "{{ nextcloud_docker_config_additives_directory }}/{{ item | basename | regex_replace('\\.j2$', '') }}"
+    dest:   "{{ nextcloud_host_config_additives_directory }}/{{ item | basename | regex_replace('\\.j2$', '') }}"
     owner:  "{{nextcloud_docker_user_id}}"
     group:  "{{nextcloud_docker_user_id}}"
   loop:     "{{ lookup('fileglob', role_path ~ '/templates/config/*.j2', wantlist=True) }}"

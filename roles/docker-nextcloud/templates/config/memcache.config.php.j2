@@ -1,0 +1,13 @@
+<?php
+
+# Implementing redis configuration
+return array (
+  # For single server setup APCu is recommended, for multi server setup Redis
+  'memcache.local' => '\\OC\\Memcache\\{% if deployment_mode == "single" %}APCu{% else %}Redis{% endif %}',
+  'memcache.locking' => '\\OC\\Memcache\\Redis',
+  'redis' =>
+  array (
+    'host' => 'redis',
+    'port' => 6379,
+  )
+);
