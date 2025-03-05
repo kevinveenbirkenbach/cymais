@@ -605,6 +605,23 @@ div.searchbox input.autocomplete-input{
     --dropdown-item-active-color: var(--color-99);/* Active state: very light (white) */
 }
 
+/** Taiga **/
+:host, :root {
+  --color-solid-primary: var(--color-83);
+  --color-link-primary: var(--color-44);
+  --color-link-tertiary: var(--color-45);
+  --color-gray100: var(--color-97);
+  --color-gray200: var(--color-93);
+  --color-gray300: var(--color-90);
+  --color-gray400: var(--color-86);
+  --color-black600: var(--color-34);
+  --color-black700: var(--color-30);
+  --color-black800: var(--color-26);
+  --color-black900: var(--color-21);
+  --color-black: var(--color-01);
+  --color-white: var(--color-99);
+}
+
 /* Global Defaults (Colors Only) */
 body, html[native-dark-active] {
     background-color: var(--color-93);
@@ -1118,4 +1135,12 @@ input.ng-empty::placeholder,.ng-empty::placeholder  {
 /* Portfolio */ 
 .card-img-top i {
     filter: drop-shadow(4px 4px 4px rgba(var(--color-rgb-23), 0.6));
+}
+
+.kanban-table-body .kanban-uses-box {
+    background-color: var(--color-81);
+}
+
+.kanban-swimlane-title {
+    border-bottom: none;
 }
