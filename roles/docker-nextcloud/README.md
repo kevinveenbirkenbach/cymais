@@ -23,7 +23,7 @@ apk add --no-cache nano && nano config/config.php
 
 To update the Nextcloud container, execute the following commands on the server:
 ```bash
-docker-compose exec -it -u www-data application /var/www/html/occ maintenance:mode --on &&
+docker exec -it -u www-data nextcloud-application /var/www/html/occ maintenance:mode --on &&
 export COMPOSE_HTTP_TIMEOUT=600 &&
 export DOCKER_CLIENT_TIMEOUT=600 &&
 docker-compose down
@@ -46,14 +46,14 @@ docker-compose exec -it application top
 
 If Nextcloud remains in maintenance mode after the update, try the following:
 ```bash
-docker-compose exec -it -u www-data application /var/www/html/occ maintenance:mode --on
-docker-compose exec -it -u www-data application /var/www/html/occ upgrade
-docker-compose exec -it -u www-data application /var/www/html/occ maintenance:mode --off
+docker exec -it -u www-data nextcloud-application/var/www/html/occ maintenance:mode --on
+docker exec -it -u www-data nextcloud-application /var/www/html/occ upgrade
+docker exec -it -u www-data nextcloud-application /var/www/html/occ maintenance:mode --off
 ```
 
 If the update process fails, execute:
 ```bash
-docker-compose exec -it -u www-data application /var/www/html/occ maintenance:repair --include-expensive
+docker exec -it -u www-data nextcloud-application /var/www/html/occ maintenance:repair --include-expensive
 ```
 and disable any non-functioning apps.
 
