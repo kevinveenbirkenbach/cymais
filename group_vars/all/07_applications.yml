@@ -98,9 +98,14 @@ defaults_applications:
 
   ## Gitea
   gitea:
-    version:            "latest"
+    version:                  "latest"  # Use latest docker image 
     database:
-      central_storage:  True      # Activate Central Database Storage
+      central_storage:        True      # Activate Central Database Storage
+    configuration:
+      repository:
+        enable_push_create_user:      True  # Allow users to push local repositories to Gitea and have them automatically created for a user.
+        default_private:              last  # Default private when creating a new repository: last, private, public
+        default_push_create_private:  True  # Default private when creating a new repository with push-to-create.         
 
   ## Gitlab
   gitlab:
