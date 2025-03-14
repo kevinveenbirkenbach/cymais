@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Configures security-related settings on the target system and ensures essential security services are properly managed."
+  description: "Ensures system integrity during maintenance activities by blocking execution until critical services have stopped, using a locking mechanism with timeout and retry logic."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -14,11 +14,11 @@ galaxy_info:
       versions:
         - all
   galaxy_tags:
-    - security
-    - ssh
+    - maintenance
+    - lock
     - system
+    - administration
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
-dependencies:
-  - sshd
+dependencies: []

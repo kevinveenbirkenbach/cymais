@@ -1,30 +1,24 @@
-# System Btrfs Auto Balancer Role 📦
+# System Btrfs Auto Balancer
 
-This Ansible role automates the management and balancing of Btrfs file systems. It ensures that the Btrfs file system is maintained efficiently without manual intervention.
+## Description
 
-## Features ✨
+This role automates the management and balancing of Btrfs file systems. It clones the latest version of the [auto-btrfs-balancer](https://github.com/kevinveenbirkenbach/auto-btrfs-balancer.git) repository and configures a systemd service and timer to run the balancing script automatically.
 
-- **Automatic Cloning of Repository:** Fetches the latest `auto-btrfs-balancer` repository from GitHub.
-- **Systemd Service Configuration:** Creates and configures a Systemd service to automatically run the balancing script.
-- **Systemd Timer Integration:** Integrates a Systemd timer to run the balancing service at regular intervals.
-- **Error Notification:** Notifies via Systemd in case of errors during the balancing process.
+## Overview
 
-## Prerequisites 📋
+Optimized for automated file system management, this role:
+- Clones the auto-btrfs-balancer repository.
+- Configures a systemd service to run the balancing script.
+- Integrates a systemd timer for regular execution.
+- Notifies via systemd in case of errors during the balancing process.
 
-- **Ansible:** This role requires Ansible to run.
-- **Systemd:** Target systems must support Systemd.
-- **Git:** Git must be installed to clone the repository.
+## Purpose
 
+The primary purpose of this role is to maintain optimal performance of Btrfs file systems by automating balancing tasks, ensuring efficient storage allocation and performance.
 
-## Author ✍️
+## Features
 
-This role was created by [Kevin Veen-Birkenbach](https://www.veen.world).
-- **Email:** kevin@veen.world
-- **Website:** [veen.world](https://www.veen.world)
-
-## Contact ☎️
-
-For questions or support, you can reach Kevin Veen-Birkenbach via [email](mailto:kevin@veen.world).
-
-## Created with AI
-This README.md was created with the assistance of ChatGPT. You can view the conversation [here](https://chatgpt.com/share/dcec1b4a-c7a8-4cf8-a87a-987eb0500857).
+- **Repository Cloning:** Automatically fetches the latest auto-btrfs-balancer repository.
+- **Service Configuration:** Sets up a systemd service for running the balancing script.
+- **Timer Integration:** Schedules the balancing process via a systemd timer.
+- **Error Notification:** Notifies on failure using systemd-notifier.

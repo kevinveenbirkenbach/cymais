@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Configures security-related settings on the target system and ensures essential security services are properly managed."
+  description: "Installs the AUR helper yay and configures an aur_builder user with appropriate sudo privileges to facilitate AUR package management on Arch Linux systems."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -10,15 +10,15 @@ galaxy_info:
     https://www.veen.world
   min_ansible_version: "2.9"
   platforms:
-    - name: Linux
+    - name: Archlinux
       versions:
-        - all
+        - rolling
   galaxy_tags:
-    - security
-    - ssh
-    - system
+    - aur
+    - yay
+    - archlinux
+    - package-management
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
-dependencies:
-  - sshd
+dependencies: []
