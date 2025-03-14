@@ -1,34 +1,27 @@
-# Role Native Wireguard
-Manages wireguard on host.
+# Wireguard
 
-## Client
-### Setup wireguard
-```bash
-  pacman -S wireguard-tools
-```
+## Description
 
-### Create Client Keys
-```bash
-  wg_private_key="$(wg genkey)"
-  wg_public_key="$(echo "$wg_private_key" | wg pubkey)"
-  echo "PrivateKey: $wg_private_key"
-  echo "PublicKey: $wg_public_key"
-  echo "PresharedKey: $(wg genpsk)"
-```
+This role manages [Wireguard](https://www.wireguard.com/) on the host. It installs the necessary Wireguard packages, configures sysctl settings for IPv4/IPv6 forwarding, and deploys the Wireguard configuration file to enable the VPN service using [wg-quick](https://www.wireguard.com/quickstart/).
 
-### Activate Configuration
-```bash
-  cp /path/to/wg0.conf /etc/wireguard/wg0.conf
-  systemctl enable wg-quick@wg0.cymais.service --now
-```
+## Overview
 
-### Check status
-```bash
-  systemctl status wg-quick@wg0.cymais.service
-```
+Optimized for both [Arch Linux](https://wiki.archlinux.org/index.php/WireGuard) and [Ubuntu/Debian](https://wireguard.com/install/), this role performs the following tasks:
+- Installs Wireguard tools using the appropriate package manager.
+- Copies a sysctl configuration file to enable IP forwarding and proper IPv6 settings.
+- Deploys a host-specific Wireguard configuration file to `/etc/wireguard/wg0.cymais.conf`.
+- Uses systemd handlers to restart the Wireguard service and reload sysctl settings.
 
-## See
-- https://golb.hplar.ch/2019/01/expose-server-vpn.html
-- https://wiki.archlinux.org/index.php/WireGuard
-- https://wireguard.how/server/raspbian/
-- https://www.scaleuptech.com/de/blog/was-ist-und-wie-funktioniert-subnetting/
+## Purpose
+
+The primary purpose of this role is to set up and manage a Wireguard VPN configuration on the host. By automating package installation and configuration file deployment, it ensures that the VPN service is enabled with optimal network settings for secure connectivity.
+
+## Features
+
+- **Multi-Platform Support:** Installs Wireguard tools using [pacman](https://wiki.archlinux.org/title/Pacman) on Arch Linux and [apt](https://en.wikipedia.org/wiki/APT_(software)) on Ubuntu/Debian.
+- **Sysctl Configuration:** Deploys a sysctl configuration file to manage IPv4/IPv6 forwarding and related network parameters.
+- **Wireguard Configuration:** Copies a host-specific Wireguard configuration file to `/etc/wireguard/wg0.cymais.conf`.
+- **Service Management:** Provides handlers to restart the Wireguard service and reload sysctl settings.
+
+## Administration
+For detailed client setup instructions, please see the [Administration](./Administration.md) file.
