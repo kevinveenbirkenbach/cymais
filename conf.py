@@ -42,20 +42,21 @@ source_suffix = {
     '.md': 'markdown',
 }
 
-# Erweiterungen hinzufügen – MyST-Parser aktivieren:
 extensions = [
-    'myst_parser',
-    # ... andere Extensions
+    "sphinx.ext.autosummary",
+    "sphinx.ext.autodoc",
+    "myst_parser",
 ]
+autosummary_generate = True
 
 # Optional: Zusätzliche MyST-Konfigurationen
 myst_enable_extensions = [
     "colon_fence",  # Für erweiterte Syntax wie ::: Hinweisboxen etc.
     # weitere Erweiterungen nach Bedarf
 ]
-
-myst_xref_ignore = [
-    r"\./roles/.*",
-    "../"
-]
+#
+#myst_xref_ignore = [
+#    r"\./roles/.*",
+#    "../"
+#]
 

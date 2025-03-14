@@ -1,10 +1,11 @@
-# License Agreement - CyMaIS NonCommercial License (CNCL)
+# License Agreement 
+## CyMaIS NonCommercial License (CNCL)
 
-## Definitions
+### Definitions
 - **"Software":** Refers to *"[CyMaIS - Cyber Master Infrastructure Solution](https://cymais.cloud/)"* and its associated source code.
 - **"Commercial Use":** Any use of the Software intended for direct or indirect financial gain, including but not limited to sales, rentals, or provision of services.
 
-## Provisions
+### Provisions
 
 1. **Attribution of the Original Licensor:** In any distribution or publication of the Software or derivative works, the original licensor, *Kevin Veen-Birkenbach, Email: [license@veen.world](mailto:license@veen.world), Website: [https://www.veen.world/](https://www.veen.world/)* must be explicitly named.
 
@@ -23,5 +24,5 @@
 
 7. **Ownership of Rights:** All rights, including copyright, trademark, and other forms of intellectual property related to the Software, belong exclusively to Kevin Veen-Birkenbach.
 
-## Consent
+### Consent
 By using, modifying, or distributing the Software, you agree to these terms.

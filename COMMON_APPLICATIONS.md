@@ -4,7 +4,7 @@ This section outlines the common applications tailored for both servers and end-
 ## Base Setup
 Key for initial system configuration, this section includes hostname setting, systemd journal management, locale configurations, and swapfile handling. Essential for both server and end-user setups, it ensures a solid foundation for system operations.
 
-- **[Hostname](./roles/hostname/)**: Sets the system's hostname.
+- **[Hostname](roles/hostname/)**: Sets the system's hostname.
 - **[Journalctl](./roles/journalctl/)**: Configures systemd journal settings.
 - **[Locales](./roles/locales/)**: Configures system locales.
 - **[System-Swapfile](./roles/system-swapfile/)**: Configures swapfile creation and management.
