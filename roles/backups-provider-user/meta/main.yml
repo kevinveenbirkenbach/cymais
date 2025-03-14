@@ -1,2 +1,26 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: "Sets up a dedicated backup user with restricted SSH commands for backup operations. This role configures a backup user with custom SSH key restrictions and sudo rights, ensuring secure and controlled access for backup processes."
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen-Birkenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Linux
+      versions:
+        - all
+  galaxy_tags:
+    - backup
+    - ssh
+    - user
+    - security
+    - automation
+  repository: "https://s.veen.world/cymais"
+  issue_tracker_url: "https://s.veen.world/cymaisissues"
+  documentation: "https://s.veen.world/cymais"
 dependencies:
-- sshd
+  - sshd
