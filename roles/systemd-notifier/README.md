@@ -1,33 +1,20 @@
-# systemd-notifier Ansible Role
-
-Author: Kevin Veen-Birkenbach (kevin@veen.world)
+# Unified Service Failure Notifier
 
 ## Description
 
-This Ansible role installs a systemd service that sends notifications via both `systemd-notifier-telegram` and `systemd-notifier-email` when any service fails.
+This role installs a systemd service that sends notifications via both [systemd-notifier-telegram](../systemd-notifier-telegram/README.md) and [systemd-notifier-email](../systemd-notifier-email/README.md) when any service fails.
 
-Features include:
+## Overview
 
-- Configuration of a systemd service for notification.
-- Dependency management for the `systemd-notifier-telegram` and `systemd-notifier-email` roles.
+Optimized for prompt and comprehensive failure alerts, this role configures a unified notification service. It leverages the capabilities of both Telegram and Email notifications to ensure that administrators are quickly informed about service issues, enabling rapid troubleshooting.
 
-This role was created as part of a conversation with OpenAI's ChatGPT and can be found [here](https://chat.openai.com/share/96e4ca12-0888-41c0-9cfc-29c0180f0dba).
+## Purpose
 
-## Role Dependencies
-
-This role has the following dependencies:
-
-- `systemd-notifier-telegram`
-- `systemd-notifier-email`
+The primary purpose of this role is to provide a centralized mechanism for service failure notifications. By integrating with both the Telegram and Email notifier roles, it delivers reliable alerts through multiple channels, enhancing overall system observability and responsiveness.
 
 ## Features
 
-- Installs a systemd service for sending notifications.
-- Integrates with both Telegram and Email for notification delivery.
-
-## Contact Information
-
-For any questions or feedback, please contact the author:
-
-Author: Kevin Veen-Birkenbach
-Email: kevin@veen.world
+- **Unified Notification Service:** Installs a systemd service that triggers both Telegram and Email alerts.
+- **Dependency Integration:** Works seamlessly with the [systemd-notifier-telegram](../systemd-notifier-telegram/README.md) and [systemd-notifier-email](../systemd-notifier-email/README.md) roles.
+- **Automated Service Management:** Automatically restarts the notifier service upon configuration changes.
+- **Centralized Alerting:** Provides a unified approach to monitor and notify about service failures.
