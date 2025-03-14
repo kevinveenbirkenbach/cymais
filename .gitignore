@@ -1,2 +1,5 @@
 site.retry
 *__pycache__
+docs/*
+!docs/.gitkeep
+venv

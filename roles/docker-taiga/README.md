@@ -2,13 +2,6 @@
 
 This Ansible role sets up and configures a Taiga project management platform using Docker. It includes tasks for setting up the database, Nginx proxy, and updating the repository with necessary files.
 
-## Table of Contents
-
-- [Tasks](#tasks)
-- [Variables](#variables)
-- [Templates](#templates)
-- [Author](#author)
-
 ## Tasks
 
 The main tasks included in this role are:
