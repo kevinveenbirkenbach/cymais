@@ -1,14 +1,27 @@
-# role cleanup-backups-timer
+# Cleanup Backups Service
 
-Cleans up old backups
+## Description
 
-## Additional software
+This role automates the cleanup of old backups by executing a Python script that deletes outdated backup versions based on disk usage thresholds. It ensures that backup storage does not exceed a defined usage percentage.
 
-It may be neccessary to install gcc seperat to use psutil
+## Overview
 
-```bash
-  sudo pacman -S gcc
-```
+Optimized for effective disk space management, this role:
+- Installs required packages (e.g. [lsof](https://en.wikipedia.org/wiki/Lsof) and [psutil](https://pypi.org/project/psutil/)) using pacman.
+- Creates a directory for storing cleanup scripts.
+- Deploys a Python script that deletes old backup directories when disk usage is too high.
+- Configures a systemd service to run the cleanup script, with notifications via [systemd-notifier](../systemd-notifier/README.md).
 
-## further information
+## Purpose
+
+The primary purpose of this role is to maintain optimal backup storage by automatically removing outdated backup versions when disk usage exceeds a specified threshold.
+
+## Features
+
+- **Automated Cleanup:** Executes a Python script to delete old backups.
+- **Threshold-Based Deletion:** Removes backups based on disk usage percentage.
+- **Systemd Integration:** Configures a systemd service to run cleanup tasks.
+- **Dependency Integration:** Works in conjunction with related roles for comprehensive backup management.
+
+## Further Information
 - https://stackoverflow.com/questions/48929553/get-hard-disk-size-in-python
