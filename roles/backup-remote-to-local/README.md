@@ -1,34 +1,31 @@
-# role backup-remote-to-local
+# Backup Remote to Local
 
-## goal
-This script allows to pull backups from a remote server.
+## Description
 
-## scheme
-It is part of the following scheme:
-![backup scheme](https://www.veen.world/wp-content/uploads/2020/12/server-backup-768x567.jpg) <br />
-Further information you will find [in this blog post](https://www.veen.world/2020/12/26/how-i-backup-dedicated-root-servers/).
+This role pulls backups from a remote server and stores them locally using rsync with retry logic. It is designed to retrieve remote backup data and integrate with your overall backup scheme.
 
-## debug
+## Overview
 
-### live
-To track what the service is doing execute one of the following commands:
+Optimized for Archlinux, this role is a key component of a comprehensive backup system. It works in conjunction with other roles to ensure that backup data is collected, verified, and maintained. The role uses a Bash script to pull backups, manage remote connections, and handle incremental backup creation.
 
-#### systemctl
-```bash
-  watch -n2 "systemctl status backup-remote-to-local.cymais.service"
-```
+## Purpose
 
-#### journalctl
-```bash
-  journalctl -fu backup-remote-to-local.cymais.service
-```  
+Backup Remote to Local is a robust solution for retrieving backup data from remote servers. By leveraging rsync, it creates incremental backups that support both file and database recovery. This ensures the integrity and security of your backup data across distributed environments.
 
-### history
-```bash
-  sudo journalctl -u backup-remote-to-local
-```
+## Features
 
-## see
-- https://superuser.com/questions/363444/how-do-i-get-the-output-and-exit-value-of-a-subshell-when-using-bash-e
-- https://gist.github.com/otkrsk/b0ffd4018e8a79b9010c461af298471e
-- https://serverfault.com/questions/304125/rsync-seems-incompatible-with-bashrc-causes-is-your-shell-clean
+- **Remote Backup Retrieval:** Pulls backups from a remote server using secure SSH connections.
+- **Incremental Backup with rsync:** Uses rsync with options for archive, backup, and hard linking to efficiently manage changes.
+- **Retry Logic:** Implements a retry mechanism to handle transient network issues or remote errors.
+- **Integration with Other Roles:** Works alongside roles like backup-directory-validator, cleanup-failed-docker-backups, systemd-timer, backups-provider, and system-maintenance-lock.
+- **Administrative Debugging:** Detailed debug instructions and administrative tasks are provided in a separate file.
+
+## Further Information
+
+- **Backup Scheme:**  
+  ![backup scheme](https://www.veen.world/wp-content/uploads/2020/12/server-backup-768x567.jpg)  
+  More details can be found in [this blog post](https://www.veen.world/2020/12/26/how-i-backup-dedicated-root-servers/).
+
+## Administration & Debugging
+
+For detailed debug instructions and administrative tasks, please refer to the [Administration Tasks](Administration.md) file.
