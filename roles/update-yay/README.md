@@ -1,33 +1,22 @@
-# Ansible Role: update-yay
+# Update-Yay Role
 
-This Ansible role is designed for updating AUR packages on Arch Linux systems using `yay`. It automates the process of upgrading AUR packages, ensuring that your system stays up-to-date with the latest versions available in the Arch User Repository (AUR).
+## Description
 
-## Requirements
+This role updates AUR packages on Arch Linux systems using [yay](https://wiki.archlinux.org/title/Yay). It automates the process of upgrading AUR packages, ensuring that your system stays current with the latest software available in the Arch User Repository.
 
-The role requires that `yay` (Yet Another Yaourt) - an AUR helper - is already installed on the system. If `yay` is not installed, the role `system-aur-helper` should handle its installation.
+## Overview
 
-## Role Dependencies
+The role performs the following:
+- Checks if the [yay](https://wiki.archlinux.org/title/Yay) AUR helper is installed.
+- Upgrades AUR packages using the `kewlfft.aur.aur` module with yay.
+- Works exclusively on Arch Linux systems.
 
-- `system-aur-helper`: This dependency is essential for ensuring that `yay` is available on the system. If `yay` is not installed, this role will manage its installation.
+## Purpose
 
-## Role Variables
+The primary purpose of this role is to ensure that AUR packages on Arch Linux are updated automatically. This helps maintain system stability and ensures that the latest features and fixes from the AUR are applied.
 
-There are no specific variables that need to be defined by the user for this role. The role utilizes the `kewlfft.aur.aur` module with predefined parameters to manage AUR packages.
+## Features
 
-## Role Tasks
-
-- **Upgrade AUR Packages**: The main task of this role is to upgrade the system using `yay`, focusing solely on AUR packages. This task does not require elevated privileges (become: false).
-
-## Example Playbook
-
-Here's an example of how to include the `update-yay` role in your playbook:
-
-```yaml
-- hosts: all
-  roles:
-    - role: update-yay
-```
-
-## Author Information
-
-This role was created by Kevin Veen-Birkenbach.
+- **AUR Package Upgrades:** Uses yay to upgrade AUR packages.
+- **Conditional Execution:** Only runs if yay is installed on the system.
+- **Arch Linux Focused:** Specifically designed for Arch Linux systems.

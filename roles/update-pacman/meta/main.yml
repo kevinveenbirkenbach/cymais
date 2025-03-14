@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Updates Docker Compose instances by detecting changes in Docker image digests and rebuilding containers when necessary. This role automates Docker image pulls and container rebuilds."
+  description: "Updates the package cache and upgrades all installed packages on Arch Linux systems using pacman."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -13,18 +13,13 @@ galaxy_info:
     - name: Archlinux
       versions:
         - rolling
-    - name: Ubuntu
-      versions:
-        - all
   galaxy_tags:
-    - docker
+    - pacman
     - update
-    - compose
-    - images
-    - systemd
+    - archlinux
+    - system
     - maintenance
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
-dependencies:
-  - system-maintenance-lock
+dependencies: []
