@@ -1,6 +1,6 @@
-## Administration 📚
+# Administration
 
-### Full Reset 🚫➡️✅
+## Full Reset 🚫➡️✅
 
 The following environment variables need to be defined for successful operation:
 
@@ -14,9 +14,9 @@ rm -rv /mnt/hdd/data/docker/volumes/friendica_data
 docker volume rm friendica_data
 ```
 
-### Reset Database 🗄️
+## Reset Database 🗄️
 
-#### Manual Method:
+## Manual Method:
 1. Connect to the MariaDB instance:
    ```bash
    docker exec -it central-mariadb mariadb -u root -p
@@ -28,63 +28,63 @@ docker volume rm friendica_data
    exit;
    ```
 
-#### Automatic Method:
+## Automatic Method:
 ```bash
 DB_ROOT_PASSWORD="your_root_password"
 docker exec -i central-mariadb mariadb -u root -p"${DB_ROOT_PASSWORD}" -e "DROP DATABASE IF EXISTS friendica; CREATE DATABASE friendica;"
 ```
 
-### Enter the Application Container 🔍
+## Enter the Application Container 🔍
 
 To access the application container:
 ```bash
 docker compose exec -it application sh
 ```
 
-### Debugging Tools 🛠️
+## Debugging Tools 🛠️
 
-#### Check Environment Variables
+## Check Environment Variables
 ```bash
 docker compose exec -it application printenv
 ```
 
-#### Inspect Volume Data
+## Inspect Volume Data
 ```bash
 ls -la /var/lib/docker/volumes/friendica_data/_data/
 ```
 
-### Autoinstall 🌟
+## Autoinstall 🌟
 
 Run the following command to autoinstall Friendica:
 ```bash
 docker compose exec --user www-data -it application bin/console autoinstall
 ```
 
-### Reinitialization 🔄
+## Reinitialization 🔄
 
-#### Docker Only:
+## Docker Only:
 ```bash
 docker-compose up -d --force-recreate
 ```
 
-#### Full Reinitialization:
+## Full Reinitialization:
 ```bash
 docker-compose up -d --force-recreate && sleep 2; docker compose exec --user www-data -it application bin/console autoinstall;
 ```
 
-### Configuration Information ℹ️
+## Configuration Information ℹ️
 
-#### General Configuration:
+## General Configuration:
 ```bash
 cat /var/lib/docker/volumes/friendica_data/_data/config/local.config.php
 ```
 
-#### Email Configuration:
+## Email Configuration:
 ```bash
 docker compose exec -it application cat /etc/msmtprc
 ```
 
-### Email Debugging ✉️
+## Email Debugging ✉️
 
 To send a test email:
 ```bash
