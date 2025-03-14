@@ -1,9 +1,0 @@
-# This role is deprecated and can be removed in the future
-# The alarm user should be managed by 
-# @see the repository https://github.com/kevinveenbirkenbach/linux-image-manager
-# @see the commit https://github.com/kevinveenbirkenbach/linux-image-manager/commit/bbb54a42377d316b5264330aae36018020f1b981
-- name: remove the user alarm
-  user:
-    name: alarm
-    state: absent
-    remove: yes

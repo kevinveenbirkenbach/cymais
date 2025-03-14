@@ -37,7 +37,6 @@ Caters to a range of devices and needs for hardware driver installation and conf
 Enhances system security with roles focused on security measures, user configurations, and SSH settings. It's vital for protecting both server environments and end-user systems.
 - **[System Security](./roles/system-security/)**: Enhances overall system security.
 - **[User Administrator](./roles/user-administrator/)**: Setup for system administrator user.
-- **[User Alarm](./roles/user-alarm/)**: Manages the alarm user.
 - **[PC SSH](./roles/pc-ssh/)**: Configuration of SSH for secure remote access.
 - **[SSHD](./roles/sshd/)**: Configures SSH daemon settings.
 - **[System Maintenance Lock](./roles/system-maintenance-lock)**: Locks maintenance services to prevent dangerous inteactions between services
