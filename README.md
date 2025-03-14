@@ -23,17 +23,17 @@ Leveraging the power of Open Source, our tool not only promises to uphold the hi
 
 This is not just a step towards simplifying IT management – it's a leap towards democratizing access to advanced technology, ensuring every business can quickly adapt and thrive in the digital age.
 
-For a deeper understanding of our goals and the ethos driving our project, we invite you to explore our detailed **[Vision Statement](./VISION_STATEMENT.md)**. Here, you'll find the cornerstone principles that guide our development process and our commitment to making a lasting impact in the realm of IT infrastructure.
+For a deeper understanding of our goals and the ethos driving our project, we invite you to explore our detailed **[Vision Statement](./docs/VISION_STATEMENT.md)**. Here, you'll find the cornerstone principles that guide our development process and our commitment to making a lasting impact in the realm of IT infrastructure.
 
 ## Solutions Overview
 
 To help you navigate through our repository, we have categorized our extensive range of tools and solutions into three key areas:
 
-1. **[Server Applications](./SERVER_APPLICATIONS.md)**: Detailed information on server-focused tools and configurations, ideal for managing and optimizing server environments.
+1. **[Server Applications](./docs/SERVER_APPLICATIONS.md)**: Detailed information on server-focused tools and configurations, ideal for managing and optimizing server environments.
    
-2. **[End User Applications](./END_USER_APPLICATIONS.md)**: A guide to applications and tools specifically designed for end-user PCs, enhancing personal computing experience.
+2. **[End User Applications](./docs/END_USER_APPLICATIONS.md)**: A guide to applications and tools specifically designed for end-user PCs, enhancing personal computing experience.
    
-3. **[Common Applications](./COMMON_APPLICATIONS.md)**: A comprehensive list of tools and applications that are versatile and useful across both server and end-user environments.
+3. **[Common Applications](./docs/COMMON_APPLICATIONS.md)**: A comprehensive list of tools and applications that are versatile and useful across both server and end-user environments.
 
 Each of these documents provides a tailored overview, ensuring you can find the right tools and information relevant to your specific needs, whether for server management, personal computing, or general IT infrastructure.
 
