@@ -4,7 +4,7 @@
 
 This role updates the package cache and upgrades installed packages on Arch Linux systems using [pacman](https://wiki.archlinux.org/title/Pacman).
 
-## Overview
+## 📌 Overview
 
 Optimized for Arch Linux, this role uses pacman to refresh the package cache and upgrade all installed packages to their latest available versions. It automates system updates to ensure that the system remains secure and up-to-date with the latest software improvements and security patches.
 

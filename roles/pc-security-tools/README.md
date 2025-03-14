@@ -1,6 +1,6 @@
 # PC-Security-Tools Role
 
-## Overview
+## 📌 Overview
 This README document is for the `pc-security-tools` role, a part of the `cymais` repository. This role is designed to equip personal computers with essential tools for enhancing data security and privacy.
 
 ## Role Tasks

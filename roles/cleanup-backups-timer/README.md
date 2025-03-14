@@ -4,7 +4,7 @@
 
 This role sets up a systemd timer to schedule the periodic cleanup of old backups. It leverages the cleanup-backups-service role to perform the actual cleanup operation.
 
-## Overview
+## 📌 Overview
 
 Optimized for automated maintenance, this role:
 - Sets a fact for the service name.

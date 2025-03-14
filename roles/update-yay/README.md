@@ -4,7 +4,7 @@
 
 This role updates AUR packages on Arch Linux systems using [yay](https://wiki.archlinux.org/title/Yay). It automates the process of upgrading AUR packages, ensuring that your system stays current with the latest software available in the Arch User Repository.
 
-## Overview
+## 📌 Overview
 
 The role performs the following:
 - Checks if the [yay](https://wiki.archlinux.org/title/Yay) AUR helper is installed.

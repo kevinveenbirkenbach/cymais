@@ -1,6 +1,6 @@
 # PC-Spotify Role
 
-## Overview
+## 📌 Overview
 This README is for the `pc-spotify` role, part of the `cymais` repository. This role is dedicated to installing Spotify, a popular digital music streaming service, on personal computers.
 
 ## Role Tasks

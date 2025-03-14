@@ -4,7 +4,7 @@
 
 This Ansible role automates the process of backing up Docker volumes to a local folder. It pulls the [backup-docker-to-local repository](https://github.com/kevinveenbirkenbach/backup-docker-to-local.git), installs required software, configures systemd services for both standard and "everything" backup modes, and seeds backup database entries as needed.
 
-## Overview
+## 📌 Overview
 
 Optimized for Archlinux, this role ensures that Docker volume backups are performed reliably with minimal manual intervention. It integrates with several dependent roles to verify backup success and manage related tasks, including:
 - [backup-directory-validator](../backup-directory-validator/) – Validates backup directories.

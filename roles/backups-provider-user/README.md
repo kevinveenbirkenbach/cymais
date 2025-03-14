@@ -4,7 +4,7 @@
 
 This role sets up a dedicated backup user (`backup`) for performing secure backup operations. It creates the user, configures a restricted SSH environment with a custom `authorized_keys` template and an SSH wrapper script, and grants necessary sudo rights for executing rsync. This configuration helps ensure controlled and secure access specifically for backup processes.
 
-## Overview
+## 📌 Overview
 
 The role is a critical component in a secure backup scheme. By isolating backup operations to a dedicated user, it minimizes the risk of unauthorized actions. The role configures the SSH environment so that only specific, allowed commands can be executed, and it sets up passwordless sudo rights for rsync, ensuring smooth and secure backup operations.
 
@@ -20,7 +20,7 @@ The purpose of this role is to enhance the security of your backup system by pro
 - **Sudo Configuration:** Grants passwordless sudo rights for rsync, enabling secure and automated backup transfers.
 - **Integration:** Supports seamless integration with your backup infrastructure by limiting the backup user's permissions to only the required commands.
 
-## Further Information
+## 📚 Other Resources
 
 For more details on how the role works and advanced configuration options, please see the related references below:
 - [Ansible Playbooks Lookups](https://docs.ansible.com/ansible/latest/user_guide/playbooks_lookups.html#id3)

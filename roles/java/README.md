@@ -1,6 +1,6 @@
 # Java
 
-## Overview
+## 📌 Overview
 This README file is for the Java role, which is part of the `cymais`. The role is specifically designed to automate the installation of Java on a system, focusing on the OpenJDK 11 version.
 
 ## Contents of the role

@@ -1,6 +1,6 @@
 # PC-TorBrowser Role
 
-## Overview
+## 📌 Overview
 This README document is for the `pc-torbrowser` role, a crucial component of the `cymais` repository. This role is specifically designed for the installation and setup of Tor Browser on personal computers.
 
 ## Role Tasks

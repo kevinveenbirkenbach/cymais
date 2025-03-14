@@ -1,6 +1,6 @@
 # MariaDB Docker Ansible Role
 
-## Overview
+## 📌 Overview
 This Ansible role facilitates the deployment of a MariaDB server using Docker. It is designed to ensure ease of installation and configuration, with the flexibility to adapt to different environments.
 
 ## Features
@@ -22,11 +22,6 @@ Configure the role by setting the required variables. These can be set in the pl
 - `database_name`: The name of the initial database to create.
 - `database_username`: The username for the database user.
 - `database_password`: The password for the database user.
-
-## Execute SQL commands
-```bash
-docker exec -it central-mariadb mariadb -u root -p
-```
 
 ## Contributing
 Contributions to this project are welcome. Please submit issues and pull requests with your suggestions.

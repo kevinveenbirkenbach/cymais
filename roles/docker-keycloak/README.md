@@ -13,7 +13,7 @@ The role integrates Keycloak with PostgreSQL as a database and supports operatio
 - Support for running behind a reverse proxy (e.g., NGINX).
 - Automatic creation and management of Docker Compose files.
 
-## More Information 📚
+## 📚 Other Resources 📚
 
 For more details about Keycloak, check out:
 - [Official Keycloak Documentation](https://www.keycloak.org/)

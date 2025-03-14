@@ -1,6 +1,6 @@
 # PC-Gnome Role
 
-## Overview
+## 📌 Overview
 Welcome to the `pc-gnome` role, a key part of the `cymais` repository. This role is dedicated to setting up and configuring the GNOME desktop environment on personal computers.
 
 ## Role Details
@@ -24,7 +24,7 @@ The `pc-gnome` role includes several tasks for installing GNOME software, managi
 6. **Execute CLI GNOME Extension Manager Script**:
    - Runs the CLI GNOME Extension Manager script to manage GNOME extensions based on the `{{gnome_extensions}}` variable.
 
-## Further Information
+## 📚 Other Resources
 For additional details on managing GNOME extensions via command line, visit [Ask Ubuntu](https://askubuntu.com/questions/1029376/how-do-i-enable-and-disable-gnome-extensions-from-the-command-line).
 
 ## Dependencies

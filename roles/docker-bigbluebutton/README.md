@@ -3,27 +3,10 @@
 
 Role to deploy [BigBlueButton](https://bigbluebutton.org/). 
 
-## maintanace
-
-### cleanup
-```bash
-    docker compose down -v
-```
-
-### check container status 
-```bash
-watch -n 2 "docker compose ps -a"
-```
-
-### database access
-```bash
- sudo docker-compose exec -it postgres psql -U postgres
-```
-
 ## SSO
 - https://docs.bigbluebutton.org/greenlight/v3/external-authentication/
 
-## further information
+## 📚 Other Resources
 - https://github.com/bigbluebutton/docker
 - https://docs.bigbluebutton.org/greenlight/gl-install.html#setting-bigbluebutton-credentials
 - https://goneuland.de/big-blue-button-mit-docker-und-traefik-installieren/

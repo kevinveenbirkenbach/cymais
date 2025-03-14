@@ -1,6 +1,6 @@
 # PC-Bluray-Player-Tools Role
 
-## Overview
+## 📌 Overview
 Welcome to the `pc-bluray-player-tools` role, a part of the `cymais` repository. This role is dedicated to setting up software required for Blu-ray playback on personal computers. It focuses on installing necessary packages to enable the use of Blu-ray media with VLC player and other compatible software.
 
 ## Role Contents
@@ -12,7 +12,7 @@ The `main.yml` file in this role consists of tasks that automate the installatio
 
 There are commented-out tasks for installing additional AUR packages, such as `aacskeys` and `libbdplus`, which can be enabled as per the user's requirements.
 
-## Further Information and Resources
+## 📚 Other Resources and Resources
 For more in-depth information and guidance on Blu-ray playback and software configuration, the following resources can be consulted:
 - [Arch Linux Wiki on Blu-ray](https://wiki.archlinux.org/title/Blu-ray#Using_aacskeys)
 - [Guide to Play Blu-ray with VLC](https://videobyte.de/play-blu-ray-with-vlc)

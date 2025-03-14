@@ -4,7 +4,7 @@
 
 This role creates a dedicated administrator user for local administrative tasks. The administrator account is configured to require a password when executing [sudo](https://en.wikipedia.org/wiki/Sudo), ensuring secure privilege escalation. For security reasons, it is recommended to use this dedicated administrator user instead of the default root account. The role also sets up SSH-related configuration by copying an authorized_keys file from inventory data.
 
-## Overview
+## 📌 Overview
 
 Optimized for secure system management, this role performs the following:
 - Creates an administrator user with a home directory.

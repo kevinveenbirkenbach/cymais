@@ -25,7 +25,7 @@
   systemctl status wg-quick@wg0.cymais.service
 ```
 
-## Further Information
+## 📚 Other Resources
 - https://golb.hplar.ch/2019/01/expose-server-vpn.html
 - https://wiki.archlinux.org/index.php/WireGuard
 - https://wireguard.how/server/raspbian/

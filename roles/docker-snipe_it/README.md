@@ -13,14 +13,6 @@ This 🚀 **CyMaIS** role provides an automated deployment and configuration for
 - **SAML Authentication Support** (Pending Fix) 🔐
 - **Redis Caching** for improved performance ⚡
 
-## Administration 🛠️
-Clear and restart the application:
-```bash
-docker-compose exec application php artisan config:clear
-docker-compose exec application php artisan cache:clear
-docker-compose restart application
-```
-
 ## Pending Issue 🚧
 To ensure full **SAML authentication integration**, this issue still needs to be resolved:  
 🔗 [GitHub Issue #16186](https://github.com/snipe/snipe-it/issues/16186)

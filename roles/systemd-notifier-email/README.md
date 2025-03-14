@@ -4,7 +4,7 @@
 
 This role installs and configures the necessary components for sending email notifications via systemd when a service fails. It sets up the `systemd-notifier-email` service and configures email parameters and templates using msmtp.
 
-## Overview
+## 📌 Overview
 
 Optimized for secure and reliable service failure notifications, this role is an integral part of the overall `systemd-notifier` suite. It ensures that, upon failure of a critical service, an email alert is sent automatically to enable prompt troubleshooting.
 
@@ -19,6 +19,6 @@ The primary purpose of this role is to provide a comprehensive solution for auto
 - **Secure Notifications:** Integrates with systemd to trigger email alerts when services fail.
 - **Suite Integration:** Part of the `systemd-notifier` suite, offering a unified approach to service failure notifications.
 
-## Further Information
+## 📚 Other Resources
 
 This role was created as part of a conversation with OpenAI's ChatGPT and can be found [here](https://chat.openai.com/share/96e4ca12-0888-41c0-9cfc-29c0180f0dba).

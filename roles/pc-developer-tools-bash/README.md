@@ -1,6 +1,6 @@
 # PC-Developer-Tools-Bash Role
 
-## Overview
+## 📌 Overview
 This README accompanies the `pc-developer-tools-bash` role within the `cymais` repository. This role is dedicated to equipping personal computers with essential tools for Bash scripting and development.
 
 ## Role Contents

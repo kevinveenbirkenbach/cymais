@@ -4,7 +4,7 @@
 
 This role pulls backups from a remote server and stores them locally using rsync with retry logic. It is designed to retrieve remote backup data and integrate with your overall backup scheme.
 
-## Overview
+## 📌 Overview
 
 Optimized for Archlinux, this role is a key component of a comprehensive backup system. It works in conjunction with other roles to ensure that backup data is collected, verified, and maintained. The role uses a Bash script to pull backups, manage remote connections, and handle incremental backup creation.
 
@@ -20,7 +20,7 @@ Backup Remote to Local is a robust solution for retrieving backup data from remo
 - **Integration with Other Roles:** Works alongside roles like backup-directory-validator, cleanup-failed-docker-backups, systemd-timer, backups-provider, and system-maintenance-lock.
 - **Administrative Debugging:** Detailed debug instructions and administrative tasks are provided in a separate file.
 
-## Further Information
+## 📚 Other Resources
 
 - **Backup Scheme:**  
   ![backup scheme](https://www.veen.world/wp-content/uploads/2020/12/server-backup-768x567.jpg)  

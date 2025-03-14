@@ -4,7 +4,7 @@
 
 This role automates the cleanup of old backups by executing a Python script that deletes outdated backup versions based on disk usage thresholds. It ensures that backup storage does not exceed a defined usage percentage.
 
-## Overview
+## 📌 Overview
 
 Optimized for effective disk space management, this role:
 - Installs required packages (e.g. [lsof](https://en.wikipedia.org/wiki/Lsof) and [psutil](https://pypi.org/project/psutil/)) using pacman.
@@ -23,5 +23,5 @@ The primary purpose of this role is to maintain optimal backup storage by automa
 - **Systemd Integration:** Configures a systemd service to run cleanup tasks.
 - **Dependency Integration:** Works in conjunction with related roles for comprehensive backup management.
 
-## Further Information
+## 📚 Other Resources
 - https://stackoverflow.com/questions/48929553/get-hard-disk-size-in-python

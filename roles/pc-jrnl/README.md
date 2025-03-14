@@ -1,6 +1,6 @@
 # Jrnl Role for Ansible
 
-## Overview
+## 📌 Overview
 This role automates the installation of Jrnl, a simple and effective command-line journal application. It uses the `community.general.pacman` module for systems that support the Pacman package manager, ensuring that Jrnl is installed and up to date.
 
 ## Requirements
@@ -28,6 +28,6 @@ For more detailed information on Jrnl and its functionalities, visit [Jrnl's off
 ## Contributing
 Contributions to this role are welcome. Please adhere to standard coding conventions and best practices.
 
-## More Information
+## 📚 Other Resources
 
 This role was created as part of a larger playbook. For more context on this role, you can refer to the related ChatGPT conversation [here](https://chat.openai.com/share/ae168ca0-5191-4bec-96a0-ffcfabca0024).

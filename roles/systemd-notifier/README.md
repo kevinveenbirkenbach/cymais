@@ -4,7 +4,7 @@
 
 This role installs a systemd service that sends notifications via both [systemd-notifier-telegram](../systemd-notifier-telegram/README.md) and [systemd-notifier-email](../systemd-notifier-email/README.md) when any service fails.
 
-## Overview
+## 📌 Overview
 
 Optimized for prompt and comprehensive failure alerts, this role configures a unified notification service. It leverages the capabilities of both Telegram and Email notifications to ensure that administrators are quickly informed about service issues, enabling rapid troubleshooting.
 

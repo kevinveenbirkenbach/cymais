@@ -1,6 +1,6 @@
 # Docker-GitLab Ansible Role
 
-## Overview
+## 📌 Overview
 This Ansible role is designed for setting up and managing a GitLab server running in a Docker container. It automates the process of installing GitLab, configuring its environment, and managing dependencies such as a PostgreSQL database and an Nginx reverse proxy.
 
 ## Features
@@ -33,7 +33,7 @@ Include this role in your Ansible playbooks and specify the necessary variables.
 
 For a detailed walkthrough and explanation of this role, refer to the conversation at [ChatGPT Session Transcript](https://chat.openai.com/share/1b0147bf-d4de-4790-b8ed-c332aa4e3ce3).
 
-## Further Information
+## 📚 Other Resources
 - https://ralph.blog.imixs.com/2019/06/09/running-gitlab-on-docker/
 
 ## Performance Optimation

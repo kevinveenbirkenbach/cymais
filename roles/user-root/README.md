@@ -4,7 +4,7 @@
 
 This role manages the generation and handling of an SSH key for the [root user](https://en.wikipedia.org/wiki/Superuser) on a target system. It ensures that an SSH key is generated if one does not already exist and outputs the public key, enabling secure SSH access for the root user in automated environments.
 
-## Overview
+## 📌 Overview
 
 Optimized for secure system administration, this role performs the following tasks:
 - Verifies the existence of a root SSH public key.

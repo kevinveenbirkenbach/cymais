@@ -4,7 +4,7 @@
 
 This role installs the [sudo](https://en.wikipedia.org/wiki/Sudo) package and deploys a default sudoers file to ensure secure and consistent privilege escalation on the target system. It uses a preconfigured sudoers file that follows best practices and includes directives to read drop-in files from `/etc/sudoers.d`.
 
-## Overview
+## 📌 Overview
 
 Optimized for security and ease of administration, this role guarantees that sudo is installed and configured according to recommended practices. The provided sudoers file includes essential comments, host/user aliases, and defaults to help prevent misconfigurations.
 

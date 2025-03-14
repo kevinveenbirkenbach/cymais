@@ -4,7 +4,7 @@
 
 This role updates packages on Debian-based systems. It refreshes the apt cache and performs a distribution upgrade to ensure all packages are at their latest version.
 
-## Overview
+## 📌 Overview
 
 Designed for Debian and Ubuntu systems, this role:
 - Updates the package cache using apt.

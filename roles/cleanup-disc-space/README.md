@@ -4,7 +4,7 @@
 
 This role frees disk space by executing a script that cleans up temporary files, clears package caches, and optionally cleans up backup directories and Docker resources when disk usage exceeds a specified threshold.
 
-## Overview
+## 📌 Overview
 
 Optimized for efficient storage management, this role:
 - Creates a directory for disk cleanup scripts.

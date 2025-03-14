@@ -4,7 +4,7 @@ This Ansible role provides the necessary tasks, files, templates, and variables 
 
 ---
 
-## Overview 🔍
+## 📌 Overview 🔍
 
 - **Database Variables**  
   Defined in [./vars/database.yml](./vars/database.yml), these variables include:
