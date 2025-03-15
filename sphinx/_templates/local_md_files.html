@@ -1,10 +1,25 @@
-{% if local_md_files %}
-<div class="local-md-files">
-  <h3>Local Markdown Files</h3>
-  <ul>
-  {% for item in local_md_files %}
-    <li><a href="{{ pathto(item.link) }}">{{ item.name }}</a></li>
+{% if local_md_headings %}
+<div class="local-md-headings">
+  <h3>Page Headings</h3>
+  {% set ns = namespace(current_level=0) %}
+  {% for item in local_md_headings %}
+    {# If the current heading level is greater than the previous, open new <ul> tags #}
+    {% if item.level > ns.current_level %}
+      {% for i in range(ns.current_level, item.level) %}
+        <ul>
+      {% endfor %}
+    {# If the current heading level is less than the previous, close the open <ul> tags #}
+    {% elif item.level < ns.current_level %}
+      {% for i in range(item.level, ns.current_level) %}
+        </ul>
+      {% endfor %}
+    {% endif %}
+    <li><a href="{{ pathto(item.link) }}">{{ item.text }}</a></li>
+    {% set ns.current_level = item.level %}
   {% endfor %}
-  </ul>
+  {# Close any remaining open <ul> tags #}
+  {% for i in range(ns.current_level) %}
+    </ul>
+  {% endfor %}
 </div>
 {% endif %}
