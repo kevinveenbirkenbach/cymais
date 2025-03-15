@@ -387,6 +387,19 @@ cards:
   link_text: "Soar with Bluesky Today!"
 
 {% endif %}
+
+{% if "sphinx" in group_names %}
+
+- icon:
+    class: "fa-solid fa-book"
+  title: "Documentation"
+  text: "Unlock comprehensive insights with our extensive documentation. Explore guides, tutorials, and support resources designed to help you navigate our software effortlessly."
+  url: https://{{domains.sphinx}}
+  link_text: "Explore Documentation Now!"
+
+{% endif %}
+
+
 {% if "phpmyadmin" in group_names %}
 
 - icon: 
@@ -688,6 +701,13 @@ navigation:
           icon:
             class: fa-brands fa-github
           url: https://s.veen.world/githubsponsors
+{% if "spinx" in group_names %}   
+    - name: Documentation & Support
+      description: Access our comprehensive documentation and support resources to help you get the most out of the software.
+      icon:
+        class: fas fa-book
+      url: https://{{domains.sphinx}}
+{% endif %}
     - name: Imprint
       description: Check out the imprint information
       icon:

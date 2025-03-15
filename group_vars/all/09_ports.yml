@@ -46,6 +46,7 @@ ports:
       ldap:           8033
       phpmyadmin:     8034
       snipe_it:       8035
+      sphinx:         8036
       bigbluebutton:  48087 # This port is predefined by bbb. @todo Try to change this to a 8XXX port
   # Ports which are exposed to the World Wide Web
   public:

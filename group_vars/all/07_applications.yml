@@ -547,6 +547,13 @@ defaults_applications:
     database:
       central_storage:  True    # Activate Central Database Storage
 
+  ## Sphinx
+  sphinx:
+    version:            "3.9-slim"                        # Use latest docker image
+    volumes:
+      source_dir:       "{ansible_playbook_dir}"          # Path from which sphinx reads the documentation
+      
+
   ## Taiga
   taiga:
     version:           "latest"

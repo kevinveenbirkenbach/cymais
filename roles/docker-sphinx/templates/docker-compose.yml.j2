@@ -1,0 +1,13 @@
+services:
+  application:
+    build: .
+    ports:
+      - "127.0.0.1:{{ports.localhost.http[application_id]}}:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+{% include 'templates/docker/container/networks.yml.j2' %}
+
+{% include 'templates/docker/compose/networks.yml.j2' %}

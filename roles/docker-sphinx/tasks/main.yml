@@ -1,0 +1,31 @@
+---
+# Docker Routines
+- name: "include docker-compose role"
+  include_role: 
+    name: docker-compose
+
+- name: pull cymais repository
+  git:
+    repo: "{{ repository_address_cymais }}"
+    dest: "{{ host_cymais_volume_dir_absolute }}"
+    update: yes
+  notify: docker compose project setup
+  become: true
+
+- name: "include role nginx-domain-setup for {{application_id}}"
+  include_role:
+    name: nginx-domain-setup
+  vars:
+    domain: 	"{{ domains[application_id] }}"
+    http_port: 	"{{ ports.localhost.http[application_id] }}"
+
+- name: "create {{ sphinx_docker_file }}"
+  template:
+    src: "Dockerfile.j2"
+    dest: "{{ sphinx_docker_file }}"
+    mode: '770'
+    force: yes
+  notify: docker compose project setup
+
+- name: "copy docker-compose.yml and env file"
+  include_tasks: copy-docker-compose-and-env.yml

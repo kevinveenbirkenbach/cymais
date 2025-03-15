@@ -1,6 +1,6 @@
 {# This template needs to be included in docker-compose.yml containers #}
     networks:
-{% if applications[application_id].database.central_storage | bool and database_type is defined %}
+{% if applications | get_database_central_storage(application_id) | bool and database_type is defined %}
       central_{{ database_type }}:
 {% endif %}
 {% if applications[application_id].get('ldap', {}).get('enabled', false)|bool and applications.ldap.openldap.network.local|bool %}

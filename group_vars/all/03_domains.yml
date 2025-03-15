@@ -38,6 +38,7 @@ defaults_domains:
   portfolio:               "{{primary_domain}}"
   roulette-wheel:          "roulette.{{primary_domain}}"
   snipe_it:                "inventory.{{primary_domain}}"
+  sphinx:                  "docs.{{primary_domain}}"
   taiga:                   "kanban.{{primary_domain}}"
   yourls:                  "s.{{primary_domain}}"
   # ATTENTION: Will be owerwritten by the values in domains. Not merged.

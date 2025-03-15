@@ -1,0 +1,13 @@
+application_id:               "sphinx"
+
+repository_address_cymais:    "https://github.com/kevinveenbirkenbach/cymais.git"     # Repository address to pull cymais from
+
+host_cymais_volume_dir_absolute:  "{{docker_compose.directories.volumes}}cymais/"     # Place where the cymais repository is stored on the host
+host_cymais_volume_dir_relative:  "volumes/cymais/"                                   # Place where the cymais repository is stored on the host
+
+docker_app_dir:               "/app/"                                                 # Folder in which the application is running
+docker_source_dir:            "{{docker_app_dir}}"                                    # Folder which is used to be screened
+docker_output_dir:            "/docs/"                                                 # Folder to which the output is fuuuucking putted!
+docker_sphinx_dir:            "{{docker_app_dir}}/sphinx/"                             # Folder which contains the sphinxs makefile and logic
+
+sphinx_docker_file:           "{{ docker_compose.directories.instance }}/Dockerfile"

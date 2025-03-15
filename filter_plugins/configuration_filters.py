@@ -19,10 +19,21 @@ def get_css_enabled(applications, application_id):
     enabled = app.get('css', {}).get('enabled', True)
     return bool(enabled)
 
+def get_database_central_storage(applications, application_id):
+    """
+    Retrieve the type of the database from the application dictionary.
+    The expected key structure is: applications[application_id]['database']['central_storage'].
+    If not defined, None is returned.
+    """
+    app = applications.get(application_id, {})
+    db_type = app.get('database', {}).get('central_storage', False)
+    return db_type
+
 class FilterModule(object):
     def filters(self):
         return {
             'get_css_enabled': get_css_enabled,
             'get_oidc_enabled': get_oidc_enabled,
-            'get_oauth2_enabled': get_oauth2_enabled
+            'get_oauth2_enabled': get_oauth2_enabled,
+            'get_database_central_storage': get_database_central_storage,
         }

@@ -70,6 +70,8 @@ defaults_networks:
       subnet: 192.168.102.192/28
     discourse:
       subnet: 192.168.102.208/28
+    sphinx:
+      subnet: 192.168.102.224/28
     # /24 Networks / 254 Usable Clients
     bigbluebutton:
       subnet: 10.7.7.0/24 # This variable does not have an impact. It's just there for documentation reasons, because this network is used in bbb
@@ -79,5 +81,4 @@ defaults_networks:
       subnet: 192.168.201.0/24
     central_ldap:
       subnet: 192.168.202.0/24
-
   

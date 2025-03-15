@@ -230,6 +230,12 @@
   roles:
    -  role: docker-snipe_it
 
+- name: setup sphinx
+  hosts: sphinx
+  become: true
+  roles:
+   -  role: docker-sphinx
+
 # Native Webserver Roles
 - name: setup nginx-serve-htmls
   hosts: nginx-serve-htmls
