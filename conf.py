@@ -55,9 +55,3 @@ myst_enable_extensions = [
     "colon_fence",  # Für erweiterte Syntax wie ::: Hinweisboxen etc.
     # weitere Erweiterungen nach Bedarf
 ]
-#
-#myst_xref_ignore = [
-#    r"\./roles/.*",
-#    "../"
-#]
-
