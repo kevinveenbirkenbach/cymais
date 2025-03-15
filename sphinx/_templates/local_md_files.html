@@ -14,7 +14,7 @@
         </ul>
       {% endfor %}
     {% endif %}
-    <li><a href="{{ pathto(item.link) }}">{{ item.text }}</a></li>
+    <li><a href="{{ pathto(item.link).replace("#","") + "#" + item.anchor}}">{{ item.text }}</a></li>
     {% set ns.current_level = item.level %}
   {% endfor %}
   {# Close any remaining open <ul> tags #}

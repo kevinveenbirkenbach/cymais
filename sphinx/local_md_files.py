@@ -68,12 +68,13 @@ def add_local_md_headings(app, pagename, templatename, context, doctree):
             filepath = os.path.join(abs_dir, file)
             headings = extract_headings_from_file(filepath)
             for heading in headings:
-                file_link = os.path.join(directory, file) if directory else file
-                full_link = file_link + '#' + heading['anchor']
+                # Build file link: zunächst Pfad + Dateiname, dann Ersetzen der .md-Endung durch .html
+                file_link = os.path.join(directory, file).replace(".md","") if directory else file
                 local_md_headings.append({
                     'level': heading['level'],
                     'text': heading['text'],
-                    'link': full_link
+                    'link': file_link,
+                    'anchor': heading['anchor']
                 })
     # Sort headings in natural ascending order using natural_sort_key.
     local_md_headings.sort(key=lambda x: natural_sort_key(x['text']))

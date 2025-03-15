@@ -8,6 +8,3 @@ Cyber Master Infrastructure Solution documentation
 
    *
    roles/index.rst
-
-
-.. roles-overview::

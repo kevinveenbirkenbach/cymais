@@ -6,8 +6,6 @@ Applications and Roles
 
 .. toctree::
    :maxdepth: 1
-   :caption: Included Applications:
+   :caption: Overview
    :glob:
-
-   */README
-
+   ./*.rst
