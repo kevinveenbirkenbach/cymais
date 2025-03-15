@@ -27,11 +27,12 @@ html_theme = 'alabaster'
 html_static_path = ['_static']
 html_sidebars = {
     '**': [
-        'globaltoc.html',    # globales Inhaltsverzeichnis
-        'relations.html',    # Prev/Next Navigation
-        'searchbox.html',    # Suchfeld
+        'localtoc.html',  # Zeigt die lokale Navigation an
+        'relations.html',  # Vorherige/Nächste Seite
+        'searchbox.html',  # Suchfeld
     ]
 }
+
 html_theme_options = {
     'fixed_sidebar': True,
 }
