@@ -60,7 +60,6 @@ class RolesOverviewDirective(Directive):
                         categories.setdefault(tag, []).append(role_entry)
                 else:
                     logger.warning(f"meta/main.yml not found for role {role_path}")
-                logger.info("For role %s, galaxy_info: %s", role_name, galaxy_info)
 
         # Sort categories and roles alphabetically.
         sorted_categories = sorted(categories.items(), key=lambda x: x[0].lower())

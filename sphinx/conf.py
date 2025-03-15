@@ -55,6 +55,7 @@ extensions = [
     "myst_parser",
     'local_md_files',
     'roles_overview',
+    'markdown_include',
 ]
 autosummary_generate = True
 
@@ -63,3 +64,14 @@ myst_enable_extensions = [
     "colon_fence",  # Für erweiterte Syntax wie ::: Hinweisboxen etc.
     # weitere Erweiterungen nach Bedarf
 ]
+
+def setup(app):
+    python_domain = app.registry.domains.get('py')
+    if python_domain is not None:
+        directive = python_domain.directives.get('currentmodule')
+        if directive is not None:
+            directive.optional_arguments = 10
+    return {'version': '1.0', 'parallel_read_safe': True}
+
+
+

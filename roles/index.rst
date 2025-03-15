@@ -1,11 +1,11 @@
 Applications and Roles
 ===========================================================
 
-.. include:: ./README.md
-   :parsers: myst_parser
+.. markdown-include:: README.md
 
 .. toctree::
    :maxdepth: 1
-   :caption: Overview
+   :caption: About CyMaIS:
    :glob:
-   ./*.rst
+
+   *.rst

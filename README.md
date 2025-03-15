@@ -24,19 +24,7 @@ Leveraging the power of Open Source, our tool not only promises to uphold the hi
 
 This is not just a step towards simplifying IT management – it's a leap towards democratizing access to advanced technology, ensuring every business can quickly adapt and thrive in the digital age.
 
-For a deeper understanding of our goals and the ethos driving our project, we invite you to explore our detailed **[Vision Statement](./VISION_STATEMENT.md)**. Here, you'll find the cornerstone principles that guide our development process and our commitment to making a lasting impact in the realm of IT infrastructure.
-
-### Solutions Overview
-
-To help you navigate through our repository, we have categorized our extensive range of tools and solutions into three key areas:
-
-1. **[Server Applications](./SERVER_APPLICATIONS.md)**: Detailed information on server-focused tools and configurations, ideal for managing and optimizing server environments.
-   
-2. **[End User Applications](./END_USER_APPLICATIONS.md)**: A guide to applications and tools specifically designed for end-user PCs, enhancing personal computing experience.
-   
-3. **[Common Applications](./COMMON_APPLICATIONS.md)**: A comprehensive list of tools and applications that are versatile and useful across both server and end-user environments.
-
-Each of these documents provides a tailored overview, ensuring you can find the right tools and information relevant to your specific needs, whether for server management, personal computing, or general IT infrastructure.
+For a deeper understanding of our goals and the ethos driving our project, we invite you to explore our detailed **[Vision Statement](./VISION.md)**. Here, you'll find the cornerstone principles that guide our development process and our commitment to making a lasting impact in the realm of IT infrastructure.
 
 ## Key Benefits of CyMaIS for Your Business
 
@@ -72,11 +60,6 @@ Contact me for more details:
 🌍 Website: [www.CyberMaster.Space](https://cybermaster.space)<br />
 📧 Email: [kevin@veen.world](mailto:kevin@veen.world)<br />
 ☎️ Phone: [+ 49 178 179 80 23](tel:00491781798023)
-
-### Showcases
-The following list showcases the extensive range of solutions that CyMaIS incorporates, each playing a vital role in providing a comprehensive, efficient, and secure IT infrastructure setup:
-
-[ELK Stack](./roles/docker-elk), [Intel Driver](./roles/driver-intel), [Nginx Docker Reverse Proxy](./roles/nginx-docker-reverse-proxy), [Sudo](./roles/sudo), [Funkwhale](./roles/docker-funkwhale), [MSI Keyboard Color Driver](./roles/driver-msi-keyboard-color), [Nginx Domain Redirect](./roles/nginx-redirect-domain), [GnuCash](./roles/pc-gnucash), [Backup Data to USB](./roles/backup-data-to-usb), [Gitea](./roles/docker-gitea), [Non-Free Driver](./roles/driver-non-free), [Nginx Homepage](./roles/nginx-serve-html), [Jrnl](./roles/pc-jrnl), [Systemd Notifier](./roles/systemd-notifier), [Backup Docker to Local](./roles/backup-docker-to-local), [Jenkins](./roles/docker-jenkins), [Git](./roles/git), [Nginx HTTPS](./roles/nginx-https), [Latex](./roles/pc-latex), [Email Notifier](./roles/systemd-notifier-email), [Remote to Local Backup Solution](./roles/backup-remote-to-local), [Joomla](./roles/docker-joomla), [Heal Defect Docker Installations](./roles/heal-docker), [Nginx Matomo Tracking](./roles/nginx-modifier-matomo), [LibreOffice](./roles/pc-libreoffice), [Telegram Notifier](./roles/systemd-notifier-telegram), [Listmonk](./roles/docker-listmonk), [Btrfs Health Check](./roles/health-btrfs), [Nginx WWW Redirect](./roles/nginx-redirect-www), [Network Analyze Tools](./roles/pc-network-analyze-tools), [System Security](./roles/system-security), [Mailu](./roles/docker-mailu), [Disc Space Health Check](./roles/health-disc-space), [Administrator Tools](./roles/pc-administrator-tools), [Nextcloud Client](./roles/pc-nextcloud), [Swapfile Setup](./roles/system-swapfile), [Backups Cleanup](./roles/cleanup-backups-service), [Mastodon](./roles/docker-mastodon), [Docker Container Health Checker](./roles/health-docker-container), [Blu-ray Player Tools](./roles/pc-bluray-player-tools), [Office](./roles/pc-office), [Update Solutions](./roles/update), [Matomo](./roles/docker-matomo), [Docker Volumes Health Checker](./roles/health-docker-volumes), [Caffeine](./roles/pc-caffeine), [Qbittorrent](./roles/pc-qbittorrent), [Update Apt](./roles/update-apt), [Disc Space Cleanup](./roles/cleanup-disc-space), [Matrix](./roles/docker-matrix), [Health Journalctl](./roles/health-journalctl), [Designer Tools](./roles/pc-designer-tools), [Security Tools](./roles/pc-security-tools), [Update Docker](./roles/update-docker), [Failed Docker Backups Cleanup](./roles/cleanup-failed-docker-backups), [MediaWiki](./roles/docker-mediawiki), [Nginx Health Checker](./roles/health-nginx), [Developer Tools](./roles/pc-developer-tools), [Spotify](./roles/pc-spotify), [Update Pacman](./roles/update-pacman), [Client Wireguard](./roles/client-wireguard), [MyBB](./roles/docker-mybb), [Developer Tools for Arduino](./roles/pc-developer-tools-arduino), [SSH](./roles/pc-ssh), [Update Yay](./roles/update-yay), [Client Setup for Wireguard Behind Firewall](./roles/client-wireguard-behind-firewall), [Nextcloud Server](./roles/docker-nextcloud), [Hunspell](./roles/hunspell), [Developer Tools for Bash](./roles/pc-developer-tools-bash), [Streaming Tools](./roles/pc-streaming-tools), [Administrator](./roles/user-administrator), [Docker](./roles/docker), [Peertube](./roles/docker-peertube), [Java](./roles/java), [Developer Tools for Java](./roles/pc-developer-tools-java), [Tor Browser](./roles/pc-torbrowser), [Video Conference](./roles/pc-video-conference), [Wireguard](./roles/wireguard), [Akaunting](./roles/docker-akaunting), [Pixelfed](./roles/docker-pixelfed), [Journalctl](./roles/journalctl), [Developer Tools for PHP](./roles/pc-developer-tools-php), [Virtual Box](./roles/pc-virtual-box), [Postfix](./roles/postfix), [Attendize](./roles/docker-attendize), [Wordpress](./roles/docker-wordpress), [Locales](./roles/locales), [Docker for End Users](./roles/pc-docker), [Games](./roles/pc-games), [Python Pip](./roles/python-pip), [Discourse](./roles/docker-discourse), [Epson Multiprinter Driver](./roles/driver-epson-multiprinter), [Nginx Certbot](./roles/nginx-certbot), [Git](./roles/pc-git), [SSHD](./roles/sshd), [YOURLS](./roles/docker-yourls), [BigBlueButton](./roles/docker-bigbluebutton),[System Maintenance Lock](./roles/system-maintenance-lock),[Open Project](./roles/docker-openproject)...
 
 ### License
 
