@@ -1,12 +1,10 @@
-CyMaIS - Cyber Master Infrastructure Solution documentation
+Cyber Master Infrastructure Solution documentation
 ===========================================================
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Index:
+   :maxdepth: 1
+   :caption: About CyMaIS:
    :glob:
 
    *
-
-
-:doc:`roles/index`
+   roles/index.rst

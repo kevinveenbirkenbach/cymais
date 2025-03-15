@@ -1,9 +1,13 @@
-.. CyMaIS - Cyber Master Infrastructure Solution documentation
+Applications and Roles
 ===========================================================
 
+.. include:: ./README.md
+   :parsers: myst_parser
+
 .. toctree::
-   :maxdepth: 5
-   :caption: Index:
+   :maxdepth: 1
+   :caption: Included Applications:
    :glob:
 
-   **
+   */README
+
