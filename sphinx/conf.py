@@ -6,6 +6,8 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+import sys
+
 project = 'CyMaIS - Cyber Master Infrastructure Solution'
 copyright = '2025, Kevin Veen-Birkenbach'
 author = 'Kevin Veen-Birkenbach'
