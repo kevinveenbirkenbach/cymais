@@ -1,0 +1,10 @@
+{% if local_md_files %}
+<div class="local-md-files">
+  <h3>Local Markdown Files</h3>
+  <ul>
+  {% for item in local_md_files %}
+    <li><a href="{{ pathto(item.link) }}">{{ item.name }}</a></li>
+  {% endfor %}
+  </ul>
+</div>
+{% endif %}

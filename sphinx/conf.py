@@ -7,6 +7,8 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 import sys
+import os
+sys.path.insert(0, os.path.abspath('.'))
 
 project = 'CyMaIS - Cyber Master Infrastructure Solution'
 copyright = '2025, Kevin Veen-Birkenbach'
@@ -14,8 +16,6 @@ author = 'Kevin Veen-Birkenbach'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
-
-extensions = []
 
 templates_path = ['_templates']
 exclude_patterns = ['docs', 'venv', 'venv/**']
@@ -27,13 +27,17 @@ exclude_patterns = ['docs', 'venv', 'venv/**']
 
 html_theme = 'alabaster'
 html_static_path = ['_static']
+
 html_sidebars = {
     '**': [
-        'localtoc.html',  # Zeigt die lokale Navigation an
-        'relations.html',  # Vorherige/Nächste Seite
-        'searchbox.html',  # Suchfeld
+        'globaltoc.html',
+        'relations.html',
+        'sourcelink.html',
+        'local_md_files.html',  # Include your custom template
+        'searchbox.html',
     ]
 }
+
 
 html_theme_options = {
     'fixed_sidebar': True,
@@ -49,6 +53,7 @@ extensions = [
     "sphinx.ext.autosummary",
     "sphinx.ext.autodoc",
     "myst_parser",
+    'local_md_files',
 ]
 autosummary_generate = True
 
