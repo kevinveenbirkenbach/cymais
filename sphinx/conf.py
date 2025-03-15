@@ -54,6 +54,7 @@ extensions = [
     "sphinx.ext.autodoc",
     "myst_parser",
     'local_md_files',
+    'roles_overview',
 ]
 autosummary_generate = True
 
