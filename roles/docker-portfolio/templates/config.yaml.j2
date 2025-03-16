@@ -676,6 +676,7 @@ navigation:
     {% endif %}
   {% endif %}
 {% endif %}
+
     - name: Support Us
       description: "Discover all the ways you can support our work."
       icon:
@@ -701,13 +702,17 @@ navigation:
           icon:
             class: fa-brands fa-github
           url: https://s.veen.world/githubsponsors
-{% if "spinx" in group_names %}   
-    - name: Documentation & Support
+
+{% if "sphinx" in group_names %}   
+
+    - name: Documentation
       description: Access our comprehensive documentation and support resources to help you get the most out of the software.
       icon:
         class: fas fa-book
       url: https://{{domains.sphinx}}
+
 {% endif %}
+
     - name: Imprint
       description: Check out the imprint information
       icon:

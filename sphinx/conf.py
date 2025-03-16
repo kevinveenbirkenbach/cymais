@@ -30,20 +30,20 @@ html_static_path = ['_static']
 
 html_sidebars = {
     '**': [
-        'globaltoc.html',
-        'relations.html',
+        #'globaltoc.html',
+        # 'relations.html',
         # 'sourcelink.html',
         'local_md_files.html',  # Include your custom template
-        'searchbox.html',
+        # 'searchbox.html',
     ]
 }
 
 
 html_theme_options = {
     # 'fixed_sidebar': True,
+    "show_prev_next": False,
 }
 
-# Liste der Dateiendungen, die Sphinx verarbeiten soll:
 source_suffix = {
     '.rst': 'restructuredtext',
     '.md': 'markdown',
@@ -59,10 +59,8 @@ extensions = [
 ]
 autosummary_generate = True
 
-# Optional: Zusätzliche MyST-Konfigurationen
 myst_enable_extensions = [
-    "colon_fence",  # Für erweiterte Syntax wie ::: Hinweisboxen etc.
-    # weitere Erweiterungen nach Bedarf
+    "colon_fence", 
 ]
 
 def setup(app):
