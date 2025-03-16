@@ -1,4 +1,5 @@
-FROM python:{{applications[application_id].version}}
+ARG DOCKER_PYTHON_VERSION
+FROM python:${DOCKER_PYTHON_VERSION}
 
 ARG SPHINX_SOURCE_DIR
 ARG SPHINX_BUILD_DIR
@@ -6,12 +7,9 @@ ARG SPHINX_EXEC_DIR
 ARG SPHINX_APP_DIR
 ARG SPHINX_SOURCE_DIR_RELATIVE
 
-# Set the environment variables so they are available during build
+# Set the environment variables so they are available during build for Makefile
 ENV SPHINX_SOURCE_DIR=${SPHINX_SOURCE_DIR}
-ENV SPHINX_SOURCE_DIR_RELATIVE=${SPHINX_SOURCE_DIR_RELATIVE}
 ENV SPHINX_BUILD_DIR=${SPHINX_BUILD_DIR}
-ENV SPHINX_EXEC_DIR=${SPHINX_EXEC_DIR}
-ENV SPHINX_APP_DIR=${SPHINX_APP_DIR}
 
 # Install required packages
 RUN apt-get update && apt-get install -y make curl
@@ -32,4 +30,4 @@ RUN cd ${SPHINX_EXEC_DIR} && make html
 EXPOSE 8000
 
 # Start a simple HTTP server to serve the built documentation
-CMD ["python", "-m", "http.server", "8000", "--directory", "${SPHINX_BUILD_DIR}"]
+CMD python -m http.server 8000 --directory "${SPHINX_BUILD_DIR}html/"

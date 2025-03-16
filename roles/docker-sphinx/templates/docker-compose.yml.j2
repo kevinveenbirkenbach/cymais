@@ -8,7 +8,8 @@ services:
         SPHINX_BUILD_DIR: {{docker_output_dir}}
         SPHINX_EXEC_DIR: {{docker_exec_dir}}
         SPHINX_APP_DIR: {{docker_app_dir}}
-        SPINX_SOURCE_DIR_RELATIVE: {{host_sphinx_source_dir_relative}}
+        SPHINX_SOURCE_DIR_RELATIVE: {{host_sphinx_source_dir_relative}}
+        DOCKER_PYTHON_VERSION: {{applications[application_id].version}}
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:8000"
     healthcheck:

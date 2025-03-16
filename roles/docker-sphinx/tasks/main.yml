@@ -27,8 +27,8 @@
     http_port: 	"{{ ports.localhost.http[application_id] }}"
 
 - name: "create {{ sphinx_docker_file }}"
-  template:
-    src: "Dockerfile.j2"
+  copy:
+    src: "Dockerfile"
     dest: "{{ sphinx_docker_file }}"
     mode: '770'
     force: yes
