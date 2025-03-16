@@ -1,6 +1,14 @@
 services:
   application:
-    build: .
+    build: 
+      context:  .
+      dockerfile: Dockerfile
+      args:
+        SPHINX_SOURCE_DIR: {{docker_source_dir}}
+        SPHINX_BUILD_DIR: {{docker_output_dir}}
+        SPHINX_EXEC_DIR: {{docker_exec_dir}}
+        SPHINX_APP_DIR: {{docker_app_dir}}
+        SPINX_SOURCE_DIR_RELATIVE: {{host_sphinx_source_dir_relative}}
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:8000"
     healthcheck:
@@ -8,6 +16,7 @@ services:
       interval: 1m
       timeout: 10s
       retries: 3
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
 {% include 'templates/docker/compose/networks.yml.j2' %}

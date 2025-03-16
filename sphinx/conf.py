@@ -32,7 +32,7 @@ html_sidebars = {
     '**': [
         'globaltoc.html',
         'relations.html',
-        'sourcelink.html',
+        # 'sourcelink.html',
         'local_md_files.html',  # Include your custom template
         'searchbox.html',
     ]

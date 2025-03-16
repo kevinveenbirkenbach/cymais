@@ -549,9 +549,9 @@ defaults_applications:
 
   ## Sphinx
   sphinx:
-    version:            "3.9-slim"                        # Use latest docker image
-    volumes:
-      source_dir:       "{ansible_playbook_dir}"          # Path from which sphinx reads the documentation
+    version:                  "3.9-slim"                                          # Use latest docker image
+    repository_sphinx_source: "https://github.com/kevinveenbirkenbach/cymais.git" # Repository address to pull the source repository from
+    sphinx_exec_dir_relative: "sphinx/"                                           # The relative path to the sphinx Makefile folder from the source dir
       
 
   ## Taiga

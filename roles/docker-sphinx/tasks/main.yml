@@ -4,12 +4,19 @@
   include_role: 
     name: docker-compose
 
-- name: pull cymais repository
+- name: "Create {{ host_sphinx_source_dir_absolute }} directory"
+  file:
+    path: "{{ host_sphinx_source_dir_absolute }}"
+    state: directory
+    mode: '0755'
+
+- name: pull the source repository to build the Sphinx documentation from {{ applications.sphinx.repository_sphinx_source }}
   git:
-    repo: "{{ repository_address_cymais }}"
-    dest: "{{ host_cymais_volume_dir_absolute }}"
+    repo: "{{ applications.sphinx.repository_sphinx_source }}"
+    dest: "{{ host_sphinx_source_dir_absolute }}"
     update: yes
-  notify: docker compose project setup
+    clone: yes
+  notify: docker compose project build and setup 
   become: true
 
 - name: "include role nginx-domain-setup for {{application_id}}"
@@ -25,7 +32,7 @@
     dest: "{{ sphinx_docker_file }}"
     mode: '770'
     force: yes
-  notify: docker compose project setup
+  notify: docker compose project build and setup
 
 - name: "copy docker-compose.yml and env file"
   include_tasks: copy-docker-compose-and-env.yml
