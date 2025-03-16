@@ -1,21 +1,22 @@
 import os
 import glob
+import re
 import yaml
 from docutils import nodes
-from docutils.parsers.rst import Directive
-from docutils.statemachine import ViewList
 from sphinx.util import logging
+from docutils.parsers.rst import Directive
 
 logger = logging.getLogger(__name__)
 
 class RolesOverviewDirective(Directive):
     """
     A directive to embed a roles overview as reStructuredText.
-    
-    It scans the roles directory (i.e. every folder under "roles") for a
-    "meta/main.yml" file, reads the role’s galaxy tags (from galaxy_info.galaxy_tags)
-    and description (from galaxy_info.description), and outputs a listing grouped
-    by each tag. Roles without galaxy tags are grouped under "uncategorized".
+
+    It scans the roles directory (each folder under "roles") for a "meta/main.yml" file,
+    reads the role’s galaxy tags and description, and outputs an overview grouped by tag.
+    For each role, it attempts to extract a level‑1 heading from its README.md as the title.
+    If no title is found, the role folder name is used.
+    The title is rendered as a clickable link to the role's README.md.
     """
     has_content = False
 
@@ -29,7 +30,7 @@ class RolesOverviewDirective(Directive):
                 "Roles directory not found.", line=self.lineno)
             return [error_node]
 
-        # Dictionary mapping tags to role entries.
+        # Gather role entries grouped by tag.
         categories = {}
         for role_path in glob.glob(os.path.join(roles_dir, '*')):
             if os.path.isdir(role_path):
@@ -43,7 +44,20 @@ class RolesOverviewDirective(Directive):
                         continue
 
                     role_name = os.path.basename(role_path)
-                    # Try to get galaxy_tags from galaxy_info. If none, use "uncategorized".
+                    # Determine title from README.md if available.
+                    readme_path = os.path.join(role_path, 'README.md')
+                    title = role_name
+                    if os.path.exists(readme_path):
+                        try:
+                            with open(readme_path, 'r', encoding='utf-8') as f:
+                                for line in f:
+                                    match = re.match(r'^#\s+(.*)$', line)
+                                    if match:
+                                        title = match.group(1).strip()
+                                        break
+                        except Exception as e:
+                            logger.warning(f"Error reading README.md for {role_name}: {e}")
+
                     galaxy_info = data.get('galaxy_info', {})
                     tags = galaxy_info.get('galaxy_tags', [])
                     if not tags:
@@ -51,11 +65,11 @@ class RolesOverviewDirective(Directive):
                     role_description = galaxy_info.get('description', '')
                     role_entry = {
                         'name': role_name,
+                        'title': title,
                         'description': role_description,
                         'link': f'roles/{role_name}/README.md',
                         'tags': tags,
                     }
-                    # Add this role to every tag it belongs to.
                     for tag in tags:
                         categories.setdefault(tag, []).append(role_entry)
                 else:
@@ -66,30 +80,31 @@ class RolesOverviewDirective(Directive):
         for tag, roles in sorted_categories:
             roles.sort(key=lambda r: r['name'].lower())
 
-        # Build reStructuredText content.
-        lines = []
-        for tag, roles in sorted_categories:
-            lines.append(f".. rubric:: {tag}")
-            lines.append("")
-            for role in roles:
-                # Render the role name as a hyperlink in reStructuredText.
-                lines.append(f"* `{role['name']} <{role['link']}>`_")
-                # Insert a line break before the description.
-                if role['description']:
-                    lines.append("")
-                    lines.append(f"  {role['description']}")
-                lines.append("")
-            lines.append("")
-
-        rst_content = "\n".join(lines)
-
-        # Use a ViewList for nested_parse.
-        rst_lines = ViewList()
-        for line in rst_content.splitlines():
-            rst_lines.append(line, '<roles-overview>')
-
+        # Build the document structure.
         container = nodes.container()
-        self.state.nested_parse(rst_lines, self.content_offset, container)
+
+        # For each category add a rubric heading.
+        for tag, roles in sorted_categories:
+            rubric = nodes.rubric(text=tag)
+            container += rubric
+
+            # For each role create a separate section.
+            for role in roles:
+                # Create a section with an explicit ID.
+                section_id = nodes.make_id(role['title'])
+                section = nodes.section(ids=[section_id])
+                # Create a title node that contains a reference.
+                title_node = nodes.title()
+                reference = nodes.reference(text=role['title'], refuri=role['link'])
+                title_node += reference
+                section += title_node
+
+                if role['description']:
+                    para = nodes.paragraph(text=role['description'])
+                    section += para
+
+                container += section
+
         return [container]
 
 def setup(app):
