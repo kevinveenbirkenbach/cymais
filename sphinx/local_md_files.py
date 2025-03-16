@@ -101,7 +101,7 @@ def add_local_md_headings(app, pagename, templatename, context, doctree):
                 })
     # Proceed with grouping and sorting as before...
     tree = group_headings(local_md_headings)
-    sort_tree(tree)
+    #sort_tree(tree)
     context['local_md_headings'] = tree
 
 def setup(app):
