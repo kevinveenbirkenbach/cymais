@@ -75,11 +75,7 @@ def group_headings(headings):
     return tree
 
 def sort_tree(tree):
-    """
-    Sorts a list of headings (and their children) first by their 'priority' (default 1)
-    and then by the natural sort key of their text.
-    """
-    tree.sort(key=lambda x: (x.get('priority', 1), natural_sort_key(x['text'])))
+    tree.sort(key=lambda x: (x.get('priority', 1), natural_sort_key(x.get('filename', x['text']))))
 
 def collect_nav_items(dir_path, base_url, current_depth, max_depth):
     """
@@ -150,7 +146,7 @@ def add_local_md_headings(app, pagename, templatename, context, doctree):
             filepath = os.path.join(abs_dir, file)
             headings = extract_headings_from_file(filepath)
             basename, _ = os.path.splitext(file)
-            # Set priority: index/readme files get priority 0.
+            # Setze Priorität: "index" und "readme" erhalten Priorität 0.
             if basename.lower() in ['index', 'readme']:
                 priority = 0
             else:
@@ -162,8 +158,10 @@ def add_local_md_headings(app, pagename, templatename, context, doctree):
                     'text': heading['text'],
                     'link': file_link,
                     'anchor': heading['anchor'],
-                    'priority': priority
+                    'priority': priority,
+                    'filename': basename  # Neues Feld zur Sortierung
                 })
+
     # Combine current directory items with subdirectory nav items.
     # If an index or readme from the current directory exists, it will be included only once.
     all_items = local_md_headings + nav_items

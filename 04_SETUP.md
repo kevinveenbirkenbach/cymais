@@ -67,28 +67,28 @@ To deploy CyMaIS on your servers, use an Ansible playbook that targets your serv
 
 ### Configure All Servers
 ```bash
-ansible-playbook -i /path/to/your/inventory/servers.yml /path/to/cymais/playbook.servers.yml --ask-vault-pass
+ansible-playbook -i /path/to/your/inventory/servers.yml "$(pkgmgr path cymais)playbook.servers.yml" --ask-vault-pass
 ```
 
 ### Configure a Specific Server
 For example, to target a server named `galaxyserver`:
 ```bash
-ansible-playbook -i /path/to/your/inventory/servers.tmp /path/to/cymais/playbook.servers.yml --limit galaxyserver --ask-vault-pass
+ansible-playbook -i /path/to/your/inventory/servers.tmp "$(pkgmgr path cymais)playbook.servers.yml" --limit galaxyserver --ask-vault-pass
 ```
 
 ### Run in Temporary Mode Without Update
 ```bash
-ansible-playbook -i /path/to/your/inventory/servers.tmp /path/to/cymais/playbook.servers.yml --limit galaxyserver -e "mode_update=false" --ask-vault-pass
+ansible-playbook -i /path/to/your/inventory/servers.tmp "$(pkgmgr path cymais)playbook.servers.yml" --limit galaxyserver -e "mode_update=false" --ask-vault-pass
 ```
 
 ### Run Without Update and Backup
 ```bash
-ansible-playbook -i /path/to/your/inventory/servers.tmp /path/to/cymais/playbook.servers.yml --limit galaxyserver -e "mode_update=false" -e "mode_backup=false" --ask-vault-pass
+ansible-playbook -i /path/to/your/inventory/servers.tmp "$(pkgmgr path cymais)playbook.servers.yml" --limit galaxyserver -e "mode_update=false" -e "mode_backup=false" --ask-vault-pass
 ```
 
 ### Run with Cleanup and Debug (Using a Vault Password File)
 ```bash
-ansible-playbook -i /path/to/your/inventory/servers.tmp /path/to/cymais/playbook.servers.yml --limit galaxyserver -e "mode_update=false" -e "mode_backup=false" -e "mode_cleanup=true" -e "enable_debug=true" -v --vault-password-file /path/to/your/vault_pass.txt
+ansible-playbook -i /path/to/your/inventory/servers.tmp "$(pkgmgr path cymais)playbook.servers.yml" --limit galaxyserver -e "mode_update=false" -e "mode_backup=false" -e "mode_cleanup=true" -e "enable_debug=true" -v --vault-password-file /path/to/your/vault_pass.txt
 ```
 
 ---
