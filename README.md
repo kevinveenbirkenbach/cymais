@@ -14,17 +14,6 @@ Our intuitive interface, coupled with in-depth documentation, makes it accessibl
 
 With CyMaIS, setting up a secure, scalable, and robust IT infrastructure is not just faster and easier, but also aligned with the best industry practices, ensuring that your organization stays ahead in the ever-evolving digital landscape.
 
-## Vision
-Our project is anchored in the vision of transforming IT infrastructure deployment into a seamless, secure, and scalable experience. 
-
-We are committed to developing a fully automated solution that enables businesses of any size and industry to set up a 100% secure and infinitely scalable IT infrastructure in just 24 hours. 
-
-Leveraging the power of Open Source, our tool not only promises to uphold the highest standards of security and adaptability but also embodies a commitment to transparency and community-driven innovation. 
-
-This is not just a step towards simplifying IT management – it's a leap towards democratizing access to advanced technology, ensuring every business can quickly adapt and thrive in the digital age.
-
-For a deeper understanding of our goals and the ethos driving our project, we invite you to explore our detailed **[Vision Statement](./VISION.md)**. Here, you'll find the cornerstone principles that guide our development process and our commitment to making a lasting impact in the realm of IT infrastructure.
-
 ## Key Benefits of CyMaIS for Your Business
 
 **CyMaIS - Cyber Master Infrastructure Solution** revolutionizes IT infrastructure management, making it simpler, safer, and more adaptable for businesses of all sizes. Here's how it can benefit your organization:
