@@ -38,21 +38,17 @@ def extract_headings_from_file(filepath, max_level=MAX_HEADING_LEVEL):
                         level = len(match.group(1))
                         if level <= max_level:
                             heading_text = match.group(2).strip()
-                            # Create a simple slug for the anchor:
                             anchor = re.sub(r'\s+', '-', heading_text.lower())
                             anchor = re.sub(r'[^a-z0-9\-]', '', anchor)
                             headings.append({'level': level, 'text': heading_text, 'anchor': anchor})
             elif ext == '.rst':
                 lines = f.readlines()
-                # Look for headings in reST: a line followed by a line consisting only of punctuation (at least 3 characters)
+                # Look for reST headings: a line followed by an underline made of punctuation.
                 for i in range(len(lines)-1):
                     text_line = lines[i].rstrip("\n")
                     underline = lines[i+1].rstrip("\n")
-                    # Check if underline consists entirely of punctuation characters and is at least 3 characters long.
                     if len(underline) >= 3 and re.fullmatch(r'[-=~\^\+"\'`]+', underline):
-                        # Here you could differentiate levels based on the punctuation (e.g., '=' -> level 1, '-' -> level 2),
-                        # for simplicity, we'll set a default level (e.g., 1)
-                        level = 1
+                        level = 1  # default level; you could adjust based on the punctuation if needed
                         heading_text = text_line.strip()
                         anchor = re.sub(r'\s+', '-', heading_text.lower())
                         anchor = re.sub(r'[^a-z0-9\-]', '', anchor)
@@ -79,6 +75,13 @@ def group_headings(headings):
         stack.append(heading)
     return tree
 
+def sort_tree(tree):
+    """
+    Sorts a list of headings (and their children) first by their 'priority' (if defined, default 1)
+    and then by the natural sort key of their text.
+    """
+    tree.sort(key=lambda x: (x.get('priority', 1), natural_sort_key(x['text'])))
+
 def add_local_md_headings(app, pagename, templatename, context, doctree):
     srcdir = app.srcdir
     directory = os.path.dirname(pagename)
@@ -88,22 +91,36 @@ def add_local_md_headings(app, pagename, templatename, context, doctree):
         context['local_md_headings'] = []
         return
 
+    # List all files in the directory.
+    files = os.listdir(abs_dir)
+    files_lower = [f.lower() for f in files]
+    # If both index.rst and README.md exist, filter out README.md (case-insensitive)
+    if "index.rst" in files_lower:
+        files = [f for f in files if f.lower() != "readme.md"]
+
     local_md_headings = []
-    for file in os.listdir(abs_dir):
+    for file in files:
         if file.endswith('.md') or file.endswith('.rst'):
             filepath = os.path.join(abs_dir, file)
             headings = extract_headings_from_file(filepath)
+            # Determine file priority: index and readme get priority 0; others 1.
+            basename, _ = os.path.splitext(file)
+            if basename.lower() in ['index', 'readme']:
+                priority = 0
+            else:
+                priority = 1
             for heading in headings:
-                basename, _ = os.path.splitext(file)
                 file_link = os.path.join(directory, basename)
-                file_link += ".html"  # Ensure link ends with .html
                 local_md_headings.append({
                     'level': heading['level'],
                     'text': heading['text'],
                     'link': file_link,
-                    'anchor': heading['anchor']
+                    'anchor': heading['anchor'],
+                    'priority': priority
                 })
-    context['local_md_headings'] = group_headings(local_md_headings)
+    tree = group_headings(local_md_headings)
+    sort_tree(tree)
+    context['local_md_headings'] = tree
 
 def setup(app):
     app.connect('html-page-context', add_local_md_headings)
