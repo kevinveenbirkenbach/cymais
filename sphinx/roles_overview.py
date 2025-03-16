@@ -12,8 +12,8 @@ class RolesOverviewDirective(Directive):
     """
     A directive to embed a roles overview as reStructuredText.
 
-    It scans the roles directory (each folder under "roles") for a "meta/main.yml" file,
-    reads the role’s galaxy tags and description, and outputs an overview grouped by tag.
+    It scans the roles directory (i.e. every folder under "roles") for a "meta/main.yml" file,
+    reads the role’s galaxy tags and description, and outputs an overview grouped by each tag.
     For each role, it attempts to extract a level‑1 heading from its README.md as the title.
     If no title is found, the role folder name is used.
     The title is rendered as a clickable link to the role's README.md.
@@ -44,7 +44,7 @@ class RolesOverviewDirective(Directive):
                         continue
 
                     role_name = os.path.basename(role_path)
-                    # Determine title from README.md if available.
+                    # Determine title from README.md if present.
                     readme_path = os.path.join(role_path, 'README.md')
                     title = role_name
                     if os.path.exists(readme_path):
@@ -80,30 +80,34 @@ class RolesOverviewDirective(Directive):
         for tag, roles in sorted_categories:
             roles.sort(key=lambda r: r['name'].lower())
 
-        # Build the document structure.
+        # Build document structure.
         container = nodes.container()
 
-        # For each category add a rubric heading.
+        # For each category, create a section to serve as a large category heading.
         for tag, roles in sorted_categories:
-            rubric = nodes.rubric(text=tag)
-            container += rubric
+            # Create a section for the category.
+            cat_id = nodes.make_id(tag)
+            category_section = nodes.section(ids=[cat_id])
+            category_title = nodes.title(text=tag)
+            category_section += category_title
 
-            # For each role create a separate section.
+            # For each role within the category, create a subsection.
             for role in roles:
-                # Create a section with an explicit ID.
-                section_id = nodes.make_id(role['title'])
-                section = nodes.section(ids=[section_id])
-                # Create a title node that contains a reference.
-                title_node = nodes.title()
+                role_section_id = nodes.make_id(role['title'])
+                role_section = nodes.section(ids=[role_section_id])
+                # Create a title node with a clickable reference.
+                role_title = nodes.title()
                 reference = nodes.reference(text=role['title'], refuri=role['link'])
-                title_node += reference
-                section += title_node
+                role_title += reference
+                role_section += role_title
 
                 if role['description']:
                     para = nodes.paragraph(text=role['description'])
-                    section += para
+                    role_section += para
 
-                container += section
+                category_section += role_section
+
+            container += category_section
 
         return [container]
 
