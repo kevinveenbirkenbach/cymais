@@ -47,14 +47,37 @@ def extract_headings_from_file(filepath, max_level=MAX_HEADING_LEVEL):
         logger.warning(f"Error reading {filepath}: {e}")
     return headings
 
+def group_headings(headings):
+    """
+    Converts a flat list of headings into a tree structure based on their level.
+    Each heading gets a 'children' list.
+    """
+    tree = []
+    stack = []
+    for heading in headings:
+        heading['children'] = []
+        # Pop headings from the stack that are at or deeper than the current level
+        while stack and stack[-1]['level'] >= heading['level']:
+            stack.pop()
+        if stack:
+            # Append the current heading as a child of the last item in the stack
+            stack[-1]['children'].append(heading)
+        else:
+            tree.append(heading)
+        stack.append(heading)
+    return tree
+
+def sort_tree(tree):
+    """
+    Sorts a list of headings (and their children) by their text.
+    """
+    tree.sort(key=lambda x: natural_sort_key(x['text']))
+    for node in tree:
+        if node.get('children'):
+            sort_tree(node['children'])
+
 def add_local_md_headings(app, pagename, templatename, context, doctree):
-    """
-    For every Markdown file in the same directory as the current page,
-    extract its headings, sort them in natural ascending order, and add them
-    to the context.
-    """
     srcdir = app.srcdir
-    # Determine the directory of the current page (e.g., "directory/file" -> "directory")
     directory = os.path.dirname(pagename)
     abs_dir = os.path.join(srcdir, directory)
     if not os.path.isdir(abs_dir):
@@ -68,17 +91,18 @@ def add_local_md_headings(app, pagename, templatename, context, doctree):
             filepath = os.path.join(abs_dir, file)
             headings = extract_headings_from_file(filepath)
             for heading in headings:
-                # Build file link: zunächst Pfad + Dateiname, dann Ersetzen der .md-Endung durch .html
-                file_link = os.path.join(directory, file).replace(".md","") if directory else file
+                base = file[:-3]
+                file_link = os.path.join(directory, base)
                 local_md_headings.append({
                     'level': heading['level'],
                     'text': heading['text'],
                     'link': file_link,
                     'anchor': heading['anchor']
                 })
-    # Sort headings in natural ascending order using natural_sort_key.
-    local_md_headings.sort(key=lambda x: natural_sort_key(x['text']))
-    context['local_md_headings'] = local_md_headings
+    # Proceed with grouping and sorting as before...
+    tree = group_headings(local_md_headings)
+    sort_tree(tree)
+    context['local_md_headings'] = tree
 
 def setup(app):
     app.connect('html-page-context', add_local_md_headings)

@@ -1,5 +1,4 @@
-# CyMaIS 
-## Cyber Master Infrastructure Solution
+# CyMaIS - Cyber Master Infrastructure Solution
 [![GitHub Sponsors](https://img.shields.io/badge/Sponsor-GitHub%20Sponsors-blue?logo=github)](https://github.com/sponsors/kevinveenbirkenbach) [![Patreon](https://img.shields.io/badge/Support-Patreon-orange?logo=patreon)](https://www.patreon.com/c/kevinveenbirkenbach) [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20Coffee-Funding-yellow?logo=buymeacoffee)](https://buymeacoffee.com/kevinveenbirkenbach) [![PayPal](https://img.shields.io/badge/Donate-PayPal-blue?logo=paypal)](https://s.veen.world/paypaldonate)
 
 
@@ -15,7 +14,7 @@ Our intuitive interface, coupled with in-depth documentation, makes it accessibl
 
 With CyMaIS, setting up a secure, scalable, and robust IT infrastructure is not just faster and easier, but also aligned with the best industry practices, ensuring that your organization stays ahead in the ever-evolving digital landscape.
 
-### Vision
+## Vision
 Our project is anchored in the vision of transforming IT infrastructure deployment into a seamless, secure, and scalable experience. 
 
 We are committed to developing a fully automated solution that enables businesses of any size and industry to set up a 100% secure and infinitely scalable IT infrastructure in just 24 hours. 
@@ -46,7 +45,7 @@ For a deeper understanding of our goals and the ethos driving our project, we in
 
 CyMaIS is more than just an IT solution; it's a commitment to empowering your business with the technology it needs to thrive in today’s digital landscape, effortlessly and securely.
 
-### Professional CyMaIS Implementation
+## Professional CyMaIS Implementation
 <img src="https://cybermaster.space/wp-content/uploads/sites/7/2023/11/FVG_8364BW-scaled.jpg" width="300" style="float: right; margin-left: 30px;">
 
 My name is Kevin Veen-Birkenbach and I'm glad to assist you in the implementation of your secure and scalable IT infrastrucutre solution with CyMaIS.
@@ -61,6 +60,6 @@ Contact me for more details:
 📧 Email: [kevin@veen.world](mailto:kevin@veen.world)<br />
 ☎️ Phone: [+ 49 178 179 80 23](tel:00491781798023)
 
-### License
+## License
 
 This project is licensed from Kevin Veen-Birkenbach. The full license is available in the [LICENSE.md](./LICENSE.md) of this repository. 

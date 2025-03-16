@@ -25,7 +25,7 @@ exclude_patterns = ['docs', 'venv', 'venv/**']
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
+html_theme = 'sphinxawesome_theme'
 html_static_path = ['_static']
 
 html_sidebars = {
@@ -40,7 +40,7 @@ html_sidebars = {
 
 
 html_theme_options = {
-    'fixed_sidebar': True,
+    # 'fixed_sidebar': True,
 }
 
 # Liste der Dateiendungen, die Sphinx verarbeiten soll:
