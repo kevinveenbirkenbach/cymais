@@ -4,7 +4,7 @@ from sphinx.util import logging
 
 logger = logging.getLogger(__name__)
 
-# Set the maximum heading level to include (e.g., include headings up to H3)
+# Set the maximum heading level to include (e.g., include headings up to H3 for Markdown)
 MAX_HEADING_LEVEL = 3
 
 def natural_sort_key(text):
@@ -16,30 +16,44 @@ def natural_sort_key(text):
 
 def extract_headings_from_file(filepath, max_level=MAX_HEADING_LEVEL):
     """
-    Extract Markdown headings (up to max_level) from the file at filepath.
-    Skips fenced code blocks.
+    Extract headings from a file. For Markdown files, look for lines starting with '#' (up to max_level).
+    For reStructuredText files, look for a line that is immediately followed by an underline made of punctuation.
     """
     headings = []
+    ext = os.path.splitext(filepath)[1].lower()
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
-            in_code_block = False
-            for line in f:
-                # Toggle code block state if a line starts with ```
-                if line.strip().startswith("```"):
-                    in_code_block = not in_code_block
-                    continue
-                if in_code_block:
-                    continue
-                # Match Markdown headings: one or more '#' followed by a space and the title.
-                match = re.match(r'^(#{1,})\s+(.*)$', line)
-                if match:
-                    level = len(match.group(1))
-                    if level <= max_level:
-                        heading_text = match.group(2).strip()
-                        # Create a simple slug for the anchor:
-                        # - convert to lowercase
-                        # - replace spaces with hyphens
-                        # - remove non-alphanumeric characters (except hyphens)
+            if ext == '.md':
+                in_code_block = False
+                for line in f:
+                    # Toggle code block state if a line starts with ```
+                    if line.strip().startswith("```"):
+                        in_code_block = not in_code_block
+                        continue
+                    if in_code_block:
+                        continue
+                    # Match Markdown headings: one or more '#' followed by a space and the title.
+                    match = re.match(r'^(#{1,})\s+(.*)$', line)
+                    if match:
+                        level = len(match.group(1))
+                        if level <= max_level:
+                            heading_text = match.group(2).strip()
+                            # Create a simple slug for the anchor:
+                            anchor = re.sub(r'\s+', '-', heading_text.lower())
+                            anchor = re.sub(r'[^a-z0-9\-]', '', anchor)
+                            headings.append({'level': level, 'text': heading_text, 'anchor': anchor})
+            elif ext == '.rst':
+                lines = f.readlines()
+                # Look for headings in reST: a line followed by a line consisting only of punctuation (at least 3 characters)
+                for i in range(len(lines)-1):
+                    text_line = lines[i].rstrip("\n")
+                    underline = lines[i+1].rstrip("\n")
+                    # Check if underline consists entirely of punctuation characters and is at least 3 characters long.
+                    if len(underline) >= 3 and re.fullmatch(r'[-=~\^\+"\'`]+', underline):
+                        # Here you could differentiate levels based on the punctuation (e.g., '=' -> level 1, '-' -> level 2),
+                        # for simplicity, we'll set a default level (e.g., 1)
+                        level = 1
+                        heading_text = text_line.strip()
                         anchor = re.sub(r'\s+', '-', heading_text.lower())
                         anchor = re.sub(r'[^a-z0-9\-]', '', anchor)
                         headings.append({'level': level, 'text': heading_text, 'anchor': anchor})
@@ -56,25 +70,14 @@ def group_headings(headings):
     stack = []
     for heading in headings:
         heading['children'] = []
-        # Pop headings from the stack that are at or deeper than the current level
         while stack and stack[-1]['level'] >= heading['level']:
             stack.pop()
         if stack:
-            # Append the current heading as a child of the last item in the stack
             stack[-1]['children'].append(heading)
         else:
             tree.append(heading)
         stack.append(heading)
     return tree
-
-def sort_tree(tree):
-    """
-    Sorts a list of headings (and their children) by their text.
-    """
-    tree.sort(key=lambda x: natural_sort_key(x['text']))
-    for node in tree:
-        if node.get('children'):
-            sort_tree(node['children'])
 
 def add_local_md_headings(app, pagename, templatename, context, doctree):
     srcdir = app.srcdir
@@ -87,22 +90,20 @@ def add_local_md_headings(app, pagename, templatename, context, doctree):
 
     local_md_headings = []
     for file in os.listdir(abs_dir):
-        if file.endswith('.md'):
+        if file.endswith('.md') or file.endswith('.rst'):
             filepath = os.path.join(abs_dir, file)
             headings = extract_headings_from_file(filepath)
             for heading in headings:
-                base = file[:-3]
-                file_link = os.path.join(directory, base)
+                basename, _ = os.path.splitext(file)
+                file_link = os.path.join(directory, basename)
+                file_link += ".html"  # Ensure link ends with .html
                 local_md_headings.append({
                     'level': heading['level'],
                     'text': heading['text'],
                     'link': file_link,
                     'anchor': heading['anchor']
                 })
-    # Proceed with grouping and sorting as before...
-    tree = group_headings(local_md_headings)
-    #sort_tree(tree)
-    context['local_md_headings'] = tree
+    context['local_md_headings'] = group_headings(local_md_headings)
 
 def setup(app):
     app.connect('html-page-context', add_local_md_headings)

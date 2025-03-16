@@ -1,4 +1,5 @@
-# Application Glosar
+Application Glosar
+===================
 
 .. toctree::
    :maxdepth: 1

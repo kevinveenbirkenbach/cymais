@@ -1,3 +1,4 @@
-# Applications by Category
+Applications by Category
+=========================
 
 .. roles-overview::
