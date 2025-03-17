@@ -11,7 +11,7 @@ This role deploys the Listmonk application using Docker. Listmonk is a high perf
 - **docker-compose.yml**: Defines the Docker setup for Listmonk and its database.
 - **config.toml**: Contains the application settings including the database connection, admin credentials, and server settings.
 
-## 📚 Other Resources
+## Other Resources
 - For detailed installation instructions and configuration options, visit the [Listmonk Installation Documentation](https://listmonk.app/docs/installation/).
 - You can also find more information on the [Listmonk GitHub Repository](https://github.com/knadh/listmonk/).
 

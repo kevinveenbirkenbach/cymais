@@ -12,7 +12,7 @@ The `main.yml` file in this role consists of tasks that automate the installatio
 
 There are commented-out tasks for installing additional AUR packages, such as `aacskeys` and `libbdplus`, which can be enabled as per the user's requirements.
 
-## 📚 Other Resources and Resources
+## Other Resources and Resources
 For more in-depth information and guidance on Blu-ray playback and software configuration, the following resources can be consulted:
 - [Arch Linux Wiki on Blu-ray](https://wiki.archlinux.org/title/Blu-ray#Using_aacskeys)
 - [Guide to Play Blu-ray with VLC](https://videobyte.de/play-blu-ray-with-vlc)

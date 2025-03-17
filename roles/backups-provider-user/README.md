@@ -20,7 +20,7 @@ The purpose of this role is to enhance the security of your backup system by pro
 - **Sudo Configuration:** Grants passwordless sudo rights for rsync, enabling secure and automated backup transfers.
 - **Integration:** Supports seamless integration with your backup infrastructure by limiting the backup user's permissions to only the required commands.
 
-## 📚 Other Resources
+## Other Resources
 
 For more details on how the role works and advanced configuration options, please see the related references below:
 - [Ansible Playbooks Lookups](https://docs.ansible.com/ansible/latest/user_guide/playbooks_lookups.html#id3)

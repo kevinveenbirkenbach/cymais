@@ -21,6 +21,6 @@ The primary purpose of this role is to establish a secure SSH environment by dep
 - **Systemd Integration:** Automatically restarts the SSH service upon configuration changes.
 - **Security Enhancements:** Enforces secure defaults such as disabled root login and public key authentication.
 
-## 📚 Other Resources
+## Other Resources
 - https://www.google.com/search?client=firefox-b-d&q=sshd+why+to+deactivate+pam
 - https://man7.org/linux/man-pages/man5/sshd_config.5.html

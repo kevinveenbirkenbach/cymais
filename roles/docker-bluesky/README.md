@@ -1,7 +1,7 @@
 # DRAFT role docker-bluesky
 
 
-## 📚 Other Resources
+## Other Resources
 - https://therobbiedavis.com/selfhosting-bluesky-with-docker-and-swag/
 - Relevant for proxy configuration: https://cprimozic.net/notes/posts/notes-on-self-hosting-bluesky-pds-alongside-other-services/
 - https://github.com/bluesky-social/pds

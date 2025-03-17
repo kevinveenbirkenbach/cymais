@@ -1,4 +1,4 @@
 # role docker-moodle
 
-## 📚 Other Resources
+## Other Resources
 - https://github.com/bitnami/containers/tree/main/bitnami/moodle

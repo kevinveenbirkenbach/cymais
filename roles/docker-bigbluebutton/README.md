@@ -6,7 +6,7 @@ Role to deploy [BigBlueButton](https://bigbluebutton.org/).
 ## SSO
 - https://docs.bigbluebutton.org/greenlight/v3/external-authentication/
 
-## 📚 Other Resources
+## Other Resources
 - https://github.com/bigbluebutton/docker
 - https://docs.bigbluebutton.org/greenlight/gl-install.html#setting-bigbluebutton-credentials
 - https://goneuland.de/big-blue-button-mit-docker-und-traefik-installieren/

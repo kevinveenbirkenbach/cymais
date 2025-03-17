@@ -31,7 +31,7 @@ Variables are crucial in configuring your Akaunting setup. Ensure you set the fo
 - **Nginx Configuration**: Necessary steps to configure Nginx as a reverse proxy for Akaunting.
 - **Database and Runtime Environment**: Instructions on how to set up the `db.env` and `run.env` files for database and runtime configurations.
 
-## 📚 Other Resources
+## Other Resources
 For more details, visit the [Akaunting Docker Repository](https://github.com/akaunting/docker) and the [Akaunting Forums](https://akaunting.com/forum).
 
 ## Contribution and Feedback

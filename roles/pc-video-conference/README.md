@@ -9,7 +9,7 @@ The `main.yml` file in the `pc-video-conference` role includes tasks for setting
 1. **Install Video Conference Software**:
    - Utilizes the `kewlfft.aur.aur` module with `yay` as the helper to install `zoom`, a popular video conferencing application.
 
-## 📚 Other Resources
+## Other Resources
 - As noted, the Microsoft Teams client is no longer natively supported on Linux. For more information and potential workarounds, you can visit the [AUR package page for Teams](https://aur.archlinux.org/packages/teams).
 
 ## Dependencies

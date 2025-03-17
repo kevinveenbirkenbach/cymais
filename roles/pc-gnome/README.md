@@ -24,7 +24,7 @@ The `pc-gnome` role includes several tasks for installing GNOME software, managi
 6. **Execute CLI GNOME Extension Manager Script**:
    - Runs the CLI GNOME Extension Manager script to manage GNOME extensions based on the `{{gnome_extensions}}` variable.
 
-## 📚 Other Resources
+## Other Resources
 For additional details on managing GNOME extensions via command line, visit [Ask Ubuntu](https://askubuntu.com/questions/1029376/how-do-i-enable-and-disable-gnome-extensions-from-the-command-line).
 
 ## Dependencies

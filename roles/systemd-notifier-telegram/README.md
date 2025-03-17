@@ -19,6 +19,6 @@ The primary purpose of this role is to provide a robust solution for automated T
 - **Secure Notifications:** Leverages systemd to trigger alerts automatically when services fail.
 - **Suite Integration:** Part of the [`systemd-notifier` suite](../) which includes related roles such as [systemd-notifier-email](../systemd-notifier-email/README.md) and others.
   
-## 📚 Other Resources
+## Other Resources
 
 This role was developed as part of a conversation with OpenAI's ChatGPT and can be found [here](https://chat.openai.com/share/96e4ca12-0888-41c0-9cfc-29c0180f0dba).

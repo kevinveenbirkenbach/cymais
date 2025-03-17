@@ -20,7 +20,7 @@ Backup Remote to Local is a robust solution for retrieving backup data from remo
 - **Integration with Other Roles:** Works alongside roles like backup-directory-validator, cleanup-failed-docker-backups, systemd-timer, backups-provider, and system-maintenance-lock.
 - **Administrative Debugging:** Detailed debug instructions and administrative tasks are provided in a separate file.
 
-## 📚 Other Resources
+## Other Resources
 
 - **Backup Scheme:**  
   ![backup scheme](https://www.veen.world/wp-content/uploads/2020/12/server-backup-768x567.jpg)  

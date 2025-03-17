@@ -23,5 +23,5 @@ The primary purpose of this role is to maintain optimal backup storage by automa
 - **Systemd Integration:** Configures a systemd service to run cleanup tasks.
 - **Dependency Integration:** Works in conjunction with related roles for comprehensive backup management.
 
-## 📚 Other Resources
+## Other Resources
 - https://stackoverflow.com/questions/48929553/get-hard-disk-size-in-python

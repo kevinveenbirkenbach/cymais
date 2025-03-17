@@ -22,7 +22,7 @@ The primary purpose of this role is to configure WireGuard on a client by settin
 - **Administration Support:** For client key creation and further setup, please refer to the [Administration](./Administration.md) file.
 - **Modular Design:** Easily integrates with other WireGuard roles or network configuration roles.
 
-## 📚 Other Resources
+## Other Resources
 
 - [WireGuard Documentation](https://www.wireguard.com/)
 - [ArchWiki: WireGuard](https://wiki.archlinux.org/index.php/WireGuard)

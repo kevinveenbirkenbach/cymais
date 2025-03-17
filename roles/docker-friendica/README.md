@@ -13,7 +13,7 @@ Ensure you have the following:
 - A central MariaDB instance running
 - Necessary permissions to manage Docker and database configurations
 
-## 📚 Other Resources
+## Other Resources
 
 - [Friendica Docker Hub](https://hub.docker.com/_/friendica)
 - [Friendica Installation Docs](https://wiki.friendi.ca/docs/install)
