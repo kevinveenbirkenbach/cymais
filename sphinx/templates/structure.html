@@ -1,5 +1,5 @@
 {% macro render_headings(headings, level=1) %}
-  <ul class="toctree-l{{ level }}" style="list-style: none; padding-left: 0;">
+  <ul class="toctree-l{{ level }}" style="list-style: none; padding-left: 0; overflow-x: auto; white-space: nowrap;">
     {% for item in headings %}
       <li class="toctree-l{{ level }}{% if item.current %} current{% endif %}"
           {% if item.children %}
