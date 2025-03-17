@@ -2,18 +2,20 @@
   <ul class="toctree-l{{ level }}" style="list-style: none; padding-left: 0;">
     {% for item in headings %}
       <li class="toctree-l{{ level }}{% if item.current %} current{% endif %}"
-          {% if item.children %} x-data="{ expanded: false }" {% endif %}
+          {% if item.children %}
+            x-data="{ expanded: {{ 'true' if item.current else 'false' }} }"
+          {% endif %}
           style="white-space: nowrap;">
         <div class="menu-item" style="display: inline-flex; align-items: center; justify-content: space-between; width: 100%; white-space: nowrap;">
-          <!-- Link- und "Datei öffnen"-Bereich -->
+          <!-- Link and file open section -->
           <div style="display: inline-flex; align-items: center; white-space: nowrap;">
-            <a class="reference internal{% if item.children %} expandable{% endif %}"
+            <a class="reference internal{% if item.children %} expandable{% endif %}{% if item.current %} current{% endif %}"
                href="{{ pathto(item.link).replace('#', '') }}{% if item.anchor %}#{{ item.anchor }}{% endif %}"
                style="text-decoration: none; white-space: nowrap;">
               {{ item.text }}
             </a>
           </div>
-          <!-- Expand-Toggle-Button -->
+          <!-- Expand-Toggle Button -->
           {% if item.children %}
             <button @click.prevent.stop="expanded = !expanded" type="button" class="toggle-button"
                     style="background: none; border: none; padding: 0; margin-left: auto;">
@@ -37,16 +39,15 @@
   </ul>
 {% endmacro %}
 
-
 {% if local_md_headings or local_subfolders %}
 <div class="local-md-headings">
   <h3>Overview</h3>
   <hr />
-  <h4 class="toctree-l1">Current Index</h3>
+  <h4 class="toctree-l1">Current Index</h4>
   {% if local_md_headings %}
     {{ render_headings(local_md_headings) }}
   {% endif %}
-  <h4 class="toctree-l1">File Explorer</h3>
+  <h4 class="toctree-l1">File Explorer</h4>
   {% if local_subfolders %}
     {{ render_headings(local_subfolders) }}
   {% endif %}

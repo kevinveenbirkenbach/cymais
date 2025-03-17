@@ -45,9 +45,9 @@ def collect_folder_tree(dir_path, base_url):
     folder_title = headings[0]['text'] if headings else os.path.basename(dir_path)
     folder_link = os.path.join(base_url, os.path.splitext(rep_file)[0])
 
-    # Remove the representative file from the list to avoid duplication
+    # Remove the representative file from the list to avoid duplication,
+    # and filter out any additional "readme.md" or "index.rst" files.
     files.remove(rep_file)
-    # Also filter out any files that are explicitly "readme.md" or "index.rst"
     files = [f for f in files if f.lower() not in ['readme.md', 'index.rst']]
 
     # Process the remaining files in the current directory
@@ -86,13 +86,41 @@ def collect_folder_tree(dir_path, base_url):
         'filename': os.path.basename(dir_path)
     }
 
+def mark_current(node, active):
+    """
+    Recursively mark nodes as current if the active page (pagename)
+    matches the node's link or is a descendant of it.
+
+    The function sets node['current'] = True if:
+    - The node's link matches the active page exactly, or
+    - The active page begins with the node's link plus a separator (indicating a child).
+    Additionally, if any child node is current, the parent is marked as current.
+    """
+    is_current = False
+    node_link = node.get('link', '').rstrip('/')
+    active = active.rstrip('/')
+    if node_link and (active == node_link or active.startswith(node_link + '/')):
+        is_current = True
+
+    # Recurse into children if they exist
+    children = node.get('children', [])
+    for child in children:
+        if mark_current(child, active):
+            is_current = True
+
+    node['current'] = is_current
+    return is_current
+
 def add_local_subfolders(app, pagename, templatename, context, doctree):
     """
     Sets the 'local_subfolders' context variable with the entire folder tree
-    starting from app.srcdir.
+    starting from app.srcdir, and marks the tree with the 'current' flag up
+    to the active page.
     """
     root_dir = app.srcdir
     folder_tree = collect_folder_tree(root_dir, '')
+    if folder_tree:
+        mark_current(folder_tree, pagename)
     context['local_subfolders'] = [folder_tree] if folder_tree else []
 
 def setup(app):
