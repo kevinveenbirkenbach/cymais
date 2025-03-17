@@ -41,18 +41,23 @@
 
 {% if local_md_headings or local_subfolders %}
 <div class="local-md-headings">
-  <h3>Index</h3>
-  <p class="caption" role="heading">
-    <span class="caption-text">Current Index</span>
-  </p>
   {% if local_md_headings %}
+  <div class="current-index">
+    <p class="caption" role="heading">
+      <span class="caption-text">Current Index</span>
+    </p>
     {{ render_headings(local_md_headings) }}
+    <br />
+  </div>
   {% endif %}
-  <p class="caption" role="heading">
-    <span class="caption-text">Full Index</span>
-  </p>
   {% if local_subfolders %}
+  <div class="full-index">
+    <p class="caption" role="heading">
+      <span class="caption-text">Full Index</span>
+    </p>
     {{ render_headings(local_subfolders) }}
+    <br />
+  </div>
   {% endif %}
 </div>
 {% endif %}
