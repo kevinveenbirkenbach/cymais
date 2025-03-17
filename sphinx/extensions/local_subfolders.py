@@ -1,72 +1,98 @@
 import os
-import re
 from sphinx.util import logging
-from .nav_utils import natural_sort_key, extract_headings_from_file, group_headings, sort_tree, MAX_HEADING_LEVEL, DEFAULT_MAX_NAV_DEPTH
+from .nav_utils import extract_headings_from_file
+MAX_HEADING_LEVEL = 0
 
 logger = logging.getLogger(__name__)
 
-def collect_subfolder_tree(dir_path, base_url, current_depth, max_depth):
+def collect_folder_tree(dir_path, base_url):
     """
-    Recursively collects navigation items from subdirectories.
-    For each subfolder, it looks for a candidate file (prefer "index.rst" then "README.md").
-    Only subfolders with such a file will be included.
-    If a candidate is found, the first level‑1 heading from that file is used as the title;
-    if no heading is found, the folder name is used.
-    The link is built pointing directly to the candidate file (by its base name) rather than the folder.
-    Returns a list representing the subfolder tree.
+    Recursively collects the folder tree starting from the given directory.
+    
+    For each folder:
+    - It is ignored if it is hidden.
+    - If a representative file (index.rst/index.md or readme.md/readme.rst) exists,
+      its first heading is used as the folder title.
+    - Folders without such a representative file are skipped.
+    - All Markdown and reStructuredText files (except the representative file)
+      are listed without sub-headings, using the first heading as their title.
     """
-    items = []
+    # Ignore hidden directories
+    if os.path.basename(dir_path).startswith('.'):
+        return None
+
+    # List all files in current directory with .md or .rst extension
+    files = [f for f in os.listdir(dir_path)
+             if os.path.isfile(os.path.join(dir_path, f))
+             and (f.endswith('.md') or f.endswith('.rst'))]
+
+    # Find representative file for folder title using index or readme
+    rep_file = None
+    for candidate in ['index.rst', 'index.md', 'readme.md', 'readme.rst']:
+        for f in files:
+            if f.lower() == candidate:
+                rep_file = f
+                break
+        if rep_file:
+            break
+
+    # If no representative file, skip this folder
+    if not rep_file:
+        return None
+
+    rep_path = os.path.join(dir_path, rep_file)
+    # If MAX_HEADING_LEVEL is 0, use an effectively infinite level (e.g., 9999)
+    effective_max = MAX_HEADING_LEVEL if MAX_HEADING_LEVEL != 0 else 9999
+    headings = extract_headings_from_file(rep_path, max_level=effective_max)
+    folder_title = headings[0]['text'] if headings else os.path.basename(dir_path)
+    folder_link = os.path.join(base_url, os.path.splitext(rep_file)[0])
+    # Remove the representative file from the list to avoid duplication
+    files.remove(rep_file)
+
+    # Process the remaining files in the current directory
+    file_items = []
+    for file in sorted(files, key=lambda s: s.lower()):
+        file_path = os.path.join(dir_path, file)
+        file_headings = extract_headings_from_file(file_path, max_level=effective_max)
+        file_title = file_headings[0]['text'] if file_headings else file
+        file_base = os.path.splitext(file)[0]
+        file_link = os.path.join(base_url, file_base)
+        file_items.append({
+            'level': 1,
+            'text': file_title,
+            'link': file_link,
+            'anchor': '',
+            'priority': 1,
+            'filename': file
+        })
+
+    # Process subdirectories (ignoring hidden ones)
+    dir_items = []
     for item in sorted(os.listdir(dir_path), key=lambda s: s.lower()):
         full_path = os.path.join(dir_path, item)
-        if os.path.isdir(full_path):
-            candidate = None
-            for cand in ['index.rst', 'README.md']:
-                candidate_path = os.path.join(full_path, cand)
-                if os.path.isfile(candidate_path):
-                    candidate = candidate_path
-                    break
-            # Only include the folder if a candidate file was found.
-            if candidate:
-                headings = extract_headings_from_file(candidate, max_level=MAX_HEADING_LEVEL)
-                title = headings[0]['text'] if headings else item
-                # Use the candidate file's base name as link target.
-                candidate_base = os.path.splitext(os.path.basename(candidate))[0]
-                link = os.path.join(base_url, item, candidate_base)
-                entry = {
-                    'level': 1,
-                    'text': title,
-                    'link': link,
-                    'anchor': '',
-                    'priority': 0,
-                    'filename': item
-                }
-                if current_depth < max_depth:
-                    children = collect_subfolder_tree(full_path, os.path.join(base_url, item), current_depth + 1, max_depth)
-                    if children:
-                        entry['children'] = children
-                items.append(entry)
-    return items
+        if os.path.isdir(full_path) and not item.startswith('.'):
+            subtree = collect_folder_tree(full_path, os.path.join(base_url, item))
+            if subtree:
+                dir_items.append(subtree)
+
+    # Combine files and subdirectories as children of the current folder
+    children = file_items + dir_items
+
+    return {
+        'text': folder_title,
+        'link': folder_link,
+        'children': children,
+        'filename': os.path.basename(dir_path)
+    }
 
 def add_local_subfolders(app, pagename, templatename, context, doctree):
     """
-    Collects a tree of subfolder navigation items from the current directory.
-    For each subfolder, the title is determined by scanning for a candidate file
-    (prefer "index.rst" then "README.md") and extracting its first level‑1 heading,
-    or using the folder name if none is found.
-    The resulting tree is stored in context['local_subfolders'].
+    Sets the 'local_subfolders' context variable with the entire folder tree
+    starting from app.srcdir.
     """
-    srcdir = app.srcdir
-    directory = os.path.dirname(pagename)
-    abs_dir = os.path.join(srcdir, directory)
-    if not os.path.isdir(abs_dir):
-        logger.warning(f"Directory {abs_dir} not found for page {pagename}.")
-        context['local_subfolders'] = []
-        return
-
-    max_nav_depth = getattr(app.config, 'local_nav_max_depth', DEFAULT_MAX_NAV_DEPTH)
-    subfolder_tree = collect_subfolder_tree(abs_dir, directory, current_depth=0, max_depth=max_nav_depth)
-    sort_tree(subfolder_tree)
-    context['local_subfolders'] = subfolder_tree
+    root_dir = app.srcdir
+    folder_tree = collect_folder_tree(root_dir, '')
+    context['local_subfolders'] = [folder_tree] if folder_tree else []
 
 def setup(app):
     app.connect('html-page-context', add_local_subfolders)
