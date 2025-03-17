@@ -40,10 +40,12 @@
 
 {% if local_md_headings or local_subfolders %}
 <div class="local-md-headings">
-  <h3 class="toctree-l1">Index</h3>
+  <h3>Overview</h3>
+  <h4 class="toctree-l1">Current Index</h3>
   {% if local_md_headings %}
     {{ render_headings(local_md_headings) }}
   {% endif %}
+  <h4 class="toctree-l1">File Explorer</h3>
   {% if local_subfolders %}
     {{ render_headings(local_subfolders) }}
   {% endif %}

@@ -93,7 +93,7 @@ ansible-playbook -i /path/to/your/inventory/servers.tmp "$(pkgmgr path cymais)pl
 
 ---
 
-## Using a Vault Password File
+## Using a Password File
 
 To avoid entering your vault password interactively every time, use the `--vault-password-file` option:
 ```bash
