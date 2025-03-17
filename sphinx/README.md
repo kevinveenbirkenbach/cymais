@@ -22,4 +22,9 @@ This command cleans the previous build and generates the updated documentation. 
 
 #### On Server
 
-In your inventory file, enable the **Sphinx** role. When activated, the documentation will be automatically generated and deployed under the **docs** subdomain of your CyMaIS instance. This ensures your documentation is always current and easily accessible 🔄🌐.
+
+### Debug
+To debug and produce an .log execute:
+```bash
+pkgmgr shell cymais -c "make refresh SPHINXOPTS='-v -c .' 2>&1 | tee debug.log"
+```

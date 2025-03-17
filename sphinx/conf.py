@@ -1,12 +1,14 @@
-# Configuration file for the Sphinx documentation builder.
-#
-# For the full list of built-in configuration values, see the documentation:
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
-
-# -- Project information -----------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
-
 import sys
+import logging
+
+# Check if a verbose flag is present in the command line arguments.
+if any(arg in sys.argv for arg in ["-v", "--verbose"]):
+    logging_level = logging.DEBUG
+else:
+    logging_level = logging.INFO
+
+logging.basicConfig(level=logging_level)
+
 import os
 sys.path.insert(0, os.path.abspath('.'))
 
@@ -15,32 +17,20 @@ copyright = '2025, Kevin Veen-Birkenbach'
 author = 'Kevin Veen-Birkenbach'
 
 # -- General configuration ---------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
-
 templates_path = ['templates']
 exclude_patterns = ['docs', 'venv', 'venv/**']
 
-
-
 # -- Options for HTML output -------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
-
 html_theme = 'sphinxawesome_theme'
 html_static_path = ['static']
 
 html_sidebars = {
     '**': [
-        #'globaltoc.html',
-        # 'relations.html',
-        # 'sourcelink.html',
         'structure.html',  # Include your custom template
-        # 'searchbox.html',
     ]
 }
 
-
 html_theme_options = {
-    # 'fixed_sidebar': True,
     "show_prev_next": False,
 }
 
@@ -73,6 +63,3 @@ def setup(app):
         if directive is not None:
             directive.optional_arguments = 10
     return {'version': '1.0', 'parallel_read_safe': True}
-
-
-
