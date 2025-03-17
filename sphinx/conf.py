@@ -22,7 +22,7 @@ exclude_patterns = ['docs', 'venv', 'venv/**']
 
 # -- Options for HTML output -------------------------------------------------
 html_theme = 'sphinxawesome_theme'
-html_static_path = ['static']
+html_static_path = ['_static']
 
 html_sidebars = {
     '**': [
