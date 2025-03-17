@@ -13,7 +13,19 @@
 
 {% if local_md_headings %}
 <div class="local-md-headings">
-  <h3>Overview</h3>
+  <h3>Current Folder</h3>
   {{ render_headings(local_md_headings) }}
 </div>
 {% endif %}
+
+{% if local_subfolders %}
+<div class="local-subfolders">
+  <h3>Subfolders</h3>
+  <ul>
+    {% for item in local_subfolders %}
+      <li><a href="{{ pathto(item.link) }}">{{ item.text }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
