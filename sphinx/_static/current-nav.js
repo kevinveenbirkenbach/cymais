@@ -34,6 +34,9 @@
         if (href && href.trim().startsWith("#")) {
           if (href.trim() === currentHash.trim()) {
             console.log("initCurrentNav: Match found for hash-only link:", href);
+            document.querySelectorAll('.current-index a.reference.internal.current').forEach(function(link) {
+              link.classList.remove("current");
+            });            
             link.classList.add("current");
             markAsCurrent(link);
           }
