@@ -1,4 +1,4 @@
-# Vision Statement
+# Vision
 
 At the heart of our endeavor lies the creation of an unparalleled tool, designed to revolutionize the way IT infrastructure is deployed and managed in businesses of all scales and across various industries. Our vision is to develop a fully automated solution capable of establishing a secure and infinitely scalable corporate IT infrastructure.
 

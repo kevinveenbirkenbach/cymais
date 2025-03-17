@@ -22,9 +22,9 @@
          {% endif %}
       </a>
       {% if item.children %}
-        <ul x-show="expanded" class="toctree-l{{ level + 1 }}">
+        <div x-show="expanded">
           {{ render_headings(item.children, level+1) }}
-        </ul>
+        </div>
       {% endif %}
     </li>
   {% endfor %}
