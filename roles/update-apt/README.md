@@ -1,4 +1,4 @@
-# Update Debian-based Systems
+# Update apt
 
 ## Description
 

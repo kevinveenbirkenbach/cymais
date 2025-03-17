@@ -1,4 +1,4 @@
-# Update-Pacman Role
+# Update Pacman
 
 ## Description
 

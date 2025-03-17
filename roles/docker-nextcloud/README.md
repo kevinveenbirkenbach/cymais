@@ -1,4 +1,4 @@
-# Docker Nextcloud Role 🚀
+# Nextcloud Server
 
 This repository contains an Ansible role for deploying and managing [Nextcloud](https://nextcloud.com/) using [Docker](https://www.docker.com/). It covers configuration modifications, updates, backups, database management, and more. Additionally, OIDC (OpenID Connect) is supported (for example, via **Keycloak**).
 ---

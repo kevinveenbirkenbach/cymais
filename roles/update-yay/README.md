@@ -1,4 +1,4 @@
-# Update-Yay Role
+# Update yay
 
 ## Description
 

@@ -157,7 +157,8 @@ SELECT * FROM `oc_appconfig` WHERE appid LIKE "%cospend%";
 SELECT * FROM `oc_migrations` WHERE app LIKE "%cospend%";
 ```
 
-# Identity and Access Management (IAM)
+# IAM
+IAM(Identity and Access Management) is setup via Keycloak and LDAP.
 
 ## OpenID Connect (OIDC) Support 🔐
 
