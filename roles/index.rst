@@ -1,1 +1,5 @@
-.. markdown-include:: README.md
+Applications
+=====================================
+
+- :doc:`Glosar <glosar>`
+- :doc:`Categories <categories>`
