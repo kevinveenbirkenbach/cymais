@@ -26,12 +26,18 @@ html_static_path = ['_static']
 
 html_sidebars = {
     '**': [
+        'logo.html',
         'structure.html',  # Include your custom template
     ]
 }
 
+cymais_logo = "_static/img/logo_cymais.png"
+html_favicon = cymais_logo
+
 html_theme_options = {
     "show_prev_next": False,
+    "logo_light": cymais_logo,
+    "logo_dark": cymais_logo,
 }
 
 source_suffix = {
