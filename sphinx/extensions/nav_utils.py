@@ -3,25 +3,16 @@ import re
 import yaml
 
 DEFAULT_MAX_NAV_DEPTH = 4
-MAX_HEADING_LEVEL = 2
+MAX_HEADING_LEVEL = 0  # This can be overridden in your configuration
 
 def natural_sort_key(text):
-    """
-    Generate a key for natural (human-friendly) sorting,
-    taking numeric parts into account.
-    """
     return [int(c) if c.isdigit() else c.lower() for c in re.split(r'(\d+)', text)]
 
 def extract_headings_from_file(filepath, max_level=MAX_HEADING_LEVEL):
-    """
-    Extract headings from a file.
-    For Markdown (.md) files, looks for lines starting with '#' (up to max_level).
-    For reStructuredText (.rst) files, looks for a line immediately followed by an underline.
-    If no headings are found and the file is an index file while a README.md exists in the same folder,
-    it will try to extract headings from the README.md instead.
-    Returns a list of dictionaries with keys: 'level', 'text', and 'anchor' (if applicable).
-    """
-    import os, re
+    # If max_level is 0, set it to a very high value to effectively iterate infinitely
+    if max_level == 0:
+        max_level = 9999
+
     headings = []
     ext = os.path.splitext(filepath)[1].lower()
     try:
@@ -34,7 +25,8 @@ def extract_headings_from_file(filepath, max_level=MAX_HEADING_LEVEL):
                         continue
                     if in_code_block:
                         continue
-                    match = re.match(r'^(#{1,})\s+(.*)$', line)
+                    # Assuming markdown headings are defined with '#' characters
+                    match = re.match(r'^(#{1,})(.*?)$', line)
                     if match:
                         level = len(match.group(1))
                         if level <= max_level:
@@ -53,9 +45,6 @@ def extract_headings_from_file(filepath, max_level=MAX_HEADING_LEVEL):
                         headings.append({'level': level, 'text': heading_text, 'anchor': ''})
     except Exception as e:
         print(f"Warning: Error reading {filepath}: {e}")
-
-    # If no headings were found and the file is an index file,
-    # then try to load headings from a README.md in the same folder.
     if not headings:
         base = os.path.basename(filepath).lower()
         if base == 'index.rst':
@@ -69,10 +58,6 @@ def extract_headings_from_file(filepath, max_level=MAX_HEADING_LEVEL):
     return headings
 
 def group_headings(headings):
-    """
-    Convert a flat list of headings into a tree structure based on their level.
-    Each heading gets a 'children' list.
-    """
     tree = []
     stack = []
     for heading in headings:
@@ -87,13 +72,7 @@ def group_headings(headings):
     return tree
 
 def sort_tree(tree):
-    """
-    Sort a tree of navigation items, first by a 'priority' value (lower comes first)
-    and then by a natural sort key based on the 'filename' field (or the 'text' field if no filename is provided).
-    This ensures that 'index' and 'readme' (priority 0) always appear at the top.
-    """
     tree.sort(key=lambda x: (x.get('priority', 1), natural_sort_key(x.get('filename', x['text']))))
     for item in tree:
         if item.get('children'):
             sort_tree(item['children'])
-

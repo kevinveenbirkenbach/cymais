@@ -1,27 +1,27 @@
 import os
 from sphinx.util import logging
-from .nav_utils import extract_headings_from_file
-MAX_HEADING_LEVEL = 0
+from .nav_utils import extract_headings_from_file, MAX_HEADING_LEVEL
 
 logger = logging.getLogger(__name__)
 
 def collect_folder_tree(dir_path, base_url):
     """
     Recursively collects the folder tree starting from the given directory.
-    
+
     For each folder:
-    - It is ignored if it is hidden.
-    - If a representative file (index.rst/index.md or readme.md/readme.rst) exists,
-      its first heading is used as the folder title.
-    - Folders without such a representative file are skipped.
-    - All Markdown and reStructuredText files (except the representative file)
-      are listed without sub-headings, using the first heading as their title.
+    - Hidden folders (names starting with a dot) are skipped.
+    - A folder is processed only if it contains one of the representative files:
+      index.rst, index.md, readme.md, or readme.rst.
+    - The first heading of the representative file is used as the folder title.
+    - The representative file is not listed as a file in the folder.
+    - All other Markdown and reStructuredText files are listed without sub-headings,
+      using their first heading as the file title.
     """
-    # Ignore hidden directories
+    # Skip hidden directories
     if os.path.basename(dir_path).startswith('.'):
         return None
 
-    # List all files in current directory with .md or .rst extension
+    # List all files in the current directory with .md or .rst extension
     files = [f for f in os.listdir(dir_path)
              if os.path.isfile(os.path.join(dir_path, f))
              and (f.endswith('.md') or f.endswith('.rst'))]
@@ -36,24 +36,25 @@ def collect_folder_tree(dir_path, base_url):
         if rep_file:
             break
 
-    # If no representative file, skip this folder
+    # Skip this folder if no representative file exists
     if not rep_file:
         return None
 
     rep_path = os.path.join(dir_path, rep_file)
-    # If MAX_HEADING_LEVEL is 0, use an effectively infinite level (e.g., 9999)
-    effective_max = MAX_HEADING_LEVEL if MAX_HEADING_LEVEL != 0 else 9999
-    headings = extract_headings_from_file(rep_path, max_level=effective_max)
+    headings = extract_headings_from_file(rep_path, max_level=MAX_HEADING_LEVEL)
     folder_title = headings[0]['text'] if headings else os.path.basename(dir_path)
     folder_link = os.path.join(base_url, os.path.splitext(rep_file)[0])
+
     # Remove the representative file from the list to avoid duplication
     files.remove(rep_file)
+    # Also filter out any files that are explicitly "readme.md" or "index.rst"
+    files = [f for f in files if f.lower() not in ['readme.md', 'index.rst']]
 
     # Process the remaining files in the current directory
     file_items = []
     for file in sorted(files, key=lambda s: s.lower()):
         file_path = os.path.join(dir_path, file)
-        file_headings = extract_headings_from_file(file_path, max_level=effective_max)
+        file_headings = extract_headings_from_file(file_path, max_level=MAX_HEADING_LEVEL)
         file_title = file_headings[0]['text'] if file_headings else file
         file_base = os.path.splitext(file)[0]
         file_link = os.path.join(base_url, file_base)
