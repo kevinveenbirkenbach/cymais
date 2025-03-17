@@ -42,7 +42,7 @@
 {% if local_md_headings or local_subfolders %}
 <div class="local-md-headings">
   {% if local_md_headings %}
-  <div class="current-index">
+  <div class="current-index" x-data x-init="initCurrentNav()">
     <p class="caption" role="heading">
       <span class="caption-text">Current Index</span>
     </p>
@@ -61,3 +61,102 @@
   {% endif %}
 </div>
 {% endif %}
+
+<script>
+  // Initialize the current navigation
+  function initCurrentNav() {
+    // If Alpine is available, wait until the DOM is updated.
+    if (window.Alpine && typeof window.Alpine.nextTick === 'function') {
+      window.Alpine.nextTick(processNav);
+    } else {
+      processNav();
+    }
+  }
+
+  // Process all navigation links within the .current-index container.
+  function processNav() {
+    var currentHash = window.location.hash;
+    console.log("initCurrentNav: Current hash:", currentHash);
+    if (!currentHash) return;
+    
+    var links = document.querySelectorAll('.current-index a.reference.internal');
+    links.forEach(function(link) {
+      var href = link.getAttribute("href");
+      console.log("initCurrentNav: Checking link:", href);
+      // If the link is hash-only (e.g. "#setup-guide")
+      if (href && href.trim().startsWith("#")) {
+        if (href.trim() === currentHash.trim()) {
+          console.log("initCurrentNav: Match found for hash-only link:", href);
+          markAsCurrent(link);
+        }
+      }
+      // Otherwise, if the link includes a file and a hash, compare only the hash part.
+      else if (href && href.indexOf('#') !== -1) {
+        var parts = href.split('#');
+        var linkHash = "#" + parts[1].trim();
+        console.log("initCurrentNav: Extracted link hash:", linkHash);
+        if (linkHash === currentHash.trim()) {
+          console.log("initCurrentNav: Match found for link with file and hash:", href);
+          markAsCurrent(link);
+        }
+      }
+      else {
+        console.log("initCurrentNav: No match for link:", href);
+      }
+    });
+    // After processing, open all submenus under current items.
+    openCurrentSubmenus();
+  }
+
+  // Mark the link's parent li and all ancestor li elements as current.
+  function markAsCurrent(link) {
+    var li = link.closest("li");
+    if (!li) {
+      console.log("markAsCurrent: No parent li found for link:", link);
+      return;
+    }
+    li.classList.add("current");
+    console.log("markAsCurrent: Marked li as current:", li);
+    // If Alpine.js is in use, set its "expanded" property to true.
+    if (li.__x && li.__x.$data) {
+      li.__x.$data.expanded = true;
+      console.log("markAsCurrent: Set Alpine expanded on li:", li);
+    }
+    // Propagate upward: mark all ancestor li elements as current.
+    var parentLi = li.parentElement.closest("li");
+    while (parentLi) {
+      parentLi.classList.add("current");
+      if (parentLi.__x && parentLi.__x.$data) {
+        parentLi.__x.$data.expanded = true;
+      }
+      console.log("markAsCurrent: Propagated current to ancestor li:", parentLi);
+      parentLi = parentLi.parentElement.closest("li");
+    }
+  }
+
+  // Open all submenu elements under list items marked as current.
+  function openCurrentSubmenus() {
+    document.querySelectorAll('.current-index li.current').forEach(function(li) {
+      li.querySelectorAll("[x-show]").forEach(function(elem) {
+        if (elem.style.display === "none") {
+          elem.style.display = "block";
+          console.log("openCurrentSubmenus: Opened submenu element:", elem);
+        }
+      });
+    });
+  }
+
+  // Re-trigger when the hash changes.
+  window.addEventListener("hashchange", function() {
+    console.log("Hash changed, reinitializing current nav...");
+    initCurrentNav();
+  });
+
+  // Wait until the window fully loads, then initialize the navigation.
+  window.addEventListener("load", function() {
+    console.log("Window loaded, initializing current nav...");
+    initCurrentNav();
+  });
+</script>
+
+  
