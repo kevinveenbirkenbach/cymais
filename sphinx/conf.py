@@ -49,14 +49,17 @@ source_suffix = {
     '.md': 'markdown',
 }
 
+sys.path.insert(0, os.path.abspath('./extensions'))
 extensions = [
-    "sphinx.ext.autosummary",
-    "sphinx.ext.autodoc",
-    "myst_parser",
-    'local_md_files',
-    'roles_overview',
-    'markdown_include',
+    'sphinx.ext.autosummary',
+    'sphinx.ext.autodoc',
+    'myst_parser',
+    'extensions.local_file_headings',
+    'extensions.local_subfolders',
+    'extensions.roles_overview',
+    'extensions.markdown_include',
 ]
+
 autosummary_generate = True
 
 myst_enable_extensions = [

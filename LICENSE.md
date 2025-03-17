@@ -1,4 +1,6 @@
-# CyMaIS NonCommercial License (CNCL)
+# License Agreement 
+
+**CyMaIS NonCommercial License (CNCL)**
 
 ## Definitions
 - **"Software":** Refers to *"[CyMaIS - Cyber Master Infrastructure Solution](https://cymais.cloud/)"* and its associated source code.
