@@ -1,5 +1,4 @@
-Overview
-===========================================================
+.. markdown-include:: README.md
 
 .. toctree::
    :maxdepth: 1

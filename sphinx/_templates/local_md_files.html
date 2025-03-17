@@ -1,31 +1,44 @@
-{% macro render_headings(headings) %}
-  <ul>
+{% macro render_headings(headings, level=1) %}
+  <ul class="toctree-l{{ level }}">
   {% for item in headings %}
-    <li>
-      <a href="{{ pathto(item.link).replace("#", "") + '#' + item.anchor }}">{{ item.text }}</a>
+    <li class="toctree-l{{ level }}{% if item.current %} current{% endif %}"
+        {% if item.children %} x-data="{ expanded: false }" {% endif %}>
+      <a class="reference internal{% if item.children %} expandable{% endif %}"
+         href="{{ pathto(item.link).replace('#', '') }}{% if item.anchor %}#{{ item.anchor }}{% endif %}"
+         {% if item.children %}
+           @click.prevent="expanded = !expanded"
+           :class="{ 'expanded': expanded }"
+         {% endif %}>
+         {{ item.text }}
+         {% if item.children %}
+           <button @click.prevent.stop="expanded = !expanded" type="button" class="toggle-button" style="background: none; border: none; padding: 0; margin-left: 5px;">
+             <span x-show="!expanded">
+              <svg fill="currentColor" height="18px" stroke="none" viewBox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
+              </svg>
+             </span>
+             <span x-show="expanded">&#9660;</span>
+           </button>
+         {% endif %}
+      </a>
       {% if item.children %}
-        {{ render_headings(item.children) }}
+        <ul x-show="expanded" class="toctree-l{{ level + 1 }}">
+          {{ render_headings(item.children, level+1) }}
+        </ul>
       {% endif %}
     </li>
   {% endfor %}
   </ul>
 {% endmacro %}
 
-{% if local_md_headings %}
+{% if local_md_headings or local_subfolders %}
 <div class="local-md-headings">
-  <h3>Current Folder</h3>
-  {{ render_headings(local_md_headings) }}
+  <h3 class="toctree-l1">Index</h3>
+  {% if local_subfolders %}
+    {{ render_headings(local_subfolders) }}
+  {% endif %}
+  {% if local_md_headings %}
+    {{ render_headings(local_md_headings) }}
+  {% endif %}
 </div>
 {% endif %}
-
-{% if local_subfolders %}
-<div class="local-subfolders">
-  <h3>Subfolders</h3>
-  <ul>
-    {% for item in local_subfolders %}
-      <li><a href="{{ pathto(item.link) }}">{{ item.text }}</a></li>
-    {% endfor %}
-  </ul>
-</div>
-{% endif %}
-
