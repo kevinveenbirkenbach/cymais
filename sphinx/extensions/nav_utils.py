@@ -17,8 +17,11 @@ def extract_headings_from_file(filepath, max_level=MAX_HEADING_LEVEL):
     Extract headings from a file.
     For Markdown (.md) files, looks for lines starting with '#' (up to max_level).
     For reStructuredText (.rst) files, looks for a line immediately followed by an underline.
+    If no headings are found and the file is an index file while a README.md exists in the same folder,
+    it will try to extract headings from the README.md instead.
     Returns a list of dictionaries with keys: 'level', 'text', and 'anchor' (if applicable).
     """
+    import os, re
     headings = []
     ext = os.path.splitext(filepath)[1].lower()
     try:
@@ -41,16 +44,28 @@ def extract_headings_from_file(filepath, max_level=MAX_HEADING_LEVEL):
                             headings.append({'level': level, 'text': heading_text, 'anchor': anchor})
             elif ext == '.rst':
                 lines = f.readlines()
-                for i in range(len(lines)-1):
+                for i in range(len(lines) - 1):
                     text_line = lines[i].rstrip("\n")
                     underline = lines[i+1].rstrip("\n")
                     if len(underline) >= 3 and re.fullmatch(r'[-=~\^\+"\'`]+', underline):
                         level = 1
                         heading_text = text_line.strip()
-                        # For reST, the anchor is left empty (can be generated later if needed)
                         headings.append({'level': level, 'text': heading_text, 'anchor': ''})
     except Exception as e:
         print(f"Warning: Error reading {filepath}: {e}")
+
+    # If no headings were found and the file is an index file,
+    # then try to load headings from a README.md in the same folder.
+    if not headings:
+        base = os.path.basename(filepath).lower()
+        if base == 'index.rst':
+            folder = os.path.dirname(filepath)
+            readme_path = os.path.join(folder, 'README.md')
+            if os.path.isfile(readme_path):
+                try:
+                    headings = extract_headings_from_file(readme_path, max_level)
+                except Exception as e:
+                    print(f"Warning: Error reading fallback README.md in {folder}: {e}")
     return headings
 
 def group_headings(headings):
