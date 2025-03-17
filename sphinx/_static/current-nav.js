@@ -94,4 +94,5 @@
         });
       });
     }
+    window.initCurrentNav = initCurrentNav;
   });

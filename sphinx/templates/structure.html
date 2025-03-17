@@ -42,7 +42,7 @@
 {% if local_md_headings or local_subfolders %}
 <div class="local-md-headings">
   {% if local_md_headings %}
-  <div class="current-index" x-data x-init="initCurrentNav()">
+  <div class="current-index" x-data x-init="typeof initCurrentNav === 'function' && initCurrentNav()">
     <p class="caption" role="heading">
       <span class="caption-text">Current Index</span>
     </p>
