@@ -1,6 +1,6 @@
 # PC-Developer-Tools-Python Role
 
-## 📌 Overview
+## Overview
 This README accompanies the `pc-developer-tools-python` role, which is part of the `cymais` repository. The role is dedicated to setting up Python development tools on personal computers.
 
 ## Role Contents

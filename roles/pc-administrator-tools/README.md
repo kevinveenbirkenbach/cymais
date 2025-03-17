@@ -1,6 +1,6 @@
 # PC-Bluray-Player-Tools Role
 
-## 📌 Overview
+## Overview
 Welcome to the `pc-bluray-player-tools` role, a part of the `cymais` repository. This role is dedicated to setting up software required for Blu-ray playback on personal computers. It focuses on installing necessary packages to enable the use of Blu-ray media with VLC player and other compatible software.
 
 ## Role Contents

@@ -4,7 +4,7 @@
 
 This role optimizes storage allocation for Docker volumes by migrating volumes between SSD (rapid storage) and HDD (mass storage) based on container image types. It creates symbolic links to maintain consistent storage paths after migration.
 
-## 📌 Overview
+## Overview
 
 The role performs the following tasks:
 - Migrates Docker volumes with database workloads to rapid storage (SSD) for improved performance.

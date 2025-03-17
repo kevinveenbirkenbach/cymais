@@ -1,6 +1,6 @@
 # PC-Gnome Role
 
-## 📌 Overview
+## Overview
 Welcome to the `pc-gnome` role, a key part of the `cymais` repository. This role is dedicated to setting up and configuring the GNOME desktop environment on personal computers.
 
 ## Role Details

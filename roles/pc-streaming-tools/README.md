@@ -1,6 +1,6 @@
 # PC-Streaming-Tools Role
 
-## 📌 Overview
+## Overview
 This README is associated with the `pc-streaming-tools` role, part of the `cymais` repository. This role is focused on setting up essential tools for live streaming and video recording on personal computers.
 
 ## Role Tasks

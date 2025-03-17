@@ -1,6 +1,6 @@
 # README for PC-Docker Playbook
 
-## 📌 Overview
+## Overview
 This playbook, `pc-docker`, is part of a larger collection housed within the `cymais` repository. It is specifically tailored for setting up Docker and Docker Compose on personal computers (PCs) used for development purposes. The primary goal is to facilitate a development environment on individual workstations rather than configuring servers for hosting or distributing Docker images.
 
 ## Contents

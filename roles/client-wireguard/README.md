@@ -4,7 +4,7 @@
 
 This role manages WireGuard on a client system. It sets up essential services and scripts to configure and optimize WireGuard connectivity. Additionally, it provides a link to an Administration document for creating client keys.
 
-## 📌 Overview
+## Overview
 
 Optimized for client configurations, this role:
 - Deploys a systemd service (`set-mtu.cymais.service`) and its associated script to set the MTU on specified network interfaces.

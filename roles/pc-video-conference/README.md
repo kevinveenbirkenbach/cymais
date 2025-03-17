@@ -1,6 +1,6 @@
 # PC-Video-Conference Role
 
-## 📌 Overview
+## Overview
 Welcome to the `pc-video-conference` role documentation, a part of the `cymais` repository. This role is focused on installing video conferencing software on Linux systems, specifically tailored for personal use and remote work requirements.
 
 ## Role Tasks

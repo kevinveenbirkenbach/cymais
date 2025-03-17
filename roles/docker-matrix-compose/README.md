@@ -1,6 +1,6 @@
 # Docker-Matrix Role README
 
-## 📌 Overview
+## Overview
 
 This document serves as the README for the `docker-matrix` role, a part of the `CyMaIS` project. This role automates the deployment of a Matrix server using Docker. This role was developed by [Kevin Veen-Birkenbach](https://www.veen.world/)
 

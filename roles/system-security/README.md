@@ -4,7 +4,7 @@
 
 This role configures security-related settings on the target system to ensure that essential security services are properly managed. It reinforces system security by integrating with related roles and enforcing best practices.
 
-## 📌 Overview
+## Overview
 
 The role focuses on:
 - Configuring key security services such as [SSH](https://en.wikipedia.org/wiki/Secure_Shell).

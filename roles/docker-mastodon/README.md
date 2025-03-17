@@ -1,6 +1,6 @@
 # 🚀 Docker Mastodon with OIDC Support
 
-## 📌 Overview
+## Overview
 This project provides a **Docker-based setup for Mastodon**, including full **OIDC (OpenID Connect) authentication support**. It is maintained by **[Kevin Veen-Birkenbach](https://www.veen.world)**.
 
 ## Credits 📝

@@ -4,7 +4,7 @@
 
 This role manages [Wireguard](https://www.wireguard.com/) on the host. It installs the necessary Wireguard packages, configures sysctl settings for IPv4/IPv6 forwarding, and deploys the Wireguard configuration file to enable the VPN service using [wg-quick](https://www.wireguard.com/quickstart/).
 
-## 📌 Overview
+## Overview
 
 Optimized for both [Arch Linux](https://wiki.archlinux.org/index.php/WireGuard) and [Ubuntu/Debian](https://wireguard.com/install/), this role performs the following tasks:
 - Installs Wireguard tools using the appropriate package manager.

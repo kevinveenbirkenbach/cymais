@@ -4,7 +4,7 @@
 
 This role provides a locking mechanism to ensure that critical services are not interrupted during maintenance activities such as updates, backups, or patch applications. It waits for specified services to stop and prevents conflicting operations.
 
-## 📌 Overview
+## Overview
 
 The role performs the following:
 - Blocks execution until specified services have stopped.

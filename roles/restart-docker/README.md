@@ -3,7 +3,7 @@
 
 This role automates the restart process for Docker Compose instances within a specified directory. It deploys a Python script that checks for the presence of docker-compose.yml files and restarts the associated services—using a hard restart for certain directories if needed.
 
-## 📌 Overview
+## Overview
 
 Optimized for containerized environments, this role:
 - Sets up the necessary directories and scripts for restarting Docker Compose instances.

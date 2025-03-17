@@ -1,6 +1,6 @@
 # PC-Designer-Tools Role
 
-## 📌 Overview
+## Overview
 This README is associated with the `pc-designer-tools` role, part of the `cymais` repository. This role focuses on setting up a suite of essential design tools on personal computers, catering specifically to the needs of graphic designers, illustrators, and digital artists.
 
 ## Role Contents

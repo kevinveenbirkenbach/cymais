@@ -1,6 +1,6 @@
 # Docker Setup Matrix via Ansible
 
-## 📌 Overview
+## Overview
 
 This document serves as the README for the `docker-ansible-matrix` role, a part of the `CyMaIS` project. This role automates the deployment of a Matrix server using Ansible. 
 

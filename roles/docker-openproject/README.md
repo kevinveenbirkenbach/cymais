@@ -1,6 +1,6 @@
 # OpenProject Role
 
-## 📌 Overview
+## Overview
 
 This role is designed to deploy the [OpenProject](https://www.openproject.org/) application using Docker. It includes tasks for setting up the environment, pulling the Docker repository, and configuring a reverse proxy with Nginx. It was developed by [Kevin Veen-Birkenbach](https://www.veen.world/)
 

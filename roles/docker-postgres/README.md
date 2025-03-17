@@ -1,6 +1,6 @@
 # Docker-Postgres Ansible Role
 
-## 📌 Overview
+## Overview
 This Ansible role is designed to deploy a PostgreSQL database using Docker. It includes tasks for setting up a Docker network, installing PostgreSQL in a Docker container, and initializing the database with a specified user and database.
 
 ## Role Variables

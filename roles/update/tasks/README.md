@@ -4,7 +4,7 @@
 
 This role serves as a central orchestrator for system updates. It conditionally executes various update roles based on the target system and available directories, ensuring that packages and Docker images are kept up-to-date.
 
-## 📌 Overview
+## Overview
 
 This role performs the following tasks:
 - Checks if the Docker Compose instances directory exists.

@@ -1,6 +1,6 @@
 # PC-SSH Role
 
-## 📌 Overview
+## Overview
 Welcome to the `pc-ssh` role, a critical component of the `cymais` repository. This role is dedicated to setting up SSH (Secure Shell) on the client side, facilitating secure access to remote servers.
 
 ## Role Description

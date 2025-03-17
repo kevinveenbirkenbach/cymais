@@ -4,7 +4,7 @@
 
 This role updates Docker Compose instances by checking for changes in Docker image digests and applying updates if necessary. It utilizes a Python script to handle git pulls and Docker image pulls, and rebuilds containers when changes are detected.
 
-## 📌 Overview
+## Overview
 
 The role performs the following:
 - Deploys a Python script to check for Docker image updates.

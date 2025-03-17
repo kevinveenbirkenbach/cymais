@@ -1,6 +1,6 @@
 # PC-QBittorrent Role
 
-## 📌 Overview
+## Overview
 This README is for the `pc-qbittorrent` role within the `cymais` repository. This role is specifically crafted for installing qBittorrent, a popular open-source torrent client, on personal computers.
 
 ## Role Tasks

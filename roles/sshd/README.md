@@ -4,7 +4,7 @@
 
 This role configures the SSH daemon ([sshd](https://man7.org/linux/man-pages/man5/sshd_config.5.html)) on the target system by deploying a templated configuration file. It ensures that secure and proper SSH settings are applied, reducing the risk of misconfiguration and potential lockout.
 
-## 📌 Overview
+## Overview
 
 Optimized for secure remote access, this role:
 - Generates an SSH daemon configuration file from a Jinja2 template.

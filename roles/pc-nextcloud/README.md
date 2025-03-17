@@ -1,6 +1,6 @@
 # PC-Nextcloud Role
 
-## 📌 Overview
+## Overview
 This README details the `pc-nextcloud` role, part of the `cymais` repository. This role focuses on setting up the Nextcloud client on personal computers and configuring directory synchronization.
 
 ## Role Variables

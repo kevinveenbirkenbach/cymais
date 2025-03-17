@@ -1,6 +1,6 @@
 # PC-Network-Analyze-Tools Role
 
-## 📌 Overview
+## Overview
 This README accompanies the `pc-network-analyze-tools` role within the `cymais` repository. This role is dedicated to installing key network analysis tools on personal computers.
 
 ## Role Contents

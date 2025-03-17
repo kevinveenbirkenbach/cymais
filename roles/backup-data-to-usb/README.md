@@ -4,7 +4,7 @@
 
 This Ansible role automates data backups to a swappable USB device. It triggers the backup process automatically when the USB is mounted, allowing for customizable source and destination paths and integrating with systemd for reliable execution.
 
-## 📌 Overview
+## Overview
 
 Optimized for Archlinux, this role ensures that backups are performed consistently with minimal manual intervention. It leverages efficient synchronization methods and provides a seamless integration with systemd to manage the backup service.
 

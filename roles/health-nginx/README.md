@@ -1,6 +1,6 @@
 # health-nginx
 
-## 📌 Overview
+## Overview
 `health-nginx` is an Ansible role designed to send health reports for nginx configurations. It leverages Python scripting to check the status of nginx server configurations and reports back any issues. This role is especially useful for maintaining the health of nginx servers in a dynamic environment.
 
 ## Requirements

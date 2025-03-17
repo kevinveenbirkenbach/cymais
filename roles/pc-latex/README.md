@@ -1,6 +1,6 @@
 # LaTeX Role
 
-## 📌 Overview
+## Overview
 Welcome to the LaTeX role within the `cymais` repository. It focuses on setting up a comprehensive LaTeX environment on Arch Linux-based systems, catering to the needs of users who require an advanced document preparation system.
 
 ## Role Contents

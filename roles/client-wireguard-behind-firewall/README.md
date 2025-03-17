@@ -4,7 +4,7 @@
 
 This role adapts iptables rules to enable proper connectivity for a WireGuard client running behind a NAT or firewall. It ensures that traffic is forwarded correctly by applying necessary masquerading rules.
 
-## 📌 Overview
+## Overview
 
 Optimized for environments with network address translation (NAT), this role:
 - Executes shell commands to modify iptables rules.

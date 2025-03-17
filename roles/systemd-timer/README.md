@@ -4,7 +4,7 @@
 
 This role configures a systemd timer to periodically start a corresponding service. It uses a Jinja2 template to create a timer unit file that specifies the scheduling parameters (such as OnCalendar and RandomizedDelaySec) and then restarts the timer service accordingly.
 
-## 📌 Overview
+## Overview
 
 Optimized for automated task scheduling in a [systemd](https://en.wikipedia.org/wiki/Systemd) environment, this role:
 - Generates a timer unit file for a given service (using the `service_name` variable).

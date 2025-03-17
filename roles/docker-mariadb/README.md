@@ -1,6 +1,6 @@
 # MariaDB Docker Ansible Role
 
-## 📌 Overview
+## Overview
 This Ansible role facilitates the deployment of a MariaDB server using Docker. It is designed to ensure ease of installation and configuration, with the flexibility to adapt to different environments.
 
 ## Features

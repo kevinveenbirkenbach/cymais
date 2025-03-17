@@ -4,7 +4,7 @@
 
 This role sets up and manages the host as a backup provider. It establishes the framework for secure backup operations and integrates with other roles to facilitate reliable backup data management.
 
-## 📌 Overview
+## Overview
 
 Optimized for automated backup processes, this role:
 - Configures the host to provide backup services.

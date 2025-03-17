@@ -1,6 +1,6 @@
 # PC-Developer-Tools-PHP Role
 
-## 📌 Overview
+## Overview
 This README document is for the `pc-developer-tools-php` role within the `cymais` repository. This role is specifically designed to facilitate the setup of PHP development tools on personal computing environments.
 
 ## Role Contents

@@ -1,6 +1,6 @@
 # Hunspell
 
-## 📌 Overview
+## Overview
 This README accompanies the Hunspell Playbook, located within the `cymais` repository. The playbook is focused on installing Hunspell, a widely-used spell checker, along with various language packages to enhance its functionality.
 
 ## Playbook Contents

@@ -1,6 +1,6 @@
 # PC-LibreOffice Role
 
-## 📌 Overview
+## Overview
 This README is for the `pc-libreoffice` role, part of the `cymais` repository. This role focuses on installing LibreOffice, a powerful and free office suite, along with necessary fonts and language packages.
 
 ## Role Contents

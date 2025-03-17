@@ -1,6 +1,6 @@
 # PC-Git Role
 
-## 📌 Overview
+## Overview
 Welcome to the `pc-git` role documentation, part of the `cymais` repository. This role is focused on setting up Git, a widely-used version control system, on personal computers. The role includes tasks for installing Git and configuring global user details.
 
 ## Role Tasks

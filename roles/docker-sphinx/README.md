@@ -4,7 +4,7 @@
 
 This Ansible role automates the building and deployment of Sphinx documentation using Docker. It pulls the CyMaIS repository, builds the documentation with Sphinx, and serves the generated HTML files via a lightweight HTTP server.
 
-## 📌 Overview
+## Overview
 
 Optimized for containerized environments, this role ensures that your documentation is consistently built and deployed with minimal manual intervention. It leverages Docker and Docker Compose for reproducible builds, enabling dynamic configuration of source and output directories.
 

@@ -12,6 +12,37 @@ Our intuitive interface, coupled with in-depth documentation, makes it accessibl
 
 With CyMaIS, setting up a secure, scalable, and robust IT infrastructure is not just faster and easier, but also aligned with the best industry practices, ensuring that your organization stays ahead in the ever-evolving digital landscape.
 
-## License
+## Documentation
 
-This project is licensed from Kevin Veen-Birkenbach. The full license is available in the [LICENSE.md](./LICENSE.md) of this repository. 
+Explore the key documents for detailed information about CyMaIS:
+
+- [Features](01_FEATURES.md)  
+  *Overview of the core features and capabilities of CyMaIS.*
+
+- [Vision](02_VISION.md)  
+  *Learn about the vision and long-term goals behind CyMaIS.*
+
+- [Installation](03_INSTALLATION.md)  
+  *Step-by-step instructions for installing the system and its dependencies.*
+
+- [Setup](04_SETUP.md)  
+  *Detailed procedures for configuring and deploying CyMaIS.*
+
+- [Enterprise](05_ENTERPRISE.md)  
+  *Guidance and best practices for enterprise deployments.*
+
+- [Donate](06_DONATE.md)  
+  *Information on how to support and donate to the CyMaIS project.*
+
+- [Code of Conduct](CODE_OF_CONDUCT.md)  
+  *Our guidelines to ensure a respectful and collaborative community.*
+
+- [Contributing](CONTRIBUTING.md)  
+  *Learn how to contribute to CyMaIS.*
+
+- [License](LICENSE.md)  
+  *Legal information regarding the use and distribution of CyMaIS.*
+
+---
+
+Feel free to explore the individual documents for more detailed information. Enjoy using CyMaIS, and thank you for your interest in our project!

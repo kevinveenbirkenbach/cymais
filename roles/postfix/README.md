@@ -4,7 +4,7 @@
 
 This role installs and configures [Postfix](https://en.wikipedia.org/wiki/Postfix_(software)) – a mail transfer agent – on the target system. It deploys a preconfigured aliases file (using a Jinja2 template) that defines mail redirections and standard aliases for local mail delivery.
 
-## 📌 Overview
+## Overview
 
 Optimized for secure and reliable mail delivery, this role:
 - Installs Postfix via [pacman](https://wiki.archlinux.org/title/Pacman).

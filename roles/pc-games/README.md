@@ -1,6 +1,6 @@
 # PC-Games Role
 
-## 📌 Overview
+## Overview
 This README is for the `pc-games` role, a part of the `cymais` repository. This role is designed to install a variety of popular open-source and freely available games on personal computers.
 
 ## Role Contents

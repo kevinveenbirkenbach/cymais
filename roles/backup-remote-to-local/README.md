@@ -4,7 +4,7 @@
 
 This role pulls backups from a remote server and stores them locally using rsync with retry logic. It is designed to retrieve remote backup data and integrate with your overall backup scheme.
 
-## 📌 Overview
+## Overview
 
 Optimized for Archlinux, this role is a key component of a comprehensive backup system. It works in conjunction with other roles to ensure that backup data is collected, verified, and maintained. The role uses a Bash script to pull backups, manage remote connections, and handle incremental backup creation.
 

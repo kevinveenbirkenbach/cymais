@@ -4,7 +4,7 @@
 
 This role automates the cleanup of old backups by executing a Python script that deletes outdated backup versions based on disk usage thresholds. It ensures that backup storage does not exceed a defined usage percentage.
 
-## 📌 Overview
+## Overview
 
 Optimized for effective disk space management, this role:
 - Installs required packages (e.g. [lsof](https://en.wikipedia.org/wiki/Lsof) and [psutil](https://pypi.org/project/psutil/)) using pacman.

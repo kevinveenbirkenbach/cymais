@@ -1,6 +1,6 @@
 # nginx-redirect-www
 
-## 📌 Overview
+## Overview
 The `nginx-redirect-www` role is designed to automate the process of setting up redirects from `www.domain.tld` to `domain.tld` for all domains and subdomains configured within the `{{nginx.directories.http.servers}}` directory. This role dynamically identifies configuration files following the pattern `*domain.tld.conf` and creates corresponding redirection rules.
 
 ## Role Description

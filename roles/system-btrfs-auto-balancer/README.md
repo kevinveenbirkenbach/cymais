@@ -4,7 +4,7 @@
 
 This role automates the management and balancing of Btrfs file systems. It clones the latest version of the [auto-btrfs-balancer](https://github.com/kevinveenbirkenbach/auto-btrfs-balancer.git) repository and configures a systemd service and timer to run the balancing script automatically.
 
-## 📌 Overview
+## Overview
 
 Optimized for automated file system management, this role:
 - Clones the auto-btrfs-balancer repository.

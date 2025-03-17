@@ -2,7 +2,7 @@
 
 This role manages the setup, reset, and maintenance of a Friendica instance running with Docker.
 
-## 📌 Overview
+## Overview
 
 Friendica is a decentralized social networking platform. This role helps manage Friendica in a containerized environment with Docker and provides tools for debugging, resetting, and maintaining the installation.
 
