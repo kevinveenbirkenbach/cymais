@@ -41,13 +41,16 @@
 
 {% if local_md_headings or local_subfolders %}
 <div class="local-md-headings">
-  <h3>Overview</h3>
-  <hr />
-  <h4 class="toctree-l1">Current Index</h4>
+  <h3>Index</h3>
+  <p class="caption" role="heading">
+    <span class="caption-text">Current Index</span>
+  </p>
   {% if local_md_headings %}
     {{ render_headings(local_md_headings) }}
   {% endif %}
-  <h4 class="toctree-l1">File Explorer</h4>
+  <p class="caption" role="heading">
+    <span class="caption-text">Full Index</span>
+  </p>
   {% if local_subfolders %}
     {{ render_headings(local_subfolders) }}
   {% endif %}
