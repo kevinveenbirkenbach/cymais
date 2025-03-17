@@ -17,7 +17,7 @@ author = 'Kevin Veen-Birkenbach'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-templates_path = ['_templates']
+templates_path = ['templates']
 exclude_patterns = ['docs', 'venv', 'venv/**']
 
 
@@ -26,7 +26,7 @@ exclude_patterns = ['docs', 'venv', 'venv/**']
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinxawesome_theme'
-html_static_path = ['_static']
+html_static_path = ['static']
 
 html_sidebars = {
     '**': [

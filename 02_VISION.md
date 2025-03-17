@@ -9,9 +9,3 @@ We envision a future where businesses are no longer constrained by the complexit
 Our commitment is to break down barriers to advanced IT infrastructure, democratizing access to high-level technology solutions. By harnessing the power of Open Source, our solution will not only uphold the highest standards of security and scalability but also foster a community-driven approach to continuous improvement and innovation.
 
 In essence, our vision is to redefine the paradigm of IT infrastructure deployment, making it a swift, secure, and scalable journey for every business, and setting a new benchmark in the industry for efficiency and reliability.
-
----
-
-Kevin Veen-Birkenbach  
-Berlin  
-2023-12-13

@@ -34,11 +34,11 @@
 {% if local_md_headings or local_subfolders %}
 <div class="local-md-headings">
   <h3 class="toctree-l1">Index</h3>
-  {% if local_subfolders %}
-    {{ render_headings(local_subfolders) }}
-  {% endif %}
   {% if local_md_headings %}
     {{ render_headings(local_md_headings) }}
+  {% endif %}
+  {% if local_subfolders %}
+    {{ render_headings(local_subfolders) }}
   {% endif %}
 </div>
 {% endif %}
