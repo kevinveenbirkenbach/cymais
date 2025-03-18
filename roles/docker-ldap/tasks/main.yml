@@ -38,7 +38,7 @@
     force: yes
   notify: docker compose project setup
   when: applications.ldap.webinterface == 'phpldapadmin'
-
+  
 - name: "create {{docker_compose.directories.env}}lam.env"
   template: 
     src:  "lam.env.j2" 
