@@ -1,0 +1,90 @@
+---
+## pc applications
+- name: general host setup
+  when: ("personal_computers" in group_names)
+  include_role:
+    name: "{{ item }}"
+  loop:
+    - pc-administrator-tools
+    - driver-non-free
+
+- name: pc-office
+  when: ("collection_officetools
+  include_role:
+    name: "{{ item }}"
+  loop:
+    - pc-office
+    - pc-jrnl
+
+
+- name: personal computer for business
+  when: ("business_personal_computer" in group_names)
+  include_role:
+    name: pc-gnucash
+
+- name: pc-designer-tools
+  when: ("collection_designer" in group_names)
+  include_role:
+    name: pc-designer-tools
+
+- name: pc-qbittorrent
+  when: ("collection_torrent" in group_names)
+  include_role:
+    name: pc-qbittorrent
+
+- name: pc-streaming-tools
+  when: ("collection_streamer" in group_names)
+  include_role:
+    name: pc-streaming-tools
+
+- name: pc-bluray-player-tools
+  when: ("collection_bluray_player" in group_names)
+  include_role:
+    name: pc-bluray-player-tools
+
+- name: pc-latex
+  when: ("latex" in group_names)
+  include_role:
+    name: pc-latex
+
+- name: GNOME setup
+  when: ("gnome
+  include_role:
+    name: pc-gnome
+
+- name: setup ssh client
+  when: ("ssh" in group_names)
+  become: false
+  include_role:
+    name: pc-ssh
+
+- name: setup gaming hosts
+  when: ("gaming" in group_names)
+  include_role:
+    name: pc-games
+
+- name: setup entertainment hosts
+  when: ("entertainment" in group_names)
+  include_role:
+    name: pc-spotify
+
+- name: setup torbrowser hosts
+  when: ("torbrowser" in group_names)
+  include_role:
+    name: pc-torbrowser
+
+- name: setup nextcloud
+  when: ("nextcloud_client" in group_names)
+  include_role:
+    name: pc-nextcloud
+
+- name: setup docker
+  when: ("dockerin group_names)
+  include_role:
+    name: pc-docker
+
+# driver 
+- name: setup msi rgb keyboard
+  when: ("msi_perkeyrgb" in group_names)
+  include_role:
+    name: driver-msi-keyboard-color

@@ -1,42 +1,13 @@
-# Setup Guide
+# Installation
 
-This guide explains how to deploy and manage the Cyber Master Infrastructure Solution (CyMaIS) using Ansible. CyMaIS is based on a collection of playbooks and an inventory (computer-inventory) that defines your servers and personal computers. The playbooks use different “modes” to control behavior such as updates, backups, resets, and cleanup tasks. This document outlines how to use Ansible Vault, describes the various operating modes, and shows example commands to run the playbooks.
+This guide explains how to deploy and manage the Cyber Master Infrastructure Solution (CyMaIS) using Ansible. CyMaIS is based on a collection of playbooks that are designed for your servers and personal computers. The playbooks use different “modes” to control behavior such as updates, backups, resets, and cleanup tasks. This document outlines how to use Ansible Vault, describes the various operating modes, and shows example commands to run the playbooks.
 
----
+
+This guide should give you a comprehensive starting point for managing your infrastructure with CyMaIS. For further details, consult the individual role documentation and the accompanying repository README files.
 
 ## Prerequisites
-
-- **Ansible Installed:** Ensure that Ansible is installed on your control node.
 - **Inventory File:** Have an inventory file that lists your servers and PCs. (Paths in examples are general; adjust them to your environment.)
 - **Vault Password File (Optional):** Prepare a file with your vault password if you prefer not to enter it interactively.
-
----
-
-## Ansible Vault Basics
-
-CyMaIS uses Ansible Vault to protect sensitive data (e.g. passwords). Use these common commands:
-
-### Edit an Encrypted File
-```bash
-ansible-vault edit <filename.yml> --vault-password-file <your-vault-pass-file>
-```
-
-### Decrypt a File
-```bash
-ansible-vault decrypt <filename.yml> --vault-password-file <your-vault-pass-file>
-```
-
-### Encrypt a File
-```bash
-ansible-vault encrypt <filename.yml> --vault-password-file <your-vault-pass-file>
-```
-
-### Encrypt a String
-```bash
-ansible-vault encrypt_string --vault-password-file <your-vault-pass-file> 'example' --name 'test'
-```
-
----
 
 ## Operating Modes
 
@@ -103,25 +74,9 @@ Ensure the vault password file is stored securely.
 
 ---
 
-## Password Generation
-
-You can generate a secure random password and encrypt it with Ansible Vault. For example:
-```bash
-ansible-vault encrypt_string "$(cat /dev/urandom | tr -dc 'A-Za-z0-9' | head -c 32)" --vault-password-file /path/to/your/vault_pass.txt | xclip -selection clipboard
-```
-This command generates a 32-character alphanumeric password, encrypts it, and copies the result to your clipboard.
-
----
-
 ## Final Notes
-
-- **Customizing Paths and Variables:**  
-  All file paths and configuration variables are defined in group variables (e.g., `group_vars/all/*.yml`) and role variable files. Adjust these to suit your deployment environment.
-
 - **Combining Modes:**  
   The different modes (reset, test, update, backup, cleanup) can be combined by passing extra variables (using `-e`) on the command line. This flexibility allows you to tailor the playbook run to your current needs.
 
 - **Debugging:**  
   If you need more verbose output or troubleshooting information, add the `-v` (or `-vvv`) option when running the playbook.
-
-This guide should give you a comprehensive starting point for managing your infrastructure with CyMaIS. For further details, consult the individual role documentation and the accompanying repository README files.

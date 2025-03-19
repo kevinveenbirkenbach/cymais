@@ -1,7 +1,6 @@
 ---
 - name: Merge variables
-  hosts: all
-  tasks:
+  block:
   - name: Merge users
     set_fact:
       users: "{{ default_users | combine(users, recursive=True) }}"
@@ -49,7 +48,7 @@
     set_fact:
       service_provider: "{{ defaults_service_provider | combine(service_provider | default({}, true), recursive=True) }}"
 
-  - name: "Debug merged Variables"
+  - name: "Merged Variables"
     # Add new merged variables here
     debug:
       msg:
@@ -61,60 +60,50 @@
     when: enable_debug | bool
 
 - name: update device
-  hosts:  all
-  become: true
-  roles:
-    - role: update
-      when: mode_update | bool
+  include_role:
+    name: update
+  when: mode_update | bool
 
 - name: setup standard wireguard
-  hosts: wireguard_server
-  become: true
-  roles:
-    - wireguard
+  when: ("wireguard_server" in group_names)
+  include_role:
+    name: wireguard
 
 # vpn setup
 - name: setup wireguard client behind firewall\nat
-  hosts: wireguard_behind_firewall
-  become: true
-  roles:
-    - client-wireguard-behind-firewall
+  when: ("wireguard_behind_firewall" in group_names)
+  include_role:
+    name: client-wireguard-behind-firewall
 
 - name: setup wireguard client
-  hosts: wireguard_client
-  become: true
-  roles:
-    - client-wireguard
+  when: ("wireguard_client" in group_names)
+  include_role:
+    name: client-wireguard
 
 ## backup setup
 - name: setup replica backup hosts
-  hosts: backup_remote_to_local
-  become: true
-  roles:
-    - role: backup-remote-to-local
+  when: ("backup_remote_to_local" in group_names)
+  include_role:
+    name: backup-remote-to-local
 
 - name: setup backup to swappable
-  hosts: backup_to_usb
-  become: true
-  roles:
-    - backup-data-to-usb
+  when: ("backup_to_usb" in group_names)
+  include_role:
+    name: backup-data-to-usb
 
 ## driver setup
 - name: driver-intel
-  hosts: intel
-  become: true
-  roles:
-    - driver-intel
+  when: ("intel" in group_names)
+  include_role:
+    name: driver-intel
 
 - name: setup multiprinter hosts
-  hosts: epson_multiprinter
-  become: true
-  roles:
-    - driver-epson-multiprinter
+  when: ("epson_multiprinter" in group_names)
+  include_role:
+    name: driver-epson-multiprinter
 
 ## system setup 
 - name: setup swapfile hosts
-  hosts: swapfile
-  become: false
-  roles:
-    - system-swapfile
+  when: ("swapfile" in group_names)
+  include_role:
+    name: system-swapfile

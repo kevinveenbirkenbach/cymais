@@ -1,0 +1,222 @@
+---
+- name: servers host setup
+  when: ("servers" in group_names)
+  include_role:
+    name: "{{ item }}"
+  loop:
+    - system-security
+    - journalctl
+    - health-disc-space
+    - cleanup-disc-space
+    - health-btrfs
+    - system-btrfs-auto-balancer
+
+- name: "setup corporate identity"
+  when: ("corporate_identity" in group_names)
+  include_role:
+    name: corporate-identity
+
+#########################################################################
+### Docker Roles                                                      ###
+#########################################################################
+
+- name: "setup matomo"
+  when: ("matomo" in group_names)
+  include_role:
+    name: docker-matomo
+
+- name: setup ldap
+  when: ("ldap" in group_names)
+  include_role:
+    name: docker-ldap
+
+- name: setup keycloak
+  when: ("keycloak" in group_names)
+  include_role:
+    name: docker-keycloak
+
+- name: setup nextcloud hosts
+  when: ("nextcloud" in group_names)
+  include_role:
+    name: docker-nextcloud
+
+- name: setup gitea hosts
+  when: ("gitea" in group_names)
+  include_role:
+    name: docker-gitea
+  vars:
+    run_mode: prod
+
+- name: setup wordpress hosts
+  when: ("wordpress" in group_names)
+  include_role:
+    name: docker-wordpress
+
+- name: setup mediawiki hosts
+  when: ("mediawiki" in group_names)
+  include_role:
+    name: docker-mediawiki
+
+- name: setup mybb hosts
+  when: ("mybb" in group_names)
+  include_role:
+    name: docker-mybb
+  vars:
+    mybb_domains: "{{domains.mybb}}"
+
+- name: setup yourls hosts
+  when: ("yourls" in group_names)
+  include_role:
+    name: docker-yourls
+
+- name: setup mailu hosts
+  when: ("mailu" in group_names)
+  include_role:
+    name: docker-mailu
+
+- name: setup elk hosts
+  when: ("elk" in group_names)
+  include_role:
+    name: docker-elk
+
+- name: setup mastodon hosts
+  when: ("mastodon" in group_names)
+  include_role:
+    name: docker-mastodon
+
+- name: setup pixelfed hosts
+  when: ("pixelfed" in group_names)
+  include_role:
+    name: docker-pixelfed
+
+- name: setup peertube hosts
+  when: ("peertube" in group_names)
+  include_role:
+    name: docker-peertube
+
+- name: setup bigbluebutton hosts
+  when: ("bigbluebutton" in group_names)
+  include_role:
+    name: docker-bigbluebutton
+  vars:
+    domain: "{{domains.bigbluebutton}}"
+
+- name: setup funkwhale hosts
+  when: ("funkwhale" in group_names)
+  include_role:
+    name: docker-funkwhale
+
+- name: setup roulette-wheel hosts
+  when: ("roulette-wheel" in group_names)
+  include_role:
+    name: docker-roulette-wheel
+
+- name: setup joomla hosts
+  when: ("joomla" in group_names)
+  include_role:
+    name: docker-joomla
+
+- name: setup attendize
+  when: ("attendize" in group_names)
+  include_role:
+    name: docker-attendize
+
+- name: setup baserow hosts
+  when: ("baserow" in group_names)
+  include_role:
+    name: docker-baserow
+
+- name: setup listmonk
+  when: ("listmonk" in group_names)
+  include_role:
+    name: docker-listmonk
+
+- name: setup discourse
+  when: ("discourse" in group_names)
+  include_role:
+    name: docker-discourse
+
+- name: setup matrix with flavor 'ansible'
+  include_role:
+    name: docker-matrix-ansible
+  when: applications.matrix.role == 'ansible' and ("matrix" in group_names)
+  
+- name: setup matrix with flavor 'compose'
+  include_role:
+    name: docker-matrix-compose
+  when: applications.matrix.role == 'compose' and ("matrix" in group_names)
+
+- name: setup open project instances
+  when: ("openproject" in group_names)
+  include_role:
+    name: docker-openproject
+
+- name: setup gitlab hosts
+  when: ("gitlab" in group_names)
+  include_role:
+    name: docker-gitlab
+
+- name: setup akaunting hosts
+  when: ("akaunting" in group_names)
+  include_role:
+    name: docker-akaunting
+
+- name: setup moodle instance
+  when: ("moodle" in group_names)
+  include_role:
+    name: docker-moodle
+
+- name: setup taiga instance
+  when: ("taiga" in group_names)
+  include_role:
+    name: docker-taiga
+
+- name: setup friendica hosts
+  when: ("friendica" in group_names)
+  include_role:
+    name: docker-friendica
+
+- name: setup portfolio
+  when: ("portfolio" in group_names)
+  include_role:
+    name: docker-portfolio
+
+- name: setup bluesky
+  when: ("bluesky" in group_names)
+  include_role:
+    name: docker-bluesky
+
+- name: setup PHPMyAdmin
+  when: ("phpmyadmin" in group_names)
+  include_role:
+    name: docker-phpmyadmin
+
+- name: setup SNIPE-IT
+  when: ("snipe_it" in group_names)
+  include_role:
+    name: docker-snipe_it
+
+- name: setup sphinx
+  when: ("sphinx" in group_names)
+  include_role:
+    name: docker-sphinx
+
+# Native Webserver Roles
+- name: setup nginx-serve-htmls
+  when: ("nginx-serve-htmls" in group_names)
+  include_role:
+    name: nginx-serve-html
+  vars:
+    domain: "{{primary_domain}}"
+
+- name: setup redirect hosts
+  when: ("redirect" in group_names)
+  include_role:
+    name: nginx-redirect-domain
+  vars:
+    domain_mappings: "{{redirect_domain_mappings}}"
+
+- name: setup www redirect 
+  when: ("www_redirect" in group_names)
+  include_role:
+    name: nginx-redirect-www

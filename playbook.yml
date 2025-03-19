@@ -1,0 +1,10 @@
+- name: Execute CyMaIS Play
+  hosts: all
+  tasks:
+  - name: "Load 'constructor' tasks"
+    include_tasks: "tasks/constructor.yml"
+  - name: "Load '{{host_type}}' tasks"
+    include_tasks: "tasks/{{host_type}}.yml"
+  - name: "Load 'destructor' tasks"
+    include_tasks: "tasks/destructor.yml"
+  become: true
