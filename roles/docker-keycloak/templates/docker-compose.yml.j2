@@ -5,7 +5,7 @@ services:
   application:
     image: quay.io/keycloak/keycloak:{{applications.keycloak.version}}
     container_name: {{container_name}}
-    command: start --import-realm # imports realms on startup
+    command: start {% if applications[application_id].import_realm | bool %}--import-realm{% endif %}
     {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:8080"
