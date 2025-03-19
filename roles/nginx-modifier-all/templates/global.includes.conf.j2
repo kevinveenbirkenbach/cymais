@@ -2,16 +2,16 @@
 sub_filter_once off;
 sub_filter_types text/html;
 
-{% if global_matomo_tracking_enabled | bool %}
+{% if matomo_tracking_enabled | bool %}
   {# Include Global Matomo Tracking #}
   {% include 'roles/nginx-modifier-matomo/templates/matomo-tracking.conf.j2' %}
 {% endif %}
 
-{% if applications | get_css_enabled(application_id) or global_matomo_tracking_enabled | bool%}
-  sub_filter '</head>' '{% if global_matomo_tracking_enabled | bool %}{% include 'roles/nginx-modifier-matomo/templates/script.j2' %}{% endif %}{% if applications | get_css_enabled(application_id) %}{% include 'roles/nginx-modifier-css/templates/link.j2' %}{% endif %}</head>';
+{% if css_enabled | bool or matomo_tracking_enabled | bool %}
+  sub_filter '</head>' '{% if matomo_tracking_enabled | bool %}{% include 'roles/nginx-modifier-matomo/templates/script.j2' %}{% endif %}{% if css_enabled | bool %}{% include 'roles/nginx-modifier-css/templates/link.j2' %}{% endif %}</head>';
 {% endif %}
 
-{% if applications | get_css_enabled(application_id) %}
+{% if css_enabled | bool %}
   {# Include Global CSS Location #}
   {% include 'roles/nginx-modifier-css/templates/location.conf.j2' %}
 {% endif %}

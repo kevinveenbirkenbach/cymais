@@ -5,7 +5,3 @@ database_password:  "{{applications.matomo.database_password}}"
 
 # I don't know if this is still necessary
 domain:             "{{domains.matomo}}"                         
-
-# Disable matomo tracking, because otherwise recursiv loading technics would be neccessary
-# This is the default value and it will be overwritten by set fact in main.yml
-global_matomo_tracking_enabled: false 

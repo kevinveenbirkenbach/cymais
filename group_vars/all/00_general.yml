@@ -52,3 +52,20 @@ enable_wildcard_certificate:          false
 # This enables debugging in ansible and in the apps
 # You SHOULD NOT enable this on production servers
 enable_debug:   false
+
+#########################
+##  ENABLED DEFAULTS   ##
+#########################
+
+# The following defaults are used for the default_applications
+# It can be that in a default_applications the value for one application is overwritten.
+# You can overwritte it in this case in the applications in your inventory
+
+## Matomo Tracking
+matomo_tracking_enabled_default:   true  # Enables\Disables Matomo tracking on all html pages by default.
+
+## CSS
+css_enabled_default:               true  # Enables\Disables Global CSS on all html pages by default.
+
+## iframe for primary domain
+landingpage_iframe_enabled:        false # Enables\Disables the possibility to be embedded via iframe by default.

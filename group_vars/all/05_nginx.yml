@@ -16,6 +16,3 @@ nginx:
       global:         "/var/www/global/"                # Directory containing files which will be globaly accessable
   user:               "http"                            # Default nginx user in ArchLinux
   iframe:             true                              # Allows applications to be loaded in iframe
-
-## Matomo Tracking
-global_matomo_tracking_enabled:   false                 # Activates matomo tracking on all html pages. Change this in inventory.

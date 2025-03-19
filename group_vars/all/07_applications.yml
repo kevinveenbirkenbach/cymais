@@ -26,29 +26,41 @@ defaults_applications:
     setup_admin_email:  "{{users.administrator.email}}"
     database:
       central_storage:  True
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## Attendize 
   attendize:
     version:            "latest"
     database:
       central_storage:  True
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe  
 
   ## Baserow 
   baserow:
     version:            "latest"
     database:
       central_storage:  True
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## Big Blue Button
   bigbluebutton:
     enable_greenlight:    "true"
-    setup:                false               # Set to true in inventory file for initial setup
+    setup:                false                                             # Set to true in inventory file for initial setup
     oidc:
-      enabled:            true                # Activate OIDC
+      enabled:            true                                              # Activate OIDC
     database:
       central_storage:    True
     ldap:
-      enabled:            False                # @todo LDAP needs to get propper implemented and tested, just set values during refactoring
+      enabled:            False                                             # @todo LDAP needs to get propper implemented and tested, just set values during refactoring
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## Bluesky
   bluesky:
@@ -57,79 +69,103 @@ defaults_applications:
         email:    "{{users.administrator.email}}"
     pds:
       version:              "latest"
-      #jwt_secret:                            # Needs to be defined in inventory file - Use: openssl rand -base64 64 | tr -d '\n'
-      #plc_rotation_key_k256_private_key_hex: # Needs to be defined in inventory file - Use: openssl rand -hex 32 
-      #admin_password:                        # Needs to be defined in inventory file - Use: openssl rand -base64 16
+      #jwt_secret:                                                          # Needs to be defined in inventory file - Use: openssl rand -base64 64 | tr -d '\n'
+      #plc_rotation_key_k256_private_key_hex:                               # Needs to be defined in inventory file - Use: openssl rand -hex 32 
+      #admin_password:                                                      # Needs to be defined in inventory file - Use: openssl rand -base64 16
     database:
       central_storage:                True
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
   coturn:                     # @todo implement                
     credentials:
       user:       turnuser
-      # password:             # Need to be defined in invetory file
-      # secret:               # Need to be defined in invetory file
+      # password:                                                           # Need to be defined in invetory file
+      # secret:                                                             # Need to be defined in invetory file
 
   ## Discourse:
   discourse:
-    network:              "discourse_default"     # Name of the docker network
-    container:            "discourse_application" # Name of the container application
-    repository:           "discourse_repository"  # Name of the repository folder
-    # database_password:                          # Needs to be defined in inventory file
+    network:              "discourse_default"                               # Name of the docker network
+    container:            "discourse_application"                           # Name of the container application
+    repository:           "discourse_repository"                            # Name of the repository folder
+    # database_password:                                                    # Needs to be defined in inventory file
     oidc:
-      enabled:            true                    # Activate OIDC
+      enabled:            true                                              # Activate OIDC
     database:
-      central_storage:    True                    # Activate Central Database Storage
+      central_storage:    True                                              # Activate Central Database Storage
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## Friendica
   friendica:
     version:              "latest"
     oidc:
-      enabled:               true   # Activate OIDC. Plugin is not working yet
+      enabled:               true                                           # Activate OIDC. Plugin is not working yet
     database:
-      central_storage:       True   # Activate Central Database Storage
+      central_storage:       True                                           # Activate Central Database Storage
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## Funkwhale
   funkwhale:
     version:              "1.4.0"
     ldap:
-      enabled:            True    # Enables LDAP by default @todo check implementation
+      enabled:            True                                              # Enables LDAP by default @todo check implementation
     database:
-      central_storage:    True    # Activate Central Database Storage
+      central_storage:    True                                              # Activate Central Database Storage
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## Gitea
   gitea:
-    version:                  "latest"  # Use latest docker image 
+    version:                  "latest"                                      # Use latest docker image 
     database:
-      central_storage:        True      # Activate Central Database Storage
+      central_storage:        True                                          # Activate Central Database Storage
     configuration:
       repository:
-        enable_push_create_user:      True  # Allow users to push local repositories to Gitea and have them automatically created for a user.
-        default_private:              last  # Default private when creating a new repository: last, private, public
-        default_push_create_private:  True  # Default private when creating a new repository with push-to-create.         
+        enable_push_create_user:      True                                  # Allow users to push local repositories to Gitea and have them automatically created for a user.
+        default_private:              last                                  # Default private when creating a new repository: last, private, public
+        default_push_create_private:  True                                  # Default private when creating a new repository with push-to-create.
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe         
 
   ## Gitlab
   gitlab:
     version:            "latest"
     database:
-      central_storage:  True      # Activate Central Database Storage
+      central_storage:  True                                                # Activate Central Database Storage
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## Joomla
   joomla:
     version:            "latest"
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## Keycloak
   keycloak:
     version:            "latest"
     users:
       administrator:
-        username:       "{{users.administrator.username}}"  # Administrator Username for Keycloak
+        username:       "{{users.administrator.username}}"                  # Administrator Username for Keycloak
     ldap:
-      enabled:          True                                # Enables LDAP by default
-    import_realm:       True                                # If True realm will be imported. If false skip.
+      enabled:          True                                                # Enables LDAP by default
+    import_realm:       True                                                # If True realm will be imported. If false skip.
     database: 
-      central_storage:  True                                # Activate Central Database Storage
-#   database_password:                                      # Needs to be defined in inventory file   
-#   administrator_password:                                 # Needs to be defined in inventory file      
+      central_storage:  True                                                # Activate Central Database Storage
+#   database_password:                                                      # Needs to be defined in inventory file   
+#   administrator_password:                                                 # Needs to be defined in inventory file
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe      
 
   ## LDAP
   ldap:
@@ -160,32 +196,41 @@ defaults_applications:
       central_storage:                false                                       # LDAP doesn't use an database in the current configuration. Propably a good idea to implement one later. 
     # administrator_password:                                                     # CHANGE for security reasons in inventory file
     # administrator_database_password:                                            # CHANGE for security reasons in inventory file
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"           # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                       # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"        # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## Listmonk
   listmonk:
     users:
       administrator:
-        username:                     "{{users.administrator.username}}"  # Listmonk administrator account username
-    public_api_activated:             False                               # Security hole. Can be used for spaming
-    version:                          "latest"                            # Docker Image version
-    setup:                            false                               # Set true in inventory file to execute the setup and initializing procedures
+        username:                     "{{users.administrator.username}}"          # Listmonk administrator account username
+    public_api_activated:             False                                       # Security hole. Can be used for spaming
+    version:                          "latest"                                    # Docker Image version
+    setup:                            false                                       # Set true in inventory file to execute the setup and initializing procedures
     database:
-      central_storage:                True                                # Activate Central Database Storage
+      central_storage:                True                                        # Activate Central Database Storage
+    matomo_tracking_enabled:          "{{matomo_tracking_enabled_default}}"       # Enables\Disables Matomo Tracking
+    css_enabled:                      "{{css_enabled_default}}"                   # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:       "{{landingpage_iframe_enabled_default}}"    # Enables\Disables the possibility to embed this on landing page via iframe
 
   mailu:
-    version:                          "2024.06"             # Docker Image Version
-    setup:                            false                 # Set true in inventory file to execute the setup and initializing procedures
+    version:                          "2024.06"                                   # Docker Image Version
+    setup:                            false                                       # Set true in inventory file to execute the setup and initializing procedures
     oidc:
-      enabled:                        true                  # Activate OIDC for Mailu
-    domain:                           "{{primary_domain}}"  # The main domain from which mails will be send \ email suffix behind @
+      enabled:                        true                                        # Activate OIDC for Mailu
+    domain:                           "{{primary_domain}}"                        # The main domain from which mails will be send \ email suffix behind @
     # I don't know why the database deactivation is necessary
     database:
-      central_storage:                False                 # Deactivate central database for mailu
+      central_storage:                False                                       # Deactivate central database for mailu
     credentials:                                     
-#     secret_key:                                           # Set to a randomly generated 16 bytes string
-#     database_password:                                    # Needs to be set in inventory file
-#     api_token:                                            # Configures the authentication token. The minimum length is 3 characters. This is a mandatory setting for using the RESTful API.
-#     initial_administrator_password:                       # Initial administrator password for setup 
+#     secret_key:                                                                 # Set to a randomly generated 16 bytes string
+#     database_password:                                                          # Needs to be set in inventory file
+#     api_token:                                                                  # Configures the authentication token. The minimum length is 3 characters. This is a mandatory setting for using the RESTful API.
+#     initial_administrator_password:                                             # Initial administrator password for setup 
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"           # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                       # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"        # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## MariaDB
   mariadb:
@@ -199,20 +244,21 @@ defaults_applications:
 #     cookie_secret:    None    # Set via openssl rand -hex 16
 #   database_password:  Null    # Needs to be set in inventory file
 #   auth_token:         Null    # Needs to be set in inventory file
-    css:
-      enabled:          false   # The css isn't optimized yet for Matomo
     database:
       central_storage:  True    # Activate Central Database Storage
+    matomo_tracking_enabled:      false                                           # Activate in inventory file if you want to have the statistics, as soon as matomo is running
+    css_enabled:                  false                                           # Not optimized yet for matomo
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"        # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## Mastodon
   mastodon:
     version:                      "latest"
-    single_user_mode:             false     # Set true for initial setup
-    setup:                        false     # Set true in inventory file to execute the setup and initializing procedures
+    single_user_mode:             false                                           # Set true for initial setup
+    setup:                        false                                           # Set true in inventory file to execute the setup and initializing procedures
     database:
-      central_storage:            True      # Activate Central Database Storage
+      central_storage:            True                                            # Activate Central Database Storage
     oidc:
-      enabled:                    True      # Activate OIDC for Mastodon
+      enabled:                    True                                            # Activate OIDC for Mastodon
     credentials:
 # Check out the README.md of the docker-mastodon role to get detailled instructions about how to setup the credentials
 #     database_password:                              
@@ -225,24 +271,30 @@ defaults_applications:
 #       deterministic_key:                            
 #       key_derivation_salt:                          
 #       primary_key:                                  
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"           # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                       # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"        # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## Matrix
   matrix:
     users:
       administrator:
-        username:       "{{users.administrator.username}}"  # Accountname of the matrix admin
-    playbook_tags:      "setup-all,start"                   # For the initial update use: install-all,ensure-matrix-users-created,start
-    role:               "compose"                           # Role to setup Matrix. Valid values: ansible, compose
-    server_name:        "{{primary_domain}}"                # Adress for the account names etc.
+        username:       "{{users.administrator.username}}"                        # Accountname of the matrix admin
+    playbook_tags:      "setup-all,start"                                         # For the initial update use: install-all,ensure-matrix-users-created,start
+    role:               "compose"                                                 # Role to setup Matrix. Valid values: ansible, compose
+    server_name:        "{{primary_domain}}"                                      # Adress for the account names etc.
     synapse:
       version:          "latest"
     element:
       version:          "latest"
-    setup:              false                               # Set true in inventory file to execute the setup and initializing procedures
+    setup:              false                                                     # Set true in inventory file to execute the setup and initializing procedures
     database:
-      central_storage:  True                                # Activate Central Database Storage
+      central_storage:  True                                                      # Activate Central Database Storage
     oidc:
-      enabled:          False                               # Deactivated OIDC due to this issue https://github.com/matrix-org/synapse/issues/10492
+      enabled:          False                                                     # Deactivated OIDC due to this issue https://github.com/matrix-org/synapse/issues/10492
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"           # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                       # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"        # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## Moodle
   moodle:
@@ -253,13 +305,19 @@ defaults_applications:
         email:          "{{users.administrator.email}}"
     version:            "latest"
     database:
-      central_storage:  True                                              # Activate Central Database Storage
+      central_storage:  True                                                      # Activate Central Database Storage
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"           # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                       # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"        # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## MyBB
   mybb:
     version:            "latest"
     database:
-      central_storage:  True      # Activate Central Database Storage
+      central_storage:  True                                                      # Activate Central Database Storage
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"           # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                       # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"        # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## Nextcloud
   nextcloud:
@@ -482,56 +540,74 @@ defaults_applications:
       whiteboard:
         # Nextcloud Whiteboard: provides a collaborative drawing and brainstorming tool (https://apps.nextcloud.com/apps/whiteboard)
         enabled: true
-      
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"           # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                       # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"        # Enables\Disables the possibility to embed this on landing page via iframe
+
   ## OAuth2 Proxy
   oauth2_proxy:
     configuration_file: "oauth2-proxy-keycloak.cfg"                                                                 # Needs to be set true in the roles which use it
     version:            "latest"                                                                                    # Docker Image version
     redirect_url:       "https://{{domains.keycloak}}/auth/realms/{{primary_domain}}/protocol/openid-connect/auth"  # The redirect URL for the OAuth2 flow. It should match the redirect URL configured in Keycloak.
     allowed_roles:      admin                                                                                       # Restrict it default to admin role. Use the vars/main.yml to open the specific role for other groups  
-
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"                                             # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                                                         # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"                                          # Enables\Disables the possibility to embed this on landing page via iframe
+  
   ## Open Project
   openproject:
-    version:              "13"    # Update when available. Sadly no rolling release implemented
+    version:              "13"                                              # Update when available. Sadly no rolling release implemented
     oauth2_proxy:  
-      enabled:            true    # OpenProject doesn't support OIDC, so this procy in combination with LDAP is needed
+      enabled:            true                                              # OpenProject doesn't support OIDC, so this procy in combination with LDAP is needed
       application:        "proxy"
       port:               "80"
-#     cookie_secret:      None    # Set via openssl rand -hex 16
+#     cookie_secret:      None                                              # Set via openssl rand -hex 16
     ldap:
-      enabled:            True    # Enables LDAP by default
+      enabled:            True                                              # Enables LDAP by default
     database:
-      central_storage:    True    # Activate Central Database Storage
+      central_storage:    True                                              # Activate Central Database Storage
     css:
-      enabled:            false   # Temporary deactivated due to bugs
-                                  # @todo Solve and reactivate
+      enabled:            false                                             # Temporary deactivated due to bugs
+                                                                            # @todo Solve and reactivate
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## Peertube
   peertube:
     version:              "bookworm"
     database:
-      central_storage:    True        # Activate Central Database Storage
+      central_storage:    True                                              # Activate Central Database Storage
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## PHPMyAdmin
   phpmyadmin:
     version:              "latest"
-    autologin:            false           # This is a high security risk. Just activate this option if you know what you're doing
+    autologin:            false                                             # This is a high security risk. Just activate this option if you know what you're doing
     oauth2_proxy:  
       enabled:            true
       port:               "80"
       application:        "application"
-#     cookie_secret:      None            # Set via openssl rand -hex 16
+#     cookie_secret:      None                                              # Set via openssl rand -hex 16
     database:
-      central_storage:    True            # Activate Central Database Storage
+      central_storage:    True                                              # Activate Central Database Storage
     css:
-      enabled:            False           # The css needs more optimation for PHPMyAdmin
+      enabled:            False                                             # The css needs more optimation for PHPMyAdmin
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## Pixelfed
   pixelfed:
     titel:                "Pictures on {{primary_domain}}"
     version:              "latest"
     database:
-      central_storage:    True                              # Activate Central Database Storage
+      central_storage:    True                                              # Activate Central Database Storage
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## Postgres
   # Please set an version in your inventory file - Rolling release for postgres isn't recommended
@@ -541,18 +617,27 @@ defaults_applications:
   portfolio:
     database:
       central_storage:  False # Portfolio doesn't use any database
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   false                                     # Doesn't make sense to load landingpage in landingpage
 
   # Snipe-IT
   snipe_it:
     version:           "latest"
     database:
-      central_storage:  True    # Activate Central Database Storage
+      central_storage:  True                                                # Activate Central Database Storage
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## Sphinx
   sphinx:
     version:                  "3.9-slim"                                          # Use latest docker image
     repository_sphinx_source: "https://github.com/kevinveenbirkenbach/cymais.git" # Repository address to pull the source repository from
     sphinx_exec_dir_relative: "sphinx/"                                           # The relative path to the sphinx Makefile folder from the source dir
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"           # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                       # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   true                                            # Makes sense to make the documentary allways in iframe available
       
 
   ## Taiga
@@ -560,6 +645,9 @@ defaults_applications:
     version:           "latest"
     database:
       central_storage:  True    # Activate Central Database Storage
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## YOURLS
   yourls:
@@ -575,6 +663,9 @@ defaults_applications:
 #     cookie_secret:    None                                # Set via openssl rand -hex 16
     database:
       central_storage:  True                                # Activate Central Database Storage
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
   wordpress:
 # Deactivate Global theming for wordpress role
@@ -583,7 +674,8 @@ defaults_applications:
 #
 # May a solution could be to generate a template or css file dedicated
 # for wordpress based on the theming values and import it. 
-    css:
-      enabled:          false
     database:
       central_storage:  True  # Activate Central Database Storage
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  false                                     # CSS is hard to tweak for wordpress
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe

@@ -1,0 +1,4 @@
+{% if landingpage_iframe_enabled | bool %}
+  add_header X-Frame-Options "SAMEORIGIN" always;                                   # Allow iframe embedding only from the same origin
+  add_header Content-Security-Policy "frame-ancestors {{primary_domain}};" always;  # Restrict embedding to the specified primary domain
+{% endif %}
