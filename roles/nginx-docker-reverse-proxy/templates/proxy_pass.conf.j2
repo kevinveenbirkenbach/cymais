@@ -14,6 +14,13 @@ location {{location | default("/")}}
   proxy_set_header X-Forwarded-Port 443;
   proxy_set_header Accept-Encoding "";
 
+
+{% if nginx.iframe | bool %}
+  # activate embedding via iframe
+  add_header X-Frame-Options "SAMEORIGIN" always;
+  add_header Content-Security-Policy "frame-ancestors 'self' *.{{primary_domain}};" always;
+{% endif %}
+
   # WebSocket specific header
   proxy_http_version 1.1;
   proxy_set_header Upgrade $http_upgrade;
