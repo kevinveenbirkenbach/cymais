@@ -8,7 +8,7 @@
   file:
     path: "{{ nginx.directories.configuration }}"
     state: absent
-  when: mode_reset and run_once_nginx is not defined
+  when: mode_reset | bool and run_once_nginx is not defined
 
 - name: Ensure nginx configuration directories are present
   file:

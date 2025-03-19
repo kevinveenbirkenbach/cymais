@@ -17,7 +17,7 @@ nextcloud_localhost_plugin_configuration_directory: "{{role_path}}/plugins/"    
 
 ## Host Paths
 nextcloud_host_config_additives_directory:          "{{docker_compose.directories.volumes}}cymais/"               # This folder is the path to which the additive configurations will be copied
-nextcloud_host_include_instructions_file:           "{{docker_compose.directories.volumes}}includes.php"          # Path to the isntruction file on the host. Responsible for loading the additional configurations
+nextcloud_host_include_instructions_file:           "{{docker_compose.directories.volumes}}includes.php"          # Path to the instruction file on the host. Responsible for loading the additional configurations
 
 # Docker
 
