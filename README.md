@@ -12,40 +12,6 @@ Our intuitive interface, coupled with in-depth documentation, makes it accessibl
 
 With CyMaIS, setting up a secure, scalable, and robust IT infrastructure is not just faster and easier, but also aligned with the best industry practices, ensuring that your organization stays ahead in the ever-evolving digital landscape.
 
-## Documentation
-
-Explore the key documents for detailed information about CyMaIS:
-
-- [Features](01_FEATURES.md)  
-  *Overview of the core features and capabilities of CyMaIS.*
-
-- [Vision](02_VISION.md)  
-  *Learn about the vision and long-term goals behind CyMaIS.*
-
-- [Setup](03_SETUP.md)  
-  *Step-by-step instructions for seting up the system and its dependencies.*
-
-- [Configuration](group_vars/README.md)  
-  *Detailed procedures for configuring CyMaIS.*
-
-- [Deploy](tasks/README.md)
-  *Detailed procedures for deploying CyMaIS tp your servers*
-
-- [Enterprise](04_ENTERPRISE.md)  
-  *Guidance and best practices for enterprise deployments.*
-
-- [Donate](05_DONATE.md)  
-  *Information on how to support and donate to the CyMaIS project.*
-
-- [Code of Conduct](CODE_OF_CONDUCT.md)  
-  *Our guidelines to ensure a respectful and collaborative community.*
-
-- [Contributing](CONTRIBUTING.md)  
-  *Learn how to contribute to CyMaIS.*
-
-- [License](LICENSE.md)  
-  *Legal information regarding the use and distribution of CyMaIS.*
-
 ---
 
 Feel free to explore the individual documents for more detailed information. Enjoy using CyMaIS, and thank you for your interest in our project!

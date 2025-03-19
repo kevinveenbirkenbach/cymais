@@ -1,4 +1,4 @@
-# Security
+# Security Guidelines
 
 CyMaIS is designed with security in mind. However, while following our guidelines can greatly improve your system’s security, no IT system can be 100% secure. Please report any vulnerabilities as soon as possible.
 
