@@ -23,6 +23,8 @@ def run_ansible_playbook(inventory:str, playbook:str, modes:[bool], limit:str=No
     
     if password_file:
         cmd.extend(["--vault-password-file", password_file])
+    else:
+        cmd.extend(["--ask-vault-pass"])
     
     if verbose:
         cmd.append("-v")
