@@ -22,16 +22,19 @@ Explore the key documents for detailed information about CyMaIS:
 - [Vision](02_VISION.md)  
   *Learn about the vision and long-term goals behind CyMaIS.*
 
-- [Installation](03_INSTALLATION.md)  
-  *Step-by-step instructions for installing the system and its dependencies.*
+- [Setup](03_SETUP.md)  
+  *Step-by-step instructions for seting up the system and its dependencies.*
 
-- [Setup](04_SETUP.md)  
-  *Detailed procedures for configuring and deploying CyMaIS.*
+- [Configuration](group_vars/README.md)  
+  *Detailed procedures for configuring CyMaIS.*
 
-- [Enterprise](05_ENTERPRISE.md)  
+- [Deploy](tasks/README.md)
+  *Detailed procedures for deploying CyMaIS tp your servers*
+
+- [Enterprise](04_ENTERPRISE.md)  
   *Guidance and best practices for enterprise deployments.*
 
-- [Donate](06_DONATE.md)  
+- [Donate](05_DONATE.md)  
   *Information on how to support and donate to the CyMaIS project.*
 
 - [Code of Conduct](CODE_OF_CONDUCT.md)  

@@ -90,24 +90,7 @@ docker exec -it openldap sh -c 'ldapsearch -x -D "cn=administrator,dc=flock,dc=t
 - ❌ If results still exist, some entries were not removed.
 
 
----
-
-#### Manually Create the Base DN (dc=cymais,dc=cloud)
-Before importing the full LDIF file, you need to explicitly create the base DN (dc=cymais,dc=cloud) first.
-
-#### Create base.ldif for dc=cymais,dc=cloud
-Save this LDIF content into a file:
-```sh
-dn: dc=cymais,dc=cloud
-objectClass: top
-objectClass: domain
-dc: cymais
-```
-#### Add the Base DN to LDAP
-Run the following command to create the base DN before importing other entries:
-```sh
-cat base.ldif | docker exec -i openldap sh -c 'ldapadd -x -D "cn=admin,dc=cymais,dc=cloud" -w "$LDAP_ADMIN_PASSWORD"'
-```
+#### Create new_database.ldif
 
 docker exec -i openldap ldapadd -Y EXTERNAL -H ldapi:/// -f /dev/stdin < new_database.ldif
 
