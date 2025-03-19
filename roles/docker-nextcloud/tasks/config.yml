@@ -1,0 +1,18 @@
+- name: Merge all files in cymais directory (container)
+  block:
+    - name: Add dynamic config merging from Jinja template
+      template:
+        src: include.php.j2
+        dest: "{{nextcloud_host_include_instructions_file}}"
+      notify: docker compose restart
+
+    - name: Copy include instructions to the container
+      command: >
+        docker cp {{ nextcloud_host_include_instructions_file }} {{ applications.nextcloud.container.application }}:{{nextcloud_docker_include_instructions_file}}
+
+    - name: Append generated config to config.php only if not present
+      command: >
+        docker exec -u {{nextcloud_docker_user}} {{ applications.nextcloud.container.application }} sh -c "
+          grep -q '{{ nextcloud_docker_config_additives_directory }}' {{ nextcloud_docker_config_file }} || 
+          cat {{nextcloud_docker_include_instructions_file}} >> {{ nextcloud_docker_config_file }}"
+      notify: docker compose restart
