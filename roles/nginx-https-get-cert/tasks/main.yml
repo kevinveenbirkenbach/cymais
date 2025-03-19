@@ -8,7 +8,7 @@
       # Wildcard certificate should not be used
       # OR: The domain is not a first-level subdomain of the primary domain
 
-- name: "recieve wildcard certificate for *{{ primary_domain }}"
+- name: "recieve wildcard certificate *{{ primary_domain }} for {{domain}}"
   command: >-
     certbot certonly --agree-tos --email {{ users.administrator.email }}                                          
     --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{ primary_domain }} -d *.{{ primary_domain }}
@@ -20,8 +20,6 @@
       # AND: The domain is a direct first-level subdomain of the primary domain
     - run_once_recieve_certificate is not defined  
       # Ensure this task runs only once for the wildcard certificate
-    - domain == primary_domain  
-      # The domain is the primary domain
 
 - name: "Cleanup dedicated cert for {{ domain }}"
   command: >-
