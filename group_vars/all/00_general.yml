@@ -62,10 +62,10 @@ enable_debug:   false
 # You can overwritte it in this case in the applications in your inventory
 
 ## Matomo Tracking
-matomo_tracking_enabled_default:   true  # Enables\Disables Matomo tracking on all html pages by default.
+matomo_tracking_enabled_default:           true  # Enables\Disables Matomo tracking on all html pages by default.
 
 ## CSS
-css_enabled_default:               true  # Enables\Disables Global CSS on all html pages by default.
+css_enabled_default:                       true  # Enables\Disables Global CSS on all html pages by default.
 
 ## iframe for primary domain
-landingpage_iframe_enabled:        false # Enables\Disables the possibility to be embedded via iframe by default.
+landingpage_iframe_enabled_default:        false # Enables\Disables the possibility to be embedded via iframe by default.
