@@ -125,6 +125,7 @@ defaults_applications:
         username:       "{{users.administrator.username}}"  # Administrator Username for Keycloak
     ldap:
       enabled:          True                                # Enables LDAP by default
+    import_realm:       True                                # If True realm will be imported. If false skip.
     database: 
       central_storage:  True                                # Activate Central Database Storage
 #   database_password:                                      # Needs to be defined in inventory file   

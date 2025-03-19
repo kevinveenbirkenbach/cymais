@@ -18,7 +18,7 @@ location {{location | default("/")}}
 {% if nginx.iframe | bool %}
   # activate embedding via iframe
   add_header X-Frame-Options "SAMEORIGIN" always;
-  add_header Content-Security-Policy "frame-ancestors 'self' *.{{primary_domain}};" always;
+  add_header Content-Security-Policy "frame-ancestors {{primary_domain}} 'self' *.{{primary_domain}};" always;
 {% endif %}
 
   # WebSocket specific header
