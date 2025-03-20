@@ -6,3 +6,4 @@ sphinx-jinja
 sphinxcontrib-yaml
 pathspec
 markdown2
+pandoc
