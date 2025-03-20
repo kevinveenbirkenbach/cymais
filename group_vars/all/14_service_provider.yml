@@ -9,12 +9,12 @@ defaults_service_provider:
       city:         "Cybertown"
       postal_code:  "00001"
       country:      "Nexusland"
-    logo:           https://cloud.veen.world/s/logo_cymais_512x512/download
+    logo:           "{{applications.assets_server.url}}/logo.png"
   platform:    
     titel:          "CyMaIS Plattform Demo"
     subtitel:       "Demo of the Cyber Master Infrastructur Solution Plattform"
-    logo:           https://cloud.veen.world/s/logo_cymais_512x512/download
-    favicon:        https://cloud.veen.world/s/veen_world_favicon/download
+    logo:           "{{applications.assets_server.url}}/logo.png"
+    favicon:        "{{applications.assets_server.url}}/favicon.ico"
   contact:
     bluesky: "{{ '@' ~ users.administrator.username ~ '.' ~ domains.bluesky_api if 'bluesky' in group_names else '' }}"
     email: "contact@{{ primary_domain }}"

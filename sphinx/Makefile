@@ -11,8 +11,8 @@ SPHINX_BUILD_DIR   ?= ../docs
 
 # Copy images before running any Sphinx command (except for help)
 copy-images:
-	@echo "Copying images from ../images/ to ./_static/img/..."
-	cp -r ../images/* ./_static/img/
+	@echo "Copying images from ../images/ to ./assets/img/..."
+	cp -r ../assets/img/* ./assets/img/
 
 # "help" target does not copy images
 help:

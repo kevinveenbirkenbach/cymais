@@ -4,7 +4,7 @@ Welcome to CyMaIS (Cyber Master Infrastructure Solution), a transformative tool 
 
 At its core, CyMaIS leverages the power of Docker, Linux, and Ansible to offer a streamlined, automated solution for deploying and managing IT systems. 
 
-<img src="https://cybermaster.space/wp-content/uploads/sites/7/2023/12/logo_cymais.png" width="300" style="float: right; margin-left: 10px;">
+<img src="assets/img/logo.png" width="300" style="float: right; margin-left: 10px;">
 
 Whether you're a small startup, a growing enterprise, or an individual seeking efficient IT management, CyMaIS provides a comprehensive suite of tools that cater to a wide range of needs. From simple system setups to complex server configurations and end-user PC management, CyMaIS simplifies the entire process. 
 

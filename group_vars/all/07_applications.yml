@@ -20,19 +20,24 @@ defaults_applications:
 
   ## Akaunting
   akaunting:
-    version:            "latest"
-    company_name:       "{{primary_domain}}"
-    company_email:      "{{users.administrator.email}}"
-    setup_admin_email:  "{{users.administrator.email}}"
+    version:                      "latest"
+    company_name:                 "{{primary_domain}}"
+    company_email:                "{{users.administrator.email}}"
+    setup_admin_email:            "{{users.administrator.email}}"
     database:
       central_storage:  True
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
     css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
+  ## Assets Server
+  assets_server:
+    source_directory:             "{{ playbook_dir }}/assets"                   # Directory from which the assets will be copied
+    url:                          "https://{{domains.file_server}}/assets}}"    # Public address of the assets directory
+
   ## Attendize 
   attendize:
-    version:            "latest"
+    version:                      "latest"
     database:
       central_storage:  True
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
@@ -158,12 +163,6 @@ defaults_applications:
 
   ## HTML Server
   html_server:
-    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
-    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
-    landingpage_iframe_enabled:   "true"                                    # Landingpage should be embeded in portfolio
-
-  ## Imprint
-  imprint:
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
     css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   "true"                                    # Landingpage should be embeded in portfolio
@@ -316,12 +315,12 @@ defaults_applications:
 
   ## Moodle
   moodle:
-    site_titel:         "Global Learning Academy on {{primary_domain}}"
+    site_titel:                   "Global Learning Academy on {{primary_domain}}"
     users:
       administrator:
-        username:       "{{users.administrator.username}}"
-        email:          "{{users.administrator.email}}"
-    version:            "latest"
+        username:                 "{{users.administrator.username}}"
+        email:                    "{{users.administrator.email}}"
+    version:                      "latest"
     database:
       central_storage:  True                                                      # Activate Central Database Storage
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"           # Enables\Disables Matomo Tracking

@@ -1,3 +1,4 @@
 dependencies:
-- nginx-serve-html-legal
+- nginx-serve-legal
+- nginx-serve-assets
 - docker-portfolio

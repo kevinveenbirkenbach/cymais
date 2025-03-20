@@ -22,7 +22,7 @@ exclude_patterns = ['docs', 'venv', 'venv/**']
 
 # -- Options for HTML output -------------------------------------------------
 html_theme = 'sphinxawesome_theme'
-html_static_path = ['_static']
+html_static_path = ['assets']
 
 html_sidebars = {
     '**': [
@@ -31,8 +31,8 @@ html_sidebars = {
     ]
 }
 
-cymais_logo = "_static/img/logo.png"
-html_favicon = "_static/img/favicon.ico"
+cymais_logo = "assets/img/logo.png"
+html_favicon = "assets/img/favicon.ico"
 
 html_theme_options = {
     "show_prev_next": False,
