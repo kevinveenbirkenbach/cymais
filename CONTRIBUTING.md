@@ -5,10 +5,10 @@ Thank you for your interest in contributing to CyMaIS! We welcome contributions 
 ## How to Contribute
 
 There are several ways you can help:
-- **Reporting Issues:** Found a bug or have a feature request? Please open an issue on our [GitHub Issues page](https://github.com/your-repo-link/issues) with a clear description and steps to reproduce the problem.
+- **Reporting Issues:** Found a bug or have a feature request? Please open an issue on our [GitHub Issues page](https://github.com/kevinveenbirkenbach/cymais/issues) with a clear description and steps to reproduce the problem.
 - **Code Contributions:** If you'd like to contribute code, fork the repository, create a new branch for your feature or bug fix, and submit a pull request. Ensure your code adheres to our coding style and includes tests where applicable.
 - **Documentation:** Improving the documentation is a great way to contribute. Whether it's clarifying an existing section or adding new guides, your contributions help others understand and use CyMaIS effectively.
-- **Financial Contributions:** If you appreciate CyMaIS and want to support its ongoing development, consider making a financial contribution. For more details, please see our [06_DONATE.md](06_DONATE.md) file.
+- **Financial Contributions:** If you appreciate CyMaIS and want to support its ongoing development, consider making a financial contribution. For more details, please see our [donate options](11_DONATE.md).
 
 ## Code of Conduct
 

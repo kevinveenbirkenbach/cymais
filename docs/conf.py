@@ -52,16 +52,16 @@ html_theme_options = {
 }
 
 source_suffix = {
-    '.rst': 'restructuredtext',
     '.md': 'markdown',
+    '.rst': 'restructuredtext',
     '.yml': 'restructuredtext',
     '.yaml': 'restructuredtext',
 }
 
 sys.path.insert(0, os.path.abspath('./extensions'))
+
 extensions = [
-    'sphinx.ext.autosummary',
-    'sphinx.ext.autodoc',
+    #'sphinx.ext.autosummary',
     'myst_parser',
     'extensions.local_file_headings',
     'extensions.local_subfolders',

@@ -36,7 +36,9 @@ def generate_yaml_index(source_dir, output_file):
         f.write("This document lists all `.yaml` and `.yml` files found in the specified directory, excluding ignored files.\n\n")
 
         for file in sorted(yaml_files):
-            f.write(f".. literalinclude:: {file}\n   :language: yaml\n   :linenos:\n\n")
+            relative_file_path = os.path.relpath(file, start=os.path.dirname(output_file))
+            f.write(f".. literalinclude:: {relative_file_path}\n   :language: yaml\n   :linenos:\n\n")
+
 
     print(f"YAML index has been generated at {output_file}")
 

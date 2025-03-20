@@ -1,12 +1,12 @@
 .PHONY: install deinstall refresh
 
 install:
-	$(MAKE) -C sphinx html $(MAKEFLAGS)
-	$(MAKE) -C sphinx install $(MAKEFLAGS)
+	$(MAKE) -C docs html $(MAKEFLAGS)
+	$(MAKE) -C docs install $(MAKEFLAGS)
 
 deinstall:
-	$(MAKE) -C sphinx clean $(MAKEFLAGS)
+	$(MAKE) -C docs clean $(MAKEFLAGS)
 
 refresh:
-	$(MAKE) -C sphinx clean $(MAKEFLAGS)
-	$(MAKE) -C sphinx html $(MAKEFLAGS)
+	$(MAKE) -C docs clean $(MAKEFLAGS)
+	$(MAKE) -C docs html $(MAKEFLAGS)
