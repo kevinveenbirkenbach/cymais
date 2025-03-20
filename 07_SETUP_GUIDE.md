@@ -1,4 +1,4 @@
-# Setup
+# Setup Guide
 
 To setup CyMaIS follow this steps: 
 

@@ -1,6 +1,6 @@
 # Support Us
 
-CyMaIS is a transformative tool designed to redefine IT infrastructure setup for organizations and individuals alike. Your contributions directly support the ongoing development and innovation behind CyMaIS, ensuring that it continues to grow and serve its community effectively.
+CyMaIS is an Open Source Based transformative tool designed to redefine IT infrastructure setup for organizations and individuals alike. Your contributions directly support the ongoing development and innovation behind CyMaIS, ensuring that it continues to grow and serve its community effectively.
 
 If you enjoy using CyMaIS and would like to contribute to its improvement, please consider donating. Every contribution, no matter the size, helps us maintain and expand this project.
 

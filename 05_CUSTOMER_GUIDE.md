@@ -1,4 +1,4 @@
-# Enterprise Solutions
+# Customer Guide
 <img src="https://cybermaster.space/wp-content/uploads/sites/7/2023/11/FVG_8364BW-scaled.jpg" width="300" style="float: right; margin-left: 30px;">
 
 My name is Kevin Veen-Birkenbach and I'm glad to assist you in the implementation of your secure and scalable IT infrastrucutre solution with CyMaIS.

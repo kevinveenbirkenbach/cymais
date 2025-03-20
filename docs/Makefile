@@ -6,9 +6,9 @@ SPHINXOPTS         		?=	-c .
 SPHINXBUILD        		?=	sphinx-build
 SPHINX_SOURCE_DIR  		?=	../
 SPHINX_BUILD_DIR   		?=	./build
-SPHINX_GENERATED_DIR 	=	./generated
+SPHINX_GENERATED_DIR 	=	$(SPHINX_BUILD_DIR)/../generated
 
-.PHONY: help install copy-images apidoc remove-generated html Makefile
+.PHONY: help install copy-images apidoc remove-generated html generate Makefile
 
 # Copy images before running any Sphinx command (except for help)
 copy-images:
@@ -27,17 +27,26 @@ generate-yaml-index:
 generate-ansible-roles:
 	@echo "Generating Ansible roles documentation..."
 	python generators/ansible_roles.py --roles-dir $(SPHINX_SOURCE_DIR)/roles --output-dir $(SPHINX_GENERATED_DIR)/roles
+	@echo "Generating Ansible roles index..."
+	python generators/index.py --roles-dir generated/roles --output-file $(SPHINX_SOURCE_DIR)/roles/ansible_role_glosar.rst --caption "Ansible Role Glosar"
+	
+generate-readmes:	
+	@echo "Create required README.md's for index..."
+	python generators/readmes.py --generated-dir ./$(SPHINX_GENERATED_DIR)
+
+generate: generate-apidoc generate-yaml-index generate-ansible-roles generate-readmes
+
 
 remove-generated:
 	@echo "Removing generated files..."
 	- find $(SPHINX_GENERATED_DIR)/ -type f ! -name '.gitkeep' -delete
 
-# "help" target does not copy images
 help:
 	@$(SPHINXBUILD) -M help "$(SPHINX_SOURCE_DIR)" "$(SPHINX_BUILD_DIR)" $(SPHINXOPTS) $(O)
 
-html: copy-images generate-apidoc generate-ansible-roles generate-yaml-index
-	@$(SPHINXBUILD) -M html "$(SPHINX_SOURCE_DIR)" "$(SPHINX_BUILD_DIR)" $(SPHINXOPTS)
+html: copy-images generate
+	@echo "Building Sphinx documentation..."
+	$(SPHINXBUILD) -M html "$(SPHINX_SOURCE_DIR)" "$(SPHINX_BUILD_DIR)" $(SPHINXOPTS)
 
 just-html:
 	@$(SPHINXBUILD) -M html "$(SPHINX_SOURCE_DIR)" "$(SPHINX_BUILD_DIR)" $(SPHINXOPTS)

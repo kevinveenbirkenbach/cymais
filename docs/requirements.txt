@@ -5,3 +5,4 @@ docutils
 sphinx-jinja
 sphinxcontrib-yaml
 pathspec
+markdown2
