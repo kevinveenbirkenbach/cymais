@@ -13,3 +13,9 @@ nextcloud_system_config:
 
   - parameter: "default_phone_region"
     value: "{{ locale | upper }}"
+
+  - parameter: "trusted_domains 0"
+    value: "{{domains[application_id]}}"
+
+  - parameter: "overwrite.cli.url"
+    value: "https://{{domains[application_id]}}"

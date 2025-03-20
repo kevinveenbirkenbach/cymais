@@ -10,6 +10,9 @@ accounts:
     description: Platforms where I share content.
     icon:
       class: fas fa-newspaper
+
+{% if ["mastodon", "bluesky"] | any_in(group_names) %}  
+
     children:
     - name: Microblogs
       description: Stay updated with {{ 'our' if service_provider.type == 'legal' else 'my' }} microblogs.
@@ -39,6 +42,7 @@ accounts:
         - link: accounts.publishingchannels.microblogs.mastodon
         identifier: "{{service_provider.contact.bluesky}}"
 
+{% endif %}
 {% endif %}
 {% if service_provider.contact.pixelfed  is defined and service_provider.contact.pixelfed  != "" %}
 

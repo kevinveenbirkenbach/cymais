@@ -98,6 +98,12 @@ defaults_applications:
     css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
+  ## File Server
+  file_server:
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "true"                                    # Landingpage should be embeded in portfolio
+
   ## Friendica
   friendica:
     version:              "latest"
@@ -122,21 +128,21 @@ defaults_applications:
 
   ## Gitea
   gitea:
-    version:                  "latest"                                      # Use latest docker image 
+    version:                          "latest"                                  # Use latest docker image 
     database:
-      central_storage:        True                                          # Activate Central Database Storage
+      central_storage:                True                                      # Activate Central Database Storage
     configuration:
       repository:
-        enable_push_create_user:      True                                  # Allow users to push local repositories to Gitea and have them automatically created for a user.
-        default_private:              last                                  # Default private when creating a new repository: last, private, public
-        default_push_create_private:  True                                  # Default private when creating a new repository with push-to-create.
-    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
-    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
-    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe         
+        enable_push_create_user:      True                                      # Allow users to push local repositories to Gitea and have them automatically created for a user.
+        default_private:              last                                      # Default private when creating a new repository: last, private, public
+        default_push_create_private:  True                                      # Default private when creating a new repository with push-to-create.
+    matomo_tracking_enabled:          "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                      "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:       "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe         
 
   ## Gitlab
   gitlab:
-    version:            "latest"
+    version:                      "latest"
     database:
       central_storage:  True                                                # Activate Central Database Storage
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
@@ -145,10 +151,22 @@ defaults_applications:
 
   ## Joomla
   joomla:
-    version:            "latest"
+    version:                      "latest"
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
     css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
+
+  ## HTML Server
+  html_server:
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "true"                                    # Landingpage should be embeded in portfolio
+
+  ## Imprint
+  imprint:
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "true"                                    # Landingpage should be embeded in portfolio
 
   ## Keycloak
   keycloak:
@@ -186,7 +204,6 @@ defaults_applications:
         username:                     "{{users.administrator.username}}"
     ldap:
       enabled:                        True                                        # Should have the same value as applications.ldap.openldap.network.local.
-    force_import:                     false                                       # Forces the import of the LDIF files when set to true
     oauth2_proxy:
       enabled:                        true                                        # Activate the OAuth2 Proxy for the LDAP Webinterface
       application:                    lam                                         # Needs to be the same as webinterface
@@ -196,6 +213,7 @@ defaults_applications:
       central_storage:                false                                       # LDAP doesn't use an database in the current configuration. Propably a good idea to implement one later. 
     # administrator_password:                                                     # CHANGE for security reasons in inventory file
     # administrator_database_password:                                            # CHANGE for security reasons in inventory file
+    force_import:                 False                                           # Forces the import of the LDIF files
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"           # Enables\Disables Matomo Tracking
     css_enabled:                  "{{css_enabled_default}}"                       # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"        # Enables\Disables the possibility to embed this on landing page via iframe
@@ -230,7 +248,7 @@ defaults_applications:
 #     initial_administrator_password:                                             # Initial administrator password for setup 
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"           # Enables\Disables Matomo Tracking
     css_enabled:                  "{{css_enabled_default}}"                       # Enables\Disables Global CSS Style
-    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"        # Enables\Disables the possibility to embed this on landing page via iframe
+    landingpage_iframe_enabled:   true                                            # Default enabled because working well in iframe
 
   ## MariaDB
   mariadb:
@@ -331,7 +349,9 @@ defaults_applications:
       # @see https://apps.nextcloud.com/apps/oidc_login
       # @see https://apps.nextcloud.com/apps/sociallogin
       flavor:               "oidc_login"                                            # Keeping on sociallogin because the other option is not implemented yet                                             
-    force_import:           False                                                   # Forces the import of the LDIF files
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"             # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                         # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "true"                                            # Enables\Disables the possibility to embed this on landing page via iframe
     database:
       central_storage:      True                                                    # Activate Central Database Storage
     credentials:
@@ -540,9 +560,6 @@ defaults_applications:
       whiteboard:
         # Nextcloud Whiteboard: provides a collaborative drawing and brainstorming tool (https://apps.nextcloud.com/apps/whiteboard)
         enabled: true
-    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"           # Enables\Disables Matomo Tracking
-    css_enabled:                  "{{css_enabled_default}}"                       # Enables\Disables Global CSS Style
-    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"        # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## OAuth2 Proxy
   oauth2_proxy:

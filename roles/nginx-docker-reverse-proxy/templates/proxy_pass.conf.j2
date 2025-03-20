@@ -14,7 +14,7 @@ location {{location | default("/")}}
   proxy_set_header X-Forwarded-Port 443;
   proxy_set_header Accept-Encoding "";
 
-  {% include 'iframe.conf.j2' %}
+  {% include 'roles/nginx-docker-reverse-proxy/templates/iframe.conf.j2' %}
 
   # WebSocket specific header
   proxy_http_version 1.1;

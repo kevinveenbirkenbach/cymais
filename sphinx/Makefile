@@ -1,20 +1,24 @@
-# Minimal makefile for Sphinx documentation
+# Minimal Makefile for Sphinx documentation
 #
-
 # You can set these variables from the command line, and also
 # from the environment
-SPHINXOPTS    		?= -c .
-SPHINXBUILD   		?= sphinx-build
-SPHINX_SOURCE_DIR	?= ../
-SPHINX_BUILD_DIR 	?= ../docs
+SPHINXOPTS         ?= -c .
+SPHINXBUILD        ?= sphinx-build
+SPHINX_SOURCE_DIR  ?= ../
+SPHINX_BUILD_DIR   ?= ../docs
 
-# Put it first so that "make" without argument is like "make help".
+.PHONY: help install copy-images Makefile
+
+# Copy images before running any Sphinx command (except for help)
+copy-images:
+	@echo "Copying images from ../images/ to ./_static/img/..."
+	cp -r ../images/* ./_static/img/
+
+# "help" target does not copy images
 help:
 	@$(SPHINXBUILD) -M help "$(SPHINX_SOURCE_DIR)" "$(SPHINX_BUILD_DIR)" $(SPHINXOPTS) $(O)
 
-.PHONY: help install Makefile
-
 # Catch-all target: route all unknown targets to Sphinx using the new
-# "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
+# "make mode" option. $(O) is meant as a shortcut for $(SPHINXOPTS).
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SPHINX_SOURCE_DIR)" "$(SPHINX_BUILD_DIR)" $(SPHINXOPTS) $(O)

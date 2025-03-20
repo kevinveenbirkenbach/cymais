@@ -1,3 +1,0 @@
-matomo_tracking_enabled:    "{{ matomo_tracking_enabled | default(applications | get_matomo_tracking_enabled(application_id)) }}"
-css_enabled:                "{{ css_enabled | default (applications | get_css_enabled(application_id)) }}"
-landingpage_iframe_enabled: "{{ landingpage_iframe_enabled | default (applications | get_landingpage_iframe_enabled(application_id)) }}"

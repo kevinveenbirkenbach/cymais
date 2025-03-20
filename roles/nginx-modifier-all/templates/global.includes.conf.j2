@@ -2,16 +2,20 @@
 sub_filter_once off;
 sub_filter_types text/html;
 
-{% if matomo_tracking_enabled | bool %}
+{% set css_enabled_final                = applications.get(application_id).get('css_enabled') | bool %}
+{% set matomo_tracking_enabled_final    = applications.get(application_id).get('matomo_tracking_enabled') | bool %}
+
+
+{% if matomo_tracking_enabled_final | bool %}
   {# Include Global Matomo Tracking #}
   {% include 'roles/nginx-modifier-matomo/templates/matomo-tracking.conf.j2' %}
 {% endif %}
 
-{% if css_enabled | bool or matomo_tracking_enabled | bool %}
-  sub_filter '</head>' '{% if matomo_tracking_enabled | bool %}{% include 'roles/nginx-modifier-matomo/templates/script.j2' %}{% endif %}{% if css_enabled | bool %}{% include 'roles/nginx-modifier-css/templates/link.j2' %}{% endif %}</head>';
+{% if css_enabled_final | bool or matomo_tracking_enabled_final | bool %}
+  sub_filter '</head>' '{% if matomo_tracking_enabled_final | bool %}{% include 'roles/nginx-modifier-matomo/templates/script.j2' %}{% endif %}{% if css_enabled_final | bool %}{% include 'roles/nginx-modifier-css/templates/link.j2' %}{% endif %}</head>';
 {% endif %}
 
-{% if css_enabled | bool %}
+{% if css_enabled_final | bool %}
   {# Include Global CSS Location #}
   {% include 'roles/nginx-modifier-css/templates/location.conf.j2' %}
 {% endif %}

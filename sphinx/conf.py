@@ -31,8 +31,8 @@ html_sidebars = {
     ]
 }
 
-cymais_logo = "_static/img/logo_cymais.png"
-html_favicon = cymais_logo
+cymais_logo = "_static/img/logo.png"
+html_favicon = "_static/img/favicon.ico"
 
 html_theme_options = {
     "show_prev_next": False,
