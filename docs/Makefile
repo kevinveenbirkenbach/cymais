@@ -5,7 +5,7 @@
 SPHINXOPTS         		?=	-c .
 SPHINXBUILD        		?=	sphinx-build
 SPHINX_SOURCE_DIR  		?=	../
-SPHINX_BUILD_DIR   		?=	../docs
+SPHINX_BUILD_DIR   		?=	./generated
 SPHINX_APIDOC_BUILD_DIR =	$(SPHINX_SOURCE_DIR)modules	 
 
 .PHONY: help install copy-images apidoc remove-apidoc html Makefile

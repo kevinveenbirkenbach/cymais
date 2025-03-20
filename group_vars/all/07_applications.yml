@@ -632,7 +632,7 @@ defaults_applications:
 
   portfolio:
     database:
-      central_storage:  False # Portfolio doesn't use any database
+      central_storage:  False                                               # Portfolio doesn't use any database
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
     css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   false                                     # Doesn't make sense to load landingpage in landingpage
@@ -648,12 +648,12 @@ defaults_applications:
 
   ## Sphinx
   sphinx:
-    version:                  "3.9-slim"                                          # Use latest docker image
-    repository_sphinx_source: "https://github.com/kevinveenbirkenbach/cymais.git" # Repository address to pull the source repository from
-    sphinx_exec_dir_relative: "sphinx/"                                           # The relative path to the sphinx Makefile folder from the source dir
-    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"           # Enables\Disables Matomo Tracking
-    css_enabled:                  "{{css_enabled_default}}"                       # Enables\Disables Global CSS Style
-    landingpage_iframe_enabled:   true                                            # Makes sense to make the documentary allways in iframe available
+    version:                      "3.9-slim"                                          # Use latest docker image
+    repository_sphinx_source:     "https://github.com/kevinveenbirkenbach/cymais.git" # Repository address to pull the source repository from
+    sphinx_exec_dir_relative:     "docs/"                                             # The relative path to the sphinx Makefile folder from the source dir
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"               # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                           # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   true                                                # Makes sense to make the documentary allways in iframe available
       
 
   ## Taiga
