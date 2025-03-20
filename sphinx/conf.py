@@ -16,6 +16,13 @@ project = 'CyMaIS - Cyber Master Infrastructure Solution'
 copyright = '2025, Kevin Veen-Birkenbach'
 author = 'Kevin Veen-Birkenbach'
 
+# Highlighting for Jinja
+from sphinx.highlighting import lexers
+from pygments.lexers.templates import DjangoLexer
+
+lexers['jinja'] = DjangoLexer()
+lexers['j2'] = DjangoLexer()
+
 # -- General configuration ---------------------------------------------------
 templates_path = ['templates']
 exclude_patterns = ['docs', 'venv', 'venv/**']
@@ -54,6 +61,9 @@ extensions = [
     'extensions.local_subfolders',
     'extensions.roles_overview',
     'extensions.markdown_include',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',  # Optional, wenn Sie Google- oder NumPy-Dokstrings verwenden
+
 ]
 
 autosummary_generate = True
@@ -62,7 +72,29 @@ myst_enable_extensions = [
     "colon_fence", 
 ]
 
+import logging
+from docutils import nodes
+
+logger = logging.getLogger(__name__)
+
+def replace_assets_in_doctree(app, doctree, docname):
+    # Replace asset references in image nodes
+    for node in doctree.traverse(nodes.image):
+        if "assets/" in node['uri']:
+            new_uri = node['uri'].replace("assets/", "_static/")
+            node['uri'] = new_uri
+            logger.info("Replaced image URI in {}: {}".format(docname, new_uri))
+    
+    # Replace asset references in raw HTML nodes
+    for node in doctree.traverse(nodes.raw):
+        if node.get('format') == 'html' and "assets/" in node.astext():
+            new_text = node.astext().replace("assets/", "_static/")
+            node.children = [nodes.raw('', new_text, format='html')]
+            logger.info("Replaced raw HTML assets in {}.".format(docname))
+
 def setup(app):
+    app.connect("doctree-resolved", replace_assets_in_doctree)
+    
     python_domain = app.registry.domains.get('py')
     if python_domain is not None:
         directive = python_domain.directives.get('currentmodule')
