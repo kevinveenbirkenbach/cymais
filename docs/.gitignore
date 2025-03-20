@@ -1,2 +1,4 @@
 assets/img/*
+build/*
 generated/*
+!generated/.gitkeep

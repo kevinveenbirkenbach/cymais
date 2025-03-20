@@ -2,4 +2,6 @@ myst-parser
 sphinx
 sphinxawesome-theme
 docutils
-sphinxcontrib-jinja
+sphinx-jinja
+sphinxcontrib-yaml
+pathspec

@@ -2,4 +2,3 @@ site.retry
 *__pycache__
 venv
 *.log
-modules/*

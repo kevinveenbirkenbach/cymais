@@ -25,7 +25,11 @@ lexers['j2'] = DjangoLexer()
 
 # -- General configuration ---------------------------------------------------
 templates_path = ['templates']
-exclude_patterns = ['docs', 'venv', 'venv/**']
+exclude_patterns = [
+    'docs/build', 
+    'venv', 
+    'venv/**'
+    ]
 
 # -- Options for HTML output -------------------------------------------------
 html_theme = 'sphinxawesome_theme'
@@ -50,6 +54,8 @@ html_theme_options = {
 source_suffix = {
     '.rst': 'restructuredtext',
     '.md': 'markdown',
+    '.yml': 'restructuredtext',
+    '.yaml': 'restructuredtext',
 }
 
 sys.path.insert(0, os.path.abspath('./extensions'))
@@ -62,8 +68,7 @@ extensions = [
     'extensions.roles_overview',
     'extensions.markdown_include',
     'sphinx.ext.autodoc',
-    'sphinx.ext.napoleon',  # Optional, wenn Sie Google- oder NumPy-Dokstrings verwenden
-
+    'sphinx.ext.napoleon',
 ]
 
 autosummary_generate = True

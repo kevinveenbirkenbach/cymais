@@ -1,4 +1,4 @@
 About
 ===============================
 
-.. markdown-include:: README.md
+.. markdown-include:: ../README.md
