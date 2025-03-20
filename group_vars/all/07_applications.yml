@@ -182,7 +182,7 @@ defaults_applications:
 #   administrator_password:                                                 # Needs to be defined in inventory file
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
     css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
-    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe      
+    landingpage_iframe_enabled:   false                                     # Disabled by default, because it leads to authentification problems
 
   ## LDAP
   ldap:
