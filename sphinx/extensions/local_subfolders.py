@@ -4,6 +4,8 @@ from .nav_utils import extract_headings_from_file, MAX_HEADING_LEVEL
 
 logger = logging.getLogger(__name__)
 
+CANDIDATES = ['index.rst', 'readme.md', 'main.rst']
+
 def collect_folder_tree(dir_path, base_url):
     """
     Recursively collects the folder tree starting from the given directory.
@@ -28,7 +30,7 @@ def collect_folder_tree(dir_path, base_url):
 
     # Find representative file for folder title using index or readme
     rep_file = None
-    for candidate in ['index.rst', 'index.md', 'readme.md', 'readme.rst']:
+    for candidate in CANDIDATES:
         for f in files:
             if f.lower() == candidate:
                 rep_file = f
@@ -48,7 +50,7 @@ def collect_folder_tree(dir_path, base_url):
     # Remove the representative file from the list to avoid duplication,
     # and filter out any additional "readme.md" or "index.rst" files.
     files.remove(rep_file)
-    files = [f for f in files if f.lower() not in ['readme.md', 'index.rst']]
+    files = [f for f in files if f.lower() not in CANDIDATES]
 
     # Process the remaining files in the current directory
     file_items = []

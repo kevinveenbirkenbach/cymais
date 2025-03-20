@@ -59,6 +59,10 @@
         users:            "{{users}}"
     when: enable_debug | bool
 
+- name: init root user
+  include_role:
+    name: user-root
+
 - name: update device
   include_role:
     name: update

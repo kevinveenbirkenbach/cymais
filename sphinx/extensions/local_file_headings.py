@@ -29,8 +29,8 @@ def add_local_file_headings(app, pagename, templatename, context, doctree):
     files = [f for f in os.listdir(abs_dir) if f.endswith('.md') or f.endswith('.rst')]
     # If an index file is present, remove any readme files (case-insensitive).
     files_lower = [f.lower() for f in files]
-    if 'index.md' in files_lower or 'index.rst' in files_lower:
-        files = [f for f in files if f.lower() not in ['readme.md', 'readme.rst']]
+    if 'index.rst' in files_lower:
+        files = [f for f in files if f.lower() not in ['readme.md']]
 
     file_items = []
     for file in files:

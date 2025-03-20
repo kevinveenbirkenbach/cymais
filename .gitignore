@@ -3,3 +3,4 @@ site.retry
 docs/*
 venv
 *.log
+modules/*

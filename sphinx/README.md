@@ -1,6 +1,3 @@
-Hier die angepasste Version der README.md mit Erläuterungen zu den zusätzlichen Befehlen:
-
-```markdown
 # Documentation
 
 CyMaIS uses [Sphinx](https://www.sphinx-doc.org/) to automatically generate its documentation and leverages the [Awesome Sphinx Theme](https://sphinxawesome.xyz/) for a sleek and responsive design. Enjoy a seamless, visually engaging experience 🚀✨.
