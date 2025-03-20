@@ -1,17 +1,35 @@
-# CyMaIS - Cyber Master Infrastructure Solution
 
-Welcome to CyMaIS (Cyber Master Infrastructure Solution), a transformative tool designed to redefine IT infrastructure setup for organizations and individuals alike. 
+# README.md
 
-At its core, CyMaIS leverages the power of Docker, Linux, and Ansible to offer a streamlined, automated solution for deploying and managing IT systems. 
+# CyMaIS - Cyber Master Infrastructure Solution 🚀
 
-<img src="assets/img/logo.png" width="300" style="float: right; margin-left: 10px;">
+Welcome to **CyMaIS (Cyber Master Infrastructure Solution)**, a powerful automation framework that simplifies IT infrastructure setup and management. Whether you are an **end-user** looking to access cloud services securely or an **administrator** responsible for deploying and maintaining infrastructure, CyMaIS provides a seamless and secure solution.
 
-Whether you're a small startup, a growing enterprise, or an individual seeking efficient IT management, CyMaIS provides a comprehensive suite of tools that cater to a wide range of needs. From simple system setups to complex server configurations and end-user PC management, CyMaIS simplifies the entire process. 
+![CyMaIS Logo](assets/img/logo.png)
 
-Our intuitive interface, coupled with in-depth documentation, makes it accessible to both tech-savvy users and those with limited IT experience. 
+## What is CyMaIS? 📌
+CyMaIS leverages **Docker, Linux, and Ansible** to provide an automated and modular infrastructure solution. With more then **148 pre-configured roles**, it supports a wide range of applications, from cloud services to local server management and desktop workstation setups.
 
-With CyMaIS, setting up a secure, scalable, and robust IT infrastructure is not just faster and easier, but also aligned with the best industry practices, ensuring that your organization stays ahead in the ever-evolving digital landscape.
+## Guides 📖
+- **[User Guide](04_USER_GUIDE.md)** - For end-users accessing cloud apps like Nextcloud, Matrix, and more.
+- **[Administrator Guide](06_ADMINISTRATOR_GUIDE.md)** - For system administrators deploying CyMaIS.
 
----
+## Key Features 🎯
+- **Automated IT deployment** 📦 - Pre-built roles for server and PC setups
+- **Enterprise-ready security** 🔒 - Supports LDAP, Keycloak, 2FA, and encrypted storage
+- **Scalability & flexibility** 📈 - Modular approach for small teams to large enterprises
+- **Backup & recovery solutions** 💾 - Automate data security and prevent loss
+- **Infrastructure monitoring & maintenance** 📊 - Keep your system running optimally
 
-Feel free to explore the individual documents for more detailed information. Enjoy using CyMaIS, and thank you for your interest in our project!
+## Get Started 🚀
+1. **Install CyMaIS** via [Kevin's Package Manager](https://github.com/kevinveenbirkenbach/package-manager)
+2. **Setup CyMaIS** using:
+   ```sh
+   pkgmgr setup cymais
+   ```
+3. **Explore Commands** with:
+   ```sh
+   cymais --help
+   ```
+
+For detailed setup instructions, check out the [Setup Guide](07_SETUP_GUIDE.md) and [Configuration Guide](08_CONFIGURATION.md).

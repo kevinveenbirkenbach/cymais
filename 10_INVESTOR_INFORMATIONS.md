@@ -1,1 +1,0 @@
-# Investor Informations
