@@ -10,7 +10,7 @@
     state: directory
     mode: '0755'
 
-- name: pull the source repository to build the Sphinx documentation from {{ applications.sphinx.repository_sphinx_source }}
+- name: "pull the source repository to build the Sphinx documentation from {{ applications.sphinx.repository_sphinx_source }} to {{ host_sphinx_source_dir_absolute }}"
   git:
     repo: "{{ applications.sphinx.repository_sphinx_source }}"
     dest: "{{ host_sphinx_source_dir_absolute }}"
