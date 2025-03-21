@@ -680,14 +680,13 @@ navigation:
           description: Manage User via Keycloak
           icon:
             class: fas fa-user-shield
-          url: https://{{domains.keycloak}}/admin
           iframe: {{ applications | get_landingpage_iframe_enabled('keycloak') }}
           children:
           - name: Keycloak Master Admin
             description: Access the central admin console
             icon:
               class: fa-solid fa-shield-halved
-            url: https://{{ domains.keycloak }}/admin/master/console/
+            url: https://{{domains.keycloak}}/admin
             iframe: {{ applications | get_landingpage_iframe_enabled('keycloak') }}
           - name: Manage Your Profile
             description: Update your personal admin settings
