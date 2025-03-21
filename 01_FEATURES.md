@@ -23,4 +23,4 @@ No need to be a Linux or Docker expert! CyMaIS simplifies deployment with intuit
 ## Open Source Trust & Transparency 🔓
 As an open-source project, CyMaIS guarantees transparency, security, and community-driven development, ensuring continuous improvements and adherence to industry best practices.
 
-For further information, check out the full [User Guide](04_USER_GUIDE.md) and [Enterprise Solutions](10_ENTERPRISE_SOLUTIONS.md).
+For further information, check out the [application glosar](roles/application_glosar), [applications ordered by category](roles/application_categories) and the [detailled ansible role descriptions](roles/ansible_role_glosar).
