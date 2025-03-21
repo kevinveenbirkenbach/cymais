@@ -1,4 +1,4 @@
-# MariaDB Docker Ansible Role
+# MariaDB
 
 ## Overview
 This Ansible role facilitates the deployment of a MariaDB server using Docker. It is designed to ensure ease of installation and configuration, with the flexibility to adapt to different environments.
@@ -25,3 +25,6 @@ Configure the role by setting the required variables. These can be set in the pl
 
 ## Contributing
 Contributions to this project are welcome. Please submit issues and pull requests with your suggestions.
+
+## Other Ressources
+- [Reset Password for MariaDB/MySQL in Docker](https://wolfgang.gassler.org/reset-password-mariadb-mysql-docker/)

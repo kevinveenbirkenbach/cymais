@@ -11,7 +11,7 @@ domain:                                             "{{domains[application_id]}}
 http_port:                                          "{{ ports.localhost.http[application_id] }}"                  # Port at which nextcloud is reachable in the local network
 
 # Localhost
-nextcloud_localhost_plugin_configuration_directory: "{{role_path}}/plugins/"                                      # Folder in which the files for the plugin configuration are stored
+nextcloud_localhost_plugin_configuration_directory: "{{role_path}}/vars/plugins/"                                 # Folder in which the files for the plugin configuration are stored
 
 # Host 
 

@@ -2,7 +2,8 @@
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
   description: >
-    Installs and maintains Docker.
+    Provisions a secure and production-ready Nextcloud instance,
+    with support for LDAP, OIDC, SSO, and automated plugin configuration.
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -15,21 +16,15 @@ galaxy_info:
       versions:
         - all
   galaxy_tags:
+    - nextcloud
     - docker
-    - container
-    - infrastructure
+    - nginx
+    - oidc
+    - ldap
     - automation
-    - cleanup
-    - linux
-    - system
+    - cloud
+    - web
+    - php
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
-  documentation: "https://s.veen.world/cymais/docker"
-
-dependencies:
-  - backup-docker-to-local
-  - user-administrator
-  - health-docker-container
-  - health-docker-volumes
-  - heal-docker
-  - restart-docker
+  documentation: "https://s.veen.world/cymais/docker-nextcloud"

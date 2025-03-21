@@ -1,24 +1,45 @@
-# Nextcloud Server
+# Nextcloud
 
-This repository contains an Ansible role for deploying and managing [Nextcloud](https://nextcloud.com/) using [Docker](https://www.docker.com/). It covers configuration modifications, updates, backups, database management, and more. Additionally, OIDC (OpenID Connect) is supported (for example, via **Keycloak**).
----
+## Description
 
-## Other Resources
+This Ansible role provisions a production-grade **Nextcloud** deployment using Docker Compose. It includes support for LDAP and OIDC authentication, Redis caching, secure configuration management, and declarative plugin control via `occ`. The setup is modular and integrates cleanly into larger infrastructure environments.
 
-- [Nextcloud Docker Example with Nginx Proxy, MariaDB, and FPM](https://github.com/nextcloud/docker/blob/master/.examples/docker-compose/with-nginx-proxy/mariadb/fpm/docker-compose.yml)
-- [Nextcloud Upgrade via Docker by Goneuland](https://goneuland.de/nextcloud-upgrade-auf-neue-versionen-mittels-docker/)
-- [Nextcloud Data Version Issue](https://help.nextcloud.com/t/cant-start-nextcloud-because-the-version-of-the-data-is-higher-than-the-docker-image-version-and-downgrading-is-not-supported/109438)
-- [Nextcloud Docker Issue #1302](https://github.com/nextcloud/docker/issues/1302)
-- [Update to Nextcloud 22 Failed Database Error](https://help.nextcloud.com/t/update-to-22-failed-with-database-error-updated/120682)
-- [Nextcloud 21.0.0-beta1 Database Error](https://help.nextcloud.com/t/nc-update-to-21-0-0-beta1-exception-database-error/101124/4)
-- [Reset Password for MariaDB/MySQL in Docker](https://wolfgang.gassler.org/reset-password-mariadb-mysql-docker/)
-- [Ansible Docker Container and depends_on Issue](https://unix.stackexchange.com/questions/478855/ansible-docker/container/and-depends-on)
-- [Docker Convenience Scripts by gdiepen](https://github.com/gdiepen/docker-convenience-scripts)
-- [Issues After Upgrading to Nextcloud 21](https://help.nextcloud.com/t/several-issues-after-upgrading-to-nextcloud-21/113118/3)
-- [Nextcloud Talk Plugin and Turnserver in Docker](https://forum.openmediavault.org/index.php?thread/31782-docker-nextcloud-talk-plugin-and-turnserver/)
-- [Nextcloud Talk on Docker: Turn Server Issues](https://help.nextcloud.com/t/nextcloud-talk-im-docker/container/turn-server-auf-docker-host-kein-video/84133/10)
+## Overview
 
----
-*Enjoy and happy containerizing! 😄*
+The role ensures consistent deployments, full automation, and secure configuration injection into `config.php` using additive includes. Authentication is handled through LDAP and OIDC (e.g., via Keycloak), and backup/recovery operations are fully supported.
 
+## Purpose
 
+To automate the deployment of **secure, extensible, and production-ready Nextcloud instances** using Docker and Ansible.
+
+## Features
+
+- Dockerized Nextcloud (PHP-FPM, Nginx, Cron, Redis)
+- Templated Nginx configuration (internal and external)
+- Automated certificate and HTTPS proxy integration
+- Healthcheck support
+- Backup & recovery integration
+- IAM & SOO
+- Hundreds of integrated plugins
+
+## Related Documentation
+
+Here are all supporting documentation files within this role:
+
+| Topic | Description |
+|-------|-------------|
+| [Applications](Applications.md) | SQL examples and debug notes for plugins like **Cospend** |
+| [Architecture](Architecture.md) | Overview of architectural integrations |
+| [Administration](Administration.md) | Manual operations like update, config edits, recovery |
+| [Update](Update.md) | Step-by-step update and restore instructions |
+| [OCC](OCC.md) | Nextcloud CLI usage guide (user management, config, maintenance) |
+| [Database](Database.md) | Managing the database (local mode) |
+| [IAM](IAM.md) | LDAP & OIDC Identity and Access Management |
+
+## External Resources
+
+- [Nextcloud Docker Documentation](https://github.com/nextcloud/docker)
+- [Nextcloud Admin Manual](https://docs.nextcloud.com/server/latest/admin_manual/)
+- [LDAP Integration Guide](https://docs.nextcloud.com/server/latest/admin_manual/configuration_user/user_auth_ldap.html)
+- [OIDC Login Plugin (pulsejet)](https://github.com/pulsejet/nextcloud-oidc-login)
+- [Sociallogin Plugin (Official)](https://apps.nextcloud.com/apps/sociallogin)

@@ -1,25 +1,30 @@
-# Automated USB Backup
+# Docker 🐳
 
 ## Description
 
-This Ansible role automates data backups to a swappable USB device. It triggers the backup process automatically when the USB is mounted, allowing for customizable source and destination paths and integrating with systemd for reliable execution.
+This Ansible role installs and manages Docker on Arch Linux systems. It ensures that Docker and Docker Compose are available, configured, and ready to run containerized workloads, while enabling seamless integration with system roles and administrative tasks.
+Checkout the [administration reference](./Administration.md) for volume cleanup, container resets, and Docker network recovery.
 
 ## Overview
 
-Optimized for Archlinux, this role ensures that backups are performed consistently with minimal manual intervention. It leverages efficient synchronization methods and provides a seamless integration with systemd to manage the backup service.
+Tailored for Arch Linux, this role handles the installation of Docker and Docker Compose using the system’s package manager. It sets up a secure environment for managing Compose instances and ensures the Docker service is properly enabled and restarted. In addition, the role flags its state so that dependent roles can execute conditionally.
 
 ## Purpose
 
-The primary purpose of this role is to simplify the backup process for systems that rely on removable USB devices. It is designed to reduce the risk of data loss by automating backups, ensuring that data is safely and consistently synchronized whenever the device is connected.
+The purpose of this role is to automate the provisioning of Docker environments in a consistent and maintainable way. It reduces manual setup steps and enables clean integration with other infrastructure roles, making it ideal for production or homelab deployments.
 
 ## Features
 
-- **Automatic Trigger:** Initiates the backup process immediately upon USB mount.
-- **Customizable Paths:** Easily configure the source directory and backup destination.
-- **Systemd Integration:** Manages the backup process via a dedicated systemd service.
-- **Efficient Synchronization:** Utilizes rsync with incremental backup strategies for optimal performance.
-- **Optimized for Archlinux:** Tailored for Archlinux systems using the rolling release model.
+- **Installs Docker & Docker Compose:** Uses `pacman` to install necessary packages.
+- **Service Management:** Automatically enables and restarts the Docker service.
+- **Secure Directory Creation:** Creates a secure location for Docker Compose instance files.
+- **Run-once Setup Logic:** Ensures idempotent execution by controlling task flow with internal flags.
+- **System Role Integration:** Sets internal state (`docker_enabled`) for use by other CyMaIS roles.
 
 ## Credits 📝
 
-Developed and maintained by **Kevin Veen-Birkenbach**. Special thanks to [OpenAI ChatGPT](https://chat.openai.com/share/a75ca771-d8a4-4b75-9912-c515ba371ae4) for its assistance in developing this role.
+Developed and maintained by **Kevin Veen-Birkenbach**.  
+Learn more at [www.veen.world](https://www.veen.world)
+
+Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
+License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)
