@@ -2,6 +2,7 @@
 
 import argparse
 import subprocess
+import os
 
 def run_ansible_vault(action, filename, password_file):
     """Execute an ansible-vault command with the specified action on a file."""
@@ -32,6 +33,10 @@ def run_ansible_playbook(inventory:str, playbook:str, modes:[bool], limit:str=No
     subprocess.run(cmd, check=True)
 
 def main():
+    # Change to script dir to execute all folders relative to their
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    os.chdir(script_dir)
+    
     parser = argparse.ArgumentParser(description="CyMaIS Ansible Deployment and Vault Management")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -72,7 +77,7 @@ def main():
         }
 
         # Use a fixed playbook file "playbook.yml"
-        run_ansible_playbook(args.inventory, "playbook.yml", modes, args.limit, args.password_file, args.verbose)
+        run_ansible_playbook(args.inventory, f"{script_dir}/playbook.yml", modes, args.limit, args.password_file, args.verbose)
 
 if __name__ == "__main__":
     main()
