@@ -32,13 +32,6 @@ To resend queued mails, use this command:
 docker-compose exec -it smtp postqueue -f
 ```
 
-# Testing 🧪
-
-Use the following tools for testing:
-
-- [SSL-Tools Mailserver Test](https://de.ssl-tools.net/mailservers/)
-- [TestEmail.de](http://testemail.de/)
-
 # Updates 🔄
 
 For instructions on updating your Mailu setup, follow the official [Mailu maintenance guide](https://mailu.io/master/maintain.html).

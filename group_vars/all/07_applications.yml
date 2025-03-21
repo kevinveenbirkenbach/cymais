@@ -32,8 +32,8 @@ defaults_applications:
 
   ## Assets Server
   assets_server:
-    source_directory:             "{{ playbook_dir }}/assets"                   # Directory from which the assets will be copied
-    url:                          "https://{{domains.file_server}}/assets}}"    # Public address of the assets directory
+    source_directory:             "{{ playbook_dir }}/assets"               # Directory from which the assets will be copied
+    url:                          "https://{{domains.file_server}}/assets"  # Public address of the assets directory
 
   ## Attendize 
   attendize:
@@ -600,17 +600,17 @@ defaults_applications:
 
   ## PHPMyAdmin
   phpmyadmin:
-    version:              "latest"
-    autologin:            false                                             # This is a high security risk. Just activate this option if you know what you're doing
+    version:                      "latest"
+    autologin:                    false                                     # This is a high security risk. Just activate this option if you know what you're doing
     oauth2_proxy:  
-      enabled:            true
-      port:               "80"
-      application:        "application"
-#     cookie_secret:      None                                              # Set via openssl rand -hex 16
+      enabled:                    true
+      port:                       "80"
+      application:                "application"
+#     cookie_secret:              None                                      # Set via openssl rand -hex 16
     database:
-      central_storage:    True                                              # Activate Central Database Storage
+      central_storage:            True                                      # Activate Central Database Storage
     css:
-      enabled:            False                                             # The css needs more optimation for PHPMyAdmin
+      enabled:                    False                                     # The css needs more optimation for PHPMyAdmin
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
     css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
@@ -639,7 +639,7 @@ defaults_applications:
 
   # Snipe-IT
   snipe_it:
-    version:           "latest"
+    version:                      "latest"
     database:
       central_storage:  True                                                # Activate Central Database Storage
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking

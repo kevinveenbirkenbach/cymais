@@ -682,6 +682,25 @@ navigation:
             class: fas fa-user-shield
           url: https://{{domains.keycloak}}/admin
           iframe: {{ applications | get_landingpage_iframe_enabled('keycloak') }}
+          children:
+          - name: Keycloak Master Admin
+            description: Access the central admin console
+            icon:
+              class: fa-solid fa-shield-halved
+            url: https://{{ domains.keycloak }}/admin/master/console/
+            iframe: {{ applications | get_landingpage_iframe_enabled('keycloak') }}
+          - name: Manage Your Profile
+            description: Update your personal admin settings
+            icon:
+              class: fa-solid fa-user-gear
+            url: https://{{ domains.keycloak }}/realms/{{oidc.client.id}}/account
+            iframe: {{ applications | get_landingpage_iframe_enabled('keycloak') }}
+          - name: Log Out of Keycloak
+            description: End your admin session securely
+            icon:
+              class: fa-solid fa-right-from-bracket
+            url: https://{{ domains.keycloak }}/realms/{{oidc.client.id}}/protocol/openid-connect/logout
+            iframe: false
 
     {% endif %}
     {% if "ldap" in group_names %}   
