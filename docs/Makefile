@@ -1,14 +1,33 @@
-# Minimal Makefile for Sphinx documentation
-#
-# You can set these variables from the command line, and also
-# from the environment
-SPHINXOPTS         		?=	-c .
-SPHINXBUILD        		?=	sphinx-build
-SPHINX_SOURCE_DIR  		?=	../
-SPHINX_BUILD_DIR   		?=	./build
-SPHINX_GENERATED_DIR 	=	$(SPHINX_BUILD_DIR)/../generated
+# PARAMETER (with default values)
 
-.PHONY: help install copy-images apidoc remove-generated html generate Makefile
+# Directory which cointains the Makefile
+SPHINX_EXEC_DIR			?= .
+
+# Directory from which the sources will be read
+SPHINX_SOURCE_DIR  		?= ../
+
+# Directory which contains the builded files
+SPHINX_OUTPUT_DIR   	?= ./output
+
+# Args parsed to the sphinx-build command
+SPHINXOPTS         		?= -c $(SPHINX_EXEC_DIR)
+
+# CONSTANTS
+
+# Sphinx build command
+SPHINX_BUILD_COMMAND    = sphinx-build
+
+# Directory which contains the auto generated files
+SPHINX_GENERATED_DIR 	= $(SPHINX_OUTPUT_DIR)/../generated
+
+# Directory which contains the extracted requirement files
+SPHINX_REQUIREMENTS_DIR = $(SPHINX_EXEC_DIR)/requirements
+
+.PHONY: help install copy-images apidoc remove-generated html generate extract-requirements Makefile
+
+extract-requirements:
+	@echo "Creating requirement files"
+	bash ./scripts/extract-requirements.sh "$(SPHINX_EXEC_DIR)/requirements.yml" "$(SPHINX_REQUIREMENTS_DIR)/apt.txt" "$(SPHINX_REQUIREMENTS_DIR)/pip.txt"
 
 # Copy images before running any Sphinx command (except for help)
 copy-images:
@@ -42,20 +61,20 @@ remove-generated:
 	- find $(SPHINX_GENERATED_DIR)/ -type f ! -name '.gitkeep' -delete
 
 help:
-	@$(SPHINXBUILD) -M help "$(SPHINX_SOURCE_DIR)" "$(SPHINX_BUILD_DIR)" $(SPHINXOPTS) $(O)
+	@$(SPHINX_BUILD_COMMAND) -M help "$(SPHINX_SOURCE_DIR)" "$(SPHINX_OUTPUT_DIR)" $(SPHINXOPTS) $(O)
 
 html: copy-images generate
 	@echo "Building Sphinx documentation..."
-	$(SPHINXBUILD) -M html "$(SPHINX_SOURCE_DIR)" "$(SPHINX_BUILD_DIR)" $(SPHINXOPTS)
+	$(SPHINX_BUILD_COMMAND) -M html "$(SPHINX_SOURCE_DIR)" "$(SPHINX_OUTPUT_DIR)" $(SPHINXOPTS)
 
 just-html:
-	@$(SPHINXBUILD) -M html "$(SPHINX_SOURCE_DIR)" "$(SPHINX_BUILD_DIR)" $(SPHINXOPTS)
+	@$(SPHINX_BUILD_COMMAND) -M html "$(SPHINX_SOURCE_DIR)" "$(SPHINX_OUTPUT_DIR)" $(SPHINXOPTS)
 
 
 clean: remove-generated
-	@$(SPHINXBUILD) -M clean "$(SPHINX_SOURCE_DIR)" "$(SPHINX_BUILD_DIR)" $(SPHINXOPTS) $(O)
+	@$(SPHINX_BUILD_COMMAND) -M clean "$(SPHINX_SOURCE_DIR)" "$(SPHINX_OUTPUT_DIR)" $(SPHINXOPTS) $(O)
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option. $(O) is meant as a shortcut for $(SPHINXOPTS).
 %: Makefile
-	@$(SPHINXBUILD) -M $@ "$(SPHINX_SOURCE_DIR)" "$(SPHINX_BUILD_DIR)" $(SPHINXOPTS) $(O)
+	@$(SPHINX_BUILD_COMMAND) -M $@ "$(SPHINX_SOURCE_DIR)" "$(SPHINX_OUTPUT_DIR)" $(SPHINXOPTS) $(O)

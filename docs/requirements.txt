@@ -1,9 +1,0 @@
-myst-parser
-sphinx
-sphinxawesome-theme
-docutils
-sphinx-jinja
-sphinxcontrib-yaml
-pathspec
-markdown2
-pandoc

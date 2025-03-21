@@ -26,10 +26,10 @@
     domain: 	"{{ domains[application_id] }}"
     http_port: 	"{{ ports.localhost.http[application_id] }}"
 
-- name: "create {{ sphinx_docker_file }}"
+- name: "create {{ sphinx_host_dockerfile }}"
   copy:
-    src: "Dockerfile"
-    dest: "{{ sphinx_docker_file }}"
+    src:  "{{ sphinx_control_node_dockerfile }}"
+    dest: "{{ sphinx_host_dockerfile }}"
     mode: '770'
     force: yes
   notify: docker compose project build and setup

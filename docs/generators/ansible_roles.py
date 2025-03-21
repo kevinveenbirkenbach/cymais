@@ -15,7 +15,7 @@ def convert_md_to_rst(md_content):
         return result.stdout.decode("utf-8")
     except subprocess.CalledProcessError as e:
         print("Error converting Markdown to reStructuredText:", e)
-        return md_content  # Falls Pandoc fehlschlägt, nutze das Original als Fallback
+        return md_content
 
 def generate_ansible_roles_doc(roles_dir, output_dir):
     """Generates reStructuredText documentation for Ansible roles."""

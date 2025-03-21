@@ -5,7 +5,8 @@ host_sphinx_source_dir_absolute:  "{{docker_compose.directories.instance}}{{host
 
 docker_app_dir:                   "/app/"                                                                       # Folder in which the application is running
 docker_source_dir:                "{{docker_app_dir}}"                                                          # Folder which is used to be screened
-docker_output_dir:                "/docs/"                                                                      # Folder to which the output is fuuuucking putted!
+docker_output_dir:                "/output/"                                                                    # Folder to which the output is fuuuucking putted!
 docker_exec_dir:                  "{{docker_app_dir}}{{applications.sphinx.sphinx_exec_dir_relative}}"          # Folder which contains the sphinxs makefile and logic
 
-sphinx_docker_file:               "{{ docker_compose.directories.instance }}Dockerfile"                         # Path to the Dockerfile to build sphinx
+sphinx_host_dockerfile:           "{{ docker_compose.directories.instance }}Dockerfile"                         # Path to the Dockerfile to build sphinx
+sphinx_control_node_dockerfile:   "{{ [ playbook_dir, 'docs/Dockerfile' ] | path_join }}"                       # Path to the Dockerfile on the control node
