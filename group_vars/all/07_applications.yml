@@ -338,33 +338,33 @@ defaults_applications:
 
   ## Nextcloud
   nextcloud:
-    version:                "production"                                            # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
+    version:                      "production"                                      # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
     ldap:
-      enabled:              True                                                    # Enables LDAP by default
+      enabled:                    True                                              # Enables LDAP by default
     oidc:
-      enabled:              "{{ _applications_nextcloud_oidc_enabled }}"            # Activate OIDC for Nextcloud
+      enabled:                    "{{ _applications_nextcloud_oidc_enabled }}"      # Activate OIDC for Nextcloud
       # floavor decides which OICD plugin should be used. 
       # Available options: oidc_login, sociallogin
       # @see https://apps.nextcloud.com/apps/oidc_login
       # @see https://apps.nextcloud.com/apps/sociallogin
-      flavor:               "oidc_login"                                            # Keeping on sociallogin because the other option is not implemented yet                                             
+      flavor:                     "oidc_login"                                      # Keeping on sociallogin because the other option is not implemented yet                                             
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"             # Enables\Disables Matomo Tracking
     css_enabled:                  "{{css_enabled_default}}"                         # Enables\Disables Global CSS Style
-    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"                                            # Enables\Disables the possibility to embed this on landing page via iframe
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"          # Enables\Disables the possibility to embed this on landing page via iframe
     database:
-      central_storage:      True                                                    # Activate Central Database Storage
+      central_storage:            True                                              # Activate Central Database Storage
     credentials:
-#     database_password:    Null                                                    # Needs to be set in inventory file
+#     database_password:          Null                                              # Needs to be set in inventory file
     users:      
       administrator:
-        username:           "{{users.administrator.username}}"
-        initial_password:   "{{users.administrator.initial_password}}"              # Keep in mind to change the password fast after creation and activate 2FA
-    default_quota:          '1000000000'                                            # Quota to assign if no quota is specified in the OIDC response (bytes)
+        username:                  "{{users.administrator.username}}"
+        initial_password:          "{{users.administrator.initial_password}}"       # Keep in mind to change the password fast after creation and activate 2FA
+    default_quota:                 '1000000000'                                     # Quota to assign if no quota is specified in the OIDC response (bytes)
     legacy_login_mask:   
-      enabled:              False                                                   # If true, then legacy  login mask is shown. Otherwise just SSO
+      enabled:                      False                                           # If true, then legacy  login mask is shown. Otherwise just SSO
     container:
-      application:          "nextcloud-application"                                 # Nextcloud application container name
-      proxy:                "nextcloud-web"                                         # Nextcloud Proxy Container Name
+      application:                  "nextcloud-application"                         # Nextcloud application container name
+      proxy:                        "nextcloud-web"                                 # Nextcloud Proxy Container Name
     performance:
       php:
         memory_limit:               "{{ ((ansible_memtotal_mb | int) / 30)|int }}M" # Dynamic set memory limit

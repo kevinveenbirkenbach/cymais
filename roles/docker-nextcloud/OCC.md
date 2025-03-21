@@ -16,6 +16,11 @@ docker-compose exec -it -u www-data application /var/www/html/occ
 docker compose exec -it -u www-data application php occ user:list
 ```
 
+### Get User Info
+```bash
+docker compose exec -u www-data application php occ user:info {{username}}
+```
+
 ### Sync Users
 ```bash
 docker compose exec -it -u www-data application php occ user:sync
@@ -35,7 +40,18 @@ docker compose exec -it -u www-data application php occ group:adduser admin {{us
 ```bash
 docker compose exec -it -u www-data application php occ user:delete {{username}}
 ```
----
+
+### Delete all User (if no ldap is used)
+```bash 
+for user in $(docker compose exec -u www-data application php occ user:list --output=json | jq -r 'keys[]'); do
+    docker compose exec -u www-data application php occ user:delete "$user"
+done
+```
+
+### Identify users which exist still in nextcloud but not in LDAP anymore
+```bash 
+occ ldap:show-remnants
+```
 
 ## App Administration
 ```bash

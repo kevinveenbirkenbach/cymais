@@ -15,6 +15,12 @@ docker compose exec -u www-data application /var/www/html/occ config:app:get soc
 
 More information: https://docs.nextcloud.com/server/latest/admin_manual/configuration_user/user_auth_ldap.html
 
+## Get LDAP Configuration
+
+```bash
+docker compose exec -u www-data application php occ ldap:show-config
+```
+
 ## Get all relevant entries except password
 
 ```sql
@@ -26,6 +32,40 @@ SELECT * FROM `oc_appconfig` WHERE appid LIKE "%ldap%" and configkey != "s01ldap
 ```bash
 docker compose exec -it -u www-data application php occ ldap:check-user --update {{username}}
 ```
+
+## Update LDAP Sync
+
+```bash
+docker compose exec -u www-data application php occ user:sync-account-data
+```
+
+### Update Each User
+If you want to update **every LDAP user**, run:
+
+```bash
+for user in $(docker compose exec -u www-data application php occ user:list --output=json | jq -r 'keys[]'); do
+    docker compose exec -u www-data application php occ ldap:check-user --update "$user"
+done
+```
+
+### Unlink All
+```bash
+for user in $(docker compose exec -u www-data application php occ ldap:show-remnants | tail -n +3 | awk -F '|' '{print $2}' | tr -d ' ' | grep -v '^$'); do
+    echo "Unlinking user from LDAP: $user"
+    echo "y" | docker compose exec -T -u www-data application php occ ldap:reset-user "$user"
+done
+```
+
+### Reset LDAP Links for Orphaned Users
+Run this **corrected script**:
+
+```bash
+for user in $(docker compose exec -u www-data application php occ ldap:show-remnants | tail -n +3 | awk -F '|' '{print $2}' | tr -d ' ' | grep -v '^$'); do
+    echo "Resetting LDAP link for user: $user"
+    echo "y" | docker compose exec -T -u www-data application php occ ldap:reset-user "$user"
+done
+```
+
 
 ## Federation
 

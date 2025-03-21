@@ -885,6 +885,7 @@
         "email"
       ],
       "optionalClientScopes": [
+        "nextcloud",
         "address",
         "phone",
         "organization",
@@ -1195,7 +1196,7 @@
     {
       "id": "15dd4961-5b4f-4635-a3f1-a21e1fa7bf3a",
       "name": "nextcloud",
-      "description": "",
+      "description": "Optimized mappers for nextcloud oidc_login with ldap.",
       "protocol": "openid-connect",
       "attributes": {
         "include.in.token.scope": "false",
@@ -1221,6 +1222,25 @@
             "access.token.claim": "true",
             "claim.name": "nextcloudQuota",
             "jsonType.label": "int"
+          }
+        },
+        {
+          "id": "018c63c6-3fea-43fe-abbf-2c17e3f2353f",
+          "name": "UID Mapper",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "aggregate.attrs": "false",
+            "introspection.token.claim": "true",
+            "multivalued": "false",
+            "userinfo.token.claim": "true",
+            "user.attribute": "username",
+            "id.token.claim": "true",
+            "lightweight.claim": "false",
+            "access.token.claim": "true",
+            "claim.name": "{{ldap.attributes.user_id}}",
+            "jsonType.label": "String"
           }
         }
       ]

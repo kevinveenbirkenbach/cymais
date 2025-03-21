@@ -210,7 +210,7 @@ cards:
 
 - icon: 
     class: "fa-solid fa-envelope"
-  title: "Mailu Mail Server"
+  title: "Mail Server"
   text: "Revolutionize your email communications with Mailu, a secure and flexible mail server solution that integrates seamlessly into your workflow. Experience enhanced reliability, robust security, and an energetic approach to managing your digital correspondence."
   url: https://{{domains.mailu}}
   link_text: "Elevate Your Email Now!"
@@ -682,19 +682,19 @@ navigation:
             class: fas fa-user-shield
           iframe: {{ applications | get_landingpage_iframe_enabled('keycloak') }}
           children:
-          - name: Keycloak Master Admin
+          - name: Administration
             description: Access the central admin console
             icon:
               class: fa-solid fa-shield-halved
             url: https://{{domains.keycloak}}/admin
             iframe: {{ applications | get_landingpage_iframe_enabled('keycloak') }}
-          - name: Manage Your Profile
+          - name: Profile
             description: Update your personal admin settings
             icon:
               class: fa-solid fa-user-gear
             url: https://{{ domains.keycloak }}/realms/{{oidc.client.id}}/account
             iframe: {{ applications | get_landingpage_iframe_enabled('keycloak') }}
-          - name: Log Out of Keycloak
+          - name: Logout
             description: End your admin session securely
             icon:
               class: fa-solid fa-right-from-bracket
