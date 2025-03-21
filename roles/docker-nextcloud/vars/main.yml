@@ -10,8 +10,9 @@ database_type:                                      "mariadb"                   
 domain:                                             "{{domains[application_id]}}"                                 # Public domain at which Nextcloud will be accessable
 http_port:                                          "{{ ports.localhost.http[application_id] }}"                  # Port at which nextcloud is reachable in the local network
 
-# Localhost
-nextcloud_localhost_plugin_configuration_directory: "{{role_path}}/vars/plugins/"                                 # Folder in which the files for the plugin configuration are stored
+# Control Node
+nextcloud_control_node_plugin_vars_directory:       "{{role_path}}/vars/plugins/"                                 # Folder in which the files for the plugin configuration are stored
+nextcloud_control_node_plugin_tasks_directory:      "{{role_path}}/tasks/plugins/"                                # Folder which contains the files for extra plugin configuration tasks
 
 # Host 
 

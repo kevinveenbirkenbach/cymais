@@ -70,4 +70,4 @@ css_enabled_default:                       true  # Enables\Disables Global CSS o
 ## iframe for primary domain
 # Enables\Disables the possibility to be embedded via iframe by default. 
 # Enable conciously on every app in which it makes sense, due to that this a potential security risk
-landingpage_iframe_enabled_default:        false 
+landingpage_iframe_enabled_default:        false

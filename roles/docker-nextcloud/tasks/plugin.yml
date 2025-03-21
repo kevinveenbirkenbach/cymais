@@ -28,20 +28,33 @@
   changed_when: enable_result.rc == 0 and ("already enabled" not in enable_result.stdout)
   when: plugin_value.enabled | bool
 
-- name: Check if {{nextcloud_localhost_plugin_configuration_directory}}{{ plugin_key }}.yml exists
+- name: Check if {{nextcloud_control_node_plugin_vars_directory}}{{ plugin_key }}.yml exists
   stat:
-    path: "{{nextcloud_localhost_plugin_configuration_directory}}{{ plugin_key }}.yml"
-  register: plugin_config_file
+    path: "{{nextcloud_control_node_plugin_vars_directory}}{{ plugin_key }}.yml"
+  delegate_to: localhost
+  become: false
+  register: plugin_vars_file
 
 - name: Apply configuration to {{ plugin_key }} 
   block:
   - name: Load {{ plugin_key }} configuration variables
     include_vars:
-      file: "{{nextcloud_localhost_plugin_configuration_directory}}{{ plugin_key }}.yml"
+      file: "{{nextcloud_control_node_plugin_vars_directory}}{{ plugin_key }}.yml"
   
   - name: "Set {{ item.configkey }} for {{ item.appid }}"
     loop: "{{ plugin_configuration }}"
     command: >
       {{ nextcloud_docker_exec_occ }} config:app:set {{ item.appid }} {{ item.configkey }} --value '{{ item.configvalue | to_json if item.configvalue is mapping else item.configvalue }}'
-  
-  when: plugin_config_file.stat.exists
+
+  when: plugin_vars_file.stat.exists
+
+- name: Check if {{nextcloud_control_node_plugin_tasks_directory}}{{ plugin_key }}.yml exists
+  stat:
+    path: "{{nextcloud_control_node_plugin_tasks_directory}}{{ plugin_key }}.yml"
+  delegate_to: localhost
+  become: false
+  register: plugin_tasks_file
+
+- name: "include {{nextcloud_control_node_plugin_tasks_directory}}{{ plugin_key }}.yml"
+  include_tasks: "{{nextcloud_control_node_plugin_tasks_directory}}{{ plugin_key }}.yml"
+  when: plugin_tasks_file.stat.exists
