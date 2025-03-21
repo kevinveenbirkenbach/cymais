@@ -816,7 +816,7 @@ input:checked {
 
 option {
     background-color: var(--color-82);
-    color: var(--color-99);
+    color: var(--color-07);
 }
 
 /* Tables (Borders and Header Colors) */
@@ -1104,6 +1104,15 @@ div.page-wrapper{
     --bs-table-border-color: var(--color-99);     /* #fff → white */
     --bs-table-striped-bg: var(--color-90);       /* #dfdfdf → light gray */
     --bs-table-hover-color: var(--color-01);      /* #000 → black */
+}
+
+.table thead th {
+    background-image: linear-gradient(var(--color-90), var(--color-80));
+    border-color: var(--color-99);
+}
+
+.table th, .table td {
+    text-shadow: 0 1px 0 var(--color-60);
 }
 
 div.tools, .tblFooters {
