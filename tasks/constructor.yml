@@ -3,7 +3,7 @@
   block:
   - name: Merge users
     set_fact:
-      users: "{{ default_users | combine(users, recursive=True) }}"
+      users: "{{ default_users | combine(users| default({}), recursive=True) }}"
 
   - name: Merge system_email definitions
     set_fact:
