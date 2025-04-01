@@ -5,8 +5,8 @@ This README details the `pc-nextcloud` role, part of the `cymais` repository. Th
 
 ## Role Variables
 The `vars/main.yml` file defines key variables used in this role:
-- `user_home_directory`: The home directory of the user, typically `/home/{{client_username}}/`.
-- `cloud_directory`: The directory path for Nextcloud cloud storage, structured as `{{user_home_directory}}Clouds/{{cloud_fqdn}}/{{client_username}}/`.
+- `user_home_directory`: The home directory of the user, typically `/home/{{users.client.username}}/`.
+- `cloud_directory`: The directory path for Nextcloud cloud storage, structured as `{{user_home_directory}}Clouds/{{cloud_fqdn}}/{{users.client.username}}/`.
 
 ## Role Tasks
 The `main.yml` file in the `pc-nextcloud` role comprises the following tasks:
@@ -31,7 +31,7 @@ The `pc-nextcloud` role is designed for users who want to integrate Nextcloud, a
 To use this role:
 1. Clone the `cymais` repository.
 2. Navigate to the `roles/pc-nextcloud` directory.
-3. Ensure that the `client_username` and `cloud_fqdn` variables are correctly set to match your Nextcloud account details.
+3. Ensure that the `users.client.username` and `cloud_fqdn` variables are correctly set to match your Nextcloud account details.
 4. Execute the role using Ansible, ensuring appropriate permissions are available for installations and configurations.
 
 ## Customization

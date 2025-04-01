@@ -5,8 +5,8 @@
       - docker-compose
     state: present
 
-- name: Adding user {{client_username}} to relevant docker usergroup  
+- name: Adding user {{users.client.username}} to relevant docker usergroup  
   user: 
-    name: "{{client_username}}"
+    name: "{{users.client.username}}"
     groups: docker
     append: yes

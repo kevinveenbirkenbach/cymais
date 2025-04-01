@@ -5,7 +5,7 @@
       - arduino-docs
     state: present
 
-- name: Adding user {{client_username}} to relevant arduino usergroups  
-  user: name={{client_username}}
+- name: Adding user {{users.client.username}} to relevant arduino usergroups  
+  user: name={{users.client.username}}
         groups=uucp lock
         append=yes

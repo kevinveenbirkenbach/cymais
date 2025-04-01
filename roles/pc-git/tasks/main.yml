@@ -1,8 +1,21 @@
-- name: Set git user email to {{user_email}}
-  ansible.builtin.shell: git config --global user.email "{{user_email}}"
-- name: Set git user name to {{user_full_name}}
-  ansible.builtin.shell: git config --global user.name "{{user_full_name}}"
 - name: install git
   community.general.pacman:
     name: git
     state: present
+  become: true
+
+- name: install gitconfig
+  command:
+    cmd: "pkgmgr install gitconfig --clone-mode https"
+  when: run_once_gitconfig is not defined
+  become: true
+
+- name: setup git
+  command: gitconfig --merge-option rebase --name "{{users.client.full_name}}" --email "{{users.client.email}}" --website "{{users.client.website}}" --signing gpg --gpg-key "{{users.client.gpg}}"
+  when: run_once_the gitconfig is not defined
+  become: false
+  
+- name: run the gitconfig tasks once
+  set_fact:
+    run_once_gitconfig: true
+  when: run_once_gitconfig is not defined

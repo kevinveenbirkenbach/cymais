@@ -7,8 +7,8 @@
   ansible.builtin.file:
     src: "{{cloud_directory}}{{item}}"
     dest: "{{user_home_directory}}{{item}}"
-    owner: "{{client_username}}"
-    group: "{{client_username}}"
+    owner: "{{users.client.username}}"
+    group: "{{users.client.username}}"
     state: link
   loop:
     - Templates
@@ -27,6 +27,6 @@
   ansible.builtin.file:
     src: "{{cloud_directory}}InstantUpload"
     dest: "{{user_home_directory}}Dump"
-    owner: "{{client_username}}"
-    group: "{{client_username}}"
+    owner: "{{users.client.username}}"
+    group: "{{users.client.username}}"
     state: link

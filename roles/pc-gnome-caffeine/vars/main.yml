@@ -1,1 +1,1 @@
-auto_start_directory: "/home/{{client_username}}/.config/autostart/" 
+auto_start_directory: "/home/{{users.client.username}}/.config/autostart/" 

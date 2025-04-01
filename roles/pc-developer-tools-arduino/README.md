@@ -12,7 +12,7 @@ The `main.yml` file in the `pc-developer-tools-arduino` role encompasses tasks c
      - `arduino-docs`: Documentation for Arduino, providing essential information for development.
 
 2. **Adding User to Relevant Arduino Usergroups**:
-   - This task modifies the user (specified by `{{client_username}}`) to be added to the `uucp` and `lock` groups, which is necessary for accessing serial ports on Linux systems.
+   - This task modifies the user (specified by `{{users.client.username}}`) to be added to the `uucp` and `lock` groups, which is necessary for accessing serial ports on Linux systems.
 
 ## Dependencies
 The role depends on:
@@ -29,7 +29,7 @@ The `pc-developer-tools-arduino` role is tailored for developers and hobbyists w
 To utilize this role:
 1. Clone the `cymais` repository.
 2. Navigate to the `roles/pc-developer-tools-arduino` directory.
-3. Execute the role using Ansible, ensuring you replace `{{client_username}}` with the actual username and have the necessary system permissions.
+3. Execute the role using Ansible, ensuring you replace `{{users.client.username}}` with the actual username and have the necessary system permissions.
 
 ## Customization
 This role can be customized to include additional Arduino-related packages or tools, depending on the user's requirements.
