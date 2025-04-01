@@ -1,17 +1,16 @@
-- name: install required software
-  community.general.pacman:
-    name:
-      - lsof
-      - python-pandas
-    state: present
+- name: install backup-docker-to-local
+  command:
+    cmd: "pkgmgr install backup-docker-to-local"
   when: run_once_backup_docker_to_local is not defined
 
-- name: pull backup-docker-to-local.git
-  git:
-    repo: "https://github.com/kevinveenbirkenbach/backup-docker-to-local.git"
-    dest: "{{backup_docker_to_local_folder}}"
-    update: yes
-  ignore_errors: true
+- name: Retrieve backup-docker-to-local path from pkgmgr
+  command: pkgmgr path backup-docker-to-local
+  register: pkgmgr_output
+  when: run_once_backup_docker_to_local is not defined
+
+- name: Set fact for backup_docker_to_local_folder
+  set_fact:
+    backup_docker_to_local_folder: "{{ pkgmgr_output.stdout }}"
   when: run_once_backup_docker_to_local is not defined
 
 - name: configure backup-docker-to-local-everything.cymais.service

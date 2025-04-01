@@ -1,9 +1,6 @@
-- name: pull auto-btrfs-balancer.git
-  git:
-    repo: "https://github.com/kevinveenbirkenbach/auto-btrfs-balancer.git"
-    dest: "{{system_btrfs_auto_balancer_folder}}"
-    update: yes
-  ignore_errors: true
+- name: install auto-btrfs-balancer
+  command:
+    cmd: "pkgmgr install auto-btrfs-balancer"
   when: run_once_system_btrfs_auto_balancer is not defined
 
 - name: configure system-btrfs-auto-balancer.cymais.service

@@ -1,11 +1,8 @@
-- name: pull swapfile creating script
-  git:
-    repo: "https://github.com/kevinveenbirkenbach/create-linux-swapfile.git"
-    dest: "$HOME/Repositories/github.com/kevinveenbirkenbach/create-linux-swapfile"
-    update: yes
-  ignore_errors: true
-  become: false
+- name: install swap-forge
+  command:
+    cmd: "pkgmgr install backup-docker-to-local"
+  become: true
 
 - name: Execute create swapfile script
-  ansible.builtin.shell: bash "/home/{{client_username}}/Repositories/github.com/kevinveenbirkenbach/create-linux-swapfile/create-linux-swapfile.sh" "{{swapfile_size}}"
+  ansible.builtin.shell: swap-forge "{{swapfile_size}}"
   become: true

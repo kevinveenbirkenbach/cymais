@@ -1,5 +1,7 @@
 - name: install git
-  pacman: name=git state=present
+  pacman:
+    name: git
+    state:  present
   when: run_once_git is not defined
 
 - name: run the git tasks once

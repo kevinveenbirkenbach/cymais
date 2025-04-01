@@ -1,1 +1,0 @@
-backup_docker_to_local_cleanup_folder: "{{path_administrator_scripts}}cleanup-failed-docker-backups/"

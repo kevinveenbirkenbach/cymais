@@ -1,9 +1,16 @@
-- name: pull cleanup-failed-docker-backups.git
-  git:
-    repo: "https://github.com/kevinveenbirkenbach/cleanup-failed-docker-backups.git"
-    dest: "{{backup_docker_to_local_cleanup_folder}}"
-    update: yes
-  ignore_errors: true
+- name: install cleanup-failed-docker-backups
+  command:
+    cmd: "pkgmgr install cleanup-failed-docker-backups"
+  when: run_once_cleanup_failed_docker_backups is not defined
+
+- name: Retrieve backup-docker-to-local path from pkgmgr
+  command: pkgmgr path cleanup-failed-docker-backups
+  register: pkgmgr_output
+  when: run_once_cleanup_failed_docker_backups is not defined
+
+- name: Set fact for backup_docker_to_local_cleanup_folder
+  set_fact:
+    backup_docker_to_local_cleanup_folder: "{{ pkgmgr_output.stdout }}"
   when: run_once_cleanup_failed_docker_backups is not defined
 
 - name: configure cleanup-failed-docker-backups.cymais.service
