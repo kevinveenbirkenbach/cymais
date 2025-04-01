@@ -15,6 +15,3 @@ pkgmgr_config_path:     "{{pkgmgr_install_path}}/config/config.yaml"
 
 # The directory where executable aliases will be installed (ensure it's in your PATH)
 binaries_directory:     "/usr/local/bin" 
-
-# The command to run to install/update the Package Manager's aliases
-pkgmgr_install_command: "./main.py install pkgmgr"

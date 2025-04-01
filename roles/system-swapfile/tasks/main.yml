@@ -1,6 +1,6 @@
 - name: install swap-forge
   command:
-    cmd: "pkgmgr install backup-docker-to-local"
+    cmd: "pkgmgr install backup-docker-to-local --clone-mode https"
   become: true
 
 - name: Execute create swapfile script

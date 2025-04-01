@@ -1,6 +1,6 @@
 - name: install backup-docker-to-local
   command:
-    cmd: "pkgmgr install backup-docker-to-local"
+    cmd: "pkgmgr install backup-docker-to-local --clone-mode https"
   when: run_once_backup_docker_to_local is not defined
 
 - name: Retrieve backup-docker-to-local path from pkgmgr

@@ -1,6 +1,6 @@
-- name: install auto-btrfs-balancer
+- name: install btrfs-auto-balancer
   command:
-    cmd: "pkgmgr install auto-btrfs-balancer"
+    cmd: "pkgmgr install btrfs-auto-balancer --clone-mode https"
   when: run_once_system_btrfs_auto_balancer is not defined
 
 - name: configure system-btrfs-auto-balancer.cymais.service

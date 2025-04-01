@@ -9,7 +9,7 @@ def run_ansible_vault(action, filename, password_file):
     cmd = ["ansible-vault", action, filename, "--vault-password-file", password_file]
     subprocess.run(cmd, check=True)
 
-def run_ansible_playbook(inventory:str, playbook:str, modes:[bool], limit:str=None, password_file:str=None, verbose:bool=False):
+def run_ansible_playbook(inventory: str, playbook: str, modes: dict, limit: str = None, password_file: str = None, verbose: int = 0):
     """Execute an ansible-playbook command with optional parameters."""
     cmd = ["ansible-playbook", "-i", inventory, playbook]
     
@@ -28,7 +28,8 @@ def run_ansible_playbook(inventory:str, playbook:str, modes:[bool], limit:str=No
         cmd.extend(["--ask-vault-pass"])
     
     if verbose:
-        cmd.append("-v")
+        # Append a single flag with multiple "v"s (e.g. -vvv)
+        cmd.append("-" + "v" * verbose)
     
     subprocess.run(cmd, check=True)
 
@@ -59,7 +60,9 @@ def main():
     playbook_parser.add_argument("--cleanup", action="store_true", help="Enable cleanup mode")
     playbook_parser.add_argument("--debug", action="store_true", help="Enable debugging output")
     playbook_parser.add_argument("--password-file", help="Path to the Vault password file")
-    playbook_parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose output")
+    playbook_parser.add_argument("-v", "--verbose", action="count", default=0,
+                                 help=("Increase verbosity. This option can be specified multiple times "
+                                       "to increase the verbosity level (e.g., -vvv for more detailed debug output)."))
 
     args = parser.parse_args()
 

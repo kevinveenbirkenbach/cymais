@@ -1,6 +1,6 @@
 - name: install directory-validator
   command:
-    cmd: "pkgmgr install directory-validator"
+    cmd: "pkgmgr install directory-validator --clone-mode https"
   when: run_once_backup_directory_validator is not defined
 
 - name: run the backup_directory_validator tasks once
