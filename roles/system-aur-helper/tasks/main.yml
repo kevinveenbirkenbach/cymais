@@ -1,6 +1,9 @@
 - name: install yay
   community.general.pacman:
-    name: yay
+    name: 
+      - yay
+      - patch
+      - base-devel
     state: present
 
 - name: Create the `aur_builder` user
