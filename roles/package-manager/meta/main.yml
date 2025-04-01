@@ -34,3 +34,4 @@ galaxy_info:
   documentation: https://github.com/kevinveenbirkenbach/package-manager
 dependencies:
   - git
+  - make

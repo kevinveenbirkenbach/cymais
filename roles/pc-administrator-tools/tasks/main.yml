@@ -3,7 +3,6 @@
     name:
       - base-devel
       - yay
-      - make
       - gcc
       - cmake
       - fdupes

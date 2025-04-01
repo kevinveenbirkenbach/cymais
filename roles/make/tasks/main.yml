@@ -1,0 +1,4 @@
+- name: install make
+  pacman:
+    name: make
+    state: present
