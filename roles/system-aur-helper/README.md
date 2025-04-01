@@ -1,4 +1,5 @@
 # System AUR Helper
+
 ## Description
 
 This role ensures that the AUR helper [yay](https://wiki.archlinux.org/title/Yay) is installed on the system. It installs yay via [pacman](https://wiki.archlinux.org/title/Pacman) and creates a dedicated `aur_builder` user to facilitate building AUR packages.

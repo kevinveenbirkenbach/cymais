@@ -6,6 +6,7 @@
     state: present
 
 - name: Adding user {{client_username}} to relevant docker usergroup  
-  user: name={{client_username}}
-        groups=docker
-        append=yes
+  user: 
+    name: "{{client_username}}"
+    groups: docker
+    append: yes

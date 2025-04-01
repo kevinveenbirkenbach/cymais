@@ -16,7 +16,7 @@ The `main.yml` file within the `pc-office` role comprises tasks for installing a
 ## Dependencies
 This role depends on:
 - **pc-libreoffice**: Ensures that the LibreOffice suite, a comprehensive office package, is installed.
-- **pc-video-conference**: Provides tools necessary for video conferencing, supplementing the office setup.
+- **pc-zoom**: Provides tools necessary for video conferencing, supplementing the office setup.
 
 ## Purpose and Usage
 The `pc-office` role is ideal for users who require a full-fledged office setup on their personal computers. It encompasses tools for web browsing, email management, e-book organization, and document editing, catering to a wide range of office and productivity needs.

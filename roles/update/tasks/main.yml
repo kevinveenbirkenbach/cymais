@@ -29,3 +29,14 @@
   include_role:
     name: update-yay
   when: yay_installed.rc == 0
+
+- name: "Check if pip is installed"
+  command: which pip
+  ignore_errors: yes
+  register: pip_installed
+  changed_when: false
+
+- name: "Update with pip"
+  include_role:
+    name: update-pip
+  when: pip_installed.rc == 0

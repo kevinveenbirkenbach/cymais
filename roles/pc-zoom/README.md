@@ -1,10 +1,10 @@
 # PC-Video-Conference Role
 
 ## Overview
-Welcome to the `pc-video-conference` role documentation, a part of the `cymais` repository. This role is focused on installing video conferencing software on Linux systems, specifically tailored for personal use and remote work requirements.
+Welcome to the `pc-zoom` role documentation, a part of the `cymais` repository. This role is focused on installing video conferencing software on Linux systems, specifically tailored for personal use and remote work requirements.
 
 ## Role Tasks
-The `main.yml` file in the `pc-video-conference` role includes tasks for setting up video conferencing tools:
+The `main.yml` file in the `pc-zoom` role includes tasks for setting up video conferencing tools:
 
 1. **Install Video Conference Software**:
    - Utilizes the `kewlfft.aur.aur` module with `yay` as the helper to install `zoom`, a popular video conferencing application.
@@ -17,7 +17,7 @@ This role relies on:
 - **system-aur-helper**: Ensures that an Arch User Repository (AUR) helper is installed, necessary for installing software like Zoom which may not be available in standard repositories.
 
 ## Purpose and Usage
-The `pc-video-conference` role is particularly useful for professionals, educators, and anyone who needs reliable video conferencing capabilities on their Linux system. With the increasing demand for remote communication, this role provides an efficient way to set up key video conferencing tools.
+The `pc-zoom` role is particularly useful for professionals, educators, and anyone who needs reliable video conferencing capabilities on their Linux system. With the increasing demand for remote communication, this role provides an efficient way to set up key video conferencing tools.
 
 ## Prerequisites
 - **Ansible**: Required to run this role.
@@ -26,7 +26,7 @@ The `pc-video-conference` role is particularly useful for professionals, educato
 ## Running the Role
 To utilize this role:
 1. Clone the `cymais` repository.
-2. Navigate to the `roles/pc-video-conference` directory.
+2. Navigate to the `roles/pc-zoom` directory.
 3. Run the role using Ansible, ensuring you have appropriate system permissions for software installation.
 
 ## Customization
