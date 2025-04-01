@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Aggregates essential GNOME desktop roles—including caffeine, extensions, and terminal—for a complete GNOME environment on Arch Linux."
+  description: "Installs GNOME Terminal on Arch Linux, providing a modern terminal emulator for the GNOME desktop environment."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -15,10 +15,6 @@ galaxy_info:
         - rolling
   galaxy_tags:
     - gnome
-    - desktop
-    - archlinux
+    - terminal
     - automation
-dependencies:
-  - pc-gnome-caffeine
-  - pc-gnome-extensions
-  - pc-gnome-terminal
+dependencies: []

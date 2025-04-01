@@ -1,0 +1,13 @@
+- name: GNOME Activate Extensions
+  ansible.builtin.shell: gsettings set org.gnome.shell disable-user-extensions false
+  become: false
+
+- name: install cli-gnome-extension-manager
+  command:
+    cmd: "pkgmgr install cli-gnome-extension-manager --clone-mode https"
+  become: false
+
+- name: Execute CLI GNOME Extension manager script
+  ansible.builtin.shell: cli-gnome-extension-manager "{{ item[0] }}" "{{ item[1] }}" "{{ item[2] }}"
+  loop: "{{applications[application_id].plugins | dict2items }}"
+  become: false

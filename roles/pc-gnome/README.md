@@ -1,52 +1,27 @@
-# PC-Gnome Role
+# GNOME Desktop Setup
 
-## Overview
-Welcome to the `pc-gnome` role, a key part of the `cymais` repository. This role is dedicated to setting up and configuring the GNOME desktop environment on personal computers.
+## Description
 
-## Role Details
-The `pc-gnome` role includes several tasks for installing GNOME software, managing GNOME extensions, and customizing the GNOME desktop experience:
+This role aggregates various GNOME desktop components to ensure a cohesive and fully functional GNOME environment on Arch Linux. It includes the installation and configuration of several sub-roles:
+- **pc-gnome-caffeine:** Prevents the system from sleeping or locking automatically.
+- **pc-gnome-extensions:** Manages GNOME Shell extensions and installs the CLI GNOME Extension Manager.
+- **pc-gnome-terminal:** Installs GNOME Terminal, the official terminal emulator for GNOME.
 
-1. **Install Gnome Software**:
-   - Installs essential GNOME packages such as `gnome-shell-extensions`, `gnome-shell-extension-desktop-icons-ng`, and `gnome-terminal` using the `community.general.pacman` module.
+## Purpose
 
-2. **GNOME Activate Extensions**:
-   - Enables user extensions in GNOME using the `gsettings` command.
+The purpose of this role is to provide a complete GNOME desktop experience by orchestrating multiple sub-roles. This simplifies deployment and management by ensuring that all key components are installed and configured in a consistent, system-wide manner.
 
-3. **GNOME Set Favorite Apps**:
-   - Customizes the favorite applications on the GNOME shell using the `gsettings` command and the `{{favorite_apps}}` variable.
+## Features
 
-4. **Pull CLI GNOME Extension Manager Script**:
-   - Clones or updates the CLI GNOME Extension Manager script from a Git repository.
+- Aggregates multiple GNOME-related roles into one cohesive setup.
+- Installs and configures caffeine-ng to keep the desktop active.
+- Manages GNOME Shell extensions and integrates the CLI GNOME Extension Manager.
+- Installs GNOME Terminal for a robust command-line interface.
+- Ensures a seamless and uniform GNOME environment on Arch Linux.
 
-5. **Warn if Repo is Not Reachable**:
-   - Displays a warning message if the repository for the CLI GNOME Extension Manager script is not reachable.
+## Credits
 
-6. **Execute CLI GNOME Extension Manager Script**:
-   - Runs the CLI GNOME Extension Manager script to manage GNOME extensions based on the `{{gnome_extensions}}` variable.
+Developed and maintained by **Kevin Veen-Birkenbach**.  
+Learn more at [www.veen.world](https://www.veen.world)
 
-## Other Resources
-For additional details on managing GNOME extensions via command line, visit [Ask Ubuntu](https://askubuntu.com/questions/1029376/how-do-i-enable-and-disable-gnome-extensions-from-the-command-line).
-
-## Dependencies
-This role depends on:
-- **pc-git**: Ensures Git is installed for cloning repositories.
-- **pc-caffeine**: A supplementary role that may include tools or configurations complementing the GNOME setup.
-
-## Purpose and Usage
-The `pc-gnome` role is ideal for users who prefer the GNOME desktop environment and wish to automate its setup and customization. It's especially useful for setting up a new system or reconfiguring GNOME after a system update.
-
-## Prerequisites
-- **Ansible**: Must be installed to use this role.
-- **Arch Linux-based System**: The role uses the `pacman` package manager, indicating it's designed for Arch Linux or similar distributions.
-
-## Running the Role
-To use this role:
-1. Clone the `cymais` repository.
-2. Navigate to the `roles/pc-gnome` directory.
-3. Run the role using Ansible, ensuring you have the necessary permissions for installations and configurations.
-
-## Customization
-You can customize this role by modifying the GNOME software packages, favorite apps, and GNOME extensions in the respective tasks.
-
-## Support and Contributions
-For support, feedback, or contributions, such as adding more GNOME-related configurations or tools, open an issue or submit a pull request in the `cymais` repository. Contributions that enhance the GNOME environment setup are highly encouraged.
+License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)

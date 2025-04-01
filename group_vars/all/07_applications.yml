@@ -166,6 +166,12 @@ defaults_applications:
     css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
+  ## Gnome
+  gnome:
+    plugins:
+      - [enable,nasa_apod@elinvention.ovh,https://github.com/Elinvention/gnome-shell-extension-nasa-apod.git]
+      - [disable,dash-to-dock@micxgx.gmail.com,'']
+
   ## Joomla
   joomla:
     version:                      "latest"
