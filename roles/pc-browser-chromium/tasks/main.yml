@@ -21,7 +21,7 @@
     mode: '0755'
 
 - name: Copy the extensions policy file for Chromium
-  copy:
-    src: extensions_policy.json
+  template:
+    src: extensions_policy.json.j2
     dest: /etc/chromium/policies/managed/extensions_policy.json
     mode: '0644'

@@ -1,0 +1,12 @@
+{
+    "policies": {
+      "Extensions": {
+        "Install": [
+          {% for plugin in applications[application_id].plugins -%}
+            "{{ plugin }}"{% if not loop.last %},{% endif %}
+          {% endfor %}
+        ]
+      }
+    }
+  }
+  
