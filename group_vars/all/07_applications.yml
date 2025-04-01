@@ -235,6 +235,10 @@ defaults_applications:
     css_enabled:                  "{{css_enabled_default}}"                       # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"        # Enables\Disables the possibility to embed this on landing page via iframe
 
+  ## Libre Office
+  libreoffice:
+    flavor:                       "fresh"                                         # Libre Office flavor, fresh for new, still for stable
+
   ## Listmonk
   listmonk:
     users:
@@ -314,19 +318,19 @@ defaults_applications:
   matrix:
     users:
       administrator:
-        username:       "{{users.administrator.username}}"                        # Accountname of the matrix admin
-    playbook_tags:      "setup-all,start"                                         # For the initial update use: install-all,ensure-matrix-users-created,start
-    role:               "compose"                                                 # Role to setup Matrix. Valid values: ansible, compose
-    server_name:        "{{primary_domain}}"                                      # Adress for the account names etc.
+        username:                 "{{users.administrator.username}}"              # Accountname of the matrix admin
+    playbook_tags:                "setup-all,start"                               # For the initial update use: install-all,ensure-matrix-users-created,start
+    role:                         "compose"                                       # Role to setup Matrix. Valid values: ansible, compose
+    server_name:                  "{{primary_domain}}"                            # Adress for the account names etc.
     synapse:
-      version:          "latest"
+      version:                    "latest"
     element:
-      version:          "latest"
-    setup:              false                                                     # Set true in inventory file to execute the setup and initializing procedures
+      version:                    "latest"
+    setup:                        false                                           # Set true in inventory file to execute the setup and initializing procedures
     database:
-      central_storage:  True                                                      # Activate Central Database Storage
+      central_storage:            True                                            # Activate Central Database Storage
     oidc:
-      enabled:          False                                                     # Deactivated OIDC due to this issue https://github.com/matrix-org/synapse/issues/10492
+      enabled:                    False                                           # Deactivated OIDC due to this issue https://github.com/matrix-org/synapse/issues/10492
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"           # Enables\Disables Matomo Tracking
     css_enabled:                  "{{css_enabled_default}}"                       # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"        # Enables\Disables the possibility to embed this on landing page via iframe

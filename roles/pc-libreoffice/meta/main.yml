@@ -1,2 +1,22 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: "Installs LibreOffice along with Liberation fonts and language packages on Arch Linux systems for a complete office suite experience."
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen-Birkenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Archlinux
+      versions:
+        - rolling
+  galaxy_tags:
+    - libreoffice
+    - office-suite
+    - archlinux
+    - automation
 dependencies:
-- hunspell
+  - hunspell

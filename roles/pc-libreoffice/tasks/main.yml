@@ -2,11 +2,11 @@
   community.general.pacman:
     name:
       - ttf-liberation
-      - libreoffice-fresh
+      - "libreoffice-{{ applications.libreoffice.flavor }}"
     state: present
 
 - name: install libreoffice language packages
   community.general.pacman:
-    name: "libreoffice-fresh-{{ item }}"
+    name: "libreoffice-{{ applications.libreoffice.flavor }}-{{ item }}"
     state: present
   loop: "{{libreoffice_languages}}"
