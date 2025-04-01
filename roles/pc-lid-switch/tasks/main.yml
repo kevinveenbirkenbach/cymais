@@ -1,0 +1,9 @@
+---
+- name: Set HandleLidSwitch to hibernate in /etc/systemd/logind.conf
+  become: yes
+  lineinfile:
+    path: /etc/systemd/logind.conf
+    regexp: '^#?HandleLidSwitch='
+    line: 'HandleLidSwitch=hibernate'
+    backup: yes
+  notify: Restart systemd-logind
