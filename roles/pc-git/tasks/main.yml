@@ -12,7 +12,7 @@
 
 - name: setup git
   command: gitconfig --merge-option rebase --name "{{users.client.full_name}}" --email "{{users.client.email}}" --website "{{users.client.website}}" --signing gpg --gpg-key "{{users.client.gpg}}"
-  when: run_once_the gitconfig is not defined
+  when: run_once_gitconfig is not defined
   become: false
   
 - name: run the gitconfig tasks once
