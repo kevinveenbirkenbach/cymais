@@ -1,7 +1,6 @@
 - name: install office sofware
   community.general.pacman:
     name: 
-      - chromium
       - thunderbird
       - calibre
       - retext

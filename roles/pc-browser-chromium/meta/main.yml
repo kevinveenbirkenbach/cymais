@@ -1,0 +1,35 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: "Automates the installation and configuration of the Chromium browser with enforced security extensions."
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen-Birkenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Debian
+      versions:
+        - stretch
+        - buster
+        - bullseye
+    - name: Ubuntu
+      versions:
+        - bionic
+        - focal
+        - jammy
+    - name: Archlinux
+      versions:
+        - rolling
+  galaxy_tags:
+    - chromium
+    - browser
+    - enterprise-policy
+    - security
+    - automation
+  repository: https://s.veen.world/cymais
+  issue_tracker_url: https://s.veen.world/cymaisissues
+  documentation: https://s.veen.world/cymais
+dependencies: []
