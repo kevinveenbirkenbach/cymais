@@ -9,7 +9,7 @@
     - driver-non-free
 
 - name: pc-office
-  when: ("collection_officetools
+  when: ("collection_officetools in group_names)
   include_role:
     name: "{{ item }}"
   loop:
