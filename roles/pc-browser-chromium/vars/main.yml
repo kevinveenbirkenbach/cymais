@@ -1,2 +1,5 @@
 ---
+
+application_id:   "chromium"
+
 chromium_package: "{{ 'chromium-browser' if ansible_os_family == 'Debian' else 'chromium' }}"

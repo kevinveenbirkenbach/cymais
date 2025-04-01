@@ -1,6 +1,8 @@
 ---
 # Default variables for the pc-firefox role
 
+application_id: "firefox"
+
 # Package name for Firefox on Arch Linux
 firefox_package: firefox
 
