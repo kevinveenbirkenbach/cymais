@@ -30,4 +30,3 @@ Developed and maintained by **Kevin Veen-Birkenbach**.
 Learn more at [www.veen.world](https://www.veen.world)
 
 Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
-License: [MIT License](../LICENSE)
