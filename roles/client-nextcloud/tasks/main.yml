@@ -10,6 +10,8 @@
     owner: "{{users.client.username}}"
     group: "{{users.client.username}}"
     state: link
+    force: yes
+  ignore_errors: true # Just temporary @todo remove
   loop:
     - Templates
     - Documents

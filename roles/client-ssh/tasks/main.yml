@@ -1,0 +1,55 @@
+- name: pull ssh repository from {{ssh_configuration_repository}}
+  git:
+    repo: "{{ssh_configuration_repository}}"
+    dest: "$HOME/.ssh"
+    update: yes
+  register: git_result
+  ignore_errors: true
+  become: false
+
+- name: Warn if repo is not reachable
+  debug:
+    msg: "Warning: Repository is not reachable."
+  when: git_result.failed and enable_debug | bool
+
+- name: Ensure systemd user directory exists
+  file:
+    path: "$HOME/.config/systemd/user"
+    state: directory
+    mode: "0700"
+  become: false
+
+- name: Deploy ssh-agent systemd unit file
+  template:
+    src: ssh-agent.service.j2
+    dest: "$HOME/.config/systemd/user/ssh-agent.service"
+    mode: "0644"
+  become: false
+
+- name: Enable and start ssh-agent service
+  systemd:
+    name: ssh-agent.service
+    scope: user
+    enabled: true
+    state: started
+    daemon_reload: true
+  become: false
+
+- name: Set SSH_AUTH_SOCK in bash_profile or profile
+  block:
+    - name: Choose profile file
+      set_fact:
+        profile_file: "$HOME/.bash_profile"
+      when: ansible_facts.env.HOME is defined and lookup('file', ansible_env.HOME + '/.bash_profile', errors='ignore') is defined
+
+    - name: Fallback to .profile if .bash_profile not found
+      set_fact:
+        profile_file: "$HOME/.profile"
+      when: profile_file is not defined
+
+    - name: Ensure SSH_AUTH_SOCK is set in profile
+      lineinfile:
+        path: "{{ profile_file }}"
+        line: 'export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"'
+        insertafter: EOF
+        state: present

@@ -1,4 +1,4 @@
-# Git for Personal Computers
+# Git
 
 ## Description
 

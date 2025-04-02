@@ -48,14 +48,14 @@
     name: pc-latex
 
 - name: GNOME setup
-  when: ("gnome
+  when: ("gnome" in group_names)
   include_role:
     name: pc-gnome
 
 - name: setup ssh client
-  when: ("ssh" in group_names)
+  when: ("ssh-client" in group_names)
   include_role:
-    name: pc-ssh
+    name: client-ssh
 
 - name: setup gaming hosts
   when: ("gaming" in group_names)
@@ -72,13 +72,13 @@
   include_role:
     name: pc-torbrowser
 
-- name: setup nextcloud
+- name: setup nextcloud-client
   when: ("nextcloud_client" in group_names)
   include_role:
-    name: pc-nextcloud
+    name: client-nextcloud
 
 - name: setup docker
-  when: ("dockerin group_names)
+  when: ("docker" in group_names)
   include_role:
     name: pc-docker
 

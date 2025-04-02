@@ -6,7 +6,7 @@ This Ansible role serves as a wrapper to install and configure multiple browsers
 
 ## Overview
 
-The **pc-browsers** role orchestrates the deployment of two specialized roles: **pc-browser-chromium** and **pc-browser-firefox**. By executing both roles, it provides a unified solution for browser management, making it easier to maintain a secure and consistent browsing environment across your systems.
+The **client-browser** role orchestrates the deployment of two specialized roles: **client-browser-chromium** and **client-browser-firefox**. By executing both roles, it provides a unified solution for browser management, making it easier to maintain a secure and consistent browsing environment across your systems.
 
 ## Purpose
 

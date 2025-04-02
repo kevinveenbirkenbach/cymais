@@ -4,6 +4,7 @@
     use: yay
     name:
       - caffeine-ng
+  become: false
 
 - name: Create autostart directory if it doesn't exist
   file:

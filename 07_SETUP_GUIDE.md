@@ -12,7 +12,7 @@ Follow the installation instruction descriped [here](https://github.com/kevinvee
 To setup CyMaIS execute: 
 
 ```bash
-pkgmgr setup cymais
+pkgmgr install cymais
 ```
 
 This command will setup CyMaIS on your system with the alias **cymais**.
