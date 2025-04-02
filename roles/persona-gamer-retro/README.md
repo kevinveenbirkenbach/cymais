@@ -1,0 +1,34 @@
+# RetroArch 🎮
+
+## Description
+
+This Ansible role installs and configures [RetroArch](https://www.retroarch.com/) on Arch Linux systems. It provides all necessary packages, assets, and dependencies for a clean retro gaming experience.
+
+## Overview
+
+Designed for retro gaming enthusiasts, this role sets up RetroArch along with its core assets and themes. It ensures all UI styles ([XMB](https://en.wikipedia.org/wiki/XrossMediaBar), [Ozone](https://docs.libretro.com/guides/ozone-menu/)) are ready and provides a consistent emulator frontend interface powered by the [Libretro](https://www.libretro.com/) framework.
+
+## Purpose
+
+The purpose of this role is to automate the deployment of a full-featured RetroArch environment, reducing manual setup and improving reproducibility across gaming setups.
+
+## Features
+
+- **Installs RetroArch:** Including the main [RetroArch package](https://archlinux.org/packages/community/x86_64/retroarch/) and theme assets.
+- **UI Assets Support:** Both [XMB](https://docs.libretro.com/guides/xmb-menu/) and [Ozone](https://docs.libretro.com/guides/ozone-menu/) menu styles supported out of the box.
+
+## ℹ️ Further Reading
+
+- 🕹️ [RetroArch - Official Site](https://www.retroarch.com/)
+- 🧩 [Libretro - Modular Emulator Framework](https://www.libretro.com/)
+- 📚 [RetroArch on ArchWiki](https://wiki.archlinux.org/title/RetroArch)
+- 🧠 [RetroArch - Wikipedia](https://en.wikipedia.org/wiki/RetroArch)
+- 🎨 [UI Menus: XMB, Ozone, GLUI, RGUI](https://docs.libretro.com/guides/)
+
+## Credits 📝
+
+Developed and maintained by **Kevin Veen-Birkenbach**.  
+Learn more at [www.veen.world](https://www.veen.world)
+
+Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
+License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)

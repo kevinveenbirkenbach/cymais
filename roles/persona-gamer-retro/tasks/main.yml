@@ -1,0 +1,5 @@
+- name: Install RetroArch and assets
+  pacman:
+    name: "{{ retroarch_packages }}"
+    state: present
+    update_cache: yes

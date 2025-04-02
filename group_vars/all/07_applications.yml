@@ -171,6 +171,7 @@ defaults_applications:
     plugins:
       - [enable,nasa_apod@elinvention.ovh,https://github.com/Elinvention/gnome-shell-extension-nasa-apod.git]
       - [disable,dash-to-dock@micxgx.gmail.com,'']
+      - [enable, dash-to-panel@jderose9.github.com,'']
 
   ## Joomla
   joomla:

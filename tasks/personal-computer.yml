@@ -50,7 +50,7 @@
 - name: GNOME setup
   when: ("gnome" in group_names)
   include_role:
-    name: pc-gnome
+    name: client-gnome
 
 - name: setup ssh client
   when: ("ssh-client" in group_names)
@@ -60,12 +60,12 @@
 - name: setup gaming hosts
   when: ("gaming" in group_names)
   include_role:
-    name: pc-games
+    name: persona-gamer
 
 - name: setup entertainment hosts
   when: ("entertainment" in group_names)
   include_role:
-    name: pc-spotify
+    name: client-spotify
 
 - name: setup torbrowser hosts
   when: ("torbrowser" in group_names)

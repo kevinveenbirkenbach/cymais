@@ -1,0 +1,5 @@
+- name: install spotify
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - spotify
