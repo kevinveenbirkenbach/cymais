@@ -37,9 +37,10 @@
 
 - name: Ensure ~/.profile exists with common environment
   lineinfile:
-    path: "{{ ansible_env.HOME }}/.profile"
+    path: "$HOME/.profile"
     line: 'export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"'
     insertafter: EOF
     state: present
     create: yes
     mode: "0644"
+  become: false

@@ -1,20 +1,20 @@
 ---
-# roles/shell/tasks/main.yml
-
 - name: Ensure ~/.bash_profile sources ~/.profile
   lineinfile:
-    path: "{{ ansible_env.HOME }}/.bash_profile"
+    path: "$HOME/.bash_profile"
     line: '[ -f ~/.profile ] && . ~/.profile'
     insertafter: EOF
     state: present
     create: yes
     mode: "0644"
+  become: false
 
 - name: Ensure ~/.zprofile sources ~/.profile
   lineinfile:
-    path: "{{ ansible_env.HOME }}/.zprofile"
+    path: "$HOME/.zprofile"
     line: '[ -f ~/.profile ] && . ~/.profile'
     insertafter: EOF
     state: present
     create: yes
     mode: "0644"
+  become: false
