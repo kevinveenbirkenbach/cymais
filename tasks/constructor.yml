@@ -84,6 +84,8 @@
   include_role:
     name: client-wireguard
 
+
+
 ## backup setup
 - name: setup replica backup hosts
   when: ("backup_remote_to_local" in group_names)
@@ -105,6 +107,12 @@
   when: ("epson_multiprinter" in group_names)
   include_role:
     name: driver-epson-multiprinter
+
+
+- name: setup hibernate lid switch
+  when: ("driver-lid-switch" in group_names)
+  include_role:
+    name: driver-lid-switch
 
 ## system setup 
 - name: setup swapfile hosts

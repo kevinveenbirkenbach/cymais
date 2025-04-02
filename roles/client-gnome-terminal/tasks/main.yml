@@ -4,3 +4,9 @@
     name:
       - gnome-terminal
     state: present
+
+- name: "Set zsh as default shell for {{users.client.username}}"
+  user:
+    name: "{{users.client.username}}"
+    shell: /usr/bin/zsh
+  become: true

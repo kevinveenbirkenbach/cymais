@@ -10,6 +10,5 @@
       - wine-gecko
       - wine-mono
       - winetricks
-      - lib32-wine
     state: present
     update_cache: yes
