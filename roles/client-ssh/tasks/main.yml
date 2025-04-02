@@ -35,21 +35,11 @@
     daemon_reload: true
   become: false
 
-- name: Set SSH_AUTH_SOCK in bash_profile or profile
-  block:
-    - name: Choose profile file
-      set_fact:
-        profile_file: "$HOME/.bash_profile"
-      when: ansible_facts.env.HOME is defined and lookup('file', ansible_env.HOME + '/.bash_profile', errors='ignore') is defined
-
-    - name: Fallback to .profile if .bash_profile not found
-      set_fact:
-        profile_file: "$HOME/.profile"
-      when: profile_file is not defined
-
-    - name: Ensure SSH_AUTH_SOCK is set in profile
-      lineinfile:
-        path: "{{ profile_file }}"
-        line: 'export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"'
-        insertafter: EOF
-        state: present
+- name: Ensure ~/.profile exists with common environment
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.profile"
+    line: 'export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"'
+    insertafter: EOF
+    state: present
+    create: yes
+    mode: "0644"

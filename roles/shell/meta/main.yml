@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Persistent SSH agent setup for GNOME Wayland sessions with SSH configuration pulled from Git."
+  description: "Ensures that .profile is sourced in all shells."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: | 
@@ -13,18 +13,20 @@ galaxy_info:
     - name: Archlinux
       versions:
         - rolling
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
   galaxy_tags:
-    - ssh
-    - agent
-    - systemd
-    - gnome
-    - wayland
-    - archlinux
-    - keepassxc
+    - shell
+    - bash
+    - zsh
+    - environment
+    - profile
+    - dotfiles
   repository: https://s.veen.world/cymais
   issue_tracker_url: https://s.veen.world/cymaisissues
   documentation: https://s.veen.world/cymais
-
-dependencies:
-  - client-git
-  - shell
+dependencies: []
