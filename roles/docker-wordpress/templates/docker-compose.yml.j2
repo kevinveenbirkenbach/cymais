@@ -12,11 +12,9 @@ services:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
     volumes:
       - data:/var/www/html
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80/"]
-      interval: 1m
-      timeout: 10s
-      retries: 3
+
+{% include 'roles/docker-compose/templates/services/msmtp_curl_test.yml.j2' %}
+
 {% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 

@@ -17,25 +17,19 @@
   template:
     src: upload.ini.j2
     dest: "{{ docker_compose.directories.instance }}upload.ini"
-  notify: 
-    - docker compose project setup
-    - rebuild wordpress container
+  notify: docker compose project build and setup
 
-- name: "Transfering msmtp.conf to {{ docker_compose.directories.instance }}"
+- name: "Transfering msmtprc to {{ host_msmtp_conf }}"
   template:
     src: "{{ playbook_dir }}/roles/msmtp/templates/msmtprc.conf.j2"
-    dest: "{{ docker_compose.directories.instance }}msmtp.conf"
-  notify:
-    - docker compose project setup
-    - rebuild wordpress container
+    dest: "{{ host_msmtp_conf }}"
+  notify: docker compose project build and setup
 
 - name: "Transfering Dockerfile to {{ docker_compose.directories.instance }}"
   copy:
     src: Dockerfile
     dest: "{{ docker_compose.directories.instance }}Dockerfile"
-  notify:
-    - docker compose project setup
-    - rebuild wordpress container
+  notify: docker compose project build and setup
 
 - name: "copy docker-compose.yml and env file"
   include_tasks: copy-docker-compose-and-env.yml

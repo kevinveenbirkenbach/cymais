@@ -6,7 +6,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy the msmtp configuration into the container
-COPY msmtp.conf /etc/msmtp.conf
+COPY config/msmtprc.conf /etc/msmtprc
 
 # Copy the PHP configuration for uploads (and mail settings)
 COPY upload.ini $PHP_INI_DIR/conf.d/

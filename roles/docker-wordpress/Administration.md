@@ -37,6 +37,6 @@ docker-compose exec -it application /bin/sh
 
 To test the email execute:
 ```bash
-echo "Test Email" | sendmail -v your-email@example.com
+docker-compose exec -it application /bin/sh -c 'echo "Test Email" | sendmail -v your-email@example.com'
 ```
 
