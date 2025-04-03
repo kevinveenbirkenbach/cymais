@@ -1,5 +1,5 @@
 # Applications and Roles
-CyMaIS offers a variety of applications to simplify your daily tasks.  
+CyMaIS offers a variety of applications to simplify your daily tasks.
 
 ## For Users  
 Discover the solutions CyMaIS provides for you:  

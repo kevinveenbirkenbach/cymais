@@ -1,5 +1,8 @@
 file_uploads        = On
-memory_limit        = {{wordpress_max_upload_size}}
-upload_max_filesize = {{wordpress_max_upload_size}}
-post_max_size       = {{wordpress_max_upload_size}}
+memory_limit        = {{ wordpress_max_upload_size }}
+upload_max_filesize = {{ wordpress_max_upload_size }}
+post_max_size       = {{ wordpress_max_upload_size }}
 max_execution_time  = 300
+
+; Use msmtp as the Mail Transfer Agent
+sendmail_path = "/usr/bin/msmtp -t"

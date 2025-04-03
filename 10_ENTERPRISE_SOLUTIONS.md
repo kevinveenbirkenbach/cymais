@@ -9,9 +9,9 @@
 - **Compliance & Audit Logs** - Maintain regulatory standards
 
 ## Use Cases 💼
-✅ **Cloud-Based Infrastructure** (Docker, Kubernetes, CI/CD pipelines)
-✅ **Enterprise Networking & VPN** (WireGuard, OpenVPN, Firewall rules)
-✅ **Database & Business Apps** (PostgreSQL, Nextcloud, ERP systems)
-✅ **Custom Security Solutions** (Keycloak, LDAP, 2FA enforcement)
+- ✅ **Cloud-Based Infrastructure** (Docker, Kubernetes, CI/CD pipelines)
+- ✅ **Enterprise Networking & VPN** (WireGuard, OpenVPN, Firewall rules)
+- ✅ **Database & Business Apps** (PostgreSQL, Nextcloud, ERP systems)
+- ✅ **Custom Security Solutions** (Keycloak, LDAP, 2FA enforcement)
 
 Interested? Contact [Kevin Veen-Birkenbach](mailto:kevin@veen.world) to discuss tailored enterprise solutions.

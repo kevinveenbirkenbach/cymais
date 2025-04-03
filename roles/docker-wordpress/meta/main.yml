@@ -1,7 +1,8 @@
----
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Installs and configures components for sending email notifications. This role is part of the systemd-notifier suite, providing automated alerts when services fail."
+  description: >
+    Deploys and configures a Docker-based WordPress instance with multisite support,
+    custom image building, and integrated msmtp for reliable email delivery.
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -14,13 +15,11 @@ galaxy_info:
       versions:
         - rolling
   galaxy_tags:
-    - email
-    - systemd
-    - notifications
-    - automation
+    - wordpress
+    - docker
+    - multisite
     - msmtp
+    - automation
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
-dependencies:
-  - msmtp

@@ -1,6 +1,8 @@
 ---
 - name: install nginx
-  pacman: name=nginx state=present
+  pacman:
+    name:   nginx
+    state:  present
   notify: restart nginx
   when: run_once_nginx is not defined
 

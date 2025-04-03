@@ -1,7 +1,6 @@
----
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Installs and configures components for sending email notifications. This role is part of the systemd-notifier suite, providing automated alerts when services fail."
+  description: "Installs and configures msmtp, a lightweight SMTP client and sendmail replacement."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -15,12 +14,11 @@ galaxy_info:
         - rolling
   galaxy_tags:
     - email
-    - systemd
-    - notifications
-    - automation
     - msmtp
+    - smtp
+    - automation
+    - archlinux
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
-dependencies:
-  - msmtp
+dependencies: []

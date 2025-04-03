@@ -2,14 +2,21 @@
 
 ## database 
 
-## access database
-To access the database execute
+If you use a local instead of a central database you can use the following commands.
+
+### access database
+
+To access the database execute:
+
 ```bash
   docker-compose exec -it database /bin/mysql -u wordpress -p
 ```
 
-## upgrade database
-To upgrade the database execute
+### upgrade database
+
+To upgrade the database execute:
+
+
 ```bash
   docker-compose exec -it database /bin/mysql_upgrade --user=root --password=
 ```
@@ -18,10 +25,18 @@ To upgrade the database execute
 - https://wolfgang.gassler.org/reset-password-mariadb-mysql-docker/
 - https://www.digitalocean.com/community/tutorials/how-to-reset-your-mysql-or-mariadb-root-password
 
-## bash in application
-docker-compose exec -it wordpress-application-1 /bin/sh
+## shell in docker
 
-## update wp-config.php
+To execute the commands in the docker container execute:
+
 ```bash
-apt update && apt install nano && nano wp-config.php
+docker-compose exec -it application /bin/sh
 ```
+
+## Test Email
+
+To test the email execute:
+```bash
+echo "Test Email" | sendmail -v your-email@example.com
+```
+

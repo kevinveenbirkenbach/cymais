@@ -8,7 +8,7 @@
       verification_url: "{{ verification_url }}"
   when: enable_debug | bool
 
-- name: Check if site {{ domain }} is allready registered at Matomo
+- name: "Check if site {{ domain }} is allready registered at Matomo"
   uri:
     url:            "{{verification_url}}"
     method:         GET
