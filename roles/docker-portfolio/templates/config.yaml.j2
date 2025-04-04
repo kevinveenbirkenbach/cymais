@@ -451,6 +451,19 @@ cards:
   iframe: {{ applications | get_landingpage_iframe_enabled('phpmyadmin') }}
 
 {% endif %}
+
+{% if "pgadmin" in group_names %}
+
+- icon: 
+    class: "fa-solid fa-database"
+  title: "pgAdmin"
+  text: "Take control of your PostgreSQL databases with pgAdmin — the most advanced and feature-rich administration tool available. Streamline your workflows with an elegant UI and comprehensive capabilities tailored for professionals."
+  url: https://{{domains.pgadmin}}
+  link_text: "Launch Your PostgreSQL Dashboard!"
+  iframe: {{ applications | get_landingpage_iframe_enabled('pgadmin') }}
+
+{% endif %}
+
 {% if "snipe_it" in group_names %}
 
 - icon: 
@@ -523,7 +536,7 @@ navigation:
     children:
     - link: accounts
 
-{% if ["discourse","moodle","listmonk","openproject","taiga","snipe_it","matrix","bigbluebutton","mailu", "matomo","phpadmin","keycloak", "ldap", "baserow","yourls","nextcloud"] | any_in(group_names) %}
+{% if ["discourse","moodle","listmonk","openproject","taiga","snipe_it","matrix","bigbluebutton","mailu", "matomo","phpmyadmin","keycloak", "ldap", "baserow","yourls","nextcloud"] | any_in(group_names) %}
 
     - name: Solution Hub
       description: Curated collection of self hosted tools
@@ -647,7 +660,7 @@ navigation:
 
     {% endif %}
   {% endif %}
-  {% if ["matomo","phpadmin","keycloak", "ldap"] | any_in(group_names) %}  
+  {% if ["matomo","phpmyadmin","keycloak", "ldap"] | any_in(group_names) %}  
 
       - name: Administration
         icon:
@@ -674,6 +687,18 @@ navigation:
           iframe: {{ applications | get_landingpage_iframe_enabled('phpmyadmin') }}
 
     {% endif %}
+
+    {% if "pgadmin" in group_names %}   
+
+        - name: pgAdmin
+          description: Administrate PostgreSQL databases with ease and precision
+          icon:
+            class: fas fa-database
+          url: https://{{domains.pgadmin}}/
+          iframe: {{ applications | get_landingpage_iframe_enabled('pgadmin') }}
+
+    {% endif %}
+
     {% if "keycloak" in group_names %}   
 
         - name: Keycloak

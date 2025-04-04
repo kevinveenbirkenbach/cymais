@@ -8,6 +8,7 @@ ports:
       ldap:           4182
       openproject:    4183
       yourls:         4184
+      pgadmin:        4185
     ldap:
       openldap:       389
     http:
