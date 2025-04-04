@@ -1,0 +1,14 @@
+---
+- name: "include docker-compose role"
+  include_role:
+    name: docker-compose
+
+- name: "include role nginx-domain-setup for {{application_id}}"
+  include_role:
+    name: nginx-domain-setup
+  vars:
+    domain:     "{{ domains[application_id] }}"
+    http_port:  "{{ ports.localhost.http[application_id] }}"
+
+- name: "copy docker-compose.yml and env file"
+  include_tasks: copy-docker-compose-and-env.yml

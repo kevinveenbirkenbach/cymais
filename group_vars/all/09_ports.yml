@@ -26,7 +26,7 @@ ports:
       roulette-wheel: 8013
       joomla:         8014
       attendize:      8015
-      #matrix:        8016 Not used anymore
+      pgadmin:        8016
       baserow:        8017
       matomo:         8018
       listmonk:       8019

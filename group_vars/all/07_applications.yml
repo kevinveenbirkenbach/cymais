@@ -621,6 +621,22 @@ defaults_applications:
     css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
+  ## PgAdmin
+  pgadmin:
+    version:                      "latest"
+    default_email:               "{{ users.administrator.email }}"              # Initial login email address
+    default_password:            "{{ users.administrator.initial_password }}"   # Initial login password – should be overridden in inventory for security
+    oauth2_proxy:
+      enabled:                    true                                           # Enable OAuth2 proxy for authentication
+      application:                "application"
+      port:                       "80"
+#     cookie_secret:              None                                           # Set via: openssl rand -hex 16
+    database:
+      central_storage:            True                                          # Uses central PostgreSQL database
+    matomo_tracking_enabled:      "{{ matomo_tracking_enabled_default }}"       # Enables/Disables Matomo Tracking
+    css_enabled:                  "{{ css_enabled_default }}"                   # Enables/Disables global CSS styling
+    landingpage_iframe_enabled:   "{{ landingpage_iframe_enabled_default }}"    # Enables/Disables embedding via iframe
+
   ## PHPMyAdmin
   phpmyadmin:
     version:                      "latest"

@@ -1,0 +1,19 @@
+services:
+
+{% include 'roles/docker-oauth2-proxy/templates/container.yml.j2' %}
+
+  application:
+    image: dpage/pgadmin4:{{applications.pgadmin.version}}
+    container_name: pgadmin
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+    ports:
+      - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
+{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+{% include 'templates/docker/compose/networks.yml.j2' %}

@@ -1,0 +1,3 @@
+application_id:       "pgadmin"
+database_type:        "postgresql"
+database_host:        "{{ 'central-' + database_type if applications[application_id].database.central_storage }}"

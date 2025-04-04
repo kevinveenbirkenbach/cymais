@@ -60,8 +60,8 @@ defaults_networks:
       subnet: 192.168.102.112/28
     pixelfed:
       subnet: 192.168.102.128/28
-    # Free :
-    #  subnet: 192.168.102.144/28
+    pgadmin:
+      subnet: 192.168.102.144/28
     snipe_it:
       subnet: 192.168.102.160/28
     taiga:

@@ -1,23 +1,29 @@
-# Docker PhpMyAdmin Role
+# PhpMyAdmin 🐳
 
-Welcome to the **Docker PhpMyAdmin Role**! 🎉 This role simplifies the deployment of PhpMyAdmin in a Docker environment, including optional OAuth2 proxy support for enhanced security.
+## Description
 
-## Features ✨
+This Ansible role deploys [PhpMyAdmin](https://www.phpmyadmin.net/) in a secure Docker environment, complete with optional OAuth2 proxy support. It enables seamless management of MariaDB/MySQL databases via a web-based interface.
 
-- 🚀 **Automated Deployment:** Effortlessly deploy PhpMyAdmin with Docker Compose.
-- 🔐 **OAuth2 Proxy Support:** Secure access with OAuth2 authentication.
-- 🛠️ **Configurable Settings:** Fully customizable via Ansible variables.
-- 🌐 **Support for Central Databases:** Seamlessly integrates with a central MariaDB database.
-- 🐳 **Docker Compose Integration:** Generates `docker-compose.yml` tailored to your environment.
+## Overview
 
-## Learn More 📖
+The role configures and deploys a containerized PhpMyAdmin instance using Docker Compose. It optionally integrates with a central database and uses dynamic Ansible variables to support flexible deployments in both production and homelab environments.
 
-- Official PhpMyAdmin Website: [https://www.phpmyadmin.net/](https://www.phpmyadmin.net/)
+## Purpose
 
-## Contributing 🤝
+The purpose of this role is to provide a reliable, configurable, and secure PhpMyAdmin deployment out-of-the-box. It minimizes the need for manual setup, and integrates smoothly with other CyMaIS infrastructure roles.
 
-Contributions are welcome! Feel free to fork this repository, submit issues, or create pull requests to improve this role.
+## Features
 
----
+- **Docker Compose Integration:** Deploy PhpMyAdmin via a templated Compose setup.
+- **OAuth2 Proxy Support:** Secure your admin interface with modern authentication.
+- **Central DB Integration:** Connects to shared MariaDB instances for multi-role environments.
+- **Custom Configuration:** Leverage Ansible variables to fine-tune your deployment.
+- **Healthchecks & Networking:** Includes Docker healthchecks and network setup logic.
 
-Made with ❤️ by [Kevin Veen-Birkenbach](https://www.veen.world).
+## Credits 📝
+
+Developed and maintained by **Kevin Veen-Birkenbach**.  
+Learn more at [www.veen.world](https://www.veen.world)
+
+Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
+License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)

@@ -196,6 +196,11 @@
   include_role:
     name: docker-sphinx
 
+- name: setup pgadmin
+  when: ("pgadmin" in group_names)
+  include_role:
+    name: docker-pgadmin
+
 # Native Webserver Roles
 - name: setup nginx-serve-htmls
   when: ("nginx-serve-htmls" in group_names)

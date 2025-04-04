@@ -33,6 +33,7 @@ defaults_domains:
   peertube:                "video.{{primary_domain}}"
   # ATTENTION: Will be owerwritten by the values in domains. Not merged.
   peertube_alternates:     []
+  pgadmin:                 "pgadmin.{{primary_domain}}"
   phpmyadmin:              "phpmyadmin.{{primary_domain}}"
   pixelfed:                "picture.{{primary_domain}}"
   portfolio:               "{{primary_domain}}"
