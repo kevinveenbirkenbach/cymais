@@ -623,9 +623,11 @@ defaults_applications:
 
   ## PgAdmin
   pgadmin:
-    version:                      "latest"
-    default_email:               "{{ users.administrator.email }}"              # Initial login email address
-    default_password:            "{{ users.administrator.initial_password }}"   # Initial login password – should be overridden in inventory for security
+    version:                     "latest"
+    users:
+      administrator:
+        email:                   "{{ users.administrator.email }}"              # Initial login email address
+        password:                "{{ users.administrator.initial_password }}"   # Initial login password – should be overridden in inventory for security
     oauth2_proxy:
       enabled:                    true                                           # Enable OAuth2 proxy for authentication
       application:                "application"

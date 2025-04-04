@@ -12,6 +12,10 @@ The role ensures consistent deployments, full automation, and secure configurati
 
 To automate the deployment of **secure, extensible, and production-ready Nextcloud instances** using Docker and Ansible.
 
+## User Guide
+
+The Nextcloud User Guide you will find [here](https://docs.nextcloud.com/server/latest/user_manual/en/).
+
 ## Features
 
 - Dockerized Nextcloud (PHP-FPM, Nginx, Cron, Redis)
