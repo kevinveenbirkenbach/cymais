@@ -8,18 +8,21 @@
       # Wildcard certificate should not be used
       # OR: The domain is not a first-level subdomain of the primary domain
 
+# The following should not work, checkout the Setup.md instructions. 
+# @see https://chatgpt.com/share/67efa9f0-1cdc-800f-8bce-62b00fc3e6a2
 - name: "recieve wildcard certificate *{{ primary_domain }} for {{domain}}"
   command: >-
     certbot certonly --agree-tos --email {{ users.administrator.email }}                                          
     --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{ primary_domain }} -d *.{{ primary_domain }}
     {{ '--test-cert' if mode_test | bool else '' }}
-  when: 
+  when:
     - enable_wildcard_certificate | bool  
       # Wildcard certificate is enabled
     - domain.split('.') | length == (primary_domain.split('.') | length + 1) and domain.endswith(primary_domain)
       # AND: The domain is a direct first-level subdomain of the primary domain
     - run_once_recieve_certificate is not defined  
       # Ensure this task runs only once for the wildcard certificate
+  ignore_errors: true
 
 - name: "Cleanup dedicated cert for {{ domain }}"
   command: >-
