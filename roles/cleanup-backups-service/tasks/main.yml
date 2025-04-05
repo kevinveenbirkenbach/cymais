@@ -6,9 +6,9 @@
     state: present
   when: run_once_cleanup_backups_service is not defined
 
-- name: "create {{docker_cleanup_backups}}"
+- name: "create {{cleanup_backups_directory}}"
   file:
-    path: "{{docker_cleanup_backups}}"
+    path: "{{cleanup_backups_directory}}"
     state: directory
     mode: 0755
   when: run_once_cleanup_backups_service is not defined
@@ -16,7 +16,7 @@
 - name: create cleanup-backups.py
   copy: 
     src:  "cleanup-backups.py"
-    dest: "{{docker_cleanup_backups}}cleanup-backups.py"
+    dest: "{{cleanup_backups_directory}}cleanup-backups.py"
   when: run_once_cleanup_backups_service is not defined
 
 - name: create cleanup-backups.cymais.service
