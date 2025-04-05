@@ -1,12 +1,12 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Installs essential gaming utilities, launchers, and runtimes on Linux."
+  description: "Installs tools and dependencies for Java development on Linux."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
-    Kevin Veen-Birkenbach
-    Consulting & Coaching Solutions
+    Kevin Veen-Birkenbach  
+    Consulting & Coaching Solutions  
     https://www.veen.world
   min_ansible_version: "2.9"
   platforms:
@@ -14,15 +14,16 @@ galaxy_info:
       versions:
         - rolling
   galaxy_tags:
-    - gaming
-    - steam
-    - lutris
-    - wine
-    - gamemode
-    - mangohud
+    - development
+    - java
+    - jdk
+    - software
+    - engineering
     - archlinux
-    - performance
+    - persona
   repository: https://s.veen.world/cymais
   issue_tracker_url: https://s.veen.world/cymaisissues
   documentation: https://s.veen.world/cymais
-dependencies: []
+dependencies:
+  - java
+  - persona-developer

@@ -5,7 +5,7 @@
   include_role:
     name: "{{ item }}"
   loop:
-    - pc-administrator-tools
+    - persona-administrator
     - driver-non-free
 
 - name: pc-office

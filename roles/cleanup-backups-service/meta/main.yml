@@ -21,7 +21,7 @@ galaxy_info:
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
-dependencies:
+dependencies:  
   - python-pip
   - systemd-notifier
   - system-maintenance-lock

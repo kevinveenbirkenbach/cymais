@@ -23,4 +23,5 @@ galaxy_info:
     - pip
     - update
     - maintenance
-dependencies: []
+dependencies:
+  - python-pip

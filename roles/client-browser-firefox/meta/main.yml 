@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Automates the installation and configuration of Firefox with enforced extension policies on Arch Linux."
+  description: "Automates the installation and configuration of Firefox with enforced extension policies on Linux."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
