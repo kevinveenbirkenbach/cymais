@@ -1,4 +1,7 @@
-- name: Update all local pip packages
-  shell: 'pip freeze --local | grep -v "^\-e" | cut -d = -f 1 | xargs -n1 pip install -U --break-system-packages'
-  args:
-    executable: /bin/bash
+# Deactivated due to that it breaks the system
+# There is no alternative to do the python update
+# 
+#- name: Update all local pip packages
+#  shell: 'pip freeze --local | grep -v "^\-e" | cut -d = -f 1 | xargs -n1 pip install -U --break-system-packages'
+#  args:
+#    executable: /bin/bash
