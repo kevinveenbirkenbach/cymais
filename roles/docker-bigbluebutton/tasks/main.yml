@@ -3,24 +3,18 @@
   include_role: 
     name: docker-compose
 
-# Leave this in the code until big blue button was working for a while. 
-# This is necessary due to the reason that big blue button wasn't fully tested after refactoring
-#
-#- name: "include task certbot-and-globals.yml"
-#  include_tasks: certbot-and-globals.yml
-#
-#- name: configure {{domains[application_id]}}.conf
-#  template: 
-#    src:  "nginx-proxy.conf.j2"
-#    dest: "{{nginx.directories.http.servers}}{{domains[application_id]}}.conf"
-#  notify: restart nginx
-
 - name: "include role nginx-domain-setup for {{application_id}}"
   include_role:
     name: nginx-domain-setup
-  vars:
-    domain: 	"{{ domains[application_id] }}"
-    http_port: 	"{{ ports.localhost.http[application_id] }}"
+
+- name: pull docker repository
+  git:
+    repo: "https://github.com/bigbluebutton/docker.git"
+    dest: "{{ bbb_repository_directory }}"
+    update: yes
+    recursive: yes
+    version: main
+  notify: setup bigbluebutton
 
 - name: configure websocket_upgrade.conf
   copy: 
@@ -28,19 +22,22 @@
     dest: "{{nginx.directories.http.maps}}websocket_upgrade.conf"
   notify: restart nginx
 
-- name: pull docker repository
-  git:
-    repo: "https://github.com/bigbluebutton/docker.git"
-    dest: "{{docker_compose.directories.instance}}"
-    update: yes
-    recursive: yes
-    version: main
-  notify: setup bigbluebutton
-  ignore_errors: true
+- name: "Remove directory {{ docker_compose.directories.env }}"
+  ansible.builtin.file:
+    path: "{{ docker_compose.directories.env }}"
+    state: absent
 
 - name: deploy .env
-  template: src=env.j2 dest={{docker_compose.directories.instance}}/.env
+  template: 
+    src:  env.j2
+    dest: "{{ bbb_env_file_origine }}"
   notify: setup bigbluebutton
+
+- name: Create symbolic link from .env file to target location
+  ansible.builtin.file:
+    src:    "{{ bbb_env_file_origine }}"
+    dest:   "{{ bbb_env_file_link }}"
+    state:  link
 
 - name: flush docker service
   meta: flush_handlers
@@ -53,7 +50,7 @@
 - name: create admin
   command:
     cmd: docker compose exec greenlight bundle exec rake admin:create
-    chdir: "{{docker_compose.directories.instance}}"
+    chdir: "{{ docker_compose.directories.instance }}"
   when: applications.bigbluebutton.setup | bool
   ignore_errors: true
   register: admin_creation_result

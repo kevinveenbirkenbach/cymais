@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Manages Docker Compose project structure and execution logic on Arch Linux."
+  description: "Deploys BigBlueButton with Greenlight and SSO"
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -15,14 +15,14 @@ galaxy_info:
         - rolling
   galaxy_tags:
     - docker
-    - compose
-    - container
-    - infrastructure
-    - devops
-    - automation
+    - bigbluebutton
+    - conferencing
+    - education
+    - greenlight
+    - sso
+    - oidc
+    - ldap
     - archlinux
   repository: https://s.veen.world/cymais
   issue_tracker_url: https://s.veen.world/cymaisissues
   documentation: https://s.veen.world/cymais
-dependencies:
-  - nginx-docker-reverse-proxy

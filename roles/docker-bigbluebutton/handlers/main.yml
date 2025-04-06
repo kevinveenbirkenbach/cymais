@@ -2,29 +2,35 @@
 - name: create docker-compose.yml for bigbluebutton
   command:
     cmd: bash ./scripts/generate-compose
-    chdir: "{{docker_compose.directories.instance}}"
+    chdir: "{{ bbb_repository_directory }}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600
   listen: setup bigbluebutton
 
-- name: replace postgres bind mount by volume mount
-  replace:
-    path: "{{docker_compose_file}}"
-    regexp: '\./postgres-data:/var/lib/postgresql/data'
-    replace: 'database:/var/lib/postgresql/data'
+- name: Copy docker-compose.yml from origin to final location
+  ansible.builtin.copy:
+    src:  "{{ docker_compose_file_origine }}"
+    dest: "{{ docker_compose_file_final }}"
+    remote_src: yes
   listen: setup bigbluebutton
 
-- name: replace greenlight bind mount by volume mount
-  replace:
-    path: "{{docker_compose_file}}"
-    regexp: '\./greenlight-data:/usr/src/app/storage'
-    replace: 'greenlight:/usr/src/app/storage'
+- name: Replace bind mounts by named volume mounts
+  ansible.builtin.replace:
+    path: "{{ docker_compose_file_final }}"
+    regexp: "{{ item.regexp }}"
+    replace: "{{ item.replace }}"
+  loop:
+    - { regexp: '\./data/postgres:/var/lib/postgresql/data', replace: 'database:/var/lib/postgresql/data' }
+    - { regexp: '\./data/bigbluebutton:/var/bigbluebutton', replace: 'bigbluebutton:/var/bigbluebutton' }
+    - { regexp: '\./data/freeswitch-meetings:/var/freeswitch/meetings', replace: 'freeswitch:/var/freeswitch/meetings' }
+    - { regexp: '\./data/greenlight:/usr/src/app/storage', replace: 'greenlight:/usr/src/app/storage' }
+    - { regexp: '\./data/mediasoup:/var/mediasoup', replace: 'mediasoup:/var/mediasoup' }
   listen: setup bigbluebutton
 
 - name: add volume to redis
   lineinfile:
-    path: "{{ docker_compose_file }}"
+    path: "{{ docker_compose_file_final }}"
     insertafter: "^\\s*redis:"
     line: "    volumes:\n      - redis:/data"
     firstmatch: yes
@@ -32,7 +38,7 @@
 
 - name: add volume to coturn
   lineinfile:
-    path: "{{ docker_compose_file }}"
+    path: "{{ docker_compose_file_final }}"
     insertafter: "- ./mod/coturn/turnserver.conf:/etc/coturn/turnserver.conf"
     line: "      - coturn:/var/lib/coturn"
   listen: setup bigbluebutton
@@ -40,30 +46,46 @@
 # Implemented due to etherpad health bug.
 # @todo Remove when health check is working fine
 # @see https://chatgpt.com/c/67a0fc7e-5104-800f-bb6b-3731e2f83b7b
-- name: "Update docker-compose.yml for Etherpad health check"
-  lineinfile: 
-    line: "    healthcheck:\n      test: [\"CMD\", \"curl\", \"-f\", \"http://127.0.0.1:9001\"]\n      interval: 30s\n      timeout: 10s\n      retries: 5\n      start_period: 10s"
-    path: "{{docker_compose_file}}"
-    insertafter: "etherpad:"
-  listen: setup bigbluebutton
+#- name: "Update docker-compose.yml for Etherpad health check"
+#  lineinfile: 
+#    line: "    healthcheck:\n      test: [\"CMD\", \"curl\", \"-f\", \"http://127.0.0.1:9001\"]\n      interval: 30s\n      timeout: 10s\n      retries: 5\n      start_period: 10s"
+#    path: "{{docker_compose_file_final}}"
+#    insertafter: "etherpad:"
+#  listen: setup bigbluebutton
 
-- name: add volumes to docker compose
+- name: Add volumes block after services in docker compose
   blockinfile:
-    path: "{{docker_compose_file}}"
-    block: |2
+    path: "{{ docker_compose_file_final }}"
+    block: |
+      volumes:
         database:
         greenlight:
         redis:
         coturn:
+        #freeswitch:
+        bigbluebutton:
     marker: "# {mark} ANSIBLE MANAGED BLOCK FOR VOLUMES"
-    insertafter: "html5-static:"
+    insertbefore: "^services:"
+  listen: setup bigbluebutton
+
+- name: Replace all './' with '/services/' in docker-compose.yml
+  ansible.builtin.replace:
+    path:     "{{ docker_compose_file_final }}"
+    regexp:   '\./'
+    replace:  './services/'
+  listen: setup bigbluebutton
+
+- name: docker compose pull bigbluebutton
+  command:
+    cmd: "docker-compose pull"
+    chdir: "{{ bbb_repository_directory }}"
   listen: setup bigbluebutton
 
 - name: docker compose up bigbluebutton
   command:
     cmd: "docker-compose -p bigbluebutton up -d --force-recreate{% if mode_cleanup | bool %} --remove-orphans{% endif %}"
     # Don't use the --build flag here. This leads to bugs
-    chdir: "{{docker_compose.directories.instance}}"
+    chdir: "{{ docker_compose.directories.instance }}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600
