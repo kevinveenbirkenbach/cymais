@@ -47,8 +47,8 @@ services:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
       taiga:
-    # volumes:
-    #   - ./conf.json:/usr/share/nginx/html/conf.json
+#    volumes:
+#      - {{ taiga_frontend_conf_path }}:/usr/share/nginx/html/conf.json:ro
 
   taiga-events:
     image: taigaio/taiga-events:latest

@@ -34,7 +34,7 @@ By using this role, teams can set up Taiga in minutes on Arch Linux systems — 
 ## Features
 
 - 🐳 **Docker-Based Deployment:** Easy containerized setup of backend, frontend, async workers, and events service.
-- 🛡️ **OIDC Support:** Seamless login integration with providers like Keycloak when `applications[application_id].oidc.enabled` is `true`.
+- 🔐 **OIDC (Single Sign-On):** Supported via [taiga-contrib-openid-auth (robrotheram)](https://github.com/robrotheram/taiga-contrib-openid-auth)
 - 📨 **Email Backend:** Supports SMTP and console backends for development.
 - 🔁 **Async & Realtime Events:** Includes RabbitMQ and support for Taiga’s event system.
 - 🌐 **Reverse Proxy Ready:** Integrates with Nginx using the `nginx-domain-setup` role.

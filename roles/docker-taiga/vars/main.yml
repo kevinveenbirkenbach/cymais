@@ -6,3 +6,4 @@ email_backend:              "smtp"                                      ## use a
 docker_compose_init:        "{{docker_compose.directories.instance}}docker-compose-inits.yml.j2"
 taiga_image_backend:        "{{ 'robrotheram/taiga-back-openid' if applications[application_id].oidc.enabled else 'taigaio/taiga-back' }}"
 taiga_image_frontend:       "{{ 'robrotheram/taiga-front-openid' if applications[application_id].oidc.enabled else 'taigaio/taiga-front' }}"
+taiga_frontend_conf_path:   "{{docker_compose.directories.conf}}conf.json"
