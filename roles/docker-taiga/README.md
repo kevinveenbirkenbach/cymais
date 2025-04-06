@@ -1,31 +1,33 @@
-# Docker Taiga Role 🐳📋
+# Taiga 🐳📋
 
-This Ansible role sets up and configures a Taiga project management platform using Docker. It includes tasks for setting up the database, Nginx proxy, and updating the repository with necessary files.
+## Description
 
-## Tasks
+This Ansible role deploys and configures the [Taiga](https://www.taiga.io/) project management platform using Docker. It supports core services like backend, frontend, events, and async processing — with optional integration for OpenID Connect (OIDC) authentication.
 
-The main tasks included in this role are:
+Designed for Arch Linux systems, it ensures consistent and modular setup of the entire Taiga stack, including database and proxy configuration. This role integrates with the CyMaIS infrastructure through conditional Docker Compose file generation and optional service dependencies.
 
-- Setting up the database.
-- Configuring Nginx as a proxy.
-- Updating the repository with necessary files.
+## Overview
 
-## Variables
+- Deploys Taiga using Docker and Docker Compose.
+- Supports PostgreSQL and RabbitMQ as dependencies.
+- Automatically integrates Nginx as a reverse proxy.
+- Optionally enables OIDC via `taiga-contrib-openid-auth`.
 
-Key variables used in this role include the Docker Compose project name, database type and password, and the repository address.
+## Purpose
 
-## Templates
+The purpose of this role is to automate the provisioning of a complete, containerized Taiga environment in a secure, repeatable, and infrastructure-compliant way. It supports multiple deployment scenarios (internal tools, team collaboration, or homelab usage) and fits into a modular Ansible-based DevOps workflow.
 
-The role includes several Jinja2 templates to configure the environment and Docker Compose setup, including:
+## Features
 
-- **docker-compose-inits.yml.j2**
-- **.env.j2**
-- **docker-compose.yml.j2**
+- 🐳 **Docker-Based Deployment** – Uses `docker-compose` to orchestrate all services.
+- 🔐 **Optional OpenID Connect Integration** – Conditionally enables Keycloak or other OIDC providers.
+- 🔁 **Async and Event Support** – Includes `taiga-events` and `taiga-async`.
+- 📨 **SMTP Email Support** – Supports both real and console email backends.
+- 🧩 **Modular Role Integration** – Compatible with roles like `docker-central-database`, `nginx-domain-setup`, and `docker-repository-setup`.
 
-## Author
+## Credits 📝
 
-This role was created by Kevin Veen-Birkenbach. You can reach him at [kevin@veen.world](mailto:kevin@veen.world). Visit his website at [veen.world](https://www.veen.world/).
-
-## Note
-
-This README was created with the assistance of ChatGPT. [Link to conversation](https://chatgpt.com/share/fee718ab-cfe1-46f3-b97f-8f8c896ffd11).
+Developed and maintained by **Kevin Veen-Birkenbach**  
+Visit [veen.world](https://www.veen.world) for more information.  
+Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
+License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)

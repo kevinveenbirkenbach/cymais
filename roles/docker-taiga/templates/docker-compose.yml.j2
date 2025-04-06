@@ -2,7 +2,7 @@ services:
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
   taiga-back:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    image: taigaio/taiga-back:{{applications.taiga.version}}
+    image: {{taiga_image_backend}}:{{applications.taiga.version}}
     volumes:
       # These volumens will be used by taiga-back and taiga-async.
       - static-data:/taiga-back/static
@@ -18,7 +18,7 @@ services:
 
   taiga-async:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    image: taigaio/taiga-back:latest
+    image: {{taiga_image_backend}}:{{applications.taiga.version}}
     entrypoint: ["/taiga-back/docker/async_entrypoint.sh"]
     volumes:
       # These volumens will be used by taiga-back and taiga-async.
@@ -43,7 +43,7 @@ services:
       taiga:
 
   taiga-front:
-    image: taigaio/taiga-front:latest
+    image: {{taiga_image_frontend}}:{{applications.taiga.version}}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
       taiga:

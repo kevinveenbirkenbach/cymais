@@ -1,6 +1,8 @@
-application_id:              "taiga"
-database_type:               "postgres"
-database_password:           "{{taiga_database_password}}"
-docker_repository_address:   "https://github.com/taigaio/taiga-docker"
-email_backend:               "smtp"                                      ## use an SMTP server or display the emails in the console (either "smtp" or "console")
-docker_compose_init:         "{{docker_compose.directories.instance}}docker-compose-inits.yml.j2"
+application_id:             "taiga"
+database_type:              "postgres"
+database_password:          "{{taiga_database_password}}"
+docker_repository_address:  "https://github.com/taigaio/taiga-docker"
+email_backend:              "smtp"                                      ## use an SMTP server or display the emails in the console (either "smtp" or "console")
+docker_compose_init:        "{{docker_compose.directories.instance}}docker-compose-inits.yml.j2"
+taiga_image_backend:        "{{ 'robrotheram/taiga-back-openid' if applications[application_id].oidc.enabled else 'taigaio/taiga-back' }}"
+taiga_image_frontend:       "{{ 'robrotheram/taiga-front-openid' if applications[application_id].oidc.enabled else 'taigaio/taiga-front' }}"
