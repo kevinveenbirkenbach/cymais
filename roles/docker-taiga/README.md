@@ -1,33 +1,52 @@
-# Taiga 🐳📋
+# Docker Taiga 🐳📋
 
 ## Description
 
-This Ansible role deploys and configures the [Taiga](https://www.taiga.io/) project management platform using Docker. It supports core services like backend, frontend, events, and async processing — with optional integration for OpenID Connect (OIDC) authentication.
+[Taiga](https://www.taiga.io/) is a powerful and intuitive open-source project management platform tailored for agile teams. Whether you're practicing Scrum, Kanban, or a custom hybrid workflow, Taiga offers a rich, customizable environment to plan, track, and collaborate on your projects — without the complexity of enterprise tools or the vendor lock-in of SaaS platforms.
 
-Designed for Arch Linux systems, it ensures consistent and modular setup of the entire Taiga stack, including database and proxy configuration. This role integrates with the CyMaIS infrastructure through conditional Docker Compose file generation and optional service dependencies.
+This Ansible role deploys Taiga in a Docker-based environment, allowing fast, reproducible, and secure installations. It also optionally integrates [OpenID Connect (OIDC)](https://openid.net/connect/) for single sign-on via providers like Keycloak.
 
-## Overview
+---
 
-- Deploys Taiga using Docker and Docker Compose.
-- Supports PostgreSQL and RabbitMQ as dependencies.
-- Automatically integrates Nginx as a reverse proxy.
-- Optionally enables OIDC via `taiga-contrib-openid-auth`.
+## Why Taiga?
+
+Taiga is ideal for developers, designers, and agile teams who want:
+
+- ✅ **Beautiful UI:** Clean, modern, and responsive interface.
+- 📌 **Agile Workflows:** Supports Scrum, Kanban, Scrumban, and Epics.
+- 🗃️ **Backlog & Sprint Management:** Create user stories, tasks, and sprints with ease.
+- 📈 **Burn-down Charts & Metrics:** Monitor velocity and progress.
+- 🔄 **Custom Workflows:** Define your own states, priorities, and permissions.
+- 📎 **Attachments & Wiki:** Collaborate with file uploads and internal documentation.
+- 🔐 **SSO/Authentication Plugins:** OpenID Connect, LDAP, GitHub, GitLab and more.
+- 🌍 **Multilingual UI:** Used by teams worldwide.
+
+---
 
 ## Purpose
 
-The purpose of this role is to automate the provisioning of a complete, containerized Taiga environment in a secure, repeatable, and infrastructure-compliant way. It supports multiple deployment scenarios (internal tools, team collaboration, or homelab usage) and fits into a modular Ansible-based DevOps workflow.
+This role automates the deployment and configuration of a complete, production-ready Taiga stack using Docker Compose. It ensures integration with common infrastructure tools such as Nginx, PostgreSQL, and RabbitMQ, while optionally enabling OpenID Connect authentication for enterprise-grade SSO.
+
+By using this role, teams can set up Taiga in minutes on Arch Linux systems — whether in a homelab, dev environment, or production cluster.
+
+---
 
 ## Features
 
-- 🐳 **Docker-Based Deployment** – Uses `docker-compose` to orchestrate all services.
-- 🔐 **Optional OpenID Connect Integration** – Conditionally enables Keycloak or other OIDC providers.
-- 🔁 **Async and Event Support** – Includes `taiga-events` and `taiga-async`.
-- 📨 **SMTP Email Support** – Supports both real and console email backends.
-- 🧩 **Modular Role Integration** – Compatible with roles like `docker-central-database`, `nginx-domain-setup`, and `docker-repository-setup`.
+- 🐳 **Docker-Based Deployment:** Easy containerized setup of backend, frontend, async workers, and events service.
+- 🛡️ **OIDC Support:** Seamless login integration with providers like Keycloak when `applications[application_id].oidc.enabled` is `true`.
+- 📨 **Email Backend:** Supports SMTP and console backends for development.
+- 🔁 **Async & Realtime Events:** Includes RabbitMQ and support for Taiga’s event system.
+- 🌐 **Reverse Proxy Ready:** Integrates with Nginx using the `nginx-domain-setup` role.
+- 🧩 **Composable Design:** Integrates cleanly with other CyMaIS infrastructure roles.
 
-## Credits 📝
+---
+
+## Author
 
 Developed and maintained by **Kevin Veen-Birkenbach**  
-Visit [veen.world](https://www.veen.world) for more information.  
+Email: [kevin@veen.world](mailto:kevin@veen.world)  
+Website: [veen.world](https://www.veen.world)
+
 Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
 License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)
