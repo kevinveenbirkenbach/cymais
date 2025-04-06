@@ -703,7 +703,6 @@ defaults_applications:
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"               # Enables\Disables Matomo Tracking
     css_enabled:                  "{{css_enabled_default}}"                           # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   true                                                # Makes sense to make the documentary allways in iframe available
-      
 
   ## Taiga
   taiga:
@@ -714,7 +713,13 @@ defaults_applications:
     css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
     oidc:
-      enabled:                    True                                      # Activate OIDC for Mastodon
+    # Taiga doesn't have a functioning oidc support at the moment
+    # See
+    # - https://community.taiga.io/t/taiga-and-oidc-plugin/4866
+    #
+    # Due to this reason this plutin is deactivated atm
+      enabled:                    False                                     # De\Activate OIDC for Taiga
+                                                                            
 
   ## YOURLS
   yourls:
