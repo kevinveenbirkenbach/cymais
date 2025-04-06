@@ -707,12 +707,14 @@ defaults_applications:
 
   ## Taiga
   taiga:
-    version:           "latest"
+    version:                      "latest"
     database:
-      central_storage:  True    # Activate Central Database Storage
+      central_storage:            True                                      # Activate Central Database Storage
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
     css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
+    oidc:
+      enabled:                    True                                      # Activate OIDC for Mastodon
 
   ## YOURLS
   yourls:
@@ -724,10 +726,10 @@ defaults_applications:
       enabled:          true
       application:      "application"
       port:             "80"
-      location:         "/admin/"                           # Protects the admin area
-#     cookie_secret:    None                                # Set via openssl rand -hex 16
+      location:         "/admin/"                                           # Protects the admin area
+#     cookie_secret:    None                                                # Set via openssl rand -hex 16
     database:
-      central_storage:  True                                # Activate Central Database Storage
+      central_storage:  True                                                # Activate Central Database Storage
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
     css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe

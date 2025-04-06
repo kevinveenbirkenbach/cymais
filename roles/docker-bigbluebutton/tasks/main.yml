@@ -33,14 +33,6 @@
     dest: "{{ bbb_env_file_origine }}"
   notify: setup bigbluebutton
 
-- name: "Update healthcheck for bbb-graphql-server"
-  # This is neccessary because the healthcheck doesn't listen to the correct port
-  lineinfile: 
-    line: "    healthcheck:\n      test: [\"CMD\", \"curl\", \"-f\", \"http://localhost:8085/healthz\"]\n      interval: 30s\n      timeout: 10s\n      retries: 5\n      start_period: 10s"
-    path: "{{docker_compose_file_final}}"
-    insertafter: "bbb-graphql-server:"
-  listen: setup bigbluebutton
-
 - name: Create symbolic link from .env file to target location
   ansible.builtin.file:
     src:    "{{ bbb_env_file_origine }}"
