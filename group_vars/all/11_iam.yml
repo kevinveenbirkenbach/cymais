@@ -19,7 +19,7 @@ defaults_oidc:
     issuer_url:           "{{_oidc_client_issuer_url}}"                                     # Base URL of the OIDC provider (issuer)
     discovery_document:   "{{_oidc_client_issuer_url}}/.well-known/openid-configuration"    # URL for fetching the provider's configuration details
     authorize_url:        "{{_oidc_client_issuer_url}}/protocol/openid-connect/auth"        # Endpoint to start the authorization process
-    toke_url:             "{{_oidc_client_issuer_url}}/protocol/openid-connect/token"       # Endpoint to exchange authorization codes for tokens (note: 'toke_url' may be a typo for 'token_url')
+    token_url:             "{{_oidc_client_issuer_url}}/protocol/openid-connect/token"       # Endpoint to exchange authorization codes for tokens (note: 'token_url' may be a typo for 'token_url')
     user_info_url:        "{{_oidc_client_issuer_url}}/protocol/openid-connect/userinfo"    # Endpoint to retrieve user information
     logout_url:           "{{_oidc_client_issuer_url}}/protocol/openid-connect/logout"      # Endpoint to log out the user
     change_credentials:   "{{_oidc_client_issuer_url}}account/account-security/signing-in"  # URL for managing or changing user credentials

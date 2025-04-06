@@ -29,7 +29,7 @@ plugin_configuration:
           title: "keycloak"
           style: "keycloak"
           authorizeUrl: "{{ oidc.client.authorize_url }}"
-          tokenUrl: "{{ oidc.client.toke_url }}"
+          tokenUrl: "{{ oidc.client.token_url }}"
           displayNameClaim: ""
           userInfoUrl: "{{ oidc.client.user_info_url }}"
           logoutUrl: "{{ oidc.client.logout_url }}"

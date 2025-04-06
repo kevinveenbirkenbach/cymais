@@ -649,7 +649,7 @@ defaults_applications:
 
   ## PHPMyAdmin
   phpmyadmin:
-    version:                      "latest"
+    version:                      "latest"                                  # Use the latest phpmyadmin version
     autologin:                    false                                     # This is a high security risk. Just activate this option if you know what you're doing
     oauth2_proxy:  
       enabled:                    true
