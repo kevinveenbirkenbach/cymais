@@ -74,7 +74,7 @@ defaults_applications:
 #      fsesl_password:                                                      # Needs to be defined in inventory file
 #      turn_secret:                                                         # Needs to be defined in inventory file  
     urls:
-      api:                        "https://{{domain.bigbluebutton}}/bigbluebutton/"
+      api:                        "https://{{domains.bigbluebutton}}/bigbluebutton/"  # API Address used by Nextcloud Integration
   ## Bluesky
   bluesky:
     users:
