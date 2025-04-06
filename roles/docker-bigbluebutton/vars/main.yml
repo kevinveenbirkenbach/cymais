@@ -5,7 +5,7 @@ docker_compose_file_final:    "{{ docker_compose.directories.instance }}docker-c
 database_instance:            "bigbluebutton"
 database_name:                "greenlight-v3"
 database_username:            "postgres"
-database_password:            "{{bigbluebutton_postgresql_secret}}"
+database_password:            "{{applications.bigbluebutton.postgresql_secret}}"
 domain: 	                    "{{ domains[application_id] }}"
 http_port: 	                  "{{ ports.localhost.http[application_id] }}"
 bbb_env_file_link:            "{{ docker_compose.directories.instance }}.env"    
