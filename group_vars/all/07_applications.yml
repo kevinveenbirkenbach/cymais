@@ -73,7 +73,8 @@ defaults_applications:
 #      postgresql_secret:                                                   # Needs to be defined in inventory file   
 #      fsesl_password:                                                      # Needs to be defined in inventory file
 #      turn_secret:                                                         # Needs to be defined in inventory file  
-
+    urls:
+      api:                        "https://{{domain.bigbluebutton}}/bigbluebutton/"
   ## Bluesky
   bluesky:
     users:
