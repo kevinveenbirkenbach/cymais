@@ -105,14 +105,14 @@ defaults_applications:
 
   ## Discourse:
   discourse:
-    network:              "discourse_default"                               # Name of the docker network
-    container:            "discourse_application"                           # Name of the container application
-    repository:           "discourse_repository"                            # Name of the repository folder
+    network:                      "discourse_default"                       # Name of the docker network
+    container:                    "discourse_application"                   # Name of the container application
+    repository:                   "discourse_repository"                    # Name of the repository folder
     # database_password:                                                    # Needs to be defined in inventory file
     oidc:
-      enabled:            true                                              # Activate OIDC
+      enabled:                    true                                      # Activate OIDC
     database:
-      central_storage:    True                                              # Activate Central Database Storage
+      central_storage:            True                                      # Activate Central Database Storage
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
     css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
@@ -131,7 +131,7 @@ defaults_applications:
 
   ## Friendica
   friendica:
-    version:              "latest"
+    version:                 "latest"
     oidc:
       enabled:               true                                           # Activate OIDC. Plugin is not working yet
     database:
@@ -267,6 +267,8 @@ defaults_applications:
     setup:                            false                                       # Set true in inventory file to execute the setup and initializing procedures
     oidc:
       enabled:                        true                                        # Activate OIDC for Mailu
+      email_by_username:              true                                        # If true, then the mail is set by the username. If wrong then the OIDC user email is used
+      enable_user_creation:           true                                        # Users will be created if not existing
     domain:                           "{{primary_domain}}"                        # The main domain from which mails will be send \ email suffix behind @
     # I don't know why the database deactivation is necessary
     database:
@@ -276,9 +278,9 @@ defaults_applications:
 #     database_password:                                                          # Needs to be set in inventory file
 #     api_token:                                                                  # Configures the authentication token. The minimum length is 3 characters. This is a mandatory setting for using the RESTful API.
 #     initial_administrator_password:                                             # Initial administrator password for setup 
-    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"           # Enables\Disables Matomo Tracking
-    css_enabled:                  "{{css_enabled_default}}"                       # Enables\Disables Global CSS Style
-    landingpage_iframe_enabled:   true                                            # Default enabled because working well in iframe
+    matomo_tracking_enabled:          "{{matomo_tracking_enabled_default}}"       # Enables\Disables Matomo Tracking
+    css_enabled:                      "{{css_enabled_default}}"                   # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:       true                                        # Default enabled because working well in iframe
 
   ## MariaDB
   mariadb:
@@ -718,7 +720,7 @@ defaults_applications:
     # - https://community.taiga.io/t/taiga-and-oidc-plugin/4866
     #
     # Due to this reason this plutin is deactivated atm
-      enabled:                    False                                     # De\Activate OIDC for Taiga
+      enabled:                    True                                     # De\Activate OIDC for Taiga
                                                                             
 
   ## YOURLS

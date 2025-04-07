@@ -62,8 +62,9 @@
         greenlight:
         redis:
         coturn:
-        #freeswitch:
+        freeswitch:
         bigbluebutton:
+        mediasoup
     marker: "# {mark} ANSIBLE MANAGED BLOCK FOR VOLUMES"
     insertbefore: "^services:"
   listen: setup bigbluebutton
