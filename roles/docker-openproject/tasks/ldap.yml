@@ -1,0 +1,47 @@
+- name: "Create LDAP auth source"
+  community.postgresql.postgresql_query:
+    db: openproject
+    login_user: postgres
+    query: >
+      INSERT INTO ldap_auth_sources
+      (name, host, port, account, account_password, base_dn, attr_login,
+       attr_firstname, attr_lastname, attr_mail, onthefly_register, attr_admin,
+       created_at, updated_at, tls_mode, filter_string, verify_peer, tls_certificate_string)
+      VALUES (
+        '{{ openproject_ldap.name }}',
+        '{{ openproject_ldap.host }}',
+        {{ openproject_ldap.port }},
+        '{{ openproject_ldap.account }}',
+        '{{ openproject_ldap.account_password }}',
+        '{{ openproject_ldap.base_dn }}',
+        '{{ openproject_ldap.attr_login }}',
+        '{{ openproject_ldap.attr_firstname }}',
+        '{{ openproject_ldap.attr_lastname }}',
+        '{{ openproject_ldap.attr_mail }}',
+        {{ openproject_ldap.onthefly_register }},
+        '{{ openproject_ldap.attr_admin }}',
+        NOW(),
+        NOW(),
+        {{ openproject_ldap.tls_mode }},
+        '{{ openproject_ldap.filter_string }}',
+        {{ openproject_ldap.verify_peer }},
+        '{{ openproject_ldap.tls_certificate_string }}'
+      )
+      ON CONFLICT (name) DO NOTHING;
+  become: true
+  vars_files:
+    - vars/ldap.yml
+
+- name: "Check existing LDAP sources"
+  community.postgresql.postgresql_query:
+    db: openproject
+    login_user: postgres
+    query: "SELECT id, name FROM ldap_auth_sources"
+  register: ldap_entries
+  when: enable_debug | bool
+
+- name: "Debug LDAP entries"
+  debug:
+    var: ldap_entries
+  when: enable_debug | bool
+

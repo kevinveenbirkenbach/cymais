@@ -34,8 +34,6 @@ _ldap_dn_base:      "dc={{primary_domain_sld}},dc={{primary_domain_tld}}"
 _ldap_server_port:  "{% if applications.ldap.openldap.network.local | bool %}{{ ports.localhost.ldap.openldap }}{% else %}{{ ports.localhost.ldaps.openldap }}{% endif %}"
 
 ldap:
-  # Enables LDAP for all roles in play if true
-  enabled:  true
   # Distinguished Names (DN)
   dn:
     # Defines the base Distinguished Name (DN) for the LDAP directory, constructed from the second-level domain (SLD) and top-level domain (TLD).

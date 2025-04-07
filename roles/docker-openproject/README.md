@@ -1,27 +1,34 @@
-# OpenProject Role
+# OpenProject 🧭
+
+## Description
+
+This role deploys [OpenProject](https://www.openproject.org/) using Docker Compose and provides a fully integrated experience for project collaboration with optional support for LDAP authentication and SMTP email delivery. Ideal for teams or individuals who want to get started with OpenProject quickly without manually setting up infrastructure.
 
 ## Overview
 
-This role is designed to deploy the [OpenProject](https://www.openproject.org/) application using Docker. It includes tasks for setting up the environment, pulling the Docker repository, and configuring a reverse proxy with Nginx. It was developed by [Kevin Veen-Birkenbach](https://www.veen.world/)
+Designed for simplicity, this role automates everything needed to run OpenProject in a containerized environment. It configures essential services such as the application itself, a PostgreSQL database, reverse proxy, and optional LDAP integration for identity management.
 
-## Handlers
+## Purpose
 
-Defined in `handlers/main.yml`, the handler `recreate openproject` is used for recreating the OpenProject instance with specific environment settings.
+The purpose of this role is to reduce the complexity of setting up OpenProject with modern production-ready defaults. By combining Docker Compose and Ansible automation, it enables a hands-off setup for both small teams and larger internal infrastructures.
 
-## Tasks
+## Features
 
-Outlined in `tasks/main.yml`, the role includes tasks for:
+- 🐳 **Docker-First Deployment**: Uses Docker Compose to launch the entire OpenProject stack.
+- 🔒 **LDAP Integration (optional)**: Automatically connects to your LDAP server for centralized authentication.
+- 📬 **SMTP Configuration**: Sends notification emails via your own mail server.
+- 🧩 **OIDC Ready**: Prepared to extend with OpenID Connect login (e.g., Keycloak).
+- 🔄 **Plugin Support**: Supports custom plugin installation via a pluggable `Gemfile.plugins`.
+- 🛠️ **Role-Oriented Architecture**: Easily integrates with your infrastructure (e.g., database, reverse proxy).
 
-- Including Nginx Docker proxy domain tasks.
-- Creating the repository directory.
-- Pulling the OpenProject Docker repository.
-- Warning if the repository is not reachable.
-- Copying the `.env` file from a template.
+## Developer Notes
 
-## Usage
+See the [Development.md](./Development.md) file for how to inspect and modify live settings inside the container, including full LDAP and SMTP configuration via the Rails console.
 
-To use this role, include it in your Ansible playbook and set the necessary variables, especially those required in the `.env` file template.
+## Credits 📝
 
-## Notes
+Developed and maintained by **Kevin Veen-Birkenbach**  
+Learn more at [www.veen.world](https://www.veen.world)
 
-Ensure that Docker and Docker Compose are installed and configured correctly on the target machine. Also, ensure that the necessary ports are open and accessible.
+Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
+License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)
