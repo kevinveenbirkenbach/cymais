@@ -1,0 +1,14 @@
+- name: install dockreap
+  command:
+    cmd: "pkgmgr install dockreap"
+  when: run_once_cleanup_docker_anonymous_volumes is not defined
+
+- name: run dockreap with --no-confirmation
+  command:
+    cmd: "dockreap --no-confirmation"
+  when: run_once_cleanup_docker_anonymous_volumes is not defined
+
+- name: mark dockreap as run
+  set_fact:
+    run_once_cleanup_docker_anonymous_volumes: true
+  when: run_once_cleanup_docker_anonymous_volumes is not defined
