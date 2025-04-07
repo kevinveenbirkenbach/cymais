@@ -1,6 +1,6 @@
 application_id:               "openproject"
 docker_repository_address:    "https://github.com/opf/openproject-deploy"
-database_password:            "{{applications[application_id].credentials.database_password}}"
+database_password:            "{{ applications[application_id].credentials.database_password }}"
 database_type:                "postgres"
 
 openproject_plugins_service:  "{{docker_compose.directories.services}}plugins/"
@@ -10,9 +10,18 @@ custom_openproject_image:     "custom_openproject"
 dummy_volume:                 "{{docker_compose.directories.volumes}}dummy_volume"
 
 openproject_rails_settings:
-  email_delivery_method:  "smtp"
-  smtp_address:           "{{ system_email.host }}"
-  smtp_domain:            "{{ system_email.domain }}"
-  smtp_user_name:         "{{ system_email.username }}"
-  smtp_password:          "{{ system_email.password }}"
-  smtp_ssl:               false
+  email_delivery_method:      "smtp"
+  smtp_address:               "{{ system_email.host }}"
+  smtp_domain:                "{{ system_email.domain }}"
+  smtp_user_name:             "{{ system_email.username }}"
+  smtp_password:              "{{ system_email.password }}"
+  smtp_ssl:                   false
+
+openproject_filters:
+  administrators: >-
+    {{ '(memberOf=cn=openproject-admins,' ~ ldap.dn.application_roles ~ ')' 
+       if applications[application_id].ldap.filters.administrators else '' }}
+
+  users: >-
+    {{ '(memberOf=cn=openproject-users,' ~ ldap.dn.application_roles ~ ')' 
+       if applications[application_id].ldap.filters.users else '' }}

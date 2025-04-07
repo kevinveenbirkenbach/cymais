@@ -13,8 +13,8 @@ services:
       - 127.0.0.1:{{ports.localhost.http.ldap}}:80 
     env_file:
       - "{{docker_compose.directories.env}}lam.env"
-    volumes:
-      - "{{ lam_profiles_dir }}:/var/lib/ldap-account-manager/config/profiles/"
+#    volumes:
+#      - "{{ lam_profiles_dir }}:/var/lib/ldap-account-manager/config/profiles/"
 
 {% elif applications.ldap.webinterface == 'phpldapadmin' %}
     image: leenooks/phpldapadmin:{{applications.ldap.phpldapadmin.version}}

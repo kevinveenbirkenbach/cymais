@@ -8,6 +8,13 @@ services:
       - static-data:/taiga-back/static
       - media-data:/taiga-back/media
       # - ./config.py:/taiga-back/settings/config.py
+
+{% if applications[application_id].oidc.enabled and applications[application_id].oidc.flavor == 'taigaio' %}
+
+      - {{ docker_compose.directories.config }}taiga-local.py:/taiga-back/settings/local.py:ro
+
+{% endif %}
+
 {% include 'templates/docker/container/networks.yml.j2' %}
       taiga:
 {% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
@@ -15,6 +22,15 @@ services:
         condition: service_started
       taiga-async-rabbitmq:
         condition: service_started
+{% if applications[application_id].oidc.enabled and applications[application_id].oidc.flavor == 'taigaio' %}
+    
+    command: >
+      /bin/sh -c "
+        pip install taiga-contrib-oidc-auth &&
+        /taiga-back/docker/entrypoint.sh"
+
+{% endif %}
+
 
   taiga-async:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
@@ -25,6 +41,13 @@ services:
       - static-data:/taiga-back/static
       - media-data:/taiga-back/media
       # - ./config.py:/taiga-back/settings/config.py
+
+{% if applications[application_id].oidc.enabled and applications[application_id].oidc.flavor == 'taigaio' %}
+
+      - {{ docker_compose.directories.config }}taiga-local.py:/taiga-back/settings/local.py:ro
+
+{% endif %}
+
 {% include 'templates/docker/container/networks.yml.j2' %}
       taiga:
 {% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
@@ -32,6 +55,14 @@ services:
         condition: service_started
       taiga-async-rabbitmq:
         condition: service_started
+{% if applications[application_id].oidc.enabled and applications[application_id].oidc.flavor == 'taigaio' %}
+    
+    command: >
+      /bin/sh -c "
+        pip install taiga-contrib-oidc-auth &&
+        /taiga-back/docker/entrypoint.sh"
+        
+{% endif %}
 
   taiga-async-rabbitmq:
     image: rabbitmq:3.8-management-alpine

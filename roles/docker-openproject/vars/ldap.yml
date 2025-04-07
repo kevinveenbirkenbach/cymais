@@ -1,17 +1,17 @@
 openproject_ldap:
-  name:                 "{{ primary_domain }}"                         # Display name for the LDAP connection in OpenProject
-  host:                 "{{ ldap.server.domain }}"                     # LDAP server address
-  port:                 "{{ ldap.server.port }}"                       # LDAP server port (typically 389 or 636)
-  account:              "{{ ldap.dn.administrator }}"                  # Bind DN (used for authentication)
-  account_password:     "{{ ldap.bind_credential }}"                   # Bind password
-  base_dn:              "{{ ldap.dn.users }}"                          # Base DN for user search
-  attr_login:           "{{ ldap.attributes.user_id | default('uid') }}" # LDAP attribute used for login
-  attr_firstname:       "givenName"                                    # LDAP attribute for first name
-  attr_lastname:        "sn"                                           # LDAP attribute for last name
-  attr_mail:            "mail"                                         # LDAP attribute for email
-  attr_admin:           ""                                             # Optional: LDAP attribute for admin group (leave empty if unused)
-  onthefly_register:    true                                           # Automatically create users on first login
-  tls_mode:             0                                              # 0 = No TLS, 1 = TLS, 2 = STARTTLS
-  verify_peer:          false                                          # Whether to verify the SSL certificate
-  filter_string:        ""                                             # Optional: Custom filter for users (e.g., "(objectClass=person)")
-  tls_certificate_string: ""                                          # Optional: Client certificate string for TLS (usually left empty)
+  name:                   "{{ primary_domain }}"                     # Display name for the LDAP connection in OpenProject
+  host:                   "{{ ldap.server.domain }}"                 # LDAP server address
+  port:                   "{{ ldap.server.port }}"                   # LDAP server port (typically 389 or 636)
+  account:                "{{ ldap.dn.administrator }}"              # Bind DN (used for authentication)
+  account_password:       "{{ ldap.bind_credential }}"               # Bind password
+  base_dn:                "{{ ldap.dn.users }}"                      # Base DN for user search
+  attr_login:             "{{ ldap.attributes.user_id }}"            # LDAP attribute used for login
+  attr_firstname:         "givenName"                                # LDAP attribute for first name
+  attr_lastname:          "sn"                                       # LDAP attribute for last name
+  attr_mail:              "mail"                                     # LDAP attribute for email
+  attr_admin:             "{{ openproject_filters.administrators }}" # Optional: LDAP attribute for admin group (leave empty if unused)
+  onthefly_register:      true                                       # Automatically create users on first login
+  tls_mode:               0                                          # 0 = No TLS, 1 = TLS, 2 = STARTTLS
+  verify_peer:            false                                      # Whether to verify the SSL certificate
+  filter_string:          "{{ openproject_filters.users }}"          # Optional: Custom filter for users (e.g., "(objectClass=person)")
+  tls_certificate_string: ""                                         # Optional: Client certificate string for TLS (usually left empty)
