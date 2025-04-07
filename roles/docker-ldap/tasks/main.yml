@@ -39,13 +39,8 @@
   notify: docker compose project setup
   when: applications.ldap.webinterface == 'phpldapadmin'
   
-- name: "create {{docker_compose.directories.env}}lam.env"
-  template: 
-    src:  "lam.env.j2" 
-    dest: "{{docker_compose.directories.env}}lam.env"
-    mode: '770'
-    force: yes
-  notify: docker compose project setup
+- name: "execute lam tasks"
+  include_tasks: lam.yml
   when: applications.ldap.webinterface == 'lam'
 
 - name: "copy docker-compose.yml and env file"

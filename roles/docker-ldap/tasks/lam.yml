@@ -1,0 +1,33 @@
+- name: "load lam variables"
+  include_vars:
+    file: lam.yml
+
+- name: "Ensure LAM profiles directory exists"
+  file:
+    path: "{{ lam_profiles_dir }}"
+    state: directory
+    mode: '0755'
+    recurse: true
+
+- name: "create {{docker_compose.directories.env}}lam.env"
+  template: 
+    src:  "lam/env.j2" 
+    dest: "{{docker_compose.directories.env}}lam.env"
+    mode: '770'
+    force: yes
+  notify: docker compose project setup
+
+- name: "create default.group to enable groupOfNames in LAM"
+  template:
+    src: "lam/default.group.j2"
+    dest: "{{ lam_profiles_dir }}/default.group"
+    mode: '0644'
+  notify: docker compose project setup
+
+- name: "Create groupOfNames.conf to enable groupOfNames as base module in LAM"
+  template:
+    src: "lam/groupOfNames.conf.j2"
+    dest: "{{ lam_profiles_dir }}/groupOfNames.conf"
+    mode: '0644'
+
+
