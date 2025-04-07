@@ -1,0 +1,3 @@
+{% for server in pgadmin_servers %}
+{{ server.host }}:{{ server.port }}:*:{{ server.username }}:{{ server.password }}
+{% endfor %}

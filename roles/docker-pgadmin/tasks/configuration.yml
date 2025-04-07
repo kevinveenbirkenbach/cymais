@@ -1,0 +1,22 @@
+- name: "load variables from {{ database_var_file }}"
+  include_vars: "{{ database_var_file }}"
+
+- name: "loading database configuration variables"
+  include_vars:
+    file: "{{ role_path }}/vars/configuration.yml"
+
+- name: "Render servers.json file"
+  template:
+    src: servers.json.j2
+    dest: "{{ pgadmin_host_server_file }}"
+    mode: "0644"
+  notify: docker compose project setup
+
+- name: "Render .pgpass file"
+  template:
+    src: pgpass.j2
+    dest: "{{ pgadmin_host_password_file }}"
+    owner: "{{ pgadmin_user }}"
+    group: "{{ pgadmin_group }}"
+    mode: "0600"
+  notify: docker compose project setup

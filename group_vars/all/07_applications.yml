@@ -15,6 +15,7 @@ _applications_nextcloud_ldap_enabled: "{{ applications.nextcloud.ldap.enabled | 
 _applications_nextcloud_oidc_enabled: "{{ applications.nextcloud.oidc.enabled | default(true) }}"
 _applications_nextcloud_oidc_flavor:  "{{ applications.nextcloud.oidc.flavor | default('oidc_login' if _applications_nextcloud_ldap_enabled else 'sociallogin') }}"
 
+# applications
 
 defaults_applications:
 
@@ -75,6 +76,7 @@ defaults_applications:
 #      turn_secret:                                                         # Needs to be defined in inventory file  
     urls:
       api:                        "https://{{domains.bigbluebutton}}/bigbluebutton/"  # API Address used by Nextcloud Integration
+
   ## Bluesky
   bluesky:
     users:
@@ -605,22 +607,22 @@ defaults_applications:
   
   ## Open Project
   openproject:
-    version:              "13"                                              # Update when available. Sadly no rolling release implemented
+    version:                    "13"                                      # Update when available. Sadly no rolling release implemented
     oauth2_proxy:  
-      enabled:            true                                              # OpenProject doesn't support OIDC, so this procy in combination with LDAP is needed
-      application:        "proxy"
-      port:               "80"
-#     cookie_secret:      None                                              # Set via openssl rand -hex 16
+      enabled:                  true                                      # OpenProject doesn't support OIDC, so this procy in combination with LDAP is needed
+      application:              "proxy"
+      port:                     "80"
+#     cookie_secret:            None                                      # Set via openssl rand -hex 16
     ldap:
-      enabled:            True                                              # Enables LDAP by default
-    database:
-      central_storage:    True                                              # Activate Central Database Storage
-    css:
-      enabled:            false                                             # Temporary deactivated due to bugs
-                                                                            # @todo Solve and reactivate
-    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
-    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
-    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
+      enabled:                  True                                      # Enables LDAP by default
+      filters:
+        administrators:         True                                      # Set true to filter administrators
+        users:                  False                                     # Set true to filter users
+    database:                                                                               
+      central_storage:          True                                      # Activate Central Database Storage
+    matomo_tracking_enabled:    "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled: "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## Peertube
   peertube:
@@ -634,15 +636,17 @@ defaults_applications:
   ## PgAdmin
   pgadmin:
     version:                     "latest"
+    server_mode:                 False                                          # If true then the preconfigured database file is loaded. Recommended False. True is a security risk.
+    master_password_required:    True                                           # Master password is required. Recommended True. False is a security risk.
     users:
       administrator:
         email:                   "{{ users.administrator.email }}"              # Initial login email address
         password:                "{{ users.administrator.initial_password }}"   # Initial login password – should be overridden in inventory for security
     oauth2_proxy:
-      enabled:                    true                                           # Enable OAuth2 proxy for authentication
+      enabled:                    true                                          # Enable OAuth2 proxy for authentication
       application:                "application"
       port:                       "80"
-#     cookie_secret:              None                                           # Set via: openssl rand -hex 16
+#     cookie_secret:              None                                          # Set via: openssl rand -hex 16
     database:
       central_storage:            True                                          # Uses central PostgreSQL database
     matomo_tracking_enabled:      "{{ matomo_tracking_enabled_default }}"       # Enables/Disables Matomo Tracking

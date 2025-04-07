@@ -10,5 +10,9 @@
     domain:     "{{ domains[application_id] }}"
     http_port:  "{{ ports.localhost.http[application_id] }}"
 
+- name: "configure pgadmin servers"
+  include_tasks: configuration.yml
+  when: applications[application_id].server_mode | bool
+
 - name: "copy docker-compose.yml and env file"
   include_tasks: copy-docker-compose-and-env.yml

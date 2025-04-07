@@ -1,0 +1,16 @@
+{
+  "Servers": {
+    {% for server in pgadmin_servers %}
+    "{{ loop.index }}": {
+      "Name": "{{ server.name }}",
+      "Group": "Servers",
+      "Host": "{{ server.host }}",
+      "Port": {{ server.port }},
+      "MaintenanceDB": "{{ server.maintenance_db }}",
+      "Username": "{{ server.username }}",
+      "SSLMode": "prefer",
+      "PassFile": "/pgpass"
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  }
+}

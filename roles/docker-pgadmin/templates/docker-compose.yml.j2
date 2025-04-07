@@ -3,7 +3,7 @@ services:
 {% include 'roles/docker-oauth2-proxy/templates/container.yml.j2' %}
 
   application:
-    image: dpage/pgadmin4:{{applications.pgadmin.version}}
+    image: dpage/pgadmin4:{{applications[application_id].version}}
     container_name: pgadmin
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     ports:
@@ -15,5 +15,14 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+    volumes:
+      - "data:/var/lib/pgadmin"
+{% if applications[application_id].server_mode | bool %}
+      - "{{ pgadmin_host_server_file }}:{{ pgadmin_docker_server_file }}"
+      - "{{ pgadmin_host_password_file }}:{{ pgadmin_docker_password_file }}"
+{% endif %}
+
+{% include 'templates/docker/compose/volumes.yml.j2' %}
+  data:
 
 {% include 'templates/docker/compose/networks.yml.j2' %}
