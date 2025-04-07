@@ -1,7 +1,24 @@
-- name: "Create LDAP auth source"
+- name: Load LDAP configuration variables
+  include_vars:
+    file: "ldap.yml"
+
+- name: Check if LDAP source exists
   community.postgresql.postgresql_query:
-    db: openproject
-    login_user: postgres
+    db: "{{ database_name }}"
+    login_user: "{{ database_username }}"
+    login_password: "{{ database_password }}"
+    login_host: "127.0.0.1"
+    login_port: "{{ database_port }}"
+    query: "SELECT 1 FROM ldap_auth_sources WHERE name = '{{ openproject_ldap.name }}' LIMIT 1;"
+  register: ldap_check
+
+- name: Create LDAP auth source if it doesn't exist
+  community.postgresql.postgresql_query:
+    db: "{{ database_name }}"
+    login_user: "{{ database_username }}"
+    login_password: "{{ database_password }}"
+    login_host: "127.0.0.1"
+    login_port: "{{ database_port }}"
     query: >
       INSERT INTO ldap_auth_sources
       (name, host, port, account, account_password, base_dn, attr_login,
@@ -26,11 +43,8 @@
         '{{ openproject_ldap.filter_string }}',
         {{ openproject_ldap.verify_peer }},
         '{{ openproject_ldap.tls_certificate_string }}'
-      )
-      ON CONFLICT (name) DO NOTHING;
-  become: true
-  vars_files:
-    - vars/ldap.yml
+      );
+  when: ldap_check.query_result | length == 0
 
 - name: "Check existing LDAP sources"
   community.postgresql.postgresql_query:

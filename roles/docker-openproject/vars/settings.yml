@@ -1,7 +1,0 @@
-openproject_settings:
-  email_delivery_method:  "smtp"
-  smtp_address:           "{{ system_email.host }}"
-  smtp_domain:            "{{ system_email.domain }}"
-  smtp_user_name:         "{{ system_email.username }}"
-  smtp_password:          "{{ system_email.password }}"
-  smtp_ssl:               false

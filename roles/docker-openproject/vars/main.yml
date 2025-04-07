@@ -8,3 +8,11 @@ custom_openproject_image:     "custom_openproject"
 
 # The following volume doesn't have a practcical function. It just exist to prevent the creation of unnecessary anonymous volumes
 dummy_volume:                 "{{docker_compose.directories.volumes}}dummy_volume"
+
+openproject_rails_settings:
+  email_delivery_method:  "smtp"
+  smtp_address:           "{{ system_email.host }}"
+  smtp_domain:            "{{ system_email.domain }}"
+  smtp_user_name:         "{{ system_email.username }}"
+  smtp_password:          "{{ system_email.password }}"
+  smtp_ssl:               false
