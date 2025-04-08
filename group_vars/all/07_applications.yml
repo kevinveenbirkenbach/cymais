@@ -213,38 +213,35 @@ defaults_applications:
     css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   false                                     # Disabled by default, because it leads to authentification problems
 
+  # LDAP Account Manager 
+  lam:
+    version:                        "latest"
+#    administrator_password:         "{{users.administrator.initial_password}}"  # CHANGE for security reasons  
+    ldap:
+      enabled:                        True                                        # Should have the same value as applications.ldap.network.local.
+    oauth2_proxy:
+      enabled:                        true                                        # Activate the OAuth2 Proxy for the LDAP Webinterface
+      application:                    application                                 # Needs to be the same as webinterface
+      port:                           80                                          # application port
+#     cookie_secret:                  None                                        # Set via openssl rand -hex 16
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"           # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                       # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"        # Enables\Disables the possibility to embed this on landing page via iframe
+
   ## LDAP
   ldap:
-    lam:
-      version:                        "latest"
-      administrator_password:         "{{users.administrator.initial_password}}"  # CHANGE for security reasons
-    openldap:
-      version:                        "latest"
-      network:
-        local:                        True                                        # Activates local network to allow other docker containers to connect
-        public:                       False                                       # Set to true in inventory file if you want to expose the LDAP port to the internet
-      hostname:                       "openldap"                                  # Hostname of the LDAP Server in the central_ldap network
-    phpldapadmin:
-      version:                        "2.0.0-dev"                                 # @todo Attention: Change this as fast as released to latest
+    version:                        "latest"
+    network:
+      local:                        True                                        # Activates local network to allow other docker containers to connect
+      public:                       False                                       # Set to true in inventory file if you want to expose the LDAP port to the internet
+    hostname:                       "openldap"                                  # Hostname of the LDAP Server in the central_ldap network
     webinterface:                     "lam"                                       # The webinterface which should be used. Possible: lam and phpldapadmin
     users:  
       administrator:
         username:                     "{{users.administrator.username}}"
-    ldap:
-      enabled:                        True                                        # Should have the same value as applications.ldap.openldap.network.local.
-    oauth2_proxy:
-      enabled:                        true                                        # Activate the OAuth2 Proxy for the LDAP Webinterface
-      application:                    lam                                         # Needs to be the same as webinterface
-      port:                           80                                          # If you use phpldapadmin set it to 8080
-#     cookie_secret:                  None                                        # Set via openssl rand -hex 16
-    database:
-      central_storage:                false                                       # LDAP doesn't use an database in the current configuration. Propably a good idea to implement one later. 
     # administrator_password:                                                     # CHANGE for security reasons in inventory file
     # administrator_database_password:                                            # CHANGE for security reasons in inventory file
     force_import:                 False                                           # Forces the import of the LDIF files
-    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"           # Enables\Disables Matomo Tracking
-    css_enabled:                  "{{css_enabled_default}}"                       # Enables\Disables Global CSS Style
-    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"        # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## Libre Office
   libreoffice:
@@ -290,14 +287,14 @@ defaults_applications:
 
   ## Matomo
   matomo:
-    version:            "latest"
+    version:                      "latest"
     oauth2_proxy:
-      enabled:          false   # Deactivated atm. @todo implement 
-#     cookie_secret:    None    # Set via openssl rand -hex 16
-#   database_password:  Null    # Needs to be set in inventory file
-#   auth_token:         Null    # Needs to be set in inventory file
+      enabled:                    false                                           # Deactivated atm. @todo implement 
+#     cookie_secret:              None                                            # Set via openssl rand -hex 16
+#   database_password:            Null                                            # Needs to be set in inventory file
+#   auth_token:                   Null                                            # Needs to be set in inventory file
     database:
-      central_storage:  True    # Activate Central Database Storage
+      central_storage:            True                                            # Activate Central Database Storage
     matomo_tracking_enabled:      false                                           # Activate in inventory file if you want to have the statistics, as soon as matomo is running
     css_enabled:                  false                                           # Not optimized yet for matomo
     landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"        # Enables\Disables the possibility to embed this on landing page via iframe
@@ -652,6 +649,20 @@ defaults_applications:
     matomo_tracking_enabled:      "{{ matomo_tracking_enabled_default }}"       # Enables/Disables Matomo Tracking
     css_enabled:                  "{{ css_enabled_default }}"                   # Enables/Disables global CSS styling
     landingpage_iframe_enabled:   "{{ landingpage_iframe_enabled_default }}"    # Enables/Disables embedding via iframe
+
+  ## phpLDAPadmin
+  phpldapadmin:
+    version:                        "2.0.0-dev"                                 # @todo Attention: Change this as fast as released to latest
+    ldap:
+      enabled:                        True                                      # Should have the same value as applications.ldap.network.local.
+    oauth2_proxy:
+      enabled:                        true                                      # Activate the OAuth2 Proxy for the LDAP Webinterface
+      application:                    application                               # Needs to be the same as webinterface
+      port:                           8080                                      # application port
+#     cookie_secret:                  None                                      # Set via openssl rand -hex 16
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"         # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                     # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"      # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## PHPMyAdmin
   phpmyadmin:

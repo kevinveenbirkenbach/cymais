@@ -2,32 +2,11 @@ services:
 
 {% include 'roles/docker-oauth2-proxy/templates/container.yml.j2' %}
 
-  {{applications.ldap.webinterface}}:
-    container_name: {{applications.ldap.webinterface}}
-    logging:
-      driver: journald
-    restart: {{docker_restart_policy}}
-{% if applications.ldap.webinterface == 'lam' %}
-    image: ghcr.io/ldapaccountmanager/lam:{{applications.ldap.lam.version}}
-    ports:
-      - 127.0.0.1:{{ports.localhost.http.ldap}}:80 
-    env_file:
-      - "{{docker_compose.directories.env}}lam.env"
-#    volumes:
-#      - "{{ lam_profiles_dir }}:/var/lib/ldap-account-manager/config/profiles/"
-
-{% elif applications.ldap.webinterface == 'phpldapadmin' %}
-    image: leenooks/phpldapadmin:{{applications.ldap.phpldapadmin.version}}
-    ports:
-      - 127.0.0.1:{{ports.localhost.http.ldap}}:8080
-    env_file:
-      - "{{docker_compose.directories.env}}phpldapadmin.env"
-{% endif %}
-  openldap:
-    image: bitnami/openldap:{{applications.ldap.openldap.version}}
-    container_name: {{applications.ldap.openldap.hostname}}
+  application:
+    image: bitnami/openldap:{{ applications[application_id].version }}
+    container_name: {{ application_id }}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-{% if applications.ldap.openldap.network.public | bool %}
+{% if applications[application_id].network.public | bool %}
     ports:
       - 127.0.0.1:{{ports.localhost.ldap.openldap}}:{{ldap_docker_port}}  # Expose just on localhost so that nginx stream proxy can use it
 {% endif %}

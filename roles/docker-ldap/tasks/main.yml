@@ -3,13 +3,6 @@
   include_role: 
     name: docker-compose
 
-- name: "include role nginx-domain-setup for {{application_id}}"
-  include_role:
-    name: nginx-domain-setup
-  vars:
-    domain: 	"{{ domains[application_id] }}"
-    http_port: 	"{{ ports.localhost.http[application_id] }}"
-
 - name: Create {{domains[application_id]}}.conf if LDAP is exposed to internet
   template: 
     src:  "nginx.stream.conf.j2" 
@@ -29,20 +22,7 @@
     state: present
     ipam_config:
       - subnet: "{{ networks.local.central_ldap.subnet }}"
-
-- name: "create {{docker_compose.directories.env}}phpldapadmin.env"
-  template: 
-    src:  "phpldapadmin.env.j2" 
-    dest: "{{docker_compose.directories.env}}phpldapadmin.env"
-    mode: '770'
-    force: yes
-  notify: docker compose project setup
-  when: applications.ldap.webinterface == 'phpldapadmin'
   
-- name: "execute lam tasks"
-  include_tasks: lam.yml
-  when: applications.ldap.webinterface == 'lam'
-
 - name: "copy docker-compose.yml and env file"
   include_tasks: copy-docker-compose-and-env.yml
 

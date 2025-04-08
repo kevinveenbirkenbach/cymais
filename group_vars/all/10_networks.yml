@@ -72,6 +72,13 @@ defaults_networks:
       subnet: 192.168.102.208/28
     sphinx:
       subnet: 192.168.102.224/28
+    lam:
+      subnet: 192.168.103.0/28
+    phpldapadmin:
+      subnet: 192.168.103.16/28
+    fusiondirectory:
+      subnet: 192.168.103.32/28
+      
     # /24 Networks / 254 Usable Clients
     bigbluebutton:
       subnet: 10.7.7.0/24 # This variable does not have an impact. It's just there for documentation reasons, because this network is used in bbb
