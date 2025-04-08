@@ -30,6 +30,16 @@
   include_role:
     name: docker-keycloak
 
+- name: setup lam
+  when: ("lam" in group_names)
+  include_role:
+    name: docker-lam
+
+- name: setup phpldapadmin
+  when: ("phpldapadmin" in group_names)
+  include_role:
+    name: docker-phpldapadmin
+
 - name: setup nextcloud hosts
   when: ("nextcloud" in group_names)
   include_role:

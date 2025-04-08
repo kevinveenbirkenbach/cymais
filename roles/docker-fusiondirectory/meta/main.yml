@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: >-
+    FusionDirectory is a web-based tool to manage LDAP directories and this role ensures a reliable, easy-to-use interface for LDAP administration.
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: "Kevin Veen-Birkenbach Consulting & Coaching Solutions"
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Docker
+      versions:
+        - "latest"
+  galaxy_tags:
+    - fusiondirectory
+    - ldap
+    - docker
+    - administration
+  repository: "https://s.veen.world/cymais"
+  issue_tracker_url: "https://s.veen.world/cymaisissues"
+  documentation: "https://s.veen.world/cymais"
