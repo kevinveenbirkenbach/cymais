@@ -4,13 +4,11 @@ services:
 
   application:
     container_name: {{ application_id }}
-    logging:
-      driver: journald
-    restart: {{docker_restart_policy}}
     image: leenooks/phpldapadmin:{{applications[application_id].version}}
     ports:
       - 127.0.0.1:{{ports.localhost.http[application_id]}}:8080
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+
 {% include 'templates/docker/container/networks.yml.j2' %}
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}

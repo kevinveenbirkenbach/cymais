@@ -64,7 +64,7 @@
         coturn:
         freeswitch:
         bigbluebutton:
-        mediasoup
+        mediasoup:
     marker: "# {mark} ANSIBLE MANAGED BLOCK FOR VOLUMES"
     insertbefore: "^services:"
   listen: setup bigbluebutton

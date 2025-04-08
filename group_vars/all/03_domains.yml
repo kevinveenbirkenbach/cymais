@@ -17,6 +17,7 @@ defaults_domains:
   gitlab:                  "gitlab.{{primary_domain}}"
   html_server:             "html.{{primary_domain}}"
   keycloak:                "auth.{{primary_domain}}"
+  lam:                     "ldap.{{primary_domain}}"
   ldap:                    "ldap.{{primary_domain}}"
   listmonk:                "newsletter.{{primary_domain}}"
   mailu:                   "mail.{{primary_domain}}"
@@ -35,6 +36,7 @@ defaults_domains:
   peertube_alternates:     []
   pgadmin:                 "pgadmin.{{primary_domain}}"
   phpmyadmin:              "phpmyadmin.{{primary_domain}}"
+  phpmyldap:               "phpmyldap.{{primary_domain}}"
   pixelfed:                "picture.{{primary_domain}}"
   portfolio:               "{{primary_domain}}"
   roulette-wheel:          "roulette.{{primary_domain}}"
@@ -55,7 +57,10 @@ defaults_redirect_domain_mappings:
 - { source: "funkwhale.{{primary_domain}}",   target: "{{domains.funkwhale}}" }
 - { source: "gitea.{{primary_domain}}",       target: "{{domains.gitea}}" }
 - { source: "keycloak.{{primary_domain}}",    target: "{{domains.keycloak}}" }
-- { source: "lam.{{primary_domain}}",         target: "{{domains.ldap}}" }
+- { 
+    source: "{{ domains.ldap }}", 
+    target: "{% if 'lam' in group_names %}{{ domains.lam }}{% elif 'phpmyldap' in group_names %}{{ domains.phpmyldap }}{% else %}{{ primary_domain }}{% endif %}"
+  }
 - { source: "listmonk.{{primary_domain}}",    target: "{{domains.listmonk}}" }
 - { source: "mailu.{{primary_domain}}",       target: "{{domains.mailu}}" }
 - { source: "moodle.{{primary_domain}}",      target: "{{domains.moodle}}" }

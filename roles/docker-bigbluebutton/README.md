@@ -1,4 +1,4 @@
-# Docker BigBlueButton 📡
+# BigBlueButton 📡
 
 ## Description
 

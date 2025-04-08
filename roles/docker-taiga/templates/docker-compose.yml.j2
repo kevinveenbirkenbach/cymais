@@ -44,7 +44,9 @@ services:
 
 {% if applications[application_id].oidc.enabled and applications[application_id].oidc.flavor == 'taigaio' %}
 
-      - {{ docker_compose.directories.config }}taiga-local.py:/taiga-back/settings/local.py:ro
+{% for item in settings_files %}
+      - {{ docker_compose.directories.config }}taiga-{{ item }}.py:/taiga-back/settings/{{ item }}.py:ro
+{% endfor %}
 
 {% endif %}
 

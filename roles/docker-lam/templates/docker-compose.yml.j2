@@ -1,12 +1,6 @@
 services:
-
-{% include 'roles/docker-oauth2-proxy/templates/container.yml.j2' %}
-
   application:
     container_name: {{ application_id }}
-    logging:
-      driver: journald
-    restart: {{docker_restart_policy}}
     image: ghcr.io/ldapaccountmanager/lam:{{applications[application_id].version}}
     ports:
       - 127.0.0.1:{{ports.localhost.http[application_id]}}:80 

@@ -1,4 +1,4 @@
-# Docker Compose
+# Administration Notes
 
 ## Delete all containers, networks and volumes
 

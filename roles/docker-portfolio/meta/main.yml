@@ -1,0 +1,24 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: "Portfolio to showcase your projects and creative work with a focus on user experience and easy customization. 🚀"
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: | 
+    Kevin Veen-Birkenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Docker
+      versions:
+        - latest
+  galaxy_tags:
+    - docker
+    - portfolio
+    - ansible
+    - flask
+    - web
+  repository: "https://github.com/kevinveenbirkenbach/portfolio"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/portfolio/issues"
+  documentation: "https://github.com/kevinveenbirkenbach/portfolio#readme"

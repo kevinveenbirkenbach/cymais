@@ -1,4 +1,4 @@
-# Sphinx Documentation Role
+# Sphinx Documentation
 
 ## Description
 

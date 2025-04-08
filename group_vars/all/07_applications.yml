@@ -224,9 +224,9 @@ defaults_applications:
       application:                    application                                 # Needs to be the same as webinterface
       port:                           80                                          # application port
 #     cookie_secret:                  None                                        # Set via openssl rand -hex 16
-    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"           # Enables\Disables Matomo Tracking
-    css_enabled:                  "{{css_enabled_default}}"                       # Enables\Disables Global CSS Style
-    landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"        # Enables\Disables the possibility to embed this on landing page via iframe
+    matomo_tracking_enabled:          "{{matomo_tracking_enabled_default}}"       # Enables\Disables Matomo Tracking
+    css_enabled:                      "{{css_enabled_default}}"                   # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:       "{{landingpage_iframe_enabled_default}}"    # Enables\Disables the possibility to embed this on landing page via iframe
 
   ## LDAP
   ldap:
@@ -235,17 +235,17 @@ defaults_applications:
       local:                        True                                        # Activates local network to allow other docker containers to connect
       public:                       False                                       # Set to true in inventory file if you want to expose the LDAP port to the internet
     hostname:                       "openldap"                                  # Hostname of the LDAP Server in the central_ldap network
-    webinterface:                     "lam"                                       # The webinterface which should be used. Possible: lam and phpldapadmin
+    webinterface:                   "lam"                                       # The webinterface which should be used. Possible: lam and phpldapadmin
     users:  
       administrator:
-        username:                     "{{users.administrator.username}}"
-    # administrator_password:                                                     # CHANGE for security reasons in inventory file
-    # administrator_database_password:                                            # CHANGE for security reasons in inventory file
-    force_import:                 False                                           # Forces the import of the LDIF files
+        username:                   "{{users.administrator.username}}"          # Administrator username
+    # administrator_password:                                                   # CHANGE for security reasons in inventory file
+    # administrator_database_password:                                          # CHANGE for security reasons in inventory file
+    force_import:                   False                                       # Forces the import of the LDIF files
 
   ## Libre Office
   libreoffice:
-    flavor:                       "fresh"                                         # Libre Office flavor, fresh for new, still for stable
+    flavor:                       "fresh"                                       # Libre Office flavor, fresh for new, still for stable
 
   ## Listmonk
   listmonk:
@@ -623,9 +623,9 @@ defaults_applications:
 
   ## Peertube
   peertube:
-    version:              "bookworm"
+    version:                      "bookworm"
     database:
-      central_storage:    True                                              # Activate Central Database Storage
+      central_storage:            True                                      # Activate Central Database Storage
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
     css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
@@ -735,7 +735,8 @@ defaults_applications:
     # - https://community.taiga.io/t/taiga-and-oidc-plugin/4866
     #
     # Due to this reason this plutin is deactivated atm
-      enabled:                    True                                     # De\Activate OIDC for Taiga
+      enabled:                    False                                     # De\Activate OIDC for Taiga
+      flavor:                     'taigaio'                                 # Potential flavors: robrotheram, taigaio
                                                                             
 
   ## YOURLS
