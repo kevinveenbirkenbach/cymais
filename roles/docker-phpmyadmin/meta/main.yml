@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Dockerized PhpMyAdmin deployment with optional OAuth2 proxy integration."
+  description: "Manage your databases with confidence using PHPMyAdmin, a robust and dynamic tool designed to simplify administration and enhance productivity. Enjoy an intuitive interface, powerful features, and an energetic approach that makes database management a breeze."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -23,4 +23,6 @@ galaxy_info:
   repository: https://s.veen.world/cymais
   issue_tracker_url: https://s.veen.world/cymaisissues
   documentation: https://s.veen.world/cymais
+  logo:
+    class: "fa-solid fa-database"
 dependencies: []

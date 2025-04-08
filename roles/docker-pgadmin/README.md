@@ -1,24 +1,32 @@
-# PgAdmin 🐳
+# pgAdmin
 
 ## Description
 
-This Ansible role deploys [pgAdmin](https://www.pgadmin.org/) in a secure Docker environment, with optional OAuth2 proxy support. It provides a full-featured web UI to manage PostgreSQL databases, making it ideal for both development and production use.
+pgAdmin is the most popular and feature‑rich open source administration and development platform for PostgreSQL. This deployment provides a secure, containerized pgAdmin instance complete with optional OAuth2 proxy support for enhanced authentication. It is built for both developers and database administrators who want an easy‐to‐use web interface to manage multiple PostgreSQL servers.
 
 ## Overview
 
-The role provisions a containerized pgAdmin instance using Docker Compose. It allows integration with central PostgreSQL servers, and supports environment-specific settings via Ansible variables.
+This Docker Compose deployment uses Ansible automation to launch pgAdmin together with necessary network and volume configurations. It enables you to centrally manage your PostgreSQL databases with the following core software features:
 
-## Purpose
+- **Intuitive Web UI:**  
+  Access a modern, responsive, and highly customizable dashboard to manage your PostgreSQL servers.
+  
+- **Multi‑Server Management:**  
+  Connect to and administer multiple PostgreSQL instances from a single interface.
+  
+- **Optional OAuth2 Integration:**  
+  Secure your pgAdmin access by integrating an external OAuth2 provider.
+  
+- **Robust Connectivity:**  
+  Easily manage database configurations, user accounts, and monitor query activity with built‑in health checks.
 
-The purpose of this role is to offer a quick and configurable way to deploy pgAdmin with Docker, while keeping it secure through optional OAuth2 integration. It's built to fit seamlessly into CyMaIS-managed environments.
+- **Flexible Configuration:**  
+  Adjust settings such as SSL options, port numbers, and server credentials through environment variables and templated configuration files.
 
-## Features
+## Other Resources
 
-- **Docker Compose Integration:** Deploy pgAdmin with a templated Compose file.
-- **OAuth2 Proxy Support:** Add authentication via an external OAuth2 provider.
-- **Central DB Integration:** Easily connect to central PostgreSQL instances.
-- **Customizable Settings:** Adjust container configuration via Ansible variables.
-- **Healthchecks & Networking:** Includes built-in Docker healthchecks and Compose networks.
+- [pgAdmin Official Homepage](https://www.pgadmin.org/)
+- [pgAdmin Documentation](https://www.pgadmin.org/docs/)
 
 ## Credits 📝
 

@@ -1,8 +1,8 @@
-# OpenProject 🧭
+# OpenProject
 
 ## Description
 
-This role deploys [OpenProject](https://www.openproject.org/) using Docker Compose and provides a fully integrated experience for project collaboration with optional support for LDAP authentication and SMTP email delivery. Ideal for teams or individuals who want to get started with OpenProject quickly without manually setting up infrastructure.
+Transform your project management with [OpenProject](https://www.openproject.org/), a vibrant and collaborative tool that brings clarity and energy to your planning, tracking, and team communication. Experience streamlined workflows and an innovative platform that propels your projects forward.
 
 ## Overview
 
@@ -10,16 +10,34 @@ Designed for simplicity, this role automates everything needed to run OpenProjec
 
 ## Purpose
 
-The purpose of this role is to reduce the complexity of setting up OpenProject with modern production-ready defaults. By combining Docker Compose and Ansible automation, it enables a hands-off setup for both small teams and larger internal infrastructures.
+The purpose of this role is to reduce the complexity of setting up OpenProject with modern production‐ready defaults. By combining Docker Compose and Ansible automation, it enables a hands‐off setup for both small teams and larger internal infrastructures.
 
 ## Features
 
-- 🐳 **Docker-First Deployment**: Uses Docker Compose to launch the entire OpenProject stack.
-- 🔒 **LDAP Integration (optional)**: Automatically connects to your LDAP server for centralized authentication.
-- 📬 **SMTP Configuration**: Sends notification emails via your own mail server.
-- 🧩 **OIDC Ready**: Prepared to extend with OpenID Connect login (e.g., Keycloak).
-- 🔄 **Plugin Support**: Supports custom plugin installation via a pluggable `Gemfile.plugins`.
-- 🛠️ **Role-Oriented Architecture**: Easily integrates with your infrastructure (e.g., database, reverse proxy).
+- **Work Package Management**:  
+  Create, assign, track, and prioritize tasks and issues with customizable workflows that keep your project organized and on schedule.
+
+- **Gantt Charts & Timelines**:  
+  Visualize project schedules and dependencies using intuitive Gantt charts and timeline views, enabling effective planning and resource allocation.
+
+- **Agile Boards & Scrum/Kanban Integration**:  
+  Manage agile projects using Scrum or Kanban boards, track progress through sprints, and maintain a clear overview of work in progress.
+
+- **Time Tracking & Cost Management**:  
+  Record time spent on tasks to monitor productivity and generate detailed cost reports to manage budgets effectively.
+
+- **Collaboration & Document Management**:  
+  Facilitate team collaboration with built-in discussion forums, document sharing, and version control, ensuring all project documentation remains up to date.
+
+- **Robust Reporting & Dashboards**:  
+  Gain insights through comprehensive reporting features and customizable dashboards that help monitor project performance and key metrics.
+
+- **Custom Plugins & Extensibility**:  
+  Extend functionality with a wide variety of plugins and integrations, or create your own to tailor OpenProject to your unique workflow.
+
+- **Role-Based Access Control & Security**:  
+  Manage user permissions precisely to ensure that sensitive information and critical functions remain secure.
+
 
 ## Developer Notes
 

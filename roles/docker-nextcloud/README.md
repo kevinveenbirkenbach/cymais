@@ -2,47 +2,35 @@
 
 ## Description
 
-This Ansible role provisions a production-grade **Nextcloud** deployment using Docker Compose. It includes support for LDAP and OIDC authentication, Redis caching, secure configuration management, and declarative plugin control via `occ`. The setup is modular and integrates cleanly into larger infrastructure environments.
+Elevate your collaboration with Nextcloud, a vibrant self-hosted cloud solution designed for dynamic file sharing, seamless communication, and effortless teamwork. Nextcloud offers a full suite of integrated tools—including LDAP and OIDC authentication, Redis caching, and automated plugin management via OCC—to empower a secure, extensible, and production-ready cloud environment.
 
 ## Overview
 
-The role ensures consistent deployments, full automation, and secure configuration injection into `config.php` using additive includes. Authentication is handled through LDAP and OIDC (e.g., via Keycloak), and backup/recovery operations are fully supported.
+This role provisions a complete Nextcloud deployment using Docker Compose. It automates the setup of the Nextcloud application along with its underlying MariaDB database and configures the system for secure public access via an Nginx reverse proxy. The deployment includes automated configuration merging into `config.php`, health check routines, and integrated support for backup and recovery operations.
 
-## Purpose
-
-To automate the deployment of **secure, extensible, and production-ready Nextcloud instances** using Docker and Ansible.
-
-## User Guide
-
-The Nextcloud User Guide you will find [here](https://docs.nextcloud.com/server/latest/user_manual/en/).
+For comprehensive installation instructions, please refer to the [Installation.md](./Installation.md) file. Additional operational guidance can be found in the following supporting documentation files:
+- [Applications.md](./Applications.md)
+- [Architecture.md](./Architecture.md)
+- [Administration.md](./Administration.md)
+- [Update.md](./Update.md)
+- [OCC.md](./OCC.md)
+- [Database.md](./Database.md)
+- [IAM.md](./IAM.md)
 
 ## Features
 
-- Dockerized Nextcloud (PHP-FPM, Nginx, Cron, Redis)
-- Templated Nginx configuration (internal and external)
-- Automated certificate and HTTPS proxy integration
-- Healthcheck support
-- Backup & recovery integration
-- IAM & SOO
-- Hundreds of integrated plugins
+- **Fully Dockerized Deployment:** Simplifies installation using Docker Compose for the Nextcloud application and its MariaDB backend.
+- **Secure Access:** Integrates with an Nginx reverse proxy for encrypted, high-performance access.
+- **Robust Authentication:** Supports LDAP and OIDC for secure identity and access management.
+- **Automated Configuration Management:** Uses additive configuration files to dynamically merge system settings into `config.php`.
+- **Integrated Backup & Recovery:** Provides built-in support for backup and restoration operations to safeguard your data.
+- **Extensible Plugin Framework:** Easily manage and configure hundreds of Nextcloud plugins using the OCC command line tool.
 
-## Related Documentation
+## Additional Resources
 
-Here are all supporting documentation files within this role:
-
-| Topic | Description |
-|-------|-------------|
-| [Applications](Applications.md) | SQL examples and debug notes for plugins like **Cospend** |
-| [Architecture](Architecture.md) | Overview of architectural integrations |
-| [Administration](Administration.md) | Manual operations like update, config edits, recovery |
-| [Update](Update.md) | Step-by-step update and restore instructions |
-| [OCC](OCC.md) | Nextcloud CLI usage guide (user management, config, maintenance) |
-| [Database](Database.md) | Managing the database (local mode) |
-| [IAM](IAM.md) | LDAP & OIDC Identity and Access Management |
-
-## External Resources
-
+- [Nextcloud Official Website](https://nextcloud.com/)
 - [Nextcloud Docker Documentation](https://github.com/nextcloud/docker)
+- [Nextcloud Admin Manual](https://docs.nextcloud.com/server/latest/admin_manual/)
 - [Nextcloud Admin Manual](https://docs.nextcloud.com/server/latest/admin_manual/)
 - [LDAP Integration Guide](https://docs.nextcloud.com/server/latest/admin_manual/configuration_user/user_auth_ldap.html)
 - [OIDC Login Plugin (pulsejet)](https://github.com/pulsejet/nextcloud-oidc-login)

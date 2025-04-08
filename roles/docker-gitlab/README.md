@@ -1,40 +1,32 @@
-# Docker-GitLab Ansible Role
+# GitLab
+
+## Description
+
+Accelerate your development with GitLab, an all-in-one platform for source code management, CI/CD, and more. Experience a robust and collaborative environment that empowers your development process.
 
 ## Overview
-This Ansible role is designed for setting up and managing a GitLab server running in a Docker container. It automates the process of installing GitLab, configuring its environment, and managing dependencies such as a PostgreSQL database and an Nginx reverse proxy.
+
+This role deploys GitLab using Docker, automating the installation, configuration, and management of your GitLab server. It integrates with an external PostgreSQL database and sets up an Nginx reverse proxy, streamlining your GitLab deployment through efficient container orchestration and customizable Ansible variables.
+
+For a detailed walkthrough of this role, please refer to the [ChatGPT Session Transcript](https://chat.openai.com/share/1b0147bf-d4de-4790-b8ed-c332aa4e3ce3).
 
 ## Features
-- **GitLab Installation**: Automatically deploys GitLab using Docker.
-- **External PostgreSQL Database**: Configures GitLab to use an external PostgreSQL database.
-- **Nginx Reverse Proxy Integration**: Includes tasks for setting up an Nginx reverse proxy for GitLab.
-- **Customizable Configuration**: Variables and templates allow for easy customization.
 
-## Requirements
-- Docker and Docker Compose installed on the target machine.
-- Ansible for automation.
+- **GitLab Installation:** Automatically deploys GitLab within a Docker container.
+- **External PostgreSQL Database:** Configures GitLab to connect to an external PostgreSQL database.
+- **Nginx Reverse Proxy Integration:** Simplifies secure access with an Nginx reverse proxy.
+- **Customizable Configuration:** Easily tailor deployment settings using Ansible variables and templates.
 
-## Role Variables
-Variables are defined in `vars/main.yml`. Key variables include:
-- `docker_compose.directories.instance`: Directory for Docker Compose instances.
-- `application_id`, `database_host`, `database_name`, `database_username`, `database_password`: Database configuration variables.
+## Additional Resources
 
-## Handlers
-- `recreate gitlab`: Restarts GitLab using Docker Compose when changes are detected.
+- [GitLab Official Website](https://about.gitlab.com/)
+- [Running GitLab on Docker](https://ralph.blog.imixs.com/2019/06/09/running-gitlab-on-docker/)
+- [Reducing GitLab Memory Consumption](https://techoverflow.net/2020/04/18/how-i-reduced-gitlab-memory-consumption-in-my-docker-based-setup/)
 
-## Dependencies
-- `nginx-docker-reverse-proxy`: A role for setting up an Nginx reverse proxy for GitLab.
+## Credits
 
-## Template Files
-- `docker-compose.yml.j2`: Jinja2 template for the Docker Compose configuration.
-- Additional templates for database and proxy configuration.
+Developed and maintained by **Kevin Veen-Birkenbach**.  
+Learn more at [veen.world](https://www.veen.world).
 
-## Usage
-Include this role in your Ansible playbooks and specify the necessary variables. Run the playbook to deploy and configure GitLab in a Docker environment.
-
-For a detailed walkthrough and explanation of this role, refer to the conversation at [ChatGPT Session Transcript](https://chat.openai.com/share/1b0147bf-d4de-4790-b8ed-c332aa4e3ce3).
-
-## Other Resources
-- https://ralph.blog.imixs.com/2019/06/09/running-gitlab-on-docker/
-
-## Performance Optimation
-- https://techoverflow.net/2020/04/18/how-i-reduced-gitlab-memory-consumption-in-my-docker-based-setup/
+Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
+Licensed under [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl).

@@ -1,16 +1,31 @@
-# Pixelfed Docker Server Role
+# Pixelfed
 
-This README details the steps to manage your Pixelfed instance running in a Docker container. This setup is part of the docker-pixelfed role within Kevin Veen-Birkenbach's cymais located at [this GitHub repository](https://github.com/kevinveenbirkenbach/cymais/tree/master/roles/docker-pixelfed). 
+## Description
 
-## Further Reading
-For additional information, refer to these resources:
-- [Docker image on Docker Hub](https://hub.docker.com/r/zknt/pixelfed)
-- [Blog Post about running Pixelfed in Docker](https://blog.pixelfed.de/2020/05/29/pixelfed-in-docker/)
+Pixelfed is a decentralized image sharing platform that champions creativity and privacy. It offers a secure, community‑driven alternative to centralized social media networks by enabling federated communication and robust content sharing through a modern web interface.
 
---- 
+## Overview
 
-Author: Kevin Veen-Birkenbach, [https://www.veen.world](https://www.veen.world), [kevin@veen.world](mailto:kevin@veen.world)
+This Docker Compose deployment automates the installation and management of a Pixelfed instance
 
-This README was optimized with the help of OpenAI's ChatGPT. You can view the conversation here:
-- https://chat.openai.com/share/3daea33f-2e30-46e9-a709-a9c93e823ed9
-- https://chat.openai.com/share/17f4cf36-feb7-4e7d-bb61-2732475f8a37
+## Features 
+
+- **Decentralized Content Sharing:**  
+  Empower users to share photos and visual content on an interoperable, federated network with enhanced privacy controls.
+
+- **Modern, Responsive Web Interface:**  
+  Access an intuitive and dynamic user interface designed for effortless browsing, administration, and content management.
+
+- **Robust Scalability & Performance:**  
+  Leverage integrated Redis caching and a secure database (MariaDB or PostgreSQL) to ensure smooth scaling and high performance.
+
+- **Flexible Configuration:**  
+  Easily customize settings such as cache sizes, domain settings, and authentication options with environment variables and templated configuration files.
+
+- **Maintenance & Administration Tools:**  
+  Includes a suite of CLI commands and web‑based management tools to clear cache, manage the database, and monitor application status.
+
+## Other Resources
+
+- [Pixelfed GitHub Repository](https://github.com/pixelfed/pixelfed)
+- [OIDC Plugin Installation Guide](https://chat.openai.com/share/67a4f448-4be8-800f-8639-4c15cb2fb44e)

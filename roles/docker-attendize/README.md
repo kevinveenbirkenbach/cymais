@@ -1,5 +1,36 @@
-@TODO @ATTENTION THIS ROLE IS WORK IN PROGRESS
+# Docker Attendize (WIP)
 
-# Role: docker-attendize (WIP)
+> **Note:** This role is a work in progress. Use with caution and check for updates.
 
-This Ansible role sets up Attendize, an open-source ticket selling and event management platform.
+## Description
+
+Revolutionize your event management with Attendize, an energetic and intuitive platform designed to streamline ticketing and event planning. Enjoy a feature-rich, user-friendly solution that transforms every event into an unforgettable experience.
+
+## Installation
+
+For detailed setup instructions, please refer to [Installation.md](./Installation.md).
+
+## Features
+
+- **Dynamic Ticketing System:** Manage ticket sales, event registrations, and seating arrangements with ease.
+- **Customizable Events:** Create and tailor events to fit various event types and needs.
+- **Integrated Payment Processing:** Simplify ticket purchases with support for multiple payment gateways.
+- **Real-Time Analytics:** Monitor event performance and attendee behavior via interactive dashboards.
+- **User-Friendly Interface:** Experience a seamless design that caters to both administrators and attendees.
+- **Robust API:** Extend functionalities and easily integrate with other systems.
+
+For more information about Attendize and its capabilities, please visit the [Attendize Homepage](https://attendize.com).
+
+## Additional Resources
+
+- [Attendize GitHub Repository](https://github.com/Attendize/Attendize.git)
+- [Attendize Documentation](https://github.com/Attendize/Attendize)
+- [Attendize Issue Tracker](https://github.com/Attendize/Attendize/issues)
+
+## Credits
+
+Developed and maintained by **Kevin Veen-Birkenbach**.  
+Learn more at [veen.world](https://www.veen.world).
+
+Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
+Licensed under [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl).

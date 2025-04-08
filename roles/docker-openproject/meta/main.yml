@@ -1,7 +1,10 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Deploys OpenProject with full Docker Compose integration and optional LDAP/SMTP/SSO setup."
+  description: >
+    Transform your project management with OpenProject, a vibrant and collaborative tool that
+    brings clarity and energy to your planning, tracking, and team communication. Experience streamlined
+    workflows and an innovative platform that propels your projects forward.
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -21,7 +24,9 @@ galaxy_info:
     - ldap
     - sso
     - automation
-  repository: https://s.veen.world/cymais
-  issue_tracker_url: https://s.veen.world/cymaisissues
-  documentation: https://s.veen.world/cymais
+  repository: "https://s.veen.world/cymais"
+  issue_tracker_url: "https://s.veen.world/cymaisissues"
+  documentation: "https://s.veen.world/cymais"
+  logo:
+    class: "fa-solid fa-project-diagram"
 dependencies: []

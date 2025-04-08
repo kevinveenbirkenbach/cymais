@@ -1,62 +1,38 @@
-# Docker LDAP Role
+# LDAP Directory
 
-This Ansible role provides a streamlined implementation of an LDAP server with TLS support. It leverages Docker Compose to deploy a pre-configured OpenLDAP server and phpLDAPadmin for easy management.
+## Description
 
----
+Unleash the potential of centralized identity management with OpenLDAP. This powerful directory service provides a robust platform for managing users, groups, and organizational units while ensuring secure, scalable, and efficient authentication and authorization.
 
-## 🚀 **Features**
+## Overview
 
-- **Secure LDAP with TLS**:
-  - Automatically configures TLS certificates for secure communication.
-  - Provides configurable support for LDAPS on port 636.
+Deploy OpenLDAP in a Docker environment with support for TLS-secured communication via an NGINX stream proxy. OpenLDAP offers advanced directory management capabilities, including flexible schema definitions, dynamic configuration overlays, and comprehensive query support with LDAP search utilities.
 
-- **phpLDAPadmin Integration**:
-  - Includes a Dockerized phpLDAPadmin setup for easy user and group management.
+For further setup instructions and advanced configuration details, please refer to the following resources available in this directory:
+- [Administration.md](./Administration.md)
+- [Installation.md](./Installation.md)
+- [Change_DN.md](./Change_DN.md)
 
-- **Healthcheck Support**:
-  - Ensures that the LDAP service is healthy and accessible using `ldapsearch`.
+## Features
 
---
+- **Centralized Identity Management:** Maintain a unified repository for all users and groups with robust organizational structures.
+- **Flexible Schema Support:** Customize and extend directory schemas to meet diverse organizational requirements.
+- **Secure Communications:** Enable TLS encryption for data in transit when accessed through an NGINX reverse proxy.
+- **Dynamic Configuration:** Leverage runtime configuration overlays to adjust directory settings without downtime.
+- **Comprehensive Query Capabilities:** Utilize LDAP search tools to efficiently query and manage directory data.
+- **High Performance and Scalability:** Designed to handle large-scale deployments with rapid lookup and authentication response times.
 
-## 🛠️ **Technical Details**
+## Additional Resources
 
-### **Services Configured**
-
-1. **OpenLDAP**
-   - TLS enabled on port 636.
-   - Configuration driven by environment variables.
-
-2. **phpLDAPadmin**
-   - Accessible on port 443.
-   - Simplifies LDAP management via a web interface.
-
-3. **Healthchecks**
-   - Uses `ldapsearch` to validate LDAP functionality.
-
-### **Directory Structure**
-
-The following directories are mounted in the container:
-- **LDAP Data:** `data:/bitnami/openldap` for persistent data storage.
-
----
-
-## 🔒 **Security Recommendations**
-- Always use strong passwords for `applications.ldap.administrator_password`.
-- Restrict access to phpLDAPadmin by binding it to `127.0.0.1` or using a reverse proxy.
-
----
-
-## 📜 **References**
 - [Bitnami OpenLDAP](https://hub.docker.com/r/bitnami/openldap)
 - [phpLDAPadmin Documentation](https://github.com/leenooks/phpLDAPadmin/wiki/Docker-Container)
 - [LDAP Account Manager](https://github.com/LDAPAccountManager/docker)
-- [RBAC](https://www.entrust.com/de/resources/learn/what-is-role-based-access-control#:~:text=Rollenbasierte%20Zugriffskontrolle%20(Role%2Dbased%20Access,eine%20Ressource%20gew%C3%A4hrt%20werden%20soll.)
 - [RBAC Wikipedia](https://de.wikipedia.org/wiki/Role_Based_Access_Control)
----
 
+## Credits
 
-## 👨‍💻 **Author**
+Developed and maintained by **Kevin Veen-Birkenbach**.  
+Learn more at [veen.world](https://www.veen.world).
 
-Kevin Veen-Birkenbach - [veen.world](https://www.veen.world)
-
-Feel free to report issues, suggest features, or contribute to the repository! 😊
+Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
+Licensed under [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl).

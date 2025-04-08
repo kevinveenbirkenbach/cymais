@@ -1,4 +1,4 @@
-# BigBlueButton 📡
+# BigBlueButton
 
 ## Description
 

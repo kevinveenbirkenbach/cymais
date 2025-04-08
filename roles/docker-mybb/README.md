@@ -1,7 +1,29 @@
-# Docker MyBB
+# MyBB Forum
 
-## Credits 📝
-This README was created with the assistance of ChatGPT, based on a conversation held at this [link](https://chat.openai.com/share/83828f9a-b817-48d8-86ed-599f64850b4d). ChatGPT provided guidance on structuring this document and outlining the key components of the Docker MyBB role.
+## Description
 
-## Other Resources
-- https://github.com/mybb/docker
+Transform your community engagement with MyBB, a feature-rich forum solution that combines modern design with robust functionality. MyBB fosters dynamic discussions, intuitive moderation, and an energetic user interface that brings people together, creating a vibrant online community.
+
+## Overview
+
+This role deploys MyBB using Docker, leveraging Docker Compose to manage both the MyBB application and its underlying MariaDB database. It also integrates with an Nginx reverse proxy for secure, flexible multi-domain access. Additionally, the role supports the manual installation of MyBB plugins for added extensibility. For detailed installation and configuration instructions, please refer to the [Installation.md](./Installation.md) file.
+
+## Features
+
+- **Multi-Domain Support:** Configure MyBB for multi-domain installations by setting the correct cookie domain and board URL.
+- **Plugin Extensibility:** Manually install and activate plugins to extend forum functionality and tailor the user experience.
+- **Robust Deployment:** Achieve reliable and scalable deployment of your forum via Docker Compose, ensuring seamless service continuity.
+- **Secure and Flexible Access:** Integrate with an Nginx reverse proxy to securely manage traffic and domain access.
+
+## Additional Resources
+
+- [MyBB Docker Repository](https://github.com/mybb/docker)
+- [MyBB Official Website](https://mybb.com/)
+
+## Credits
+
+Developed and maintained by **Kevin Veen-Birkenbach**.  
+Learn more at [veen.world](https://www.veen.world).
+
+Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
+Licensed under [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl).

@@ -2,20 +2,38 @@
 
 ## Description
 
-This Ansible role automates the building and deployment of Sphinx documentation using Docker. It pulls the CyMaIS repository, builds the documentation with Sphinx, and serves the generated HTML files via a lightweight HTTP server.
+Sphinx is a powerful documentation generator originally created for Python projects and now widely used to build and maintain comprehensive documentation for all kinds of software projects. This role automates the process of building and deploying Sphinx documentation using Docker, ensuring reproducible builds and seamless updates.
 
 ## Overview
 
-Optimized for containerized environments, this role ensures that your documentation is consistently built and deployed with minimal manual intervention. It leverages Docker and Docker Compose for reproducible builds, enabling dynamic configuration of source and output directories.
+This Docker Compose deployment leverages Ansible to automatically pull your source repository, build the documentation using Sphinx, and serve the generated HTML through a lightweight HTTP server. The entire process is containerized, which guarantees a consistent and isolated environment regardless of the host system.
 
 ## Purpose
 
-The primary purpose of this role is to streamline the documentation workflow for your project. By automating the Sphinx build process and containerizing the deployment, the role reduces manual overhead and ensures that the latest documentation is always available for review and distribution.
+By automating the Sphinx build process and containerized deployment, this role minimizes manual intervention and helps you ensure that your documentation is always up-to-date with the latest changes in your codebase. It is ideal for continuous integration environments and for projects that require frequent documentation updates.
 
 ## Features
 
-- **Automated Build:** Triggers the Sphinx build process automatically via a Makefile.
-- **Docker Integration:** Uses Docker and Docker Compose to containerize the documentation build and serve process.
-- **Dynamic Configuration:** Allows customizable source and output directories through variables.
-- **Consistent Deployment:** Ensures that the generated documentation is served reliably with minimal configuration.
-- **Easy Updates:** Pulls the latest version of the project repository and rebuilds the documentation seamlessly.
+- **Automated Sphinx Build:**  
+  The role automatically triggers a Sphinx build using a Makefile. This build process compiles source files into clean, navigable HTML documentation.
+
+- **Dynamic and Reproducible Builds:**  
+  Source code is dynamically pulled from your repository before each build. This ensures that every documentation update accurately reflects the latest version of your project.
+
+- **Docker Compose Integration:**  
+  By harnessing Docker Compose, the role deploys the Sphinx build and serving process in an isolated, reproducible container environment, which simplifies the setup and improves portability.
+
+- **Customizable Configuration:**  
+  Variables allow you to define source and output directories, build parameters, and other settings. This flexibility enables you to tailor the documentation build process to your project’s specific needs.
+
+- **Reliable Serving of Documentation:**  
+  Once the build is complete, the generated HTML is served through a lightweight HTTP server. Health checks are in place to ensure the service is running reliably.
+
+- **Consistent Deployment Workflow:**  
+  The entire process—from pulling the repository to serving the final output—is automated. This reduces human error and makes it easy to update or roll back documentation builds.
+
+## Further Resources
+
+For more information about Sphinx and its capabilities, please visit the [Sphinx Official Website](https://www.sphinx-doc.org/).
+
+For detailed Sphinx documentation, see the [Sphinx Documentation](https://www.sphinx-doc.org/en/master/).

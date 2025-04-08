@@ -1,26 +1,34 @@
-# Friendica Docker Role
+# Friendica
 
-This role manages the setup, reset, and maintenance of a Friendica instance running with Docker.
+## Description
+
+Empower your decentralized social networking with Friendica, a platform designed to foster communication and community building with ease. Experience a robust, containerized deployment that streamlines installation, configuration, and maintenance for your Friendica instance.
 
 ## Overview
 
-Friendica is a decentralized social networking platform. This role helps manage Friendica in a containerized environment with Docker and provides tools for debugging, resetting, and maintaining the installation.
+This role deploys Friendica using Docker, managing the Friendica application container alongside a central MariaDB instance. It provides tools for full resets, manual and automatic database reinitialization, email and general configuration debugging, and autoinstall processes—all to ensure your Friendica installation remains reliable and easy to maintain.
 
-## Prerequisites 🛠️
+For detailed administration procedures, please refer to the [Administration.md](./Administration.md) file.
 
-Ensure you have the following:
-- Docker and Docker Compose installed
-- A central MariaDB instance running
-- Necessary permissions to manage Docker and database configurations
+## Features
 
-## Other Resources
+- **Decentralized Social Networking:** Facilitate a distributed network for seamless peer-to-peer communication.
+- **Containerized Deployment:** Leverage Docker for streamlined setup, management, and scalability.
+- **Robust Reset and Recovery Tools:** Easily reset and reinitialize both the application and its underlying database.
+- **Configuration Debugging:** Quickly inspect environment variables, volume data, and configuration files to troubleshoot issues.
+- **Autoinstall Capability:** Automate initial installation steps to rapidly deploy a working Friendica instance.
+
+## Additional Resources
 
 - [Friendica Docker Hub](https://hub.docker.com/_/friendica)
-- [Friendica Installation Docs](https://wiki.friendi.ca/docs/install)
+- [Friendica Installation Documentation](https://wiki.friendi.ca/docs/install)
 - [Friendica GitHub Repository](https://github.com/friendica/docker)
-- [Open Issue: Login Mask does not change with OIDC activated](https://github.com/friendica/friendica/issues/14743)
+- [Relevant Issue Tracker](https://github.com/friendica/friendica/issues)
 
----
+## Credits
 
-📜 Created by [Kevin Veen-Birkenbach](https://www.veen.world/)
+Developed and maintained by **Kevin Veen-Birkenbach**.  
+Learn more at [veen.world](https://www.veen.world).
 
+Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
+Licensed under [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl).

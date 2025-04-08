@@ -1,31 +1,40 @@
-# Docker Snipe-IT
+# Snipe‑IT
 
-This 🚀 **CyMaIS** role provides an automated deployment and configuration for **[Snipe-IT](https://github.com/snipe/snipe-it)**, an open-source asset management system. It leverages **Docker Compose**, **Ansible**, and **centralized database integration** to streamline deployment and maintenance.
+## Description
 
-👤 **Author:** Kevin Veen-Birkenbach  
-🔗 **Website:** [veen.world](https://veen.world)
+Snipe‑IT is an open‑source asset management system designed to streamline hardware and software inventory tracking. This deployment provides an automated, containerized solution using Docker Compose, centralized MariaDB database integration, and secure, configurable environment settings—including robust SMTP email support and pending SAML authentication enhancements.
 
-## Features ✨
-- Automated setup using **Docker Compose** 🐳
-- Centralized **MariaDB** database support 🛢️
-- Secure environment configurations 🔐
-- Configurable **SMTP email settings** 📧
-- **SAML Authentication Support** (Pending Fix) 🔐
-- **Redis Caching** for improved performance ⚡
+## Overview
 
-## Pending Issue 🚧
-To ensure full **SAML authentication integration**, this issue still needs to be resolved:  
-🔗 [GitHub Issue #16186](https://github.com/snipe/snipe-it/issues/16186)
+This Docker deployment uses Ansible automation to set up Snipe‑IT along with necessary services such as a MariaDB database, an optional OAuth2 proxy for additional security, and a reverse proxy configuration. The system is built for reliable asset management in various environments.
 
-## Additional Resources 📚
-For more details, visit the official documentation and related links:
-- 🔗 [Snipe-IT Documentation](https://snipe-it.readme.io/docs/ldap-sync-login)
-- 🔗 [SAML Setup](https://snipe-it.readme.io/docs/saml)
-- 🔗 [Mattermost SSO Integration](https://docs.mattermost.com/onboard/sso-saml-keycloak.html)
-- https://snipe-it.readme.io/docs/ldap-sync-login
-- https://github.com/snipe/snipe-it/issues/8584
-- https://chatgpt.com/c/67a34927-a994-800f-a3d5-86a5b0205c8b
-- https://github.com/snipe/snipe-it/issues/14895
-- https://github.com/snipe/snipe-it/issues/16186
+## Features
 
-🚀 Happy Deploying! 🏗️
+- **Automated Deployment:**  
+  Launch Snipe‑IT quickly with Docker Compose and Ansible automation for a production‑ready platform.
+
+- **Centralized Database Support:**  
+  Leverage MariaDB for secure and reliable data storage.
+
+- **Configurable SMTP Settings:**  
+  Manage email notifications and alerts with customizable SMTP configurations.
+
+- **Optional SAML Authentication:**  
+  Prepare for enhanced, standards‑based authentication (integration pending).
+
+- **Redis Caching:**  
+  Improve application performance with built‑in Redis caching support.
+
+## Other Resources
+
+- [Snipe‑IT Official Documentation](https://snipe-it.readme.io/docs/ldap-sync-login)
+- [SAML Setup Instructions](https://snipe-it.readme.io/docs/saml)
+- [Mattermost SSO Integration Guide](https://docs.mattermost.com/onboard/sso-saml-keycloak.html)
+- [Additional GitHub Issues and Discussions](https://github.com/snipe/snipe-it/issues)
+
+## Credits
+
+Developed and maintained by **Kevin Veen-Birkenbach**.  
+Learn more at [veen.world](https://veen.world)  
+Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
+License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)

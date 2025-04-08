@@ -1,0 +1,28 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: >
+    Streamline your online presence with YOURLS — a nimble, open‑source URL shortener that empowers you to create, track, and manage short links effortlessly.
+    This containerized deployment integrates centralized MariaDB support and a customizable environment, ensuring a secure and scalable solution for all your link management needs.
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen-Birkenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Linux
+      versions:
+        - all
+  galaxy_tags:
+    - yourls
+    - url-shortener
+    - docker
+    - automation
+  repository: "https://s.veen.world/cymais"
+  issue_tracker_url: "https://s.veen.world/cymaisissues"
+  documentation: "https://s.veen.world/cymais"
+  logo:
+    class: "fa-solid fa-link"
+dependencies: []

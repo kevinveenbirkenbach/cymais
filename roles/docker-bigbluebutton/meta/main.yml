@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Deploys BigBlueButton with Greenlight and SSO"
+  description: "Transform online learning and collaboration with BigBlueButton, an interactive web conferencing solution designed to energize virtual classrooms and meetings. Enjoy dynamic tools and an engaging environment that makes every session a powerful learning experience."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -26,3 +26,5 @@ galaxy_info:
   repository: https://s.veen.world/cymais
   issue_tracker_url: https://s.veen.world/cymaisissues
   documentation: https://s.veen.world/cymais
+  logo:
+    class: "fa-solid fa-chalkboard-teacher"

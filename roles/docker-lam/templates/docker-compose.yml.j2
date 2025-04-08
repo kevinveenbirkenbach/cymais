@@ -1,4 +1,7 @@
 services:
+
+{% include 'roles/docker-oauth2-proxy/templates/container.yml.j2' %}
+
   application:
     container_name: {{ application_id }}
     image: ghcr.io/ldapaccountmanager/lam:{{applications[application_id].version}}

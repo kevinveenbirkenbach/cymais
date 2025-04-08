@@ -1,4 +1,4 @@
-# PhpMyAdmin 🐳
+# PhpMyAdmin
 
 ## Description
 

@@ -1,27 +1,34 @@
-# Docker-Matrix Role README
+# Matrix
+
+## Description
+
+Step into the future of communication with Matrix, a dynamic and decentralized platform that delivers secure, real-time messaging and collaboration. With robust federation, end-to-end encryption, and versatile bridging support, Matrix enables seamless connections across diverse networks while safeguarding your data.
 
 ## Overview
 
-This document serves as the README for the `docker-matrix` role, a part of the `CyMaIS` project. This role automates the deployment of a Matrix server using Docker. This role was developed by [Kevin Veen-Birkenbach](https://www.veen.world/)
+This role deploys a Matrix homeserver using Docker Compose, setting up the Synapse server along with essential components such as bridges and the Element web client. Matrix is built to support secure, decentralized communications with high performance and scalability.
 
-Matrix is an open-source project that provides a protocol for secure, decentralized, real-time communication. It offers features like end-to-end encrypted chat, VoIP, and file sharing, catering to both individual and enterprise users. With a focus on interoperability, Matrix can bridge with other communication systems, offering a unified platform for messaging and collaboration.
+For detailed configuration and operational instructions, please refer to the following files in this directory:
+- [Installation.md](./Installation.md)
+- [Administration.md](./Administration.md)
 
-## Credits 📝
+## Features
 
-### Guides
-- https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html
-- https://cyberhost.uk/element-matrix-setup/
-- https://www.linode.com/docs/guides/how-to-install-the-element-chat-app/
-- https://hub.docker.com/r/vectorim/element-web
-- https://github.com/matrix-org/matrix-synapse-ldap3
+- **Decentralized and Federated:** Connect with a global network of Matrix homeservers, ensuring there is no single point of failure.
+- **End-to-End Encryption:** Protect your communications with robust encryption mechanisms to keep your messages private.
+- **Interoperability:** Bridge communications with external platforms, allowing seamless interaction across different messaging systems.
+- **Scalable Architecture:** Designed to handle increasing user loads and message volumes with high performance.
+- **Flexible Client Support:** Access Matrix services via modern web clients like Element, which offer an intuitive and real-time user experience.
 
-## Links to ChatGPT Conversations
+## Additional Resources
 
-- https://chat.openai.com/share/d4485223-3750-4b0b-9733-45776c55d7cf
-- https://chat.openai.com/share/f68873d9-aae9-4a1e-83b6-c3f23705a4ad
-- https://chat.openai.com/share/11690964-9997-4e44-b63f-3c384a5ddc1d
-- https://chat.openai.com/share/6f537c30-7337-47ed-8c85-19306e0eb74b
-- https://chat.openai.com/share/31974492-2950-4dbc-8a83-edd7e1569bec
+- [Matrix Official Website](https://matrix.org/)
+- [Matrix Documentation](https://matrix.org/docs/)
 
-##  Alternativ Matrix Setup Role
-An alternativ role to deploy Matrix you will find [here](../docker-matrix-ansible/).
+## Credits
+
+Developed and maintained by **Kevin Veen-Birkenbach**.  
+Learn more at [veen.world](https://www.veen.world).
+
+Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
+Licensed under [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl).

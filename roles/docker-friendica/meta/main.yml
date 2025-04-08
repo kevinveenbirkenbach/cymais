@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: "Empower your decentralized social networking with Friendica, a platform designed to foster communication and community building with ease. Experience a robust, containerized deployment that streamlines installation, configuration, and maintenance for your Friendica instance."
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen-Birkenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  galaxy_tags:
+    - friendica
+    - docker
+    - social networking
+    - decentralized
+  repository: https://s.veen.world/cymais
+  issue_tracker_url: https://s.veen.world/cymaisissues
+  documentation: https://s.veen.world/cymais
+  logo:
+    class: "fa-solid fa-users"
+dependencies: []

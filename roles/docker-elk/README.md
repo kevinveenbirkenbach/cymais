@@ -1,4 +1,4 @@
-# role docker-elk
+# DRAFT docker-elk
 
 I decided against using this role for security reasons. I recommend to use another tool if you don't want to pay for keeping your logs save and if you don't want to depend on external servers. 
 

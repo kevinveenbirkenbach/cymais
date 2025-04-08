@@ -1,23 +1,25 @@
-# Docker Listmonk Role
+# Listmonk
 
-This role deploys the Listmonk application using Docker. Listmonk is a high performance, self-hosted newsletter and mailing list manager with a modern dashboard.
+## Description
 
-## Prerequisites
-- Docker and Docker Compose should be installed on your system.
-- Make sure that the required ports are available and not used by other services.
+Elevate your email marketing with Listmonk, a high-performance, self-hosted newsletter and mailing list manager featuring a modern, intuitive dashboard. Listmonk empowers you with advanced analytics, efficient subscriber segmentation, and streamlined campaign management—all configurable via a flexible TOML configuration file.
 
-## Configuration Files
+## Overview
 
-- **docker-compose.yml**: Defines the Docker setup for Listmonk and its database.
-- **config.toml**: Contains the application settings including the database connection, admin credentials, and server settings.
+This role deploys Listmonk using Docker, ensuring a robust and scalable setup for your newsletter management needs. Listmonk’s architecture supports a dedicated PostgreSQL database and integration with an NGINX reverse proxy for secure access. To configure and manage your instance, use the provided configuration files:
+- [Installation.md](./Installation.md)
+- [Upgrade.md](./Upgrade.md)
 
-## Other Resources
-- For detailed installation instructions and configuration options, visit the [Listmonk Installation Documentation](https://listmonk.app/docs/installation/).
-- You can also find more information on the [Listmonk GitHub Repository](https://github.com/knadh/listmonk/).
+## Features
 
-## Dependencies
-- This role depends on `nginx-docker-reverse-proxy` for setting up a reverse proxy for Listmonk.
+- **High Performance:** Optimized for handling large-scale mailing lists and newsletters with rapid processing.
+- **Modern Dashboard:** Enjoy a sleek, user-friendly interface for managing campaigns and analyzing performance.
+- **Advanced Analytics:** Gain insights through detailed reporting on campaign metrics and subscriber behavior.
+- **Flexible Configuration:** Easily customize settings such as database connections, admin credentials, and server configurations via a TOML file.
+- **Robust Infrastructure:** Seamlessly integrates with PostgreSQL for reliable data management and supports deployment behind a reverse proxy.
 
-## Developed with AI
-This Docker Listmonk role was developed with assistance from ChatGPT, a conversational AI by OpenAI. The conversation and guidance provided by ChatGPT can be found [here](https://chat.openai.com/share/95e722f5-3bd9-4203-8755-def2eca4796e).
+## Additional Resources
 
+- [Listmonk Official Website](https://listmonk.app/)
+- [Listmonk Installation Documentation](https://listmonk.app/docs/installation/)
+- [Listmonk GitHub Repository](https://github.com/knadh/listmonk/)

@@ -1,6 +1,29 @@
-# Docker Matomo Role
+# Matomo Analytics
 
-This Ansible role deploys a [Matomo](https://matomo.org/) analytics platform instance using Docker.
+## Description
 
-## Credits 📝
-This script was created with the help of ChatGPT. The full conversation is [here](https://chat.openai.com/share/49e0c7e4-a2af-4a04-adad-7a735bdd85c4) available.
+Experience the power of Matomo, an innovative open-source analytics platform that delivers real-time insights, robust visitor tracking, and privacy-first features to elevate your website performance. Dive into actionable data with unmatched precision and clarity.
+
+## Overview
+
+This role deploys Matomo using Docker, automating the setup of your analytics platform along with its underlying database. With support for health checks, persistent storage for configuration and data, and integration with an Nginx reverse proxy, Matomo is configured to provide reliable and scalable analytics for your digital presence.
+
+## Features
+
+- **Real-Time Analytics:** Monitor visitor activity and generate detailed insights instantly.
+- **Robust Tracking:** Track user interactions across your website with comprehensive analytics tools.
+- **Privacy-First:** Enjoy a self-hosted solution that prioritizes data ownership and privacy.
+- **Customizable Setup:** Configure database connections, admin credentials, and server settings via environment variables and a TOML configuration file.
+- **Scalable Deployment:** Use Docker to ensure your analytics platform can grow with your traffic demands.
+
+## Additional Resources
+
+- [Matomo Official Website](https://matomo.org/)
+
+## Credits
+
+Developed and maintained by **Kevin Veen-Birkenbach**.  
+Learn more at [veen.world](https://www.veen.world).
+
+Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
+Licensed under [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl).

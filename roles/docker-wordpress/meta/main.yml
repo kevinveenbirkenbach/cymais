@@ -1,8 +1,9 @@
+---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
   description: >
-    Deploys and configures a Docker-based WordPress instance with multisite support,
-    custom image building, and integrated msmtp for reliable email delivery.
+    Use the full power of WordPress—with its intuitive interface, customizable themes and plugins,
+    responsive design, and advanced SEO tools—in a scalable and secure containerized environment.
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -23,3 +24,6 @@ galaxy_info:
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
+  logo:
+    class: "fa-solid fa-blog"
+dependencies: []
