@@ -1,7 +1,7 @@
 # This template needs to be included in docker-compose.yml, which depend on a postgres database
 {% if not applications[application_id].database.central_storage | bool %}  
   database:
-    image: postgres:{{applications.postgres.database_version}}-alpine
+    image: postgres:{{applications.postgres.version}}-alpine
     container_name: {{application_id}}-database
     env_file:
       - {{database_env}}

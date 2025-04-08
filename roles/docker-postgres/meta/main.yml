@@ -1,0 +1,23 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: >-
+    The Docker PostgreSQL Role offers an easy and efficient way to run a PostgreSQL database inside a Docker container.
+    Manage your data securely and effectively, making it ideal for production or local development.
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: "Kevin Veen-Birkenbach Consulting & Coaching Solutions"
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Docker
+      versions:
+        - "latest"
+  galaxy_tags:
+    - postgresql
+    - docker
+    - database
+    - administration
+    - central-database
+  repository: "https://s.veen.world/cymais"
+  issue_tracker_url: "https://s.veen.world/cymaisissues"
+  documentation: "https://s.veen.world/cymais"

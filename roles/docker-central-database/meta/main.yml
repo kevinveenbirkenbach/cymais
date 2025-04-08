@@ -1,0 +1,23 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: >-
+    The Docker Central Database Role lets you quickly provision a centralized database through Docker Compose.
+    Whether using MariaDB or PostgreSQL, this role provides a reliable, low-maintenance solution that supports your business applications.
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: "Kevin Veen-Birkenbach Consulting & Coaching Solutions"
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Docker
+      versions:
+        - "latest"
+  galaxy_tags:
+    - database
+    - docker
+    - mariadb
+    - postgresql
+    - central-database
+  repository: "https://s.veen.world/cymais"
+  issue_tracker_url: "https://s.veen.world/cymaisissues"
+  documentation: "https://s.veen.world/cymais"

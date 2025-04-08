@@ -496,7 +496,7 @@ defaults_applications:
         enabled: false
       integration_gitlab:
         # Nextcloud Integration GitLab: connects Nextcloud with GitLab repositories (https://apps.nextcloud.com/apps/integration_gitlab)
-        enabled: "{{ 'gitlab' in group_names in group_names | lower }}"
+        enabled: "{{ 'gitlab' in group_names | lower }}"
       integration_github:
         # Nextcloud Integration GitHub: integrates GitHub repositories with Nextcloud (https://apps.nextcloud.com/apps/integration_github)
         enabled: false
@@ -683,10 +683,10 @@ defaults_applications:
 
   ## Pixelfed
   pixelfed:
-    titel:                "Pictures on {{primary_domain}}"
-    version:              "latest"
+    titel:                        "Pictures on {{primary_domain}}"
+    version:                      "latest"
     database:
-      central_storage:    True                                              # Activate Central Database Storage
+      central_storage:            True                                      # Activate Central Database Storage
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
     css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
@@ -694,7 +694,7 @@ defaults_applications:
   ## Postgres
   # Please set an version in your inventory file - Rolling release for postgres isn't recommended
   postgres:
-    database.version:  "latest"
+    version:                      "latest"
 
   portfolio:
     database:

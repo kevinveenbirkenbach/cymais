@@ -1,30 +1,30 @@
-# Docker-Postgres Ansible Role
+# PostgreSQL 🐳
+
+## Description
+
+This Ansible role deploys and configures a PostgreSQL database in a Docker container using Docker Compose. It is designed to simplify database administration by automating the creation of networks, containers, and essential database tasks (such as database and user creation) for a secure and high-performance environment.
 
 ## Overview
-This Ansible role is designed to deploy a PostgreSQL database using Docker. It includes tasks for setting up a Docker network, installing PostgreSQL in a Docker container, and initializing the database with a specified user and database.
 
-## Role Variables
-- `central_postgres_password`: The password for the PostgreSQL superuser (`postgres`).
-- `database_name`: Name of the database to be created.
-- `database_username`: Username for the database user.
-- `database_password`: Password for the database user.
+Built for environments that demand reliability and ease of management, this role:
+- Sets up a dedicated Docker network for PostgreSQL.
+- Deploys a PostgreSQL container with secure configurations and automated healthchecks.
+- Automates tasks like database creation, user setup, and privilege assignments to streamline your workflows.
 
-## Role Tasks
-1. **Create Docker network for PostgreSQL**: Sets up a Docker network for PostgreSQL communication.
-2. **Install PostgreSQL**: Deploys PostgreSQL in a Docker container, attaching it to the created network and setting the superuser password.
-3. **Run the docker_postgres tasks once**: Ensures that the tasks are only run once to avoid redundancy.
+## Purpose
 
-## Handlers
-- **Create database**: Creates a new database with the specified name.
-- **Create database user**: Sets up a user with full privileges on the newly created database.
+The purpose of this role is to provide an effortless way to deploy a PostgreSQL database via Docker. It minimizes manual interventions while ensuring that your database is configured securely and reliably for both production and development scenarios.
 
-## Usage
-1. Set the required variables in your playbook or inventory file.
-2. Include this role in your playbook.
-3. Run the playbook against the target host.
+## Features
 
-## Notes
-- The PostgreSQL server is bound to `127.0.0.1:5432` on the host machine, making it accessible only from localhost.
+- **Automated Deployment:** Installs PostgreSQL with minimal manual steps.
+- **Robust Administration:** Automatically creates databases, users, and assigns privileges.
+- **Enhanced Security:** The service is bound to `127.0.0.1:5432`, restricting access and enhancing security.
+- **Seamless Docker Integration:** Works harmoniously with Docker Compose and other roles in your infrastructure.
 
-## Author
-This role was created by [Kevin Veen-Birkenbach](https://www.veen.world).
+## Credits 📝
+
+Developed by **Kevin Veen-Birkenbach**.  
+Discover more at [www.veen.world](https://www.veen.world)  
+Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
+License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)
