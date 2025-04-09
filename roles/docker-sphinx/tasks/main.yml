@@ -4,35 +4,49 @@
   include_role: 
     name: docker-compose
 
-- name: "Create {{ host_sphinx_source_dir_absolute }} directory"
-  file:
-    path: "{{ host_sphinx_source_dir_absolute }}"
-    state: directory
-    mode: '0755'
+- name: update cymais for up to date docs
+  command:
+    cmd: "pkgmgr update cymais"
 
-- name: "pull the source repository to build the Sphinx documentation from {{ applications.sphinx.repository_sphinx_source }} to {{ host_sphinx_source_dir_absolute }}"
-  git:
-    repo: "{{ applications.sphinx.repository_sphinx_source }}"
-    dest: "{{ host_sphinx_source_dir_absolute }}"
-    update: yes
-    clone: yes
-  notify: docker compose project build and setup 
-  become: true
+- name: install cymais-sphinx
+  command:
+    cmd: "pkgmgr install cymais-sphinx --clone-mode https"
+
+- name: Get path of cymais-sphinx using pkgmgr
+  command: pkgmgr path cymais-sphinx
+  register: path_cymais_sphinx_output
+
+- name: Get path of cymais using pkgmgr
+  command: pkgmgr path cymais
+  register: path_cymais_output
 
 - name: "include role nginx-domain-setup for {{application_id}}"
   include_role:
     name: nginx-domain-setup
   vars:
-    domain: 	"{{ domains[application_id] }}"
+    domain:     "{{ domains[application_id] }}"
     http_port: 	"{{ ports.localhost.http[application_id] }}"
 
-- name: "create {{ sphinx_host_dockerfile }}"
-  copy:
-    src:  "{{ sphinx_control_node_dockerfile }}"
-    dest: "{{ sphinx_host_dockerfile }}"
-    mode: '770'
+- name: "Link {{ path_cymais_sphinx_output.stdout }} to {{ host_sphinx_exec_dir_absolute }}"
+  file:
+    src: "{{ path_cymais_sphinx_output.stdout }}"
+    dest: "{{ host_sphinx_exec_dir_absolute }}"
+    state: link
     force: yes
-  notify: docker compose project build and setup
+
+- name: "Link {{ path_cymais_sphinx_output.stdout }}/Dockerfile to {{ sphinx_host_dockerfile }}"
+  file:
+    src: "{{ path_cymais_sphinx_output.stdout }}/Dockerfile"
+    dest: "{{ sphinx_host_dockerfile }}"
+    state: link
+    force: yes
+
+- name: "Link {{ path_cymais_output.stdout }} to {{ host_sphinx_source_dir_absolute }}"
+  file:
+    src: "{{ path_cymais_output.stdout }}"
+    dest: "{{ host_sphinx_source_dir_absolute }}"
+    state: link
+    force: yes
 
 - name: "copy docker-compose.yml and env file"
   include_tasks: copy-docker-compose-and-env.yml

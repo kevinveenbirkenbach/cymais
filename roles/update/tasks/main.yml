@@ -39,4 +39,13 @@
 - name: "Update with pip"
   include_role:
     name: update-pip
-  when: pip_installed.rc == 0
+    
+- name: "Check if pkgmgr command is available"
+  command: "which pkgmgr"
+  register: pkgmgr_available
+  ignore_errors: yes
+
+- name: "Update all repositories using pkgmgr"
+  include_role:
+    name: update-pkgmgr
+  when: pkgmgr_available.rc == 0

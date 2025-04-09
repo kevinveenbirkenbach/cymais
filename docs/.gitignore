@@ -1,8 +1,0 @@
-assets/img/*
-!assets/img/.gitkeep
-output/*
-!output/.gitkeep
-generated/*
-!generated/.gitkeep
-requirements/*
-!requirements/.gitkeep
