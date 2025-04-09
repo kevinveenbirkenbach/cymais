@@ -9,11 +9,6 @@
     cmd: "pkgmgr install cymais-sphinx --clone-mode https"
   notify: docker compose project build and setup
 
-- name: update cymais for up to date docs
-  command:
-    cmd: "pkgmgr update cymais"
-  notify: docker compose project build and setup
-
 - name: Get path of cymais-sphinx using pkgmgr
   command: pkgmgr path cymais-sphinx
   register: path_cymais_sphinx_output
