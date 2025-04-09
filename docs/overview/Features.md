@@ -1,4 +1,4 @@
-# Features 🚀
+# Features
 
 **CyMaIS - Cyber Master Infrastructure Solution** revolutionizes IT infrastructure management, making it simpler, safer, and more adaptable for businesses of all sizes. Here’s how it can benefit your organization:
 

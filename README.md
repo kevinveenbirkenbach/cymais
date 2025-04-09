@@ -11,9 +11,11 @@ Welcome to **CyMaIS (Cyber Master Infrastructure Solution)**, a powerful automat
 CyMaIS leverages **Docker, Linux, and Ansible** to provide an automated and modular infrastructure solution. With more then **150 pre-configured roles**, it supports a wide range of applications, from cloud services to local server management and desktop workstation setups.
 
 ## Guides 📖
-- **[User Guide](04_USER_GUIDE.md)** - For end-users accessing cloud apps like Nextcloud, Matrix, and more.
-- **[Administrator Guide](06_ADMINISTRATOR_GUIDE.md)** - For system administrators deploying CyMaIS.
-- **[Customer Guide](05_CUSTOMER_GUIDE.md)** - For customers which are interested in an infrastructure setup
+- **[User Guide](docs/guides/user/Readme.md)** - For end-users accessing cloud apps like Nextcloud, Matrix, and more.
+- **[Administrator Guide](docs/guides/administrator/Readme.md)** - For system administrators deploying CyMaIS.
+- **[Customer Guide](docs/guides/customer/Readme.md)** - For customers which are interested in an infrastructure setup
+- **[Developer Guide](docs/guides/developer/index)** - For developers which are interested in participating
+- **[Investor Guide](docs/guides/investor/Readme.md)** - For investors which like to get a share in the project
 
 ## Key Features 🎯
 - **Automated IT deployment** 📦 - Pre-built roles for server and PC setups
@@ -22,7 +24,7 @@ CyMaIS leverages **Docker, Linux, and Ansible** to provide an automated and modu
 - **Backup & recovery solutions** 💾 - Automate data security and prevent loss
 - **Infrastructure monitoring & maintenance** 📊 - Keep your system running optimally
 
-More informations about the features you will find [here](01_FEATURES.md).
+More informations about the features you will find [here](docs/overview/Features.md).
 
 ## Get Started 🚀
 1. **Install CyMaIS** via [Kevin's Package Manager](https://github.com/kevinveenbirkenbach/package-manager)
