@@ -1,6 +1,3 @@
-Here is the full content in English with all instructions, formatted as a markdown (`CHANGE_DN.md`) file:
-
-```md
 # Change Distinguished Name (DN) in OpenLDAP Docker
 
 This document provides a step-by-step guide on how to rename the Distinguished Name (DN) from `cn=administrator,dc=flock,dc=town` to `cn=administrator,dc=cymais,dc=cloud` in an **OpenLDAP Docker** environment.
@@ -134,6 +131,3 @@ docker restart openldap
 ```
 
 Now, `cn=administrator,dc=cymais,dc=cloud` should be active as the new administrator account.
-```
-
-This file contains the complete set of instructions in English, properly formatted, and ready to be used in OpenLDAP Docker. Let me know if you need any adjustments! 🚀

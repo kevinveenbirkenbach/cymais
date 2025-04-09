@@ -38,6 +38,7 @@
     src:    "{{ bbb_env_file_origine }}"
     dest:   "{{ bbb_env_file_link }}"
     state:  link
+  notify: setup bigbluebutton
 
 - name: flush docker service
   meta: flush_handlers

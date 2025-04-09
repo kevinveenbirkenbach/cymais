@@ -24,7 +24,7 @@ defaults_oidc:
     logout_url:           "{{_oidc_client_issuer_url}}/protocol/openid-connect/logout"      # Endpoint to log out the user
     change_credentials:   "{{_oidc_client_issuer_url}}account/account-security/signing-in"  # URL for managing or changing user credentials
     certs:                "{{_oidc_client_issuer_url}}/protocol/openid-connect/certs"       # JSON Web Key Set (JWKS)
-  button_text:            "SSO Login({{primary_domain | upper}})"                           # Default button text
+  button_text:            "SSO Login ({{primary_domain | upper}})"                           # Default button text
   attributes:
     # Attribut to identify the user
     username:             "preferred_username"

@@ -11,3 +11,9 @@ docker compose down -v
 ```bash
 watch -n 2 "docker compose ps -a"
 ```
+
+## Health Logs
+
+```bash
+docker inspect --format='{{json .State.Health}}' <container_id>
+```
