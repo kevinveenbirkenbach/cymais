@@ -1,4 +1,4 @@
-# User Guide 📖
+# User Guide
 
 Welcome to **CyMaIS**! This guide is designed for **end-users** who want to use cloud services, email, and collaboration tools securely and efficiently. Whether you're an **enterprise user** or an **individual**, CyMaIS provides a wide range of services tailored to your needs.
 

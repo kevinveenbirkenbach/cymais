@@ -1,4 +1,4 @@
-# Investor Information 💰
+# Investor Guide
 
 🚀 **CyMaIS is seeking investors** to expand its reach and continue development. With an increasing demand for automated IT solutions, **CyMaIS has the potential to revolutionize IT infrastructure management.**
 

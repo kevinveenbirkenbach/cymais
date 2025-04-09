@@ -1,4 +1,4 @@
-# Enterprise Solutions 🏢
+# Enterprise Solutions
 
 **CyMaIS** provides powerful **enterprise-grade IT infrastructure solutions**, enabling businesses to scale securely and efficiently.
 

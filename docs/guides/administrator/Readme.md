@@ -1,12 +1,12 @@
-# Administrator Guide 🖥️
+# Administrator Guide
 
 This guide is for **system administrators** who are deploying and managing CyMaIS infrastructure.
 
 ## Setting Up CyMaIS 🏗️
 Follow these guides to install and configure CyMaIS:
-- [Setup Guide](07_SETUP_GUIDE.md)
-- [Configuration Guide](08_CONFIGURATION.md)
-- [Deployment Guide](09_DEPLOY.md)
+- [Setup Guide](SETUP_GUIDE.md)
+- [Configuration Guide](CONFIGURATION.md)
+- [Deployment Guide](DEPLOY.md)
 
 ## Key Responsibilities 🔧
 - **User Management** - Configure LDAP, Keycloak, and user permissions.

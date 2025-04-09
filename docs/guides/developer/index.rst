@@ -7,8 +7,8 @@ Explore CyMaIS Solutions
 ------------------------
 CyMaIS offers various solutions for IT infrastructure automation. Learn more about the available applications:
 
-- :doc:`roles/application_glosar`
-- :doc:`roles/application_categories`
+- :doc:`../../../roles/application_glosar`
+- :doc:`../../../roles/application_categories`
 
 For Developers
 --------------
@@ -18,7 +18,7 @@ Understanding Ansible Roles
 
 CyMaIS is powered by **Ansible** roles to automate deployments. Developers can explore the technical details of our roles here:
 
-- :doc:`roles/ansible_role_glosar`
+- :doc:`../../../roles/ansible_role_glosar`
 
 Contributing to CyMaIS
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -37,8 +37,8 @@ Contribution Guidelines
 
 For detailed guidelines, refer to:
 
-- :doc:`CONTRIBUTING`
-- :doc:`CODE_OF_CONDUCT`
+- :doc:`../../../CONTRIBUTING`
+- :doc:`../../../CODE_OF_CONDUCT`
 
 Community & Support
 -------------------
