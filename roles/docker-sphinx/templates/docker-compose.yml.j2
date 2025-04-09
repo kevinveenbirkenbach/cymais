@@ -1,11 +1,8 @@
 services:
   application:
     build: 
-      context:  .
-      dockerfile: Dockerfile
-      args:
-        SPHINX_HOST_SOURCE_DIR_RELATIVE: {{host_sphinx_source_dir_relative}}/
-        SPHINX_HOST_EXEC_DIR_RELATIVE:   {{host_sphinx_exec_dir_relative}}/
+      context: {{ path_cymais_sphinx_output.stdout }}
+      dockerfile: {{ path_cymais_sphinx_output.stdout }}/Dockerfile
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:8000"
     healthcheck:

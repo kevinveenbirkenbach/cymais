@@ -1,9 +1,1 @@
 application_id:                   "sphinx"
-
-host_sphinx_source_dir_relative:  "services/cymais"                                                                    # Place where the sphinx source repository is stored on the host
-host_sphinx_source_dir_absolute:  "{{docker_compose.directories.instance}}{{host_sphinx_source_dir_relative}}"          # Place where the sphinx source repository is stored on the host
-
-host_sphinx_exec_dir_relative:    "services/cymais-sphinx"                                                             # Place where the sphinx source repository is stored on the host
-host_sphinx_exec_dir_absolute:    "{{docker_compose.directories.instance}}{{host_sphinx_source_dir_relative}}"          # Place where the sphinx source repository is stored on the host
-
-sphinx_host_dockerfile:           "{{ docker_compose.directories.instance }}Dockerfile"                                 # Path to the Dockerfile to build sphinx on the server
