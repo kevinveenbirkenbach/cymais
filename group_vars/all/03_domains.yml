@@ -39,6 +39,7 @@ defaults_domains:
   phpmyldap:               "phpmyldap.{{primary_domain}}"
   pixelfed:                "picture.{{primary_domain}}"
   portfolio:               "{{primary_domain}}"
+  presentation:            "slides.{{primary_domain}}"
   roulette-wheel:          "roulette.{{primary_domain}}"
   snipe_it:                "inventory.{{primary_domain}}"
   sphinx:                  "docs.{{primary_domain}}"

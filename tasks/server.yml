@@ -211,6 +211,11 @@
   include_role:
     name: docker-pgadmin
 
+- name: setup presentation
+  when: ("presentation" in group_names)
+  include_role:
+    name: docker-presentation
+
 # Native Webserver Roles
 - name: setup nginx-serve-htmls
   when: ("nginx-serve-htmls" in group_names)

@@ -1,0 +1,30 @@
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: "Automates the process of presenting CyMaIS using Reveal.js in a containerized environment. Ideal for administrators, developers, end-users, businesses, and investors."
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen-Birkenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Docker
+      versions:
+        - all
+    - name: Linux
+      versions:
+        - all
+  galaxy_tags:
+    - presentation
+    - revealjs
+    - docker
+    - automation
+    - deployment
+  repository: "https://github.com/kevinveenbirkenbach/cymais-presentation"
+  issue_tracker_url: "https://s.veen.world/cymaisissues"
+  documentation: "https://s.veen.world/cymais"
+  logo:
+    class: "fa-solid fa-presentation-screen"
+dependencies:
+  - package-manager

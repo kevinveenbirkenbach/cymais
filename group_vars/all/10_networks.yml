@@ -78,6 +78,8 @@ defaults_networks:
       subnet: 192.168.103.16/28
     fusiondirectory:
       subnet: 192.168.103.32/28
+    presentation:
+      subnet: 192.168.103.48/28
       
     # /24 Networks / 254 Usable Clients
     bigbluebutton:

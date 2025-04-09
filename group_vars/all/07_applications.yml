@@ -703,6 +703,12 @@ defaults_applications:
     css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
     landingpage_iframe_enabled:   false                                     # Doesn't make sense to load landingpage in landingpage
 
+  ## Presentation
+  presentation:
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   False                                     # Makes sense to make the documentary allways in iframe available
+
   # Snipe-IT
   snipe_it:
     version:                      "latest"
@@ -714,9 +720,9 @@ defaults_applications:
 
   ## Sphinx
   sphinx:
-    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"               # Enables\Disables Matomo Tracking
-    css_enabled:                  "{{css_enabled_default}}"                           # Enables\Disables Global CSS Style
-    landingpage_iframe_enabled:   true                                                # Makes sense to make the documentary allways in iframe available
+    matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
+    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    landingpage_iframe_enabled:   true                                      # Makes sense to make the documentary allways in iframe available
 
   ## Taiga
   taiga:
