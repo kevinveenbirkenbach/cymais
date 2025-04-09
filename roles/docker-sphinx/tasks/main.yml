@@ -4,13 +4,15 @@
   include_role: 
     name: docker-compose
 
-- name: update cymais for up to date docs
-  command:
-    cmd: "pkgmgr update cymais"
-
 - name: install cymais-sphinx
   command:
     cmd: "pkgmgr install cymais-sphinx --clone-mode https"
+  notify: docker compose project build and setup
+
+- name: update cymais for up to date docs
+  command:
+    cmd: "pkgmgr update cymais"
+  notify: docker compose project build and setup
 
 - name: Get path of cymais-sphinx using pkgmgr
   command: pkgmgr path cymais-sphinx
@@ -33,6 +35,7 @@
     dest: "{{ host_sphinx_exec_dir_absolute }}"
     state: link
     force: yes
+  notify: docker compose project build and setup
 
 - name: "Link {{ path_cymais_sphinx_output.stdout }}/Dockerfile to {{ sphinx_host_dockerfile }}"
   file:
@@ -40,6 +43,7 @@
     dest: "{{ sphinx_host_dockerfile }}"
     state: link
     force: yes
+  notify: docker compose project build and setup
 
 - name: "Link {{ path_cymais_output.stdout }} to {{ host_sphinx_source_dir_absolute }}"
   file:
@@ -47,6 +51,7 @@
     dest: "{{ host_sphinx_source_dir_absolute }}"
     state: link
     force: yes
+  notify: docker compose project build and setup
 
 - name: "copy docker-compose.yml and env file"
   include_tasks: copy-docker-compose-and-env.yml
