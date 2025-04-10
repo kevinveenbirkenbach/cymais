@@ -1,4 +1,4 @@
-# Docker Compose 🧱
+# Docker Compose
 
 ## Description
 

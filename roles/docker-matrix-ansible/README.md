@@ -1,12 +1,36 @@
-# Docker Setup Matrix via Ansible
+# Matrix (Ansible)
+
+## Warning
+This role is experimental and may not be actively maintained. Use it with caution in production environments. For a more stable deployment, please consider using the Matrix Compose role or another alternative solution.
+
+## Description
+
+Step into the future of communication with Matrix, a dynamic and decentralized platform that delivers secure, real-time messaging and collaboration. This role deploys a Matrix homeserver using Ansible automation. Benefit from a federated architecture, end-to-end encryption, and versatile bridging support that connects you globally—all while safeguarding your data.
 
 ## Overview
 
-This document serves as the README for the `docker-ansible-matrix` role, a part of the `CyMaIS` project. This role automates the deployment of a Matrix server using Ansible. 
+This role automates the deployment and configuration of a Matrix homeserver with Ansible. It sets up the Synapse server along with essential components such as bridges and the Element web client. Designed for high performance, scalability, and secure communication, this role streamlines the installation of Matrix in your environment.
 
-Matrix is an open-source project that provides a protocol for secure, decentralized, real-time communication. It offers features like end-to-end encrypted chat, VoIP, and file sharing, catering to both individual and enterprise users. With a focus on interoperability, Matrix can bridge with other communication systems, offering a unified platform for messaging and collaboration.
+For detailed configuration and operational instructions, please refer to the included documentation:
+- [Administration.md](./Administration.md)
 
-This software uses https://github.com/spantaleev/matrix-docker-ansible-deploy as a base. 
+## Features
 
-##  Alternativ Matrix Setup Role
-An alternativ role to deploy Matrix you will find [here](../docker-matrix-compose/)
+- **Decentralized and Federated:** Connect with a global network of Matrix homeservers, ensuring there is no single point of failure.
+- **End-to-End Encryption:** Protect your communications with robust encryption methods.
+- **Interoperability:** Bridge communications with external platforms, enabling seamless messaging across diverse systems.
+- **Scalable Architecture:** Handle increasing user loads and message volumes with high performance.
+- **Ansible Automation:** Enjoy a fully automated, reproducible deployment using Ansible.
+
+## Additional Resources
+
+- [Matrix Official Website](https://matrix.org/)
+- [Matrix Documentation](https://matrix.org/docs/)
+
+## Credits
+
+Developed and maintained by **Kevin Veen-Birkenbach**.  
+Learn more at [veen.world](https://www.veen.world).
+
+Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
+Licensed under [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)

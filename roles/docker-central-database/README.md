@@ -1,4 +1,4 @@
-# Docker Central Database 🐳
+# Central Database
 
 ## Description
 

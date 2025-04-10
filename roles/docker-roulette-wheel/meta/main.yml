@@ -1,2 +1,25 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: >
+    This role deploys and configures the Roulette Wheel application using Docker Compose.
+    It automates the process of pulling the latest source code from GitHub,
+    building a Docker image, and deploying the application.
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen-Birkenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  galaxy_tags:
+    - docker
+    - nodejs
+    - roulette
+    - application
+  repository: "https://s.veen.world/cymais"
+  issue_tracker_url: "https://s.veen.world/cymaisissues"
+  documentation: "https://s.veen.world/cymais"
+  logo:
+    class: "fa-solid fa-dice"
 dependencies:
-- docker-compose
+  - docker-compose

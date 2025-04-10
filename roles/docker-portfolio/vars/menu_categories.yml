@@ -1,4 +1,5 @@
-menu_categories:
+portfolio_menu_categories:
+
   Community:
     description: Tools to manage the community
     icon: fa-solid fa-users
@@ -15,6 +16,18 @@ menu_categories:
       - project
       - kanban
       - management
+  
+  Social Media:
+    description: Social Media Tools
+    icon: fa-solid fa-share-nodes
+    tags:
+      - microblog
+      - blog
+      - video platform
+      - streaming platform
+      - music platform
+      - social network
+      - portfolio
 
   Communication:
     description: Tools for communication
@@ -24,6 +37,7 @@ menu_categories:
       - communication
       - video
       - mail
+      - email
 
   Administration:
     description: Administration Tools

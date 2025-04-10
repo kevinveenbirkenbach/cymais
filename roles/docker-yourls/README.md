@@ -1,4 +1,4 @@
-# YOURLS URL Shortener
+# YOURLS
 
 ## Description
 

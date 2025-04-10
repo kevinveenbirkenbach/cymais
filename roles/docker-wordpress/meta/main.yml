@@ -21,6 +21,7 @@ galaxy_info:
     - multisite
     - msmtp
     - automation
+    - blog
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"

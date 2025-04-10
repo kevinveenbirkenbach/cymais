@@ -11,9 +11,11 @@ galaxy_info:
   galaxy_tags:
     - mastodon
     - docker
-    - social networking
     - federated
     - decentralized
+    - microblog 
+    - social network
+
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"

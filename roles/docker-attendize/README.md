@@ -1,4 +1,6 @@
-# Docker Attendize (WIP)
+# Attendize
+
+## Warning
 
 > **Note:** This role is a work in progress. Use with caution and check for updates.
 

@@ -1,4 +1,4 @@
-# MyBB Forum
+# MyBB
 
 ## Description
 

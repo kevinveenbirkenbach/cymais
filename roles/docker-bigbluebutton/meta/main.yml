@@ -22,7 +22,8 @@ galaxy_info:
     - sso
     - oidc
     - ldap
-    - archlinux
+    - video
+    - conference
   repository: https://s.veen.world/cymais
   issue_tracker_url: https://s.veen.world/cymaisissues
   documentation: https://s.veen.world/cymais

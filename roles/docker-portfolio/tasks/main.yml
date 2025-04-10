@@ -21,21 +21,25 @@
   become: false
   register: config_file
 
+- name: Load menu categories
+  include_vars:
+    file: "menu_categories.yml"
+
 - name: Load docker cards
   set_fact:
     portfolio_cards: "{{ lookup('docker_cards', 'roles') }}"
 
 - name: Group docker cards
   set_fact:
-    portfolio_menu_data: "{{ lookup('docker_cards_grouped', portfolio_cards) }}"
+    portfolio_menu_data: "{{ lookup('docker_cards_grouped', portfolio_cards, portfolio_menu_categories) }}"
 
 - name: Debug portfolio data
   debug:
     msg:
-      cards: "{{ portfolio_cards }}"
-      menu_data: "{{ portfolio_menu_data }}"
+      portfolio_cards: "{{ portfolio_cards }}"
+      portfolio_menu_categories: "{{ portfolio_menu_categories}}"
+      portfolio_menu_data: "{{ portfolio_menu_data }}"
   when: enable_debug | bool
-
 
 - name: Copy host-specific config.yaml if it exists
   template:

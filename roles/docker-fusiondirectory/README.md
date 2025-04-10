@@ -1,7 +1,7 @@
-# DRAFT FusionDirectory DRAFT🐳
+# FusionDirectory
 
-# TODO
-This needs to be implemented
+# Warning
+This application isn't implemented yet
 
 ## Description
 

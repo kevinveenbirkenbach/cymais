@@ -1,4 +1,4 @@
-# Docker Taiga 🐳📋
+# Taiga
 
 ## Description
 

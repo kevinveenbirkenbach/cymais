@@ -1,4 +1,4 @@
-# Docker Repository Setup 🚀
+# Docker Repository Setup
 
 This Ansible role sets up and manages your Docker repository. It ensures that the repository is pulled from your remote Git source, and it automatically triggers a rebuild of your Docker images using Docker Compose. 
 

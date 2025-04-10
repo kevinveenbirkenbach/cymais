@@ -10,11 +10,11 @@ class LookupModule(LookupBase):
         Group the given cards into categorized and uncategorized lists
         based on the tags from menu_categories.
         """
-        if len(terms) < 1:
-            raise AnsibleError("Missing required argument: cards")
+        if len(terms) < 2:
+            raise AnsibleError("Missing required arguments")
 
         cards = terms[0]
-        menu_categories = variables.get("menu_categories", {})
+        menu_categories = terms[1]
 
         categorized = {}
         uncategorized = []
