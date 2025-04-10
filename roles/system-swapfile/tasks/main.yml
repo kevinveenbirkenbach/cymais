@@ -1,7 +1,8 @@
-- name: install swap-forge
-  command:
-    cmd: "pkgmgr install swap-forge --clone-mode https"
-  become: true
+- name: "{{ role_name }} | pkgmgr install"
+  include_role:
+    name: pkgmgr-install
+  vars:
+    package_name: swap-forge
 
 - name: Execute create swapfile script
   ansible.builtin.shell: swap-forge "{{swapfile_size}}"

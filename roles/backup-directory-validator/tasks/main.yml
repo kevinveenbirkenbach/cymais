@@ -1,6 +1,8 @@
-- name: install directory-validator
-  command:
-    cmd: "pkgmgr install directory-validator --clone-mode https"
+- name: "{{ role_name }} | pkgmgr install"
+  include_role:
+    name: pkgmgr-install
+  vars:
+    package_name: directory-validator
   when: run_once_backup_directory_validator is not defined
 
 - name: run the backup_directory_validator tasks once

@@ -73,6 +73,11 @@ class LookupModule(LookupBase):
                     meta_data = yaml.safe_load(f)
 
                 galaxy_info = meta_data.get("galaxy_info", {})
+                
+                # If display is set to False ignore it
+                if not galaxy_info.get("display", True):
+                    continue
+                
                 description = galaxy_info.get("description", "")
                 logo = galaxy_info.get("logo", {})
                 icon_class = logo.get("class", "fa-solid fa-cube")

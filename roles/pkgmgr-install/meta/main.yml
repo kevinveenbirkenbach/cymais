@@ -1,10 +1,9 @@
----
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Fixes incorrect lid switch behavior on Linux laptops by setting up hibernation and configuring systemd."
+  description: "Installs and updates packages using pkgmgr."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
-  company: |
+  company: | 
     Kevin Veen-Birkenbach
     Consulting & Coaching Solutions
     https://www.veen.world
@@ -14,12 +13,13 @@ galaxy_info:
       versions:
         - rolling
   galaxy_tags:
-    - lid
-    - laptop
-    - power
-    - hibernate
-    - systemd
+    - pkgmgr
+    - package
+    - update
     - archlinux
+    - cymais
   repository: https://s.veen.world/cymais
   issue_tracker_url: https://s.veen.world/cymaisissues
   documentation: https://s.veen.world/cymais
+dependencies:
+  - pkgmgr

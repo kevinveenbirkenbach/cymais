@@ -1,6 +1,8 @@
-- name: install dockreap
-  command:
-    cmd: "pkgmgr install dockreap"
+- name: "{{ role_name }} | pkgmgr install"
+  include_role:
+    name: pkgmgr-install
+  vars:
+    package_name: dockreap
   when: run_once_cleanup_docker_anonymous_volumes is not defined
 
 - name: run dockreap with --no-confirmation

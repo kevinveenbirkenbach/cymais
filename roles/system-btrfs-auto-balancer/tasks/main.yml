@@ -1,6 +1,8 @@
-- name: install btrfs-auto-balancer
-  command:
-    cmd: "pkgmgr install btrfs-auto-balancer --clone-mode https"
+- name: "{{ role_name }} | pkgmgr install"
+  include_role:
+    name: pkgmgr-install
+  vars:
+    package_name: btrfs-auto-balancer
   when: run_once_system_btrfs_auto_balancer is not defined
 
 - name: configure system-btrfs-auto-balancer.cymais.service

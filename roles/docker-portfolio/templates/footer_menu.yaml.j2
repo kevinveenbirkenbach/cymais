@@ -1,0 +1,52 @@
+{# Render all categories #}
+{% for category, apps in portfolio_menu_data.categorized %}
+    - name: {{ category }}
+      description: {{ category_data.menu_categories[category].description }}
+      icon:
+        class: {{ category_data.menu_categories[category].icon }}
+      children:
+      {% for app in apps %}
+        - name: {{ app.title }}
+          description: {{ app.text }}
+          icon: {{ app.icon }}
+          url: {{ app.url }}
+          iframe: {{ app.iframe }}
+          {% if app.title == 'Keycloak' %}
+          children:
+            - name: Administration
+              description: Access the central admin console
+              icon:
+                class: fa-solid fa-shield-halved
+              url: https://{{domains.keycloak}}/admin
+              iframe: {{ applications | get_landingpage_iframe_enabled('keycloak') }}
+            - name: Profile
+              description: Update your personal admin settings
+              icon:
+                class: fa-solid fa-user-gear
+              url: https://{{ domains.keycloak }}/realms/{{oidc.client.id}}/account
+              iframe: {{ applications | get_landingpage_iframe_enabled('keycloak') }}
+            - name: Logout
+              description: End your admin session securely
+              icon:
+                class: fa-solid fa-right-from-bracket
+              url: https://{{ domains.keycloak }}/realms/{{oidc.client.id}}/protocol/openid-connect/logout
+              iframe: false
+          {% endif %}
+      {% endfor %}
+{% endfor %}
+
+{# Render Uncategorized 
+{% if portfolio_menu_data.uncategorized %}
+    - name: Uncategorized
+      description: Tools without a defined category
+      icon:
+        class: fa-solid fa-question
+      children:
+      {% for app in portfolio_menu_data.uncategorized %}
+        - name: {{ app.title }}
+          description: {{ app.text }}
+          icon: {{ app.icon }}
+          url: {{ app.url }}
+          iframe: {{ app.iframe }}
+      {% endfor %}
+{% endif %} #}

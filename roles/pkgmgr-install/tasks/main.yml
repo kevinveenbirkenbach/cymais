@@ -1,0 +1,22 @@
+- name: "{{ role_name }} | pkgmgr installation tasks"
+  become: "{{ pkgmgr_become }}"
+  block:
+    - name: update pkgmgr
+      command:
+        cmd: "pkgmgr update pkgmgr"
+      when: run_once_pkgmgr_update is not defined
+
+    - name: install {{ package_name }}
+      command:
+        cmd: "pkgmgr install {{ package_name }} --clone-mode https"
+      notify: "{{ package_notify | default(omit) }}"
+
+    - name: update {{ package_name }}
+      command:
+        cmd: "pkgmgr update {{ package_name }}"
+      notify: "{{ package_notify | default(omit) }}"
+
+    - name: mark pkgmgr update as done
+      set_fact:
+        run_once_pkgmgr_update: true
+      when: run_once_pkgmgr_update is not defined

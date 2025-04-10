@@ -1,0 +1,42 @@
+menu_categories:
+  Community:
+    description: Tools to manage the community
+    icon: fa-solid fa-users
+    tags:
+      - community
+      - forum
+      - learning
+      - newsletter
+
+  Project Management:
+    description: Project Management Tools
+    icon: fa-solid fa-chart-line
+    tags:
+      - project
+      - kanban
+      - management
+
+  Communication:
+    description: Tools for communication
+    icon: fa-solid fa-comments
+    tags:
+      - chat
+      - communication
+      - video
+      - mail
+
+  Administration:
+    description: Administration Tools
+    icon: fas fa-building
+    tags:
+      - administration
+      - database
+      - user-management
+
+  Tools:
+    description: Helpful Tools
+    icon: fas fa-tools
+    tags:
+      - tools
+      - utility
+      - baserow

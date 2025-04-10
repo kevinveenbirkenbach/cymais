@@ -1,2 +1,2 @@
-- name: "Update all repositories with pkgmgr"
-  command: "pkgmgr update --all"
+#- name: "Update all repositories with pkgmgr"
+#  command: "pkgmgr update --all"

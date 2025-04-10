@@ -706,7 +706,7 @@ defaults_applications:
   ## Presentation
   presentation:
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
-    css_enabled:                  "{{css_enabled_default}}"                 # Enables\Disables Global CSS Style
+    css_enabled:                  False                                     # Would mess with the presentation layout
     landingpage_iframe_enabled:   False                                     # Makes sense to make the documentary allways in iframe available
 
   # Snipe-IT

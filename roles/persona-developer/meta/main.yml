@@ -25,4 +25,4 @@ galaxy_info:
   documentation: https://s.veen.world/cymais
 dependencies:
   - persona-administrator
-  - package-manager
+  - pkgmgr

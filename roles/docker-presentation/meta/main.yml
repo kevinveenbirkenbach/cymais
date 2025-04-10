@@ -26,5 +26,3 @@ galaxy_info:
   documentation: "https://s.veen.world/cymais"
   logo:
     class: "fas fa-chalkboard-teacher"
-dependencies:
-  - package-manager

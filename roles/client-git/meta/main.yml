@@ -18,5 +18,3 @@ galaxy_info:
     - configuration
     - pacman
     - personal-computer
-dependencies:
-  - package-manager

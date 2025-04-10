@@ -1,6 +1,8 @@
-- name: install backup-docker-to-local
-  command:
-    cmd: "pkgmgr install backup-docker-to-local --clone-mode https"
+- name: "{{ role_name }} | pkgmgr install"
+  include_role:
+    name: pkgmgr-install
+  vars:
+    package_name: backup-docker-to-local
   when: run_once_backup_docker_to_local is not defined
 
 - name: Retrieve backup-docker-to-local path from pkgmgr

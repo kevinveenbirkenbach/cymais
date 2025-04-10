@@ -4,10 +4,12 @@
   include_role: 
     name: docker-compose
 
-- name: install cymais-sphinx
-  command:
-    cmd: "pkgmgr install cymais-sphinx --clone-mode https"
-  notify: docker compose project build and setup
+- name: "{{ role_name }} | pkgmgr install"
+  include_role:
+    name: pkgmgr-install
+  vars:
+    package_name: cymais-sphinx
+    package_notify: docker compose project build and setup
 
 - name: Get path of cymais-sphinx using pkgmgr
   command: pkgmgr path cymais-sphinx

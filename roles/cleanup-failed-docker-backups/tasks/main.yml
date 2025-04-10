@@ -1,6 +1,8 @@
-- name: install cleanup-failed-docker-backups
-  command:
-    cmd: "pkgmgr install cleanup-failed-docker-backups --clone-mode https"
+- name: "{{ role_name }} | pkgmgr install"
+  include_role:
+    name: pkgmgr-install
+  vars:
+    package_name: cleanup-failed-docker-backups 
   when: run_once_cleanup_failed_docker_backups is not defined
 
 - name: Retrieve backup-docker-to-local path from pkgmgr

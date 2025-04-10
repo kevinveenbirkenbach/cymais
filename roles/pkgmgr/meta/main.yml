@@ -24,7 +24,7 @@ galaxy_info:
       versions:
         - rolling
   galaxy_tags:
-    - package-manager
+    - pkgmgr
     - automation
     - git
     - repositories

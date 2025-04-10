@@ -13,7 +13,7 @@ The purpose of this role is to automate the installation and configuration of Gi
 - **Automated Git Installation:** Installs Git using Pacman.
 - **Custom Git Configuration:** Invokes the git-configurator tool to merge user-specific configuration options.
 - **Idempotent Task Execution:** Uses host-level run-once artifacts to ensure that configuration tasks are executed only once per host.
-- **Integration:** Works alongside the package-manager role to streamline overall system setup.
+- **Integration:** Works alongside the pkgmgr role to streamline overall system setup.
 
 ## Credits
 
