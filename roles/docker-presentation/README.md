@@ -1,4 +1,4 @@
-# CyMaIS Presentation 🚀
+# Presentation
 
 ## Description
 

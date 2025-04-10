@@ -1,6 +1,6 @@
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Automates the process of presenting CyMaIS using Reveal.js in a containerized environment. Ideal for administrators, developers, end-users, businesses, and investors."
+  description: "This Presentation Software is a powerful tool designed for showcasing the CyMaIS platform to various audiences, including Administrators, Developers, End-Users, Businesses, and Investors."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -25,6 +25,6 @@ galaxy_info:
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
   logo:
-    class: "fa-solid fa-presentation-screen"
+    class: "fas fa-chalkboard-teacher"
 dependencies:
   - package-manager
