@@ -242,6 +242,8 @@ defaults_applications:
     # administrator_password:                                                   # CHANGE for security reasons in inventory file
     # administrator_database_password:                                          # CHANGE for security reasons in inventory file
     force_import:                   False                                       # Forces the import of the LDIF files
+    ldap:
+      enabled:          True                                                    # Enables LDAP network by default
 
   ## Libre Office
   libreoffice:
