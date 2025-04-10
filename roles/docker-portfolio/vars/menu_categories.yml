@@ -1,25 +1,31 @@
 portfolio_menu_categories:
 
   Community:
-    description: Tools to manage the community
-    icon: fa-solid fa-users
+    description: "Tools to manage the community"
+    icon: "fa-solid fa-users"
     tags:
       - community
       - forum
       - learning
       - newsletter
+      - discourse
+      - listmonk
+      - moodle
+      - mybb
 
   Project Management:
-    description: Project Management Tools
-    icon: fa-solid fa-chart-line
+    description: "Project Management Tools"
+    icon: "fa-solid fa-chart-line"
     tags:
       - project
       - kanban
       - management
+      - openproject
+      - taiga
   
   Social Media:
-    description: Social Media Tools
-    icon: fa-solid fa-share-nodes
+    description: "Social Media Tools"
+    icon: "fa-solid fa-share-nodes"
     tags:
       - microblog
       - blog
@@ -27,30 +33,132 @@ portfolio_menu_categories:
       - streaming platform
       - music platform
       - social network
-      - portfolio
+      - bluesky
+      - friendica
+      - funkwhale
+      - mastodon
+      - peertube
+      - pixelfed
 
   Communication:
-    description: Tools for communication
-    icon: fa-solid fa-comments
+    description: "Tools for communication"
+    icon: "fa-solid fa-comments"
     tags:
       - chat
       - communication
       - video
       - mail
       - email
+      - bigbluebutton
+      - etherpad
+      - mailu
+      - matrix
+      - xmpp
+  
+  Cloud:
+    description: "Self-hosted cloud solutions for file synchronization, collaboration, and data sharing."
+    icon: "fa-solid fa-cloud"
+    tags:
+      - nextcloud
+      - owncloud
+      - cloud
 
-  Administration:
-    description: Administration Tools
-    icon: fas fa-building
+  IAM:
+    description: "Tools for Identity and Access Management, including authentication, user provisioning, and secure access control."
+    icon: "fa-solid fa-user-shield"
+    tags:
+      - iam
+      - identity-management
+      - authentication
+      - access-control
+      - sso
+      - keycloak
+      - lam
+      - ldap
+      - fusiondirectory
+      - user-management
+
+
+  Server Administration:
+    description: "Administration Tools für servers"
+    icon: "fas fa-building"
     tags:
       - administration
       - database
-      - user-management
+      - central-database
+      - elk
+      - mariadb
+      - matomo
+      - pgadmin
+      - phpldapadmin
+      - phpmyadmin
+      - postgres
 
   Tools:
-    description: Helpful Tools
-    icon: fas fa-tools
+    description: "Helpful Tools"
+    icon: "fas fa-tools"
     tags:
       - tools
       - utility
       - baserow
+      - compose
+      - presentation
+      - repository-setup
+      - roulette-wheel
+      - sphinx
+      - yourls
+
+  Finance & Accounting:
+    description: "Financial and accounting software"
+    icon: "fa-solid fa-dollar-sign"
+    tags:
+      - finance
+      - accounting
+      - invoices
+      - akaunting
+      - snipe_it
+      
+  Events:
+    description: "Event and ticket management tools"
+    icon: "fa-solid fa-ticket-alt"
+    tags:
+      - events
+      - ticketing
+      - attendize
+
+  Infrastructure:
+    description: "Infrastructure and networking tools"
+    icon: "fa-solid fa-network-wired"
+    tags:
+      - infrastructure
+      - networking
+      - proxy
+      - turn
+      - stun
+      - coturn
+      - oauth2-proxy
+      - registry
+
+  Development:
+    description: "Development and CI/CD tools"
+    icon: "fa-solid fa-code-branch"
+    tags:
+      - development
+      - version control
+      - ci/cd
+      - git
+      - gitea
+      - gitlab
+      - jenkins
+
+  Content Management:
+    description: "CMS and web publishing platforms"
+    icon: "fa-solid fa-file-alt"
+    tags:
+      - cms
+      - blogging
+      - publishing
+      - website
+      - joomla
+      - mediawiki
+      - wordpress

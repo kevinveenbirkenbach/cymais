@@ -120,10 +120,10 @@
 {% if "presentation" in group_names %}   
 
     - name: Slides
-      description: Access our comprehensive documentation and support resources to help you get the most out of the software.
+      description: Checkout the presentation
       icon:
         class: fas fa-book
-      url: https://{{domains.sphinx}}
+      url: https://{{domains.presentation}}
       iframe: {{ applications | get_landingpage_iframe_enabled('sphinx') }}
 
 {% endif %}
