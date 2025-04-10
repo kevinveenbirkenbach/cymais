@@ -46,14 +46,17 @@
       );
   when: ldap_check.query_result | length == 0
 
-- name: "Check existing LDAP sources"
+- name: Check if LDAP source exists
   community.postgresql.postgresql_query:
-    db: openproject
-    login_user: postgres
+    db: "{{ database_name }}"
+    login_user: "{{ database_username }}"
+    login_password: "{{ database_password }}"
+    login_host: "127.0.0.1"
+    login_port: "{{ database_port }}"
     query: "SELECT id, name FROM ldap_auth_sources"
   register: ldap_entries
   when: enable_debug | bool
-
+  
 - name: "Debug LDAP entries"
   debug:
     var: ldap_entries
