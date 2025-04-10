@@ -23,10 +23,10 @@ Moreover, our vision goes beyond just IT infrastructure; it extends to the broad
 Ultimately, our vision is to redefine the way IT infrastructure is deployed and managed, offering a solution that is swift, secure, and scalable, capable of meeting the needs of businesses, individuals, NGOs, and large enterprises. CyMaIS will empower all stakeholders by providing a foundation for a decentralized, transparent, and resilient digital future—setting a new benchmark for security, reliability, and sovereignty in the digital age.
 
 ## Key Points
-1. Empowerment for individuals, businesses, NGOs, and enterprises  
+1. Empowerment for individuals and institutions
 2. Data sovereignty and control over infrastructure  
 3. Automated and simplified IT infrastructure setup  
 4. Open Source transparency, security, and innovation  
-5. Decentralized internet using ActivityPub, email, and Matrix  
+5. Decentralized internet using ActivityPub 
 6. Scalability for small to large organizations  
 7. Global resilience and security in uncertain political climates
