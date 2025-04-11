@@ -17,7 +17,7 @@ Backup Remote to Local is a robust solution for retrieving backup data from remo
 - **Remote Backup Retrieval:** Pulls backups from a remote server using secure SSH connections.
 - **Incremental Backup with rsync:** Uses rsync with options for archive, backup, and hard linking to efficiently manage changes.
 - **Retry Logic:** Implements a retry mechanism to handle transient network issues or remote errors.
-- **Integration with Other Roles:** Works alongside roles like backup-directory-validator, cleanup-failed-docker-backups, systemd-timer, backups-provider, and system-maintenance-lock.
+- **Integration with Other Roles:** Works alongside roles like backup-directory-validator, cleanup-failed-docker-backups, systemd-timer, backup-provider, and system-maintenance-lock.
 - **Administrative Debugging:** Detailed debug instructions and administrative tasks are provided in a separate file.
 
 ## Other Resources

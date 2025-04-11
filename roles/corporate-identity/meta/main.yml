@@ -1,4 +1,0 @@
-dependencies:
-- nginx-serve-legal
-- nginx-serve-assets
-- docker-portfolio

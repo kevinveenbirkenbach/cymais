@@ -10,7 +10,7 @@ Optimized for Archlinux, this role ensures that Docker volume backups are perfor
 - [backup-directory-validator](../backup-directory-validator/) – Validates backup directories.
 - [cleanup-failed-docker-backups](../cleanup-failed-docker-backups/) – Cleans up unsuccessful backup attempts.
 - [systemd-timer](../systemd-timer/) – Schedules recurring backup tasks.
-- [backups-provider](../backups-provider/) – Manages backup sources.
+- [backup-provider](../backup-provider/) – Manages backup sources.
 - [system-maintenance-lock](../system-maintenance-lock/) – Ensures coordinated maintenance operations.
 
 ## Purpose

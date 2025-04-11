@@ -8,44 +8,39 @@
     - persona-administrator
     - driver-non-free
 
-- name: pc-office
+- name: persona-employee
   when: ("collection_officetools" in group_names)
   include_role:
     name: "{{ item }}"
   loop:
-    - pc-office
-    - pc-jrnl
+    - persona-employee
+    - client-jrnl
 
 
 - name: personal computer for business
   when: ("business_personal_computer" in group_names)
   include_role:
-    name: pc-gnucash
+    name: client-gnucash
 
-- name: pc-designer-tools
+- name: persona-designer
   when: ("collection_designer" in group_names)
   include_role:
-    name: pc-designer-tools
+    name: persona-designer
 
-- name: pc-qbittorrent
+- name: client-qbittorrent
   when: ("collection_torrent" in group_names)
   include_role:
-    name: pc-qbittorrent
+    name: client-qbittorrent
 
-- name: pc-streaming-tools
+- name: persona-streamer
   when: ("collection_streamer" in group_names)
   include_role:
-    name: pc-streaming-tools
+    name: persona-streamer
 
-- name: pc-bluray-player-tools
+- name: client-bluray-player
   when: ("collection_bluray_player" in group_names)
   include_role:
-    name: pc-bluray-player-tools
-
-- name: pc-latex
-  when: ("latex" in group_names)
-  include_role:
-    name: pc-latex
+    name: client-bluray-player
 
 - name: GNOME setup
   when: ("gnome" in group_names)
@@ -70,7 +65,7 @@
 - name: setup torbrowser hosts
   when: ("torbrowser" in group_names)
   include_role:
-    name: pc-torbrowser
+    name: client-torbrowser
 
 - name: setup nextcloud-client
   when: ("nextcloud_client" in group_names)
@@ -78,9 +73,9 @@
     name: client-nextcloud
 
 - name: setup docker
-  when: ("docker" in group_names)
+  when: ("docker_client" in group_names)
   include_role:
-    name: pc-docker
+    name: client-docker
 
 # driver 
 - name: setup msi rgb keyboard

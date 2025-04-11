@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Automates the backup of Docker volumes to a local folder"
+  description: "Configures the host as a backup provider to facilitate secure backup operations."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -10,21 +10,18 @@ galaxy_info:
     https://www.veen.world
   min_ansible_version: "2.9"
   platforms:
-    - name: Archlinux
+    - name: Linux
       versions:
-        - rolling
+        - all
   galaxy_tags:
+    - backups
+    - provider
     - backup
-    - docker
-    - local
-    - systemd
     - automation
+    - security
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
 dependencies:
-  - backup-provider
-  - systemd-notifier
-  - cleanup-failed-docker-backups
-  - system-maintenance-lock
-  - backup-directory-validator
+  - backup-provider-user
+  - cleanup-backups-timer

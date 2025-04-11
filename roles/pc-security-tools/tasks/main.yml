@@ -1,7 +1,0 @@
-- name: install security tools
-  community.general.pacman:
-    name:
-      - ecryptfs-utils
-      - encfs
-      - keepassxc
-    state: present
