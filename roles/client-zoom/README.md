@@ -1,4 +1,4 @@
-# PC-Video-Conference Role
+# Zoom
 
 ## Overview
 Welcome to the `client-zoom` role documentation, a part of the `cymais` repository. This role is focused on installing video conferencing software on Linux systems, specifically tailored for personal use and remote work requirements.

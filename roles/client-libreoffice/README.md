@@ -1,4 +1,4 @@
-# LibreOffice for Personal Computers
+# LibreOffice
 
 ## Description
 

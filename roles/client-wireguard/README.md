@@ -1,4 +1,4 @@
-# Native Wireguard Client
+# Wireguard Client
 
 ## Description
 
