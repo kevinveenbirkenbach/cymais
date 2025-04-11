@@ -31,5 +31,5 @@ EOF
 ### Verifiy that MemberOf is activated and loaded
 ```bash
 docker exec -it ldap sh -c 'ls -l /opt/bitnami/openldap/lib/openldap/memberof.*'
-docker exec -it openldap ldapsearch -Y EXTERNAL -H ldapi:/// -b cn=config '(&(objectClass=olcOverlayConfig)(olcOverlay=memberof))'
+docker exec -it ldap ldapsearch -Y EXTERNAL -H ldapi:/// -b cn=config '(&(objectClass=olcOverlayConfig)(olcOverlay=memberof))'
 ```

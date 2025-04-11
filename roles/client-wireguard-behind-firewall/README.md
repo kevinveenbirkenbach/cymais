@@ -1,4 +1,4 @@
-# Client WireGuard Behind NAT Role
+# Client WireGuard Behind NAT
 
 ## Description
 

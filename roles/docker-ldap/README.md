@@ -9,9 +9,9 @@ Unleash the potential of centralized identity management with OpenLDAP. This pow
 Deploy OpenLDAP in a Docker environment with support for TLS-secured communication via an NGINX stream proxy. OpenLDAP offers advanced directory management capabilities, including flexible schema definitions, dynamic configuration overlays, and comprehensive query support with LDAP search utilities.
 
 For further setup instructions and advanced configuration details, please refer to the following resources available in this directory:
-- [Administration.md](./Administration.md)
-- [Installation.md](./Installation.md)
-- [Change_DN.md](./Change_DN.md)
+- [Administration.md](docs/Administration.md)
+- [Installation.md](docs/Installation.md)
+- [Change_DN.md](docs/Change_DN.md)
 
 ## Features
 

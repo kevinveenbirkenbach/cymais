@@ -36,7 +36,7 @@ defaults_oidc:
 # Helper Variables:
 # Keep in mind to mapp this variables if there is ever the possibility for the user to define them in the inventory
 _ldap_dn_base:      "dc={{primary_domain_sld}},dc={{primary_domain_tld}}"
-_ldap_server_port:  "{% if applications.ldap.network.local | bool %}{{ ports.localhost.ldap.openldap }}{% else %}{{ ports.localhost.ldaps.openldap }}{% endif %}"
+_ldap_server_port:  "{% if applications.ldap.network.local | bool %}{{ ports.localhost.ldap.ldap }}{% else %}{{ ports.localhost.ldaps.ldap }}{% endif %}"
 
 ldap:
   # Distinguished Names (DN)

@@ -8,15 +8,6 @@ Elevate your collaboration with Nextcloud, a vibrant self-hosted cloud solution 
 
 This role provisions a complete Nextcloud deployment using Docker Compose. It automates the setup of the Nextcloud application along with its underlying MariaDB database and configures the system for secure public access via an Nginx reverse proxy. The deployment includes automated configuration merging into `config.php`, health check routines, and integrated support for backup and recovery operations.
 
-For comprehensive installation instructions, please refer to the [Installation.md](./Installation.md) file. Additional operational guidance can be found in the following supporting documentation files:
-- [Applications.md](./Applications.md)
-- [Architecture.md](./Architecture.md)
-- [Administration.md](./Administration.md)
-- [Update.md](./Update.md)
-- [OCC.md](./OCC.md)
-- [Database.md](./Database.md)
-- [IAM.md](./IAM.md)
-
 ## Features
 
 - **Fully Dockerized Deployment:** Simplifies installation using Docker Compose for the Nextcloud application and its MariaDB backend.
@@ -25,6 +16,10 @@ For comprehensive installation instructions, please refer to the [Installation.m
 - **Automated Configuration Management:** Uses additive configuration files to dynamically merge system settings into `config.php`.
 - **Integrated Backup & Recovery:** Provides built-in support for backup and restoration operations to safeguard your data.
 - **Extensible Plugin Framework:** Easily manage and configure hundreds of Nextcloud plugins using the OCC command line tool.
+
+## Documentation
+
+A detailled documentation for the use and administration of Nextcloud on CyMaIS you will find [here](docs/README.md)
 
 ## Additional Resources
 

@@ -12,7 +12,7 @@ ports:
       phpldapadmin:     4186
       fusiondirectory:  4187
     ldap:
-      openldap:         389
+      ldap:             389
     http:
       nextcloud:        8001
       gitea:            8002
@@ -61,7 +61,7 @@ ports:
       gitea:            2201
       gitlab:           2202
     ldaps:
-      openldap:         636
+      ldap:             636
     stun:   
       bigbluebutton:    3478 # Not sure if it's right placed here or if it should be moved to localhost section
     turn:

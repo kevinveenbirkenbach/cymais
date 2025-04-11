@@ -1,4 +1,4 @@
-# Customer Guide
+# Enterprise Guide
 
 Are you looking for a **reliable IT infrastructure** for your business or organization? **CyMaIS** is here to help!
 

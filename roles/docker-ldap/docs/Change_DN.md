@@ -11,7 +11,7 @@ This document provides a step-by-step guide on how to rename the Distinguished N
 Connect to the OpenLDAP container and export the current entry:
 
 ```sh
-docker exec -it openldap sh -c 'ldapsearch -x -D "$LDAP_ADMIN_DN" -w "$LDAP_ADMIN_PASSWORD" -b "$LDAP_ROOT"' > all_entries.ldif
+docker exec -it ldap sh -c 'ldapsearch -x -D "$LDAP_ADMIN_DN" -w "$LDAP_ADMIN_PASSWORD" -b "$LDAP_ROOT"' > all_entries.ldif
 ```
 
 If your ***LDAP_ADMIN_DN*** and ***LDAP_ROOT***  are not accured pass them via ``--env``.
@@ -58,7 +58,7 @@ We need an **LDIF file that deletes all objects** under `dc=flock,dc=town`.
 Instead of manually writing an LDIF file, you can use `ldapsearch` and `awk` to generate it dynamically:
 
 ```sh
-docker exec -it openldap sh -c 'ldapsearch -x -D "cn=administrator,dc=flock,dc=town" -w "$LDAP_ADMIN_PASSWORD" -b "dc=flock,dc=town" dn' | awk "/^dn:/ {print \$2}" | tac > delete_all_dns.txt
+docker exec -it ldap sh -c 'ldapsearch -x -D "cn=administrator,dc=flock,dc=town" -w "$LDAP_ADMIN_PASSWORD" -b "dc=flock,dc=town" dn' | awk "/^dn:/ {print \$2}" | tac > delete_all_dns.txt
 ```
 
 This creates an **ordered delete list**, starting with child objects before deleting `dc=flock,dc=town`.
@@ -69,7 +69,7 @@ This creates an **ordered delete list**, starting with child objects before dele
 Now apply the generated `delete_all.ldif` to delete all entries **recursively**:
 
 ```sh
-docker exec -i openldap sh -c '
+docker exec -i ldap sh -c '
 while read dn; do
   ldapdelete -x -D "cn=administrator,dc=flock,dc=town" -w "$LDAP_ADMIN_PASSWORD" "$dn"
 done' < delete_all_dns.txt
@@ -81,7 +81,7 @@ done' < delete_all_dns.txt
 After running the delete command, verify that `dc=flock,dc=town` is empty:
 
 ```sh
-docker exec -it openldap sh -c 'ldapsearch -x -D "cn=administrator,dc=flock,dc=town" -w "$LDAP_ADMIN_PASSWORD" -b "dc=flock,dc=town"'
+docker exec -it ldap sh -c 'ldapsearch -x -D "cn=administrator,dc=flock,dc=town" -w "$LDAP_ADMIN_PASSWORD" -b "dc=flock,dc=town"'
 ```
 - ✅ If **no results** are returned, the domain has been deleted successfully.
 - ❌ If results still exist, some entries were not removed.
@@ -89,14 +89,14 @@ docker exec -it openldap sh -c 'ldapsearch -x -D "cn=administrator,dc=flock,dc=t
 
 #### Create new_database.ldif
 
-docker exec -i openldap ldapadd -Y EXTERNAL -H ldapi:/// -f /dev/stdin < new_database.ldif
+docker exec -i ldap ldapadd -Y EXTERNAL -H ldapi:/// -f /dev/stdin < new_database.ldif
 
 ## 4. Add the New Entry
 
 Now, upload the modified `all_entries.ldif`:
 
 ```sh
-cat all_entries.ldif | docker exec -i openldap sh -c 'ldapadd -x -D "cn=admin,dc=cymais,dc=cloud" -w "$LDAP_ADMIN_PASSWORD"'
+cat all_entries.ldif | docker exec -i ldap sh -c 'ldapadd -x -D "cn=admin,dc=cymais,dc=cloud" -w "$LDAP_ADMIN_PASSWORD"'
 ```
 
 ---
@@ -117,7 +117,7 @@ olcRootDN: cn=administrator,dc=cymais,dc=cloud
 Save the change and apply it:
 
 ```sh
-docker exec -it openldap ldapmodify -Y EXTERNAL -H ldapi:/// -f config_update.ldif
+docker exec -it ldap ldapmodify -Y EXTERNAL -H ldapi:/// -f config_update.ldif
 ```
 
 ---
@@ -127,7 +127,7 @@ docker exec -it openldap ldapmodify -Y EXTERNAL -H ldapi:/// -f config_update.ld
 Restart the OpenLDAP container if necessary:
 
 ```sh
-docker restart openldap
+docker restart ldap
 ```
 
 Now, `cn=administrator,dc=cymais,dc=cloud` should be active as the new administrator account.
