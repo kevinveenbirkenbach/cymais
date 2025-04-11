@@ -1,4 +1,4 @@
-# Nextcloud
+# Nextcloud Server
 
 ## Description
 
