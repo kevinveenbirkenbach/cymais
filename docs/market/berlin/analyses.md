@@ -1,4 +1,4 @@
-# Market Analysis for IT Infrastructure Solutions in Berlin
+# Market Analysis for CyMaIS in Berlin
 
 ## 1. Introduction
 Berlin is recognized as one of Europe's leading innovation and technology hubs. The capital is characterized by a dynamic start-up scene, numerous SMEs, and international corporations that drive digital transformation. This creates a promising market for modular IT infrastructure solutions like CyMaIS.

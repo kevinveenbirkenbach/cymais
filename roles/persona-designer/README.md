@@ -1,4 +1,4 @@
-# PC-Designer-Tools Role
+# Designer
 
 ## Overview
 This README is associated with the `persona-designer` role, part of the `cymais` repository. This role focuses on setting up a suite of essential design tools on personal computers, catering specifically to the needs of graphic designers, illustrators, and digital artists.

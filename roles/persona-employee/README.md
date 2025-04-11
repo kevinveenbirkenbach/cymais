@@ -1,4 +1,4 @@
-# PC-Office Role
+# Employee
 
 ## Overview
 This README document is for the `persona-employee` role, a component of the `cymais` repository. This role is designed to install a suite of office-related software on personal computers, providing a comprehensive set of tools for various office tasks.
