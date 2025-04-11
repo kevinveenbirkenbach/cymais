@@ -31,11 +31,11 @@ In both scenarios, centralized authentication is provided through [Keycloak](htt
 
 ## Key Points
 
-- Simple migration of existing software solutions to CyMaIS  
-- Easy integration of existing applications into the CyMaIS dashboard  
+- Simple migration of existing software solutions
+- Integration of existing apps into dashboard 
 - Parallel operation of CyMaIS and existing infrastructure is fully supported  
-- User management via [Microsoft Active Directory (AD)](https://en.wikipedia.org/wiki/Active_Directory) or [LDAP](https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol)  
-- Central authentication with [Single Sign-On (SSO)](https://en.wikipedia.org/wiki/Single_sign-on) using [Keycloak](https://www.keycloak.org/)  
+- User management via [Active Directory](https://en.wikipedia.org/wiki/Active_Directory) or [LDAP](https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol)  
+- Central authentication with [SSO](https://en.wikipedia.org/wiki/Single_sign-on) using [Keycloak](https://www.keycloak.org/)  
 
 ---
 

@@ -1,4 +1,4 @@
-# GNOME Desktop Setup
+# GNOME Desktop
 
 ## Description
 
