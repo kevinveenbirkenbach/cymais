@@ -2,8 +2,8 @@
 defaults_service_provider:
   type:             "legal"                                                       # Accepted Values: natural, legal
   company:
-    titel:          "CyMaIS Example GbR"
-    slogan:         "We keep your 0 and 1 in line"
+    titel:          "CyMaIS GbR"
+    slogan:         "CyMaIS — Empowering a Sovereign Digital Future."
     address:
       street:       "Binary Avenue 01"
       city:         "Cybertown"
@@ -11,8 +11,8 @@ defaults_service_provider:
       country:      "Nexusland"
     logo:           "{{applications.assets_server.url}}/logo.png"
   platform:    
-    titel:          "CyMaIS Plattform Demo"
-    subtitel:       "Demo of the Cyber Master Infrastructur Solution Plattform"
+    titel:          "CyMaIS Demo"
+    subtitel:       "The Future of Self-Hosted Infrastructure. Secure. Automated. Sovereign."
     logo:           "{{applications.assets_server.url}}/img/logo.png"
     favicon:        "{{applications.assets_server.url}}/img/favicon.ico"
   contact:
