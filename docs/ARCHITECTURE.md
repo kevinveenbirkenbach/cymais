@@ -21,8 +21,6 @@ https://github.com/kevinveenbirkenbach/hetzner-arch-luks
 - Integration instead of forced migration
 - Optional [full disk encryption](https://github.com/kevinveenbirkenbach/hetzner-arch-luks) layer for servers
 
----
-
 ## Architecture Layers
 
 ### 1. Automation Layer
