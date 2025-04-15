@@ -23,7 +23,8 @@ defaults_domains:
   mailu:                   "mail.{{primary_domain}}"
   mastodon:                "microblog.{{primary_domain}}"
   # ATTENTION: Will be owerwritten by the values in domains. Not merged.
-  mastodon_alternates:    ["mastodon.{{primary_domain}}"]
+  mastodon_alternates:     
+    - "mastodon.{{primary_domain}}"
   matomo:                  "matomo.{{primary_domain}}"
   matrix_synapse:          "matrix.{{primary_domain}}"
   matrix_element:          "element.{{primary_domain}}"
@@ -47,7 +48,6 @@ defaults_domains:
   yourls:                  "s.{{primary_domain}}"
   # ATTENTION: Will be owerwritten by the values in domains. Not merged.
   wordpress:              
-    - "wordpress.{{primary_domain}}"
     - "blog.{{primary_domain}}"
 
 ## Domain Redirects
@@ -74,3 +74,4 @@ defaults_redirect_domain_mappings:
 - { source: "snipe-it.{{primary_domain}}",    target: "{{domains.snipe_it}}" }
 - { source: "taiga.{{primary_domain}}",       target: "{{domains.taiga}}" }
 - { source: "videos.{{primary_domain}}",      target: "{{domains.peertube}}" }
+- { source: "wordpress.{{primary_domain}}",   target: "{{domains.wordpress}}" }

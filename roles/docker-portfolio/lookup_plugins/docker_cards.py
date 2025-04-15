@@ -85,10 +85,18 @@ class LookupModule(LookupBase):
             except Exception as e:
                 raise AnsibleError("Error reading '{}': {}".format(meta_path, str(e)))
 
-            # Build URL and retrieve iframe flag
+            # Retrieve domains and applications from the variables
             domains = variables.get("domains", {})
             applications = variables.get("applications", {})
             domain_url = domains.get(application_id, "")
+
+            # Check if domain_url is a list. If so, select the first element.
+            if isinstance(domain_url, list):
+                domain_url = domain_url[0]
+            else:
+                domain_url = ""
+                
+            # Construct the URL using the domain_url if available.
             url = "https://" + domain_url if domain_url else ""
 
             app_data = applications.get(application_id, {})
