@@ -74,4 +74,4 @@ defaults_redirect_domain_mappings:
 - { source: "snipe-it.{{primary_domain}}",    target: "{{domains.snipe_it}}" }
 - { source: "taiga.{{primary_domain}}",       target: "{{domains.taiga}}" }
 - { source: "videos.{{primary_domain}}",      target: "{{domains.peertube}}" }
-- { source: "wordpress.{{primary_domain}}",   target: "{{domains.wordpress}}" }
+- { source: "wordpress.{{primary_domain}}",   target: "{{domains.wordpress[0]}}" }
