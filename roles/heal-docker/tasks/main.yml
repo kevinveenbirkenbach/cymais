@@ -9,13 +9,14 @@
   copy:
     src: heal-docker.py
     dest: "{{heal_docker}}heal-docker.py"
+  notify: restart heal-docker.cymais.service
   when: run_once_heal_docker is not defined
 
 - name: create heal-docker.cymais.service
   template: 
     src: heal-docker.service.j2 
     dest: /etc/systemd/system/heal-docker.cymais.service
-  notify: reload heal-docker.cymais.service
+  notify: restart heal-docker.cymais.service
   when: run_once_heal_docker is not defined
 
 - name: set service_name to the name of the current role

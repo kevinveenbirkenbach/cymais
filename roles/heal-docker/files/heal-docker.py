@@ -12,10 +12,11 @@ def bash(command):
     process = subprocess.Popen([command], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     out, err = process.communicate()
     stdout = out.splitlines()
+    stderr = err.decode("utf-8").strip()  # decode stderr
     output = [line.decode("utf-8") for line in stdout]
-    if process.wait() > bool(0):
+    if process.returncode > 0:
         print(command, out, err)
-        raise Exception("Exitcode is greater than 0")
+        raise Exception(stderr)  # pass the actual error text
     return output
 
 def list_to_string(lst):
@@ -60,10 +61,22 @@ def main(base_directory):
         
         if compose_file_path:
             print("Restarting unhealthy container in:", compose_file_path)
-            print_bash(f'cd {os.path.dirname(compose_file_path)} && docker-compose -p "{repo}" restart')
+            project_path = os.path.dirname(compose_file_path)
+            try:
+                print_bash(f'cd {project_path} && docker-compose -p "{repo}" restart')
+            except Exception as e:
+                if "port is already allocated" in str(e):
+                    print("Detected port allocation problem. Executing recovery steps...")
+                    print_bash(f'cd {project_path} && docker-compose down')
+                    print_bash('systemctl restart docker')
+                    print_bash(f'cd {project_path} && docker-compose -p "{repo}" up -d')
+                else:
+                    print("Unhandled exception during restart:", e)
+                    errors += 1
         else:
             print("Error: Docker Compose file not found for:", repo)
             errors += 1
+
     
     print("Finished restart procedure.")
     exit(errors)
