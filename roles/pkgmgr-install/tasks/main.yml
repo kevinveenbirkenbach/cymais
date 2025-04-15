@@ -6,10 +6,11 @@
         cmd: "pkgmgr update pkgmgr"
       when: run_once_pkgmgr_update is not defined
 
-    - name: install {{ package_name }}
+    - name: clone {{ package_name }}
       command:
-        cmd: "pkgmgr install {{ package_name }} --clone-mode https"
+        cmd: "pkgmgr clone {{ package_name }} --clone-mode https"
       notify: "{{ package_notify | default(omit) }}"
+      ignore_errors: true
 
     - name: update {{ package_name }}
       command:

@@ -1,9 +1,9 @@
+from ansible.plugins.lookup import LookupBase
 from colorscheme_generator import generate_full_palette
 
-class LookupModule(object):
+class LookupModule(LookupBase):
     def run(self, terms, variables=None, **kwargs):
         base_color = terms[0]
-        count = kwargs.get('count', 100)
-        shades = kwargs.get('shades', True)
-
+        count = kwargs.get('count')
+        shades = kwargs.get('shades')
         return [generate_full_palette(base_color, count=count, shades=shades)]
