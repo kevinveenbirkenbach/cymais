@@ -6,6 +6,9 @@ x-op-app: &app
   volumes:
     - "data:/var/openproject/assets"
     - "{{dummy_volume}}:/var/openproject/pgdata" # This mount is unnecessary and just done to prevent anonymous volumes
+  build:
+    context: {{openproject_plugins_service}}
+    dockerfile: Dockerfile
 
 services:
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}

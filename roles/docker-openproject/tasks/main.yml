@@ -21,16 +21,14 @@
     src: Gemfile.plugins
     dest: "{{openproject_plugins_service}}Gemfile.plugins"
   notify:
-    - docker compose project setup
-    - rebuild custom openproject docker image
+    - docker compose project build and setup
 
 - name: "Transfering Dockerfile to {{openproject_plugins_service}}Dockerfile"
   template:
     src: Dockerfile
     dest: "{{openproject_plugins_service}}Dockerfile"
   notify:
-    - docker compose project setup
-    - rebuild custom openproject docker image
+    - docker compose project build and setup
 
 - name: "include role docker-repository-setup for {{application_id}}"
   include_role: 

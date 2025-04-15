@@ -1,26 +1,34 @@
-# 🌍 Nginx Global Theming Role
+# 🌍 Global CSS Injection for Nginx
 
-This **Ansible role** provides a **global theming solution** for Nginx-based web applications. It ensures a **consistent look and feel** across multiple applications by injecting a **unified global.css** with customizable theming options.  
----
+## Description
 
-## 🚀 Features
-✅ **Automatic CSS Deployment** – Injects `global.css` into all Nginx-served applications.  
-✅ **Dynamic Theming** – Uses `design.css.colors` from Ansible variables for **full customization**.  
-✅ **Bootstrap Override Support** – Ensures Bootstrap-based apps use the **unified global styles**.  
-✅ **Versioning System** – Prevents caching issues with automatic **timestamp-based versioning**.  
-✅ **Dark Mode Support** – Automatically adapts to user preferences.  
-✅ **Runs Once Per Deployment** – Avoids redundant executions with `run_once_nginx_global_css`.  
+This Ansible role ensures **consistent global theming** across all Nginx-served applications by injecting a unified `global.css` file.  
+The role leverages [`colorscheme-generator`](https://github.com/kevinveenbirkenbach/colorscheme-generator/) to generate a dynamic, customizable color palette for light and dark mode, compatible with popular web tools like **Bootstrap**, **Keycloak**, **Nextcloud**, **Taiga**, **Mastodon**, and many more.
 
----
+## Overview
 
-## 🎨 Theming Details
+This role deploys a centralized global stylesheet (`global.css`) that overrides the default theming of web applications served via Nginx. It's optimized to run only once per deployment and generates a **cache-busting version number** based on file modification timestamps.  
+It includes support for **dark mode**, **custom fonts**, and **extensive Bootstrap and UI component overrides**.
 
-The **CSS template (`global.css.j2`)** dynamically applies the defined theme colors and ensures **Bootstrap, buttons, alerts, forms, and other UI elements** follow the **unified design**.
+## Purpose
 
-## 🛠️ Contribution
-Feel free to **fork, modify, and improve** this role! Contributions are always welcome. 🛠️🔥
+The goal of this role is to provide a **single source of truth for theming** across your infrastructure.  
+It makes all applications feel like part of the same ecosystem — visually and functionally.
 
----
+## Features
 
-🚀 **Happy Theming!** 🎨✨  
-*Created by [Kevin Veen-Birkenbach](https://www.veen.world) with the assistance of [ChatGPT](https://chatgpt.com/share/67a5fea3-4d5c-800f-8bc4-605712c02c9b).
+- 🎨 **Dynamic Theming** via [`colorscheme-generator`](https://github.com/kevinveenbirkenbach/colorscheme-generator/)
+- 📁 **Unified global.css** deployment for all Nginx applications
+- 🌒 **Dark mode support** out of the box
+- 🚫 **No duplication** – tasks run once per deployment
+- ⏱️ **Versioning logic** to bust browser cache
+- 🎯 **Bootstrap override compatibility**
+- 🧩 **Theme support for Keycloak, Nextcloud, Gitea, LAM, Peertube, and more**
+
+## Credits 📝
+
+Developed and maintained by **Kevin Veen-Birkenbach**.  
+Learn more at [www.veen.world](https://www.veen.world)
+
+Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
+License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)

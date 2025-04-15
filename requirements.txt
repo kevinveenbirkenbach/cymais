@@ -1,0 +1,1 @@
+colorscheme-generator @ https://github.com/kevinveenbirkenbach/colorscheme-generator/archive/refs/tags/v0.2.0.zip

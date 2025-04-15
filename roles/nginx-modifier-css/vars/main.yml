@@ -1,1 +1,4 @@
 global_css_destination: "{{nginx.directories.data.global}}global.css"
+global_css_base_color:  "{{ design.css.colors.base }}"
+global_css_count:       100
+global_css_shades:      true

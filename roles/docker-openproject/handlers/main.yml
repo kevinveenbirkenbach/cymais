@@ -1,8 +1,0 @@
----
-- name: rebuild custom openproject docker image
-  command:
-    cmd: docker build --no-cache -t {{custom_openproject_image}} .
-    chdir: "{{openproject_plugins_service}}"
-  environment:
-    COMPOSE_HTTP_TIMEOUT: 600
-    DOCKER_CLIENT_TIMEOUT: 600
