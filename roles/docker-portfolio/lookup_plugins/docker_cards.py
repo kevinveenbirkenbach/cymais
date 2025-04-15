@@ -93,8 +93,6 @@ class LookupModule(LookupBase):
             # Check if domain_url is a list. If so, select the first element.
             if isinstance(domain_url, list):
                 domain_url = domain_url[0]
-            else:
-                domain_url = ""
                 
             # Construct the URL using the domain_url if available.
             url = "https://" + domain_url if domain_url else ""
