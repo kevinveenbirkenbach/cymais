@@ -115,6 +115,7 @@ def update_docker(directory):
         need_to_build = True
         
     if need_to_build:
+        # @todo Here a pull for openproject should be placed.
         run_command("docker-compose build")
         start_docker(directory)
     else:

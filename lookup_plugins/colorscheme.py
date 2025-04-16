@@ -6,4 +6,5 @@ class LookupModule(LookupBase):
         base_color = terms[0]
         count = kwargs.get('count')
         shades = kwargs.get('shades')
-        return [generate_full_palette(base_color, count=count, shades=shades)]
+        shades = kwargs.get('invert_lightness')
+        return [generate_full_palette(base_color, count=count, shades=shades, invert_lightness=invert_lightness)]
