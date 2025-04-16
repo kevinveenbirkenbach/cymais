@@ -1,0 +1,2 @@
+database_var_file:  "{{ role_path }}/vars/database.yml"
+docker_var_file:    "{{playbook_dir}}/roles/docker-compose/vars/docker-compose.yml"

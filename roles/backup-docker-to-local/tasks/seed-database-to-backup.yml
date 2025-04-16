@@ -1,6 +1,6 @@
 # This file is also used by docker-matrix-compose
 
-- name: Display all database variables
+- name: "{{ role_name }} | Display all database variables"
   debug:
     msg: |
       database_instance: "{{ database_instance | default('undefined') }}"
@@ -9,7 +9,7 @@
       database_password: "{{ database_password | default('undefined') }}"
   when: enable_debug | bool
 
-- name: fail if not all required database variables are defined
+- name: "{{ role_name }} | fail if not all required database variables are defined"
   fail:
     msg: "You must define all of the following variables: database_instance, database_name, database_username, database_password"
   when: >
@@ -22,12 +22,31 @@
      database_username is defined and
      database_password is defined)
 
-- name: seed database values
+- name: "{{ role_name }} | seed database values in directory {{ backup_docker_to_local_folder }}"
   command:
     cmd: "python database_entry_seeder.py databases.csv {{database_instance}} {{database_name}} {{database_username}} {{database_password}}"
-    chdir: "{{backup_docker_to_local_folder}}"
+    chdir: "{{ backup_docker_to_local_folder }}"
   when: >
     database_instance is defined and
     database_name is defined and
     database_username is defined and
     database_password is defined
+
+- name: Set file permissions for databases.csv to be readable, writable, and executable by root only
+  ansible.builtin.file:
+    path: "{{ backup_docker_to_local_folder }}databases.csv"
+    mode: '0700'
+    owner: root
+    group: root
+  when: >
+    (database_instance is defined and
+    database_name is defined and
+    database_username is defined and
+    database_password is defined) and
+    run_once_backup_docker_to_local_file_permission is not defined
+  register: file_permission_result
+
+- name: run the backup_docker_to_local_file_permission tasks once
+  set_fact:
+    run_once_backup_docker_to_local_file_permission: true
+  when: run_once_backup_docker_to_local_file_permission is not defined and file_permission_result is defined and file_permission_result.changed
