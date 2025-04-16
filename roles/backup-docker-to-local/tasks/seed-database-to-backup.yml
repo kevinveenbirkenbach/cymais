@@ -9,6 +9,19 @@
       database_password: "{{ database_password | default('undefined') }}"
   when: enable_debug | bool
 
+- name: fail if not all required database variables are defined
+  fail:
+    msg: "You must define all of the following variables: database_instance, database_name, database_username, database_password"
+  when: >
+    (database_instance is defined or
+     database_name is defined or
+     database_username is defined or
+     database_password is defined) and not
+    (database_instance is defined and
+     database_name is defined and
+     database_username is defined and
+     database_password is defined)
+
 - name: seed database values
   command:
     cmd: "python database_entry_seeder.py databases.csv {{database_instance}} {{database_name}} {{database_username}} {{database_password}}"
