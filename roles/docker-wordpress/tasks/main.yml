@@ -1,9 +1,9 @@
 ---
-- name: "include docker-central-database"
+- name: "{{ role_name }} | Include docker-central-database"
   include_role: 
     name: docker-central-database
   
-- name: "include role nginx-domain-setup for {{ application_id }}"
+- name: "{{ role_name }} | Include role nginx-domain-setup for {{ application_id }}"
   include_role:
     name: nginx-domain-setup
   loop: "{{ domains.wordpress }}"
@@ -13,23 +13,30 @@
     nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size {{ wordpress_max_upload_size }};"
     http_port: "{{ ports.localhost.http[application_id] }}"
 
-- name: "Transfering upload.ini to {{ docker_compose.directories.instance }}"
+- name: "{{ role_name }} | Transfering upload.ini to {{ docker_compose.directories.instance }}"
   template:
     src: upload.ini.j2
     dest: "{{ docker_compose.directories.instance }}upload.ini"
   notify: docker compose project build and setup
 
-- name: "Transfering msmtprc to {{ host_msmtp_conf }}"
+- name: "{{ role_name }} | Transfering msmtprc to {{ host_msmtp_conf }}"
   template:
     src: "{{ playbook_dir }}/roles/msmtp/templates/msmtprc.conf.j2"
     dest: "{{ host_msmtp_conf }}"
   notify: docker compose project build and setup
 
-- name: "Transfering Dockerfile to {{ docker_compose.directories.instance }}"
+- name: "{{ role_name }} | Transfering Dockerfile to {{ docker_compose.directories.instance }}"
   copy:
     src: Dockerfile
     dest: "{{ docker_compose.directories.instance }}Dockerfile"
   notify: docker compose project build and setup
 
-- name: "copy docker-compose.yml and env file"
+- name: "{{ role_name }} | copy docker-compose.yml and env file"
   include_tasks: copy-docker-compose-and-env.yml
+
+- name: "{{ role_name }} | Install wordpress"
+  include_tasks: install.yml
+
+- name: "{{ role_name }} | Activating OIDC when enabled."
+  include_tasks: oidc.yml
+  when: applications[application_id].oidc.enabled | bool

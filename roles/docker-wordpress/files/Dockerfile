@@ -1,12 +1,15 @@
 FROM wordpress
 
-# Update and installation of msmtp
+# Install msmtp and update system
 RUN apt-get update && \
     apt-get install -y msmtp msmtp-mta && \
     rm -rf /var/lib/apt/lists/*
 
-# Copy the msmtp configuration into the container
-COPY config/msmtprc.conf /etc/msmtprc
+# Install WP CLI
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x wp-cli.phar && \
+    mv wp-cli.phar /usr/local/bin/wp
 
-# Copy the PHP configuration for uploads (and mail settings)
+# Copy msmtp configuration and PHP upload settings
+COPY config/msmtprc.conf /etc/msmtprc
 COPY upload.ini $PHP_INI_DIR/conf.d/

@@ -4,14 +4,14 @@ services:
 
   application:
     {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    image: {{custom_wordpress_image}}
+    image: {{wordpress_custom_image}}
     container_name: wordpress-application
     build:
       context: .
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
     volumes:
-      - data:/var/www/html
+      - data:{{ wordpress_docker_html_path }}
 
 {% include 'roles/docker-compose/templates/services/msmtp_curl_test.yml.j2' %}
 

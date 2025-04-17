@@ -31,13 +31,13 @@ test_email:             "test@{{primary_domain}}"
 # Server Tact Variables 
 
 ## Ours in which the server is "awake" (100% working). Rest of the time is reserved for maintanance
-hours_server_awake:               "0..23"
+hours_server_awake:                       "0..23"
 
 ## Random delay for systemd timers to avoid peak loads.
-randomized_delay_sec:             "5min" 
+randomized_delay_sec:                     "5min"
 
 # Runtime Variables for Process Control
-activate_all_timers:                  false   # Activates all timers, independend if the handlers had been triggered
+activate_all_timers:                       false   # Activates all timers, independend if the handlers had been triggered
 
 # One Wildcard Certificate for All Subdomains
 # Enables a single Let's Encrypt wildcard certificate for all subdomains instead of individual certificates.
@@ -47,11 +47,11 @@ activate_all_timers:                  false   # Activates all timers, independen
 # To enable, update your inventory file.
 # For detailed setup instructions, visit: 
 # https://github.com/kevinveenbirkenbach/cymais/tree/master/roles/nginx-docker-cert-deploy
-enable_wildcard_certificate:          false  
+enable_wildcard_certificate:              false  
 
 # This enables debugging in ansible and in the apps
 # You SHOULD NOT enable this on production servers
-enable_debug:   false
+enable_debug:                             false
 
 #########################
 ##  ENABLED DEFAULTS   ##

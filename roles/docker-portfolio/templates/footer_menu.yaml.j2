@@ -122,9 +122,9 @@
     - name: Slides
       description: Checkout the presentation
       icon:
-        class: fas fa-book
+        class: "fas fa-chalkboard-teacher"
       url: https://{{domains.presentation}}
-      iframe: {{ applications | get_landingpage_iframe_enabled('sphinx') }}
+      iframe: {{ applications | get_landingpage_iframe_enabled('presentation') }}
 
 {% endif %}
 

@@ -709,7 +709,7 @@ defaults_applications:
   presentation:
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
     css_enabled:                  False                                     # Would mess with the presentation layout
-    landingpage_iframe_enabled:   False                                     # Makes sense to make the documentary allways in iframe available
+    landingpage_iframe_enabled:   True                                      # Makes sense to make the documentary allways in iframe available
 
   # Snipe-IT
   snipe_it:
@@ -770,7 +770,15 @@ defaults_applications:
 # May a solution could be to generate a template or css file dedicated
 # for wordpress based on the theming values and import it. 
     database:
-      central_storage:  True  # Activate Central Database Storage
+      central_storage:            True                                      # Activate Central Database Storage
     matomo_tracking_enabled:      "{{matomo_tracking_enabled_default}}"     # Enables\Disables Matomo Tracking
     css_enabled:                  false                                     # CSS is hard to tweak for wordpress
     landingpage_iframe_enabled:   "{{landingpage_iframe_enabled_default}}"  # Enables\Disables the possibility to embed this on landing page via iframe
+    oidc:
+      enabled:                    true                                      # Activate OIDC
+    title:                        "Blog"                                    
+    credentials:
+      administrator:
+        username:                 "{{users.administrator.username}}"        # Username of the wordpress administrator
+#       password:                                                           # Password of the wordpress administrator
+        email:                    "{{users.administrator.email}}"           # Email of the wordpress adminsitrator

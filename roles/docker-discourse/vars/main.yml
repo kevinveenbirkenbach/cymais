@@ -1,5 +1,5 @@
 application_id:                         "discourse"
-database_password:                      "{{ applications.discourse.database_password }}"
+database_password:                      "{{ applications.discourse.credentials.database.password }}"
 database_type:                          "postgres"
 docker_repository_directory :           "{{docker_compose.directories.services}}{{applications.discourse.repository}}/"
 discourse_application_yml_destination:  "{{docker_repository_directory }}containers/{{applications.discourse.container}}.yml"
