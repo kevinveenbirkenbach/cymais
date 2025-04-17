@@ -14,11 +14,12 @@
     chdir: "{{ docker_compose.directories.instance }}"
   failed_when: false
 
-- name: "Apply all OIDC settings via WP-CLI eval"
-  # Convert the settings map to JSON and update the option in one step
+- name: "Apply all OIDC settings via WP-CLI eval (safe via base64)"
+  # Convert the settings map to base64-encoded JSON to avoid shell escaping issues
+  vars:
+    oidc_settings_json_b64: "{{ oidc_vars.oidc_settings | to_json | b64encode }}"
   command: >
     docker-compose exec -u www-data -T application bash -lc
-      "settings_json='{{ oidc_vars.oidc_settings | to_json }}'; \
-       wp eval \"update_option('openid_connect_generic_settings', json_decode('"$settings_json"', true));\" --path={{ wordpress_docker_html_path }}"
+      "wp eval \"update_option('openid_connect_generic_settings', json_decode(base64_decode('{{ oidc_settings_json_b64 }}'), true));\" --path={{ wordpress_docker_html_path }}"
   args:
     chdir: "{{ docker_compose.directories.instance }}"
