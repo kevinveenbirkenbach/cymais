@@ -1,28 +1,29 @@
 # vars/oidc.yml
 # Defines OIDC settings for the OpenID Connect Generic plugin, with explanatory comments.
+# @see https://github.com/oidc-wp/openid-connect-generic/blob/develop/includes/openid-connect-generic-option-settings.php
 
 oidc_settings:
-  client_id:                "{{ oidc.client.id }}"                                          # The client ID that identifies WordPress as the OIDC client.
-  client_secret:            "{{ oidc.client.secret }}"                                      # The secret key used by WordPress to authenticate to the OIDC provider.
-  endpoint_login:           "{{ oidc.client.authorize_url }}"                               # URL of the authorization endpoint to initiate the login flow.
-  endpoint_token:           "{{ oidc.client.token_url }}"                                   # URL of the token endpoint for exchanging authorization codes for tokens.
-  endpoint_userinfo:        "{{ oidc.client.user_info_url }}"                               # URL of the userinfo endpoint to retrieve user profile data.
-  endpoint_end_session:     "{{ oidc.client.logout_url }}"                                  # URL of the end-session endpoint to log users out of the IDP.
-#  login_type:               "{{ oidc.client.login_type | default('') }}"                    # Determines how the login interface is rendered (e.g., button or form).
-#  scope:                    "{{ oidc.client.scope | default('openid profile email') }}"    # Scopes requested from the OIDC provider during authentication.
-  create_if_does_not_exist: true                                                            # Auto-create a new WP user if one doesn’t exist.
-  enforce_privacy:          false                                                           # Require authentication for all site pages if set to true.
-  link_existing_users:      true                                                            # Link OIDC login to existing WP users by matching email.
-  redirect_on_logout:       true                                                            # Redirect users after logout to the login screen or homepage.
-  redirect_user_back:       true                                                            # Return users to their original URL after successful login.
-  #acr_values:               "{{ oidc.client.acr_values | default('') }}"                   # ACR values defining required authentication context (e.g., MFA level).
-  enable_logging:           "{{ enable_debug }}"                                            # Enable detailed plugin logging for debugging and auditing.
-#  log_limit:                "{{ oidc.client.log_limit | default('') }}"                     # Maximum number of log entries to retain before pruning.
-  #no_sslverify                                                                              # The flag to enable/disable SSL verification during authorization.
-  #http_request_timeout                                                                      # The timeout for requests made to the IDP. Default value is 5.
-  #identity_key                                                                              # The key in the user claim array to find the user's identification data.
-  #nickname_key                                                                              # The key in the user claim array to find the user's nickname.
-  #email_format                                                                              # The key(s) in the user claim array to formulate the user's email address.
-  #displayname_format                                                                        # The key(s) in the user claim array to formulate the user's display name.
-  #identify_with_username                                                                    # The flag which indicates how the user's identity will be determined.
-  #state_time_limit                                                                          # The valid time limit of the state, in seconds. Defaults to 180 seconds.
+  client_id:                "{{ oidc.client.id }}"                                                # The client ID that identifies WordPress as the OIDC client.
+  client_secret:            "{{ oidc.client.secret }}"                                            # The secret key used by WordPress to authenticate to the OIDC provider.
+  endpoint_login:           "{{ oidc.client.authorize_url }}"                                     # URL of the authorization endpoint to initiate the login flow.
+  endpoint_token:           "{{ oidc.client.token_url }}"                                         # URL of the token endpoint for exchanging authorization codes for tokens.
+  endpoint_userinfo:        "{{ oidc.client.user_info_url }}"                                     # URL of the userinfo endpoint to retrieve user profile data.
+  endpoint_end_session:     "{{ oidc.client.logout_url }}"                                        # URL of the end-session endpoint to log users out of the IDP.
+  login_type:               "auto"                                                                # Determines how the login interface is rendered (e.g., button or form).
+  scope:                    "openid profile email"                                                # Scopes requested from the OIDC provider during authentication.
+  create_if_does_not_exist: true                                                                  # Auto-create a new WP user if one doesn’t exist.
+  enforce_privacy:          false                                                                 # Require authentication for all site pages if set to true.
+  link_existing_users:      true                                                                  # Link OIDC login to existing WP users by matching email.
+  redirect_on_logout:       true                                                                  # Redirect users after logout to the login screen or homepage.
+  redirect_user_back:       true                                                                  # Return users to their original URL after successful login.
+  #acr_values:               "{{ oidc.client.acr_values | default('') }}"                         # ACR values defining required authentication context (e.g., MFA level).
+  enable_logging:           "{{ enable_debug }}"                                                  # Enable detailed plugin logging for debugging and auditing.
+#  log_limit:                "{{ oidc.client.log_limit | default('') }}"                          # Maximum number of log entries to retain before pruning.
+  no_sslverify:             false                                                                 # The flag to enable/disable SSL verification during authorization.
+  http_request_timeout:     5                                                                     # The timeout for requests made to the IDP. Default value is 5.
+  identity_key:             "{{ oidc.attributes.username }}"                                      # The key in the user claim array to find the user's identification data.
+  nickname_key:             "{{ oidc.attributes.username }}"                                      # The key in the user claim array to find the user's nickname.
+  email_format:             "{{ oidc.attributes.email }}"                                         # The key(s) in the user claim array to formulate the user's email address.
+  displayname_format:       "{{ oidc.attributes.given_name }} {{ oidc.attributes.family_name }}"  # The key(s) in the user claim array to formulate the user's display name.
+  identify_with_username:   true                                                                  # The flag which indicates how the user's identity will be determined.
+  state_time_limit:         180                                                                   # The valid time limit of the state, in seconds. Defaults to 180 seconds.

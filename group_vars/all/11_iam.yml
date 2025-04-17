@@ -28,6 +28,9 @@ defaults_oidc:
   attributes:
     # Attribut to identify the user
     username:             "preferred_username"
+    given_name:           "given_name"
+    family_name:          "family_name"
+    email:                "email"
 
 #############################################
 ### LDAP                                  ###
