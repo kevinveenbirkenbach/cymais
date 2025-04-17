@@ -1,7 +1,7 @@
-- name: "{{ role_name }} | Load variables from {{ role_path }}/vars/docker-compose.yml for whole play"
+- name: "Load variables from {{ role_path }}/vars/docker-compose.yml for whole play"
   include_vars: "{{ role_path }}/vars/docker-compose.yml"
 
-- name: "{{ role_name }} | Remove {{ docker_compose.directories.instance }} and all its contents"
+- name: "Remove {{ docker_compose.directories.instance }} and all its contents"
   file:
     path: "{{ docker_compose.directories.instance }}"
     state: absent
@@ -9,7 +9,7 @@
 
 # This could lead to problems in docker-compose directories which are based on a git repository
 # @todo Verify that this isn't the case. E.g. in accounting
-- name: "{{ role_name }} | Create all docker-compose directories (including parent directories)"
+- name: "Create all docker-compose directories (including parent directories)"
   file:
     path: "{{ item.value }}"
     state: directory

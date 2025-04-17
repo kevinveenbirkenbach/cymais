@@ -4,7 +4,7 @@
     state: present
   become: true
 
-- name: "{{ role_name }} | pkgmgr install"
+- name: "pkgmgr install"
   include_role:
     name: pkgmgr-install
   vars:

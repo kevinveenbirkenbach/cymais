@@ -1,5 +1,5 @@
 ---
-- name: "{{ role_name }} | Install OpenID Connect Generic Plugin via WP CLI"
+- name: "Install OpenID Connect Generic Plugin via WP CLI"
   command: >
     docker-compose exec -u www-data -T application
       wp plugin install daggerhart-openid-connect-generic
@@ -7,10 +7,13 @@
   args:
     chdir: "{{ docker_compose.directories.instance }}"
 
-- name: "{{ role_name }} | Activate OpenID Connect Generic Plugin"
+- name: "Activate OpenID Connect Generic Plugin"
   command: >
     docker-compose exec -u www-data -T application
       wp plugin activate daggerhart-openid-connect-generic
       --path={{ wordpress_docker_html_path }}
   args:
     chdir: "{{ docker_compose.directories.instance }}"
+
+- name: "Setup OIDC settings"
+  include_tasks: "oidc_settings.yml"

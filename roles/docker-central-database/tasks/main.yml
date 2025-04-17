@@ -1,27 +1,27 @@
-- name: "{{ role_name }} | Load database variables"
+- name: "Load database variables"
   include_vars: "{{ item }}"
   loop:
     - "{{ docker_var_file }}"   # Important to load docker variables first so that database can use them
     - "{{ database_var_file }}" # Important to load them before docker role so that backup can use them
 
 # Docker Routines
-- name: "{{ role_name }} | Include docker-compose role"
+- name: "Include docker-compose role"
   include_role: 
     name: docker-compose
 
 # The following env file will just be used from the dedicated mariadb container
 # and not the central-mariadb-database
-- name: "{{ role_name }} | Create {{database_env}}"
+- name: "Create {{database_env}}"
   template: 
     src: "env/{{database_type}}.env.j2"
     dest: "{{database_env}}"
   notify: docker compose project build and setup
   when: not applications[application_id].database.central_storage | bool
 
-- name: "{{ role_name }} | Create central database"
+- name: "Create central database"
   include_role:
     name: "docker-{{database_type}}"
   when: applications[application_id].database.central_storage | bool
 
-- name: "{{ role_name }} | Add database to backup"
+- name: "Add database to backup"
   include_tasks: "{{ playbook_dir }}/roles/backup-docker-to-local/tasks/seed-database-to-backup.yml"

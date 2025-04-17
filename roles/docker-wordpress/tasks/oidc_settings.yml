@@ -1,0 +1,24 @@
+- name: "Load OIDC settings variables"
+  include_vars:
+    file: "{{ role_path }}/vars/oidc.yml"
+    name: oidc_vars
+
+- name: "Ensure the OIDC settings option exists as a PHP-serialized empty array"
+  # Generate an empty serialized array in the container, then add or update the option
+  command: >
+    docker-compose exec -u www-data -T application bash -lc
+    "serialized_empty_array=$(wp eval 'echo serialize(array());' --path={{ wordpress_docker_html_path }}); \
+     wp option add openid_connect_generic_settings \"$serialized_empty_array\" --path={{ wordpress_docker_html_path }} \
+     || wp option update openid_connect_generic_settings \"$serialized_empty_array\" --path={{ wordpress_docker_html_path }};"
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  failed_when: false
+
+- name: "Apply all OIDC settings via WP-CLI eval"
+  # Convert the settings map to JSON and update the option in one step
+  command: >
+    docker-compose exec -u www-data -T application bash -lc
+      "settings_json='{{ oidc_vars.oidc_settings | to_json }}'; \
+       wp eval \"update_option('openid_connect_generic_settings', json_decode('"$settings_json"', true));\" --path={{ wordpress_docker_html_path }}"
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"

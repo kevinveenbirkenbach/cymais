@@ -1,4 +1,4 @@
-- name: "{{ role_name }} | Run WordPress core install via WP CLI"
+- name: "Run WordPress core install via WP CLI"
   command: >
     docker-compose exec -T -u www-data application
     wp core install

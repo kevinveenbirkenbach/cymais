@@ -1,4 +1,4 @@
-- name: "{{ role_name }} | pkgmgr installation tasks"
+- name: "pkgmgr installation tasks"
   become: "{{ pkgmgr_become }}"
   block:
     - name: update pkgmgr

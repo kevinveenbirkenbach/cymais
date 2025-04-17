@@ -2,7 +2,7 @@
   ansible.builtin.shell: gsettings set org.gnome.shell disable-user-extensions false
   become: false
 
-- name: "{{ role_name }} | pkgmgr install"
+- name: "pkgmgr install"
   include_role:
     name: pkgmgr-install
   vars:

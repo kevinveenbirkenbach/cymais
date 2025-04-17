@@ -1,6 +1,6 @@
 # This file is also used by docker-matrix-compose
 
-- name: "{{ role_name }} | Display all database variables"
+- name: "Display all database variables"
   debug:
     msg: |
       database_instance: "{{ database_instance | default('undefined') }}"
@@ -9,7 +9,7 @@
       database_password: "{{ database_password | default('undefined') }}"
   when: enable_debug | bool
 
-- name: "{{ role_name }} | fail if not all required database variables are defined"
+- name: "fail if not all required database variables are defined"
   fail:
     msg: "You must define all of the following variables: database_instance, database_name, database_username, database_password"
   when: >
@@ -22,7 +22,7 @@
      database_username is defined and
      database_password is defined)
 
-- name: "{{ role_name }} | seed database values in directory {{ backup_docker_to_local_folder }}"
+- name: "seed database values in directory {{ backup_docker_to_local_folder }}"
   command:
     cmd: "python database_entry_seeder.py databases.csv {{database_instance}} {{database_name}} {{database_username}} {{database_password}}"
     chdir: "{{ backup_docker_to_local_folder }}"
