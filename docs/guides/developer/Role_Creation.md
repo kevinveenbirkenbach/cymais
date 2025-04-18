@@ -17,10 +17,15 @@ defaults_applications:
 
   ## My Service Configuration
   my_service:
-    version: "latest"                                      # Version of the service
-    matomo_tracking_enabled: true                          # Enable Matomo tracking for analytics
-    css_enabled: true                                      # Enable or disable global CSS styling
-    landingpage_iframe_enabled: false                      # Allow embedding the landing page in an iframe (if true)
+    version: "latest"
+    features:                               # Version of the service
+      matomo:     true                      # Enable Matomo tracking for analytics
+      css:        true                      # Enable or disable global CSS styling
+      iframe:     false                     # Allow embedding the landing page in an iframe (if true)
+      database:   true                      # Enable central database integration
+      ldap:       true                      # Enable ldap integration
+      oauth2:     true                      # Enable oauth2 proxy
+      oidc:       true                      # Enable oidc
 ```
 
 ---

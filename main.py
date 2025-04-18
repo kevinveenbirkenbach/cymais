@@ -7,7 +7,7 @@ import os
 def run_ansible_vault(action, filename, password_file):
     """Execute an ansible-vault command with the specified action on a file."""
     cmd = ["ansible-vault", action, filename, "--vault-password-file", password_file]
-    subprocess.run(cmd, check=True)
+    subprocess.run(cmd, check=True) 
 
 def run_ansible_playbook(inventory: str, playbook: str, modes: dict, limit: str = None, password_file: str = None, verbose: int = 0):
     """Execute an ansible-playbook command with optional parameters."""
@@ -30,7 +30,7 @@ def run_ansible_playbook(inventory: str, playbook: str, modes: dict, limit: str 
     if verbose:
         # Append a single flag with multiple "v"s (e.g. -vvv)
         cmd.append("-" + "v" * verbose)
-    
+    subprocess.run(['make','build'], check=True)
     subprocess.run(cmd, check=True)
 
 def main():

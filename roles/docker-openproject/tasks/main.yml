@@ -59,4 +59,4 @@
 
 - name: Setup LDAP
   include_tasks: ldap.yml
-  when: applications[application_id].ldap.enabled | bool
+  when: applications[application_id].features.ldap | bool

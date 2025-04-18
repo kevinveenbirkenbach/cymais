@@ -39,4 +39,8 @@
 
 - name: "Activating OIDC when enabled."
   include_tasks: oidc.yml
-  when: applications[application_id].oidc.enabled | bool
+  when: applications[application_id].features.oidc | bool
+
+#- name: "Activating WP Discourse when enabled"
+#  include_tasks: wp_discourse.yml
+#  when: applications[application_id].wp_discourse.enabled | bool

@@ -1,6 +1,6 @@
 {# This template needs to be included in docker-compose.yml which contain a database and additional volumes #}
 volumes:
-{% if not (applications[application_id].database.central_storage | default(false)) | bool %}
+{% if not (applications[application_id].features.database | default(false)) | bool %}
   database:
 {% endif %}
 {{ "\n" }}

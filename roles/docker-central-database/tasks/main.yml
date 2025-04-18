@@ -16,12 +16,12 @@
     src: "env/{{database_type}}.env.j2"
     dest: "{{database_env}}"
   notify: docker compose project build and setup
-  when: not applications[application_id].database.central_storage | bool
+  when: not applications[application_id].features.database | bool
 
 - name: "Create central database"
   include_role:
     name: "docker-{{database_type}}"
-  when: applications[application_id].database.central_storage | bool
+  when: applications[application_id].features.database | bool
 
 - name: "Add database to backup"
   include_tasks: "{{ playbook_dir }}/roles/backup-docker-to-local/tasks/seed-database-to-backup.yml"

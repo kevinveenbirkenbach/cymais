@@ -32,6 +32,20 @@
     set_fact:
       applications: "{{ defaults_applications | combine(applications | default({}, true), recursive=True) }}"
 
+# @todo implement
+#  - name: Ensure features.integrated is set based on group membership
+#    set_fact:
+#      applications: "{{ applications | combine({ item.key: updated_app }, recursive=True) }}"
+#    vars:
+#      original_app: "{{ applications[item.key] | default({}) }}"
+#      original_features: "{{ original_app.features | default({}) }}"
+#      needs_integration: original_features.integrated is not defined
+#      updated_features: >-
+#        {{ original_features | combine({'integrated': (item.key in group_names)}) if needs_integration else original_features }}
+#      updated_app: >-
+#        {{ original_app | combine({'features': updated_features}) }}
+#    loop: "{{ applications | dict2items }}"
+
   - name: Merge networks definitions
     set_fact:
       networks: "{{ defaults_networks | combine(networks | default({}, true), recursive=True) }}"

@@ -1,0 +1,19 @@
+{% macro render_features(options) %}
+    features:
+    {%- set feature_map = {
+        'matomo':   'Enables Matomo tracking',
+        'css':      'Enables custom CSS styling',
+        'iframe':   'Allows embedding via iframe on landing page',
+        'ldap':     'Enables LDAP integration and networking',
+        'oidc':     'Enables OpenID Connect (OIDC) authentication',
+        'oauth2':   'Enables OAuth2 proxy integration',
+        'database': 'Enables use of central database'
+    } %}
+    {%- for key, comment in feature_map.items() %}
+        {%- if key in options %}
+  
+      {{ key }}: {{ options[key] }}   # {{ comment }}
+
+        {%- endif %}
+    {%- endfor %}
+{% endmacro %}

@@ -1,4 +1,4 @@
-{% if landingpage_iframe_enabled | default(applications.get(application_id).get('landingpage_iframe_enabled')) | bool %}
+{% if applications.get(application_id, {}).get('features', {}).get('iframe', False) %}
 add_header X-Frame-Options "SAMEORIGIN" always;
 add_header Content-Security-Policy "frame-ancestors 'self' {{primary_domain}};" always;
 {% endif %}

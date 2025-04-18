@@ -3,3 +3,5 @@ collections:
 pacman:
   - ansible
   - python-passlib
+pkgmgr:
+  - j2r

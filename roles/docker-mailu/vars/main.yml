@@ -6,7 +6,7 @@ enable_wildcard_certificate:  false
 
 # Use dedicated source for oidc if activated  
 # @see https://github.com/heviat/Mailu-OIDC/tree/2024.06
-docker_source:                "{{ 'ghcr.io/heviat' if applications[application_id].oidc.enabled | bool else 'ghcr.io/mailu' }}"
+docker_source:                "{{ 'ghcr.io/heviat' if applications[application_id].features.oidc | bool else 'ghcr.io/mailu' }}"
 
 domain:     "{{ domains[application_id] }}"
 http_port: 	"{{ ports.localhost.http[application_id] }}"

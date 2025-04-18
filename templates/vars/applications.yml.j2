@@ -1,4 +1,4 @@
-
+{% import "features.yml.j2" as features %}{% raw %}
 # Docker Applications
 
 ## Docker Role Specific Parameters
@@ -24,11 +24,12 @@ defaults_applications:
     company_name:                 "{{primary_domain}}"
     company_email:                "{{users.administrator.email}}"
     setup_admin_email:            "{{users.administrator.email}}"
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   false,
+  'database': true,
+}) }}{% raw %}
 
   ## Assets Server
   assets_server:
@@ -37,33 +38,36 @@ defaults_applications:
   ## Attendize 
   attendize:
     version:                      "latest"
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   false,
+  'database': true,
+}) }}{% raw %}
 
   ## Baserow 
   baserow:
     version:            "latest"
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: True   # Allows embedding via iframe on landing page  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   true,
+  'database': true,
+}) }}{% raw %}
 
   ## Big Blue Button
   bigbluebutton:
     enable_greenlight:    "true"
     setup:                false                                             # Set to true in inventory file for initial setup
 # @todo LDAP needs to get propper implemented and tested, just set values during refactoring
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: True   # Allows embedding via iframe on landing page  
-      ldap: False   # Enables LDAP integration and networking  
-      oidc: True   # Enables OpenID Connect (OIDC) authentication  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   true,
+  'ldap':     false,
+  'oidc':     true,
+  'database': true,
+}) }}{% raw %}
     credentials:
 #      shared_secret:                                                       # Needs to be defined in inventory file
 #      etherpad_api_key:                                                    # Needs to be defined in inventory file                                             
@@ -84,11 +88,12 @@ defaults_applications:
       #jwt_secret:                                                          # Needs to be defined in inventory file - Use: openssl rand -base64 64 | tr -d '\n'
       #plc_rotation_key_k256_private_key_hex:                               # Needs to be defined in inventory file - Use: openssl rand -hex 32 
       #admin_password:                                                      # Needs to be defined in inventory file - Use: openssl rand -base64 16
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: True   # Allows embedding via iframe on landing page  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   true,
+  'database': true,
+}) }}{% raw %}
 
   # Chromium Browser
   chromium:
@@ -113,19 +118,21 @@ defaults_applications:
       master_api:
 #       key:                                                                # Needs to be defined in inventory file
         username:                 "{{ users.administrator.username }}"      # Username for the Master API                           
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: True   # Allows embedding via iframe on landing page  
-      oidc: True   # Enables OpenID Connect (OIDC) authentication  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   true,
+  'oidc':     true,
+  'database': true,
+}) }}{% raw %}
 
   ## File Server
   file_server:
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: True   # Allows embedding via iframe on landing page
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   true,
+}) }}{% raw %}
 
   # Firefox Browser
   firefox:
@@ -136,22 +143,24 @@ defaults_applications:
   ## Friendica
   friendica:
     version:                 "latest"
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: True   # Allows embedding via iframe on landing page  
-      oidc: True   # Enables OpenID Connect (OIDC) authentication  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   true,
+  'oidc':     true,
+  'database': true,
+}) }}{% raw %}
 
   ## Funkwhale
   funkwhale:
     version:              "1.4.0"
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: True   # Allows embedding via iframe on landing page  
-      ldap: True   # Enables LDAP integration and networking  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   true,
+  'ldap':     true,
+  'database': true,
+}) }}{% raw %}
 
   ## Gitea
   gitea:
@@ -161,20 +170,22 @@ defaults_applications:
         enable_push_create_user:      True                                      # Allow users to push local repositories to Gitea and have them automatically created for a user.
         default_private:              last                                      # Default private when creating a new repository: last, private, public
         default_push_create_private:  True                                      # Default private when creating a new repository with push-to-create.
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: True   # Allows embedding via iframe on landing page  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   true,
+  'database': true,
+}) }}{% raw %}
 
   ## Gitlab
   gitlab:
     version:                      "latest"
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: True   # Allows embedding via iframe on landing page  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   true,
+  'database': true,
+}) }}{% raw %}
 
   ## Gnome
   gnome:
@@ -186,17 +197,19 @@ defaults_applications:
   ## Joomla
   joomla:
     version:                      "latest"
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: True   # Allows embedding via iframe on landing page
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   true,
+}) }}{% raw %}
 
   ## HTML Server
   html_server:
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   false,
+}) }}{% raw %}
 
   ## Keycloak
   keycloak:
@@ -207,12 +220,13 @@ defaults_applications:
     import_realm:       True                                                # If True realm will be imported. If false skip.
 #   database_password:                                                      # Needs to be defined in inventory file
 #   administrator_password:                                                 # Needs to be defined in inventory file
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: True   # Allows embedding via iframe on landing page  
-      ldap: True   # Enables LDAP integration and networking  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   true,
+  'ldap':     true,
+  'database': true,
+}) }}{% raw %}
 
   # LDAP Account Manager 
   lam:
@@ -222,13 +236,14 @@ defaults_applications:
       application:                    application                                 # Needs to be the same as webinterface
       port:                           80                                          # application port
 #     cookie_secret:                  None                                        # Set via openssl rand -hex 16
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: True   # Allows embedding via iframe on landing page  
-      ldap: True   # Enables LDAP integration and networking  
-      oauth2: False   # Enables OAuth2 proxy integration  
-      database: False   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   true,
+  'ldap':     true,
+  'database': false,
+  'oauth2':   false,
+}) }}{% raw %}
 
   ## LDAP
   ldap:
@@ -244,8 +259,9 @@ defaults_applications:
     # administrator_password:                                                   # CHANGE for security reasons in inventory file
     # administrator_database_password:                                          # CHANGE for security reasons in inventory file
     force_import:                   False                                       # Forces the import of the LDIF files
-    features:  
-      ldap: True   # Enables LDAP integration and networking
+{% endraw %}{{ features.render_features({
+  'ldap':     true,
+}) }}{% raw %}
 
   ## Libre Office
   libreoffice:
@@ -259,11 +275,12 @@ defaults_applications:
     public_api_activated:             False                                       # Security hole. Can be used for spaming
     version:                          "latest"                                    # Docker Image version
     setup:                            false                                       # Set true in inventory file to execute the setup and initializing procedures
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: True   # Allows embedding via iframe on landing page  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   true,
+  'database': true,
+}) }}{% raw %}
 
   mailu:
     version:                          "2024.06"                                   # Docker Image Version
@@ -277,12 +294,13 @@ defaults_applications:
 #     database_password:                                                          # Needs to be set in inventory file
 #     api_token:                                                                  # Configures the authentication token. The minimum length is 3 characters. This is a mandatory setting for using the RESTful API.
 #     initial_administrator_password:                                             # Initial administrator password for setup 
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: True   # Allows embedding via iframe on landing page  
-      oidc: True   # Enables OpenID Connect (OIDC) authentication  
-      database: False   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   true,
+  'oidc':     true,
+  'database': false
+}) }}{% raw %}
 # Deactivate central database for mailu, I don't know why the database deactivation is necessary
 
   ## MariaDB
@@ -296,12 +314,13 @@ defaults_applications:
 #   cookie_secret:              None                                            # Set via openssl rand -hex 16
 #   database_password:            Null                                            # Needs to be set in inventory file
 #   auth_token:                   Null                                            # Needs to be set in inventory file
-    features:  
-      matomo: False   # Enables Matomo tracking  
-      css: False   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page  
-      oauth2: False   # Enables OAuth2 proxy integration  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   false,
+  'css':      false,
+  'iframe':   false,
+  'database': true,
+  'oauth2':   false,
+}) }}{% raw %}
 
   ## Mastodon
   mastodon:
@@ -320,12 +339,13 @@ defaults_applications:
 #       deterministic_key:                            
 #       key_derivation_salt:                          
 #       primary_key:                                  
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page  
-      oidc: True   # Enables OpenID Connect (OIDC) authentication  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   false,
+  'oidc':     true,
+  'database': true,
+}) }}{% raw %}
 
   ## Matrix
   matrix:
@@ -340,12 +360,13 @@ defaults_applications:
     element:
       version:                    "latest"
     setup:                        false                                           # Set true in inventory file to execute the setup and initializing procedures
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page  
-      oidc: False   # Enables OpenID Connect (OIDC) authentication  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   false,
+  'oidc':     false,
+  'database': true,
+}) }}{% raw %}
 # Deactivated OIDC due to this issue https://github.com/matrix-org/synapse/issues/10492
 
   ## Moodle
@@ -356,20 +377,22 @@ defaults_applications:
         username:                 "{{users.administrator.username}}"
         email:                    "{{users.administrator.email}}"
     version:                      "latest"
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   false,
+  'database': true,
+}) }}{% raw %}
 
   ## MyBB
   mybb:
     version:            "latest"
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   	true,
+  'css':      	true,
+  'iframe':   	false,
+  'database': 	true,
+}) }}{% raw %}
 
   ## Nextcloud
   nextcloud:
@@ -383,13 +406,14 @@ defaults_applications:
       # @see https://apps.nextcloud.com/apps/oidc_login
       # @see https://apps.nextcloud.com/apps/sociallogin
       flavor:                     "oidc_login"                                      # Keeping on sociallogin because the other option is not implemented yet                                             
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page  
-      ldap: True   # Enables LDAP integration and networking  
-      oidc: True   # Enables OpenID Connect (OIDC) authentication  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   	true,
+  'css':      	true,
+  'iframe':   	false,
+  'ldap':     	true,
+  'oidc':     	true,
+  'database': 	true,
+}) }}{% raw %}
     credentials:
 #     database_password:          Null                                              # Needs to be set in inventory file
     users:      
@@ -603,10 +627,11 @@ defaults_applications:
     version:            "latest"                                                                                    # Docker Image version
     redirect_url:       "https://{{domains.keycloak}}/auth/realms/{{primary_domain}}/protocol/openid-connect/auth"  # The redirect URL for the OAuth2 flow. It should match the redirect URL configured in Keycloak.
     allowed_roles:      admin                                                                                       # Restrict it default to admin role. Use the vars/main.yml to open the specific role for other groups  
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page
+{% endraw %}{{ features.render_features({
+  'matomo':   	true,
+  'css':      	true,
+  'iframe':   	false,
+}) }}{% raw %}
 
   ## Open Project
   openproject:
@@ -619,22 +644,24 @@ defaults_applications:
       filters:
         administrators:         True                                      # Set true to filter administrators
         users:                  False                                     # Set true to filter users
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page  
-      ldap: True   # Enables LDAP integration and networking  
-      oauth2: True   # Enables OAuth2 proxy integration  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   	true,
+  'css':      	true,
+  'iframe':   	false,
+  'ldap':     	true,
+  'database': 	true,
+  'oauth2':   	true,
+}) }}{% raw %}
 
   ## Peertube
   peertube:
     version:                      "bookworm"
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   	true,
+  'css':      	true,
+  'iframe':   	false,
+  'database': 	true,
+}) }}{% raw %}
 
   ## PgAdmin
   pgadmin:
@@ -649,12 +676,13 @@ defaults_applications:
       application:                "application"
       port:                       "80"
 #     cookie_secret:              None                                          # Set via: openssl rand -hex 16
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page  
-      oauth2: True   # Enables OAuth2 proxy integration  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   	true,
+  'css':      	true,
+  'iframe':   	false,
+  'database': 	true,
+  'oauth2':   	true,
+}) }}{% raw %}
 
   ## phpLDAPadmin
   phpldapadmin:
@@ -663,12 +691,13 @@ defaults_applications:
       application:                    application                               # Needs to be the same as webinterface
       port:                           8080                                      # application port
 #     cookie_secret:                  None                                      # Set via openssl rand -hex 16
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page  
-      ldap: True   # Enables LDAP integration and networking  
-      oauth2: True   # Enables OAuth2 proxy integration
+{% endraw %}{{ features.render_features({
+  'matomo':   	true,
+  'css':      	true,
+  'iframe':   	false,
+  'ldap':     	true,
+  'oauth2':   	true,
+}) }}{% raw %}
 
   ## PHPMyAdmin
   phpmyadmin:
@@ -678,22 +707,24 @@ defaults_applications:
       port:                       "80"
       application:                "application"
 #     cookie_secret:              None                                      # Set via openssl rand -hex 16
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: False   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page  
-      oauth2: True   # Enables OAuth2 proxy integration  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   	true,
+  'css':      	false,
+  'iframe':   	false,
+  'database': 	true,
+  'oauth2':   	true,
+}) }}{% raw %}
 
   ## Pixelfed
   pixelfed:
     titel:                        "Pictures on {{primary_domain}}"
     version:                      "latest"
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   	true,
+  'css':      	true,
+  'iframe':   	false,
+  'database': 	true,
+}) }}{% raw %}
 
   ## Postgres
   # Please set an version in your inventory file - Rolling release for postgres isn't recommended
@@ -701,33 +732,37 @@ defaults_applications:
     version:                      "latest"
 
   portfolio:
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page
+{% endraw %}{{ features.render_features({
+  'matomo':   	true,
+  'css':      	true,
+  'iframe':   	false,
+}) }}{% raw %}
 
   ## Presentation
   presentation:
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: True   # Allows embedding via iframe on landing page
+{% endraw %}{{ features.render_features({
+  'matomo':   	true,
+  'css':      	true,
+  'iframe':   	true,
+}) }}{% raw %}
 
   # Snipe-IT
   snipe_it:
     version:                      "latest"
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   	true,
+  'css':      	true,
+  'iframe':   	false,
+  'database': 	true,
+}) }}{% raw %}
 
   ## Sphinx
   sphinx:
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page
+{% endraw %}{{ features.render_features({
+  'matomo':   	true,
+  'css':      	true,
+  'iframe':   	false,
+}) }}{% raw %}
 
   ## Taiga
   taiga:
@@ -739,12 +774,13 @@ defaults_applications:
     #
     # Due to this reason this plutin is deactivated atm
       flavor:                     'taigaio'                                 # Potential flavors: robrotheram, taigaio
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page  
-      oidc: False   # Enables OpenID Connect (OIDC) authentication  
-      database: True   # Enables use of central database                                                                            
+{% endraw %}{{ features.render_features({
+  'matomo':   	true,
+  'css':      	true,
+  'iframe':   	false,
+  'oidc':     	false,
+  'database': 	true,
+}) }}{% raw %}                                                                            
 
   ## YOURLS
   yourls:
@@ -757,12 +793,13 @@ defaults_applications:
       port:             "80"
       location:         "/admin/"                                           # Protects the admin area
 #     cookie_secret:    None                                                # Set via openssl rand -hex 16
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: True   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page  
-      oauth2: True   # Enables OAuth2 proxy integration  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   	true,
+  'css':      	true,
+  'iframe':   	false,
+  'database': 	true,
+  'oauth2':   	true,
+}) }}{% raw %}
 
   wordpress:
 # Deactivate Global theming for wordpress role
@@ -780,9 +817,10 @@ defaults_applications:
     plugins:
       discourse:                  false
       oidc:                       true
-    features:  
-      matomo: True   # Enables Matomo tracking  
-      css: False   # Enables custom CSS styling  
-      iframe: False   # Allows embedding via iframe on landing page  
-      oidc: True   # Enables OpenID Connect (OIDC) authentication  
-      database: True   # Enables use of central database
+{% endraw %}{{ features.render_features({
+  'matomo':   	true,
+  'css':      	false,
+  'iframe':   	false,
+  'oidc':     	true,
+  'database': 	true,
+}) }}{% raw %}
