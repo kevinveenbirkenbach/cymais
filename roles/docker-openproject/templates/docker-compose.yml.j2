@@ -46,26 +46,13 @@ services:
         condition: service_started
       seeder:
         condition: service_started
-    labels:
-      - autoheal=true
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health_checks/default"]
       interval: 10s
       timeout: 3s
       retries: 3
       start_period: 30s
-
-  autoheal:
-    image: willfarrell/autoheal:1.2.0
-    container_name: openproject-autoheal
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    environment:
-      AUTOHEAL_CONTAINER_LABEL: autoheal
-      AUTOHEAL_START_PERIOD:    600
-      AUTOHEAL_INTERVAL:        30
-
+      
   worker:
     <<: *app
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
