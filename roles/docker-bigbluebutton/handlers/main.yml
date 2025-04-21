@@ -92,7 +92,7 @@
 
 - name: docker compose up bigbluebutton
   command:
-    cmd: "docker-compose -p bigbluebutton up -d --force-recreate{% if mode_cleanup | bool %} --remove-orphans{% endif %}"
+    cmd: "docker-compose -p bigbluebutton up -d --force-recreate --remove-orphans"
     # Don't use the --build flag here. This leads to bugs
     chdir: "{{ docker_compose.directories.instance }}"
   environment:

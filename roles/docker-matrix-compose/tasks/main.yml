@@ -109,7 +109,7 @@
 
 - name: docker compose project setup
   command:
-    cmd: "docker-compose -p {{application_id}} up -d{% if mode_cleanup | bool %} --remove-orphans{% endif %}"
+    cmd: "docker-compose -p {{application_id}} up -d --remove-orphans"
     chdir: "{{docker_compose.directories.instance}}"
   environment:
     COMPOSE_HTTP_TIMEOUT:   600

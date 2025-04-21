@@ -3,9 +3,6 @@ x-op-app: &app
   logging:
     driver: journald
   image: {{custom_openproject_image}}
-  volumes:
-    - "data:/var/openproject/assets"
-    - "{{dummy_volume}}:/var/openproject/pgdata" # This mount is unnecessary and just done to prevent anonymous volumes
   build:
     context: {{openproject_plugins_service}}
     dockerfile: Dockerfile
@@ -52,6 +49,9 @@ services:
       timeout: 3s
       retries: 3
       start_period: 30s
+    volumes:
+      - "data:/var/openproject/assets"
+      - "{{dummy_volume}}:/var/openproject/pgdata" # This mount is unnecessary and just done to prevent anonymous volumes
       
   worker:
     <<: *app
@@ -64,6 +64,10 @@ services:
         condition: service_started
       seeder:
         condition: service_started
+    volumes:
+      - "data:/var/openproject/assets"
+      - "{{dummy_volume}}:/var/openproject/pgdata" # This mount is unnecessary and just done to prevent anonymous volumes
+
 
   cron:
     <<: *app
@@ -76,6 +80,9 @@ services:
         condition: service_started
       seeder:
         condition: service_started
+    volumes:
+      - "data:/var/openproject/assets"
+      - "{{dummy_volume}}:/var/openproject/pgdata" # This mount is unnecessary and just done to prevent anonymous volumes
 
   seeder:
     <<: *app
@@ -87,6 +94,9 @@ services:
       driver: journald
     restart: on-failure
 {% include 'templates/docker/container/networks.yml.j2' %}
+    volumes:
+      - "data:/var/openproject/assets"
+      - "{{dummy_volume}}:/var/openproject/pgdata" # This mount is unnecessary and just done to prevent anonymous volumes
 
 {% include 'templates/docker/compose/networks.yml.j2' %}
 
