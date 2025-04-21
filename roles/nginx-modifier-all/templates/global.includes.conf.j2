@@ -2,8 +2,8 @@
 sub_filter_once off;
 sub_filter_types text/html;
 
-{% set features_css_final                = applications.get(application_id).get('features').get('css') | bool %}
-{% set features_matomo_final    = applications.get(application_id).get('features').get('matomo') | bool %}
+{% set features_css_final     = applications.get(application_id).get('features').get('css') | bool %}
+{% set features_matomo_final  = applications.get(application_id).get('features').get('matomo') | bool %}
 
 
 {% if features_matomo_final | bool %}

@@ -14,7 +14,7 @@ def get_oidc_enabled(applications, application_id):
 
 def get_features_iframe(applications, application_id):
     app = applications.get(application_id)
-    enabled = app.features.iframe
+    enabled = app.get('features', {}).get('iframe', False)
     return bool(enabled)
 
 def get_database_central_storage(applications, application_id):
