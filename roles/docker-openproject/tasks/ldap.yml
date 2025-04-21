@@ -9,10 +9,38 @@
     login_password: "{{ database_password }}"
     login_host: "127.0.0.1"
     login_port: "{{ database_port }}"
-    query: "SELECT 1 FROM ldap_auth_sources WHERE name = '{{ openproject_ldap.name }}' LIMIT 1;"
+    query: "SELECT id FROM ldap_auth_sources WHERE name = '{{ openproject_ldap.name }}' LIMIT 1;"
   register: ldap_check
 
-- name: Create LDAP auth source if it doesn't exist
+- name: Update existing LDAP auth source
+  community.postgresql.postgresql_query:
+    db: "{{ database_name }}"
+    login_user: "{{ database_username }}"
+    login_password: "{{ database_password }}"
+    login_host: "127.0.0.1"
+    login_port: "{{ database_port }}"
+    query: >
+      UPDATE ldap_auth_sources SET
+        host = '{{ openproject_ldap.host }}',
+        port = {{ openproject_ldap.port }},
+        account = '{{ openproject_ldap.account }}',
+        account_password = '{{ openproject_ldap.account_password }}',
+        base_dn = '{{ openproject_ldap.base_dn }}',
+        attr_login = '{{ openproject_ldap.attr_login }}',
+        attr_firstname = '{{ openproject_ldap.attr_firstname }}',
+        attr_lastname = '{{ openproject_ldap.attr_lastname }}',
+        attr_mail = '{{ openproject_ldap.attr_mail }}',
+        onthefly_register = {{ openproject_ldap.onthefly_register }},
+        attr_admin = '{{ openproject_ldap.attr_admin }}',
+        updated_at = NOW(),
+        tls_mode = {{ openproject_ldap.tls_mode }},
+        filter_string = '{{ openproject_ldap.filter_string }}',
+        verify_peer = {{ openproject_ldap.verify_peer }},
+        tls_certificate_string = '{{ openproject_ldap.tls_certificate_string }}'
+      WHERE name = '{{ openproject_ldap.name }}';
+  when: ldap_check.query_result | length > 0
+
+- name: Create new LDAP auth source
   community.postgresql.postgresql_query:
     db: "{{ database_name }}"
     login_user: "{{ database_username }}"
@@ -46,7 +74,7 @@
       );
   when: ldap_check.query_result | length == 0
 
-- name: Check if LDAP source exists
+- name: Show all LDAP sources (debug)
   community.postgresql.postgresql_query:
     db: "{{ database_name }}"
     login_user: "{{ database_username }}"
@@ -56,9 +84,28 @@
     query: "SELECT id, name FROM ldap_auth_sources"
   register: ldap_entries
   when: enable_debug | bool
-  
-- name: "Debug LDAP entries"
+
+- name: Debug LDAP entries
   debug:
     var: ldap_entries
   when: enable_debug | bool
 
+# This works just after the first admin login
+# @todo Remove and replace trough LDAP RBAC group
+- name: Set LDAP user as admin via OpenProject Rails runner
+  shell: >
+    docker compose exec web bash -c "
+      cd /app &&
+      RAILS_ENV=production bundle exec rails runner \"
+        user = User.find_by(mail: '{{ users.administrator.email }}');
+        if user.nil?;
+          puts 'User with email {{ users.administrator.email }} not found.';
+        else;
+          user.admin = true;
+          user.save!;
+          puts 'User \#{user.login} is now an admin.';
+        end
+      \"
+    "
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"

@@ -46,10 +46,12 @@
 - name: flush docker service
   meta: flush_handlers
 
-- name: "Set OpenProject settings via rails"
-  command: >
+- name: Set settings in OpenProject
+  shell: >
     docker compose exec web bash -c "cd /app &&
-    RAILS_ENV=production bundle exec rails runner 'Setting[:{{ item.key }}] = {{ item.value | to_json }}'"
+    RAILS_ENV=production bundle exec rails runner \"Setting[:{{ item.key }}] = '{{ item.value }}'\""
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
   loop: "{{ openproject_rails_settings | dict2items }}"
 
 - name: Setup LDAP
