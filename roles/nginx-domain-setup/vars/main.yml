@@ -1,2 +1,2 @@
 configuration_destination:        "{{nginx.directories.http.servers}}{{domain}}.conf"
-final_oauth2_enabled:             "{{applications[application_id].get('oauth2_proxy', {}).get('enabled', False)}}"
+final_oauth2_enabled:             "{{applications[application_id].get('features', {}).get('oauth2', False)}}"

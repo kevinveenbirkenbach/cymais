@@ -1,10 +1,11 @@
 # It isn't best practice to use this task
 # Better load the repositories into /opt/docker/[servicename]/services, build them there and then use a docker-compose file for customizing
 # @todo Refactor\Remove 
+# @deprecated
 - name: "Merge detached_files with applications.oauth2_proxy.configuration_file"
   ansible.builtin.set_fact:
     merged_detached_files: "{{ detached_files + [applications.oauth2_proxy.configuration_file] }}"
-  when: applications[application_id].get('oauth2_proxy', {}).get('enabled', False) | bool
+  when: applications[application_id].get('features', {}).get('oauth2', False) | bool
 
 - name: "backup detached files"
   command: >
