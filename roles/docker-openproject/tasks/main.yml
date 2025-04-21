@@ -47,14 +47,9 @@
   meta: flush_handlers
 
 - name: "Set OpenProject settings via rails"
-  vars:
-    rails_env: "RAILS_ENV=production"
-    rails_cmd: "bundle exec rails runner"
-  docker_container:
-    name: openproject-web
-    command: >
-      bash -c "cd /app &&
-      {{ rails_env }} {{ rails_cmd }} 'Setting[:{{ item.key }}] = {{ item.value | to_json }}'"
+  command: >
+    docker compose exec web bash -c "cd /app &&
+    RAILS_ENV=production bundle exec rails runner 'Setting[:{{ item.key }}] = {{ item.value | to_json }}'"
   loop: "{{ openproject_rails_settings | dict2items }}"
 
 - name: Setup LDAP
