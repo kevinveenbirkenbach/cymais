@@ -2,7 +2,7 @@
 
 ## Description
 
-WordPress is a versatile and widely used content management system (CMS) that powers millions of websites—from blogs and portfolios to e-commerce and corporate sites. This deployment provides a containerized WordPress instance optimized for multisite operation, advanced media management, and extensive plugin support, allowing you to fully leverage the rich features of the WordPress software.
+[WordPress](https://en.wordpress.org/) is a versatile and widely used [content management system (CMS)](https://en.wikipedia.org/wiki/Content_management_system) that powers millions of websites—from blogs and portfolios to e-commerce and corporate sites. This deployment provides a containerized WordPress instance optimized for multisite operation, advanced media management, and extensive plugin support, allowing you to fully leverage the rich features of the WordPress software.
 
 ## Overview
 
@@ -31,6 +31,8 @@ WordPress offers an extensive array of features that make it a robust platform f
 
 This automated Docker Compose deployment streamlines the process by building a custom WordPress image (which includes tools like msmtp for email delivery) and configuring the necessary PHP settings. In doing so, it ensures that your WordPress site is secure, scalable, and always up‑to‑date.
 
+This deployment provides a containerized WordPress instance optimized for multisite operation, advanced media management, and extensive plugin support—including optional integration with Discourse forums.
+
 ## Purpose
 
 The goal of this deployment is to provide a production‑ready, scalable WordPress instance with multisite capabilities and enhanced performance. By automating the custom image build and configuration processes via Docker Compose and Ansible, it minimizes manual intervention, reduces errors, and allows you to concentrate on building great content.
@@ -40,6 +42,7 @@ The goal of this deployment is to provide a production‑ready, scalable WordPre
 - [WordPress Official Website](https://wordpress.org/)
 - [WordPress Multisite Documentation](https://wordpress.org/support/article/create-a-network/)
 - [WordPress Plugin Repository](https://wordpress.org/plugins/)
+- [WP Discourse Plugin](https://wordpress.org/plugins/wp-discourse/)  
 
 ## Credits
 

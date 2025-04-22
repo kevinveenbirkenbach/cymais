@@ -1,0 +1,37 @@
+- name: "Revoke old WP Discourse API keys via Rails"
+  command: >
+    docker exec {{ applications.discourse.container }}
+      rails runner "
+        user = User.find_by_username('system')
+        ApiKey
+          .where(
+            user_id: user.id,
+            description: 'WP Discourse Integration',
+            revoked_at: nil
+          )
+          .update_all(revoked_at: Time.current)
+      "
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  failed_when: false
+
+- name: "Generate new WP Discourse API key via Rails"
+  command: >
+    docker exec {{ applications.discourse.container }}
+      rails runner "
+        user = User.find_by_username('system')
+        ak   = ApiKey.create!(
+                 user_id:     user.id,
+                 token:       SecureRandom.hex,
+                 description: 'WP Discourse Integration'
+               )
+        puts ak.token
+      "
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  register: discourse_generated_api_key
+  failed_when: false
+
+- name: "Set fact for new WP Discourse API key"
+  set_fact:
+    vault_discourse_api_key: "{{ discourse_generated_api_key.stdout_lines[0] }}"

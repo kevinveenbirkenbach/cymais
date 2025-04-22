@@ -815,7 +815,7 @@ defaults_applications:
 #       password:                                                             # Password of the wordpress administrator
         email:                    "{{users.administrator.email}}"             # Email of the wordpress adminsitrator
     plugins:
-      discourse:                  false
+      discourse:                  "{{ 'discourse' in group_names | lower }}"
       oidc:                       true
 {% endraw %}{{ features.render_features({
   'matomo':   	true,

@@ -1,4 +1,17 @@
 ---
+- name: "Include docker-discourse"
+  include_role:
+    name: docker-discourse
+
+- name: "Generate Discourse API Key when WP Discourse is enabled"
+  include_tasks: generate-api-key.yml
+
+# Load after api key generation, so that it can be used
+- name: "Include WP Discourse vars"
+  include_vars:
+    file: "{{ role_path }}/vars/discourse.yml"
+    name: discourse_settings
+
 - name: "Install WP Discourse plugin"
   command: >
     docker-compose exec -u www-data -T application

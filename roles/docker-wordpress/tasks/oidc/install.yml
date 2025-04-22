@@ -7,6 +7,13 @@
   args:
     chdir: "{{ docker_compose.directories.instance }}"
 
+- name: Wait for Discourse API
+  wait_for:
+    host: "{{ domains.discourse }}"
+    port: 80
+    delay: 5
+    timeout: 600
+
 - name: "Activate OpenID Connect Generic Plugin"
   command: >
     docker-compose exec -u www-data -T application
@@ -16,4 +23,4 @@
     chdir: "{{ docker_compose.directories.instance }}"
 
 - name: "Setup OIDC settings"
-  include_tasks: "oidc_settings.yml"
+  include_tasks: "settings.yml"

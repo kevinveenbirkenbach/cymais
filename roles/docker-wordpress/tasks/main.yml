@@ -38,9 +38,9 @@
   include_tasks: install.yml
 
 - name: "Activating OIDC when enabled."
-  include_tasks: oidc.yml
+  include_tasks: oidc/install.yml
   when: applications[application_id].features.oidc | bool
 
-#- name: "Activating WP Discourse when enabled"
-#  include_tasks: wp_discourse.yml
-#  when: applications[application_id].wp_discourse.enabled | bool
+- name: "Activating WP Discourse when enabled"
+  include_tasks: discourse/install.yml
+  when: applications[application_id].plugins.discourse | bool

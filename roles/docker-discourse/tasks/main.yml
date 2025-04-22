@@ -5,10 +5,12 @@
   pacman:
     name: which
     state: present
+  when: run_once_docker_discourse is not defined
 
 - name: "include docker-central-database"
   include_role: 
     name: docker-central-database
+  when: run_once_docker_discourse is not defined
 
 - name: "include role nginx-domain-setup for {{application_id}}"
   include_role:
@@ -16,21 +18,27 @@
   vars:
     domain: 	"{{ domains[application_id] }}"
     http_port: 	"{{ ports.localhost.http[application_id] }}"
+  when: run_once_docker_discourse is not defined
 
 - name: "cleanup central database from {{application_id}}_default network"
   command:
     cmd: "docker network disconnect {{applications.discourse.network}} central-{{ database_type }}"
   ignore_errors: true
-  when: mode_reset | bool
+  when: 
+    - mode_reset | bool
+    - run_once_docker_discourse is not defined
 
 - name: add docker-compose.yml
   template: 
     src:  docker-compose.yml.j2 
     dest: "{{docker_compose.directories.instance}}docker-compose.yml"
-  notify: docker compose project setup
+  notify:
+    - docker compose project setup
+    - run_once_docker_discourse is not defined
 
 - name: flush, to recreate discourse docker compose
   meta: flush_handlers
+  when: run_once_docker_discourse is not defined
 
 - name: pull docker repository
   git:
@@ -40,18 +48,21 @@
   notify: recreate discourse
   become: true
   ignore_errors: true
+  when: run_once_docker_discourse is not defined
 
 - name: set chmod 700 for {{docker_repository_directory }}containers
   ansible.builtin.file:
     path: "{{docker_repository_directory }}/containers"
     mode: '700'
     state: directory
+  when: run_once_docker_discourse is not defined
 
 - name: "copy configuration to {{discourse_application_yml_destination}}"
   template: 
     src: discourse_application.yml.j2
     dest: "{{discourse_application_yml_destination}}"
   notify: recreate discourse
+  when: run_once_docker_discourse is not defined
 
 - name: "destroy container discourse_application"
   command:
@@ -59,19 +70,31 @@
     chdir: "{{docker_repository_directory }}"
   ignore_errors: true
   notify: recreate discourse
-  when: mode_reset | bool
+  when:
+    - mode_reset | bool
+    - run_once_docker_discourse is not defined
 
 - name: flush, to recreate discourse app
   meta: flush_handlers
+  when: run_once_docker_discourse is not defined
 
 - name: "add {{applications.discourse.container}} to network central_postgres"
   command:
     cmd: "docker network connect central_postgres {{applications.discourse.container}}"
   ignore_errors: true
-  when: applications[application_id].features.database | bool
+  when:
+    - applications[application_id].features.database | bool
+    - run_once_docker_discourse is not defined
   
 - name: "remove central database from {{application_id}}_default"
   command:
     cmd: "docker network disconnect {{applications.discourse.network}} central-{{ database_type }}"
   ignore_errors: true
-  when: applications[application_id].features.database | bool
+  when:
+    - applications[application_id].features.database | bool
+    - run_once_docker_discourse is not defined
+
+- name: run the docker_discourse tasks once
+  set_fact:
+    run_once_docker_discourse: true
+  when: run_once_docker_discourse is not defined
