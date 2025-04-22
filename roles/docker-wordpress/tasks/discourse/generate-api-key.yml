@@ -1,37 +1,38 @@
-- name: "Revoke old WP Discourse API keys via Rails"
+---
+- name: Add /var/www/discourse to Git safe.directory
   command: >
-    docker exec {{ applications.discourse.container }}
-      rails runner "
-        user = User.find_by_username('system')
-        ApiKey
-          .where(
-            user_id: user.id,
-            description: 'WP Discourse Integration',
-            revoked_at: nil
-          )
-          .update_all(revoked_at: Time.current)
-      "
+    docker exec {{ applications.discourse.container }} \
+      git config --global --add safe.directory /var/www/discourse
   args:
     chdir: "{{ docker_compose.directories.instance }}"
+  changed_when: false
+
+- name: Revoke old WP Discourse API keys via Rails
+  command: >
+    docker exec {{ applications.discourse.container }} bash -lc "\
+      cd /var/www/discourse && \
+      script/rails runner \"\
+        ApiKey.where(\
+          user_id: User.find_by_username('system').id,\
+          description: 'WP Discourse Integration',\
+          revoked_at: nil\
+        ).update_all(revoked_at: Time.current)\
+      \""
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  changed_when: false
   failed_when: false
 
-- name: "Generate new WP Discourse API key via Rails"
+- name: Generate new WP Discourse API key via Rake task
   command: >
-    docker exec {{ applications.discourse.container }}
-      rails runner "
-        user = User.find_by_username('system')
-        ak   = ApiKey.create!(
-                 user_id:     user.id,
-                 token:       SecureRandom.hex,
-                 description: 'WP Discourse Integration'
-               )
-        puts ak.token
-      "
+    docker exec {{ applications.discourse.container }} bash -lc "\
+      cd /var/www/discourse && \
+      bin/rake api_key:create_master['WP Discourse Integration']\
+    "
   args:
     chdir: "{{ docker_compose.directories.instance }}"
   register: discourse_generated_api_key
-  failed_when: false
 
-- name: "Set fact for new WP Discourse API key"
+- name: Store the new WP Discourse API key in a fact
   set_fact:
-    vault_discourse_api_key: "{{ discourse_generated_api_key.stdout_lines[0] }}"
+    vault_discourse_api_key: "{{ discourse_generated_api_key.stdout | trim }}"
