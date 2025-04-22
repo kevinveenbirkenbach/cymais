@@ -272,6 +272,7 @@ defaults_applications:
     users:
       administrator:
         username:                     "{{users.administrator.username}}"          # Listmonk administrator account username
+        password:                     "{{users.administrator.password}}"          # Password to initialized Listmonk administrator with
     public_api_activated:             False                                       # Security hole. Can be used for spaming
     version:                          "latest"                                    # Docker Image version
     setup:                            false                                       # Set true in inventory file to execute the setup and initializing procedures
@@ -280,6 +281,7 @@ defaults_applications:
   'css':      true,
   'iframe':   true,
   'database': true,
+  'oidc':     true,
 }) }}{% raw %}
 
   mailu:
