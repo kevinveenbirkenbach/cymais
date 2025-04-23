@@ -40,23 +40,13 @@
     chdir: "{{docker_compose.directories.instance}}"
   when: "'No relations found.' in db_tables.stdout"
 
-- name: Construct OIDC settings JSON
-  set_fact:
-    oidc_settings_json: >-
-      {{ {
-         "enabled":        True,
-         "client_id":      oidc.client.id,
-         "provider_url":   oidc.client.discovery_document,
-         "client_secret":  oidc.client.secret
-      } | to_json }}
-
 - name: Build OIDC settings JSON
   set_fact:
     oidc_settings_json: >-
       {{ {
          "enabled":       True,
          "client_id":     oidc.client.id,
-         "provider_url":  oidc.client.discovery_document,
+         "provider_url":  oidc.client.issuer_url,
          "client_secret": oidc.client.secret
       } | to_json }}
 
