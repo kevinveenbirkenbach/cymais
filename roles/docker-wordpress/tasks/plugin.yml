@@ -1,0 +1,18 @@
+---
+- name: "Check if plugin has a dedicated install task"
+  stat:
+    path: "{{ plugin_task_path }}"
+  register: plugin_task_file
+
+- name: "Include plugin-specific install task if it exists"
+  include_tasks: "{{ plugin_task_path }}"
+  when: plugin_task_file.stat.exists
+
+- name: "Install and activate WordPress plugin via WP CLI"
+  command: >
+    docker-compose exec -u www-data -T application
+      wp plugin install {{ plugin_name }} --activate
+      --path={{ wordpress_docker_html_path }}
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  when: not plugin_task_file.stat.exists

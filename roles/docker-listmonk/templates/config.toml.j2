@@ -5,14 +5,6 @@
 # port, use port 80 (this will require running with elevated permissions).
 address = "0.0.0.0:9000"
 
-# BasicAuth authentication for the admin dashboard. This will eventually
-# be replaced with a better multi-user, role-based authentication system.
-# IMPORTANT: Leave both values empty to disable authentication on admin
-# only where an external authentication is already setup.
-# admin_username = "{{applications.listmonk.users.administrator.username}}"
-# admin_password = "{{listmonk_admin_password}}"
-# Deactivated for newer versions
-
 # Database.
 [db]
 host = "{{database_host}}"

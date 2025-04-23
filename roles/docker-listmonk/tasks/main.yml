@@ -19,21 +19,17 @@
     domain: 	"{{ domains[application_id] }}"
     http_port: 	"{{ ports.localhost.http[application_id] }}"
 
-- name: "copy docker-compose.yml and env file"
-  include_tasks: copy-docker-compose-and-env.yml
-
 - name: add config.toml
   template: 
     src:  "config.toml.j2" 
     dest: "{{docker_compose.directories.config}}config.toml"
   notify: docker compose project setup
 
-- name: flush docker service
-  meta: flush_handlers
-  when: applications.listmonk.setup |bool 
+- name: "copy docker-compose.yml and env file"
+  include_tasks: copy-docker-compose-and-env.yml
 
 - name: setup routine for listmonk
   command:
     cmd:   docker compose run -T --rm application sh -c "yes | ./listmonk --install"
     chdir: "{{docker_compose.directories.instance}}"
-  when: applications.listmonk.setup |bool 
+  ignore_errors: true # Ignore errors if already setup

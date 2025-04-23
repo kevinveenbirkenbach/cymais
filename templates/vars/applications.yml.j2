@@ -273,6 +273,9 @@ defaults_applications:
       administrator:
         username:                     "{{users.administrator.username}}"          # Listmonk administrator account username
 #        password:                     "{{users.administrator.password}}"          # Password to initialized Listmonk administrator with
+    credentials:
+      database:
+#        password:                     ""                                          # Database password
     public_api_activated:             False                                       # Security hole. Can be used for spaming
     version:                          "latest"                                    # Docker Image version
     setup:                            false                                       # Set true in inventory file to execute the setup and initializing procedures
@@ -817,8 +820,13 @@ defaults_applications:
 #       password:                                                             # Password of the wordpress administrator
         email:                    "{{users.administrator.email}}"             # Email of the wordpress adminsitrator
     plugins:
-      discourse:                  "{{ 'discourse' in group_names | lower }}"
-      oidc:                       true
+      wp-discourse:
+        enabled:  "{{ 'discourse' in group_names | lower }}"
+      daggerhart-openid-connect-generic:
+        enabled:  true
+      activitypub:
+        enabled:  true
+      
 {% endraw %}{{ features.render_features({
   'matomo':   	true,
   'css':      	false,

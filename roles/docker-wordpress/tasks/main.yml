@@ -37,10 +37,15 @@
 - name: "Install wordpress"
   include_tasks: install.yml
 
-- name: "Activating OIDC when enabled."
-  include_tasks: oidc/install.yml
-  when: applications[application_id].features.oidc | bool
-
-- name: "Activating WP Discourse when enabled"
-  include_tasks: discourse/install.yml
-  when: applications[application_id].plugins.discourse | bool
+- name: "Install and activate WordPress plugins from application config"
+  block:
+    - name: "Iterate through WordPress plugins"
+      include_tasks: plugin.yml
+      loop: "{{ applications[application_id].plugins | dict2items }}"
+      loop_control:
+        label: "{{ item.key }}"
+      vars:
+        plugin_name: "{{ item.key }}"
+        plugin_enabled: "{{ item.value.enabled | bool }}"
+        plugin_task_path: "{{ role_path }}/tasks/plugins/{{ plugin_name }}/install.yml"
+      when: plugin_enabled
