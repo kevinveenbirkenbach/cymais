@@ -3,13 +3,19 @@
   include_role:
     name: docker-discourse
 
+- name: Wait for Discourse API
+  wait_for:
+    host: "{{ domains.discourse }}"
+    port: 80
+    delay: 5
+    timeout: 600
+
 - name: "Generate Discourse API Key when WP Discourse is enabled"
   include_tasks: generate-api-key.yml
 
 - name: "Load WP Discourse settings"
   include_vars:
     file: "{{ role_path }}/vars/discourse.yml"
-    # <— drop the `name:` here so `discourse_settings` is the list itself
 
 - name: "Install WP Discourse plugin"
   command: >
