@@ -3,7 +3,7 @@ bbb_repository_directory:     "{{ docker_compose.directories.services }}"
 docker_compose_file_origine:  "{{ docker_compose.directories.services }}docker-compose.yml"
 docker_compose_file_final:    "{{ docker_compose.directories.instance }}docker-compose.yml"
 database_instance:            "bigbluebutton"
-database_name:                "" # Database name is empty, because bb uses multiple databases
+database_name:                "multiple_databases"
 database_username:            "postgres"
 database_password:            "{{ applications.bigbluebutton.credentials.postgresql_secret }}"
 domain: 	                    "{{ domains[application_id] }}"
