@@ -6,25 +6,48 @@
 - name: "Generate Discourse API Key when WP Discourse is enabled"
   include_tasks: generate-api-key.yml
 
-# Load after api key generation, so that it can be used
-- name: "Include WP Discourse vars"
+- name: "Load WP Discourse settings"
   include_vars:
     file: "{{ role_path }}/vars/discourse.yml"
-    name: discourse_settings
+    # <— drop the `name:` here so `discourse_settings` is the list itself
 
 - name: "Install WP Discourse plugin"
   command: >
     docker-compose exec -u www-data -T application
-    wp plugin install wp-discourse --activate
-    --path={{ wordpress_docker_html_path }}
+      wp plugin install wp-discourse --activate
+      --path={{ wordpress_docker_html_path }}
   args:
     chdir: "{{ docker_compose.directories.instance }}"
 
 - name: "Configure WP Discourse settings"
+  loop: "{{ discourse_settings | map(attribute='name') | unique | list }}"
+  loop_control:
+    label: "{{ item }}"
   vars:
-    discourse_settings_json_b64: "{{ discourse_settings | to_json | b64encode }}"
+    option_name: "{{ item }}"
+
+    option_items: >-
+      {{ discourse_settings
+         | selectattr('name', 'equalto', option_name)
+         | list
+      }}
+
+    option_kv: >-
+      {{ dict(
+           option_items | map(attribute='key')
+           | zip(option_items | map(attribute='value'))
+         ) }}
+
+    option_json_b64: "{{ option_kv | to_json | b64encode }}"
+
   command: >
     docker-compose exec -u www-data -T application bash -lc
-    "wp eval \"update_option('wp_discourse_options', json_decode(base64_decode('{{ discourse_settings_json_b64 }}'), true));\" --path={{ wordpress_docker_html_path }}"
+      "wp eval \"update_option(
+         '{{ option_name }}',
+         json_decode(
+           base64_decode('{{ option_json_b64 }}'),
+           true
+         )
+       );\" --path={{ wordpress_docker_html_path }}"
   args:
     chdir: "{{ docker_compose.directories.instance }}"
