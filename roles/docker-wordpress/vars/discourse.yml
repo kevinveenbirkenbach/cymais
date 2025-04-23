@@ -57,10 +57,10 @@ discourse_settings:
   #  value: 0
   #- name: discourse_publish
   #  key: publish-failure-notice
-  #  value: false
+  #  value: true
   #- name: discourse_publish
   #  key: publish-failure-email
-  #  value: ""
+  #  value: "{{ users.administrator.email }}"
   #- name: discourse_publish
   #  key: auto-track
   #  value: true
@@ -240,6 +240,6 @@ discourse_settings:
   #  key: sso-client-sync-logout
   #  value: false
 #
-  #- name: discourse_logs
-  #  key: logs-enabled
-  #  value: true
+  - name: discourse_logs
+    key: logs-enabled
+    value: {{ enable_debug }}
