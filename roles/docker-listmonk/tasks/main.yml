@@ -50,38 +50,18 @@
          "client_secret": oidc.client.secret
       } | to_json }}
 
-- name: Apply OIDC settings via Docker + here-doc
+- name: Apply all Listmonk settings
   shell: |
     docker exec -i {{ database_host }} psql \
       -U {{ database_username }} \
-      -d {{ database_name }} <<'EOSQL'
+      -d {{ database_name }} << 'EOSQL'
     UPDATE settings
-    SET value = '{{ oidc_settings_json }}'::jsonb
-    WHERE key = 'security.oidc';
+    SET value = '{{ item.value }}'::jsonb
+    WHERE key = '{{ item.key }}';
     EOSQL
   args:
     executable: /bin/bash
-  when: applications[application_id].features.oidc | bool
-
-- name: Enable hCaptcha and configure keys in Listmonk database
-  shell: |
-    docker exec -i {{ database_host }} psql \
-      -U {{ database_username }} \
-      -d {{ database_name }} <<'EOSQL'
-    -- enable captcha (boolean true)
-    UPDATE settings
-    SET value = 'true'::jsonb
-    WHERE key = 'security.enable_captcha';
-
-    -- set site key (JSON string)
-    UPDATE settings
-    SET value = '"{{ applications[application_id].credentials.hcaptcha.site_key }}"'::jsonb
-    WHERE key = 'security.captcha_key';
-
-    -- set secret (JSON string)
-    UPDATE settings
-    SET value = '"{{ applications[application_id].credentials.hcaptcha.secret }}"'::jsonb
-    WHERE key = 'security.captcha_secret';
-    EOSQL
-  args:
-    executable: /bin/bash
+  loop: "{{ listmonk_settings }}"
+  loop_control:
+    label: "{{ item.key }}"
+  when: item.when is not defined or item.when

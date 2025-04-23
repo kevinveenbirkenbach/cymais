@@ -1,3 +1,25 @@
 application_id:  	  "listmonk"
 database_password:  "{{applications[application_id].credentials.database.password}}"
 database_type:      "postgres"
+
+listmonk_settings:
+  - key: "app.root_url"
+    value: '"https://{{ domains[application_id] }}"'
+
+  # OIDC integration (conditional)
+  - key: "security.oidc"
+    value: >-
+      {{ {
+         "enabled": True,
+         "client_id": oidc.client.id,
+         "provider_url": oidc.client.issuer_url,
+         "client_secret": oidc.client.secret
+      } | to_json }}
+    when: applications[application_id].features.oidc | bool
+
+  # hCaptcha toggles and credentials\ n  - key: "security.enable_captcha"
+    value: "true"
+  - key: "security.captcha_key"
+    value: '"{{ applications[application_id].credentials.hcaptcha.site_key }}"'
+  - key: "security.captcha_secret"
+    value: '"{{ applications[application_id].credentials.hcaptcha.secret }}"'
