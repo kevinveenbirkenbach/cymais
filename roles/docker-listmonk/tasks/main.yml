@@ -3,10 +3,10 @@
   include_role: 
     name: docker-central-database
 
-- name: Set nginx_docker_reverse_proxy_extra_configuration based on applications.listmonk.public_api_activated
+- name: Set nginx_docker_reverse_proxy_extra_configuration based on applications[application_id].public_api_activated
   set_fact:
     nginx_docker_reverse_proxy_extra_configuration: >-
-      {% if not applications.listmonk.public_api_activated %}
+      {% if not applications[application_id].public_api_activated %}
       {{ lookup('file', '{{ role_path }}/files/deactivate-public-api.conf') }}
       {% else %}
       ""
@@ -28,8 +28,70 @@
 - name: "copy docker-compose.yml and env file"
   include_tasks: copy-docker-compose-and-env.yml
 
-- name: setup routine for listmonk
+- name: Check if listmonk database is already initialized
+  command: docker compose exec -T {{database_host}} psql -U {{database_username}} -d {{database_name}} -c "\dt"
+  register: db_tables
+  changed_when: false
+  failed_when: false
+
+- name: Run Listmonk setup only if DB is empty
   command:
-    cmd:   docker compose run -T --rm application sh -c "yes | ./listmonk --install"
+    cmd: docker compose run -T --rm application sh -c "yes | ./listmonk --install"
     chdir: "{{docker_compose.directories.instance}}"
-  ignore_errors: true # Ignore errors if already setup
+  when: "'No relations found.' in db_tables.stdout"
+
+- name: Construct OIDC settings JSON
+  set_fact:
+    oidc_settings_json: >-
+      {{ {
+         "enabled":        True,
+         "client_id":      oidc.client.id,
+         "provider_url":   oidc.client.discovery_document,
+         "client_secret":  oidc.client.secret
+      } | to_json }}
+
+- name: Build OIDC settings JSON
+  set_fact:
+    oidc_settings_json: >-
+      {{ {
+         "enabled":       True,
+         "client_id":     oidc.client.id,
+         "provider_url":  oidc.client.discovery_document,
+         "client_secret": oidc.client.secret
+      } | to_json }}
+
+- name: Apply OIDC settings via Docker + here-doc
+  shell: |
+    docker exec -i {{ database_host }} psql \
+      -U {{ database_username }} \
+      -d {{ database_name }} <<'EOSQL'
+    UPDATE settings
+    SET value = '{{ oidc_settings_json }}'::jsonb
+    WHERE key = 'security.oidc';
+    EOSQL
+  args:
+    executable: /bin/bash
+  when: applications[application_id].features.oidc | bool
+
+- name: Enable hCaptcha and configure keys in Listmonk database
+  shell: |
+    docker exec -i {{ database_host }} psql \
+      -U {{ database_username }} \
+      -d {{ database_name }} <<'EOSQL'
+    -- enable captcha (boolean true)
+    UPDATE settings
+    SET value = 'true'::jsonb
+    WHERE key = 'security.enable_captcha';
+
+    -- set site key (JSON string)
+    UPDATE settings
+    SET value = '"{{ applications[application_id].credentials.hcaptcha.site_key }}"'::jsonb
+    WHERE key = 'security.captcha_key';
+
+    -- set secret (JSON string)
+    UPDATE settings
+    SET value = '"{{ applications[application_id].credentials.hcaptcha.secret }}"'::jsonb
+    WHERE key = 'security.captcha_secret';
+    EOSQL
+  args:
+    executable: /bin/bash

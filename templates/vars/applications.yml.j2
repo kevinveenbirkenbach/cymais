@@ -276,9 +276,12 @@ defaults_applications:
     credentials:
       database:
 #        password:                     ""                                          # Database password
+      hcaptcha:
+#       site_key:
+#       secret:
     public_api_activated:             False                                       # Security hole. Can be used for spaming
     version:                          "latest"                                    # Docker Image version
-    setup:                            false                                       # Set true in inventory file to execute the setup and initializing procedures
+
 {% endraw %}{{ features.render_features({
   'matomo':   true,
   'css':      true,
