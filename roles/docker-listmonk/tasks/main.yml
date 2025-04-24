@@ -50,6 +50,19 @@
          "client_secret": oidc.client.secret
       } | to_json }}
 
+- name: Update administrator email in Listmonk
+  shell: |
+    docker exec -i {{ database_host }} psql \
+      -U {{ database_username }} \
+      -v ON_ERROR_STOP=1 \
+      -d {{ database_name }} << 'EOSQL'
+    UPDATE users
+    SET email = '{{users.administrator.email}}'
+    WHERE username = 'administrator';
+    EOSQL
+  args:
+    executable: /bin/bash
+
 - name: Apply all Listmonk settings
   shell: |
     docker exec -i {{ database_host }} psql \
