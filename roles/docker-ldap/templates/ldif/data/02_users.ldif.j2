@@ -16,9 +16,9 @@ description: Container for application access profiles
 # Create User {{ username }}
 #######################################################################
 dn: {{ ldap.attributes.user_id }}={{ username }},{{ ldap.dn.users }}
-objectClass: top
-objectClass: inetOrgPerson
-objectClass: posixAccount
+{% for cls in ldap.user_objects %}
+objectClass: {{ cls }}
+{% endfor %}
 {{ ldap.attributes.user_id }}: {{ username }}
 sn: {{ username }}
 cn: {{ username }}

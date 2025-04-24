@@ -65,4 +65,8 @@ ldap:
     uri:                "{% if applications.ldap.network.local | bool %}ldap://{{ applications.ldap.hostname }}{% else %}ldaps://{{ domains.ldap }}{% endif %}:{{ _ldap_server_port }}"
   network:
     local:              "{{applications.ldap.network.local}}" # Uses the application configuration to define if local network should be available or not
-  
+  user_objects:
+    - person          # Basic person attributes (sn, cn …) – RFC 4519
+    - inetOrgPerson   # Extended Internet / intranet person – RFC 2798
+    - posixAccount    # POSIX/UNIX login attributes (uidNumber, gidNumber …) – RFC 2307
+    - nextcloudUser   # Nextcloud-specific auxiliary attributes (nextcloudQuota, nextcloudEnabled) – Nextcloud schema

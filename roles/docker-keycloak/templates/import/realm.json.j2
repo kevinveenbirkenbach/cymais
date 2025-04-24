@@ -2070,7 +2070,7 @@
             "false"
           ],
           "userObjectClasses": [
-            "person, inetOrgPerson, nextcloudUser"
+            "{{ ldap.user_objects | join(', ') }}"
           ],
           "rdnLDAPAttribute": [
             "{{ldap.attributes.user_id}}"
