@@ -13,8 +13,8 @@ openproject_rails_settings:
   email_delivery_method:      "smtp"
   smtp_address:               "{{ system_email.host }}"
   smtp_domain:                "{{ system_email.domain }}"
-  smtp_user_name:             "{{ system_email.username }}"
-  smtp_password:              "{{ system_email.password }}"
+  smtp_user_name:             "{{ users['no-reply'].email }}"
+  smtp_password:              "{{ users['no-reply'].mailu_token }}"
   smtp_ssl:                   false
 
 openproject_filters:

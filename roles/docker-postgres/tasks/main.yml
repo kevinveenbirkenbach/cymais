@@ -30,10 +30,16 @@
   register: setup_postgres_container_result
   when: run_once_docker_postgres is not defined
 
-- name: wait for database
-  pause:
-    seconds: "{{pause_duration}}"
-  when: setup_postgres_container_result.changed and run_once_docker_postgres is not defined
+- name: Wait for Postgres inside the container
+  shell: docker exec central-postgres pg_isready -U postgres
+  register: pg_ready
+  until: pg_ready.rc == 0
+  retries: 30
+  delay: 5
+  when:
+    - setup_postgres_container_result is defined
+    - setup_postgres_container_result.changed
+    - run_once_docker_postgres is not defined
 
 - name: install python-psycopg2
   pacman: 

@@ -1655,18 +1655,18 @@
     "strictTransportSecurity": "max-age=31536000; includeSubDomains"
   },
   "smtpServer": {
-    "password": "{{system_email.password}}",
+    "password": "{{ users['no-reply'].mailu_token }}",
     "replyToDisplayName": "",
     "starttls": "{{system_email.start_tls | lower}}",
     "auth": "true",
     "port": "{{system_email.port}}",
     "replyTo": "",
     "host": "{{system_email.host}}",
-    "from": "{{system_email.from}}",
+    "from": "{{ users['no-reply'].email }}",
     "fromDisplayName": "Keycloak Authentification System - {{domains.keycloak}}",
     "envelopeFrom": "",
     "ssl": "true",
-    "user": "{{system_email.username}}"
+    "user": "{{ users['no-reply'].email }}"
   },
   "eventsEnabled": false,
   "eventsListeners": [

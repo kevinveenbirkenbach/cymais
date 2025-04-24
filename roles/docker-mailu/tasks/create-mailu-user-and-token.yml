@@ -1,72 +1,75 @@
----
-# tasks/create-mailu-user-and-token.yml
-#
-# Ensures a Mailu user exists and idempotently creates an API token for them,
-# storing tokens in a dictionary for targeted access.
-#
-# Required variables:
-#   mailu_compose_dir:        Path to your docker-compose.yml directory
-#   mailu_user:               Local part of the user (e.g., "alice")
-#   mailu_domain:             Domain for the user (e.g., "example.com")
-#   mailu_password:           Password for the new user
-#   mailu_api_base_url:       Base URL of the Mailu API (e.g., "https://mail.example.com/api/v1")
-#   mailu_global_api_token:   Global API token (from API_TOKEN environment variable)
-#
-# Optional variable:
-#   mailu_user_tokens:        Dictionary of existing tokens, e.g. { "alice": "secret" }
-
 - name: "Ensure Mailu user {{ mailu_user }}@{{ mailu_domain }} exists"
   command: >
-    docker compose exec admin flask mailu {{ mailu_action }} {{ mailu_user }} {{ mailu_domain }} '{{ mailu_password }}'
+    docker compose exec admin flask mailu {{ mailu_action }}
+      {{ mailu_user }} {{ mailu_domain }} '{{ mailu_password }}'
   args:
     chdir: "{{ mailu_compose_dir }}"
-  register: mailu_user_creation
-  failed_when: false
-  changed_when: mailu_user_creation.rc == 0 and 'User added' in mailu_user_creation.stdout
+  register: mailu_user_result
+  failed_when: >
+    mailu_user_result.rc != 0 and
+    (
+      "exists, not created" not in mailu_user_result.stderr and
+      "Duplicate entry"   not in mailu_user_result.stderr
+    )
+  changed_when: mailu_user_result.rc == 0
 
-- name: "Fetch existing API tokens"
-  uri:
-    url: "{{ mailu_api_base_url }}/tokens"
-    method: GET
-    headers:
-      Authorization: "Bearer {{ mailu_global_api_token }}"
-    return_content: yes
-  register: mailu_tokens_response
-  failed_when: mailu_tokens_response.status not in [200]
+- name: "Change password for user {{ mailu_user }}@{{ mailu_domain }}"
+  command: >
+    docker compose exec admin flask mailu password
+      {{ mailu_user }} {{ mailu_domain }} '{{ mailu_password }}'
+  args:
+    chdir: "{{ mailu_compose_dir }}"
+
+- name: "Fetch existing API tokens via curl inside admin container"
+  command: >-
+    docker compose exec -T admin \
+      curl -s -X GET http://127.0.0.1:8080/api/v1/token \
+        -H "Authorization: Bearer {{ mailu_global_api_token }}"
+  args:
+    chdir: "{{ mailu_compose_dir }}"
+  register: mailu_tokens_cli
+  changed_when: false
 
 - name: "Extract existing token info for {{ mailu_user }}"
   set_fact:
-    mailu_user_existing_token: >
-      {{ mailu_tokens_response.json
-         | selectattr('comment', 'equalto', mailu_user)
-         | list
-         | first }}
+    mailu_user_existing_token: >-
+      {{ (
+           mailu_tokens_cli.stdout
+           | default('[]')
+           | from_json
+           | selectattr('comment','equalto', mailu_user ~ " - ansible.cymais")
+           | list
+         ).0 | default(None) }}
 
 - name: "Create API token for {{ mailu_user }} if none exists"
-  uri:
-    url: "{{ mailu_api_base_url }}/tokens"
-    method: POST
-    headers:
-      Authorization: "Bearer {{ mailu_global_api_token }}"
-      Content-Type: "application/json"
-    body_format: json
-    body:
-      comment: "{{ mailu_user }}"
-      ip: "{{ mailu_token_ip }}"
-    status_code: 201
+  command: >-
+    docker compose exec -T admin \
+      curl -s -X POST http://127.0.0.1:8080/api/v1/token \
+        -H "Authorization: Bearer {{ mailu_global_api_token }}" \
+        -H "Content-Type: application/json" \
+        -d '{{ {
+              "comment": mailu_user ~ " - ansible.cymais",
+              "email": users[mailu_user].email,
+              "ip": mailu_token_ip
+            } | to_json }}'
+  args:
+    chdir: "{{ mailu_compose_dir }}"
   register: mailu_token_creation
-  when: mailu_user_existing_token is not defined
+  when: (mailu_user_existing_token | default('') | length) == 0
 
-- name: "Set mailu_user_tokens dictionary"
+- name: "Add mailu_token to users dict if created"
   set_fact:
-    mailu_user_tokens: >
-      {{ (mailu_user_tokens | default({}))
-         | combine({ mailu_user: ((mailu_token_creation is defined)
-                                  | ternary(mailu_token_creation.json.secret,
-                                            mailu_user_existing_token.secret)) }) }}
-
-# Note:
-# - GET /tokens returns only metadata (id, comment, ip, created), not the secret itself.
-# - The secret is returned only by the POST request and must be captured when created.
-# - Tokens are stored in the mailu_user_tokens dictionary for targeted access.
-# - Persist mailu_user_tokens securely (e.g., in Ansible Vault) for future use.
+    users: >-
+      {{ users
+         | combine({
+             mailu_user: (
+               users[mailu_user]
+               | combine({
+                   'mailu_token': (mailu_token_creation.stdout | from_json).token
+                 })
+             )
+           }, recursive=True)
+      }}
+  when:
+    - mailu_token_creation is defined
+    - (mailu_user_existing_token | default('') | length) == 0

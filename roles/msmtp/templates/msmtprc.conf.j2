@@ -11,10 +11,10 @@ tls            off
 {% endif %}
 
 account        system_email
-host           {{system_email.host}}
-port           {{system_email.port}}
-from           {{system_email.from}}
-user           {{system_email.username}}
-password       {{system_email.password}}
+host           {{ system_email.host }}
+port           {{ system_email.port }}
+from           {{ users['no-reply'].email }}
+user           {{ users['no-reply'].email }}
+password       {{ users['no-reply'].mailu_token }}
 
 account default : system_email

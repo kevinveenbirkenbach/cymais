@@ -38,8 +38,8 @@ listmonk_settings:
           "host":            system_email.host,
           "port":            system_email.port,
           "enabled":         system_email.smtp,
-          "username":        system_email.username,
-          "password":        system_email.password,
+          "username":        "no-reply",
+          "password":        users['no-reply'].email,
           "tls_type":        (
                                 system_email.tls
                                 | ternary("TLS",
@@ -72,8 +72,30 @@ listmonk_settings:
   - key: "app.site_name"
     value: '"{{ service_provider.company.titel }} Mailing list"'
 
-#  - key: "bounce.enabled"
-#    value: 'false'
+  # Enable the bounce module
+  - key: "bounce.enabled"
+    value: 'true'
+
+  # Configure POP3 mailbox for processing bounces
+  - key: "bounce.mailboxes"
+    value: >-
+      {{ [
+        {
+          "host":            system_email.host,
+          "port":            system_email.port,
+          "type":            "pop",
+          "uuid":            "471fd0e9-8c33-4e4a-9183-c4679699faca",
+          "enabled":         true,
+          "username":        users.bounce.email,
+          "password":        users.bounce.mailu_token,
+          "return_path":     users.bounce.email,
+          "tls_enabled":     system_email.tls,
+          "auth_protocol":   "userpass",
+          "scan_interval":   "15m",
+          "tls_skip_verify": false
+        }
+      ] | to_json }}
+
 #
 #  - key: "upload.max_file_size"
 #    value: '5000'
@@ -85,14 +107,14 @@ listmonk_settings:
 #    value: '1000'
 
   - key: "app.from_email"
-    value: '"{{ service_provider.company.titel }} Newsletter <{{ system_email.from }}>"'
+    value: '"{{ service_provider.company.titel }} Newsletter <{{ users["no-reply"].email }}>"'
 
-  - key: "bounce.actions"
-    value: >-
-      {"hard": {"count": 1, "action": "blocklist"}, "soft": {"count": 2, "action": "none"}, "complaint": {"count": 1, "action": "blocklist"}}
-
-  - key: "app.concurrency"
-    value: '10'
+#  - key: "bounce.actions"
+#    value: >-
+#      {"hard": {"count": 1, "action": "blocklist"}, "soft": {"count": 2, "action": "none"}, "complaint": {"count": 1, "action": "blocklist"}}
+#
+#  - key: "app.concurrency"
+#    value: '10'
 
   - key: "app.favicon_url"
     value: '"{{ service_provider.platform.favicon }}"'

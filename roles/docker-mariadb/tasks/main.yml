@@ -36,10 +36,16 @@
     state: present
   when: run_once_docker_mariadb is not defined
 
-- name: wait for database
-  pause:
-    seconds: "{{pause_duration}}"
-  when: setup_mariadb_container_result.changed and run_once_docker_mariadb is not defined
+- name: Wait for MariaDB inside the container to respond
+  shell: docker exec central-mariadb mysqladmin ping -h localhost --silent
+  register: mysql_ping
+  until: mysql_ping.rc == 0
+  retries: 30
+  delay: 5
+  when:
+    - setup_mariadb_container_result is defined
+    - setup_mariadb_container_result.changed
+    - run_once_docker_mariadb is not defined
 
 - name: "Create database: {{ database_name }}"
   mysql_db:

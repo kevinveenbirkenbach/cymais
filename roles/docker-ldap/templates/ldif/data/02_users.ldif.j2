@@ -11,31 +11,31 @@ objectClass: organizationalUnit
 ou: roles
 description: Container for application access profiles
 
-{% for user in users %}
+{% for username, user in users.items() %}
 #######################################################################
-# Create User {{ user.username }}
+# Create User {{ username }}
 #######################################################################
-dn: {{ ldap.attributes.user_id }}={{ user.username }},{{ ldap.dn.users }}
+dn: {{ ldap.attributes.user_id }}={{ username }},{{ ldap.dn.users }}
 objectClass: top
 objectClass: inetOrgPerson
 objectClass: posixAccount
-{{ ldap.attributes.user_id }}: {{ user.username }}
-sn: {{ user.username }}
-cn: {{ user.username }}
+{{ ldap.attributes.user_id }}: {{ username }}
+sn: {{ username }}
+cn: {{ username }}
 userPassword: {{ user.password }}
 loginShell: /bin/bash
-homeDirectory: /home/{{ user.username }}
+homeDirectory: /home/{{ username }}
 uidNumber: {{ user.uid }}
 gidNumber: {{ user.gid }}
 
 #######################################################################
-# Assign {{ user.username }} to application user roles
+# Assign {{ username }} to application user roles
 #######################################################################
 {% for app, config in defaults_applications.items() %}
 dn: cn={{ app }}-user,{{ ldap.dn.application_roles }}
 changetype: modify
 add: roleOccupant
-roleOccupant: {{ ldap.attributes.user_id }}={{ user.username }},{{ ldap.dn.users }}
+roleOccupant: {{ ldap.attributes.user_id }}={{ username }},{{ ldap.dn.users }}
 
 {% endfor %}
 {% endfor %}

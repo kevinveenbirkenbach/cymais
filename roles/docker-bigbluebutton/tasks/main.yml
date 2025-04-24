@@ -43,10 +43,12 @@
 - name: flush docker service
   meta: flush_handlers
 
-- name: wait for database
-  pause:
-    seconds: "{{pause_duration}}"
-  when: applications.bigbluebutton.setup | bool
+- name: Wait for BigBlueButton
+  wait_for:
+    host: "{{ domains.bigbluebutton }}"
+    port: 80
+    delay: 5
+    timeout: 600
 
 - name: create admin
   command:

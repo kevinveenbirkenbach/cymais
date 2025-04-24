@@ -1,12 +1,9 @@
 # Email Configuration
 default_system_email:
-  local:     no-reply
   domain:    "{{primary_domain}}"
-  username:  "no-reply@{{primary_domain}}"
   host:      "mail.{{primary_domain}}"
   port:      465
   tls:       true
   start_tls: false
-  from:      "no-reply@{{primary_domain}}"
   smtp:      true
 # password:  # Needs to be defined in inventory file  
