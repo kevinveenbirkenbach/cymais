@@ -1,11 +1,11 @@
 {
     "default_server_config": {
         "m.homeserver": {
-            "base_url": "https://{{domains.matrix_synapse}}",
+            "base_url": "{{ web_protocol }}://{{domains.matrix_synapse}}",
             "server_name": "{{domains.matrix_synapse}}"
         },
         "m.identity_server": {
-            "base_url": "https://{{primary_domain}}"
+            "base_url": "{{ web_protocol }}://{{primary_domain}}"
         }
     },
     "brand": "Element",

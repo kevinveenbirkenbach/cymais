@@ -26,7 +26,7 @@ accounts:
         description: Follow {{ 'our' if service_provider.type == 'legal' else 'my' }} updates on Mastodon.
         icon:
           class: fa-brands fa-mastodon
-        url: "https://{{ service_provider.contact.mastodon.split('@')[2] }}/@{{ service_provider.contact.mastodon.split('@')[1] }}"
+        url: "{{ web_protocol }}://{{ service_provider.contact.mastodon.split('@')[2] }}/@{{ service_provider.contact.mastodon.split('@')[1] }}"
         identifier: "{{service_provider.contact.mastodon}}"
         iframe: {{ applications | get_features_iframe('mastodon') }}
 
@@ -51,7 +51,7 @@ accounts:
       icon:
           class: fa-solid fa-camera
       identifier: "{{service_provider.contact.pixelfed}}"
-      url: "https://{{ service_provider.contact.pixelfed.split('@')[2] }}/@{{ service_provider.contact.pixelfed.split('@')[1] }}"
+      url: "{{ web_protocol }}://{{ service_provider.contact.pixelfed.split('@')[2] }}/@{{ service_provider.contact.pixelfed.split('@')[1] }}"
       iframe: {{ applications | get_features_iframe('pixelfed') }}
 
 {% endif %}
@@ -63,7 +63,7 @@ accounts:
       icon:
         class: fa-solid fa-video
       identifier: "{{service_provider.contact.peertube}}"
-      url: "https://{{ service_provider.contact.peertube.split('@')[2] }}/@{{ service_provider.contact.peertube.split('@')[1] }}"
+      url: "{{ web_protocol }}://{{ service_provider.contact.peertube.split('@')[2] }}/@{{ service_provider.contact.peertube.split('@')[1] }}"
       iframe: {{ applications | get_features_iframe('peertube') }}
 
 {% endif %}
@@ -75,7 +75,7 @@ accounts:
       icon:
         class: fa-solid fa-blog
       identifier: "{{service_provider.contact.wordpress}}"
-      url: "https://{{ service_provider.contact.wordpress.split('@')[2] }}/@{{ service_provider.contact.wordpress.split('@')[1] }}"
+      url: "{{ web_protocol }}://{{ service_provider.contact.wordpress.split('@')[2] }}/@{{ service_provider.contact.wordpress.split('@')[1] }}"
       iframe: {{ applications | get_features_iframe('wordpress') }}
 
 {% endif %}
@@ -97,7 +97,7 @@ accounts:
     icon:
       class: fas fa-network-wired
     identifier: "{{service_provider.contact.friendica}}"
-    url: "https://{{ service_provider.contact.friendica.split('@')[2] }}/@{{ service_provider.contact.friendica.split('@')[1] }}"
+    url: "{{ web_protocol }}://{{ service_provider.contact.friendica.split('@')[2] }}/@{{ service_provider.contact.friendica.split('@')[1] }}"
     iframe: {{ applications | get_features_iframe('friendica') }}
 
 {% endif %}

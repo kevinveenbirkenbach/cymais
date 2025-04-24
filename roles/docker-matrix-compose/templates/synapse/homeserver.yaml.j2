@@ -24,8 +24,8 @@ report_stats:                   true
 macaroon_secret_key:            "{{matrix_macaroon_secret_key}}"
 form_secret:                    "{{matrix_form_secret}}"
 signing_key_path:               "/data/{{domains.matrix_synapse}}.signing.key"
-web_client_location:            "https://{{domains.matrix_element}}"
-public_baseurl:                 "https://{{domains.matrix_synapse}}"
+web_client_location:            "{{ web_protocol }}://{{domains.matrix_element}}"
+public_baseurl:                 "{{ web_protocol }}://{{domains.matrix_synapse}}"
 trusted_key_servers:
   - server_name: "matrix.org"
 admin_contact: 'mailto:{{users.administrator.email}}'

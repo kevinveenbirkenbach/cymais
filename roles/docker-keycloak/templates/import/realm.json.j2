@@ -517,7 +517,7 @@
         "/realms/{{realm}}/account/*"
       ],
       "webOrigins": [
-        "https://{{domains.keycloak}}"
+        "{{ web_protocol }}://{{domains.keycloak}}"
       ],
       "notBefore": 0,
       "bearerOnly": false,
@@ -825,9 +825,9 @@
       "clientId": "{{realm}}",
       "name": "",
       "description": "",
-      "rootUrl":  "https://{{realm}}/",
-      "adminUrl": "https://{{realm}}/",
-      "baseUrl":  "https://{{realm}}/",
+      "rootUrl":  "{{ web_protocol }}://{{realm}}/",
+      "adminUrl": "{{ web_protocol }}://{{realm}}/",
+      "baseUrl":  "{{ web_protocol }}://{{realm}}/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
@@ -837,10 +837,10 @@
       {%- for application, domain in domains.items() %}
         {%- if applications[application] is defined and (applications | get_oauth2_enabled(application) or applications | get_oidc_enabled(application)) %}
           {%- if domain is string %}
-            {%- set _ = redirect_uris.append("https://{}/*".format(domain)) %}
+            {%- set _ = redirect_uris.append("{{ web_protocol }}://{}/*".format(domain)) %}
           {%- else %}
             {%- for d in domain %}
-              {%- set _ = redirect_uris.append("https://{}/*".format(d)) %}
+              {%- set _ = redirect_uris.append("{{ web_protocol }}://{}/*".format(d)) %}
             {%- endfor %}
           {%- endif %}
         {%- endif %}
@@ -848,7 +848,7 @@
       
       "redirectUris": {{ redirect_uris | tojson }},
       "webOrigins": [
-        "https://*.{{primary_domain}}"
+        "{{ web_protocol }}://*.{{primary_domain}}"
       ],
       "notBefore": 0,
       "bearerOnly": false,
@@ -865,7 +865,7 @@
         "oidc.ciba.grant.enabled": "false",
         "client.secret.creation.time": "0",
         "backchannel.logout.session.required": "true",
-        "post.logout.redirect.uris": "https://{{primary_domain}}/*##+",
+        "post.logout.redirect.uris": "{{ web_protocol }}://{{primary_domain}}/*##+",
         "frontchannel.logout.session.required": "true",
         "oauth2.device.authorization.grant.enabled": "false",
         "display.on.consent.screen": "false",

@@ -9,7 +9,7 @@ whitelist_domains       =   [".{{primary_domain}}"]                             
 # keycloak provider
 client_secret           =   "{{oidc.client.secret}}"
 client_id               =   "{{oidc.client.id}}"
-redirect_url            =   "https://{{domain}}/oauth2/callback"
+redirect_url            =   "{{ web_protocol }}://{{domain}}/oauth2/callback"
 oidc_issuer_url         =   "{{oidc.client.issuer_url}}"
 provider                =   "oidc"
 provider_display_name   =   "Keycloak"

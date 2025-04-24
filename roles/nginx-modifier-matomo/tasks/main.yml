@@ -28,7 +28,7 @@
 
 - name: Add site to Matomo and get ID if not exists
   uri:
-    url: "https://{{ domains.matomo }}/index.php"
+    url: "{{ web_protocol }}://{{ domains.matomo }}/index.php"
     method: POST
     body: "module=API&method=SitesManager.addSite&siteName={{ base_domain }}&urls=https://{{ base_domain }}&token_auth={{ applications.matomo.credentials.auth_token }}&format=json"
     body_format: form-urlencoded

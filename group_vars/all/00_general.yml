@@ -1,11 +1,13 @@
 # General
 pause_duration:         "120"         # Database delay to wait for the central database before continue tasks
 
-timezone:               "UTC"
+timezone:               "Etc/UTC"
 locale:                 "en"          # Some applications are case sensitive
 
 # Deployment mode
 deployment_mode:        "single"      # Use single, if you deploy on one server. Use cluster if you setup in cluster mode.
+
+web_protocol:           "https"       # Web protocol type. Use https or http. If you run local you need to change it to http
 
 ## Domain
 primary_domain_tld:     "localhost"                                     # Top Level Domain of the server

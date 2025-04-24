@@ -34,7 +34,7 @@ defaults_applications:
   ## Assets Server
   assets_server:
     source_directory:             "{{ playbook_dir }}/assets"               # Directory from which the assets will be copied
-    url:                          "https://{{domains.file_server}}/assets"  # Public address of the assets directory
+    url:                          "{{ web_protocol }}://{{domains.file_server}}/assets"  # Public address of the assets directory
   ## Attendize 
   attendize:
     version:                      "latest"
@@ -76,7 +76,7 @@ defaults_applications:
 #      fsesl_password:                                                      # Needs to be defined in inventory file
 #      turn_secret:                                                         # Needs to be defined in inventory file  
     urls:
-      api:                        "https://{{domains.bigbluebutton}}/bigbluebutton/"  # API Address used by Nextcloud Integration
+      api:                        "{{ web_protocol }}://{{domains.bigbluebutton}}/bigbluebutton/"  # API Address used by Nextcloud Integration
 
   ## Bluesky
   bluesky:
@@ -305,11 +305,12 @@ defaults_applications:
 {% endraw %}{{ features.render_features({
   'matomo':   true,
   'css':      true,
-  'iframe':   true,
+  'iframe':   false,
   'oidc':     true,
   'database': false
 }) }}{% raw %}
 # Deactivate central database for mailu, I don't know why the database deactivation is necessary
+# Deactivated mailu iframe loading until keycloak supports it
 
   ## MariaDB
   mariadb:
@@ -633,7 +634,7 @@ defaults_applications:
   oauth2_proxy:
     configuration_file: "oauth2-proxy-keycloak.cfg"                                                                 # Needs to be set true in the roles which use it
     version:            "latest"                                                                                    # Docker Image version
-    redirect_url:       "https://{{domains.keycloak}}/auth/realms/{{primary_domain}}/protocol/openid-connect/auth"  # The redirect URL for the OAuth2 flow. It should match the redirect URL configured in Keycloak.
+    redirect_url:       "{{ web_protocol }}://{{domains.keycloak}}/auth/realms/{{primary_domain}}/protocol/openid-connect/auth"  # The redirect URL for the OAuth2 flow. It should match the redirect URL configured in Keycloak.
     allowed_roles:      admin                                                                                       # Restrict it default to admin role. Use the vars/main.yml to open the specific role for other groups  
 {% endraw %}{{ features.render_features({
   'matomo':   	true,

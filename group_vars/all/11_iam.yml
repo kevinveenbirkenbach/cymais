@@ -9,7 +9,7 @@
 
 ## Helper Variables:
 _oidc_client_realm:       "{{ oidc.client.realm if oidc.client is defined and oidc.client.realm is defined else primary_domain }}"
-_oidc_client_issuer_url:  "https://{{domains.keycloak}}/realms/{{_oidc_client_realm}}"
+_oidc_client_issuer_url:  "{{ web_protocol }}://{{domains.keycloak}}/realms/{{_oidc_client_realm}}"
 
 defaults_oidc:
   client:

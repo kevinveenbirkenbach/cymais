@@ -54,6 +54,7 @@
   shell: |
     docker exec -i {{ database_host }} psql \
       -U {{ database_username }} \
+      -v ON_ERROR_STOP=1 \
       -d {{ database_name }} << 'EOSQL'
     UPDATE settings
     SET value = '{{ item.value }}'::jsonb

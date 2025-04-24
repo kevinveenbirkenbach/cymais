@@ -20,7 +20,7 @@ for filename in os.listdir(config_path):
         parts = domain.split('.')
         
         # Prepare the URL and expected status codes
-        url = f"https://{domain}"
+        url = f"{{ web_protocol }}://{domain}"
         
         # Default: Expect status code 200 or 302 for a domain
         expected_statuses = [200,302]
