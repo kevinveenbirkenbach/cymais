@@ -837,10 +837,10 @@
       {%- for application, domain in domains.items() %}
         {%- if applications[application] is defined and (applications | get_oauth2_enabled(application) or applications | get_oidc_enabled(application)) %}
           {%- if domain is string %}
-            {%- set _ = redirect_uris.append("{{ web_protocol }}://{}/*".format(domain)) %}
+            {%- set _ = redirect_uris.append(web_protocol ~ '://' ~ domain ~ '/*') %}
           {%- else %}
             {%- for d in domain %}
-              {%- set _ = redirect_uris.append("{{ web_protocol }}://{}/*".format(d)) %}
+              {%- set _ = redirect_uris.append(web_protocol ~ '://' ~ d ~ '/*') %}
             {%- endfor %}
           {%- endif %}
         {%- endif %}
