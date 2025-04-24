@@ -231,7 +231,7 @@ defaults_applications:
   # LDAP Account Manager 
   lam:
     version:                        "latest"
-#    administrator_password:         "{{users.administrator.initial_password}}"  # CHANGE for security reasons  
+#    administrator_password:         "{{users.administrator.password}}"  # CHANGE for security reasons  
     oauth2_proxy:
       application:                    application                                 # Needs to be the same as webinterface
       port:                           80                                          # application port
@@ -428,7 +428,7 @@ defaults_applications:
     users:      
       administrator:
         username:                  "{{users.administrator.username}}"
-        initial_password:          "{{users.administrator.initial_password}}"       # Keep in mind to change the password fast after creation and activate 2FA
+        password:          "{{users.administrator.password}}"       # Keep in mind to change the password fast after creation and activate 2FA
     default_quota:                 '1000000000'                                     # Quota to assign if no quota is specified in the OIDC response (bytes)
     legacy_login_mask:   
       enabled:                      False                                           # If true, then legacy  login mask is shown. Otherwise just SSO
@@ -680,7 +680,7 @@ defaults_applications:
     users:
       administrator:
         email:                   "{{ users.administrator.email }}"              # Initial login email address
-        password:                "{{ users.administrator.initial_password }}"   # Initial login password – should be overridden in inventory for security
+        password:                "{{ users.administrator.password }}"   # Initial login password – should be overridden in inventory for security
     oauth2_proxy:
       application:                "application"
       port:                       "80"

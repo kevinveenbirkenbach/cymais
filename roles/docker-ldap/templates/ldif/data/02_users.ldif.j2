@@ -1,3 +1,8 @@
+{##
+# Iterate over all users and create LDAP entries for each, then assign admin to application roles
+# This template loops through a 'users' list variable where each user is a dict with keys:
+#   username, uid, gid, password (optional), sn (optional), cn (optional)
+##}
 #######################################################################
 # Container for Application Roles (if not already created)
 #######################################################################
@@ -6,36 +11,48 @@ objectClass: organizationalUnit
 ou: roles
 description: Container for application access profiles
 
+{% for user in users %}
 #######################################################################
-# Create Admin User
+# Create User {{ user.username }}
 #######################################################################
-dn: {{ldap.attributes.user_id}}={{users.administrator.username}},{{ldap.dn.users}}
+dn: {{ ldap.attributes.user_id }}={{ user.username }},{{ ldap.dn.users }}
 objectClass: top
 objectClass: inetOrgPerson
 objectClass: posixAccount
-{{ldap.attributes.user_id}}: {{users.administrator.username}}
-sn: Administrator
-cn: Administrator
-userPassword: {SSHA}CHANGE_THIS_PASSWORD
+{{ ldap.attributes.user_id }}: {{ user.username }}
+sn: {{ user.username }}
+cn: {{ user.username }}
+userPassword: {{ user.password }}
 loginShell: /bin/bash
-homeDirectory: /home/admin
-uidNumber: {{users.administrator.uid}}
-gidNumber: {{users.administrator.gid}}
+homeDirectory: /home/{{ user.username }}
+uidNumber: {{ user.uid }}
+gidNumber: {{ user.gid }}
 
 #######################################################################
-# Add Admin User to All Application Role Groups
+# Assign {{ user.username }} to application user roles
 #######################################################################
-{# Loop over each application defined in defaults_applications #}
 {% for app, config in defaults_applications.items() %}
+dn: cn={{ app }}-user,{{ ldap.dn.application_roles }}
+changetype: modify
+add: roleOccupant
+roleOccupant: {{ ldap.attributes.user_id }}={{ user.username }},{{ ldap.dn.users }}
 
+{% endfor %}
+{% endfor %}
+
+#######################################################################
+# Add Admin User to All Application Role Groups (unchanged)
+#######################################################################
+{% for app, config in defaults_applications.items() %}
 dn: cn={{ app }}-administrator,{{ ldap.dn.application_roles }}
 changetype: modify
 add: roleOccupant
-roleOccupant: {{ldap.attributes.user_id}}={{users.administrator.username}},{{ldap.dn.users}}
+roleOccupant: {{ ldap.attributes.user_id }}={{ users.administrator.username }},{{ ldap.dn.users }}
 
 dn: cn={{ app }}-user,{{ ldap.dn.application_roles }}
 changetype: modify
 add: roleOccupant
-roleOccupant: {{ldap.attributes.user_id}}={{users.administrator.username}},{{ldap.dn.users}}
+roleOccupant: {{ ldap.attributes.user_id }}={{ users.administrator.username }},{{ ldap.dn.users }}
 
 {% endfor %}
+

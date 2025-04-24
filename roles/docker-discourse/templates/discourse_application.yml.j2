@@ -51,8 +51,8 @@ env:
   DISCOURSE_DEVELOPER_EMAILS:       {{users.administrator.email}}
 
   # Set Logo
-  DISCOURSE_LOGO_URL:       "{{service_provider.platform.logo}}"
-  DISCOURSE_LOGO_SMALL_URL: "{{service_provider.platform.logo}}"
+  DISCOURSE_LOGO_URL:       "{{ service_provider.platform.logo  }}"
+  DISCOURSE_LOGO_SMALL_URL: "{{ service_provider.platform.logo  }}"
 
   # SMTP ADDRESS, username, and password are required
   # WARNING the char '#' in SMTP password can cause problems!
@@ -124,7 +124,7 @@ run:
   - exec: rails r "SiteSetting.username_change_period = 0" # Deactivate changing of username
 
   # Activate Administrator User
-  #- exec: printf '{{users.administrator.email}}\n{{users.administrator.initial_password}}\n{{users.administrator.initial_password}}\nY\n' | rake admin:create
+  #- exec: printf '{{users.administrator.email}}\n{{users.administrator.password}}\n{{users.administrator.password}}\nY\n' | rake admin:create
   #- exec: rails r "User.find_by_email('{{users.administrator.email}}').update(username: '{{users.administrator.username}}')"
 
   # The following code is just an inspiration, how to connect with the oidc account. as long as this is not set the admini account needs to be manually connected with oidc 

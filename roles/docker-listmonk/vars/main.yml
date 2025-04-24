@@ -70,7 +70,7 @@ listmonk_settings:
     value: '"{{ service_provider.platform.logo }}"'
 
   - key: "app.site_name"
-    value: '"Mailing list"'
+    value: '"{{ service_provider.company.titel }} Mailing list"'
 
 #  - key: "bounce.enabled"
 #    value: 'false'

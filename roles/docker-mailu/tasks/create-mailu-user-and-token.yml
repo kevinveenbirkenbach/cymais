@@ -1,7 +1,8 @@
 ---
 # tasks/create-mailu-user-and-token.yml
 #
-# Ensures a Mailu user exists and idempotently creates an API token for them.
+# Ensures a Mailu user exists and idempotently creates an API token for them,
+# storing tokens in a dictionary for targeted access.
 #
 # Required variables:
 #   mailu_compose_dir:        Path to your docker-compose.yml directory
@@ -12,11 +13,11 @@
 #   mailu_global_api_token:   Global API token (from API_TOKEN environment variable)
 #
 # Optional variable:
-#   mailu_user_token:         Pre-existing API token for the user (if already created)
+#   mailu_user_tokens:        Dictionary of existing tokens, e.g. { "alice": "secret" }
 
 - name: "Ensure Mailu user {{ mailu_user }}@{{ mailu_domain }} exists"
   command: >
-    docker compose exec admin flask mailu user {{ mailu_user }} {{ mailu_domain }} '{{ mailu_password }}'
+    docker compose exec admin flask mailu {{ mailu_action }} {{ mailu_user }} {{ mailu_domain }} '{{ mailu_password }}'
   args:
     chdir: "{{ mailu_compose_dir }}"
   register: mailu_user_creation
@@ -51,19 +52,21 @@
     body_format: json
     body:
       comment: "{{ mailu_user }}"
-      ip: "0.0.0.0/0"
+      ip: "{{ mailu_token_ip }}"
     status_code: 201
   register: mailu_token_creation
   when: mailu_user_existing_token is not defined
 
-- name: "Set mailu_user_token fact"
+- name: "Set mailu_user_tokens dictionary"
   set_fact:
-    mailu_user_token: >
-      {{ (mailu_token_creation is defined)
-         ? mailu_token_creation.json.secret
-         : (mailu_user_existing_token.secret | default('')) }}
+    mailu_user_tokens: >
+      {{ (mailu_user_tokens | default({}))
+         | combine({ mailu_user: ((mailu_token_creation is defined)
+                                  | ternary(mailu_token_creation.json.secret,
+                                            mailu_user_existing_token.secret)) }) }}
 
 # Note:
 # - GET /tokens returns only metadata (id, comment, ip, created), not the secret itself.
 # - The secret is returned only by the POST request and must be captured when created.
-# - Store mailu_user_token securely (e.g., in Ansible Vault) for future use.
+# - Tokens are stored in the mailu_user_tokens dictionary for targeted access.
+# - Persist mailu_user_tokens securely (e.g., in Ansible Vault) for future use.
