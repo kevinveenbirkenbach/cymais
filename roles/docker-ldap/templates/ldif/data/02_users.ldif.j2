@@ -22,7 +22,7 @@ objectClass: posixAccount
 {{ ldap.attributes.user_id }}: {{ username }}
 sn: {{ username }}
 cn: {{ username }}
-userPassword: {{ user.password }}
+userPassword: {SSHA}{{ user.password }}
 loginShell: /bin/bash
 homeDirectory: /home/{{ username }}
 uidNumber: {{ user.uid }}
