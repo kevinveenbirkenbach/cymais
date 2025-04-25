@@ -216,6 +216,11 @@
   include_role:
     name: docker-presentation
 
+- name: setup espocrm hosts
+  when: ("espocrm" in group_names)
+  include_role:
+    name: docker-espocrm
+
 # Native Webserver Roles
 - name: setup nginx-serve-htmls
   when: ("nginx-serve-htmls" in group_names)

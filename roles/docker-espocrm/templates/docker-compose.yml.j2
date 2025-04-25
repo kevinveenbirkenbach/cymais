@@ -5,52 +5,41 @@ services:
   web:
     image: espocrm/espocrm:{{ applications.espocrm.version }}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    environment:
-      # --- DB connection ----------------------------------------------------
-      - ESPOCRM_DATABASE_PLATFORM=Mysql
-      - ESPOCRM_DATABASE_HOST={{ database_host }}
-      - ESPOCRM_DATABASE_PORT={{ database_port }}
-      - ESPOCRM_DATABASE_NAME={{ database_name }}
-      - ESPOCRM_DATABASE_USER={{ database_username }}
-      - ESPOCRM_DATABASE_PASSWORD={{ database_password }}
-      # --- initial admin & site URL ----------------------------------------
-      - ESPOCRM_ADMIN_USERNAME={{ applications[application_id].credentials.admin.username }}
-      - ESPOCRM_ADMIN_PASSWORD={{ applications[application_id].credentials.admin.password }}
-      - ESPOCRM_SITE_URL={{ web_protocol }}://{{ domains[application_id] }}
     command: "php-fpm"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost/"]
     ports:
       - "127.0.0.1:{{ ports.localhost.http[application_id] }}:80"
-{% include 'templates/docker/container/depends-on-database.yml.j2' %}
+{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
     volumes:
       - data:/var/www/html
 
   daemon:
     image: espocrm/espocrm:{{ applications.espocrm.version }}
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+    restart: {{docker_restart_policy}}
+    logging:
+      driver: journald
     entrypoint: docker-daemon.sh
-{% include 'templates/docker/container/depends-on-database.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
     volumes:
       - data:/var/www/html
-    restart: unless-stopped
 
   websocket:
     image: espocrm/espocrm:{{ applications.espocrm.version }}
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+    restart: {{docker_restart_policy}}
+    logging:
+      driver: journald
     environment:
       - ESPOCRM_CONFIG_USE_WEB_SOCKET=true
       - ESPOCRM_CONFIG_WEB_SOCKET_URL=ws://{{ domains[application_id] }}/ws
       - ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBSCRIBER_DSN=tcp://*:7777
       - ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBMISSION_DSN=tcp://websocket:7777
     entrypoint: docker-websocket.sh
-{% include 'templates/docker/container/depends-on-database.yml.j2' %}
+{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
     volumes:
       - data:/var/www/html
-    restart: unless-stopped
     ports:
       - "{{ ports.localhost.websocket[application_id] | default('127.0.0.1:8081') }}:8080"
 

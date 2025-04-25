@@ -12,7 +12,7 @@ nextcloud_system_config:
     value: "{{ on_calendar_nextcloud }}"
 
   - parameter: "default_phone_region"
-    value: "{{ locale | upper }}"
+    value: "{{ HOST_LL | upper }}"
 
   - parameter: "trusted_domains 0"
     value: "{{domains[application_id]}}"

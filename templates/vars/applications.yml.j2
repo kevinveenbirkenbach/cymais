@@ -126,6 +126,30 @@ defaults_applications:
   'database': true,
 }) }}{% raw %}
 
+  ## EspoCRM
+  espocrm:
+    version:                      "fpm-alpine"
+    users:
+      administrator:
+        username:                 "{{ users.administrator.username }}"
+        email:                    "{{ users.administrator.email }}"
+
+    credentials:
+      administrator:
+        password:                 "{{ users.administrator.password }}"
+      database:
+        # password:                # Set in your inventory file
+
+{% endraw %}{{ features.render_features({
+  'matomo':   true,
+  'css':      true,
+  'iframe':   false,
+  'ldap':     true,
+  'oidc':     true,
+  'database': true
+}) }}{% raw %}
+
+
   ## File Server
   file_server:
 {% endraw %}{{ features.render_features({

@@ -61,7 +61,7 @@ listmonk_settings:
 
 
   - key: "app.lang"
-    value: '"{{ locale }}"'
+    value: '"{{ HOST_LL }}"'
 
 #  - key: "messengers"
 #    value: '[]'

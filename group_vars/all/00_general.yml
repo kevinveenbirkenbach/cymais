@@ -1,8 +1,16 @@
-# General
-pause_duration:         "120"         # Database delay to wait for the central database before continue tasks
 
-timezone:               "Etc/UTC"
-locale:                 "en"          # Some applications are case sensitive
+HOST_CURRENCY:            "EUR"
+HOST_TIMEZONE:            "UTC"
+
+# https://en.wikipedia.org/wiki/ISO_639
+HOST_LL:                  "en"          # Some applications are case sensitive
+HOST_LL_CC:               "{{HOST_LL}}_{{HOST_LL | upper }}"
+
+HOST_DATE_FORMAT:         "YYYY-MM-DD"
+HOST_TIME_FORMAT:         "HH:mm"
+
+HOST_THOUSAND_SEPARATOR:  "."
+HOST_DECIMAL_MARK:        ","
 
 # Deployment mode
 deployment_mode:        "single"      # Use single, if you deploy on one server. Use cluster if you setup in cluster mode.

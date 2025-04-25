@@ -1,6 +1,7 @@
 ports:
   # Ports which are exposed to localhost
   localhost:
+    # https://developer.mozilla.org/de/docs/Web/API/WebSockets_API
     websocket:
       mastodon:         4001
       espocrm:          4002
