@@ -1,0 +1,17 @@
+---
+- name: "include docker-central-database"
+  include_role:
+    name: docker-central-database
+
+- name: "copy docker-compose.yml and env file"
+  include_tasks: copy-docker-compose-and-env.yml
+
+- name: flush docker service
+  meta: flush_handlers
+  when: applications.espocrm.setup | bool
+
+- name: "run database setup / upgrade"
+  command:
+    cmd: "docker compose run --rm web php command.php upgrade"
+    chdir: "{{ docker_compose.directories.instance }}"
+  when: applications.espocrm.setup | bool

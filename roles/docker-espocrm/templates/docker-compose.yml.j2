@@ -1,0 +1,39 @@
+services:
+
+{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
+
+  web:
+    image: espocrm/espocrm:{{ applications.espocrm.version }}
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+    environment:
+      - DATABASE_HOST={{ database_host }}
+      - DATABASE_PORT={{ database_port }}
+      - DATABASE_NAME={{ database_name }}
+      - DATABASE_USER={{ database_username }}
+      - DATABASE_PASSWORD={{ database_password }}
+      - CRON=disable  # cron handled by separate service
+    command: apache2-foreground
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/" ]
+    ports:
+      - "127.0.0.1:{{ ports.localhost.http[application_id] }}:80"
+{% include 'templates/docker/container/depends-on-database.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
+    volumes:
+      - data:/var/www/html
+
+  cron:
+    image: espocrm/espocrm:{{ applications.espocrm.version }}
+    command: /usr/local/bin/cron.sh
+    restart: unless-stopped
+{% include 'templates/docker/container/depends-on-database.yml.j2' %}
+    volumes:
+      - data:/var/www/html
+{% include 'templates/docker/container/networks.yml.j2' %}
+    healthcheck:
+      test: ["CMD", "pgrep", "cron"]
+
+{% include 'templates/docker/compose/volumes.yml.j2' %}
+  data:
+
+{% include 'templates/docker/compose/networks.yml.j2' %}

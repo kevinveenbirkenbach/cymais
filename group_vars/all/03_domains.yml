@@ -10,6 +10,7 @@ defaults_domains:
   bluesky_web:             "bskyweb.{{primary_domain}}"
   discourse:               "forum.{{primary_domain}}"
   elk:                     "elk.{{primary_domain}}"
+  espocrm:                 "espocrm.{{primary_domain}}"
   file_server:             "files.{{primary_domain}}"
   friendica:               "friendica.{{primary_domain}}"
   funkwhale:               "music.{{primary_domain}}"
@@ -55,6 +56,7 @@ defaults_redirect_domain_mappings:
 - { source: "akaunting.{{primary_domain}}",   target: "{{domains.akaunting}}" }
 - { source: "bbb.{{primary_domain}}",         target: "{{domains.bigbluebutton}}" }
 - { source: "discourse.{{primary_domain}}",   target: "{{domains.discourse}}" }
+- { source: "crm.{{primary_domain}}",         target: "{{domains.espocrm}}" }
 - { source: "funkwhale.{{primary_domain}}",   target: "{{domains.funkwhale}}" }
 - { source: "gitea.{{primary_domain}}",       target: "{{domains.gitea}}" }
 - { source: "keycloak.{{primary_domain}}",    target: "{{domains.keycloak}}" }
