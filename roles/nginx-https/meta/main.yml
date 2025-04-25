@@ -1,3 +1,4 @@
 dependencies:
 - nginx
+- nginx-domains-cleanup
 - letsencrypt

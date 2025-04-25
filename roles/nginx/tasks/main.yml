@@ -3,7 +3,7 @@
   pacman:
     name:
       - nginx
-      - nginx-mod-stream # Enable Stream support
+      - nginx-mod-stream
     state:  present
   notify: restart nginx
   when: run_once_nginx is not defined

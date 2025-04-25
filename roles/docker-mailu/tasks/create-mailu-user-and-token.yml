@@ -51,6 +51,7 @@
   when:
     - users[mailu_user].mailu_token is not defined
     - mailu_user_existing_token is not none
+    - mailu_user_existing_token.id is defined
   register: mailu_token_delete
   changed_when: mailu_token_delete.rc == 0
 

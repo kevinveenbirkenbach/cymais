@@ -28,7 +28,7 @@
   command: >-
     certbot delete --cert-name {{ domain }} --non-interactive
   when: 
-    - mode_cleanup | bool  
+    - mode_cleanup | bool
       # Cleanup mode is enabled
     - enable_wildcard_certificate | bool  
       # Wildcard certificate is enabled
