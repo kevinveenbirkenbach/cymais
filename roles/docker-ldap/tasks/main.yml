@@ -37,7 +37,6 @@
   include_tasks: create_ldif_files.yml
   loop:
     - configuration
-    - schema
   loop_control:
     loop_var: folder
 
@@ -48,6 +47,37 @@
   community.general.pacman:
     name:
       - python-ldap
+    state: present
+
+- name: Create Nextcloud Schema
+  ldap_entry:
+    dn: "cn=nextcloud,cn=schema,cn=config"
+    objectClass:
+      - top
+      - olcSchemaConfig
+    attributes:
+      cn: nextcloud
+      olcAttributeTypes:
+        - >-
+          ( 1.3.6.1.4.1.99999.1
+            NAME 'nextcloudQuota'
+            DESC 'Quota for Nextcloud'
+            EQUALITY integerMatch
+            ORDERING integerOrderingMatch
+            SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+            SINGLE-VALUE
+          )
+      olcObjectClasses:
+        - >-
+          ( 1.3.6.1.4.1.99999.2
+            NAME 'nextcloudUser'
+            DESC 'Auxiliary class for Nextcloud attributes'
+            AUXILIARY
+            MAY ( nextcloudQuota )
+          )
+    server_uri: "ldap://127.0.0.1:{{ ports.localhost.ldap.ldap }}"
+    bind_dn: "cn={{ applications.ldap.users.administrator.username }},cn=config"
+    bind_pw: "{{ applications.ldap.administrator_password }}"
     state: present
 
 ###############################################################################
