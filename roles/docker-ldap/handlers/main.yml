@@ -1,25 +1,42 @@
 - name: Load memberof module from file in OpenLDAP container
   shell: >
-    docker exec -i {{ applications[application_id].hostname }} ldapmodify -Y EXTERNAL -H ldapi:/// -f {{ldif_docker_path}}01_member_of_configuration.ldif
-  listen: "Import LDIF files"
+    docker exec -i {{ applications[application_id].hostname }} ldapmodify -Y EXTERNAL -H ldapi:/// -f {{ldif_docker_path}}configuration/01_member_of_configuration.ldif
+  listen: 
+    - "Import configuration LDIF files"
+    - "Import all LDIF files"
   # @todo Remove the following ignore errors when setting up a new server
   # Just here because debugging would take to much time
   ignore_errors: true
 
 - name: Refint Module Activation for OpenLDAP
   shell: >
-    docker exec -i {{ applications[application_id].hostname }} ldapadd -Y EXTERNAL -H ldapi:/// -f {{ldif_docker_path}}02_member_of_configuration.ldif
-  listen: "Import LDIF files"
+    docker exec -i {{ applications[application_id].hostname }} ldapadd -Y EXTERNAL -H ldapi:/// -f {{ldif_docker_path}}configuration/02_member_of_configuration.ldif
+  listen: 
+    - "Import configuration LDIF files"
+    - "Import all LDIF files"
   register: ldapadd_result
   failed_when: ldapadd_result.rc not in [0, 68]
   # @todo Remove the following ignore errors when setting up a new server
   # Just here because debugging would take to much time
   ignore_errors: true
 
+- name: "Import schemas"
+  shell: >
+    docker exec -i {{ applications[application_id].hostname }} ldapadd -Y EXTERNAL -H ldapi:/// -f "{{ldif_docker_path}}schema/{{ item | basename | regex_replace('\.j2$', '') }}"
+  register: ldapadd_result
+  changed_when: "'adding new entry' in ldapadd_result.stdout"
+  failed_when: ldapadd_result.rc not in [0, 80]
+  listen:
+    - "Import schema LDIF files"
+    - "Import all LDIF files"
+  loop: "{{ lookup('fileglob', role_path ~ '/templates/ldif/schema/*.j2', wantlist=True) }}"
+
 - name: Refint Overlay Configuration for OpenLDAP
   shell: >
-    docker exec -i {{ applications[application_id].hostname }} ldapmodify -Y EXTERNAL -H ldapi:/// -f {{ldif_docker_path}}03_member_of_configuration.ldif
-  listen: "Import LDIF files"
+    docker exec -i {{ applications[application_id].hostname }} ldapmodify -Y EXTERNAL -H ldapi:/// -f {{ldif_docker_path}}configuration/03_member_of_configuration.ldif
+  listen:
+    - "Import configuration LDIF files"
+    - "Import all LDIF files"
   register: ldapadd_result
   failed_when: ldapadd_result.rc not in [0, 68]
   # @todo Remove the following ignore errors when setting up a new server
@@ -32,14 +49,7 @@
   register: ldapadd_result
   changed_when: "'adding new entry' in ldapadd_result.stdout"
   failed_when: ldapadd_result.rc not in [0, 20, 68]
-  listen: "Import LDIF files"
+  listen:
+    - "Import data LDIF files"
+    - "Import all LDIF files"
   loop: "{{ lookup('fileglob', role_path ~ '/templates/ldif/data/*.j2', wantlist=True) }}"
-
-- name: "Import schemas"
-  shell: >
-    docker exec -i {{ applications[application_id].hostname }} ldapadd -Y EXTERNAL -H ldapi:/// -f "{{ldif_docker_path}}schema/{{ item | basename | regex_replace('\.j2$', '') }}"
-  register: ldapadd_result
-  changed_when: "'adding new entry' in ldapadd_result.stdout"
-  failed_when: ldapadd_result.rc not in [0, 80]
-  listen: "Import LDIF files"
-  loop: "{{ lookup('fileglob', role_path ~ '/templates/ldif/schema/*.j2', wantlist=True) }}"

@@ -1,6 +1,8 @@
 # Administration
 
-## Show Configuration
+## Configuration
+
+### Show Configuration
 ```bash
 docker exec -it ldap bash -c "ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b 'cn=config'"
 ```
@@ -18,7 +20,16 @@ docker exec -it ldap bash -c "ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b 'cn=co
 docker exec -it ldap ldapsearch -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcDatabase=*)"
 ```
 
-## Show all Entries
+## Data
+
+### Set Credentials
+To execute the following commands set the credentials via:
+
+```bash
+export $(grep -Ev '^(#|$)' .env/env | xargs)
+```
+
+### Show all Entries
 ```bash 
 docker exec -it ldap bash -c "ldapsearch -LLL -o ldif-wrap=no -x -D \"\$LDAP_ADMIN_DN\" -w \"\$LDAP_ADMIN_PASSWORD\" -b \"\$LDAP_ROOT\"";
 ```

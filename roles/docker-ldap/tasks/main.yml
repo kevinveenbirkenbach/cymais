@@ -35,11 +35,57 @@
 
 - name: "Process all LDIF types"
   include_tasks: create_ldif_files.yml
-  loop: "{{ ldif_types }}"
+  loop:
+    - configuration
+    - schema
   loop_control:
     loop_var: folder
 
-- name: Force LDIF files import
-  command: /bin/true
-  notify: Import LDIF files
-  when: applications.ldap.force_import | bool
+- name: flush LDIF handlers
+  meta: flush_handlers
+
+- name: install python-ldap
+  community.general.pacman:
+    name:
+      - python-ldap
+    state: present
+
+- name: "Ensure LDAP users are present and up to date"
+  community.general.ldap_entry:
+    dn: "{{ ldap.attributes.user_id }}={{ item.key }},{{ ldap.dn.users }}"
+    server_uri: "ldap://127.0.0.1:{{ports.localhost.ldap.ldap}}"
+    bind_dn: "{{ ldap.dn.administrator }}"
+    bind_pw: "{{ ldap.bind_credential }}"
+    objectClass: "{{ ldap.user_objects }}"
+    attributes:
+      "{{ ldap.attributes.user_id }}": "{{ item.key }}"
+      sn:        "{{ item.value.sn | default(item.key) }}"
+      cn:        "{{ item.value.cn | default(item.key) }}"
+      userPassword: "{SSHA}{{ item.value.password }}"
+      loginShell:   /bin/bash
+      homeDirectory: "/home/{{ item.key }}"
+      uidNumber:   "{{ item.value.uid | int }}"
+      gidNumber:   "{{ item.value.gid | int }}"
+    state: present
+  loop: "{{ users | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+
+- name: "Ensure container for application roles exists"
+  community.general.ldap_entry:
+    dn: "{{ ldap.dn.application_roles }}"
+    server_uri: "ldap://127.0.0.1:{{ ports.localhost.ldap.ldap }}"
+    bind_dn:  "{{ ldap.dn.administrator }}"
+    bind_pw:  "{{ ldap.bind_credential }}"
+    objectClass: organizationalUnit
+    attributes:
+      ou: roles
+      description: Container for application access profiles
+    state: present
+
+- name: "Process all LDIF types"
+  include_tasks: create_ldif_files.yml
+  loop:
+    - data
+  loop_control:
+    loop_var: folder

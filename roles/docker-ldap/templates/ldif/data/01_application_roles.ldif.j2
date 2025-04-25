@@ -1,19 +1,4 @@
-
-#######################################################################
-# Generic container for Application roles
-#######################################################################
-dn: {{ldap.dn.application_roles}}
-objectClass: organizationalUnit
-ou: roles
-description: Container for application access profiles
-
-{# 
-  This template generates two LDIF entries for each application in defaults_applications:
-  one for the administrator role and one for the standard user role.
-  Please adjust the base DN (dc=example,dc=com) and other attributes as necessary.
-#}
-
-{% for app, config in defaults_applications.items() %}
+{% for app, config in applications.items() %}
 dn: cn={{ app }}-administrator,{{ldap.dn.application_roles}}
 objectClass: top
 objectClass: organizationalRole
@@ -25,5 +10,33 @@ objectClass: top
 objectClass: organizationalRole
 cn: {{ app }}-user
 description: Standard user role for {{ app }} (automatically generated)
+
+{% endfor %}
+
+{% for username, user in users.items() %}
+
+#######################################################################
+# Assign {{ username }} to application user roles
+#######################################################################
+{% for app, config in applications.items() %}
+
+# Assign {{ username }} to {{ app }}-users
+
+dn: cn={{ app }}-user,{{ ldap.dn.application_roles }}
+changetype: modify
+add: roleOccupant
+roleOccupant: {{ ldap.attributes.user_id }}={{ username }},{{ ldap.dn.users }}
+
+{% if users.is_admin | default(false) | bool %}
+
+# Assign {{ username }} to {{ app }}-administrator
+dn: cn={{ app }}-administrator,{{ ldap.dn.application_roles }}
+changetype: modify
+add: roleOccupant
+roleOccupant: {{ ldap.attributes.user_id }}={{ users.administrator.username }},{{ ldap.dn.users }}
+
+{% endif %}
+
+{% endfor %}
 
 {% endfor %}

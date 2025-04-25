@@ -4,7 +4,7 @@ networks:
   central_{{ database_type }}:
     external: true
 {% endif %}
-{% if applications[application_id].get('features', {}).get('ldap', false) | bool and applications.ldap.network.local | bool %}
+{% if applications[application_id].get('features', {}).get('ldap', false) | bool and applications.ldap.network.docker | bool %}
   central_ldap:
     external: true
 {% endif %}

@@ -6,7 +6,7 @@ services:
     image: bitnami/openldap:{{ applications[application_id].version }}
     container_name: {{ applications[application_id].hostname }}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-{% if applications[application_id].network.public | bool %}
+{% if applications[application_id].network.public | bool or applications[application_id].network.local | bool %}
     ports:
       - 127.0.0.1:{{ports.localhost.ldap.ldap}}:{{ldap_docker_port}}  # Expose just on localhost so that nginx stream proxy can use it
 {% endif %}
