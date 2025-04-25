@@ -3,6 +3,7 @@ ports:
   localhost:
     web_socket:
       mastodon:         4001
+      espocrm:          4002
     oauth2_proxy:
       phpmyadmin:       4181
       lam:              4182

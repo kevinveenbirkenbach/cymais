@@ -1,15 +1,27 @@
+# ./roles/docker-espocrm/tasks/main.yml
 ---
 - name: "include docker-central-database"
   include_role:
     name: docker-central-database
 
+# -- Nginx reverse proxy and Let's Encrypt certificates (same pattern as the Gitea role) --
+- name: "include role nginx-domain-setup for {{ application_id }}"
+  include_role:
+    name: nginx-domain-setup
+  vars:
+    domain: "{{ domains[application_id] }}"
+    http_port: "{{ ports.localhost.http[application_id] }}"
+
+# -- Copy docker-compose.yml and .env --
 - name: "copy docker-compose.yml and env file"
   include_tasks: copy-docker-compose-and-env.yml
 
+# -- Ensure containers are (re)started after the initial setup --
 - name: flush docker service
   meta: flush_handlers
   when: applications.espocrm.setup | bool
 
+# -- Run database initialisation or upgrade --
 - name: "run database setup / upgrade"
   command:
     cmd: "docker compose run --rm web php command.php upgrade"
