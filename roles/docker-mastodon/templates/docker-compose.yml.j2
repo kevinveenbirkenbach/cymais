@@ -24,7 +24,7 @@ services:
     healthcheck:
       test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:4000/api/v1/streaming/health || exit 1']
     ports:
-      - "127.0.0.1:{{ports.localhost.web_socket[application_id]}}:4000"
+      - "127.0.0.1:{{ports.localhost.websocket[application_id]}}:4000"
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 

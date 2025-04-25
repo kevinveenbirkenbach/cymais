@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Nginx reverse proxy front-end for local Docker applications."
+  description: "Automated domain provisioning (TLS, vHost, OAuth2) for Nginx."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -15,14 +15,11 @@ galaxy_info:
         - rolling
   galaxy_tags:
     - nginx
-    - docker
-    - reverse_proxy
-    - web
+    - tls
+    - letsencrypt
+    - oauth2
     - automation
     - archlinux
   repository: https://s.veen.world/cymais
   issue_tracker_url: https://s.veen.world/cymaisissues
   documentation: https://s.veen.world/cymais
-dependencies:
-  - role: docker
-  - role: nginx-https

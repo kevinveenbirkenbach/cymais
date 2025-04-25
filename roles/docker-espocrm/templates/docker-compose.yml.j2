@@ -7,7 +7,7 @@ services:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     environment:
       # --- DB connection ----------------------------------------------------
-      - ESPOCRM_DATABASE_PLATFORM=Mysql          # EspoCRM expects ‘Mysql’ even for MariaDB
+      - ESPOCRM_DATABASE_PLATFORM=Mysql
       - ESPOCRM_DATABASE_HOST={{ database_host }}
       - ESPOCRM_DATABASE_PORT={{ database_port }}
       - ESPOCRM_DATABASE_NAME={{ database_name }}
@@ -27,7 +27,7 @@ services:
     volumes:
       - data:/var/www/html
 
-  daemon:                                 # ↔  was “espocrm-daemon” in the example
+  daemon:
     image: espocrm/espocrm:{{ applications.espocrm.version }}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     entrypoint: docker-daemon.sh
@@ -37,7 +37,7 @@ services:
       - data:/var/www/html
     restart: unless-stopped
 
-  websocket:                              # ↔  was “espocrm-websocket” in the example
+  websocket:
     image: espocrm/espocrm:{{ applications.espocrm.version }}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     environment:

@@ -2,10 +2,10 @@
   include_role:
     name: nginx-https-get-cert-modify-all
     
-- name: "copy nginx domain configuration to {{configuration_destination}}"
-  template: 
-    src:  "roles/nginx-docker-reverse-proxy/templates/domain.conf.j2" 
-    dest: "{{configuration_destination}}"
+- name: "copy nginx domain configuration to {{ configuration_destination }}"
+  template:
+    src:  "{{ vhost_template_src }}"
+    dest: "{{ configuration_destination }}"
   notify: restart nginx
   
 - name: "include the docker-oauth2-proxy role {{domain}}"

@@ -18,18 +18,18 @@ server
   {% if applications | get_oauth2_enabled(application_id) %}
     {% if applications[application_id].oauth2_proxy.location is defined %}
       {# Exposed and Unprotected Location #}
-      {% include 'proxy_pass.conf.j2' %}
+      {% include 'roles/nginx-docker-reverse-proxy/templates/location/proxy_basic.conf.j2' %}
       {% set oauth2_proxy_enabled = true %}
       {% set location = applications[application_id].oauth2_proxy.location %}
       {# Gated Location by OAuth2 Proxy #}
-      {% include 'proxy_pass.conf.j2' %}
+      {% include 'roles/nginx-docker-reverse-proxy/templates/location/proxy_basic.conf.j2' %}
     {% else %}
       {% set oauth2_proxy_enabled = true %}
       {# Protected Domain by OAuth2 Proxy #}
-      {% include 'proxy_pass.conf.j2'%}
+      {% include 'roles/nginx-docker-reverse-proxy/templates/location/proxy_basic.conf.j2'%}
     {% endif %}
   {% else %}
     {# Exposed Domain - Not protected by OAuth2 Proxy #}
-    {% include 'proxy_pass.conf.j2' %}
+    {% include 'roles/nginx-docker-reverse-proxy/templates/location/proxy_basic.conf.j2' %}
   {% endif %}
 }

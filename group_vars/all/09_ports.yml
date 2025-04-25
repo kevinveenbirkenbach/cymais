@@ -1,7 +1,7 @@
 ports:
   # Ports which are exposed to localhost
   localhost:
-    web_socket:
+    websocket:
       mastodon:         4001
       espocrm:          4002
     oauth2_proxy:

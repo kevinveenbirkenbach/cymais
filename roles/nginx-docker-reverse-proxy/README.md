@@ -1,19 +1,31 @@
-# role nginx-docker-reverse-proxy
+# Nginx Docker Reverse Proxy 🚀
 
-Uses nginx as an [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy) for local docker applications.
+## Description
 
-## debug
-```bash
-curl -I {{address}}
-```
-- https://serverfault.com/questions/434915/nginx-proxy-caching-how-to-check-if-it-is-working
+This Ansible role deploys **Nginx** as a high-performance [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy) in front of Docker-hosted services.  
+It provides automatic TLS integration, WebSocket support, and a flexible templating system for per-application configuration.
 
-## performance
-- https://stackoverflow.com/questions/33703230/caching-images-on-all-folder-levels-of-nginx-reverse-proxy
-- https://www.tweaked.io/guide/nginx-proxying/
-- https://serverfault.com/questions/796735/nginx-reverse-proxy-is-slow/796740
-- https://serverfault.com/questions/741610/what-is-the-difference-between-proxy-request-buffering-and-proxy-buffering-on-ng
-- https://askubuntu.com/questions/1103626/should-i-enable-client-max-body-size-proxy-request-buffering-and-proxy-bufferin
-- https://serverfault.com/questions/692577/whats-the-difference-between-proxy-buffer-and-proxy-cache-module-in-nginx-confi
-- https://github.com/sissbruecker/linkding/issues/88
-- https://www.bogotobogo.com/DevOps/Docker/docker/compose/Nginx-Reverse-Proxy-Multiple-Containers.php
+## Overview
+
+Optimised for Arch Linux, the role installs Nginx, prepares opinionated configuration snippets and exposes a simple interface for other roles to drop in new virtual-hosts.  
+It plays well with **Let’s Encrypt**, **OAuth2 Proxy**, and your existing Docker stack.
+
+## Purpose
+
+The goal of this role is to deliver a **hassle-free, production-ready reverse proxy** for self-hosted containers, suitable for homelabs and small-scale production workloads.
+
+## Features
+
+- **Automatic TLS & HSTS** — integrates with the *nginx-https* role for certificate management.  
+- **Flexible vHost templates** — *basic* and *ws_generic* flavours cover standard HTTP and WebSocket applications.  
+- **Security headers** — sensible defaults plus optional X-Frame-Options / CSP based on application settings.  
+- **WebSocket & HTTP/2 aware** — upgrades, keep-alive tuning, and gzip already configured.  
+- **OAuth2 gating** — drop-in support when *docker-oauth2-proxy* is present.  
+- **Modular includes** — headers, locations, and global snippets are factored for easy extension.
+
+## Credits 📝
+
+Developed and maintained by **Kevin Veen-Birkenbach**.  
+More at <https://www.veen.world>
+
+Part of the **CyMaIS Project** — licensed under the [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)
