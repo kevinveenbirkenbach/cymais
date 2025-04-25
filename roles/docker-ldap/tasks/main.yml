@@ -50,23 +50,43 @@
       - python-ldap
     state: present
 
-- name: "Ensure LDAP users are present and up to date"
+###############################################################################
+# 1) Create the LDAP entry if it does not yet exist
+###############################################################################
+- name: Ensure LDAP users exist
   community.general.ldap_entry:
     dn: "{{ ldap.attributes.user_id }}={{ item.key }},{{ ldap.dn.users }}"
-    server_uri: "ldap://127.0.0.1:{{ports.localhost.ldap.ldap}}"
+    server_uri: "ldap://127.0.0.1:{{ ports.localhost.ldap.ldap }}"
     bind_dn: "{{ ldap.dn.administrator }}"
     bind_pw: "{{ ldap.bind_credential }}"
     objectClass: "{{ ldap.user_objects }}"
     attributes:
-      "{{ ldap.attributes.user_id }}": "{{ item.key }}"
-      sn:        "{{ item.value.sn | default(item.key) }}"
-      cn:        "{{ item.value.cn | default(item.key) }}"
-      userPassword: "{SSHA}{{ item.value.password }}"
-      loginShell:   /bin/bash
+      uid:           "{{ item.key }}" # {{ ldap.attributes.user_id }} can't be used as key here, dynamic key generation isn't possible
+      sn:            "{{ item.value.sn  | default(item.key) }}"
+      cn:            "{{ item.value.cn  | default(item.key) }}"
+      userPassword:  "{SSHA}{{ item.value.password }}"
+      loginShell:    /bin/bash
       homeDirectory: "/home/{{ item.key }}"
-      uidNumber:   "{{ item.value.uid | int }}"
-      gidNumber:   "{{ item.value.gid | int }}"
-    state: present
+      uidNumber:     "{{ item.value.uid | int }}"
+      gidNumber:     "{{ item.value.gid | int }}"
+    state: present            # ↳ creates but never updates
+  loop: "{{ users | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+
+###############################################################################
+# 2) Keep the objectClass list AND the mail attribute up-to-date
+###############################################################################
+- name: Ensure required objectClass values and mail address are present
+  community.general.ldap_attrs:
+    dn: "{{ ldap.attributes.user_id }}={{ item.key }},{{ ldap.dn.users }}"
+    server_uri: "ldap://127.0.0.1:{{ ports.localhost.ldap.ldap }}"
+    bind_dn: "{{ ldap.dn.administrator }}"
+    bind_pw: "{{ ldap.bind_credential }}"
+    attributes:
+      objectClass: "{{ ldap.user_objects }}"
+      mail:         "{{ item.value.email }}"
+    state: exact        # ‘exact’ is safest for single-valued attributes
   loop: "{{ users | dict2items }}"
   loop_control:
     label: "{{ item.key }}"
