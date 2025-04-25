@@ -5,7 +5,6 @@ services:
   web:
     image: espocrm/espocrm:{{ applications.espocrm.version }}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    command: "php-fpm"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost/"]
     ports:
@@ -41,7 +40,7 @@ services:
     volumes:
       - data:/var/www/html
     ports:
-      - "{{ ports.localhost.websocket[application_id] | default('127.0.0.1:8081') }}:8080"
+      - "127.0.0.1:{{ ports.localhost.websocket[application_id] }}:8080"
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}
   data:

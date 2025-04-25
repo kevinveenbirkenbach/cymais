@@ -128,7 +128,7 @@ defaults_applications:
 
   ## EspoCRM
   espocrm:
-    version:                      "fpm-alpine"
+    version:                      "latest"
     users:
       administrator:
         username:                 "{{ users.administrator.username }}"
@@ -142,9 +142,9 @@ defaults_applications:
 
 {% endraw %}{{ features.render_features({
   'matomo':   true,
-  'css':      true,
+  'css':      false,
   'iframe':   false,
-  'ldap':     true,
+  'ldap':     false,
   'oidc':     true,
   'database': true
 }) }}{% raw %}
