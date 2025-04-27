@@ -13,7 +13,7 @@ def get_oidc_enabled(applications, application_id):
     return bool(enabled)
 
 def get_features_iframe(applications, application_id):
-    app = applications.get(application_id)
+    app = applications.get(application_id, {})
     enabled = app.get('features', {}).get('iframe', False)
     return bool(enabled)
 
