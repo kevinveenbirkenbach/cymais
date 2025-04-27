@@ -1,8 +1,21 @@
-- name: "recieve dedicated certificate for {{ domain }}"
+- name: "receive dedicated certificate for {{ domain }}"
   command: >-
-    certbot certonly --agree-tos --email {{ users.administrator.email }}
-    --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{ domain }}
+    certbot certonly 
+    --agree-tos 
+    --email {{ users.administrator.email }}
+    --non-interactive 
+    {% if certbot_acme_challenge_method != "webroot" %}
+    --dns-{{ certbot_acme_challenge_method }}
+    --dns-{{ certbot_acme_challenge_method }}-credentials {{ certbot_credentials_file }}
+    --dns-{{ certbot_acme_challenge_method }}-propagation-seconds 60
+    {% else %}
+    --webroot 
+    -w /var/lib/letsencrypt/ 
+    {% endif %}
+    -d {{ domain }}
     {{ '--test-cert' if mode_test | bool else '' }}
+  register: certbot_result
+  changed_when: "'Certificate not yet due for renewal' not in certbot_result.stdout"
   when: 
     - not enable_wildcard_certificate | bool or not (domain.split('.') | length == (primary_domain.split('.') | length + 1) and domain.endswith(primary_domain))
       # Wildcard certificate should not be used
@@ -10,17 +23,31 @@
 
 # The following should not work, checkout the Setup.md instructions. 
 # @see https://chatgpt.com/share/67efa9f0-1cdc-800f-8bce-62b00fc3e6a2
-- name: "recieve wildcard certificate *{{ primary_domain }} for {{domain}}"
+- name: "receive wildcard certificate *{{ primary_domain }} for {{domain}}"
   command: >-
-    certbot certonly --agree-tos --email {{ users.administrator.email }}                                          
-    --non-interactive --webroot -w /var/lib/letsencrypt/ -d {{ primary_domain }} -d *.{{ primary_domain }}
+    certbot certonly 
+    --agree-tos 
+    --email {{ users.administrator.email }}                                          
+    --non-interactive 
+    {% if certbot_acme_challenge_method != "webroot" %}
+    --dns-{{ certbot_acme_challenge_method }}
+    --dns-{{ certbot_acme_challenge_method }}-credentials {{ certbot_credentials_file }}
+    --dns-{{ certbot_acme_challenge_method }}-propagation-seconds 60
+    {% else %}
+    --webroot 
+    -w /var/lib/letsencrypt/ 
+    {% endif %}
+    -d {{ primary_domain }} 
+    -d *.{{ primary_domain }}
     {{ '--test-cert' if mode_test | bool else '' }}
+  register: certbot_result
+  changed_when: "'Certificate not yet due for renewal' not in certbot_result.stdout"
   when:
     - enable_wildcard_certificate | bool  
       # Wildcard certificate is enabled
     - domain.split('.') | length == (primary_domain.split('.') | length + 1) and domain.endswith(primary_domain)
       # AND: The domain is a direct first-level subdomain of the primary domain
-    - run_once_recieve_certificate is not defined  
+    - run_once_receive_certificate is not defined  
       # Ensure this task runs only once for the wildcard certificate
   ignore_errors: true
 
@@ -40,7 +67,7 @@
   failed_when: certbot_result.rc != 0 and ("No certificate found with name" not in certbot_result.stderr)
   changed_when: certbot_result.rc == 0 and ("No certificate found with name" not in certbot_result.stderr)
 
-- name: run the recieve_certificate tasks once
+- name: run the receive_certificate tasks once
   set_fact:
-    run_once_recieve_certificate: true
-  when: run_once_recieve_certificate is not defined
+    run_once_receive_certificate: true
+  when: run_once_receive_certificate is not defined

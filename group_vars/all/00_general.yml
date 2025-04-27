@@ -88,3 +88,9 @@ enable_wildcard_certificate:              false
 # This enables debugging in ansible and in the apps
 # You SHOULD NOT enable this on production servers
 enable_debug:                             false
+
+# Which ACME method to use: webroot, cloudflare, or hetzner
+certbot_acme_challenge_method:            "webroot"
+certbot_credentials_dir:                  /etc/certbot
+certbot_credentials_file:                 "{{ certbot_credentials_dir }}/{{ certbot_acme_challenge_method }}.ini"
+# certbot_dns_api_token                   # Define in inventory file

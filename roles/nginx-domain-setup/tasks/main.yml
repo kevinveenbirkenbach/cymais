@@ -1,4 +1,4 @@
-- name: "include role for {{domain}} to recieve certificates and do the modification routines"
+- name: "include role for {{domain}} to receive certificates and do the modification routines"
   include_role:
     name: nginx-https-get-cert-modify-all
     

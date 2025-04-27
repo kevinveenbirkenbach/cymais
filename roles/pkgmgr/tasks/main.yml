@@ -38,9 +38,12 @@
   when: run_once_package_manager is not defined
 
 - name: Run the Package Manager install command to create an alias for Kevins package manager
-  command: "make setup"
+  shell: |
+    source ~/.venvs/pkgmgr/bin/activate
+    make setup
   args:
     chdir: "{{ pkgmgr_install_path }}"
+    executable: /bin/bash
   become: yes
   when: run_once_package_manager is not defined
 

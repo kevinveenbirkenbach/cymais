@@ -19,7 +19,7 @@
   # Not all type of changes take instantly place. Due to this reason a rebuild is required.
   notify: docker compose project setup
 
-- name: "include role for {{application_id}} to recieve certs & do modification routines"
+- name: "include role for {{application_id}} to receive certs & do modification routines"
   include_role:
     name: nginx-https-get-cert-modify-all
 

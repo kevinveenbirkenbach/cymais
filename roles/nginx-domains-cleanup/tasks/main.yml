@@ -1,8 +1,9 @@
 ---
 - name: "Remove Nginx configuration for deprecated domains"
-  ansible.builtin.file:
-    path: "/etc/nginx/conf.d/http/servers/{{ item }}"
-    state: absent
+  ansible.builtin.command:
+    cmd: >-
+      rm -fv /etc/nginx/conf.d/http/servers/*.{{ item }}.conf;
+      rm -fv /etc/nginx/conf.d/http/servers/{{ item }}.conf
   loop: "{{ deprecated_domains }}"
   loop_control:
     label: "{{ item }}"
@@ -11,6 +12,7 @@
     - mode_cleanup | bool
     - run_once_nginx_domains_cleanup is not defined
 
+# The revoking just works for the base domain
 - name: "Revoke Certbot certificate for {{ item }}"
   ansible.builtin.command:
     cmd: "certbot revoke -n --cert-name {{ item }}"
@@ -21,7 +23,9 @@
   when:
     - mode_cleanup | bool
     - run_once_nginx_domains_cleanup is not defined
+  ignore_errors: true
 
+# The deleting just works for the base domain
 - name: "Delete Certbot certificate for {{ item }}"
   ansible.builtin.command:
     cmd: "certbot delete -n --cert-name {{ item }}"
@@ -32,6 +36,7 @@
   when:
     - mode_cleanup | bool
     - run_once_nginx_domains_cleanup is not defined
+  ignore_errors: true
 
 - name: run the nginx_domains_cleanup role once
   set_fact:

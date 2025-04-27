@@ -1,6 +1,7 @@
 - name: install certbot
   pacman:
-    name: [certbot,certbot-nginx]
+    name:
+      - certbot-nginx
     state: present
   when: run_once_nginx_certbot is not defined
 

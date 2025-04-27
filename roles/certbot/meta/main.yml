@@ -1,8 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: |
-    Configures an Nginx-based file server with HTTPS support, automatic SSL/TLS certificate retrieval, directory listing, and .well-known handling for secure static file hosting.
+  description: "Automates the installation and configuration of Certbot for SSL/TLS certificate management"
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -15,16 +14,15 @@ galaxy_info:
       versions:
         - rolling
   galaxy_tags:
-    - nginx
-    - https
-    - file-server
-    - static-files
+    - certbot
     - ssl
+    - tls
+    - https
+    - encryption
     - letsencrypt
+    - acme
     - automation
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
-dependencies:
-  - nginx-https
-  - git
+dependencies: []

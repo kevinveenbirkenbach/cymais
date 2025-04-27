@@ -1,0 +1,41 @@
+- name: install certbot
+  pacman:
+    name: certbot
+    state: present
+  when: run_once_certbot is not defined
+
+- name: install certbot DNS plugin
+  pacman:
+    name: "certbot-dns-{{ certbot_acme_challenge_method }}"
+    state: present
+  when:
+    - run_once_certbot is not defined
+    - certbot_acme_challenge_method != 'webroot'
+
+- name: Ensure /etc/certbot directory exists
+  file:
+    path:   "{{ certbot_credentials_dir }}"
+    state:  directory
+    owner:  root
+    group:  root
+    mode:   '0755'
+  when:
+    - run_once_certbot is not defined
+    - certbot_acme_challenge_method != 'webroot'
+
+- name: Install plugin credentials file
+  copy:
+    dest: "{{ certbot_credentials_file }}"
+    content: |
+      dns_{{ certbot_acme_challenge_method }}_api_token = {{ certbot_dns_api_token }}
+    owner: root
+    group: root
+    mode: '0600'
+  when:
+    - run_once_certbot is not defined
+    - certbot_acme_challenge_method != 'webroot'
+
+- name: run the certbot role once
+  set_fact:
+    run_once_certbot: true
+  when: run_once_certbot is not defined

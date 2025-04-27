@@ -19,7 +19,7 @@ This command will setup CyMaIS on your system with the alias **cymais**.
 
 ## Get Help 
 
-After you setuped CyMaIS you can recieve more help by executing: 
+After you setuped CyMaIS you can receive more help by executing: 
 
 ```bash
 cymais --help

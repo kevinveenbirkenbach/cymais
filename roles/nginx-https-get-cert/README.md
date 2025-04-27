@@ -1,39 +1,35 @@
-# Let's Encrypt Certificate Role
+# Nginx HTTPS Certificate Retrieval
 
-This Ansible role uses Certbot to obtain Let's Encrypt SSL/TLS certificates. It supports both dedicated and wildcard certificate requests based on domain conditions. It can also clean up (delete) dedicated certificates when cleanup mode is enabled.
+## 🔥 Description
 
-## Features
+This role automates the retrieval of [Let's Encrypt](https://letsencrypt.org/) SSL/TLS certificates using [Certbot](https://certbot.eff.org/) for domains served via Nginx. It supports both single-domain and wildcard certificates, and can use either the DNS or webroot ACME challenge methods.
 
-- **Dedicated Certificate Request:**  
-  Requests a certificate for a given domain using Certbot's `certonly` command with the webroot plugin.
+## 📖 Overview
 
-- **Wildcard Certificate Request:**  
-  When enabled, obtains a wildcard certificate for the primary domain (including both the primary domain and all its direct subdomains).
+Designed for Archlinux systems, this role handles issuing certificates per domain and optionally cleans up redundant certificates if wildcard certificates are used. It intelligently decides whether to issue a standard or wildcard certificate based on the domain structure and your configuration.
 
-- **Certificate Cleanup:**  
-  Provides an option to delete dedicated certificates if cleanup mode is active.
+### Key Features
+- **Single Domain and Wildcard Support:** Handles both individual domains and wildcard domains (`*.example.com`).
+- **DNS and Webroot Challenges:** Dynamically selects the correct ACME challenge method.
+- **Certificate Renewal Logic:** Skips renewal if the certificate is still valid.
+- **Optional Cleanup:** Deletes redundant domain certificates when wildcard certificates are used.
+- **Non-Interactive Operation:** Fully automated using `--non-interactive` and `--agree-tos`.
 
-- **Run Once for Wildcard:**  
-  Ensures that the wildcard certificate task runs only once to prevent duplicate requests.
+## 🎯 Purpose
 
-## Tasks Overview
+The Nginx HTTPS Certificate Retrieval role ensures that your Nginx-served domains have valid, automatically issued SSL/TLS certificates, improving web security without manual intervention.
 
-- **Receive Dedicated Certificate:**  
-  Executes Certbot to request a dedicated certificate for `{{ domain }}` when a wildcard certificate is not applicable.
+## 🚀 Features
 
-- **Receive Wildcard Certificate:**  
-  Executes Certbot to request a wildcard certificate for `*{{ primary_domain }}` under the appropriate conditions.
+- **ACME Challenge Selection:** Supports DNS plugins or webroot method automatically.
+- **Wildcard Certificate Management:** Issues wildcard certificates when configured, saving effort for subdomain-heavy deployments.
+- **Safe Cleanup:** Ensures that no unused certificates are left behind.
+- **Flexible Control:** Supports `mode_test` for staging environment testing and `mode_cleanup` for cert cleanup operations.
 
-- **Cleanup Dedicated Certificate:**  
-  Runs Certbot's delete command to remove the dedicated certificate if cleanup mode is active.
+## 🔗 Learn More
 
-- **Run Once Flag:**  
-  Sets a fact to ensure that the wildcard certificate task is executed only once per playbook run.
-
-## Author
-
-This role is authored by [Kevin Veen-Birkenbach](https://www.veen.world).
-
----
-
-Feel free to contribute or open issues if you have suggestions or encounter any problems with the role. Enjoy secure connections with Let's Encrypt and Ansible!
+- [Certbot Official Website](https://certbot.eff.org/)
+- [Let's Encrypt](https://letsencrypt.org/)
+- [Wildcard Certificates (Wikipedia)](https://en.wikipedia.org/wiki/Wildcard_certificate)
+- [HTTPS (Wikipedia)](https://en.wikipedia.org/wiki/HTTPS)
+- [ACME Protocol (Wikipedia)](https://en.wikipedia.org/wiki/Automated_Certificate_Management_Environment)
