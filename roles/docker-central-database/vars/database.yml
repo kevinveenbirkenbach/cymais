@@ -4,5 +4,5 @@ database_name:      "{{ application_id }}"
 database_username:  "{{ application_id }}"
 database_port:      "{{ 3306 if database_type == 'mariadb' else 5432 }}"
 database_env:       "{{docker_compose.directories.env}}{{database_type}}.env"
-
-# Don't set application_id . It would conflict with central database logic
+database_url_jdbc:  "jdbc:{{ database_type if database_type == 'mariadb' else 'postgresql' }}://{{ database_host }}:{{ database_port }}/{{ database_name }}"
+database_url_full:  "{{database_type}}://{{database_username}}:{{database_password}}@{{database_host}}:{{database_port}}/{{ database_name }}"
