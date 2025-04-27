@@ -11,8 +11,13 @@
   command: 
     cmd: 'docker compose exec -u root web bash -c "RAILS_ENV=production bin/tootctl accounts create {{users.administrator.username}} --email {{users.administrator.email}} --confirmed --role Owner"'
     chdir: "{{docker_compose.directories.instance}}"
-  ignore_errors: true
-
+  register: tootctl_create
+  changed_when: tootctl_create.rc == 0
+  failed_when: >
+    tootctl_create.rc != 0
+    and
+    ("taken" not in tootctl_create.stderr | lower)
+    
 - name: Approve the administrator account in Mastodon
   command: 
     cmd: docker compose exec -u root web bash -c "RAILS_ENV=production bin/tootctl accounts modify {{users.administrator.username}} --approve"
