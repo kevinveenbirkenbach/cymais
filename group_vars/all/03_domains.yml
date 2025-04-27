@@ -45,6 +45,7 @@ defaults_domains:
   roulette-wheel:          "roulette.{{primary_domain}}"
   snipe_it:                "inventory.{{primary_domain}}"
   sphinx:                  "docs.{{primary_domain}}"
+  syncope:                 "syncope.{{primary_domain}}"
   taiga:                   "kanban.{{primary_domain}}"
   yourls:                  "s.{{primary_domain}}"
   # ATTENTION: Will be owerwritten by the values in domains. Not merged.

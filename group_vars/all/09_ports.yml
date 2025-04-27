@@ -56,6 +56,7 @@ ports:
       fusiondirectory:  8038
       presentation:     8039
       espocrm:          8040
+      syncope:          8041
       bigbluebutton:    48087 # This port is predefined by bbb. @todo Try to change this to a 8XXX port
   # Ports which are exposed to the World Wide Web
   public:

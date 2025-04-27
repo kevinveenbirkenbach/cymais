@@ -1,0 +1,31 @@
+---
+- name: "include docker-central-database"
+  include_role: 
+    name: docker-central-database
+
+- name: "include role for {{application_id}} to recieve certs & do modification routines"
+  include_role:
+    name: nginx-https-get-cert-modify-all
+
+- name: configure {{domain}}.conf
+  template: 
+    src:  "templates/proxy.conf.j2"
+    dest: "{{nginx.directories.http.servers}}{{domain}}.conf"
+  notify: restart nginx
+
+- name: configure {{domain}}.conf
+  template: 
+    src:  "templates/proxy.conf.j2"
+    dest: "{{nginx.directories.http.servers}}{{domain}}.conf"
+  notify: restart nginx
+
+- name: "create {{docker_compose.files.env}}"
+  template: 
+    src:  "database.j2" 
+    dest: "{{docker_compose.files.env}}"
+    mode: '770'
+    force: yes
+  notify: docker compose project setup
+
+- name: "copy docker-compose.yml and env file"
+  include_tasks: copy-docker-compose-and-env.yml

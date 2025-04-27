@@ -1,0 +1,17 @@
+# General Configuration
+application_id:                 syncope
+database_type:                  "postgres"
+database_password:              {{ domains[application_id].credentials.database.password }}
+
+# Application Specific
+syncope_keymaster_address:      http://localhost:8080/syncope/rest/keymaster
+syncope_paths:
+  rest:                         rest
+  console:                      console
+  enduser:                      enduser
+
+syncope_anonymous_user:         {{ domains[application_id].users.anonymous.username }}
+syncope_anonymous_password:     {{ domains[application_id].credentials.anonymous.password }}
+
+syncope_administrator_user:     {{ domains[application_id].users.administrator.username }}
+syncope_administrator_password: {{ domains[application_id].credentials.administrator.password }}
