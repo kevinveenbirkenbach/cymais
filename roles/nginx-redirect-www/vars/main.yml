@@ -1,1 +1,0 @@
-nginx_www_wildcard_configuration: "{{nginx.directories.http.global}}www.wildcard.conf"

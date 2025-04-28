@@ -1,0 +1,27 @@
+- name: Install certbundle
+  include_role:
+    name: pkgmgr-install
+  vars:
+    package_name: certbundle
+  when: run_once_san_certs is not defined
+
+- name: Generate SAN certificate with certbundle
+  command: >-
+    certbundle
+    --domains "{{ all_domains | join(',') }}"
+    --certbot-email "{{ users.administrator.email }}"
+    --certbot-acme-challenge-method "{{ certbot_acme_challenge_method }}"
+    {% if certbot_acme_challenge_method != 'webroot' %}
+    --certbot-credentials-file "{{ certbot_credentials_file }}"
+    --certbot-dns-propagation-seconds "{{ certbot_dns_propagation_wait_seconds }}"
+    {% else %}
+    --certbot-webroot-path "{{ certbot_webroot_path }}"
+    {% endif %}
+    {{ '--mode-test' if mode_test | bool else '' }}
+  register: certbundle_result
+  when: run_once_san_certs is not defined
+
+- name: run the san tasks once
+  set_fact:
+    run_once_san_certs: true
+  when: run_once_san_certs is not defined

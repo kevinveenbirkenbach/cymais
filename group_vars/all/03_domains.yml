@@ -81,4 +81,3 @@ defaults_redirect_domain_mappings:
 
 # Domains which are deprecated and should be cleaned up
 deprecated_domains: []
-

@@ -8,6 +8,7 @@
 - name: Retrieve backup-docker-to-local path from pkgmgr
   command: pkgmgr path backup-docker-to-local
   register: pkgmgr_output
+  changed_when: false
   when: run_once_backup_docker_to_local is not defined
 
 - name: Set fact for backup_docker_to_local_folder

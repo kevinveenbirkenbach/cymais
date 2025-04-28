@@ -8,6 +8,7 @@
 - name: Retrieve backup-docker-to-local path from pkgmgr
   command: pkgmgr path cleanup-failed-docker-backups
   register: pkgmgr_output
+  changed_when: false
   when: run_once_cleanup_failed_docker_backups is not defined
 
 - name: Set fact for backup_docker_to_local_cleanup_script

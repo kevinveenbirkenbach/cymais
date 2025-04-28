@@ -5,7 +5,6 @@ database_password:  	        "{{applications.mailu.credentials.database.password
 database_type:                "mariadb"
 
 cert_mount_directory:         "{{docker_compose.directories.volumes}}certs/"
-enable_wildcard_certificate:  false
 
 # Use dedicated source for oidc if activated  
 # @see https://github.com/heviat/Mailu-OIDC/tree/2024.06

@@ -1,87 +1,23 @@
 ---
-- name: Find all .conf
-  ansible.builtin.find:
-    paths: "{{nginx.directories.http.servers}}"
-    patterns: '*.*.conf'
-  register: conf_files
-
-# Filter all domains
-
-- name: Filter domain names and remove .conf extension and path
+# 1. Filter all domains with the “www.” prefix
+- name: Filter www-prefixed domains from all_domains
   set_fact:
-    filtered_domains: "{{ conf_files.files | map(attribute='path') | map('regex_search', domain_regex) | select('string') | map('regex_replace', path_regex, '') | map('regex_replace', '.conf$', '') | list }}"
-  vars:
-    domain_regex: "^{{nginx.directories.http.servers}}(?!www\\.)[^/]+\\.conf$"
-    path_regex: "^{{nginx.directories.http.servers}}"
+    www_domains: "{{ all_domains | select('match', '^www\\.') | list }}"
 
-# Routine for domains with primary domain included
-
-- name: Set filtered_domains_with_primary_domain
+# 2. Build redirect mappings (www.domain → domain)
+- name: Build redirect mappings for www domains
   set_fact:
-    filtered_domains_with_primary_domain: "{{ filtered_domains | select('search', primary_domain + '$') | list }}"
+    domain_mappings: >-
+      {{ www_domains
+         | map('regex_replace', '^www\\.(.+)$', '{ source: \"www.\\1\", target: \"\\1\" }')
+         | map('from_yaml')
+         | list
+      }}
 
-- name: Include nginx-redirect-domain role with dynamic domain mappings for domains with {{primary_domain}} included
+# 3. Include the nginx-redirect-domain role to apply these mappings
+- name: Include nginx-redirect-domain role for www-to-bare redirects
   include_role:
     name: nginx-redirect-domain
   vars:
-    domain_mappings: "{{ filtered_domains_with_primary_domain | map('regex_replace', '^(.*)$', '{ source: \"www.\\1\", target: \"\\1\" }') | map('from_yaml') | list }}"
-  when: not enable_wildcard_certificate | bool
-
-- name: Include wildcard www. redirect for domains with {{primary_domain}} included
-  vars:
-    domain: "{{primary_domain}}"
-  template: 
-    src:  www.wildcard.conf.j2
-    dest: "{{nginx_www_wildcard_configuration}}"
-  notify: restart nginx
-  when: enable_wildcard_certificate | bool
-
-# Routine for domains without the primary domain included
-
-- name: Set filtered_domains_without_primary_domain
-  set_fact:
-    filtered_domains_without_primary_domain: "{{ filtered_domains | reject('search', primary_domain + '$') | list }}"
-
-- name: "Relevant variables for role: {{ role_path | basename }}"
-  debug:
-    msg:
-      filtered_domains_with_primary_domain: "{{filtered_domains_with_primary_domain}}"
-      filtered_domains: "{{filtered_domains}}"
-      filtered_domains_without_primary_domain: "{{filtered_domains_without_primary_domain}}"
-  when: enable_debug | bool
-
-- name: Include nginx-redirect-domain role with dynamic domain mappings for domains without primary domain
-  include_role:
-    name: nginx-redirect-domain
-  vars:
-    domain_mappings: "{{ filtered_domains_without_primary_domain | map('regex_replace', '^(.*)$', '{ source: \"www.\\1\", target: \"\\1\" }') | map('from_yaml') | list }}"
-
-
-# Cleanup
-# Deactivated due to complexity
-#- name: Cleanup dedicated nginx configurations for www redirect configuration
-#  file:
-#    path: "{{ nginx.directories.http.servers }}{{ item.source }}.conf"
-#    state: absent
-#  # Filter: Only first-level subdomains of primary_domain
-#  # Exclude the primary domain itself
-#  # Transform for www redirection
-#  loop: "{{ filtered_domains_with_primary_domain 
-#            | select('regex_search', '^[^.]+\\.' ~ primary_domain ~ '$') 
-#            | reject('equalto', primary_domain)  
-#            | map('regex_replace', '^(.*)$', '{ source: \"www.\\1\", target: \"\\1\" }')  
-#            | map('from_yaml') 
-#            | list }}"
-#  notify: restart nginx
-#  when: 
-#    - enable_wildcard_certificate | bool  # Wildcard certificate must be enabled
-#    - mode_cleanup | bool                 # Cleanup mode must be enabled
-
-- name: Cleanup {{nginx_www_wildcard_configuration}}
-  file:
-    path: "{{nginx_www_wildcard_configuration}}"
-    state: absent
-  notify: restart nginx
-  when: 
-    - not enable_wildcard_certificate | bool
-    - mode_cleanup | bool
+    domain_mappings: "{{ domain_mappings }}"
+  when: certbot_flavor == 'dedicated'

@@ -23,7 +23,12 @@
   when:
     - mode_cleanup | bool
     - run_once_nginx_domains_cleanup is not defined
-  ignore_errors: true
+  register: certbot_revoke_result
+  failed_when: >
+    certbot_revoke_result.rc != 0 and
+    'No certificate found with name' not in certbot_revoke_result.stderr
+  changed_when: >
+    certbot_revoke_result.rc == 0
 
 # The deleting just works for the base domain
 - name: "Delete Certbot certificate for {{ item }}"
@@ -36,7 +41,12 @@
   when:
     - mode_cleanup | bool
     - run_once_nginx_domains_cleanup is not defined
-  ignore_errors: true
+  register: certbot_delete_result
+  failed_when: >
+    certbot_delete_result.rc != 0 and
+    'No certificate found with name' not in certbot_delete_result.stderr
+  changed_when: >
+    certbot_delete_result.rc == 0
 
 - name: run the nginx_domains_cleanup role once
   set_fact:

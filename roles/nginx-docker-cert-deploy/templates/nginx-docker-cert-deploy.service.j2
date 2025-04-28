@@ -4,4 +4,4 @@ OnFailure=systemd-notifier.cymais@%n.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/bash {{path_administrator_scripts}}/nginx-docker-cert-deploy.sh {{domain}} {{docker_compose.directories.instance}}
+ExecStart=/usr/bin/bash {{path_administrator_scripts}}/nginx-docker-cert-deploy.sh {{ssl_cert_folder}} {{docker_compose.directories.instance}}

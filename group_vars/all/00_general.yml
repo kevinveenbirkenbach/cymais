@@ -75,22 +75,16 @@ randomized_delay_sec:                     "5min"
 # Runtime Variables for Process Control
 activate_all_timers:                       false   # Activates all timers, independend if the handlers had been triggered
 
-# One Wildcard Certificate for All Subdomains
-# Enables a single Let's Encrypt wildcard certificate for all subdomains instead of individual certificates.
-# Default: false (recommended for automatic setup).
-# Setting this to true requires additional manual configuration.
-# Using a wildcard certificate can improve performance by reducing TLS handshakes.
-# To enable, update your inventory file.
-# For detailed setup instructions, visit: 
-# https://github.com/kevinveenbirkenbach/cymais/tree/master/roles/nginx-docker-cert-deploy
-enable_wildcard_certificate:              false  
-
 # This enables debugging in ansible and in the apps
 # You SHOULD NOT enable this on production servers
 enable_debug:                             false
 
 # Which ACME method to use: webroot, cloudflare, or hetzner
-certbot_acme_challenge_method:            "webroot"
+certbot_acme_challenge_method:            "cloudflare"
 certbot_credentials_dir:                  /etc/certbot
 certbot_credentials_file:                 "{{ certbot_credentials_dir }}/{{ certbot_acme_challenge_method }}.ini"
 # certbot_dns_api_token                   # Define in inventory file
+certbot_dns_propagation_wait_seconds:     40                      # How long should the script wait for DNS propagation before continuing
+certbot_flavor:                           san                     # Possible options: san (recommended, with a dns flavor like cloudflare, or hetzner), wildcard(doesn't function with www redirect), deicated
+certbot_webroot_path:                     "/var/lib/letsencrypt/" # Path used by Certbot to serve HTTP-01 ACME challenges
+certbot_cert_path:                        "/etc/letsencrypt/live" # Path containing active certificate symlinks for domains

@@ -1,9 +1,6 @@
 application_id:               "ldap"
 ldaps_docker_port:            636
 ldap_docker_port:             389
-
-enable_wildcard_certificate:  false # Deactivate Wildcard Certificate
-
 ldif_host_path:               "{{docker_compose.directories.volumes}}ldif/"
 ldif_docker_path:             "/tmp/ldif/"
 ldap.dn.application_roles:    "ou=application_roles,{{ldap.dn.root}}"
