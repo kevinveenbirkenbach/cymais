@@ -1,0 +1,18 @@
+- name: "Debug: cloudflare_domains"
+  debug:
+    var: cloudflare_domains
+  when: enable_debug
+
+- name: Create or update Cloudflare A-record for {{ item }}
+  community.general.cloudflare_dns:
+    api_token: "{{ cloudflare_api_token }}"
+    zone: "{{ item.split('.')[-2:] | join('.') }}"
+    state: present
+    type: A
+    name: "{{ item }}"
+    content: "{{ cloudflare_target_ip }}"
+    ttl: 1
+    proxied: "{{ cloudflare_target_ip }}"
+  loop: "{{ cloudflare_domains }}"
+  loop_control:
+    label: "{{ item }}"

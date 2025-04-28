@@ -1,11 +1,12 @@
 ---
-- name: "include role nginx-domain-setup for {{application_id}}"
-  include_role:
-    name: nginx-domain-setup
-
+# Docker Central Database Role can't be used here
 - name: "include docker-compose role"
   include_role: 
     name: docker-compose
+
+- name: "include role nginx-domain-setup for {{application_id}}"
+  include_role:
+    name: nginx-domain-setup
 
 - name: pull docker repository
   git:

@@ -62,21 +62,27 @@
     set_fact:
       service_provider: "{{ defaults_service_provider | combine(service_provider | default({}, true), recursive=True) }}"
 
-  - name: Collect all domains (domains, redirect sources + www)
+  - name: Gather base domains (without www)
     set_fact:
-      all_domains: >-
+      base_domains: >-
         {{
-          (
-            (
-              domains.values() | flatten
-              + (redirect_domain_mappings | map(attribute='source') | list)
-            )
-            + (
-              domains.values() | flatten
-              + (redirect_domain_mappings | map(attribute='source') | list)
-            ) | map('regex_replace', '^(.*)$', 'www.\\1') | list
-          ) | unique | sort
+          domains.values()
+          | flatten
+          + (redirect_domain_mappings | map(attribute='source') | list)
         }}
+
+  - name: Initialise all_domains as empty list
+    set_fact:
+      all_domains: []
+
+  - name: Build all_domains with base + www via loop
+    set_fact:
+      all_domains: "{{ all_domains + [ item, 'www.' ~ item ] }}"
+    loop: "{{ base_domains }}"
+
+  - name: Deduplicate and sort all_domains
+    set_fact:
+      all_domains: "{{ all_domains | unique | sort }}"
 
   - name: "Merged Variables"
     # Add new merged variables here

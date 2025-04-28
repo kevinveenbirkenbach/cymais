@@ -1,10 +1,13 @@
 ---
-# 1. Filter all domains with the “www.” prefix
+- name: "Debug: all_domains"
+  debug:
+    var: all_domains
+  when: enable_debug
+
 - name: Filter www-prefixed domains from all_domains
   set_fact:
     www_domains: "{{ all_domains | select('match', '^www\\.') | list }}"
 
-# 2. Build redirect mappings (www.domain → domain)
 - name: Build redirect mappings for www domains
   set_fact:
     domain_mappings: >-
@@ -14,10 +17,19 @@
          | list
       }}
 
-# 3. Include the nginx-redirect-domain role to apply these mappings
 - name: Include nginx-redirect-domain role for www-to-bare redirects
   include_role:
     name: nginx-redirect-domain
   vars:
     domain_mappings: "{{ domain_mappings }}"
   when: certbot_flavor == 'dedicated'
+
+- name: Include DNS role to set redirects
+  include_role:
+    name: dns-records-cloudflare
+  vars:
+    cloudflare_api_token:     "{{ certbot_dns_api_token }}"
+    cloudflare_domains:       "{{ www_domains }}"
+    cloudflare_target_ip:     "{{ networks.internet.ip4 }}"
+    cloudflare_proxied_false: false
+  when: dns_provider == 'cloudflare'

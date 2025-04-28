@@ -79,11 +79,13 @@ activate_all_timers:                       false   # Activates all timers, indep
 # You SHOULD NOT enable this on production servers
 enable_debug:                             false
 
+dns_provider:                             cloudflare              # The DNS Provider\Registrar for the domain
+
 # Which ACME method to use: webroot, cloudflare, or hetzner
 certbot_acme_challenge_method:            "cloudflare"
 certbot_credentials_dir:                  /etc/certbot
 certbot_credentials_file:                 "{{ certbot_credentials_dir }}/{{ certbot_acme_challenge_method }}.ini"
-# certbot_dns_api_token                   # Define in inventory file
+# certbot_dns_api_token                                           # Define in inventory file
 certbot_dns_propagation_wait_seconds:     40                      # How long should the script wait for DNS propagation before continuing
 certbot_flavor:                           san                     # Possible options: san (recommended, with a dns flavor like cloudflare, or hetzner), wildcard(doesn't function with www redirect), deicated
 certbot_webroot_path:                     "/var/lib/letsencrypt/" # Path used by Certbot to serve HTTP-01 ACME challenges

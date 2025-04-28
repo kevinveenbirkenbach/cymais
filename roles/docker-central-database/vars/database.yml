@@ -1,7 +1,7 @@
 database_instance:  "{{ 'central-' + database_type if applications[application_id].features.database | bool else application_id }}"
 database_host:      "{{ 'central-' + database_type if applications[application_id].features.database | bool else 'database' }}"
-database_name:      "{{ application_id }}"
-database_username:  "{{ application_id }}"
+database_name:      "{{ applications[application_id].credentials.database.name | default( application_id ) }}"      # The overwritte configuration is needed by bigbluebutton
+database_username:  "{{ applications[application_id].credentials.database.username | default( application_id )}}"   # The overwritte configuration is needed by bigbluebutton
 database_port:      "{{ 3306 if database_type == 'mariadb' else 5432 }}"
 database_env:       "{{docker_compose.directories.env}}{{database_type}}.env"
 database_url_jdbc:  "jdbc:{{ database_type if database_type == 'mariadb' else 'postgresql' }}://{{ database_host }}:{{ database_port }}/{{ database_name }}"

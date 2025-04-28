@@ -66,7 +66,7 @@ defaults_applications:
   'iframe':   true,
   'ldap':     false,
   'oidc':     true,
-  'database': true,
+  'database': false,
 }) }}{% raw %}
     credentials:
 #      shared_secret:                                                       # Needs to be defined in inventory file
@@ -75,6 +75,9 @@ defaults_applications:
 #      postgresql_secret:                                                   # Needs to be defined in inventory file   
 #      fsesl_password:                                                      # Needs to be defined in inventory file
 #      turn_secret:                                                         # Needs to be defined in inventory file  
+      database:
+        name:      "multiple_databases"
+        username:  "postgres2"
     urls:
       api:                        "{{ web_protocol }}://{{domains.bigbluebutton}}/bigbluebutton/"  # API Address used by Nextcloud Integration
 

@@ -11,6 +11,7 @@
     --domains "{{ all_domains | join(',') }}"
     --certbot-email "{{ users.administrator.email }}"
     --certbot-acme-challenge-method "{{ certbot_acme_challenge_method }}"
+    --chunk-size 100
     {% if certbot_acme_challenge_method != 'webroot' %}
     --certbot-credentials-file "{{ certbot_credentials_file }}"
     --certbot-dns-propagation-seconds "{{ certbot_dns_propagation_wait_seconds }}"
