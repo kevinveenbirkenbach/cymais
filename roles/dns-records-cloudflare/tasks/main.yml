@@ -12,7 +12,7 @@
     name: "{{ item }}"
     content: "{{ cloudflare_target_ip }}"
     ttl: 1
-    proxied: "{{ cloudflare_target_ip }}"
+    proxied: "{{ cloudflare_proxied | int }}"
   loop: "{{ cloudflare_domains }}"
   loop_control:
     label: "{{ item }}"

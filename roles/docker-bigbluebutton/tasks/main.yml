@@ -4,6 +4,14 @@
   include_role: 
     name: docker-compose
 
+- name:                 "Seed BigBlueButton Database for Backup"
+  include_tasks:        "{{ playbook_dir }}/roles/backup-docker-to-local/tasks/seed-database-to-backup.yml"
+  vars:
+    database_instance:  "{{ application_id }}"
+    database_password:  "{{ applications[application_id].credentials.postgresql_secret }}"
+    database_username:  "postgres"
+    database_name:      ""                              # Multiple databases
+
 - name: "include role nginx-domain-setup for {{application_id}}"
   include_role:
     name: nginx-domain-setup

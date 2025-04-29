@@ -8,21 +8,17 @@
   set_fact:
     www_domains: "{{ all_domains | select('match', '^www\\.') | list }}"
 
-- name: Build redirect mappings for www domains
-  set_fact:
-    domain_mappings: >-
-      {{ www_domains
-         | map('regex_replace', '^www\\.(.+)$', '{ source: \"www.\\1\", target: \"\\1\" }')
-         | map('from_yaml')
-         | list
-      }}
-
 - name: Include nginx-redirect-domain role for www-to-bare redirects
   include_role:
     name: nginx-redirect-domain
   vars:
-    domain_mappings: "{{ domain_mappings }}"
-  when: certbot_flavor == 'dedicated'
+    domain_mappings: "{{ www_domains
+       | map('regex_replace',
+             '^www\\.(.+)$',
+             '{ source: \"www.\\1\", target: \"\\1\" }')
+       | map('from_yaml')
+       | list
+    }}"
 
 - name: Include DNS role to set redirects
   include_role:
@@ -31,5 +27,5 @@
     cloudflare_api_token:     "{{ certbot_dns_api_token }}"
     cloudflare_domains:       "{{ www_domains }}"
     cloudflare_target_ip:     "{{ networks.internet.ip4 }}"
-    cloudflare_proxied_false: false
+    cloudflare_proxied:       false
   when: dns_provider == 'cloudflare'

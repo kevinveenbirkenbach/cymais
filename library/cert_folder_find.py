@@ -5,7 +5,7 @@ __metaclass__ = type
 
 DOCUMENTATION = r'''
 ---
-module: find_cert_folder
+module: cert_folder_find
 short_description: Find SSL certificate folder covering a given domain
 description:
   - Searches through certificates to find a folder that covers the given domain.
@@ -38,7 +38,7 @@ author:
 
 EXAMPLES = r'''
 - name: Find cert folder for matomo.cymais.cloud
-  find_cert_folder:
+  cert_folder_find:
     domain: "matomo.cymais.cloud"
     certbot_flavor: "san"
     cert_base_path: "/etc/letsencrypt/live"
@@ -53,42 +53,18 @@ folder:
 '''
 
 import os
-import subprocess
 from ansible.module_utils.basic import AnsibleModule
-
-def run_openssl(cert_path):
-    try:
-        output = subprocess.check_output(
-            ['openssl', 'x509', '-in', cert_path, '-noout', '-text'],
-            universal_newlines=True
-        )
-        return output
-    except subprocess.CalledProcessError:
-        return ""
-
-def extract_sans(cert_text):
-    dns_entries = []
-    in_san = False
-    for line in cert_text.splitlines():
-        line = line.strip()
-        if 'X509v3 Subject Alternative Name:' in line:
-            in_san = True
-            continue
-        if in_san:
-            if not line:
-                break
-            dns_entries += [e.strip().replace('DNS:', '') for e in line.split(',') if e.strip()]
-    return dns_entries
+from ansible.module_utils.cert_utils import CertUtils  # IMPORT
 
 def find_matching_folders(domain, cert_files, flavor, debug):
     exact_matches = []
     wildcard_matches = []
 
     for cert_path in cert_files:
-        cert_text = run_openssl(cert_path)
+        cert_text = CertUtils.run_openssl(cert_path)
         if not cert_text:
             continue
-        sans = extract_sans(cert_text)
+        sans = CertUtils.extract_sans(cert_text)
         if debug:
             print(f"Checking {cert_path}: {sans}")
         for entry in sans:
@@ -106,16 +82,13 @@ def find_matching_folders(domain, cert_files, flavor, debug):
     else:
         return []
 
-def find_cert_folder(module):
+def cert_folder_find(module):
     domain = module.params['domain']
     certbot_flavor = module.params['certbot_flavor']
     cert_base_path = module.params['cert_base_path']
     debug = module.params['debug']
 
-    cert_files = []
-    for root, dirs, files in os.walk(cert_base_path):
-        if 'cert.pem' in files:
-            cert_files.append(os.path.join(root, 'cert.pem'))
+    cert_files = CertUtils.list_cert_files(cert_base_path)
 
     if debug:
         print(f"Found {len(cert_files)} cert.pem files under {cert_base_path}")
@@ -126,7 +99,7 @@ def find_cert_folder(module):
         if debug:
             print("Fallback: searching SAN matches without SAN structure parsing")
         for cert_path in cert_files:
-            cert_text = run_openssl(cert_path)
+            cert_text = CertUtils.run_openssl(cert_path)
             if f"DNS:{domain}" in cert_text:
                 preferred.append(os.path.dirname(cert_path))
 
@@ -151,7 +124,7 @@ def main():
         supports_check_mode=True
     )
 
-    find_cert_folder(module)
+    cert_folder_find(module)
 
 if __name__ == '__main__':
     main()

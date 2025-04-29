@@ -8,9 +8,8 @@
     name: cleanup-docker-anonymous-volumes
   when: mode_cleanup | bool
 
-- name: "Show User Configuration (Important when mailu tokens are created automatic)"
+- name: Show all facts
   debug:
-    msg:
-      users: "{{users}}"
+    var: ansible_facts
   when: enable_debug | bool
 

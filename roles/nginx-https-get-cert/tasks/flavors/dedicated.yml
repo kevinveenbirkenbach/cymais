@@ -1,3 +1,9 @@
+- name: "Check if certificate already exists for {{ domain }}"
+  cert_check_exists:
+    domain: "{{ domain }}"
+    cert_base_path: "{{ certbot_cert_path }}"
+  register: cert_check
+
 - name: "receive certificate for {{ domain }}"
   command: >-
     certbot certonly 
@@ -21,3 +27,4 @@
     {{ '--test-cert' if mode_test | bool else '' }}
   register: certbot_result
   changed_when: "'Certificate not yet due for renewal' not in certbot_result.stdout"
+  when: not cert_check.exists

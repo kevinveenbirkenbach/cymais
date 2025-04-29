@@ -1,52 +1,50 @@
 ---
-- name: "Remove Nginx configuration for deprecated domains"
-  ansible.builtin.command:
-    cmd: >-
-      rm -fv /etc/nginx/conf.d/http/servers/*.{{ item }}.conf;
-      rm -fv /etc/nginx/conf.d/http/servers/{{ item }}.conf
+- name: Include task to remove deprecated nginx configs
+  include_tasks: remove_deprecated_nginx_configs.yml
   loop: "{{ deprecated_domains }}"
   loop_control:
     label: "{{ item }}"
-  notify: restart nginx
+  vars:
+    domain: "{{ item }}"
   when:
     - mode_cleanup | bool
     - run_once_nginx_domains_cleanup is not defined
 
-# The revoking just works for the base domain
-- name: "Revoke Certbot certificate for {{ item }}"
-  ansible.builtin.command:
-    cmd: "certbot revoke -n --cert-name {{ item }}"
-  become: true
-  loop: "{{ deprecated_domains }}"
-  loop_control:
-    label: "{{ item }}"
-  when:
-    - mode_cleanup | bool
-    - run_once_nginx_domains_cleanup is not defined
-  register: certbot_revoke_result
-  failed_when: >
-    certbot_revoke_result.rc != 0 and
-    'No certificate found with name' not in certbot_revoke_result.stderr
-  changed_when: >
-    certbot_revoke_result.rc == 0
-
-# The deleting just works for the base domain
-- name: "Delete Certbot certificate for {{ item }}"
-  ansible.builtin.command:
-    cmd: "certbot delete -n --cert-name {{ item }}"
-  become: true
-  loop: "{{ deprecated_domains }}"
-  loop_control:
-    label: "{{ item }}"
-  when:
-    - mode_cleanup | bool
-    - run_once_nginx_domains_cleanup is not defined
-  register: certbot_delete_result
-  failed_when: >
-    certbot_delete_result.rc != 0 and
-    'No certificate found with name' not in certbot_delete_result.stderr
-  changed_when: >
-    certbot_delete_result.rc == 0
+## The revoking just works for the base domain
+#- name: "Revoke Certbot certificate for {{ item }}"
+#  ansible.builtin.command:
+#    cmd: "certbot revoke -n --cert-name {{ item }} --non-interactive"
+#  become: true
+#  loop: "{{ deprecated_domains }}"
+#  loop_control:
+#    label: "{{ item }}"
+#  when:
+#    - mode_cleanup | bool
+#    - run_once_nginx_domains_cleanup is not defined
+#  register: certbot_revoke_result
+#  failed_when: >
+#    certbot_revoke_result.rc != 0 and
+#    'No certificate found with name' not in certbot_revoke_result.stderr
+#  changed_when: >
+#    certbot_revoke_result.rc == 0
+#
+## The deleting just works for the base domain
+#- name: "Delete Certbot certificate for {{ item }}"
+#  ansible.builtin.command:
+#    cmd: "certbot delete -n --cert-name {{ item }} --non-interactive"
+#  become: true
+#  loop: "{{ deprecated_domains }}"
+#  loop_control:
+#    label: "{{ item }}"
+#  when:
+#    - mode_cleanup | bool
+#    - run_once_nginx_domains_cleanup is not defined
+#  register: certbot_delete_result
+#  failed_when: >
+#    certbot_delete_result.rc != 0 and
+#    'No certificate found with name' not in certbot_delete_result.stderr
+#  changed_when: >
+#    certbot_delete_result.rc == 0
 
 - name: run the nginx_domains_cleanup role once
   set_fact:

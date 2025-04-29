@@ -1,0 +1,20 @@
+---
+- name: Find matching nginx configs for {{ domain }}
+  ansible.builtin.find:
+    paths: /etc/nginx/conf.d/http/servers
+    patterns: "*.{{ domain }}.conf"
+  register: find_result
+
+- name: Remove wildcard nginx configs for {{ domain }}
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ find_result.files | default([]) }}"
+  when: item is defined
+  notify: restart nginx
+
+- name: Remove exact nginx config for {{ domain }}
+  ansible.builtin.file:
+    path: "/etc/nginx/conf.d/http/servers/{{ domain }}.conf"
+    state: absent
+  notify: restart nginx
