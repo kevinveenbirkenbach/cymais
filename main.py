@@ -10,6 +10,13 @@ def run_ansible_vault(action, filename, password_file):
     subprocess.run(cmd, check=True) 
 
 def run_ansible_playbook(inventory: str, playbook: str, modes: dict, limit: str = None, password_file: str = None, verbose: int = 0, skip_tests: bool = False):
+    print("\n🛠️  Building project (make build)...\n")
+    subprocess.run(["make", "build"], check=True)
+
+    if not skip_tests:
+        print("\n🧪 Running tests (make test)...\n")
+        subprocess.run(["make", "test"], check=True)
+    
     """Execute an ansible-playbook command with optional parameters."""
     cmd = ["ansible-playbook", "-i", inventory, playbook]
     
@@ -28,11 +35,8 @@ def run_ansible_playbook(inventory: str, playbook: str, modes: dict, limit: str 
     
     if verbose:
         cmd.append("-" + "v" * verbose)
-
-    if not skip_tests:
-        subprocess.run(["make", "test"], check=True)
     
-    subprocess.run(["make", "build"], check=True)
+    print("\n🚀 Launching Ansible Playbook...\n")
     subprocess.run(cmd, check=True)
 
 def main():

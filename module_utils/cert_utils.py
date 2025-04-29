@@ -47,20 +47,16 @@ class CertUtils:
 
     @staticmethod
     def matches(domain, san):
+        """RFC compliant SAN matching."""
         if san.startswith('*.'):
             base = san[2:]
-            # Wildcard does NOT cover the base domain itself
+            # Wildcard matches ONLY one additional label
             if domain == base:
                 return False
-            if domain.endswith('.' + base):
-                # Check if the domain has exactly one label more than the base
-                domain_labels = domain.split('.')
-                base_labels = base.split('.')
-                if len(domain_labels) == len(base_labels) + 1:
-                    return True
+            if domain.endswith('.' + base) and domain.count('.') == base.count('.') + 1:
+                return True
             return False
         else:
-            # Exact match required for non-wildcard SAN entries
             return domain == san
 
 
