@@ -7,9 +7,17 @@ import os
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.cert_utils import CertUtils
 
-def find_matching_folders(domain, cert_files, flavor, debug):
-    exact_matches = []
-    wildcard_matches = []
+def cert_folder_find(module):
+    domain = module.params['domain']
+    cert_base_path = module.params['cert_base_path']
+    debug = module.params['debug']
+
+    cert_files = CertUtils.list_cert_files(cert_base_path)
+
+    if debug:
+        print(f"Found {len(cert_files)} cert.pem files under {cert_base_path}")
+
+    matching_folders = []
 
     for cert_path in cert_files:
         cert_text = CertUtils.run_openssl(cert_path)
@@ -20,44 +28,24 @@ def find_matching_folders(domain, cert_files, flavor, debug):
             print(f"Checking {cert_path}: {sans}")
         for entry in sans:
             if CertUtils.matches(domain, entry):
-                folder = os.path.dirname(cert_path)
-                if entry.startswith('*.'):
-                    wildcard_matches.append(folder)
-                else:
-                    exact_matches.append(folder)
+                folder = os.path.basename(os.path.dirname(cert_path))
+                matching_folders.append(folder)
+                if debug:
+                    print(f"Match found in folder: {folder}")
+                break  # No need to check further SANs for this cert
 
-    if flavor in ('san', 'dedicated'):
-        return exact_matches or wildcard_matches
-    elif flavor == 'wildcard':
-        return wildcard_matches or exact_matches
-    else:
-        return []
+    if not matching_folders:
+        # No matching cert found
+        module.exit_json(folder=None)
 
-def cert_folder_find(module):
-    domain = module.params['domain']
-    certbot_flavor = module.params['certbot_flavor']
-    cert_base_path = module.params['cert_base_path']
-    debug = module.params['debug']
+    # Prefer shortest and least-dashed folder name (SAN bundles often have more dashes)
+    matching_folders = sorted(matching_folders, key=lambda f: (f.count('-'), len(f)))
 
-    cert_files = CertUtils.list_cert_files(cert_base_path)
-
-    if debug:
-        print(f"Found {len(cert_files)} cert.pem files under {cert_base_path}")
-
-    preferred = find_matching_folders(domain, cert_files, certbot_flavor, debug)
-
-    if not preferred:
-        module.fail_json(msg=f"No certificate covering domain {domain} found.")
-
-    preferred = sorted(preferred, key=lambda p: (p.count('-'), len(p)))
-    folder = os.path.basename(preferred[0])
-
-    module.exit_json(folder=folder)
+    module.exit_json(folder=matching_folders[0])
 
 def main():
     module_args = dict(
         domain=dict(type='str', required=True),
-        certbot_flavor=dict(type='str', required=True),
         cert_base_path=dict(type='str', required=False, default='/etc/letsencrypt/live'),
         debug=dict(type='bool', required=False, default=False),
     )

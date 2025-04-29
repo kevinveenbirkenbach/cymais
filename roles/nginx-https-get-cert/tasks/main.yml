@@ -20,7 +20,6 @@
 - name: Find SSL cert folder for domain
   cert_folder_find:
     domain: "{{ domain }}"
-    certbot_flavor: "{{ certbot_flavor }}"
     cert_base_path: "{{ certbot_cert_path }}"
     debug: "{{ enable_debug | default(false) }}"
   register: cert_folder_result

@@ -121,8 +121,6 @@
   include_role:
     name: client-wireguard
 
-
-
 ## backup setup
 - name: setup replica backup hosts
   when: ("backup_remote_to_local" in group_names)
