@@ -37,3 +37,15 @@ class CertUtils:
             if 'cert.pem' in files:
                 cert_files.append(os.path.join(root, 'cert.pem'))
         return cert_files
+
+    @staticmethod
+    def matches(domain, san):
+        """Check if the SAN entry matches the domain according to wildcard rules."""
+        if san.startswith('*.'):
+            base = san[2:]
+            # Check if domain is direct subdomain (one label only)
+            if domain.count('.') == base.count('.') + 1 and domain.endswith('.' + base):
+                return True
+            return False
+        else:
+            return domain == san

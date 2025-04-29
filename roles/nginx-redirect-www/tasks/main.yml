@@ -1,9 +1,4 @@
 ---
-- name: "Debug: all_domains"
-  debug:
-    var: all_domains
-  when: enable_debug
-
 - name: Filter www-prefixed domains from all_domains
   set_fact:
     www_domains: "{{ all_domains | select('match', '^www\\.') | list }}"

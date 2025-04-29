@@ -3,49 +3,6 @@
 from __future__ import absolute_import, division, print_function
 __metaclass__ = type
 
-DOCUMENTATION = r'''
----
-module: cert_check_exists
-short_description: Check if a SSL certificate exists for a domain
-description:
-  - Checks if any certificate covers the given domain.
-options:
-  domain:
-    description:
-      - Domain name to check for in the certificates.
-    required: true
-    type: str
-  cert_base_path:
-    description:
-      - Path where certificates are stored.
-    required: false
-    type: str
-    default: /etc/letsencrypt/live
-  debug:
-    description:
-      - Enable verbose debug output.
-    required: false
-    type: bool
-    default: false
-author:
-  - Kevin Veen-Birkenbach
-'''
-
-EXAMPLES = r'''
-- name: Check if cert exists
-  cert_check_exists:
-    domain: "matomo.cymais.cloud"
-    cert_base_path: "/etc/letsencrypt/live"
-  register: result
-'''
-
-RETURN = r'''
-exists:
-  description: True if a certificate covering the domain exists, false otherwise.
-  type: bool
-  returned: always
-'''
-
 import os
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.cert_utils import CertUtils
@@ -59,7 +16,7 @@ def cert_exists(domain, cert_files, debug=False):
         if debug:
             print(f"Checking {cert_path}: {sans}")
         for entry in sans:
-            if entry == domain or (entry.startswith('*.') and domain.endswith('.' + entry[2:])):
+            if CertUtils.matches(domain, entry):
                 return True
     return False
 
