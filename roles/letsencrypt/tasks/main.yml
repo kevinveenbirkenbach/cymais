@@ -5,6 +5,12 @@
   notify: restart nginx
   when: run_once_letsencrypt is not defined
 
+- name: "Set CAA records for all base domains"
+  include_tasks: set-caa-records.yml
+  when:
+    - dns_provider == 'cloudflare'
+    - run_once_letsencrypt is not defined
+
 - name: flush nginx service
   meta: flush_handlers
   when: run_once_letsencrypt is not defined

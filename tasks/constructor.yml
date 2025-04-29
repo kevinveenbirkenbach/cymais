@@ -71,6 +71,10 @@
           + (redirect_domain_mappings | map(attribute='source') | list)
         }}
 
+  - name: Extract sld.tld from base_domains
+    set_fact:
+      base_sld_domains: "{{ base_domains | map('regex_replace', '^(?:.*\\.)?([^.]+\\.[^.]+)$', '\\1') | list | unique | sort }}"
+
   - name: Initialise all_domains as empty list
     set_fact:
       all_domains: []

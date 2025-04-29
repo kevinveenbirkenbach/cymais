@@ -1,0 +1,38 @@
+# vars/mailu-dns.yml
+
+mailu_dns_zone: "{{ applications[application_id].domain }}"
+mailu_dns_ip:   "{{ networks.internet.ip4 }}"
+
+cloudflare_record_api_token: "{{ certbot_dns_api_token }}"
+
+mailu_dmarc_ruf: "{{ applications[application_id].users.administrator.email }}"
+
+mailu_dns_srv_records:
+  submission:
+    port: 587
+    priority: 20
+    weight: 1
+  submissions:
+    port: 465
+    priority: 20
+    weight: 1
+  imaps:
+    port: 993
+    priority: 20
+    weight: 1
+  imap:
+    port: 143
+    priority: 20
+    weight: 1
+  pop3s:
+    port: 995
+    priority: 20
+    weight: 1
+  pop3:
+    port: 110
+    priority: 20
+    weight: 1
+  autodiscover:
+    port: 443
+    priority: 20
+    weight: 1

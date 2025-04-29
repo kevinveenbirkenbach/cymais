@@ -1,0 +1,80 @@
+- name: "Set A record for mail server"
+  community.general.cloudflare_dns:
+    api_token: "{{ cloudflare_record_api_token }}"
+    zone: "{{ mailu_dns_zone }}"
+    type: A
+    name: "{{ domain }}"
+    content: "{{ mailu_dns_ip }}"
+    proxied: false
+    ttl: 3600
+    state: present
+
+- name: "Set CNAME record for autoconfig"
+  community.general.cloudflare_dns:
+    api_token: "{{ cloudflare_record_api_token }}"
+    zone: "{{ mailu_dns_zone }}"
+    type: CNAME
+    name: "autoconfig.{{ mailu_dns_zone }}"
+    value: "{{ domain }}"
+    proxied: false
+    ttl: 3600
+    state: present
+
+- name: "Set MX record"
+  community.general.cloudflare_dns:
+    api_token: "{{ cloudflare_record_api_token }}"
+    zone: "{{ mailu_dns_zone }}"
+    type: MX
+    name: "{{ mailu_dns_zone }}"
+    value: "{{ domain }}"
+    priority: 10
+    ttl: 3600
+    state: present
+
+- name: "Set SRV records"
+  community.general.cloudflare_dns:
+    api_token: "{{ cloudflare_record_api_token }}"
+    zone: "{{ mailu_dns_zone }}"
+    type: SRV
+    name: "_{{ item.key }}._tcp"
+    data:
+      service: "_{{ item.key }}"
+      proto: "_tcp"
+      name: "{{ mailu_dns_zone }}"
+      priority: "{{ item.value.priority }}"
+      weight: "{{ item.value.weight }}"
+      port: "{{ item.value.port }}"
+      target: "{{ domain }}"
+    ttl: 3600
+    state: present
+  loop: "{{ mailu_dns_srv_records | dict2items }}"
+
+- name: "Set SPF TXT record"
+  community.general.cloudflare_dns:
+    api_token: "{{ cloudflare_record_api_token }}"
+    zone: "{{ mailu_dns_zone }}"
+    type: TXT
+    name: "{{ mailu_dns_zone }}"
+    value: "v=spf1 mx a:{{ domain }} ~all"
+    ttl: 3600
+    state: present
+
+- name: "Set DMARC TXT record"
+  community.general.cloudflare_dns:
+    api_token: "{{ cloudflare_record_api_token }}"
+    zone: "{{ mailu_dns_zone }}"
+    type: TXT
+    name: "_dmarc.{{ mailu_dns_zone }}"
+    value: "v=DMARC1; p=reject; ruf=mailto:{{ mailu_dmarc_ruf }}; adkim=s; aspf=s"
+    ttl: 3600
+    state: present
+
+- name: "Set DKIM TXT record"
+  community.general.cloudflare_dns:
+    api_token: "{{ cloudflare_record_api_token }}"
+    zone: "{{ mailu_dns_zone }}"
+    type: TXT
+    name: "dkim._domainkey.{{ mailu_dns_zone }}"
+    value: "{{ mailu_dkim_public_key }}"
+    ttl: 3600
+    state: present

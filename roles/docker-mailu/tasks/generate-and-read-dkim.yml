@@ -1,0 +1,13 @@
+- name: Generate DKIM key
+  command: >
+    docker compose exec -T antispam
+    rspamadm dkim_keygen -s dkim -d {{ applications[application_id].domain }} -k {{ applications[application_id].domain }}.dkim.key
+  register: dkim_keygen_output
+  chdir: "{{ docker_compose.directories.instance }}"
+
+- name: Extract DKIM record from parentheses
+  set_fact:
+    mailu_dkim_public_key: >-
+      {{ dkim_keygen_output.stdout
+         | regex_search('(?s)\((.*?)\)', '\\1')
+         | default('') }}

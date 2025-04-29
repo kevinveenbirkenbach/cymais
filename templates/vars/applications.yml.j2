@@ -319,7 +319,9 @@ defaults_applications:
 
   mailu:
     version:                          "2024.06"                                   # Docker Image Version
-    setup:                            false                                       # Set true in inventory file to execute the setup and initializing procedures
+    users:
+      adminsitrator:
+        email:                        "{{users.administrator.email}}"             # Administrator Email for DNS Records
     oidc:
       email_by_username:              true                                        # If true, then the mail is set by the username. If wrong then the OIDC user email is used
       enable_user_creation:           true                                        # Users will be created if not existing
@@ -329,6 +331,7 @@ defaults_applications:
 #     database_password:                                                          # Needs to be set in inventory file
 #     api_token:                                                                  # Configures the authentication token. The minimum length is 3 characters. This is a mandatory setting for using the RESTful API.
 #     initial_administrator_password:                                             # Initial administrator password for setup 
+#     dkim_public_key:                                                            # Must be set in inventory file
 {% endraw %}{{ features.render_features({
   'matomo':   true,
   'css':      true,
