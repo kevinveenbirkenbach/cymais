@@ -8,9 +8,9 @@
   set_fact:
     www_domains: "{{ all_domains | select('match', '^www\\.') | list }}"
 
-- name: Include nginx-redirect-domain role for www-to-bare redirects
+- name: Include nginx-redirect-domains role for www-to-bare redirects
   include_role:
-    name: nginx-redirect-domain
+    name: nginx-redirect-domains
   vars:
     domain_mappings: "{{ www_domains
        | map('regex_replace',

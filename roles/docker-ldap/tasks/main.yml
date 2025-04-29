@@ -91,7 +91,7 @@
     bind_pw: "{{ ldap.bind_credential }}"
     attributes:
       objectClass: "{{ ldap.user_objects }}"
-      mail:         "{{ item.value.email }}"
+      mail:        "{{ item.value.email }}"
     state: exact        # ‘exact’ is safest for single-valued attributes
   loop: "{{ users | dict2items }}"
   loop_control:

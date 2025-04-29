@@ -237,7 +237,7 @@
 - name: setup redirect hosts
   when: ("redirect" in group_names)
   include_role:
-    name: nginx-redirect-domain
+    name: nginx-redirect-domains
   vars:
     domain_mappings: "{{redirect_domain_mappings}}"
 

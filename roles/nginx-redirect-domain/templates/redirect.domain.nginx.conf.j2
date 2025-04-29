@@ -1,8 +1,0 @@
-server {
-  {% set domain = item.source %}
-  {% set target = item.target %}
-  server_name {{domain}};
-  {% include 'roles/letsencrypt/templates/ssl_header.j2' %}
-
-  return 301 https://{{target}}$request_uri;
-}

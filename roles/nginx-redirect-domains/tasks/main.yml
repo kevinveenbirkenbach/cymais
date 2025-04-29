@@ -1,0 +1,7 @@
+---
+- name: "Include domains redirects"
+  include_tasks: redirect-domain.yml
+  vars:
+    domain: "{{ item.source }}"
+    target: "{{ item.target }}"
+  loop: "{{domain_mappings}}"
