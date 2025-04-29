@@ -45,6 +45,7 @@
     loop: "{{ plugin_configuration }}"
     command: >
       {{ nextcloud_docker_exec_occ }} config:app:set {{ item.appid }} {{ item.configkey }} --value '{{ item.configvalue | to_json if item.configvalue is mapping else item.configvalue }}'
+    changed_when: "'Config value were not updated' not in stdout"
 
   when: plugin_vars_file.stat.exists
 
