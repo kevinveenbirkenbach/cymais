@@ -1,0 +1,7 @@
+caa_entries:
+  - tag: issue
+    value: "letsencrypt.org"
+#  - tag: issuewild
+#    value: "letsencrypt.org"
+#  - tag: iodef
+#    value: "mailto:{{ users.administrator.email }}"

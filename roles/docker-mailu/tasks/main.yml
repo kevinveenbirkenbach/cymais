@@ -41,22 +41,7 @@
   loop_control:
     loop_var: item
   when: run_once_docker_mailu is not defined
-
-- name: "Load Mailu DNS variables"
-  include_vars: vars/mailu-dns.yml
-  when: dns_provider == 'cloudflare'
-
-- name: Generate DKIM public key
-  include_tasks: generate-and-read-dkim.yml
-  when:
-    - not applications[application_id].credentials.dkim_public_key is defined
-
-- name: Set DKIM public key
-  set_fact:
-    mailu_dkim_public_key: >-
-      {{ applications[application_id].credentials.dkim_public_key }}
-  when: applications[application_id].credentials.dkim_public_key is defined
-
+  
 - name: Set Mailu DNS records
   include_tasks: set-mailu-dns-records.yml
   when: dns_provider == 'cloudflare'

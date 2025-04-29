@@ -1,3 +1,9 @@
+- name: "Load Mailu DNS variables"
+  include_vars: vars/mailu-dns.yml
+
+- name: Generate DKIM public key
+  include_tasks: generate-and-read-dkim.yml
+
 - name: "Set A record for mail server"
   community.general.cloudflare_dns:
     api_token: "{{ cloudflare_record_api_token }}"
@@ -6,7 +12,7 @@
     name: "{{ domain }}"
     content: "{{ mailu_dns_ip }}"
     proxied: false
-    ttl: 3600
+    ttl: 1
     state: present
 
 - name: "Set CNAME record for autoconfig"
@@ -17,7 +23,7 @@
     name: "autoconfig.{{ mailu_dns_zone }}"
     value: "{{ domain }}"
     proxied: false
-    ttl: 3600
+    ttl: 1
     state: present
 
 - name: "Set MX record"
@@ -28,7 +34,7 @@
     name: "{{ mailu_dns_zone }}"
     value: "{{ domain }}"
     priority: 10
-    ttl: 3600
+    ttl: 1
     state: present
 
 - name: "Set SRV records"
@@ -36,18 +42,19 @@
     api_token: "{{ cloudflare_record_api_token }}"
     zone: "{{ mailu_dns_zone }}"
     type: SRV
-    name: "_{{ item.key }}._tcp"
-    data:
-      service: "_{{ item.key }}"
-      proto: "_tcp"
-      name: "{{ mailu_dns_zone }}"
-      priority: "{{ item.value.priority }}"
-      weight: "{{ item.value.weight }}"
-      port: "{{ item.value.port }}"
-      target: "{{ domain }}"
-    ttl: 3600
+    service: "_{{ item.key }}"
+    proto: "_tcp"
+    priority: "{{ item.value.priority }}"
+    weight: "{{ item.value.weight }}"
+    port: "{{ item.value.port }}"
+    value: "{{ domain }}"
+    ttl: 1
     state: present
   loop: "{{ mailu_dns_srv_records | dict2items }}"
+  ignore_errors: true
+  #register: srv_result
+  #failed_when: srv_result.rc != 0 and ("An identical record already exists" not in srv_result.stdout)
+  #changed_when: srv_result.rc == 0 and ("An identical record already exists" not in srv_result.stdout)
 
 - name: "Set SPF TXT record"
   community.general.cloudflare_dns:
@@ -56,7 +63,7 @@
     type: TXT
     name: "{{ mailu_dns_zone }}"
     value: "v=spf1 mx a:{{ domain }} ~all"
-    ttl: 3600
+    ttl: 1
     state: present
 
 - name: "Set DMARC TXT record"
@@ -66,7 +73,7 @@
     type: TXT
     name: "_dmarc.{{ mailu_dns_zone }}"
     value: "v=DMARC1; p=reject; ruf=mailto:{{ mailu_dmarc_ruf }}; adkim=s; aspf=s"
-    ttl: 3600
+    ttl: 1
     state: present
 
 - name: "Set DKIM TXT record"
@@ -76,5 +83,5 @@
     type: TXT
     name: "dkim._domainkey.{{ mailu_dns_zone }}"
     value: "{{ mailu_dkim_public_key }}"
-    ttl: 3600
+    ttl: 1
     state: present

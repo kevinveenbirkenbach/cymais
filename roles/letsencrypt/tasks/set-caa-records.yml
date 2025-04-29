@@ -1,17 +1,4 @@
 ---
-# tasks/main.yml
-# Creates and sets CAA records (issue, issuewild, iodef) for all base domains
-
-- name: "Define CAA entries"
-  set_fact:
-    caa_entries:
-      - tag: issue
-        value: "letsencrypt.org"
-      - tag: issuewild
-        value: "letsencrypt.org"
-      - tag: iodef
-        value: "mailto:{{ users.administrator.email }}"
-
 - name: "Ensure all CAA records are present"
   community.general.cloudflare_dns:
     api_token: "{{ certbot_dns_api_token }}"

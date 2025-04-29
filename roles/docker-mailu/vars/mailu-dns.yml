@@ -5,7 +5,10 @@ mailu_dns_ip:   "{{ networks.internet.ip4 }}"
 
 cloudflare_record_api_token: "{{ certbot_dns_api_token }}"
 
-mailu_dmarc_ruf: "{{ applications[application_id].users.administrator.email }}"
+mailu_dmarc_ruf:    "{{ applications[application_id].users.administrator.email }}"
+
+mailu_dkim_key_file: "{{ applications[application_id].domain }}.dkim.key"
+mailu_dkim_key_path: "/dkim/{{ mailu_dkim_key_file }}"
 
 mailu_dns_srv_records:
   submission:

@@ -39,3 +39,6 @@ All roles follow a consistent naming convention using a *primary prefix* and a *
 | system-  | Roles for system configuration, hardening, and operating system tuning (security, storage optimization, timers) |
 | update-  | Roles managing software update processes (package updates, Docker updates, repository management) |
 | user-    | Roles managing system users, accounts, and user-specific configuration (home directories, permissions) |
+
+# Implement the following roles
+- Implement docker role for [radicle](https://radicle.xyz/)
