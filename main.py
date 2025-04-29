@@ -9,7 +9,7 @@ def run_ansible_vault(action, filename, password_file):
     cmd = ["ansible-vault", action, filename, "--vault-password-file", password_file]
     subprocess.run(cmd, check=True) 
 
-def run_ansible_playbook(inventory: str, playbook: str, modes: dict, limit: str = None, password_file: str = None, verbose: int = 0):
+def run_ansible_playbook(inventory: str, playbook: str, modes: dict, limit: str = None, password_file: str = None, verbose: int = 0, skip_tests: bool = False):
     """Execute an ansible-playbook command with optional parameters."""
     cmd = ["ansible-playbook", "-i", inventory, playbook]
     
@@ -18,7 +18,6 @@ def run_ansible_playbook(inventory: str, playbook: str, modes: dict, limit: str 
     
     if modes:
         for key, value in modes.items():
-            # Convert boolean values to lowercase strings
             arg_value = f"{str(value).lower()}" if isinstance(value, bool) else f"{value}"
             cmd.extend(["-e", f"{key}={arg_value}"])
     
@@ -28,9 +27,12 @@ def run_ansible_playbook(inventory: str, playbook: str, modes: dict, limit: str 
         cmd.extend(["--ask-vault-pass"])
     
     if verbose:
-        # Append a single flag with multiple "v"s (e.g. -vvv)
         cmd.append("-" + "v" * verbose)
-    subprocess.run(['make','build'], check=True)
+
+    if not skip_tests:
+        subprocess.run(["make", "test"], check=True)
+    
+    subprocess.run(["make", "build"], check=True)
     subprocess.run(cmd, check=True)
 
 def main():
@@ -60,6 +62,7 @@ def main():
     playbook_parser.add_argument("--cleanup", action="store_true", help="Enable cleanup mode")
     playbook_parser.add_argument("--debug", action="store_true", help="Enable debugging output")
     playbook_parser.add_argument("--password-file", help="Path to the Vault password file")
+    playbook_parser.add_argument("--skip-tests", action="store_true", help="Skip running make test before executing the playbook")
     playbook_parser.add_argument("-v", "--verbose", action="count", default=0,
                                  help=("Increase verbosity. This option can be specified multiple times "
                                        "to increase the verbosity level (e.g., -vvv for more detailed debug output)."))
@@ -79,8 +82,15 @@ def main():
             "host_type": args.host_type
         }
 
-        # Use a fixed playbook file "playbook.yml"
-        run_ansible_playbook(args.inventory, f"{script_dir}/playbook.yml", modes, args.limit, args.password_file, args.verbose)
+        run_ansible_playbook(
+            inventory=args.inventory,
+            playbook=f"{script_dir}/playbook.yml",
+            modes=modes,
+            limit=args.limit,
+            password_file=args.password_file,
+            verbose=args.verbose,
+            skip_tests=args.skip_tests
+        )
 
 if __name__ == "__main__":
     main()

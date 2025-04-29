@@ -20,6 +20,7 @@
     {% endif %}
     {{ '--mode-test' if mode_test | bool else '' }}
   register: certbundle_result
+  changed_when: "'Certificate not yet due for renewal' not in certbundle_result.stdout"
   when: run_once_san_certs is not defined
 
 - name: run the san tasks once

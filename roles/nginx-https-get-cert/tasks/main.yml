@@ -28,3 +28,8 @@
 - name: Set fact
   set_fact:
     ssl_cert_folder: "{{ cert_folder_result.folder }}"
+
+- name: Ensure ssl_cert_folder is set
+  fail:
+    msg: "No certificate folder found for domain {{ domain }}"
+  when: ssl_cert_folder is undefined or ssl_cert_folder is none
