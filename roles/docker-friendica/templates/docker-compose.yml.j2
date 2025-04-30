@@ -6,7 +6,8 @@ services:
     image: "friendica:{{applications.friendica.version}}"
     {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
-      - data:/var/www/html
+      - html:/var/www/html
+      - data:/var/www/data
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
 
@@ -17,5 +18,6 @@ services:
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}
   data:
+  html:
 
 {% include 'templates/docker/compose/networks.yml.j2' %}
