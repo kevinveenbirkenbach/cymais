@@ -1,5 +1,2 @@
-# Deactivate CSP header
-add_header Content-Security-Policy: "";
-
 # sub filters to integrate matomo tracking code in nginx websites
 sub_filter '</body>' '<noscript><p><img src="//matomo.{{primary_domain}}/matomo.php?idsite={{matomo_site_id}}&rec=1" style="border:0;" alt="" /></p></noscript></body>';

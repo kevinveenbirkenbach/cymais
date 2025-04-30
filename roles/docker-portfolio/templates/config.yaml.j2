@@ -28,7 +28,7 @@ accounts:
           class: fa-brands fa-mastodon
         url: "{{ web_protocol }}://{{ service_provider.contact.mastodon.split('@')[2] }}/@{{ service_provider.contact.mastodon.split('@')[1] }}"
         identifier: "{{service_provider.contact.mastodon}}"
-        iframe: {{ applications | get_features_iframe('mastodon') }}
+        iframe: {{ applications | is_feature_enabled('iframe','mastodon') }}
 
 {% endif %}
 {% if service_provider.contact.bluesky is defined and service_provider.contact.bluesky != "" %}
@@ -52,7 +52,7 @@ accounts:
           class: fa-solid fa-camera
       identifier: "{{service_provider.contact.pixelfed}}"
       url: "{{ web_protocol }}://{{ service_provider.contact.pixelfed.split('@')[2] }}/@{{ service_provider.contact.pixelfed.split('@')[1] }}"
-      iframe: {{ applications | get_features_iframe('pixelfed') }}
+      iframe: {{ applications | is_feature_enabled('iframe','pixelfed') }}
 
 {% endif %}
 {% if service_provider.contact.peertube  is defined and service_provider.contact.peertube  != "" %}
@@ -64,7 +64,7 @@ accounts:
         class: fa-solid fa-video
       identifier: "{{service_provider.contact.peertube}}"
       url: "{{ web_protocol }}://{{ service_provider.contact.peertube.split('@')[2] }}/@{{ service_provider.contact.peertube.split('@')[1] }}"
-      iframe: {{ applications | get_features_iframe('peertube') }}
+      iframe: {{ applications | is_feature_enabled('iframe','peertube') }}
 
 {% endif %}
 {% if service_provider.contact.wordpress is defined and service_provider.contact.wordpress != "" %}
@@ -76,7 +76,7 @@ accounts:
         class: fa-solid fa-blog
       identifier: "{{service_provider.contact.wordpress}}"
       url: "{{ web_protocol }}://{{ service_provider.contact.wordpress.split('@')[2] }}/@{{ service_provider.contact.wordpress.split('@')[1] }}"
-      iframe: {{ applications | get_features_iframe('wordpress') }}
+      iframe: {{ applications | is_feature_enabled('iframe','wordpress') }}
 
 {% endif %}
 {% if service_provider.contact.source_code is defined and service_provider.contact.source_code != "" %}
@@ -98,7 +98,7 @@ accounts:
       class: fas fa-network-wired
     identifier: "{{service_provider.contact.friendica}}"
     url: "{{ web_protocol }}://{{ service_provider.contact.friendica.split('@')[2] }}/@{{ service_provider.contact.friendica.split('@')[1] }}"
-    iframe: {{ applications | get_features_iframe('friendica') }}
+    iframe: {{ applications | is_feature_enabled('iframe','friendica') }}
 
 {% endif %}
 

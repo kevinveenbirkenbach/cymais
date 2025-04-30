@@ -1,0 +1,39 @@
+{%- set csp_parts = [] %}
+
+{# default-src: Fallback for all other directives if not explicitly defined #}
+{%- set csp_parts = csp_parts + ["default-src 'self';"] %}
+
+{# frame-ancestors: Restricts which origins can embed this site in a frame or iframe #}
+{%- set frame_ancestors = "frame-ancestors 'self'" %}
+{%- if applications | is_feature_enabled('iframe', application_id) | bool %}
+  {%- set frame_ancestors = frame_ancestors + " " + web_protocol + "://" + primary_domain %}
+{%- endif %}
+{%- set csp_parts = csp_parts + [frame_ancestors + ";"] %}
+
+{# frame-src: Controls which URLs can be embedded as iframes #}
+{%- set frame_src = "frame-src 'self'" %}
+{%- if applications | is_feature_enabled('recaptcha', application_id) | bool %}
+  {%- set frame_src = frame_src + " https://www.google.com https://www.recaptcha.net" %}
+{%- endif %}
+{%- set csp_parts = csp_parts + [frame_src + ";"] %}
+
+{# img-src: Allow images from own domain and files deliverer. Also from Matomo if enabled. #}
+{%- set img_src = "img-src 'self' " + web_protocol + "://" + domains.file_server %}
+{%- if applications | is_feature_enabled('matomo', application_id) | bool %}
+  {%- set img_src = img_src + " " + web_protocol + "://" + domains.matomo %}
+{%- endif %}
+{%- set csp_parts = csp_parts + [img_src + ";"] %}
+
+{# script-src: Allow JavaScript from self, FontAwesome, jsDelivr, and Matomo if enabled #}
+{%- set script_src = "script-src 'self' 'unsafe-inline'" %}
+{%- if applications | is_feature_enabled('matomo', application_id) | bool %}
+  {%- set script_src = script_src + " " + domains.matomo %}
+{%- endif %}
+{%- set script_src = script_src + " https://kit.fontawesome.com https://cdn.jsdelivr.net" %}
+{%- set csp_parts = csp_parts + [script_src + ";"] %}
+
+{# style-src: Allow CSS from self, FontAwesome, jsDelivr and inline styles #}
+{%- set style_src = "style-src 'self' 'unsafe-inline' https://kit.fontawesome.com https://cdn.jsdelivr.net" %}
+{%- set csp_parts = csp_parts + [style_src + ";"] %}
+
+add_header Content-Security-Policy "{{ csp_parts | join(' ') }}" always;

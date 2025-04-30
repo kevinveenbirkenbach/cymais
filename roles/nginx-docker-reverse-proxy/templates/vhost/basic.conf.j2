@@ -2,7 +2,7 @@ server
 {
   server_name {{domain}};
 
-  {% if applications | get_oauth2_enabled(application_id) %}
+  {% if applications | is_feature_enabled('oauth2',application_id) %}
     {% include 'roles/docker-oauth2-proxy/templates/endpoint.conf.j2'%}
   {% endif %}
 
@@ -15,7 +15,7 @@ server
 
   {% include 'roles/letsencrypt/templates/ssl_header.j2' %}
 
-  {% if applications | get_oauth2_enabled(application_id) %}
+  {% if applications | is_feature_enabled('oauth2',application_id) %}
     {% if applications[application_id].oauth2_proxy.location is defined %}
       {# Exposed and Unprotected Location #}
       {% include 'roles/nginx-docker-reverse-proxy/templates/location/proxy_basic.conf.j2' %}

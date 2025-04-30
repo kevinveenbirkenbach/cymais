@@ -1,6 +1,6 @@
 {# This template needs to be included in docker-compose.yml #}
 networks:
-{% if applications | get_database_central_storage(application_id) | bool and database_type is defined %}
+{% if applications | is_feature_enabled('database',application_id) | bool and database_type is defined %}
   central_{{ database_type }}:
     external: true
 {% endif %}

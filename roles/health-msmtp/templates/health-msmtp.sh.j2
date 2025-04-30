@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "Subject: $HOST is alive
+
+Host $HOSTNAME reports at $(date): I'm alive." | msmtp -t {{ users.administrator.email }}

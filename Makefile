@@ -1,7 +1,7 @@
 # Makefile for j2render
 
 TEMPLATE=./templates/vars/applications.yml.j2
-OUTPUT=./group_vars/all/07_applications.yml
+OUTPUT=./group_vars/all/11_applications.yml
 
 build:
 	@echo "🔧 Building rendered file from $(TEMPLATE)..."

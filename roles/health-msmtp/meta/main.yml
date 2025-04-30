@@ -1,6 +1,6 @@
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Installs and configures msmtp, a lightweight SMTP client and sendmail replacement."
+  description: "Sends periodic health check emails via msmtp"
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -13,13 +13,13 @@ galaxy_info:
       versions:
         - rolling
   galaxy_tags:
-    - email
+    - health
     - msmtp
-    - smtp
-    - automation
-    - archlinux
+    - email
+    - systemd
+    - monitoring
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
 dependencies:
-  - health-msmtp
+  - systemd-notifier-telegram

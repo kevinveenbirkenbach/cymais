@@ -6,7 +6,7 @@ server
 
   {% include 'roles/nginx-modifier-all/templates/global.includes.conf.j2'%}
 
-  {% include 'roles/nginx-docker-reverse-proxy/templates/headers/iframe.conf.j2' %}
+  {% include 'roles/nginx-docker-reverse-proxy/templates/headers/content_security_policy.conf.j2' %}
   charset utf-8;
   
   location /

@@ -63,7 +63,7 @@ defaults_applications:
 {% endraw %}{{ features.render_features({
   'matomo':   true,
   'css':      true,
-  'iframe':   true,
+  'iframe':   false,
   'ldap':     false,
   'oidc':     true,
   'database': false,
@@ -253,6 +253,7 @@ defaults_applications:
   'iframe':   true,
   'ldap':     true,
   'database': true,
+  'recaptcha': true,
 }) }}{% raw %}
 
   # LDAP Account Manager 

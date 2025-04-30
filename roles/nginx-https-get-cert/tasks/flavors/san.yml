@@ -21,6 +21,9 @@
     {{ '--mode-test' if mode_test | bool else '' }}
   register: certbundle_result
   changed_when: "'Certificate not yet due for renewal' not in certbundle_result.stdout"
+  failed_when: >
+    certbundle_result.rc != 0
+    and 'too many certificates' not in certbundle_result.stderr
   when: run_once_san_certs is not defined
 
 - name: run the san tasks once

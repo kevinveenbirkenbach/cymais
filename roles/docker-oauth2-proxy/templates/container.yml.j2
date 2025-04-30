@@ -1,4 +1,4 @@
-{% if applications | get_oauth2_enabled(application_id) %}
+{% if applications | is_feature_enabled('oauth2',application_id) %}
   oauth2-proxy:
     image: quay.io/oauth2-proxy/oauth2-proxy:{{applications.oauth2_proxy.version}}
     restart: {{docker_restart_policy}}

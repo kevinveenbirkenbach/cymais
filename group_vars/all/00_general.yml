@@ -22,48 +22,6 @@ primary_domain_tld:     "localhost"                                     # Top Le
 primary_domain_sld:     "cymais"                                        # Second Level Domain of the server
 primary_domain:         "{{primary_domain_sld}}.{{primary_domain_tld}}" # Primary Domain of the server
 
-# Helper Variables
-
-# Helper Variables for administrator
-_users_administrator_username:  "{{ users.administrator.username | default('administrator') }}"
-_users_administrator_email:     "{{ users.administrator.email | default(_users_administrator_username ~ '@' ~ primary_domain) }}"
-
-# Helper Variables for bounce
-_users_bounce_username:        "{{ users.bounce.username | default('bounce') }}"
-_users_bounce_email:           "{{ users.bounce.email | default(_users_bounce_username ~ '@' ~ primary_domain) }}"
-
-# Helper Variables for no-reply
-_users_no_reply_username:       "{{ users['no-reply'].username | default('no-reply') }}"
-_users_no_reply_email:          "{{ users['no-reply'].email | default(_users_no_reply_username ~ '@' ~ primary_domain) }}"
-
-# Administrator
-default_users:
-  administrator:
-    username:           "{{_users_administrator_username}}"     # Username of the administrator
-    email:              "{{_users_administrator_email}}"        # Email of the administrator
-    password:           "{{ansible_become_password}}"           # Example initialisation password needs to be set in inventory file
-    uid:                1001                                    # Posix User ID
-    gid:                1001                                    # Posix Group ID
-    is_admin:           true                                    # Define as admin user
-
-  bounce:
-    username:           "{{ _users_bounce_username }}"          # Bounce-handler account username
-    email:              "{{ _users_bounce_email }}"             # Email address for handling bounces
-    password:           "{{ansible_become_password}}"           # Example initialisation password needs to be set in inventory file
-    uid:                1002                                    # Posix User ID for bounce
-    gid:                1002                                    # Posix Group ID for bounce
-
-  no-reply:
-    username:           "{{ _users_no_reply_username }}"        # No-reply account username
-    email:              "{{ _users_no_reply_email }}"           # Email address for outgoing no-reply mails
-    password:           "{{ansible_become_password}}"           # Example initialisation password needs to be set in inventory file
-    uid:                1003                                    # Posix User ID for no-reply
-    gid:                1003                                    # Posix Group ID for no-reply
-
-
-# Test Email
-test_email:             "test@{{primary_domain}}"
-
 # Server Tact Variables 
 
 ## Ours in which the server is "awake" (100% working). Rest of the time is reserved for maintanance

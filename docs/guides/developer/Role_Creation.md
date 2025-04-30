@@ -4,12 +4,12 @@ This guide will walk you through the steps to add a new Docker role for a servic
 
 ---
 
-### **1. Define the Application Configuration in `group_vars/all/07_applications.yml`**
+### **1. Define the Application Configuration in `templates/vars/applications.yml.j2`**
 
-First, you'll need to add the default configuration for your new service under the `defaults_applications` section in `group_vars/all/07_applications.yml`.
+First, you'll need to add the default configuration for your new service under the `defaults_applications` section in `templates/vars/applications.yml.j2`.
 
 #### **Steps:**
-- Open `group_vars/all/07_applications.yml`
+- Open `templates/vars/applications.yml.j2`
 - Add the configuration for `my_service` under the `defaults_applications` section.
 
 ```yaml
@@ -178,7 +178,7 @@ Once you have defined the Docker role, configuration settings, and other necessa
 ### **Conclusion**
 
 By following this guide, you have successfully added a new Dockerized service (`my_service`) to the CyMaIS platform. You have:
-- Configured the service settings in `group_vars/all/07_applications.yml`
+- Configured the service settings in `templates/vars/applications.yml.j2`
 - Added the domain for the service in `group_vars/all/03_domains.yml`
 - Set the `application_id` in `vars/main.yml`
 - Created the necessary Docker role for managing `my_service`.

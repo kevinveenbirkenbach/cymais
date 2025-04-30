@@ -1,0 +1,1 @@
+health_msmtp_folder: "{{ path_administrator_scripts }}health-msmtp/"
