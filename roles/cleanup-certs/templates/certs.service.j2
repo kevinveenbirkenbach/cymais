@@ -1,0 +1,7 @@
+[Unit]
+Description=Detect, revoke, and delete unused Let's Encrypt certificates based on active NGINX configuration files.
+OnFailure=systemd-notifier.cymais@%n.service
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/sh -c '/usr/bin/python certreap --force'

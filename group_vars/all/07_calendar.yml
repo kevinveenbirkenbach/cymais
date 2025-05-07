@@ -6,11 +6,12 @@ on_calendar_health_disc_space:                "*-*-* 06,12,18,00:00:00"         
 on_calendar_health_docker_container:          "*-*-* {{ hours_server_awake }}:00:00"  # Check once per hour if the docker containers are healthy
 on_calendar_health_docker_volumes:            "*-*-* {{ hours_server_awake }}:15:00"  # Check once per hour if the docker volumes are healthy
 on_calendar_health_nginx:                     "*-*-* {{ hours_server_awake }}:45:00"  # Check once per hour if all webservices are available
-on_calendar_health_msmtp:                     "*-*-* 00:00:00"                        # Check once per day SMTP Server
+on_calendar_health_msmtp:                     "*-*-* 00:00:00"                        # Check once per day SMTP Server              
 
 ## Schedule for Cleanup Tasks
 on_calendar_cleanup_backups:                  "*-*-* 00,06,12,18:30:00"               # Cleanup backups every 6 hours, MUST be called before disc space cleanup
 on_calendar_cleanup_disc_space:               "*-*-* 07,13,19,01:30:00"               # Cleanup disc space every 6 hours
+on_calendar_cleanup_certs:                    "*-*-* 12,00:45:00"                     # Deletes and revokes unused certs
 
 ## Schedule for Backup Tasks
 on_calendar_backup_docker_to_local:           "*-*-* 03:30:00"

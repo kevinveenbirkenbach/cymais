@@ -1,8 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: |
-    Automates Let's Encrypt SSL/TLS certificate renewals for Nginx using Certbot and systemd services with automatic reloads after successful renewals.
+  description: "Automates the revocation and deletion of unused Let's Encrypt certificates"
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -15,19 +14,15 @@ galaxy_info:
       versions:
         - rolling
   galaxy_tags:
-    - nginx
     - certbot
     - ssl
-    - tls
-    - letsencrypt
-    - https
-    - systemd
+    - cleanup
     - automation
-  repository: "https://s.veen.world/cymais"
-  issue_tracker_url: "https://s.veen.world/cymaisissues"
-  documentation: "https://s.veen.world/cymais"
+    - systemd
+  repository: "https://github.com/kevinveenbirkenbach/certreap"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/certreap/issues"
+  documentation: "https://github.com/kevinveenbirkenbach/certreap#readme"
+
 dependencies:
-  - certbot
-  - nginx
+  - systemd-timer
   - systemd-notifier
-  - cleanup-certs
