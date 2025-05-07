@@ -115,8 +115,8 @@ def update_docker(directory):
         need_to_build = True
         
     if need_to_build:
-        # @todo Here a pull for openproject should be placed.
-        run_command("docker-compose build")
+        # This propably just rebuilds the Dockerfile image if there is a change in the other docker compose containers
+        run_command("docker-compose build --pull")
         start_docker(directory)
     else:
         print("Docker images are up to date. No rebuild necessary.")
@@ -243,5 +243,4 @@ if __name__ == "__main__":
                     update_nextcloud()
                     
                 # @todo implement dedicated procedure for bluesky
-                # @todo implement dedicated procedure for openproject
                 # @todo implement dedicated procedure for taiga
