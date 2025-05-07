@@ -174,7 +174,7 @@ def update_nextcloud():
     update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ db:add-missing-columns")
     update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ db:add-missing-indices")
     update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ db:add-missing-primary-keys")
-    print("Deacitvate Maintanance Mode")
+    print("Deactivate Maintanance Mode")
     update_procedure("docker-compose exec -T -u www-data application /var/www/html/occ maintenance:mode --off")
 
 def update_procedure(command):

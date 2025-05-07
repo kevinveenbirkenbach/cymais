@@ -5,7 +5,7 @@ services:
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
   application:
-    image: snipe/snipe-it:{{applications.snipe_it.version}}
+    image: grokability/snipe-it:{{applications.snipe_it.version}}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - data:/var/lib/snipeit
