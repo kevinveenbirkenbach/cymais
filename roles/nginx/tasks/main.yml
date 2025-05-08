@@ -42,6 +42,9 @@
     {{ nginx.directories.data.values() | list }}
   when: run_once_nginx is not defined
 
+- name: "Include tasks to create cache directories"
+  include_tasks: cache_directories.yml
+
 - name: create nginx config file
   template: 
     src:  nginx.conf.j2 
