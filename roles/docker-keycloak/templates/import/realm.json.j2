@@ -2666,6 +2666,17 @@
           "autheticatorFlow": false,
           "userSetupAllowed": false
         },
+{%- if applications | is_feature_enabled('recaptcha', application_id) %}
+        {
+          "authenticatorConfig": "Google reCaptcha",
+          "authenticator": "registration-recaptcha-action",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 60,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        },
+{%- else %}
         {
           "authenticator": "registration-recaptcha-action",
           "authenticatorFlow": false,
@@ -2674,6 +2685,7 @@
           "autheticatorFlow": false,
           "userSetupAllowed": false
         },
+{%- endif %}
         {
           "authenticator": "registration-terms-and-conditions",
           "authenticatorFlow": false,
@@ -2746,6 +2758,19 @@
     }
   ],
   "authenticatorConfig": [
+{%- if applications | is_feature_enabled('recaptcha',application_id) %}
+    {
+      "id": "c6dcf381-7e39-4f7f-8d1f-631faec31b56",
+      "alias": "Google reCaptcha",
+      "config": {
+        "action": "register",
+        "useRecaptchaNet": "false",
+        "recaptcha.v3": "true",
+        "secret.key": "{{ applications[application_id].credentials.recaptcha.secret_key }}",
+        "site.key": "{{ applications[application_id].credentials.recaptcha.website_key }}"
+      }
+    },
+{%- endif %}
     {
       "id": "3e40f95e-d9a7-405d-b393-398bfc54c2e8",
       "alias": "create unique user config",

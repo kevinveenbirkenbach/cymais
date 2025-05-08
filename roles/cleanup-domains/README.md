@@ -1,4 +1,4 @@
-# nginx-domains-cleanup
+# cleanup-domains
 
 ## Description
 

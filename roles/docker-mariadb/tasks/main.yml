@@ -36,10 +36,11 @@
     state: present
   when: run_once_docker_mariadb is not defined
 
-- name: Wait for MariaDB inside the container to respond
-  shell: docker exec central-mariadb mysqladmin ping -h localhost --silent
-  register: mysql_ping
-  until: mysql_ping.rc == 0
+- name: Wait until the MariaDB container is healthy
+  community.docker.docker_container_info:
+    name: central-mariadb
+  register: db_info
+  until: db_info.containers[0].State.Health.Status == "healthy"
   retries: 30
   delay: 5
   when:

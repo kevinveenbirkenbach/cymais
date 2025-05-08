@@ -14,5 +14,6 @@ nginx:
       html:           "/var/www/public_html/"           # Path where the static homepage files are stored
       files:          "/var/www/public_files/"          # Path where the web accessable files are stored
       global:         "/var/www/global/"                # Directory containing files which will be globaly accessable
+    cache:            "/tmp/nginx_cache/"               # Directory which nginx uses to cache data
   user:               "http"                            # Default nginx user in ArchLinux
   iframe:             true                              # Allows applications to be loaded in iframe

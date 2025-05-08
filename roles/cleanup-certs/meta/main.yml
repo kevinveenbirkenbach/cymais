@@ -24,5 +24,4 @@ galaxy_info:
   documentation: "https://github.com/kevinveenbirkenbach/certreap#readme"
 
 dependencies:
-  - systemd-timer
   - systemd-notifier

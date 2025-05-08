@@ -2,7 +2,7 @@
   include_role:
     name: pkgmgr-install
   vars:
-    package_name: cleanup-certs 
+    package_name: certreap
   when: run_once_cleanup_certs is not defined
 
 - name: configure cleanup-certs.cymais.service

@@ -31,3 +31,6 @@ location {{location | default("/")}}
   proxy_read_timeout          900s;
   send_timeout                900s;
 }
+
+# Load caching
+{% include 'roles/nginx-docker-reverse-proxy/templates/location/proxy_cache.conf.j2' %}

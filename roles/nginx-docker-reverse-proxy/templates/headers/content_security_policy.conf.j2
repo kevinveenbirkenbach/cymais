@@ -3,6 +3,13 @@
 {# default-src: Fallback for all other directives if not explicitly defined #}
 {%- set csp_parts = csp_parts + ["default-src 'self';"] %}
 
+{# connect-src: Controls where fetch(), XHR, WebSocket etc. can connect to #}
+{%- set connect_src = "connect-src 'self' https://ka-f.fontawesome.com" %}
+{%- if applications | is_feature_enabled('matomo', application_id) | bool %}
+  {%- set connect_src = connect_src + " " + web_protocol + "://" + domains.matomo %}
+{%- endif %}
+{%- set csp_parts = csp_parts + [connect_src + ";"] %}
+
 {# frame-ancestors: Restricts which origins can embed this site in a frame or iframe #}
 {%- set frame_ancestors = "frame-ancestors 'self'" %}
 {%- if applications | is_feature_enabled('iframe', application_id) | bool %}
@@ -13,21 +20,22 @@
 {# frame-src: Controls which URLs can be embedded as iframes #}
 {%- set frame_src = "frame-src 'self'" %}
 {%- if applications | is_feature_enabled('recaptcha', application_id) | bool %}
-  {%- set frame_src = frame_src + " https://www.google.com https://www.recaptcha.net" %}
+  {%- set frame_src = frame_src + " https://www.google.com" %}
 {%- endif %}
 {%- set csp_parts = csp_parts + [frame_src + ";"] %}
 
-{# img-src: Allow images from own domain and files deliverer. Also from Matomo if enabled. #}
-{%- set img_src = "img-src 'self' " + web_protocol + "://" + domains.file_server %}
-{%- if applications | is_feature_enabled('matomo', application_id) | bool %}
-  {%- set img_src = img_src + " " + web_protocol + "://" + domains.matomo %}
-{%- endif %}
+{# img-src: Allow images. Prevent tracking by caching on server and client side. #}
+{%- set img_src = "img-src * data: blob:"%}
 {%- set csp_parts = csp_parts + [img_src + ";"] %}
 
 {# script-src: Allow JavaScript from self, FontAwesome, jsDelivr, and Matomo if enabled #}
-{%- set script_src = "script-src 'self' 'unsafe-inline'" %}
+{# unsafe eval is set for sphinx #}
+{%- set script_src = "script-src 'self' 'unsafe-eval' 'unsafe-inline'" %}
 {%- if applications | is_feature_enabled('matomo', application_id) | bool %}
-  {%- set script_src = script_src + " " + domains.matomo %}
+  {%- set script_src = script_src + " " + web_protocol + "://" + domains.matomo %}
+{%- endif %}
+{%- if applications | is_feature_enabled('recaptcha', application_id) | bool %}
+  {%- set script_src = script_src + " https://www.google.com" %}
 {%- endif %}
 {%- set script_src = script_src + " https://kit.fontawesome.com https://cdn.jsdelivr.net" %}
 {%- set csp_parts = csp_parts + [script_src + ";"] %}
@@ -36,4 +44,10 @@
 {%- set style_src = "style-src 'self' 'unsafe-inline' https://kit.fontawesome.com https://cdn.jsdelivr.net" %}
 {%- set csp_parts = csp_parts + [style_src + ";"] %}
 
+{# font-src: Allow font-src from self, FontAwesome, jsDelivr and inline styles #}
+{%- set font_src = "font-src 'self' https://kit.fontawesome.com https://cdn.jsdelivr.net" %}
+{%- set csp_parts = csp_parts + [font_src + ";"] %}
+
 add_header Content-Security-Policy "{{ csp_parts | join(' ') }}" always;
+# Oppress header send by proxied application
+proxy_hide_header Content-Security-Policy;

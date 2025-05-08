@@ -4,4 +4,4 @@ OnFailure=systemd-notifier.cymais@%n.service
 
 [Service]
 Type=oneshot
-ExecStartPre=/bin/sh -c '/usr/bin/python certreap --force'
+ExecStart=/bin/sh -c 'certreap --force'

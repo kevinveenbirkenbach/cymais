@@ -21,9 +21,9 @@
 
 - name: "Check if yay is installed"
   command: which yay
-  ignore_errors: yes
   register: yay_installed
   changed_when: false
+  failed_when: false
 
 - name: "Update with yay"
   include_role:
@@ -32,9 +32,9 @@
 
 - name: "Check if pip is installed"
   command: which pip
-  ignore_errors: yes
   register: pip_installed
   changed_when: false
+  failed_when: false
 
 - name: "Update with pip"
   include_role:
@@ -43,7 +43,7 @@
 - name: "Check if pkgmgr command is available"
   command: "which pkgmgr"
   register: pkgmgr_available
-  ignore_errors: yes
+  failed_when: false
 
 - name: "Update all repositories using pkgmgr"
   include_role:

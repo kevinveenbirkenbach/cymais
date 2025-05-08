@@ -1,0 +1,23 @@
+- name: Remove (Cleanup) NGINX cache directory contents
+  become: true
+  file:
+    path: "{{ nginx.directories.cache }}"
+    state: absent
+  when:
+    - mode_cleanup | bool
+    - run_once_nginx_reverse_proxy is not defined
+
+- name: Ensure NGINX cache directory exists
+  become: true
+  file:
+    path: "{{ nginx.directories.cache }}"
+    state: directory
+    owner: http
+    group: http
+    mode: '0755'
+  when: run_once_nginx_reverse_proxy is not defined
+
+- name: run the nginx_reverse_proxy tasks once
+  set_fact:
+    run_once_nginx_reverse_proxy: true
+  when: run_once_nginx_reverse_proxy is not defined
