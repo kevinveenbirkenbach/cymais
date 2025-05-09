@@ -65,15 +65,22 @@ def parse_overrides(pairs):
         result[k.strip()] = v.strip()
     return result
 
+def load_application_id_from_vars(role_path):
+    """Read application_id from role's vars/main.yml"""
+    vars_file = Path(role_path) / "vars" / "main.yml"
+    if not vars_file.exists():
+        raise FileNotFoundError(f"{vars_file} not found.")
+    vars_data = load_yaml_file(vars_file)
+    app_id = vars_data.get("application_id")
+    if not app_id:
+        raise KeyError(f"'application_id' not found in {vars_file}")
+    return app_id
+
 def apply_schema_to_inventory(schema, inventory_data, app_id, overrides, vault_password_file, ask_vault_pass):
     """Merge schema into inventory under applications.{app_id}, encrypting all values."""
     inventory_data.setdefault("applications", {})
     applications = inventory_data["applications"]
 
-    if "applications" not in schema or app_id not in schema["applications"]:
-        raise KeyError(f"Schema must contain 'applications.{app_id}'")
-
-    app_schema = schema["applications"][app_id]
     applications.setdefault(app_id, {})
 
     def process_branch(branch, target, path_prefix=""):
@@ -93,24 +100,26 @@ def apply_schema_to_inventory(schema, inventory_data, app_id, overrides, vault_p
             else:
                 target[key] = meta
 
-    process_branch(app_schema, applications[app_id])
+    process_branch(schema, applications[app_id])
     return inventory_data
 
 def main():
     parser = argparse.ArgumentParser(description="Generate Vault-encrypted credentials from schema and write to inventory.")
     parser.add_argument("--role-path", help="Path to the Ansible role")
     parser.add_argument("--inventory-file", help="Path to the inventory file to update")
-    parser.add_argument("--application-id", help="Application ID to process (e.g. bigbluebutton)")
     parser.add_argument("--vault-password-file", help="Path to Ansible Vault password file")
     parser.add_argument("--ask-vault-pass", action="store_true", help="Prompt for vault password")
     parser.add_argument("--set", nargs="*", default=[], help="Override values as key=value")
     args = parser.parse_args()
 
     # Prompt for missing values
-    role_path = Path(args.role_path or prompt("Path to Ansible role", "./roles/docker-bigbluebutton"))
+    role_path = Path(args.role_path or prompt("Path to Ansible role", "./roles/docker-<app>"))
     inventory_file = Path(args.inventory_file or prompt("Path to inventory file", "./host_vars/localhost.yml"))
-    app_id = args.application_id or prompt("Application ID", "bigbluebutton")
 
+    # Determine application_id
+    app_id = load_application_id_from_vars(role_path)
+
+    # Vault method
     if not args.vault_password_file and not args.ask_vault_pass:
         print("[?] No Vault password method provided.")
         print("    1) Provide path to --vault-password-file")
@@ -127,7 +136,7 @@ def main():
     inventory_data = load_yaml_file(inventory_file)
     overrides = parse_overrides(args.set)
 
-    # Process and save
+    # Apply schema and save
     updated = apply_schema_to_inventory(
         schema=schema_data,
         inventory_data=inventory_data,
