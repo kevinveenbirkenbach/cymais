@@ -1,0 +1,14 @@
+version:              "latest"
+oidc:
+    # Taiga doesn't have a functioning oidc support at the moment
+    # See
+    # - https://community.taiga.io/t/taiga-and-oidc-plugin/4866
+    #
+    # Due to this reason this plutin is deactivated atm
+flavor:               'taigaio' # Potential flavors: robrotheram, taigaio
+features:
+  matomo:             true
+  css:                true
+  landingpage_iframe: false
+  oidc:               false
+  central_database:   true

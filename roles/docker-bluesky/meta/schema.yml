@@ -1,0 +1,13 @@
+credentials:
+  jwt_secret:
+    description: "Secret used for JWT signing (base64, 64 bytes)"
+    algorithm: "plain"
+    validation: "^[A-Za-z0-9+/=]{86,}$"  # 64 bytes base64 = ~86 characters without newline
+  plc_rotation_key_k256_private_key_hex:
+    description: "PLC rotation key in hex format (32 bytes)"
+    algorithm: "sha256"
+    validation: "^[a-f0-9]{64}$"
+  admin_password:
+    description: "Initial admin password for Bluesky PDS"
+    algorithm: "plain"
+    validation: "^.{12,}$"

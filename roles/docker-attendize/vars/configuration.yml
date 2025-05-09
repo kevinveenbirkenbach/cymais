@@ -1,0 +1,9 @@
+version:                      "latest"
+credentials:
+# database_password: Password for the database
+
+features:
+  matomo:             true
+  css:                true
+  landingpage_iframe: false
+  central_database:   true

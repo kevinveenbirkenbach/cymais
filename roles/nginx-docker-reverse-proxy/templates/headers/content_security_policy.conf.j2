@@ -12,7 +12,7 @@
 
 {# frame-ancestors: Restricts which origins can embed this site in a frame or iframe #}
 {%- set frame_ancestors = "frame-ancestors 'self'" %}
-{%- if applications | is_feature_enabled('iframe', application_id) | bool %}
+{%- if applications | is_feature_enabled('landing_page_iframe', application_id) | bool %}
   {%- set frame_ancestors = frame_ancestors + " " + web_protocol + "://" + primary_domain %}
 {%- endif %}
 {%- set csp_parts = csp_parts + [frame_ancestors + ";"] %}

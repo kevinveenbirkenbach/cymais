@@ -1,0 +1,10 @@
+credentials:
+  oauth2_proxy_cookie_secret:
+    description: "Secret used by OAuth2 Proxy to encrypt browser cookies (16 bytes hex-encoded)"
+    algorithm: "sha256"
+    validation: "^[a-f0-9]{32}$"
+
+  administrator_password:
+    description: "Initial password for the pgAdmin administrator login"
+    algorithm: "sha256"
+    validation: "^[a-f0-9]{64}$"

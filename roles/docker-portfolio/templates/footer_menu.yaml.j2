@@ -37,13 +37,13 @@
                 icon:
                   class: fa-solid fa-shield-halved
                 url: https://{{domains.keycloak}}/admin
-                iframe: {{ applications | is_feature_enabled('iframe','keycloak') }}
+                iframe: {{ applications | is_feature_enabled('landing_page_iframe','keycloak') }}
               - name: Profile
                 description: Update your personal admin settings
                 icon:
                   class: fa-solid fa-user-gear
                 url: https://{{ domains.keycloak }}/realms/{{oidc.client.id}}/account
-                iframe: {{ applications | is_feature_enabled('iframe','keycloak') }}
+                iframe: {{ applications | is_feature_enabled('landing_page_iframe','keycloak') }}
               - name: Logout
                 description: End your admin session securely
                 icon:
@@ -113,7 +113,7 @@
       icon:
         class: fas fa-book
       url: https://{{domains.sphinx}}
-      iframe: {{ applications | is_feature_enabled('iframe','sphinx') }}
+      iframe: {{ applications | is_feature_enabled('landing_page_iframe','sphinx') }}
 
 {% endif %}
 
@@ -124,7 +124,7 @@
       icon:
         class: "fas fa-chalkboard-teacher"
       url: https://{{domains.presentation}}
-      iframe: {{ applications | is_feature_enabled('iframe','presentation') }}
+      iframe: {{ applications | is_feature_enabled('landing_page_iframe','presentation') }}
 
 {% endif %}
 

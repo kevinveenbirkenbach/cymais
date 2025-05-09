@@ -1,0 +1,14 @@
+pgadmin_host_server_file:     "{{docker_compose.directories.volumes}}servers.json"
+pgadmin_docker_server_file:   "/pgadmin4/servers.json"
+pgadmin_host_password_file:   "{{docker_compose.directories.volumes}}.pgpass"
+pgadmin_docker_password_file: "/pgpass"
+
+pgadmin_servers:
+  - name:           "Central Postgres Database"
+    host:           "{{ database_host }}"
+    port:           "{{ database_port }}"
+    username:       "postgres"
+    maintenance_db: "postgres"
+    password:       "{{ applications.postgres.credentials.postgres_password }}"
+
+# Here you can add more databases 

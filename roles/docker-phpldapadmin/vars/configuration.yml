@@ -1,0 +1,10 @@
+version:              "2.0.0-dev"
+oauth2_proxy:
+  application:        application  # Needs to be the same as webinterface
+  port:               8080         # application port
+features:
+  matomo:             true
+  css:                true
+  landingpage_iframe: false
+  ldap:               true
+  oauth2:             true

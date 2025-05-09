@@ -8,11 +8,11 @@
 
 - name: Install PostgreSQL
   docker_container:
-    name: central-postgres
+    name: "{{ applications.postgres.hostname }}"
     image: "postgres:{{applications.postgres.version}}"
     detach: yes
     env:
-      POSTGRES_PASSWORD: "{{ central_postgres_password }}"
+      POSTGRES_PASSWORD: "{{ applications.postgres.credentials.postgres_password }}"
       POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C" # Necessary for docker-matrix
     networks:
       - name: central_postgres
@@ -31,7 +31,7 @@
   when: run_once_docker_postgres is not defined
 
 - name: Wait for Postgres inside the container
-  shell: docker exec central-postgres pg_isready -U postgres
+  shell: "docker exec {{ applications.postgres.hostname }} pg_isready -U postgres"
   register: pg_ready
   until: pg_ready.rc == 0
   retries: 30
@@ -52,7 +52,7 @@
     name: "{{ database_name }}"
     state: present
     login_user: postgres
-    login_password: "{{ central_postgres_password }}"
+    login_password: "{{ applications.postgres.credentials.postgres_password }}"
     login_host: 127.0.0.1
     login_port: "{{database_port}}"
 
@@ -63,7 +63,7 @@
     db:             "{{ database_name }}"
     state:          present
     login_user:     postgres
-    login_password: "{{ central_postgres_password }}"
+    login_password: "{{ applications.postgres.credentials.postgres_password }}"
     login_host:     127.0.0.1
     login_port:     "{{database_port}}"
 
@@ -76,7 +76,7 @@
     type:           table
     state:          present
     login_user:     postgres
-    login_password: "{{ central_postgres_password }}"
+    login_password: "{{ applications.postgres.credentials.postgres_password }}"
     login_host:     127.0.0.1
     login_port:     "{{database_port}}"
 
@@ -88,7 +88,7 @@
     type: database
     state: present
     login_user: postgres
-    login_password: "{{ central_postgres_password }}"
+    login_password: "{{ applications.postgres.credentials.postgres_password }}"
     login_host: 127.0.0.1
     login_port: "{{database_port}}"
 
@@ -102,7 +102,7 @@
     schema: public
     state: present
     login_user: postgres
-    login_password: "{{ central_postgres_password }}"
+    login_password: "{{ applications.postgres.credentials.postgres_password }}"
     login_host: 127.0.0.1
     login_port: "{{database_port}}"
 
@@ -110,7 +110,7 @@
   postgresql_query:
     db: "{{ database_name }}"
     login_user: postgres
-    login_password: "{{ central_postgres_password }}"
+    login_password: "{{ applications.postgres.credentials.postgres_password }}"
     login_host: 127.0.0.1
     login_port: "{{database_port}}"
     query: |

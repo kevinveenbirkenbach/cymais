@@ -15,7 +15,7 @@ For login with Token checkout [this guide](https://docs.mau.fi/bridges/go/slack/
 
 ### ChatGPT
 - Create API Token: https://platform.openai.com/api-keys
-- Set ``matrix_chatgpt_bridge_access_token`` 
+- Set ``applications[application_id].credentials.chatgpt_bridge_access_token`` 
 
 ## Debug:
 - https://federationtester.matrix.org/

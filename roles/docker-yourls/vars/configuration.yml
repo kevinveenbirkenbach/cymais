@@ -1,0 +1,14 @@
+users:
+  administrator:
+    username:         "{{users.administrator.username}}"
+version:              "latest"
+oauth2_proxy:  
+  application:        "application"
+  port:               "80"
+  location:           "/admin/"                             # Protects the admin area
+features:
+  matomo:             true
+  css:                true
+  landingpage_iframe: false
+  central_database:   true
+  oauth2:             true

@@ -42,7 +42,7 @@ appservice:
         #           https://github.com/mattn/go-sqlite3#connection-string
         #   Postgres: Connection string. For example, postgres://user:password@host/database?sslmode=disable
         #             To connect via Unix socket, use something like postgres:///dbname?host=/var/run/postgresql
-        uri: postgres://mautrix_whatsapp_bridge:{{mautrix_whatsapp_bridge_database_password}}@{{database_host}}/mautrix_whatsapp_bridge?sslmode=disable
+        uri: postgres://mautrix_whatsapp_bridge:{{applications[application_id].credentials.mautrix_whatsapp_bridge_database_password}}@{{database_host}}/mautrix_whatsapp_bridge?sslmode=disable
         # Maximum number of connections. Mostly relevant for Postgres.
         max_open_conns: 20
         max_idle_conns: 2
@@ -245,7 +245,7 @@ bridge:
     # instead of users having to find an access token and run `login-matrix`
     # manually.
     login_shared_secret_map:
-        {{applications.matrix.server_name}}: {{matrix_registration_shared_secret}}
+        {{applications.matrix.server_name}}: {{applications[application_id].credentials.registration_shared_secret}}
     # Whether to explicitly set the avatar and room name for private chat portal rooms.
     # If set to `default`, this will be enabled in encrypted rooms and disabled in unencrypted rooms.
     # If set to `always`, all DM rooms will have explicit names and avatars set.

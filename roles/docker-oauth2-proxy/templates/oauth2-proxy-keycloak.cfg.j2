@@ -1,5 +1,5 @@
 http_address            =   "0.0.0.0:4180"
-cookie_secret           =   "{{applications[application_id].oauth2_proxy.cookie_secret}}"
+cookie_secret           =   "{{ applications[application_id].credentials.oauth2_proxy_cookie_secret }}"
 email_domains           =   "{{primary_domain}}"
 cookie_secure           =   "true"                                                  # True is necessary to force the cookie set via https
 upstreams               =   "http://{{applications[application_id].oauth2_proxy.application}}:{{applications[application_id].oauth2_proxy.port}}"
@@ -16,5 +16,5 @@ provider_display_name   =   "Keycloak"
 
 # role restrictions
 #cookie_roles           =   "realm_access.roles"
-#allowed_groups           =   "{{applications.oauth2_proxy.allowed_roles}}"           # This is not correct here. needs to be placed in applications @todo move there when implementing
+#allowed_groups         =   "{{applications.oauth2_proxy.allowed_roles}}"           # This is not correct here. needs to be placed in applications @todo move there when implementing
 # @see https://chatgpt.com/share/67f42607-bf68-800f-b587-bd56fe9067b5

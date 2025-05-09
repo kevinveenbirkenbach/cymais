@@ -1,0 +1,5 @@
+credentials:
+  database_password:
+    description: "Database password for MariaDB used by Attendize"
+    algorithm: "bcrypt"
+    validation: "^\\$2[aby]\\$.{56}$"

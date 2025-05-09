@@ -1,0 +1,15 @@
+version:              "13"    # Update when available. Sadly no rolling release implemented
+oauth2_proxy:  
+  application:        "proxy"
+  port:               "80"
+ldap:
+  filters:
+    administrators:   True    # Set true to filter administrators
+    users:            False   # Set true to filter users
+features:
+  matomo:             true
+  css:                true
+  landingpage_iframe: false
+  ldap:               true
+  central_database:   true
+  oauth2:             true

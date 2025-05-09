@@ -11,10 +11,8 @@
         'recaptcha':    'Enables recaptcha functionality'
     } %}
     {%- for key, comment in feature_map.items() %}
-        {%- if key in options %}
-  
+        {%- if key in options %}  
       {{ key }}: {{ options[key] }}   # {{ comment }}
-
         {%- endif %}
     {%- endfor %}
 {% endmacro %}

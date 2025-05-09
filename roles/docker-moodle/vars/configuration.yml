@@ -1,0 +1,11 @@
+site_titel:         "Global Learning Academy on {{primary_domain}}"
+users:
+  administrator:
+    username:       "{{users.administrator.username}}"
+    email:          "{{users.administrator.email}}"
+version:            "latest"
+features:
+  matomo:             true
+  css:                true
+  landingpage_iframe: false
+  central_database:   true

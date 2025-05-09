@@ -1,0 +1,19 @@
+title:                "Blog"                                      # Wordpress titel
+users:                                                            # Credentials
+  administrator:                                                  # Wordpress administrator
+    username:         "{{users.administrator.username}}"          # Username of the wordpress administrator
+    email:            "{{users.administrator.email}}"             # Email of the wordpress adminsitrator
+plugins:
+  wp-discourse:
+    enabled:          "{{ 'discourse' in group_names | lower }}"
+  daggerhart-openid-connect-generic:
+    enabled:          true
+  activitypub:
+    enabled:          true
+      
+features:
+  matomo:             true
+  css:                false
+  landingpage_iframe: false
+  oidc:               true
+  central_database:   true

@@ -1,5 +1,5 @@
 application_id:  	  "listmonk"
-database_password:  "{{applications[application_id].credentials.database.password}}"
+database_password:  "{{applications[application_id].credentials.database_password}}"
 database_type:      "postgres"
 
 listmonk_settings:
@@ -25,10 +25,10 @@ listmonk_settings:
     value: 'true'
 
   - key: "security.captcha_key"
-    value: '"{{ applications[application_id].credentials.hcaptcha.site_key }}"'
+    value: '"{{ applications[application_id].credentials.hcaptcha_site_key }}"'
 
   - key: "security.captcha_secret"
-    value: '"{{ applications[application_id].credentials.hcaptcha.secret }}"'
+    value: '"{{ applications[application_id].credentials.hcaptcha_secret }}"'
 
   # SMTP servers
   - key: "smtp"

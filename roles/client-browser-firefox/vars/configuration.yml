@@ -1,0 +1,3 @@
+plugins:                                                                                # Plugins to be installed in Firefox
+  - "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"      # U-Block Origine Plugin
+  - "https://addons.mozilla.org/firefox/downloads/latest/keepassxc-browser/latest.xpi"  # KeepassXC Plugin

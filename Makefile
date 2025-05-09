@@ -1,12 +1,13 @@
 # Makefile for j2render
 
-TEMPLATE=./templates/vars/applications.yml.j2
+ROLES_DIR=./roles
 OUTPUT=./group_vars/all/11_applications.yml
+SCRIPT=./cli/generate_default_applications.py
 
 build:
-	@echo "🔧 Building rendered file from $(TEMPLATE)..."
+	@echo "🔧 Generating $(OUTPUT) from roles in $(ROLES_DIR)..."
 	@mkdir -p $(dir $(OUTPUT))
-	j2r $(TEMPLATE) $(OUTPUT)
+	python3 $(SCRIPT) --roles-dir $(ROLES_DIR) --output-file $(OUTPUT)
 	@echo "✅ Output written to $(OUTPUT)"
 
 install: build

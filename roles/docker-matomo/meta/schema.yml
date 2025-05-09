@@ -1,0 +1,15 @@
+credentials:
+  database_password:
+    description: "Password for the Matomo database user"
+    algorithm: "bcrypt"
+    validation: "^\\$2[aby]\\$.{56}$"
+
+  auth_token:
+    description: "Authentication token for the Matomo HTTP API (used for automation and integrations)"
+    algorithm: "sha256"
+    validation: "^[a-f0-9]{64}$"
+
+  oauth2_proxy_cookie_secret:
+    description: "Secret used to encrypt cookies in the OAuth2 Proxy (hex-encoded, 16 bytes)"
+    algorithm: "sha256"
+    validation: "^[a-f0-9]{32}$"

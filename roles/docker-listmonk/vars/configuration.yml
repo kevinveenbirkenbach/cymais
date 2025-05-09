@@ -1,0 +1,11 @@
+users:
+  administrator:
+    username:               "{{users.administrator.username}}"    # Listmonk administrator account username
+public_api_activated:       False                                 # Security hole. Can be used for spaming
+version:                    "latest"                              # Docker Image version
+features:
+  matomo:                   true
+  css:                      true
+  landingpage_iframe:       true
+  central_database:         true
+  oidc:                     true

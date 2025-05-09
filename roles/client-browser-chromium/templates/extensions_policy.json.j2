@@ -1,8 +1,20 @@
 {
   "ExtensionInstallForcelist": [
-    {% for plugin in applications[application_id].plugins -%}
-      "{{ plugin }}"{% if not loop.last %},{% endif %}
+    {% for plugin in applications[application_id].chromium.plugins -%}
+    "{{ plugin.id }};{{ plugin.update_url }}"{% if not loop.last %},{% endif %}
     {% endfor %}
   ],
-  "PasswordManagerEnabled": false
+  "ExtensionSettings": {
+    "*": {
+      "installation_mode": "{{ applications[application_id].default_installation_mode }}"
+    }
+    {% for plugin in applications[application_id].chromium.plugins -%},
+    "{{ plugin.id }}": {
+      "installation_mode": "{{ plugin.installation_mode }}",
+      "update_url": "{{ plugin.update_url }}",
+      "incognito_mode": "{{ 'enabled' if plugin.incognito else 'disabled' }}"
+    }
+    {% endfor %}
+  },
+  "PasswordManagerEnabled": {{ applications[application_id].password_manager_enabled }}
 }

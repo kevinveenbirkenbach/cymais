@@ -1,0 +1,12 @@
+version:              "latest"      # Use the latest phpmyadmin version
+autologin:            false         # This is a high security risk. Just activate this option if you know what you're doing
+oauth2_proxy:  
+  port:               "80"
+  application:        "application"
+features:
+  matomo:             true
+  css:                false
+  landingpage_iframe: false
+  central_database:   true
+  oauth2:             true
+hostname:             central-mariadb

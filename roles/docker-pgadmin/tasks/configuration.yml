@@ -3,7 +3,7 @@
 
 - name: "loading database configuration variables"
   include_vars:
-    file: "{{ role_path }}/vars/configuration.yml"
+    file: "{{ role_path }}/vars/db_config.yml"
 
 - name: "Render servers.json file"
   template:

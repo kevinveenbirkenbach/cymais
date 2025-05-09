@@ -3,7 +3,7 @@
 application_id:                                     "nextcloud"                                                   # Application identifier
 
 # Database
-database_password:  	                              "{{applications.nextcloud.credentials.database.password}}"    # Database password
+database_password:  	                              "{{applications.nextcloud.credentials.database_password}}"    # Database password
 database_type:                                      "mariadb"                                                     # Database flavor
 
 # Networking

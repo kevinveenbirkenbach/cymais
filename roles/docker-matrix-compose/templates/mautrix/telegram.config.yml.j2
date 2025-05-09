@@ -42,7 +42,7 @@ appservice:
     # Format examples:
     #   SQLite:   sqlite:filename.db
     #   Postgres: postgres://username:password@hostname/dbname
-    database: postgres://mautrix_telegram_bridge:{{mautrix_telegram_bridge_database_password}}@{{database_host}}/mautrix_telegram_bridge
+    database: postgres://mautrix_telegram_bridge:{{applications[application_id].credentials.mautrix_telegram_bridge_database_password}}@{{database_host}}/mautrix_telegram_bridge
     # Additional arguments for asyncpg.create_pool() or sqlite3.connect()
     # https://magicstack.github.io/asyncpg/current/api/index.html#asyncpg.pool.create_pool
     # https://docs.python.org/3/library/sqlite3.html#sqlite3.connect
@@ -209,7 +209,7 @@ bridge:
     # If using this for other servers than the bridge's server,
     # you must also set the URL in the double_puppet_server_map.
     login_shared_secret_map:
-        {{applications.matrix.server_name}}: {{matrix_registration_shared_secret}}
+        {{applications.matrix.server_name}}: {{applications[application_id].credentials.registration_shared_secret}}
     # Set to false to disable link previews in messages sent to Telegram.
     telegram_link_preview: true
     # Whether or not the !tg join command should do a HTTP request
@@ -564,8 +564,8 @@ bridge:
 # Telegram config
 telegram:
     # Get your own API keys at https://my.telegram.org/apps
-    api_id: {{mautrix_telgegram_bridge_api_id}}
-    api_hash: {{mautrix_telgegram_bridge_api_pin}}
+    api_id: {{applications[application_id].credentials.mautrix_telgegram_bridge_api_id}}
+    api_hash: {{applications[application_id].credentials.mautrix_telgegram_bridge_api_pin}}
     # (Optional) Create your own bot at https://t.me/BotFather
     bot_token: disabled
 

@@ -1,0 +1,15 @@
+credentials:
+  administrator_password:
+    description: "Initial password for the YOURLS administrator account"
+    algorithm: "sha256"
+    validation: "^[a-f0-9]{64}$"
+
+  database_password:
+    description: "Password for the YOURLS database user"
+    algorithm: "bcrypt"
+    validation: "^\\$2[aby]\\$.{56}$"
+
+  oauth2_proxy_cookie_secret:
+    description: "Secret used by OAuth2 Proxy to encrypt browser cookies (16 bytes hex-encoded)"
+    algorithm: "sha256"
+    validation: "^[a-f0-9]{32}$"

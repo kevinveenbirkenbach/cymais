@@ -1,0 +1,21 @@
+enable_greenlight:    "true"
+setup:                false                                             # Set to true in inventory file for initial setup
+credentials:
+# shared_secret:                                                       # Needs to be defined in inventory file
+# etherpad_api_key:                                                    # Needs to be defined in inventory file                                             
+# rails_secret:                                                        # Needs to be defined in inventory file
+# postgresql_secret:                                                   # Needs to be defined in inventory file   
+# fsesl_password:                                                      # Needs to be defined in inventory file
+# turn_secret:                                                         # Needs to be defined in inventory file  
+database:
+  name:      "multiple_databases"
+  username:  "postgres2"
+urls:
+  api:                        "{{ web_protocol }}://{{domains.bigbluebutton}}/bigbluebutton/"  # API Address used by Nextcloud Integration
+features:
+  matomo:             true
+  css:                true
+  landingpage_iframe: false
+  ldap:               false
+  oidc:               true
+  central_database:   false

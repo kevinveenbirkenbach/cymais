@@ -10,7 +10,7 @@
     name: docker-compose
 
 # The following env file will just be used from the dedicated mariadb container
-# and not the central-mariadb-database
+# and not the {{capplications.mariadb.hostname }}-database
 - name: "Create {{database_env}}"
   template: 
     src: "env/{{database_type}}.env.j2"

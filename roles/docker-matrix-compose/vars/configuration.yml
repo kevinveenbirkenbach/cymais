@@ -1,0 +1,18 @@
+
+users:
+  administrator:
+    username:         "{{users.administrator.username}}" # Accountname of the matrix admin
+playbook_tags:        "setup-all,start"                  # For the initial update use: install-all,ensure-matrix-users-created,start
+role:                 "compose"                          # Role to setup Matrix. Valid values: ansible, compose
+server_name:          "{{primary_domain}}"               # Adress for the account names etc.
+synapse:
+  version:            "latest"
+element:
+  version:            "latest"
+setup:                false                              # Set true in inventory file to execute the setup and initializing procedures
+features:
+  matomo:             true
+  css:                true
+  landingpage_iframe: false
+  oidc:               false                              # Deactivated OIDC due to this issue https://github.com/matrix-org/synapse/issues/10492
+  central_database:   true

@@ -4,9 +4,9 @@
     wp core install
       --url="{{ web_protocol }}://{{ domains[application_id][0] }}"
       --title="{{ applications[application_id].title }}"
-      --admin_user="{{ applications[application_id].credentials.administrator.username }}"
-      --admin_password="{{ applications[application_id].credentials.administrator.password }}"
-      --admin_email="{{ applications[application_id].credentials.administrator.email }}"
+      --admin_user="{{ applications[application_id].users.administrator.username }}"
+      --admin_password="{{ applications[application_id].credentials.administrator_password }}"
+      --admin_email="{{ applications[application_id].users.administrator.email }}"
       --path="{{ wordpress_docker_html_path }}"
   args:
     chdir: "{{ docker_compose.directories.instance }}"

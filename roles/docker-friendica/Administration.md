@@ -8,7 +8,7 @@ The following environment variables need to be defined for successful operation:
 
 To completely reset Friendica, including its database and volumes, run:
 ```bash
-docker exec -i central-mariadb mariadb -u root -p"${DB_ROOT_PASSWORD}" -e "DROP DATABASE IF EXISTS friendica; CREATE DATABASE friendica;"
+docker exec -i {{capplications.mariadb.hostname }} mariadb -u root -p"${DB_ROOT_PASSWORD}" -e "DROP DATABASE IF EXISTS friendica; CREATE DATABASE friendica;"
 docker compose down
 rm -rv /mnt/hdd/data/docker/volumes/friendica_data
 docker volume rm friendica_data
@@ -19,7 +19,7 @@ docker volume rm friendica_data
 ## Manual Method:
 1. Connect to the MariaDB instance:
    ```bash
-   docker exec -it central-mariadb mariadb -u root -p
+   docker exec -it {{capplications.mariadb.hostname }} mariadb -u root -p
    ```
 2. Run the following commands:
    ```sql
@@ -31,7 +31,7 @@ docker volume rm friendica_data
 ## Automatic Method:
 ```bash
 DB_ROOT_PASSWORD="your_root_password"
-docker exec -i central-mariadb mariadb -u root -p"${DB_ROOT_PASSWORD}" -e "DROP DATABASE IF EXISTS friendica; CREATE DATABASE friendica;"
+docker exec -i {{capplications.mariadb.hostname }} mariadb -u root -p"${DB_ROOT_PASSWORD}" -e "DROP DATABASE IF EXISTS friendica; CREATE DATABASE friendica;"
 ```
 
 ## Enter the Application Container 🔍

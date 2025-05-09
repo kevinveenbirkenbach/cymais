@@ -1,4 +1,4 @@
-# Matrix (Ansible)
+# Matrix (Ansible - Deprecated)
 
 ## Warning
 This role is experimental and may not be actively maintained. Use it with caution in production environments. For a more stable deployment, please consider using the Matrix Compose role or another alternative solution.

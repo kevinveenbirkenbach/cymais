@@ -1,7 +1,7 @@
 application_id:  	          "wordpress"
 wordpress_max_upload_size:  "64M"
 database_type:              "mariadb"
-database_password:  	      "{{applications[application_id].credentials.database.password}}"
+database_password:  	      "{{applications[application_id].credentials.database_password}}"
 wordpress_custom_image:     "wordpress_custom"
 wordpress_docker_html_path: "/var/www/html"
 host_msmtp_conf:            "{{docker_compose.directories.config}}msmtprc.conf"

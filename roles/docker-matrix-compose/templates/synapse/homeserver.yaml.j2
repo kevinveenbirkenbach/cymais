@@ -19,10 +19,10 @@ database:
     cp_max: 10
 log_config:                     "/data/{{domains.matrix_synapse}}.log.config"
 media_store_path:               "/data/media_store"
-registration_shared_secret:     "{{matrix_registration_shared_secret}}"
+registration_shared_secret:     "{{applications[application_id].credentials.registration_shared_secret}}"
 report_stats:                   true
-macaroon_secret_key:            "{{matrix_macaroon_secret_key}}"
-form_secret:                    "{{matrix_form_secret}}"
+macaroon_secret_key:            "{{applications[application_id].credentials.macaroon_secret_key}}"
+form_secret:                    "{{applications[application_id].credentials.form_secret}}"
 signing_key_path:               "/data/{{domains.matrix_synapse}}.signing.key"
 web_client_location:            "{{ web_protocol }}://{{domains.matrix_element}}"
 public_baseurl:                 "{{ web_protocol }}://{{domains.matrix_synapse}}"

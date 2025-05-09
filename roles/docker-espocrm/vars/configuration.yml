@@ -1,0 +1,17 @@
+version:                  "latest"
+users:
+  administrator:
+    username:             "{{ users.administrator.username }}"
+    email:                "{{ users.administrator.email }}"
+
+credentials:
+#  administrator_password: # Set in inventory file
+#  database_password:      # Set in your inventory file
+
+features:
+  matomo:             true
+  css:                false
+  landingpage_iframe: false
+  ldap:               false
+  oidc:               true
+  central_database:   true

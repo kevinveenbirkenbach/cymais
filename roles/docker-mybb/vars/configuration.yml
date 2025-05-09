@@ -1,0 +1,7 @@
+
+version:              "latest"
+features:
+  matomo:             true
+  css:                true
+  landingpage_iframe: false
+  central_database:   true

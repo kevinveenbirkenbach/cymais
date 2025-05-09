@@ -1,6 +1,6 @@
 application_id:                                 "funkwhale"
 nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size 512M;"
-database_password:                              "{{funkwhale_database_password}}"
+database_password:                              "{{applications[application_id].credentials.database_password}}"
 database_type:                                  "postgres"
 media_root:                                     "/srv/funkwhale/data/"
 static_root:                                    "{{media_root}}static"

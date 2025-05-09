@@ -1,0 +1,11 @@
+network:    "discourse_default"     # Name of the docker network
+container:  "discourse_application" # Name of the container application
+repository: "discourse_repository"  # Name of the repository folder
+credentials:
+#  database_password:                     # Needs to be defined in inventory file                        
+features:
+  matomo:             true
+  css:                true
+  landingpage_iframe: false
+  oidc:               true
+  central_database:   true
