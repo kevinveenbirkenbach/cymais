@@ -11,7 +11,7 @@
   command:
     cmd: "docker network connect {{applications.discourse.network}} central-{{ database_type }}"
   ignore_errors: true
-  when: applications[application_id].features.database | bool
+  when: applications | is_feature_enabled('central_database',application_id)
   listen: recreate discourse
 
 - name: rebuild discourse

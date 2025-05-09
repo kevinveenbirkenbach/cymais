@@ -83,7 +83,7 @@
     cmd: "docker network connect central_postgres {{applications.discourse.container}}"
   ignore_errors: true
   when:
-    - applications[application_id].features.database | bool
+    - applications | is_feature_enabled('central_database',application_id)
     - run_once_docker_discourse is not defined
   
 - name: "remove central database from {{application_id}}_default"
@@ -91,7 +91,7 @@
     cmd: "docker network disconnect {{applications.discourse.network}} central-{{ database_type }}"
   ignore_errors: true
   when:
-    - applications[application_id].features.database | bool
+    - applications | is_feature_enabled('central_database',application_id)
     - run_once_docker_discourse is not defined
 
 - name: run the docker_discourse tasks once

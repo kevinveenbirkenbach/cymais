@@ -1,6 +1,6 @@
 application_id:               "pgadmin"
 database_type:                "postgres"
-database_host:                "{{ 'central-' + database_type if applications[application_id].features.database }}"
+database_host:                "{{ 'central-' + database_type if applications | is_feature_enabled('central_database',application_id)"
 database_var_file:            "{{playbook_dir}}/roles/docker-central-database/vars/database.yml"
 pgadmin_user:                 5050
 pgadmin_group:                "{{pgadmin_user}}"

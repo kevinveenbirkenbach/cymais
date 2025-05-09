@@ -5,6 +5,8 @@
     msg: |
       database_instance: "{{ database_instance | default('undefined') }}"
       database_name: "{{ database_name | default('undefined') }}"
+      database_type: "{{ database_type | default('undefined') }}"
+      database_host: "{{ database_host | default('undefined') }}"
       database_username: "{{ database_username | default('undefined') }}"
       database_password: "{{ database_password | default('undefined') }}"
   when: enable_debug | bool

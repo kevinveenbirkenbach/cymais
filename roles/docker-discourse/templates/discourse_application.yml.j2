@@ -1,5 +1,5 @@
 templates:
-{% if not applications[application_id].features.database | bool %}
+{% if not applications | is_feature_enabled('central_database',application_id) %}
   - "templates/postgres.template.yml"
 {% endif %}
   #- "templates/redis.template.yml"
