@@ -8,7 +8,7 @@
 
 - name: install MariaDB
   docker_container:
-    name: "{{capplications.mariadb.hostname }}"
+    name: "{{applications.mariadb.hostname }}"
     image: "mariadb:{{applications.mariadb.version}}" #could lead to problems with nextcloud
     detach: yes
     env:
@@ -38,7 +38,7 @@
 
 - name: Wait until the MariaDB container is healthy
   community.docker.docker_container_info:
-    name: "{{capplications.mariadb.hostname }}"
+    name: "{{applications.mariadb.hostname }}"
   register: db_info
   until: db_info.containers[0].State.Health.Status == "healthy"
   retries: 30
@@ -71,7 +71,7 @@
 
 - name: Grant database privileges
   ansible.builtin.shell:
-    cmd: "docker exec {{capplications.mariadb.hostname }} mariadb -u root -p{{ applications.mariadb.credentials.root_password }} -e \"GRANT ALL PRIVILEGES ON {{database_name}}.* TO '{{database_username}}'@'%';\""
+    cmd: "docker exec {{applications.mariadb.hostname }} mariadb -u root -p{{ applications.mariadb.credentials.root_password }} -e \"GRANT ALL PRIVILEGES ON {{database_name}}.* TO '{{database_username}}'@'%';\""
   args:
     executable: /bin/bash
 
