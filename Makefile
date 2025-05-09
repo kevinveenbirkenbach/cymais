@@ -1,8 +1,6 @@
-# Makefile for j2render
-
 ROLES_DIR=./roles
 OUTPUT=./group_vars/all/11_applications.yml
-SCRIPT=./cli/generate_default_applications.py
+SCRIPT=./cli/generate_defaults_applications.py
 
 build:
 	@echo "🔧 Generating $(OUTPUT) from roles in $(ROLES_DIR)..."

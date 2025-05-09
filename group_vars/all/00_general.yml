@@ -48,3 +48,9 @@ certbot_dns_propagation_wait_seconds:     40                      # How long sho
 certbot_flavor:                           san                     # Possible options: san (recommended, with a dns flavor like cloudflare, or hetzner), wildcard(doesn't function with www redirect), deicated
 certbot_webroot_path:                     "/var/lib/letsencrypt/" # Path used by Certbot to serve HTTP-01 ACME challenges
 certbot_cert_path:                        "/etc/letsencrypt/live" # Path containing active certificate symlinks for domains
+
+## Docker Role Specific Parameters
+docker_restart_policy:        "unless-stopped"
+
+# helper
+_applications_nextcloud_oidc_flavor:  "{{ applications.nextcloud.oidc.flavor | default('oidc_login' if applications.nextcloud.features.ldap | default(true) else 'sociallogin') }}"

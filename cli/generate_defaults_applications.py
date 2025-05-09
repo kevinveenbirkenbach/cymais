@@ -13,7 +13,7 @@ def load_yaml_file(path):
         return yaml.safe_load(f) or {}
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate default_applications YAML from docker roles.")
+    parser = argparse.ArgumentParser(description="Generate defaults_applications YAML from docker roles.")
     parser.add_argument("--roles-dir", default="roles", help="Path to the roles directory (default: roles)")
     parser.add_argument("--output-file", default="group_vars/all/11_applications.yml", help="Path to output YAML file")
 
@@ -24,7 +24,7 @@ def main():
 
     output_file.parent.mkdir(parents=True, exist_ok=True)
 
-    result = {"default_applications": {}}
+    result = {"defaults_applications": {}}
 
     for role_dir in sorted(roles_dir.iterdir()):
         role_name = role_dir.name
@@ -48,7 +48,7 @@ def main():
 
         config_data = load_yaml_file(config_file)
         if config_data:
-            result["default_applications"][application_id] = config_data
+            result["defaults_applications"][application_id] = config_data
 
     with output_file.open("w", encoding="utf-8") as f:
         yaml.dump(result, f, sort_keys=False)

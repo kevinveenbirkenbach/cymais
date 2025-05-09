@@ -29,7 +29,7 @@ class TestGenerateDefaultApplications(unittest.TestCase):
         shutil.rmtree(self.temp_dir)
 
     def test_script_generates_expected_yaml(self):
-        script_path = Path(__file__).resolve().parent.parent.parent / "cli" / "generate_default_applications.py"
+        script_path = Path(__file__).resolve().parent.parent.parent / "cli" / "generate_defaults_applications.py"
 
         result = subprocess.run(
             [
@@ -45,10 +45,10 @@ class TestGenerateDefaultApplications(unittest.TestCase):
         self.assertTrue(self.output_file.exists(), "Output file was not created.")
 
         data = yaml.safe_load(self.output_file.read_text())
-        self.assertIn("default_applications", data)
-        self.assertIn("testapp", data["default_applications"])
-        self.assertEqual(data["default_applications"]["testapp"]["foo"], "bar")
-        self.assertEqual(data["default_applications"]["testapp"]["baz"], 123)
+        self.assertIn("defaults_applications", data)
+        self.assertIn("testapp", data["defaults_applications"])
+        self.assertEqual(data["defaults_applications"]["testapp"]["foo"], "bar")
+        self.assertEqual(data["defaults_applications"]["testapp"]["baz"], 123)
 
 
 if __name__ == "__main__":
