@@ -114,9 +114,11 @@ class TestGenerateVaultedCredentials(unittest.TestCase):
         override_value = "custom-override-value"
         override_key = "credentials.shared_secret"
 
-        # Patch vault encryption to just return the plaintext prefixed as mock
-        with patch("generate_vaulted_credentials.encrypt_with_vault") as mock_encrypt:
-            mock_encrypt.side_effect = lambda val, name, **kwargs: f"$ANSIBLE_VAULT;1.1;AES256\n{val}"
+        # 👇 Patch die Methode innerhalb des importierten Moduls gvc
+        with patch.object(gvc, "encrypt_with_vault") as mock_encrypt, \
+            patch("builtins.input", return_value="n"):
+            mock_encrypt.side_effect = lambda val, name, *_args, **_kwargs: f"$ANSIBLE_VAULT;1.1;AES256\n{val}"
+            
             updated = gvc.apply_schema_to_inventory(
                 schema=schema_data,
                 inventory_data=inventory_data,
@@ -128,6 +130,7 @@ class TestGenerateVaultedCredentials(unittest.TestCase):
 
         actual = updated["applications"]["demoapp"]["credentials"]["shared_secret"]
         self.assertIn(override_value, str(actual), "The override value was not used during encryption.")
+
 
 if __name__ == "__main__":
     unittest.main()

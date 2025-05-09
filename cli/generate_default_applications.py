@@ -53,7 +53,10 @@ def main():
     with output_file.open("w", encoding="utf-8") as f:
         yaml.dump(result, f, sort_keys=False)
 
-    print(f"✅ Generated: {output_file.relative_to(cwd)}")
+    try:
+        print(f"✅ Generated: {output_file.relative_to(cwd)}")
+    except ValueError:
+        print(f"✅ Generated: {output_file}")
 
 if __name__ == "__main__":
     main()

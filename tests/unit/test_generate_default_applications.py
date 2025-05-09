@@ -4,43 +4,52 @@ import tempfile
 import shutil
 import yaml
 from pathlib import Path
-from unittest.mock import patch
-import importlib.util
+import subprocess
+
 
 class TestGenerateDefaultApplications(unittest.TestCase):
     def setUp(self):
-        # Determine script location
-        self.script_path = Path(__file__).resolve().parent.parent.parent / "cli" / "generate_default_applications.py"
-        spec = importlib.util.spec_from_file_location("generate_default_applications", self.script_path)
-        self.gda = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(self.gda)
-
-        # Setup fake Ansible role structure
+        # Create temp role structure
         self.temp_dir = Path(tempfile.mkdtemp())
         self.roles_dir = self.temp_dir / "roles"
-        self.output_file = self.temp_dir / "group_vars" / "all" / "11_applications.yml"
-        (self.roles_dir / "docker-testapp" / "vars").mkdir(parents=True, exist_ok=True)
-        (self.roles_dir / "docker-testapp" / "tasks").mkdir(parents=True, exist_ok=True)
+        self.roles_dir.mkdir()
 
-        # Populate vars/main.yml and vars/configuration.yml
-        (self.roles_dir / "docker-testapp" / "vars" / "main.yml").write_text("application_id: testapp\n")
-        (self.roles_dir / "docker-testapp" / "vars" / "configuration.yml").write_text("foo: bar\nbaz: 123\n")
-        (self.roles_dir / "docker-testapp" / "tasks" / "main.yml").write_text("# dummy task")
+        # Sample role
+        self.sample_role = self.roles_dir / "docker-testapp"
+        (self.sample_role / "vars").mkdir(parents=True)
+
+        # Write application_id and configuration
+        (self.sample_role / "vars" / "main.yml").write_text("application_id: testapp\n")
+        (self.sample_role / "vars" / "configuration.yml").write_text("foo: bar\nbaz: 123\n")
+
+        # Output file path
+        self.output_file = self.temp_dir / "group_vars" / "all" / "11_applications.yml"
 
     def tearDown(self):
         shutil.rmtree(self.temp_dir)
 
-    def test_extracts_and_writes_configuration(self):
-        self.gda.generate_default_applications(
-            roles_dir=self.roles_dir,
-            output_file=self.output_file
+    def test_script_generates_expected_yaml(self):
+        script_path = Path(__file__).resolve().parent.parent.parent / "cli" / "generate_default_applications.py"
+
+        result = subprocess.run(
+            [
+                "python3", str(script_path),
+                "--roles-dir", str(self.roles_dir),
+                "--output-file", str(self.output_file)
+            ],
+            capture_output=True,
+            text=True,
         )
 
-        self.assertTrue(self.output_file.exists())
-        result = yaml.safe_load(self.output_file.read_text())
-        self.assertIn("testapp", result)
-        self.assertEqual(result["testapp"]["foo"], "bar")
-        self.assertEqual(result["testapp"]["baz"], 123)
+        self.assertEqual(result.returncode, 0, msg=result.stderr)
+        self.assertTrue(self.output_file.exists(), "Output file was not created.")
+
+        data = yaml.safe_load(self.output_file.read_text())
+        self.assertIn("default_applications", data)
+        self.assertIn("testapp", data["default_applications"])
+        self.assertEqual(data["default_applications"]["testapp"]["foo"], "bar")
+        self.assertEqual(data["default_applications"]["testapp"]["baz"], 123)
+
 
 if __name__ == "__main__":
     unittest.main()
