@@ -1,6 +1,6 @@
 ---
-application_id:  	        "matrix"
-database_password:  	    "{{applications[application_id].credentials.database_password}}"
+application_id:            "matrix"
+database_password:        "{{applications[application_id].credentials.database_password}}"
 database_type:            "postgres"
 registration_file_folder: "/data/"
 well_known_directory:     "{{nginx.directories.data.well_known}}/matrix/"

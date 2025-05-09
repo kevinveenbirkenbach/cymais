@@ -1,7 +1,7 @@
 application_id:               "mailu"
 
 # Database Configuration
-database_password:  	        "{{applications.mailu.credentials.database_password}}"
+database_password:            "{{applications.mailu.credentials.database_password}}"
 database_type:                "mariadb"
 
 cert_mount_directory:         "{{docker_compose.directories.volumes}}certs/"
@@ -11,4 +11,4 @@ cert_mount_directory:         "{{docker_compose.directories.volumes}}certs/"
 docker_source:                "{{ 'ghcr.io/heviat' if applications[application_id].features.oidc | bool else 'ghcr.io/mailu' }}"
 
 domain:                       "{{ domains[application_id] }}"
-http_port: 	                  "{{ ports.localhost.http[application_id] }}"
+http_port:                     "{{ ports.localhost.http[application_id] }}"

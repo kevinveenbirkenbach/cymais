@@ -26,7 +26,7 @@ def main():
 
     result = {"default_applications": {}}
 
-    for role_dir in sorted(roles_dir.glob("docker-*")):
+    for role_dir in sorted(roles_dir.iterdir()):
         role_name = role_dir.name
         vars_main = role_dir / "vars" / "main.yml"
         config_file = role_dir / "vars" / "configuration.yml"

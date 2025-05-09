@@ -1,0 +1,3 @@
+version:        "latest"
+application_id: "mariadb"
+hostname:       "central-{{application_id}}"

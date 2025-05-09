@@ -1,4 +1,4 @@
-application_id:  	  "listmonk"
+application_id:      "listmonk"
 database_password:  "{{applications[application_id].credentials.database_password}}"
 database_type:      "postgres"
 
