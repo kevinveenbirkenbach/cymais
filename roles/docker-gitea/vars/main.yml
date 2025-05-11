@@ -1,3 +1,2 @@
 application_id:     "gitea"
-database_password:  "{{applications[application_id].credentials.database_password}}"
 database_type:      "mariadb"

@@ -1,4 +1,3 @@
 application_id:                                 "pixelfed"
 nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size 512M;"
 database_type:                                  "mariadb"
-database_password:                              "{{applications[application_id].credentials.database_password}}"

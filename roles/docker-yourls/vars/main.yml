@@ -1,3 +1,2 @@
-application_id:      "yourls"
-database_type:      "mariadb"
-database_password:  "{{applications[application_id].credentials.database_password}}"
+application_id: "yourls"
+database_type:  "mariadb"

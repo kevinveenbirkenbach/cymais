@@ -1,6 +1,5 @@
 application_id:             "taiga"
 database_type:              "postgres"
-database_password:          "{{applications[application_id].credentials.database_password}}"
 docker_repository_address:  "https://github.com/taigaio/taiga-docker"
 email_backend:              "smtp"                                      ## use an SMTP server or display the emails in the console (either "smtp" or "console")
 docker_compose_init:        "{{docker_compose.directories.instance}}docker-compose-inits.yml.j2"

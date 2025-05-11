@@ -1,7 +1,6 @@
 ---
 application_id:     "matomo"
 database_type:      "mariadb"
-database_password:  "{{ applications[application_id].credentials.database_password }}"
 
 # I don't know if this is still necessary
 domain:             "{{ domains[application_id] }}"

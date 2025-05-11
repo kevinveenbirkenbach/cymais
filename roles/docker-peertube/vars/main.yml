@@ -1,3 +1,2 @@
 application_id:      "peertube"
 database_type:      "postgres"
-database_password:  "{{applications[application_id].credentials.database_password}}"
