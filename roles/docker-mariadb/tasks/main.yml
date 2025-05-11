@@ -59,7 +59,7 @@
 
 - name: "Create database user: {{ database_username }}"
   mysql_user:
-    name: "{{database_username}}"
+    name:     "{{database_username}}"
     password: "{{database_password}}"
     host: "%"
     priv: '{{database_name}}.*:ALL'

@@ -1,2 +1,3 @@
 # Please set an version in your inventory file - Rolling release for postgres isn't recommended
-version: "latest"
+version:  "latest"
+hostname: "central-postgres"
