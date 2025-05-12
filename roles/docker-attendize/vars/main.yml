@@ -1,5 +1,4 @@
 ---
 application_id:             "attendize"
 database_type:              "mariadb"
-database_password:          "{{applications[application_id].credentials.database_password}}"
 docker_repository_address:  "https://github.com/Attendize/Attendize.git"

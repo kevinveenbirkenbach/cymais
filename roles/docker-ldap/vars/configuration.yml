@@ -9,7 +9,5 @@ users:
   administrator:
     username:                   "{{users.administrator.username}}"  # Administrator username
 credentials:
-# administrator_password:                                           # CHANGE for security reasons in inventory file
-# administrator_database_password:                                  # CHANGE for security reasons in inventory file
 features:
   ldap: true

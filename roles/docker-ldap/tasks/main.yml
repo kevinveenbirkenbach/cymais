@@ -8,13 +8,13 @@
     src:  "nginx.stream.conf.j2" 
     dest: "{{nginx.directories.streams}}{{domains[application_id]}}.conf"
   notify: restart nginx
-  when: applications.ldap.network.public | bool
+  when: applications[application_id].network.public | bool
 
 - name: Remove {{domains[application_id]}}.conf if LDAP is not exposed to internet
   file:
     path: "{{ nginx.directories.streams }}{{ domains[application_id] }}.conf"
     state: absent
-  when: not applications.ldap.network.public | bool
+  when: not applications[application_id].network.public | bool
 
 - name: create docker network for LDAP, so that other applications can access it
   docker_network:
@@ -53,8 +53,8 @@
   include_tasks: create_nextcloud_schema.yml
   vars:
     ldap_server_uri: "ldap://127.0.0.1:{{ ports.localhost.ldap.ldap }}"
-    ldap_bind_dn:    "cn={{ applications.ldap.users.administrator.username }},cn=config"
-    ldap_bind_pw:    "{{ applications.ldap.administrator_password }}"
+    ldap_bind_dn:    "cn={{ applications[application_id].users.administrator.username }},cn=config"
+    ldap_bind_pw:    "{{ applications[application_id].credentials.administrator_password }}"
 
 ###############################################################################
 # 1) Create the LDAP entry if it does not yet exist
