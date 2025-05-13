@@ -1,0 +1,9 @@
+[Unit]
+Description=Check for CSP-blocked resources via Puppeteer
+OnFailure=systemd-notifier.cymais@%n.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 {{ health_csp_crawler_script }} \
+  --nginx-config-dir={{ nginx.directories.http.servers }} \
+  --script={{ health_csp_crawler_node }}

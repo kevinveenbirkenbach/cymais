@@ -1,0 +1,2 @@
+# Optional project folder to run 'npm ci' in
+npm_project_folder: null

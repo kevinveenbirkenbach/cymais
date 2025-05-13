@@ -1,0 +1,12 @@
+- name: Ensure npm is installed
+  package:
+    name: npm
+    state: present
+
+- name: Run 'npm ci' in {{ npm_project_folder }}
+  command: npm ci
+  args:
+    chdir: "{{ npm_project_folder }}"
+  when: npm_project_folder is defined
+  register: npm_output
+  changed_when: "'added' in npm_output.stdout or 'updated' in npm_output.stdout"
