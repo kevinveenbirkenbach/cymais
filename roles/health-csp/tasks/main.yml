@@ -1,3 +1,9 @@
+- name: "create {{ health_csp_crawler_folder }}"
+  file:
+    path: "{{ health_csp_crawler_folder }}"
+    state: directory
+    mode: 0755
+
 - name: "Install puppeteer if node_modules not yet present"
   ansible.builtin.command:
     cmd: npm install puppeteer
@@ -10,12 +16,6 @@
     chdir: "{{ health_csp_crawler_folder }}"
   register: puppeteer_check
   failed_when: puppeteer_check.rc != 0
-
-- name: "create {{ health_csp_crawler_folder }}"
-  file:
-    path: "{{ health_csp_crawler_folder }}"
-    state: directory
-    mode: 0755
 
 - name: copy health_csp.py
   copy:

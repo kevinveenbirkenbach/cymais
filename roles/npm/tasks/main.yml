@@ -3,7 +3,7 @@
     name: npm
     state: present
 
-- name: Run 'npm ci' in {{ npm_project_folder }}
+- name: Run 'npm ci'
   command: npm ci
   args:
     chdir: "{{ npm_project_folder }}"
