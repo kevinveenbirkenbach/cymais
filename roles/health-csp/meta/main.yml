@@ -25,5 +25,3 @@ galaxy_info:
   documentation: "https://s.veen.world/cymais"
 dependencies:
   - systemd-notifier
-  - nodejs
-  - npm

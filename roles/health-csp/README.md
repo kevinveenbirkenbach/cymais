@@ -2,7 +2,7 @@
 
 ## Description
 
-This Ansible role automates the validation of [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) enforcement for all configured domains by crawling them using a Puppeteer-based Node.js script.
+This Ansible role automates the validation of [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) enforcement for all configured domains by crawling them using a [CSP Checker](https://github.com/kevinveenbirkenbach/csp-checker).
 
 ## Overview
 
@@ -14,24 +14,6 @@ Designed for Archlinux systems, this role periodically checks whether web resour
 - **Domain Extraction:** Parses all `.conf` files in the NGINX config folder to determine the list of domains to check.
 - **Automated Execution:** Registers a systemd service and timer for recurring health checks.
 - **Error Notification:** Integrates with `systemd-notifier` for alerting on failure.
-
-## Dependencies
-
-This role depends on the following:
-
-- [`nodejs`](../nodejs/)
-- [`npm`](../npm/)
-- [`systemd-notifier`](../systemd-notifier/)
-- [`systemd-timer`](../systemd-timer/)
-
-## Configuration
-
-Set the following variables to customize behavior:
-
-```yaml
-health_csp_crawler_folder: "{{ path_administrator_scripts }}health-csp/"
-on_calendar_health_csp_crawler: "daily"
-```
 
 ## License
 
