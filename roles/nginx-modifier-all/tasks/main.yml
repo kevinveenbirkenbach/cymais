@@ -1,9 +1,9 @@
 - name: "Activate Global CSS for {{domain}}"
   include_role:
     name: nginx-modifier-css
-  when: applications.get(application_id).get('features').get('css') | bool
+  when: applications | is_feature_enabled('css',application_id)
 
 - name: "Activate Global Matomo Tracking for {{domain}}"
   include_role:
     name: nginx-modifier-matomo
-  when: applications.get(application_id).get('features').get('matomo') | bool
+  when: applications | is_feature_enabled('matomo',application_id)
