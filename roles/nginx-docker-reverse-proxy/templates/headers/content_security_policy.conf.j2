@@ -12,7 +12,7 @@
      'font-src'
    ] %}
 
-{# Loop over each directive and build its value from 'self', any unsafe flags, and whitelisted URLs #}
+{# Loop over each directive and build its value from 'self', any unsafe flags, whitelist URLs, and optional Matomo #}
 {%- for directive in directives %}
   {# Start with the 'self' source #}
   {%- set tokens = ["'self'"] %}
@@ -22,18 +22,23 @@
     {%- set tokens = tokens + [flag] %}
   {%- endfor %}
 
+  {# If Matomo feature is enabled, whitelist its script and connect sources #}
+  {%- if applications | is_feature_enabled('matomo', application_id) and directive in ['script-src','connect-src'] %}
+    {%- set tokens = tokens + ['{{ web_protocol }}://{{ domains.matomo }}'] %}
+  {%- endif %}
+
   {# Add any extra hosts/URLs from csp.whitelist.<directive> #}
   {%- for url in applications | get_csp_whitelist(application_id, directive) %}
     {%- set tokens = tokens + [url] %}
   {%- endfor %}
 
   {# Combine into a single directive line and append to csp_parts #}
-  {%- set csp_parts = csp_parts + [(directive ~ " " ~ (tokens | join(' ')) ~ ";")] %}
+  {%- set csp_parts = csp_parts + [directive ~ ' ' ~ (tokens | join(' ')) ~ ';'] %}
 {%- endfor %}
 
 {# Preserve original img-src directive logic (do not loop) #}
-{%- set img_src = "img-src * data: blob:" %}
-{%- set csp_parts = csp_parts + [img_src ~ ";"] %}
+{%- set img_src = 'img-src * data: blob:' %}
+{%- set csp_parts = csp_parts + [img_src ~ ';'] %}
 
 {# Emit the assembled Content-Security-Policy header and hide any upstream CSP header #}
 add_header Content-Security-Policy "{{ csp_parts | join(' ') }}" always;

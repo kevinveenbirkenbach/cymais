@@ -2,3 +2,15 @@ features:
   matomo:             true
   css:                true
   landingpage_iframe: true
+
+csp:
+  whitelist:
+    script-src:
+      - https://cdnjs.cloudflare.com
+      - https://code.jquery.com
+      - https://cdn.jsdelivr.net
+    style-src:
+      - https://cdnjs.cloudflare.com
+      - https://cdn.jsdelivr.net
+    font-src:
+      - https://cdnjs.cloudflare.com
