@@ -1,20 +1,20 @@
 http_address            =   "0.0.0.0:4180"
-cookie_secret           =   "{{ applications[application_id].credentials.oauth2_proxy_cookie_secret }}"
-email_domains           =   "{{primary_domain}}"
+cookie_secret           =   "{{ applications[oauth2_proxy_application_id].credentials.oauth2_proxy_cookie_secret }}"
+email_domains           =   "{{ primary_domain }}"
 cookie_secure           =   "true"                                                  # True is necessary to force the cookie set via https
-upstreams               =   "http://{{applications[application_id].oauth2_proxy.application}}:{{applications[application_id].oauth2_proxy.port}}"
-cookie_domains          =   ["{{domain}}", "{{domains.keycloak}}"]                  # Required so cookie can be read on all subdomains.
-whitelist_domains       =   [".{{primary_domain}}"]                                 # Required to allow redirection back to original requested target.
+upstreams               =   "http://{{ applications[oauth2_proxy_application_id].oauth2_proxy.application }}:{{ applications[oauth2_proxy_application_id].oauth2_proxy.port }}"
+cookie_domains          =   ["{{ domain }}", "{{ domains.keycloak }}"]                  # Required so cookie can be read on all subdomains.
+whitelist_domains       =   [".{{ primary_domain }}"]                                 # Required to allow redirection back to original requested target.
 
 # keycloak provider
-client_secret           =   "{{oidc.client.secret}}"
-client_id               =   "{{oidc.client.id}}"
+client_secret           =   "{{ oidc.client.secret }}"
+client_id               =   "{{ oidc.client.id }}"
 redirect_url            =   "{{ web_protocol }}://{{domain}}/oauth2/callback"
-oidc_issuer_url         =   "{{oidc.client.issuer_url}}"
+oidc_issuer_url         =   "{{ oidc.client.issuer_url }}"
 provider                =   "oidc"
 provider_display_name   =   "Keycloak"
 
 # role restrictions
 #cookie_roles           =   "realm_access.roles"
-#allowed_groups         =   "{{applications.oauth2_proxy.allowed_roles}}"           # This is not correct here. needs to be placed in applications @todo move there when implementing
+#allowed_groups         =   "{{ applications[oauth2_proxy_application_id].allowed_roles }}"           # This is not correct here. needs to be placed in applications @todo move there when implementing
 # @see https://chatgpt.com/share/67f42607-bf68-800f-b587-bd56fe9067b5

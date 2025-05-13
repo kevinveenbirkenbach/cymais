@@ -7,8 +7,13 @@
     src:  "{{ vhost_template_src }}"
     dest: "{{ configuration_destination }}"
   notify: restart nginx
-  
+
+- name: "set oauth2_proxy_application_id (Needed due to lazzy loading issue)"
+  set_fact:
+    oauth2_proxy_application_id: "{{ application_id }}"
+  when: "{{applications[application_id].get('features', {}).get('oauth2', False)}}"
+
 - name: "include the docker-oauth2-proxy role {{domain}}"
   include_role:
     name: docker-oauth2-proxy
-  when: final_oauth2_enabled | bool
+  when: "{{applications[application_id].get('features', {}).get('oauth2', False)}}"

@@ -1,4 +1,4 @@
-- name: "set _tmp_database_application_id (Needed due to lazzy loading issue)"
+- name: "set database_application_id (Needed due to lazzy loading issue)"
   set_fact:
     database_application_id: "{{ application_id }}"
 
