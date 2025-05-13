@@ -26,6 +26,4 @@ galaxy_info:
 dependencies:
   - systemd-notifier
   - nodejs
-  - role: npm
-    vars:
-      npm_project_folder: "{{ health_csp_crawler_folder }}"
+  - npm
