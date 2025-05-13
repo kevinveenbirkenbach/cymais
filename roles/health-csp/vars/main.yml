@@ -1,3 +1,3 @@
 health_csp_crawler_folder: "{{ path_administrator_scripts }}health-csp/"
-health_csp_crawler_script: "{{ health_csp_crawler_folder }}health_csp.py"
+health_csp_crawler_script: "{{ health_csp_crawler_folder }}health-csp.py"
 health_csp_crawler_node: "{{ health_csp_crawler_folder }}health-csp.js"

@@ -17,9 +17,9 @@
   register: puppeteer_check
   failed_when: puppeteer_check.rc != 0
 
-- name: copy health_csp.py
+- name: copy health-csp.py
   copy:
-    src: health_csp.py
+    src: health-csp.py
     dest: "{{ health_csp_crawler_script }}"
     mode: 0755
 

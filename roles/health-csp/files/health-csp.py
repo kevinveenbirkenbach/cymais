@@ -32,7 +32,7 @@ def run_node_checker(script_path, domains):
     """
     try:
         result = subprocess.run(
-            ["/usr/bin/node", script_path] + domains,
+            ["node", script_path] + domains,
             check=True
         )
         return result.returncode

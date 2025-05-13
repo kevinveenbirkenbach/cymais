@@ -13,16 +13,6 @@ Optimized for Archlinux and Debian-based systems, this role ensures the presence
 - **Node.js Installation:** Installs the latest Node.js version available via the system's package manager.
 - **Idempotent Execution:** Ensures Node.js is only installed when missing.
 
-## Usage
-
-Include this role before running any tasks or roles that depend on Node.js:
-
-```yaml
-- name: Ensure Node.js is available
-  roles:
-    - nodejs
-````
-
 ## License
 
 CyMaIS NonCommercial License (CNCL)
