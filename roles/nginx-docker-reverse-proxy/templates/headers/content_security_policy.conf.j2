@@ -1,53 +1,40 @@
+{# Initialize an array to collect each CSP directive line #}
 {%- set csp_parts = [] %}
 
-{# default-src: Fallback for all other directives if not explicitly defined #}
-{%- set csp_parts = csp_parts + ["default-src 'self';"] %}
+{# List of all directives to process dynamically (except img-src) #}
+{%- set directives = [
+     'default-src',
+     'connect-src',
+     'frame-ancestors',
+     'frame-src',
+     'script-src',
+     'style-src',
+     'font-src'
+   ] %}
 
-{# connect-src: Controls where fetch(), XHR, WebSocket etc. can connect to #}
-{%- set connect_src = "connect-src 'self' https://ka-f.fontawesome.com" %}
-{%- if applications | is_feature_enabled('matomo', application_id) | bool %}
-  {%- set connect_src = connect_src + " " + web_protocol + "://" + domains.matomo %}
-{%- endif %}
-{%- set csp_parts = csp_parts + [connect_src + ";"] %}
+{# Loop over each directive and build its value from 'self', any unsafe flags, and whitelisted URLs #}
+{%- for directive in directives %}
+  {# Start with the 'self' source #}
+  {%- set tokens = ["'self'"] %}
 
-{# frame-ancestors: Restricts which origins can embed this site in a frame or iframe #}
-{%- set frame_ancestors = "frame-ancestors 'self'" %}
-{%- if applications | is_feature_enabled('landing_page_iframe', application_id) | bool %}
-  {%- set frame_ancestors = frame_ancestors + " " + web_protocol + "://" + primary_domain %}
-{%- endif %}
-{%- set csp_parts = csp_parts + [frame_ancestors + ";"] %}
+  {# Add any unsafe flags (unsafe-eval, unsafe-inline) from csp.flags.<directive> #}
+  {%- for flag in applications | get_csp_flags(application_id, directive) %}
+    {%- set tokens = tokens + [flag] %}
+  {%- endfor %}
 
-{# frame-src: Controls which URLs can be embedded as iframes #}
-{%- set frame_src = "frame-src 'self'" %}
-{%- if applications | is_feature_enabled('recaptcha', application_id) | bool %}
-  {%- set frame_src = frame_src + " https://www.google.com" %}
-{%- endif %}
-{%- set csp_parts = csp_parts + [frame_src + ";"] %}
+  {# Add any extra hosts/URLs from csp.whitelist.<directive> #}
+  {%- for url in applications | get_csp_whitelist(application_id, directive) %}
+    {%- set tokens = tokens + [url] %}
+  {%- endfor %}
 
-{# img-src: Allow images. Prevent tracking by caching on server and client side. #}
-{%- set img_src = "img-src * data: blob:"%}
-{%- set csp_parts = csp_parts + [img_src + ";"] %}
+  {# Combine into a single directive line and append to csp_parts #}
+  {%- set csp_parts = csp_parts + [(directive ~ " " ~ (tokens | join(' ')) ~ ";")] %}
+{%- endfor %}
 
-{# script-src: Allow JavaScript from self, FontAwesome, jsDelivr, and Matomo if enabled #}
-{# unsafe eval is set for sphinx #}
-{%- set script_src = "script-src 'self' 'unsafe-eval' 'unsafe-inline'" %}
-{%- if applications | is_feature_enabled('matomo', application_id) | bool %}
-  {%- set script_src = script_src + " " + web_protocol + "://" + domains.matomo %}
-{%- endif %}
-{%- if applications | is_feature_enabled('recaptcha', application_id) | bool %}
-  {%- set script_src = script_src + " https://www.google.com" %}
-{%- endif %}
-{%- set script_src = script_src + " https://kit.fontawesome.com https://cdn.jsdelivr.net" %}
-{%- set csp_parts = csp_parts + [script_src + ";"] %}
+{# Preserve original img-src directive logic (do not loop) #}
+{%- set img_src = "img-src * data: blob:" %}
+{%- set csp_parts = csp_parts + [img_src ~ ";"] %}
 
-{# style-src: Allow CSS from self, FontAwesome, jsDelivr and inline styles #}
-{%- set style_src = "style-src 'self' 'unsafe-inline' https://kit.fontawesome.com https://cdn.jsdelivr.net" %}
-{%- set csp_parts = csp_parts + [style_src + ";"] %}
-
-{# font-src: Allow font-src from self, FontAwesome, jsDelivr and inline styles #}
-{%- set font_src = "font-src 'self' https://kit.fontawesome.com https://cdn.jsdelivr.net" %}
-{%- set csp_parts = csp_parts + [font_src + ";"] %}
-
+{# Emit the assembled Content-Security-Policy header and hide any upstream CSP header #}
 add_header Content-Security-Policy "{{ csp_parts | join(' ') }}" always;
-# Oppress header send by proxied application
 proxy_hide_header Content-Security-Policy;
