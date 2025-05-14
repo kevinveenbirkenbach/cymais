@@ -13,3 +13,7 @@ features:
   ldap:               true
   central_database:   true
   oauth2:             true
+csp:
+  flags:
+    script-src:
+      unsafe_inline: true

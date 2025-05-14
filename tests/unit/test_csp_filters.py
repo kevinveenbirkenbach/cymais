@@ -1,5 +1,7 @@
 import unittest
-from filter_plugins.csp_filters import FilterModule
+import hashlib
+import base64
+from filter_plugins.csp_filters import FilterModule, AnsibleFilterError
 
 class TestCspFilters(unittest.TestCase):
     def setUp(self):
@@ -24,6 +26,14 @@ class TestCspFilters(unittest.TestCase):
                             'unsafe_inline': True,
                         },
                     },
+                    'hashes': {
+                        'script-src': [
+                            "console.log('hello');",
+                        ],
+                        'style-src': [
+                            "body { background: #fff; }",
+                        ]
+                    }
                 },
             },
             'app2': {}
@@ -62,8 +72,17 @@ class TestCspFilters(unittest.TestCase):
         header = self.filter.build_csp_header(self.apps, 'app1', self.domains, web_protocol='https')
         # Ensure core directives are present
         self.assertIn("default-src 'self';", header)
-        self.assertIn("script-src 'self' 'unsafe-eval' https://matomo.example.org https://cdn.example.com;", header)
-        self.assertIn("connect-src 'self' https://matomo.example.org https://api.example.com;", header)
+        # script-src directive should include unsafe-eval, Matomo domain and CDN (hash may follow)
+        self.assertIn(
+            "script-src 'self' 'unsafe-eval' https://matomo.example.org https://cdn.example.com",
+            header
+        )
+        # connect-src directive unchanged (no inline hash)
+        self.assertIn(
+            "connect-src 'self' https://matomo.example.org https://api.example.com;",
+            header
+        )
+        # ends with img-src
         self.assertTrue(header.strip().endswith('img-src * data: blob:;'))
 
     def test_build_csp_header_without_matomo_or_flags(self):
@@ -74,6 +93,43 @@ class TestCspFilters(unittest.TestCase):
         self.assertNotIn('http', header)
         # ends with img-src
         self.assertTrue(header.strip().endswith('img-src * data: blob:;'))
+        
+    def test_get_csp_inline_content_list(self):
+        snippets = self.filter.get_csp_inline_content(self.apps, 'app1', 'script-src')
+        self.assertEqual(snippets, ["console.log('hello');"])
+
+    def test_get_csp_inline_content_string(self):
+        # simulate single string instead of list
+        self.apps['app1']['csp']['hashes']['style-src'] = "body { color: red; }"
+        snippets = self.filter.get_csp_inline_content(self.apps, 'app1', 'style-src')
+        self.assertEqual(snippets, ["body { color: red; }"])
+
+    def test_get_csp_inline_content_none(self):
+        snippets = self.filter.get_csp_inline_content(self.apps, 'app1', 'font-src')
+        self.assertEqual(snippets, [])
+
+    def test_get_csp_hash_known_value(self):
+        content = "alert(1);"
+        # compute expected
+        digest = hashlib.sha256(content.encode('utf-8')).digest()
+        b64 = base64.b64encode(digest).decode('utf-8')
+        expected = f"'sha256-{b64}'"
+        result = self.filter.get_csp_hash(content)
+        self.assertEqual(result, expected)
+
+    def test_get_csp_hash_error(self):
+        with self.assertRaises(AnsibleFilterError):
+            # passing a non-decodable object
+            self.filter.get_csp_hash(None)
+
+    def test_build_csp_header_includes_hashes(self):
+        header = self.filter.build_csp_header(self.apps, 'app1', self.domains, web_protocol='https')
+        # check that the script-src directive includes our inline hash
+        script_hash = self.filter.get_csp_hash("console.log('hello');")
+        self.assertIn(script_hash, header)
+        # check that the style-src directive includes its inline hash
+        style_hash = self.filter.get_csp_hash("body { background: #fff; }")
+        self.assertIn(style_hash, header)
 
 if __name__ == '__main__':
     unittest.main()

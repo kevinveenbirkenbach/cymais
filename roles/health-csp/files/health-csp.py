@@ -25,7 +25,7 @@ def run_checkcsp(domains):
     """
     Executes the 'checkcsp' command with the given domains.
     """
-    cmd = ["checkcsp", "start"] + domains
+    cmd = ["checkcsp", "start", "--short"] + domains
     try:
         result = subprocess.run(cmd, check=True)
         return result.returncode

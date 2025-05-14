@@ -50,3 +50,38 @@
 - name: Set the tracking code as a one-liner
   set_fact:
     matomo_tracking_code_one_liner: "{{ matomo_tracking_code | regex_replace('\\n', '') | regex_replace('\\s+', ' ') }}"
+
+- name: Ensure csp.hashes exists for this app
+  set_fact:
+    applications: >-
+      {{
+        applications
+        | combine({
+            (application_id): {
+              'csp': {
+                'hashes': {}
+              }
+            }
+          }, recursive=True)
+      }}
+  changed_when: false
+
+- name: Append Matomo one-liner to script-src inline hashes
+  set_fact:
+    applications: >-
+      {{
+        applications
+        | combine({
+            (application_id): {
+              'csp': {
+                'hashes': {
+                  'script-src': (
+                    applications[application_id]['csp']['hashes'].get('script-src', [])
+                    + [ matomo_tracking_code_one_liner ]
+                  )
+                }
+              }
+            }
+          }, recursive=True)
+      }}
+  changed_when: false

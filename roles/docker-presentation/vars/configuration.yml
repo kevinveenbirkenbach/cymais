@@ -14,3 +14,8 @@ csp:
       - https://cdn.jsdelivr.net
     font-src:
       - https://cdnjs.cloudflare.com
+  flags:
+    style-src:
+      unsafe_inline: true
+    script-src:
+      unsafe-eval: true

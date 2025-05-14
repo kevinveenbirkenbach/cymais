@@ -1,4 +1,6 @@
 from ansible.errors import AnsibleFilterError
+import hashlib
+import base64
 
 class FilterModule(object):
     """
@@ -7,16 +9,18 @@ class FilterModule(object):
 
     def filters(self):
         return {
-            'get_csp_whitelist': self.get_csp_whitelist,
-            'get_csp_flags': self.get_csp_flags,
             'build_csp_header': self.build_csp_header,
         }
 
+    def is_feature_enabled(self, applications, feature: str, application_id: str) -> bool:
+        """
+        Check if a generic feature is enabled for the given application.
+        """
+        app = applications.get(application_id, {})
+        return bool(app.get('features', {}).get(feature, False))
+
     @staticmethod
     def get_csp_whitelist(applications, application_id, directive):
-        """
-        Return the list of extra hosts/URLs to whitelist for a given CSP directive.
-        """
         app = applications.get(application_id, {})
         wl = app.get('csp', {}).get('whitelist', {}).get(directive, [])
         if isinstance(wl, list):
@@ -27,37 +31,52 @@ class FilterModule(object):
 
     @staticmethod
     def get_csp_flags(applications, application_id, directive):
-        """
-        Read 'unsafe_eval' and 'unsafe_inline' flags for a given CSP directive.
-        Returns a list of string tokens, e.g. ["'unsafe-eval'", "'unsafe-inline'"]
-        """
         app = applications.get(application_id, {})
-        flags_config = app.get('csp', {}).get('flags', {}).get(directive, {})
+        flags = app.get('csp', {}).get('flags', {}).get(directive, {})
         tokens = []
-        if flags_config.get('unsafe_eval', False):
+        if flags.get('unsafe_eval', False):
             tokens.append("'unsafe-eval'")
-        if flags_config.get('unsafe_inline', False):
+        if flags.get('unsafe_inline', False):
             tokens.append("'unsafe-inline'")
         return tokens
 
     @staticmethod
-    def is_feature_enabled(applications, feature, application_id):
+    def get_csp_inline_content(applications, application_id, directive):
         """
-        Check if a named feature is enabled for the given application.
+        Return inline script/style snippets to hash for a given CSP directive.
         """
         app = applications.get(application_id, {})
-        return bool(app.get('features', {}).get(feature, False))
+        snippets = app.get('csp', {}).get('hashes', {}).get(directive, [])
+        if isinstance(snippets, list):
+            return snippets
+        if snippets:
+            return [snippets]
+        return []
 
-    def build_csp_header(self, applications, application_id, domains, web_protocol='https', matomo_feature_name='matomo'):
+    @staticmethod
+    def get_csp_hash(content):
+        """
+        Compute the SHA256 hash of the given inline content and return
+        a CSP token like "'sha256-<base64>'".
+        """
+        try:
+            digest = hashlib.sha256(content.encode('utf-8')).digest()
+            b64 = base64.b64encode(digest).decode('utf-8')
+            return f"'sha256-{b64}'"
+        except Exception as exc:
+            raise AnsibleFilterError(f"get_csp_hash failed: {exc}")
+
+    def build_csp_header(
+        self,
+        applications,
+        application_id,
+        domains,
+        web_protocol='https',
+        matomo_feature_name='matomo'
+    ):
         """
         Build the Content-Security-Policy header value dynamically based on application settings.
-
-        :param applications: dict of application configurations
-        :param application_id: the id of the application
-        :param domains: dict mapping names (e.g., 'matomo') to domain strings
-        :param web_protocol: protocol prefix for Matomo (default: 'https')
-        :param matomo_feature_name: feature flag name for Matomo (default: 'matomo')
-        :return: CSP header string, e.g. "default-src 'self'; script-src 'self' 'unsafe-eval' https://example.com; img-src * data: blob:;"
+        Inline hashes are read from applications[application_id].csp.hashes
         """
         try:
             directives = [
@@ -73,22 +92,25 @@ class FilterModule(object):
 
             for directive in directives:
                 tokens = ["'self'"]
-                # unsafe flags
+                # unsafe-eval / unsafe-inline flags
                 tokens += self.get_csp_flags(applications, application_id, directive)
                 # Matomo integration
-                if self.is_feature_enabled(applications, matomo_feature_name, application_id) \
-                   and directive in ['script-src', 'connect-src']:
+                if (
+                    self.is_feature_enabled(applications, matomo_feature_name, application_id)
+                    and directive in ['script-src', 'connect-src']
+                ):
                     matomo_domain = domains.get('matomo')
                     if matomo_domain:
                         tokens.append(f"{web_protocol}://{matomo_domain}")
                 # whitelist
                 tokens += self.get_csp_whitelist(applications, application_id, directive)
+                # inline hashes from config
+                for snippet in self.get_csp_inline_content(applications, application_id, directive):
+                    tokens.append(self.get_csp_hash(snippet))
                 parts.append(f"{directive} {' '.join(tokens)};")
 
             # static img-src
             parts.append("img-src * data: blob:;")
-
-            # join parts with space
             return ' '.join(parts)
 
         except Exception as exc:

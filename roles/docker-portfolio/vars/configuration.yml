@@ -11,5 +11,8 @@ csp:
       - https://cdn.jsdelivr.net
     font-src:
       - https://ka-f.fontawesome.com
+      - https://cdn.jsdelivr.net
+    connect-src:
+      - https://ka-f.fontawesome.com
     frame-src:
       - "{{ web_protocol }}://*.{{primary_domain}}"
