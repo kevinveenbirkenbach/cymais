@@ -34,7 +34,7 @@
     dest: "{{docker_compose.directories.instance}}docker-compose.yml"
   notify:
     - docker compose project setup
-    - run_once_docker_discourse is not defined
+  when: run_once_docker_discourse is not defined
 
 - name: flush, to recreate discourse docker compose
   meta: flush_handlers
