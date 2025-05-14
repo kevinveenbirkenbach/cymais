@@ -11,9 +11,9 @@
 - name: "set oauth2_proxy_application_id (Needed due to lazzy loading issue)"
   set_fact:
     oauth2_proxy_application_id: "{{ application_id }}"
-  when: "{{applications[application_id].get('features', {}).get('oauth2', False)}}"
+  when: applications | is_feature_enabled('oauth2',application_id)
 
 - name: "include the docker-oauth2-proxy role {{domain}}"
   include_role:
     name: docker-oauth2-proxy
-  when: "{{applications[application_id].get('features', {}).get('oauth2', False)}}"
+  when: applications | is_feature_enabled('oauth2',application_id)
