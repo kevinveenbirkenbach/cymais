@@ -53,31 +53,31 @@ defaults_domains:
     - "blog.{{primary_domain}}"
 
 ## Domain Redirects
-defaults_redirect_domain_mappings:
-- { source: "akaunting.{{primary_domain}}",   target: "{{domains.akaunting}}" }
-- { source: "bbb.{{primary_domain}}",         target: "{{domains.bigbluebutton}}" }
-- { source: "discourse.{{primary_domain}}",   target: "{{domains.discourse}}" }
-- { source: "crm.{{primary_domain}}",         target: "{{domains.espocrm}}" }
-- { source: "funkwhale.{{primary_domain}}",   target: "{{domains.funkwhale}}" }
-- { source: "gitea.{{primary_domain}}",       target: "{{domains.gitea}}" }
-- { source: "keycloak.{{primary_domain}}",    target: "{{domains.keycloak}}" }
-- { 
-    source: "{{ domains.ldap }}", 
-    target: "{% if 'lam' in group_names %}{{ domains.lam }}{% elif 'phpmyldapadmin' in group_names %}{{ domains.phpmyldap }}{% else %}{{ primary_domain }}{% endif %}"
-  }
-- { source: "listmonk.{{primary_domain}}",    target: "{{domains.listmonk}}" }
-- { source: "mailu.{{primary_domain}}",       target: "{{domains.mailu}}" }
-- { source: "moodle.{{primary_domain}}",      target: "{{domains.moodle}}" }
-- { source: "nextcloud.{{primary_domain}}",   target: "{{domains.nextcloud}}" }
-- { source: "openproject.{{primary_domain}}", target: "{{domains.openproject}}" }
-- { source: "peertube.{{primary_domain}}",    target: "{{domains.peertube}}" }
-- { source: "pictures.{{primary_domain}}",    target: "{{domains.pixelfed}}" }
-- { source: "pixelfed.{{primary_domain}}",    target: "{{domains.pixelfed}}" }
-- { source: "short.{{primary_domain}}",       target: "{{domains.yourls}}" }
-- { source: "snipe-it.{{primary_domain}}",    target: "{{domains.snipe_it}}" }
-- { source: "taiga.{{primary_domain}}",       target: "{{domains.taiga}}" }
-- { source: "videos.{{primary_domain}}",      target: "{{domains.peertube}}" }
-- { source: "wordpress.{{primary_domain}}",   target: "{{domains.wordpress[0]}}" }
+defaults_redirect_domain_mappings: >-
+  {{ []
+     | add_redirect_if_group('akaunting',       "akaunting." ~ primary_domain,   domains.akaunting,     group_names)
+     | add_redirect_if_group('bigbluebutton',   "bbb." ~ primary_domain,         domains.bigbluebutton, group_names)
+     | add_redirect_if_group('discourse',       "discourse." ~ primary_domain,   domains.discourse,     group_names)
+     | add_redirect_if_group('espocrm',         "crm." ~ primary_domain,         domains.espocrm,       group_names)
+     | add_redirect_if_group('funkwhale',       "funkwhale." ~ primary_domain,   domains.funkwhale,     group_names)
+     | add_redirect_if_group('gitea',           "gitea." ~ primary_domain,       domains.gitea,         group_names)
+     | add_redirect_if_group('keycloak',        "keycloak." ~ primary_domain,    domains.keycloak,      group_names)
+     | add_redirect_if_group('lam',             domains.ldap,                    domains.lam,           group_names)
+     | add_redirect_if_group('phpmyldapadmin',  domains.ldap,                    domains.phpmyldap,     group_names)
+     | add_redirect_if_group('listmonk',        "listmonk." ~ primary_domain,    domains.listmonk,      group_names)
+     | add_redirect_if_group('mailu',           "mailu." ~ primary_domain,       domains.mailu,         group_names)
+     | add_redirect_if_group('moodle',          "moodle." ~ primary_domain,      domains.moodle,        group_names)
+     | add_redirect_if_group('nextcloud',       "nextcloud." ~ primary_domain,   domains.nextcloud,     group_names)
+     | add_redirect_if_group('openproject',     "openproject." ~ primary_domain, domains.openproject,   group_names)
+     | add_redirect_if_group('peertube',        "peertube." ~ primary_domain,    domains.peertube,      group_names)
+     | add_redirect_if_group('pixelfed',        "pictures." ~ primary_domain,    domains.pixelfed,      group_names)
+     | add_redirect_if_group('pixelfed',        "pixelfed." ~ primary_domain,    domains.pixelfed,      group_names)
+     | add_redirect_if_group('yourls',          "short." ~ primary_domain,       domains.yourls,        group_names)
+     | add_redirect_if_group('snipe-it',        "snipe-it." ~ primary_domain,    domains.snipe_it,      group_names)
+     | add_redirect_if_group('taiga',           "taiga." ~ primary_domain,       domains.taiga,         group_names)
+     | add_redirect_if_group('peertube',        "videos." ~ primary_domain,      domains.peertube,      group_names)
+     | add_redirect_if_group('wordpress',       "wordpress." ~ primary_domain,   domains.wordpress[0],  group_names)
+  }}
 
 # Domains which are deprecated and should be cleaned up
 deprecated_domains: []
