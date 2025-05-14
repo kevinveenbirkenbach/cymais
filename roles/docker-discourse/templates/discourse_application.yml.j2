@@ -143,4 +143,4 @@ run:
 
 docker_args:
   - --network={{application_id}}_default
-  - --name={{applications.discourse.container}}
+  - --name={{applications[application_id].container}}

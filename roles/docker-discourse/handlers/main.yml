@@ -1,14 +1,14 @@
 ---
 - name: "stop and remove discourse container if it exist"
   docker_container:
-    name: "{{applications.discourse.container}}"
+    name: "{{applications[application_id].container}}"
     state: absent
   register: container_action
   failed_when: container_action.failed and 'No such container' not in container_action.msg
   listen: recreate discourse
   
 - name: "add central database temporary to {{application_id}}_default"
-  command: docker network connect {{applications.discourse.network}} central-{{ database_type }}
+  command: docker network connect {{applications[application_id].network}} central-{{ database_type }}
   failed_when: >
     result.rc != 0 and
     'already exists in network' not in result.stderr
@@ -18,6 +18,6 @@
 
 - name: rebuild discourse
   command:
-    cmd: "./launcher rebuild {{applications.discourse.container}}"
+    cmd: "./launcher rebuild {{applications[application_id].container}}"
     chdir: "{{docker_repository_directory }}"
   listen: recreate discourse

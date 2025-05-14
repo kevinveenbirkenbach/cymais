@@ -22,7 +22,7 @@
 
 - name: "cleanup central database from {{application_id}}_default network"
   command:
-    cmd: "docker network disconnect {{applications.discourse.network}} central-{{ database_type }}"
+    cmd: "docker network disconnect {{applications[application_id].network}} central-{{ database_type }}"
   ignore_errors: true
   when: 
     - mode_reset | bool
@@ -78,9 +78,9 @@
   meta: flush_handlers
   when: run_once_docker_discourse is not defined
 
-- name: "add {{applications.discourse.container}} to network central_postgres"
+- name: "add {{applications[application_id].container}} to network central_postgres"
   command:
-    cmd: "docker network connect central_postgres {{applications.discourse.container}}"
+    cmd: "docker network connect central_postgres {{applications[application_id].container}}"
   ignore_errors: true
   when:
     - applications | is_feature_enabled('central_database',application_id)
@@ -88,7 +88,7 @@
   
 - name: "remove central database from {{application_id}}_default"
   command:
-    cmd: "docker network disconnect {{applications.discourse.network}} central-{{ database_type }}"
+    cmd: "docker network disconnect {{applications[application_id].network}} central-{{ database_type }}"
   ignore_errors: true
   when:
     - applications | is_feature_enabled('central_database',application_id)
