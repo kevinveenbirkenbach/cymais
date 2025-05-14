@@ -30,7 +30,5 @@ class FilterModule(object):
     def filters(self):
         return {
             'is_feature_enabled':   is_feature_enabled,
-            'get_csp_whitelist':    get_csp_whitelist,
-            'get_csp_flags':        get_csp_flags,
             'get_docker_compose':   get_docker_compose,
         }
