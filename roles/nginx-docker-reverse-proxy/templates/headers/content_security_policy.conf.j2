@@ -1,8 +1,8 @@
-{# Initialize an array to collect each CSP directive line #}
-{%- set csp_parts = [] %}
+{# Create a namespace to hold the accumulated CSP parts #}
+{% set ns = namespace(csp_parts=[]) %}
 
-{# List of all directives to process dynamically (except img-src) #}
-{%- set directives = [
+{# List of directives to build dynamically (except img-src) #}
+{% set directives = [
      'default-src',
      'connect-src',
      'frame-ancestors',
@@ -10,36 +10,36 @@
      'script-src',
      'style-src',
      'font-src'
-   ] %}
+] %}
 
-{# Loop over each directive and build its value from 'self', any unsafe flags, whitelist URLs, and optional Matomo #}
-{%- for directive in directives %}
-  {# Start with the 'self' source #}
-  {%- set tokens = ["'self'"] %}
+{# Build each directive line #}
+{% for directive in directives %}
+  {# Always start with 'self' #}
+  {% set tokens = ["'self'"] %}
 
-  {# Add any unsafe flags (unsafe-eval, unsafe-inline) from csp.flags.<directive> #}
-  {%- for flag in applications | get_csp_flags(application_id, directive) %}
-    {%- set tokens = tokens + [flag] %}
-  {%- endfor %}
+  {# Add any unsafe flags for this directive #}
+  {% for flag in applications | get_csp_flags(application_id, directive) %}
+    {% set tokens = tokens + [flag] %}
+  {% endfor %}
 
-  {# If Matomo feature is enabled, whitelist its script and connect sources #}
-  {%- if applications | is_feature_enabled('matomo', application_id) and directive in ['script-src','connect-src'] %}
-    {%- set tokens = tokens + ['{{ web_protocol }}://{{ domains.matomo }}'] %}
-  {%- endif %}
+  {# If Matomo is enabled, allow its script and connect endpoints #}
+  {% if applications | is_feature_enabled('matomo', application_id)
+       and directive in ['script-src', 'connect-src'] %}
+    {% set tokens = tokens + [web_protocol ~ '://' ~ domains.matomo] %}
+  {% endif %}
 
-  {# Add any extra hosts/URLs from csp.whitelist.<directive> #}
-  {%- for url in applications | get_csp_whitelist(application_id, directive) %}
-    {%- set tokens = tokens + [url] %}
-  {%- endfor %}
+  {# Append any extra whitelist URLs for this directive #}
+  {% for url in applications | get_csp_whitelist(application_id, directive) %}
+    {% set tokens = tokens + [url] %}
+  {% endfor %}
 
-  {# Combine into a single directive line and append to csp_parts #}
-  {%- set csp_parts = csp_parts + [directive ~ ' ' ~ (tokens | join(' ')) ~ ';'] %}
-{%- endfor %}
+  {# Store the completed directive line in the namespace #}
+  {% set ns.csp_parts = ns.csp_parts + [directive ~ ' ' ~ (tokens | join(' ')) ~ ';'] %}
+{% endfor %}
 
-{# Preserve original img-src directive logic (do not loop) #}
-{%- set img_src = 'img-src * data: blob:' %}
-{%- set csp_parts = csp_parts + [img_src ~ ';'] %}
+{# Add the (static) img-src directive #}
+{% set ns.csp_parts = ns.csp_parts + ['img-src * data: blob:;'] %}
 
-{# Emit the assembled Content-Security-Policy header and hide any upstream CSP header #}
-add_header Content-Security-Policy "{{ csp_parts | join(' ') }}" always;
+{# Emit the final header and hide any upstream header #}
+add_header Content-Security-Policy "{{ ns.csp_parts | join(' ') }}" always;
 proxy_hide_header Content-Security-Policy;
