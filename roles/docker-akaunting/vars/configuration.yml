@@ -5,7 +5,7 @@ setup_admin_email:        "{{users.administrator.email}}"
 features:
   matomo:                 true
   css:                    true
-  landingpage_iframe:     false
+  portfolio_iframe:     false
   central_database:       true
 credentials:
 #  database_password:     Needs to be defined in inventory file 

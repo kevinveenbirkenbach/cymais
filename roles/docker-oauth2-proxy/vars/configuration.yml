@@ -5,4 +5,4 @@ allowed_roles:      admin                                                       
 features:
   matomo: true
   css: true
-  landingpage_iframe: false
+  portfolio_iframe: false

@@ -21,7 +21,7 @@ defaults_applications:
     features:                               # Version of the service
       matomo:     true                      # Enable Matomo tracking for analytics
       css:        true                      # Enable or disable global CSS styling
-      iframe:     false                     # Allow embedding the landing page in an iframe (if true)
+      portfolio_iframe:     false                     # Allow embedding the landing page in an iframe (if true)
       database:   true                      # Enable central database integration
       ldap:       true                      # Enable ldap integration
       oauth2:     true                      # Enable oauth2 proxy

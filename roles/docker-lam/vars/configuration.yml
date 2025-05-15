@@ -8,7 +8,7 @@ credentials:
 features:
   matomo:                       true
   css:                          true
-  landingpage_iframe:           true
+  portfolio_iframe:           true
   ldap:                         true
   central_database:             false
   oauth2:                       false

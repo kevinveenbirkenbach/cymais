@@ -5,5 +5,5 @@ credentials:
 features:
   matomo:             true
   css:                true
-  landingpage_iframe: false
+  portfolio_iframe: false
   central_database:   true

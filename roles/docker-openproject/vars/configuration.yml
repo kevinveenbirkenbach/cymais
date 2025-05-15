@@ -9,7 +9,7 @@ ldap:
 features:
   matomo:             true
   css:                true
-  landingpage_iframe: false
+  portfolio_iframe: false
   ldap:               true
   central_database:   true
   oauth2:             true

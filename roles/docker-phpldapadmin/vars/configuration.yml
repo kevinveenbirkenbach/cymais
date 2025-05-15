@@ -5,6 +5,6 @@ oauth2_proxy:
 features:
   matomo:             true
   css:                true
-  landingpage_iframe: false
+  portfolio_iframe: false
   ldap:               true
   oauth2:             true

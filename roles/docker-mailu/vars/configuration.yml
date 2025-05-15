@@ -15,6 +15,6 @@ credentials:
 features:
   matomo:                 true
   css:                    true
-  landingpage_iframe:     false                             # Deactivated mailu iframe loading until keycloak supports it
+  portfolio_iframe:     false                             # Deactivated mailu iframe loading until keycloak supports it
   oidc:                   true
   central_database:       false                             # Deactivate central database for mailu, I don't know why the database deactivation is necessary

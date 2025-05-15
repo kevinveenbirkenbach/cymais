@@ -2,7 +2,7 @@ version:              "latest"
 features:
   matomo:             true
   css:                false
-  landingpage_iframe: false
+  portfolio_iframe: false
   central_database:   true
   oauth2:             false
 csp:

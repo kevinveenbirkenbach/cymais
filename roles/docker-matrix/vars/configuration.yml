@@ -13,7 +13,7 @@ setup:                false                              # Set true in inventory
 features:
   matomo:             true
   css:                true
-  landingpage_iframe: false
+  portfolio_iframe: false
   oidc:               false                              # Deactivated OIDC due to this issue https://github.com/matrix-org/synapse/issues/10492
   central_database:   true
 csp:
