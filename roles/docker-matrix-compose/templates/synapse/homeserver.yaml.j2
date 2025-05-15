@@ -17,15 +17,15 @@ database:
     host: "{{database_host}}"
     cp_min: 5
     cp_max: 10
-log_config:                     "/data/{{domains.matrix_synapse}}.log.config"
+log_config:                     "/data/{{domains.synapse}}.log.config"
 media_store_path:               "/data/media_store"
 registration_shared_secret:     "{{applications[application_id].credentials.registration_shared_secret}}"
 report_stats:                   true
 macaroon_secret_key:            "{{applications[application_id].credentials.macaroon_secret_key}}"
 form_secret:                    "{{applications[application_id].credentials.form_secret}}"
-signing_key_path:               "/data/{{domains.matrix_synapse}}.signing.key"
-web_client_location:            "{{ web_protocol }}://{{domains.matrix_element}}"
-public_baseurl:                 "{{ web_protocol }}://{{domains.matrix_synapse}}"
+signing_key_path:               "/data/{{domains.synapse}}.signing.key"
+web_client_location:            "{{ web_protocol }}://{{domains.element}}"
+public_baseurl:                 "{{ web_protocol }}://{{domains.synapse}}"
 trusted_key_servers:
   - server_name: "matrix.org"
 admin_contact: 'mailto:{{users.administrator.email}}'
@@ -39,10 +39,10 @@ email:
   #require_transport_security:   true
   enable_tls:                   "{{ system_email.tls | upper }}"
   notif_from:                   "Your Friendly %(app)s homeserver <{{ users['no-reply'].email }}>"
-  app_name:                     "Matrix on {{domains.matrix_synapse}}"
+  app_name:                     "Matrix on {{domains.synapse}}"
   enable_notifs:                true
   notif_for_new_users:          false
-  client_base_url:              "{{domains.matrix_synapse}}"
+  client_base_url:              "{{domains.synapse}}"
   validation_token_lifetime:    15m
 
 {% if applications[application_id].features.oidc | bool %}

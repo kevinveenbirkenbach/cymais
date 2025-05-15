@@ -7,8 +7,8 @@
   include_role:
     name: nginx-https-get-cert-modify-all
   vars:
-    domain:     "{{domains.matrix_synapse}}"
-    http_port:  "{{ports.localhost.http.matrix_synapse}}"
+    domain:     "{{domains.synapse}}"
+    http_port:  "{{ports.localhost.http.synapse}}"
 
 - name: create {{well_known_directory}}
   file:
@@ -21,21 +21,21 @@
     src:  "well-known.j2" 
     dest: "{{well_known_directory}}server"
 
-- name: create {{domains.matrix_synapse}}.conf
+- name: create {{domains.synapse}}.conf
   template: 
     src:  "templates/nginx.conf.j2" 
-    dest: "{{nginx.directories.http.servers}}{{domains.matrix_synapse}}.conf"
+    dest: "{{nginx.directories.http.servers}}{{domains.synapse}}.conf"
   vars:
-    domain:     "{{domains.matrix_synapse}}" # Didn't work in the past. May it works now. This does not seem to work @todo Check how to solve without declaring set_fact, seems a bug at templates
-    http_port:  "{{ports.localhost.http.matrix_synapse}}"
+    domain:     "{{domains.synapse}}" # Didn't work in the past. May it works now. This does not seem to work @todo Check how to solve without declaring set_fact, seems a bug at templates
+    http_port:  "{{ports.localhost.http.synapse}}"
   notify: restart nginx
         
 - name: "include role nginx-domain-setup for {{application_id}}"
   include_role: 
     name: nginx-domain-setup
   vars:        
-    domain:     "{{domains.matrix_element}}"
-    http_port:  "{{ports.localhost.http.matrix_element}}"
+    domain:     "{{domains.element}}"
+    http_port:  "{{ports.localhost.http.element}}"
 
 - name: include create-and-seed-database.yml for multiple bridges
   include_tasks: create-and-seed-database.yml
@@ -85,13 +85,13 @@
 - name: add synapse log configuration
   template: 
     src:  "synapse/log.config.j2" 
-    dest: "{{docker_compose.directories.instance}}{{domains.matrix_synapse}}.log.config"
+    dest: "{{docker_compose.directories.instance}}{{domains.synapse}}.log.config"
   notify: docker compose project setup
 
 # https://github.com/matrix-org/synapse/issues/6303
 - name: set correct folder permissions
   command:
-    cmd: "docker run --rm --mount type=volume,src=matrix_synapse_data,dst=/data -e SYNAPSE_SERVER_NAME={{domains.matrix_synapse}} -e SYNAPSE_REPORT_STATS=no --entrypoint /bin/sh matrixdotorg/synapse:latest -c 'chown -vR 991:991 /data'"
+    cmd: "docker run --rm --mount type=volume,src=matrix_synapse_data,dst=/data -e SYNAPSE_SERVER_NAME={{domains.synapse}} -e SYNAPSE_REPORT_STATS=no --entrypoint /bin/sh matrixdotorg/synapse:latest -c 'chown -vR 991:991 /data'"
 
 - name: add docker-compose.yml
   template: 

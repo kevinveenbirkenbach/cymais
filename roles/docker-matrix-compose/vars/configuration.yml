@@ -22,3 +22,10 @@ csp:
       unsafe-inline: true
     style-src:
       unsafe-inline: true
+  whitelist:
+    connect-src:
+      - "{{ domains.element }}"
+      - "{{ domains.synapse }}"
+    script-src:
+      - "{{ domains.element }}"
+      - "{{ domains.synapse }}"  

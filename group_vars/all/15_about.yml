@@ -19,7 +19,7 @@ defaults_service_provider:
     bluesky: "{{ '@' ~ users.administrator.username ~ '.' ~ domains.bluesky_api if 'bluesky' in group_names else '' }}"
     email: "contact@{{ primary_domain }}"
     mastodon: "{{ '@' ~ users.administrator.username ~ '@' ~ domains.mastodon if 'mastodon' in group_names else '' }}"
-    matrix: "{{ '@' ~ users.administrator.username ~ ':' ~ domains.matrix_synapse if 'matrix' in group_names else '' }}"
+    matrix: "{{ '@' ~ users.administrator.username ~ ':' ~ domains.synapse if 'matrix' in group_names else '' }}"
     peertube: "{{ '@' ~ users.administrator.username ~ '@' ~ domains.peertube if 'peertube' in group_names else '' }}"
     pixelfed: "{{ '@' ~ users.administrator.username ~ '@' ~ domains.pixelfed if 'pixelfed' in group_names else '' }}"
     phone: "+0 000 000 404"

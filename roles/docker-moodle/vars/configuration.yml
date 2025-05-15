@@ -20,3 +20,4 @@ csp:
     font-src:
       - "data:"
       - "blob:"
+      - "https://cdn.jsdelivr.net"

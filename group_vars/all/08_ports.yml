@@ -36,8 +36,8 @@ ports:
       matomo:           8018
       listmonk:         8019
       discourse:        8020
-      matrix_synapse:   8021
-      matrix_element:   8022
+      synapse:          8021
+      element:          8022
       openproject:      8023
       gitlab:           8024
       akaunting:        8025

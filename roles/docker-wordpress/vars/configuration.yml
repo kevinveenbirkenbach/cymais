@@ -19,11 +19,15 @@ features:
 csp:
   flags:
     style-src:
-      unsafe-inline: true
+      unsafe-inline:  true
     script-src:
-      unsafe-inline: true
+      unsafe-inline:  true
+      unsafe-eval:    true
   whitelist:
     worker-src:
       - "blob:"
     font-src:
       - "data:"
+    script-src:
+      - "https://cdn.gtranslate.net"
+      - "{{ domains[application_id] }}"

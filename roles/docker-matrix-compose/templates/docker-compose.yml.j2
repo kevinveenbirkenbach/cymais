@@ -11,15 +11,15 @@ services:
     volumes:
       - synapse_data:/data
       - ./homeserver.yaml:/data/homeserver.yaml:ro
-      - ./{{domains.matrix_synapse}}.log.config:/data/{{domains.matrix_synapse}}.log.config:ro
+      - ./{{domains.synapse}}.log.config:/data/{{domains.synapse}}.log.config:ro
 {% for item in bridges %}
       - {{docker_compose.directories.instance}}mautrix/{{item.bridge_name}}/registration.yaml:{{registration_file_folder}}{{item.bridge_name}}.registration.yaml:ro
 {% endfor %}
     environment:
-      - SYNAPSE_SERVER_NAME={{domains.matrix_synapse}}
+      - SYNAPSE_SERVER_NAME={{domains.synapse}}
       - SYNAPSE_REPORT_STATS=no
     ports:
-      - "127.0.0.1:{{ports.localhost.http.matrix_synapse}}:8008"
+      - "127.0.0.1:{{ports.localhost.http.synapse}}:8008"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8008/"]
       interval: 1m
@@ -39,7 +39,7 @@ services:
     volumes:
       - ./element-config.json:/app/config.json
     ports:
-      - "127.0.0.1:{{ports.localhost.http.matrix_element}}:80"
+      - "127.0.0.1:{{ports.localhost.http.element}}:80"
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:80/"]
       interval: 1m
@@ -89,7 +89,7 @@ services:
 #      KEYV_URL: ''
 #      KEYV_BOT_ENCRYPTION: 'false'
 #      KEYV_BOT_STORAGE: 'true'
-#      MATRIX_HOMESERVER_URL: 'https://{{domains.matrix_synapse}}'
+#      MATRIX_HOMESERVER_URL: 'https://{{domains.synapse}}'
 #      MATRIX_BOT_USERNAME: '@chatgptbot:{{applications.matrix.server_name}}'
 #      MATRIX_ACCESS_TOKEN: '{{ applications[application_id].credentials.chatgpt_bridge_access_token | default('') }}'
 #      MATRIX_BOT_PASSWORD: '{{applications[application_id].credentials.chatgpt_bridge_user_password}}'

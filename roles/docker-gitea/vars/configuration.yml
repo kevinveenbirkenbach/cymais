@@ -21,3 +21,5 @@ csp:
       - "blob:"
     worker-src:
       - "blob:"
+    manifest-src:
+      - "data:"

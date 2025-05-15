@@ -27,8 +27,8 @@ defaults_domains:
   mastodon_alternates:     
     - "mastodon.{{primary_domain}}"
   matomo:                  "matomo.{{primary_domain}}"
-  matrix_synapse:          "matrix.{{primary_domain}}"
-  matrix_element:          "element.{{primary_domain}}"
+  synapse:                 "matrix.{{primary_domain}}"
+  element:                 "element.{{primary_domain}}"
   moodle:                  "academy.{{primary_domain}}"
   mediawiki:               "wiki.{{primary_domain}}"
   nextcloud:               "cloud.{{primary_domain}}"
