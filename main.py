@@ -3,6 +3,7 @@
 import argparse
 import subprocess
 import os
+import datetime
 
 def run_ansible_vault(action, filename, password_file):
     """Execute an ansible-vault command with the specified action on a file."""
