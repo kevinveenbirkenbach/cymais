@@ -10,6 +10,8 @@ def run_ansible_vault(action, filename, password_file):
     subprocess.run(cmd, check=True) 
 
 def run_ansible_playbook(inventory: str, playbook: str, modes: dict, limit: str = None, password_file: str = None, verbose: int = 0, skip_tests: bool = False):
+    start_time = datetime.datetime.now().isoformat()
+    print(f"\n▶️ Script started at: {start_time}\n")
     print("\n🛠️  Building project (make build)...\n")
     subprocess.run(["make", "build"], check=True)
 
@@ -39,6 +41,8 @@ def run_ansible_playbook(inventory: str, playbook: str, modes: dict, limit: str 
     print("\n🚀 Launching Ansible Playbook...\n")
     subprocess.run(cmd, check=True)
 
+    end_time = datetime.datetime.now().isoformat()
+    print(f"\n✅ Script ended at: {end_time}\n")
 def main():
     # Change to script dir to execute all folders relative to their
     script_dir = os.path.dirname(os.path.realpath(__file__))
