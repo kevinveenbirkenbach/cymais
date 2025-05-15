@@ -1,4 +1,4 @@
-# This file is also used by docker-matrix-compose
+# This file is also used by docker-matrix
 
 - name: "Display all database variables"
   debug:

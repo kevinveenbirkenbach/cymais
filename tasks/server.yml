@@ -148,7 +148,7 @@
   
 - name: setup matrix with flavor 'compose'
   include_role:
-    name: docker-matrix-compose
+    name: docker-matrix
   when: applications.matrix.role == 'compose' and ("matrix" in group_names)
 
 - name: setup open project instances

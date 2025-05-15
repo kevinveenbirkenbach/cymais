@@ -1,2 +1,0 @@
----
-local_repository_directory: "{{role_path}}/matrix-docker-ansible-deploy"
