@@ -4,3 +4,9 @@ features:
   css:                true
   landingpage_iframe: false
   central_database:   true
+csp:
+  flags:
+    script-src:
+      unsafe-inline: true
+    style-src:
+      unsafe-inline: true
