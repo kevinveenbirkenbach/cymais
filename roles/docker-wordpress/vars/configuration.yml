@@ -22,3 +22,6 @@ csp:
       unsafe-inline: true
     script-src:
       unsafe-inline: true
+  whitelist:
+    worker-src:
+      - blob:

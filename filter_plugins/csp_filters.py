@@ -91,7 +91,8 @@ class FilterModule(object):
                 'frame-src',
                 'script-src',
                 'style-src',
-                'font-src'
+                'font-src',
+                'worker-src',
             ]
             parts = []
 

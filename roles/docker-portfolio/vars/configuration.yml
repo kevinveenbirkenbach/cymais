@@ -17,5 +17,5 @@ csp:
     frame-src:
       - "{{ web_protocol }}://*.{{primary_domain}}"
   flags:
-    style-src-elem:
+    style-src:
       unsafe-inline: true
