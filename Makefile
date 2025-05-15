@@ -11,4 +11,7 @@ build:
 install: build
 
 test:
+	@echo "Executing Unit Tests:"
 	python -m unittest discover -s tests/unit
+	@echo "Executing Integration Tests:"
+	python -m unittest discover -s tests/integration
