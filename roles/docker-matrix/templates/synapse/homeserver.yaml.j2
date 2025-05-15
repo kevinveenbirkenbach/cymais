@@ -45,7 +45,7 @@ email:
   client_base_url:              "{{domains.synapse}}"
   validation_token_lifetime:    15m
 
-{% if applications[application_id].features.oidc | bool %}
+{% if applications | is_feature_enabled('oidc',application_id) %}
 # @See https://matrix-org.github.io/synapse/latest/openid.html
 oidc_providers:
   - idp_id: keycloak
