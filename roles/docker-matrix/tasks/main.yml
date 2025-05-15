@@ -1,4 +1,13 @@
 ---
+- name: Load bridges configuration
+  include_vars:
+    file: "bridges.yml"
+
+- name: Filter enabled bridges and register as fact
+  set_fact:
+    bridges: "{{ bridges_configuration | filter_enabled_bridges(applications[application_id].plugins) }}"
+  changed_when: false
+
 - name: "include docker-central-database"
   include_role: 
     name: docker-central-database

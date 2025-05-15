@@ -25,7 +25,11 @@ services:
       interval: 1m
       timeout: 10s
       retries: 3
+{% if bridges | bool %}
 {% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
+{% else %}
+{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+{% endif %}
 {% for item in bridges %}
       mautrix-{{item.bridge_name}}:
         condition: service_healthy
@@ -61,47 +65,47 @@ services:
       retries: 3
 {% include 'templates/docker/container/networks.yml.j2' %}
 {% endfor %}
-# Deactivated chatgpt. 
-# @todo needs to be reactivated as soon as bug is found
-#  matrix-chatgpt-bot:
-#    restart: {{docker_restart_policy}}
-#    container_name: matrix-chatgpt
-#    image: ghcr.io/matrixgpt/matrix-chatgpt-bot:latest
-#    volumes:
-#      - chatgpt_data:/storage
-#    environment:
-#      OPENAI_API_KEY: '{{applications[application_id].credentials.chatgpt_bridge_openai_api_key}}'
-#      # Uncomment the next two lines if you are using Azure OpenAI API
-#      # OPENAI_AZURE: 'false'
-#      # CHATGPT_REVERSE_PROXY: 'your-completion-endpoint-here'
-#      CHATGPT_CONTEXT: 'thread'
-#      CHATGPT_API_MODEL: 'gpt-3.5-turbo'
-#      # Uncomment and edit the next line if needed
-#      # CHATGPT_PROMPT_PREFIX: 'Instructions:\nYou are ChatGPT, a large language model trained by OpenAI.'
-#      # CHATGPT_IGNORE_MEDIA: 'false'
-#      CHATGPT_REVERSE_PROXY: 'https://api.openai.com/v1/chat/completions'
-#      # Uncomment and edit the next line if needed
-#      # CHATGPT_TEMPERATURE: '0.8'
-#      # Uncomment and edit the next line if needed
-#      #CHATGPT_MAX_CONTEXT_TOKENS: '4097'
-#      CHATGPT_MAX_PROMPT_TOKENS: '3000'
-#      KEYV_BACKEND: 'file'
-#      KEYV_URL: ''
-#      KEYV_BOT_ENCRYPTION: 'false'
-#      KEYV_BOT_STORAGE: 'true'
-#      MATRIX_HOMESERVER_URL: 'https://{{domains.synapse}}'
-#      MATRIX_BOT_USERNAME: '@chatgptbot:{{applications.matrix.server_name}}'
-#      MATRIX_ACCESS_TOKEN: '{{ applications[application_id].credentials.chatgpt_bridge_access_token | default('') }}'
-#      MATRIX_BOT_PASSWORD: '{{applications[application_id].credentials.chatgpt_bridge_user_password}}'
-#      MATRIX_DEFAULT_PREFIX: '!chatgpt'
-#      MATRIX_DEFAULT_PREFIX_REPLY: 'false'
-#      #MATRIX_BLACKLIST: ''
-#      MATRIX_WHITELIST: ':{{applications.matrix.server_name}}'
-#      MATRIX_AUTOJOIN: 'true'
-#      MATRIX_ENCRYPTION: 'true'
-#      MATRIX_THREADS: 'true'
-#      MATRIX_PREFIX_DM: 'false'
-#      MATRIX_RICH_TEXT: 'true'
+{% if applications[application_id] | bool %}
+  matrix-chatgpt-bot:
+    restart: {{docker_restart_policy}}
+    container_name: matrix-chatgpt
+    image: ghcr.io/matrixgpt/matrix-chatgpt-bot:latest
+    volumes:
+      - chatgpt_data:/storage
+    environment:
+      OPENAI_API_KEY: '{{applications[application_id].credentials.chatgpt_bridge_openai_api_key}}'
+      # Uncomment the next two lines if you are using Azure OpenAI API
+      # OPENAI_AZURE: 'false'
+      # CHATGPT_REVERSE_PROXY: 'your-completion-endpoint-here'
+      CHATGPT_CONTEXT: 'thread'
+      CHATGPT_API_MODEL: 'gpt-3.5-turbo'
+      # Uncomment and edit the next line if needed
+      # CHATGPT_PROMPT_PREFIX: 'Instructions:\nYou are ChatGPT, a large language model trained by OpenAI.'
+      # CHATGPT_IGNORE_MEDIA: 'false'
+      CHATGPT_REVERSE_PROXY: 'https://api.openai.com/v1/chat/completions'
+      # Uncomment and edit the next line if needed
+      # CHATGPT_TEMPERATURE: '0.8'
+      # Uncomment and edit the next line if needed
+      #CHATGPT_MAX_CONTEXT_TOKENS: '4097'
+      CHATGPT_MAX_PROMPT_TOKENS: '3000'
+      KEYV_BACKEND: 'file'
+      KEYV_URL: ''
+      KEYV_BOT_ENCRYPTION: 'false'
+      KEYV_BOT_STORAGE: 'true'
+      MATRIX_HOMESERVER_URL: 'https://{{domains.synapse}}'
+      MATRIX_BOT_USERNAME: '@chatgptbot:{{applications.matrix.server_name}}'
+      MATRIX_ACCESS_TOKEN: '{{ applications[application_id].credentials.chatgpt_bridge_access_token | default('') }}'
+      MATRIX_BOT_PASSWORD: '{{applications[application_id].credentials.chatgpt_bridge_user_password}}'
+      MATRIX_DEFAULT_PREFIX: '!chatgpt'
+      MATRIX_DEFAULT_PREFIX_REPLY: 'false'
+      #MATRIX_BLACKLIST: ''
+      MATRIX_WHITELIST: ':{{applications.matrix.server_name}}'
+      MATRIX_AUTOJOIN: 'true'
+      MATRIX_ENCRYPTION: 'true'
+      MATRIX_THREADS: 'true'
+      MATRIX_PREFIX_DM: 'false'
+      MATRIX_RICH_TEXT: 'true'
+{% endif %}
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}
   synapse_data:

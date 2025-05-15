@@ -1,6 +1,16 @@
 # tests/unit/test_configuration_filters.py
 
 import unittest
+import sys
+import os
+
+sys.path.insert(
+    0,
+    os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "../../")
+    ),
+)
+
 from filter_plugins.configuration_filters import (
     is_feature_enabled,
 )

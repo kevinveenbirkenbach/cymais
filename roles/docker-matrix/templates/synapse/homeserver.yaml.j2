@@ -61,7 +61,9 @@ oidc_providers:
     backchannel_logout_enabled: true
 {% endif %}
 
+{% if bridges | bool %}
 app_service_config_files:
 {% for item in bridges %}
   - {{registration_file_folder}}{{item.bridge_name}}.registration.yaml
 {% endfor %}
+{% endif %}

@@ -3,7 +3,6 @@ users:
   administrator:
     username:         "{{users.administrator.username}}" # Accountname of the matrix admin
 playbook_tags:        "setup-all,start"                  # For the initial update use: install-all,ensure-matrix-users-created,start
-role:                 "compose"                          # Role to setup Matrix. Valid values: ansible, compose
 server_name:          "{{primary_domain}}"               # Adress for the account names etc.
 synapse:
   version:            "latest"
@@ -30,3 +29,14 @@ csp:
     script-src:
       - "{{ domains.synapse }}"
       - "https://cdn.jsdelivr.net"
+plugins:
+# You need to enable them in the inventory file
+  chatgpt:    false
+  facebook:   false
+  immesage:   false
+  instagram:  false
+  signal:     false
+  slack:      false
+  telegram:   false
+  whatsapp:   false
+

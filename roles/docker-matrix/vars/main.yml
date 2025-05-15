@@ -1,38 +1,5 @@
 ---
-application_id:            "matrix"
+application_id:           "matrix"
 database_type:            "postgres"
 registration_file_folder: "/data/"
 well_known_directory:     "{{nginx.directories.data.well_known}}/matrix/"
-
-bridges:
-  - database_password: "{{ applications[application_id].credentials.mautrix_whatsapp_bridge_database_password }}"
-    database_username:  "mautrix_whatsapp_bridge"
-    database_name:      "mautrix_whatsapp_bridge"
-    bridge_name:        "whatsapp"   
-
-  - database_password:  "{{ applications[application_id].credentials.mautrix_telegram_bridge_database_password }}"
-    database_username:  "mautrix_telegram_bridge"
-    database_name:      "mautrix_telegram_bridge"
-    bridge_name:        "telegram"
-
-  - database_password:  "{{ applications[application_id].credentials.mautrix_signal_bridge_database_password }}"
-    database_username:  "mautrix_signal_bridge"
-    database_name:      "mautrix_signal_bridge"
-    bridge_name:        "signal"
-
-# Deactivated temporary, due to bug which is hard to find 
-# @todo Reactivate 
-#  - database_password:  "{{ applications[application_id].credentials.mautrix_slack_bridge_database_password }}"
-#    database_username:  "mautrix_slack_bridge"
-#    database_name:      "mautrix_slack_bridge"
-#    bridge_name:        "slack"
-
-  - database_password:  "{{ applications[application_id].credentials.mautrix_facebook_bridge_database_password }}"
-    database_username:  "mautrix_facebook_bridge"
-    database_name:      "mautrix_facebook_bridge"
-    bridge_name:        "facebook"
-
-  - database_password:  "{{ applications[application_id].credentials.mautrix_instagram_bridge_database_password }}"
-    database_username:  "mautrix_instagram_bridge"
-    database_name:      "mautrix_instagram_bridge"
-    bridge_name:        "instagram"

@@ -1,3 +1,4 @@
+CYMAIS_ENVIRONMENT:       "production"
 
 HOST_CURRENCY:            "EUR"
 HOST_TIMEZONE:            "UTC"
