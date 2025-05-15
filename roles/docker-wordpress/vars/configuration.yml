@@ -10,10 +10,15 @@ plugins:
     enabled:          true
   activitypub:
     enabled:          true
-      
 features:
   matomo:             true
   css:                false
   landingpage_iframe: false
   oidc:               true
   central_database:   true
+csp:
+  flags:
+    style-src:
+      unsafe-inline: true
+    script-src:
+      unsafe-inline: true

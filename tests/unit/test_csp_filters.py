@@ -19,11 +19,11 @@ class TestCspFilters(unittest.TestCase):
                     },
                     'flags': {
                         'script-src': {
-                            'unsafe_eval': True,
-                            'unsafe_inline': False,
+                            'unsafe-eval': True,
+                            'unsafe-inline': False,
                         },
                         'style-src': {
-                            'unsafe_inline': True,
+                            'unsafe-inline': True,
                         },
                     },
                     'hashes': {

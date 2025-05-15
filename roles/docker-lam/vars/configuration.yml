@@ -12,3 +12,10 @@ features:
   ldap:                         true
   central_database:             false
   oauth2:                       false
+csp:
+  flags:
+    style-src:
+      unsafe-inline: true
+    script-src:
+      unsafe-inline: true
+      unsafe-eval:   true

@@ -16,3 +16,6 @@ csp:
       - https://ka-f.fontawesome.com
     frame-src:
       - "{{ web_protocol }}://*.{{primary_domain}}"
+  flags:
+    style-src-elem:
+      unsafe-inline: true

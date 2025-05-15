@@ -5,3 +5,15 @@ features:
   landingpage_iframe: false
   central_database:   true
   oauth2:             false
+csp:
+  whitelist:
+    script-src:
+      - https://cdn.matomo.cloud
+    style-src:
+      - https://fonts.googleapis.com
+  flags:
+    script-src:
+      unsafe-inline: true
+      unsafe-eval:   true
+    style-src:
+      unsafe-inline: true

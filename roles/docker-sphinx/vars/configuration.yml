@@ -2,3 +2,10 @@ features:
   matomo:               true
   css:                  true
   landingpage_iframe:   false
+csp:
+  flags:
+    script-src:
+      unsafe-inline:  true
+      unsafe-eval:    true
+    style-src:
+      unsafe-inline:  true

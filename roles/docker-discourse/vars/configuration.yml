@@ -11,9 +11,9 @@ features:
 csp:
   flags:
     style-src:
-      unsafe_inline: true
+      unsafe-inline: true
     script-src:
-      unsafe_inline: true
+      unsafe-inline: true
   whitelist:
     font-src:
       - "http://*.{{primary_domain}}"

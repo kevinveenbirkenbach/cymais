@@ -16,6 +16,6 @@ csp:
       - https://cdnjs.cloudflare.com
   flags:
     style-src:
-      unsafe_inline: true
+      unsafe-inline: true
     script-src:
       unsafe-eval: true

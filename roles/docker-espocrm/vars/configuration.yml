@@ -5,9 +5,6 @@ users:
     email:                "{{ users.administrator.email }}"
 
 credentials:
-#  administrator_password: # Set in inventory file
-#  database_password:      # Set in your inventory file
-
 features:
   matomo:             true
   css:                false
@@ -15,3 +12,7 @@ features:
   ldap:               false
   oidc:               true
   central_database:   true
+csp:
+  flags:
+    script-src:
+      unsafe-inline: true

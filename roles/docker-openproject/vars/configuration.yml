@@ -16,4 +16,4 @@ features:
 csp:
   flags:
     script-src:
-      unsafe_inline: true
+      unsafe-inline: true

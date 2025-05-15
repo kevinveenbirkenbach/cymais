@@ -31,13 +31,18 @@ class FilterModule(object):
 
     @staticmethod
     def get_csp_flags(applications, application_id, directive):
+        """
+        Dynamically extract all CSP flags for a given directive and return them as tokens,
+        e.g., "'unsafe-eval'", "'unsafe-inline'", etc.
+        """
         app = applications.get(application_id, {})
         flags = app.get('csp', {}).get('flags', {}).get(directive, {})
         tokens = []
-        if flags.get('unsafe_eval', False):
-            tokens.append("'unsafe-eval'")
-        if flags.get('unsafe_inline', False):
-            tokens.append("'unsafe-inline'")
+
+        for flag_name, enabled in flags.items():
+            if enabled:
+                tokens.append(f"'{flag_name}'")
+
         return tokens
 
     @staticmethod
