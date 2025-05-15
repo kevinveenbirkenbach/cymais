@@ -20,12 +20,13 @@ csp:
   flags:
     script-src:
       unsafe-inline: true
+      unsafe-eval:   true
     style-src:
       unsafe-inline: true
   whitelist:
     connect-src:
-      - "{{ domains.element }}"
+      - "{{ primary_domain }}"
       - "{{ domains.synapse }}"
     script-src:
-      - "{{ domains.element }}"
-      - "{{ domains.synapse }}"  
+      - "{{ domains.synapse }}"
+      - "https://cdn.jsdelivr.net"
