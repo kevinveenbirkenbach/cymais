@@ -30,4 +30,4 @@ csp:
       - "data:"
     script-src:
       - "https://cdn.gtranslate.net"
-      - "{{ domains[application_id] }}"
+      - "{{ domains.wordpress }}"

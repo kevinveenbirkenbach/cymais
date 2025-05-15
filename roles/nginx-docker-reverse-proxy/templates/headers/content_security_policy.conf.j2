@@ -1,2 +1,2 @@
 add_header Content-Security-Policy "{{ applications | build_csp_header(application_id, domains) }}" always;
-proxy_hide_header Content-Security-Policy;
+proxy_hide_header Content-Security-Policy; # Todo: Make this optional
