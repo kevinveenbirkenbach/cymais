@@ -24,4 +24,6 @@ csp:
       unsafe-inline: true
   whitelist:
     worker-src:
-      - blob:
+      - "blob:"
+    font-src:
+      - "data:"

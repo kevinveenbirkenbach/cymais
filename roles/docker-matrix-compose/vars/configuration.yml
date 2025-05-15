@@ -16,3 +16,9 @@ features:
   landingpage_iframe: false
   oidc:               false                              # Deactivated OIDC due to this issue https://github.com/matrix-org/synapse/issues/10492
   central_database:   true
+csp:
+  flags:
+    script-src:
+      unsafe-inline: true
+    style-src:
+      unsafe-inline: true

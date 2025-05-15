@@ -9,7 +9,7 @@ csp:
       unsafe-inline: true
   whitelist:
     font-src:
-      - data:
+      - "data:"
 oidc:
   enabled:                    "{{ applications.nextcloud.features.oidc | default(true) }}"      # Activate OIDC for Nextcloud
   # floavor decides which OICD plugin should be used. 
