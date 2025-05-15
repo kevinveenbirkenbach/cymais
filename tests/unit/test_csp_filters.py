@@ -137,5 +137,25 @@ class TestCspFilters(unittest.TestCase):
         style_hash = self.filter.get_csp_hash("body { background: #fff; }")
         self.assertNotIn(style_hash, header)
 
+
+    def test_build_csp_header_recaptcha_toggle(self):
+        """
+        When the 'recaptcha' feature is enabled, 'https://www.google.com'
+        must be included in script-src; when disabled, it must not be.
+        """
+        # enabled case
+        self.apps['app1']['features']['recaptcha'] = True
+        header_enabled = self.filter.build_csp_header(
+            self.apps, 'app1', self.domains, web_protocol='https'
+        )
+        self.assertIn("https://www.google.com", header_enabled)
+
+        # disabled case
+        self.apps['app1']['features']['recaptcha'] = False
+        header_disabled = self.filter.build_csp_header(
+            self.apps, 'app1', self.domains, web_protocol='https'
+        )
+        self.assertNotIn("https://www.google.com", header_disabled)
+
 if __name__ == '__main__':
     unittest.main()

@@ -113,6 +113,13 @@ class FilterModule(object):
                     if matomo_domain:
                         tokens.append(f"{web_protocol}://{matomo_domain}")
 
+                # ReCaptcha integration: allow loading scripts from Google if feature enabled
+                if (
+                    self.is_feature_enabled(applications, 'recaptcha', application_id)
+                    and directive == 'script-src'
+                ):
+                    tokens.append('https://www.google.com')
+
                 # whitelist
                 tokens += self.get_csp_whitelist(applications, application_id, directive)
 

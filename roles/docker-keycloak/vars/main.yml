@@ -1,4 +1,4 @@
-application_id:            "keycloak"
+application_id:           "keycloak"
 database_type:            "postgres"
 container_name:           "{{application_id}}_application"
 realm:                    "{{primary_domain}}"                              # This is the name of the default realm which is used by the applications

@@ -2,7 +2,7 @@ version:              "bookworm"
 features:
   matomo:             true
   css:                true
-  portfolio_iframe: false
+  portfolio_iframe:   false
   central_database:   true
 csp:
   flags:

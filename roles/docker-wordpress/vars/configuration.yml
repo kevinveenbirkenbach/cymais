@@ -28,10 +28,9 @@ csp:
       - "blob:"
     font-src:
       - "data:"
+      - "https://fonts.bunny.net"
     script-src:
       - "https://cdn.gtranslate.net"
       - "{{ domains.wordpress[0] }}"
-    frame-src:
-      - "{{ domains.peertube }}"
     style-src:
       - "https://fonts.bunny.net"

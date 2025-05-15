@@ -4,12 +4,14 @@ users:
     username:         "{{users.administrator.username}}"  # Administrator Username for Keycloak
 import_realm:         True                                # If True realm will be imported. If false skip.
 credentials:
-#   database_password:                                    # Needs to be defined in inventory file
-#   administrator_password:                               # Needs to be defined in inventory file
 features:
   matomo:             true
   css:                true
-  portfolio_iframe: true
+  portfolio_iframe:   true
   ldap:               true
   central_database:   true
   recaptcha:          true
+csp:
+  flags:
+    script-src:
+      unsafe-inline: true

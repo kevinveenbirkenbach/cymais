@@ -1,23 +1,24 @@
-site_titel:         "Global Learning Academy on {{primary_domain}}"
+site_titel:           "Global Learning Academy on {{primary_domain}}"
 users:
   administrator:
-    username:       "{{users.administrator.username}}"
-    email:          "{{users.administrator.email}}"
-version:            "latest"
+    username:         "{{users.administrator.username}}"
+    email:            "{{users.administrator.email}}"
+version:              "latest"
 features:
   matomo:             true
-  css:                true
-  portfolio_iframe: false
+  css:                false
+  portfolio_iframe:   false
   central_database:   true
 csp:
   flags:
     script-src:
-      unsafe-inline: true
-      unsafe-eval:   true
+      unsafe-inline:  true
+      unsafe-eval:    true
     style-src:
-      unsafe-inline: true
+      unsafe-inline:  true
   whitelist:
     font-src:
       - "data:"
       - "blob:"
+    script-src:
       - "https://cdn.jsdelivr.net"
