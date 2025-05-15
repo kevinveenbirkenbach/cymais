@@ -122,14 +122,20 @@ class TestCspFilters(unittest.TestCase):
             # passing a non-decodable object
             self.filter.get_csp_hash(None)
 
-    def test_build_csp_header_includes_hashes(self):
+    def test_build_csp_header_includes_hashes_only_if_no_unsafe_inline(self):
+        """
+        script-src has unsafe-inline = False -> hash should be included
+        style-src has unsafe-inline = True  -> hash should NOT be included
+        """
         header = self.filter.build_csp_header(self.apps, 'app1', self.domains, web_protocol='https')
-        # check that the script-src directive includes our inline hash
+
+        # script-src includes hash because 'unsafe-inline' is False
         script_hash = self.filter.get_csp_hash("console.log('hello');")
         self.assertIn(script_hash, header)
-        # check that the style-src directive includes its inline hash
+
+        # style-src does NOT include hash because 'unsafe-inline' is True
         style_hash = self.filter.get_csp_hash("body { background: #fff; }")
-        self.assertIn(style_hash, header)
+        self.assertNotIn(style_hash, header)
 
 if __name__ == '__main__':
     unittest.main()

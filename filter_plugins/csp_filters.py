@@ -97,8 +97,11 @@ class FilterModule(object):
 
             for directive in directives:
                 tokens = ["'self'"]
+                
                 # unsafe-eval / unsafe-inline flags
-                tokens += self.get_csp_flags(applications, application_id, directive)
+                flags = self.get_csp_flags(applications, application_id, directive)
+                tokens += flags
+
                 # Matomo integration
                 if (
                     self.is_feature_enabled(applications, matomo_feature_name, application_id)
@@ -107,11 +110,15 @@ class FilterModule(object):
                     matomo_domain = domains.get('matomo')
                     if matomo_domain:
                         tokens.append(f"{web_protocol}://{matomo_domain}")
+
                 # whitelist
                 tokens += self.get_csp_whitelist(applications, application_id, directive)
-                # inline hashes from config
-                for snippet in self.get_csp_inline_content(applications, application_id, directive):
-                    tokens.append(self.get_csp_hash(snippet))
+
+                # only add hashes if 'unsafe-inline' is NOT in flags
+                if "'unsafe-inline'" not in flags:
+                    for snippet in self.get_csp_inline_content(applications, application_id, directive):
+                        tokens.append(self.get_csp_hash(snippet))
+
                 parts.append(f"{directive} {' '.join(tokens)};")
 
             # static img-src

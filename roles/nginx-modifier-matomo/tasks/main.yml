@@ -25,6 +25,7 @@
   set_fact:
     matomo_site_id: "{{ site_check.json[0].idsite }}"
   when: "(site_check.json | length) > 0"
+  changed_when: false
 
 - name: Add site to Matomo and get ID if not exists
   uri:
@@ -42,6 +43,7 @@
   set_fact:
     matomo_site_id: "{{ add_site.json.value }}"
   when: "matomo_site_id is not defined or matomo_site_id is none"
+  changed_when: false
 
 - name: Set the Matomo tracking code from a template file
   set_fact:

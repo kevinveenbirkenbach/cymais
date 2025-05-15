@@ -24,10 +24,12 @@
     debug: "{{ enable_debug | default(false) }}"
   register: cert_folder_result
   delegate_to: "{{ inventory_hostname }}"
+  changed_when: false
 
 - name: Set fact
   set_fact:
     ssl_cert_folder: "{{ cert_folder_result.folder }}"
+  changed_when: false
 
 - name: Ensure ssl_cert_folder is set
   fail:

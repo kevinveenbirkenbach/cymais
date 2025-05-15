@@ -2,7 +2,7 @@
   include_role: 
     name: nginx-https-get-cert
 
-- name: configure nginx redirect configurations
+- name: "Deploying NGINX redirect configuration for {{ domain }}"
   template:
     src:  redirect.domain.nginx.conf.j2
     dest: "{{ nginx.directories.http.servers }}{{ domain }}.conf"

@@ -14,6 +14,7 @@
 - name: Set fact for backup_docker_to_local_folder
   set_fact:
     backup_docker_to_local_folder: "{{ pkgmgr_output.stdout }}/"
+  changed_when: false
   when: run_once_backup_docker_to_local is not defined
 
 - name: configure backup-docker-to-local-everything.cymais.service
