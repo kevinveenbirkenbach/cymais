@@ -39,4 +39,3 @@ plugins:
   slack:      false
   telegram:   false
   whatsapp:   false
-

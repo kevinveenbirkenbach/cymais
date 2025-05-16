@@ -3,7 +3,7 @@ services:
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
   synapse:
-    image: matrixdotorg/synapse:{{applications.matrix.synapse.version}}
+    image: matrixdotorg/synapse:{{applications[application_id].synapse.version}}
     container_name: matrix-synapse
     restart: {{docker_restart_policy}}
     logging:
@@ -36,7 +36,7 @@ services:
 {% endif %}
 {% include 'templates/docker/container/networks.yml.j2' %}
   element:
-    image: vectorim/element-web:{{applications.matrix.element.version}}
+    image: vectorim/element-web:{{applications[application_id].element.version}}
     container_name: matrix-element
     restart: {{docker_restart_policy}}
     volumes:
@@ -64,7 +64,7 @@ services:
       retries: 3
 {% include 'templates/docker/container/networks.yml.j2' %}
 {% endfor %}
-{% if applications[application_id] | bool %}
+{% if applications[application_id].plugins.chatgpt | bool %}
   matrix-chatgpt-bot:
     restart: {{docker_restart_policy}}
     container_name: matrix-chatgpt
@@ -92,13 +92,13 @@ services:
       KEYV_BOT_ENCRYPTION: 'false'
       KEYV_BOT_STORAGE: 'true'
       MATRIX_HOMESERVER_URL: 'https://{{domains.synapse}}'
-      MATRIX_BOT_USERNAME: '@chatgptbot:{{applications.matrix.server_name}}'
+      MATRIX_BOT_USERNAME: '@chatgptbot:{{applications[application_id].server_name}}'
       MATRIX_ACCESS_TOKEN: '{{ applications[application_id].credentials.chatgpt_bridge_access_token | default('') }}'
       MATRIX_BOT_PASSWORD: '{{applications[application_id].credentials.chatgpt_bridge_user_password}}'
       MATRIX_DEFAULT_PREFIX: '!chatgpt'
       MATRIX_DEFAULT_PREFIX_REPLY: 'false'
       #MATRIX_BLACKLIST: ''
-      MATRIX_WHITELIST: ':{{applications.matrix.server_name}}'
+      MATRIX_WHITELIST: ':{{applications[application_id].server_name}}'
       MATRIX_AUTOJOIN: 'true'
       MATRIX_ENCRYPTION: 'true'
       MATRIX_THREADS: 'true'
@@ -108,6 +108,8 @@ services:
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}
   synapse_data:
-#  chatgpt_data:
+{% if applications[application_id].plugins.chatgpt | bool %}
+    chatgpt_data:
+{% endif %}
 
 {% include 'templates/docker/compose/networks.yml.j2' %}

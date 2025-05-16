@@ -143,14 +143,14 @@
 
 - name: create admin account
   command:
-    cmd: docker compose exec -it synapse register_new_matrix_user -u {{applications.matrix.users.administrator.username}} -p {{applications[application_id].credentials.administrator_password}} -a -c /data/homeserver.yaml http://localhost:8008
+    cmd: docker compose exec -it synapse register_new_matrix_user -u {{applications[application_id].users.administrator.username}} -p {{applications[application_id].credentials.administrator_password}} -a -c /data/homeserver.yaml http://localhost:8008
     chdir: "{{ docker_compose.directories.instance }}"
   ignore_errors: true
-  when: applications.matrix.setup | bool
+  when: applications[application_id].setup | bool
 
 - name: create chatgpt bot
   command:
     cmd: docker compose exec -it synapse register_new_matrix_user -u chatgptbot -p {{applications[application_id].credentials.chatgpt_bridge_user_password}} -a -c /data/homeserver.yaml http://localhost:8008
     chdir: "{{ docker_compose.directories.instance }}"
   ignore_errors: true
-  when: applications.matrix.setup | bool
+  when: applications[application_id].setup | bool

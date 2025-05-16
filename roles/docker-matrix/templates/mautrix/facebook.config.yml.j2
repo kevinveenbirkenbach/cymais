@@ -3,7 +3,7 @@ homeserver:
     # The address that this appservice can use to connect to the homeserver.
     address: http://synapse:8008
     # The domain of the homeserver (for MXIDs, etc).
-    domain: {{applications.matrix.server_name}}
+    domain: {{applications[application_id].server_name}}
     # Whether or not to verify the SSL certificate of the homeserver.
     # Only applies if address starts with https://
     verify_ssl: true
@@ -143,7 +143,7 @@ bridge:
     sync_direct_chat_list: false
     # Servers to always allow double puppeting from
     double_puppet_server_map:
-        {{applications.matrix.server_name}}: {{domains.synapse}}
+        {{applications[application_id].server_name}}: {{domains.synapse}}
     # Allow using double puppeting from any server with a valid client .well-known file.
     double_puppet_allow_discovery: false
     # Shared secrets for https://github.com/devture/matrix-synapse-shared-secret-auth
@@ -154,7 +154,7 @@ bridge:
     # If using this for other servers than the bridge's server,
     # you must also set the URL in the double_puppet_server_map.
     login_shared_secret_map:
-        {{applications.matrix.server_name}}: {{applications[application_id].credentials.registration_shared_secret}}
+        {{applications[application_id].server_name}}: {{applications[application_id].credentials.registration_shared_secret}}
     # Should presence from Facebook be bridged? This doesn't use the same API as the Android app,
     # so it might be more suspicious to Facebook.
     presence_from_facebook: false
@@ -380,8 +380,8 @@ bridge:
     #     mxid - Specific user
     permissions:
         "*": relay
-        "{{applications.matrix.server_name}}": user
-        "@{{applications.matrix.users.administrator.username}}:{{applications.matrix.server_name}}": admin
+        "{{applications[application_id].server_name}}": user
+        "@{{applications[application_id].users.administrator.username}}:{{applications[application_id].server_name}}": admin
 
     relay:
         # Whether relay mode should be allowed. If allowed, `!fb set-relay` can be used to turn any
