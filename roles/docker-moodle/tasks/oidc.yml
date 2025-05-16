@@ -1,0 +1,33 @@
+---
+- name: "Ensure OIDC plugin is installed inside container"
+  command: >
+    docker exec {{ container_name }} bash -c '
+    set -e;
+    cd /bitnami/moodle;
+    if [ ! -d "auth/oidc" ]; then
+      git clone https://github.com/microsoft/moodle-auth_oidc.git auth/oidc;
+    fi'
+
+- name: "Upgrade Moodle to apply OIDC plugin"
+  command: "docker exec {{ container_name }} php admin/cli/upgrade.php --non-interactive"
+
+- name: "Set Moodle OIDC configuration via CLI"
+  loop:
+    - { name: "issuerurl", value: "{{ oidc.client.issuer_url }}" }
+    - { name: "clientid", value: "{{ oidc.client.id }}" }
+    - { name: "clientsecret", value: "{{ oidc.client.secret }}" }
+    - { name: "authmethod", value: "oidc" }
+    - { name: "loginflow", value: "authorization_code" }
+    - { name: "idpname", value: "Keycloak" }
+    - { name: "scopes", value: "openid profile email" }
+    - { name: "authenticationendpoint", value: "{{ oidc.client.authorize_url }}" }
+    - { name: "tokenendpoint", value: "{{ oidc.client.token_url }}" }
+    - { name: "userinfoendpoint", value: "{{ oidc.client.user_info_url }}" }
+  loop_control:
+    label: "{{ item.name }}"
+  command: >
+    docker exec {{ container_name }} php admin/cli/cfg.php --component=auth_oidc
+    --name={{ item.name }} --set="{{ item.value }}"
+
+- name: "Enable OIDC login"
+  command: "docker exec {{ container_name }} php admin/cli/cfg.php --name=auth --set=oidc"

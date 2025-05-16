@@ -2,7 +2,7 @@ services:
 
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
   moodle:
-    container_name: moodle
+    container_name: {{ container_name }}
     image: docker.io/bitnami/moodle:{{applications.moodle.version}}
     ports:
       - 127.0.0.1:{{ports.localhost.http[application_id]}}:8080
