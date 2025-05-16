@@ -11,7 +11,7 @@
     http_port: 	"{{ ports.localhost.http[application_id] }}"
 
 - name: "Transfer Dockerfile to {{ docker_compose.directories.instance }}"
-  copy:
+  template:
     src: Dockerfile.j2
     dest: "{{ docker_compose.directories.instance }}Dockerfile"
   notify: docker compose project build and setup
