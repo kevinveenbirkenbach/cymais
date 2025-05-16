@@ -10,10 +10,10 @@ element:
   version:            "latest"
 setup:                false                              # Set true in inventory file to execute the setup and initializing procedures
 features:
-  matomo:             true
+  matomo:             false                              # Deactivated, because in html CSP restricts use
   css:                true
   portfolio_iframe:   false
-  oidc:               true                              # Deactivated OIDC due to this issue https://github.com/matrix-org/synapse/issues/10492
+  oidc:               true                               # Deactivated OIDC due to this issue https://github.com/matrix-org/synapse/issues/10492
   central_database:   true
 csp:
   flags:
