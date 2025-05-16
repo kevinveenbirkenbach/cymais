@@ -2,6 +2,7 @@
 - name: "include docker-compose role"
   include_role: 
     name: docker-compose
+  when: run_once_docker_portfolio is not defined
 
 - name: "include role nginx-domain-setup for {{application_id}}"
   include_role:
@@ -9,10 +10,12 @@
   vars:
     domain:   "{{ domains[application_id] }}"
     http_port:   "{{ ports.localhost.http[application_id] }}"
+  when: run_once_docker_portfolio is not defined
 
 - name: "include role docker-repository-setup for {{application_id}}"
   include_role: 
     name: docker-repository-setup
+  when: run_once_docker_portfolio is not defined
 
 - name: "Check if host-specific config.yaml exists in {{ config_inventory_path }}"
   stat:
@@ -20,18 +23,22 @@
   delegate_to: localhost
   become: false
   register: config_file
+  when: run_once_docker_portfolio is not defined
 
 - name: Load menu categories
   include_vars:
     file: "menu_categories.yml"
+  when: run_once_docker_portfolio is not defined
 
 - name: Load docker cards
   set_fact:
     portfolio_cards: "{{ lookup('docker_cards', 'roles') }}"
+  when: run_once_docker_portfolio is not defined
 
 - name: Group docker cards
   set_fact:
     portfolio_menu_data: "{{ lookup('docker_cards_grouped', portfolio_cards, portfolio_menu_categories) }}"
+  when: run_once_docker_portfolio is not defined
 
 - name: Debug portfolio data
   debug:
@@ -39,24 +46,36 @@
       portfolio_cards: "{{ portfolio_cards }}"
       portfolio_menu_categories: "{{ portfolio_menu_categories}}"
       portfolio_menu_data: "{{ portfolio_menu_data }}"
-  when: enable_debug | bool
+  when:
+    - enable_debug | bool
+    - run_once_docker_portfolio is not defined
 
 - name: Copy host-specific config.yaml if it exists
   template:
     src: "{{ config_inventory_path }}"
     dest: "{{docker_repository_path}}/app/config.yaml"
   notify: docker compose project setup
-  when: config_file.stat.exists
+  when:
+    - config_file.stat.exists
+    - run_once_docker_portfolio is not defined
 
 - name: Copy default config.yaml from the role template if host-specific file does not exist
   template:
     src: "config.yaml.j2"
     dest: "{{docker_repository_path}}/app/config.yaml"
   notify: docker compose project setup
-  when: not config_file.stat.exists
+  when:
+    - not config_file.stat.exists
+    - run_once_docker_portfolio is not defined
 
 - name: add docker-compose.yml
   template:
     src:  docker-compose.yml.j2 
     dest: "{docker_compose.directories.instance}}docker-compose.yml"
   notify: docker compose project setup
+  when: run_once_docker_portfolio is not defined
+
+- name: run the portfolio tasks once
+  set_fact:
+    run_once_docker_portfolio: true
+  when: run_once_docker_portfolio is not defined
