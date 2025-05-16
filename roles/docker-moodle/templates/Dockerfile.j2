@@ -1,0 +1,14 @@
+FROM bitnami/moodle:{{ applications[application_id].version }}
+
+{% if applications | is_feature_enabled('oidc',application_id) %}
+# Install git (required to clone the OIDC plugin)
+USER root
+RUN install_packages git unzip
+
+# Clone the Microsoft OIDC plugin into Moodle's auth directory
+RUN git clone https://github.com/microsoft/moodle-auth_oidc.git \
+    /opt/bitnami/moodle/auth/oidc && \
+    chown -R www-data:www-data /opt/bitnami/moodle/auth/oidc
+
+USER 1001
+{% endif %}

@@ -10,9 +10,15 @@
     domain: 	"{{ domains[application_id] }}"
     http_port: 	"{{ ports.localhost.http[application_id] }}"
 
+- name: "Transfer Dockerfile to {{ docker_compose.directories.instance }}"
+  copy:
+    src: Dockerfile.j2
+    dest: "{{ docker_compose.directories.instance }}Dockerfile"
+  notify: docker compose project build and setup
+
 - name: "copy docker-compose.yml and env file"
   include_tasks: copy-docker-compose-and-env.yml
 
 - name: "Configure OIDC login for Moodle if enabled"
   include_tasks: oidc.yml
-  when: applications | is_feature_enabled('oidc',application)
+  when: applications | is_feature_enabled('oidc',application_id)
