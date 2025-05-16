@@ -4,3 +4,4 @@ collections:
 pacman:
   - ansible
   - python-passlib
+  - python-pytest 

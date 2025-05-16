@@ -1,5 +1,3 @@
-# tests/unit/test_generate_vaulted_credentials.py
-
 import pytest
 import sys, os
 from pathlib import Path
