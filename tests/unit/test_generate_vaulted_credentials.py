@@ -7,7 +7,7 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent.resolve()
 sys.path.insert(0, str(PROJECT_ROOT))
 
 # 2) Import from the cli package
-import cli.generate_vaulted_credentials as gvc
+import cli.create_credentials as gvc
 
 class DummyProc:
     def __init__(self, returncode, stdout, stderr=''):

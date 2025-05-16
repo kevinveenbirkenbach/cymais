@@ -29,7 +29,7 @@ class TestGenerateDefaultApplications(unittest.TestCase):
         shutil.rmtree(self.temp_dir)
 
     def test_script_generates_expected_yaml(self):
-        script_path = Path(__file__).resolve().parent.parent.parent / "cli" / "generate_defaults_applications.py"
+        script_path = Path(__file__).resolve().parent.parent.parent / "cli" / "generate-applications-defaults.py"
 
         result = subprocess.run(
             [

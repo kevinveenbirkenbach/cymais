@@ -4,6 +4,16 @@ import argparse
 import os
 import subprocess
 import sys
+import textwrap
+
+def format_command_help(name, description, indent=2, col_width=36, width=80):
+    prefix = " " * indent + f"{name:<{col_width - indent}}"
+    wrapper = textwrap.TextWrapper(
+        width=width,
+        initial_indent=prefix,
+        subsequent_indent=" " * col_width
+    )
+    return wrapper.fill(description)
 
 def list_cli_commands(cli_dir):
     return sorted(
@@ -11,17 +21,30 @@ def list_cli_commands(cli_dir):
         if f.is_file() and f.name.endswith(".py") and not f.name.startswith("__")
     )
 
-def extract_docstring(cli_script_path):
+def extract_description_via_help(cli_script_path):
+    """Run `script --help` and extract the first non-usage line after usage block."""
     try:
-        with open(cli_script_path, "r", encoding="utf-8") as f:
-            for line in f:
-                if line.strip().startswith(('"""', "'''")):
-                    return line.strip().strip('"\'')
-                if line.strip().startswith("DESCRIPTION"):
-                    return line.split("=", 1)[1].strip().strip("\"'")
+        result = subprocess.run(
+            [sys.executable, cli_script_path, "--help"],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        lines = result.stdout.splitlines()
+
+        # Skip until first empty line after usage block
+        for i, line in enumerate(lines):
+            if line.strip().startswith("usage:"):
+                continue
+            if line.strip() == "":
+                # description usually comes after usage and empty line
+                for j in range(i+1, len(lines)):
+                    desc = lines[j].strip()
+                    if desc:
+                        return desc
+        return "-"
     except Exception:
-        pass
-    return "-"
+        return "-"
 
 def main():
     script_dir = os.path.dirname(os.path.realpath(__file__))
@@ -44,8 +67,8 @@ def main():
         print("Available commands:")
         for cmd in available_cli_commands:
             path = os.path.join(cli_dir, f"{cmd}.py")
-            desc = extract_docstring(path)
-            print(f"  {cmd:25} {desc}")
+            desc = extract_description_via_help(path)
+            print(format_command_help(cmd, desc))
         print("\nUse 'cymais <command> --help' for details on each command.")
         sys.exit(0)
 
