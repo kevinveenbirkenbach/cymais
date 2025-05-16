@@ -6,7 +6,7 @@
 - name: "Include setup for domain '{{ domain }}'"
   include_role: 
     name: nginx-domain-setup
-  loop: "{{ [domains.mastodon] + domains.mastodon_alternates }}"
+  loop: "{{ domains.mastodon }}"
   loop_control:
     loop_var: domain
   vars:

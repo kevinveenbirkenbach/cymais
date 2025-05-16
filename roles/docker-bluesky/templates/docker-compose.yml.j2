@@ -22,8 +22,8 @@ services:
       dockerfile: Dockerfile 
       # It doesn't compile yet with this parameters. @todo Fix it
       args:
-        REACT_APP_PDS_URL: "{{ web_protocol }}://{{domains.bluesky_api}}" # URL des PDS
-        REACT_APP_API_URL: "{{ web_protocol }}://{{domains.bluesky_api}}" # API-URL des PDS
+        REACT_APP_PDS_URL: "{{ web_protocol }}://{{domains.[application_id]['api']}}" # URL des PDS
+        REACT_APP_API_URL: "{{ web_protocol }}://{{domains.[application_id]['api']}}" # API-URL des PDS
         REACT_APP_SITE_NAME: "{{primary_domain | upper}} - Bluesky"
         REACT_APP_SITE_DESCRIPTION: "Decentral Social "
     ports:

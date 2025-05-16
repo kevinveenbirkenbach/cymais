@@ -25,9 +25,9 @@ csp:
   whitelist:
     connect-src:
       - "{{ primary_domain }}"
-      - "{{ domains.synapse }}"
+      - "{{ domains.matrix }}"
     script-src:
-      - "{{ domains.synapse }}"
+      - "{{ domains.matrix }}"
       - "https://cdn.jsdelivr.net"
 plugins:
 # You need to enable them in the inventory file

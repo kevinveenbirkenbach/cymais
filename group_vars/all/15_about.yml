@@ -16,11 +16,11 @@ defaults_service_provider:
     logo:           "{{applications.assets_server.url}}/img/logo.png"
     favicon:        "{{applications.assets_server.url}}/img/favicon.ico"
   contact:
-    bluesky: "{{ '@' ~ users.administrator.username ~ '.' ~ domains.bluesky_api if 'bluesky' in group_names else '' }}"
+    bluesky: "{{ '@' ~ users.administrator.username ~ '.' ~ domains.[application_id]['api'] if 'bluesky' in group_names else '' }}"
     email: "contact@{{ primary_domain }}"
     mastodon: "{{ '@' ~ users.administrator.username ~ '@' ~ domains.mastodon if 'mastodon' in group_names else '' }}"
     matrix: "{{ '@' ~ users.administrator.username ~ ':' ~ domains.synapse if 'matrix' in group_names else '' }}"
-    peertube: "{{ '@' ~ users.administrator.username ~ '@' ~ domains.peertube if 'peertube' in group_names else '' }}"
+    peertube: "{{ '@' ~ users.administrator.username ~ '@' ~ domains.peertube[0] if 'peertube' in group_names else '' }}"
     pixelfed: "{{ '@' ~ users.administrator.username ~ '@' ~ domains.pixelfed if 'pixelfed' in group_names else '' }}"
     phone: "+0 000 000 404"
     wordpress: "{{ '@' ~ users.administrator.username ~ '@' ~ domains.wordpress[0] if 'wordpress' in group_names else '' }}"
