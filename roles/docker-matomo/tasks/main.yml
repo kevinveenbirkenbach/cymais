@@ -8,8 +8,8 @@
   include_role:
     name: nginx-domain-setup
   vars:
-    domain: 	"{{ domains[application_id] }}"
-    http_port: 	"{{ ports.localhost.http[application_id] }}"
+    domain:   "{{ domains[application_id] }}"
+    http_port:   "{{ ports.localhost.http[application_id] }}"
   when: run_once_docker_matomo is not defined
 
 - name: "copy docker-compose.yml and env file"

@@ -7,8 +7,8 @@
   include_role:
     name: nginx-domain-setup
   vars:
-    domain: 	"{{ domains[application_id] }}"
-    http_port: 	"{{ ports.localhost.http[application_id] }}"
+    domain:   "{{ domains[application_id] }}"
+    http_port:   "{{ ports.localhost.http[application_id] }}"
 
 - name: "include role docker-repository-setup for {{application_id}}"
   include_role: 
@@ -24,8 +24,8 @@
 
 - name: "create {{docker_compose_init}}"
   template:
-    src:	"docker-compose-inits.yml.j2"
-    dest:	"{{docker_compose_init}}"
+    src:  "docker-compose-inits.yml.j2"
+    dest:  "{{docker_compose_init}}"
   notify: docker compose project build and setup
 
 - name: "copy docker-compose.yml and env file"

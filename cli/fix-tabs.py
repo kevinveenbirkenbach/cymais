@@ -30,8 +30,8 @@ def main():
     parser.add_argument(
         "path",
         nargs="?",
-        default="roles",
-        help="Base path to search for .yml files (default: ./roles)"
+        default="./",
+        help="Base path to search for .yml files (default: ./)"
     )
     args = parser.parse_args()
 
