@@ -1,8 +1,8 @@
 ROLES_DIR         	:= ./roles
 APPLICATIONS_OUT  	:= ./group_vars/all/11_applications.yml
-APPLICATIONS_SCRIPT := ./cli/generate_defaults_applications.py
+APPLICATIONS_SCRIPT := ./cli/generate-applications-defaults.py
 INCLUDES_OUT      	:= ./tasks/include-docker-roles.yml
-INCLUDES_SCRIPT   	:= ./cli/generate_role_includes.py
+INCLUDES_SCRIPT   	:= ./cli/generate-role-includes.py
 
 .PHONY: build install test
 
