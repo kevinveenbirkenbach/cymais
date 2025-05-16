@@ -27,15 +27,14 @@ services:
       retries: 3
 {% if bridges | bool %}
 {% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
-{% else %}
-{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
-{% endif %}
 {% for item in bridges %}
       mautrix-{{item.bridge_name}}:
         condition: service_healthy
 {% endfor %}
+{% else %}
+{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+{% endif %}
 {% include 'templates/docker/container/networks.yml.j2' %}
-    
   element:
     image: vectorim/element-web:{{applications.matrix.element.version}}
     container_name: matrix-element
