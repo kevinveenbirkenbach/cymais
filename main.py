@@ -34,7 +34,6 @@ def extract_description_via_help(cli_script_path):
             check=True
         )
         lines = result.stdout.splitlines()
-        # Skip until first empty line after usage block
         for i, line in enumerate(lines):
             if line.strip().startswith("usage:"):
                 continue
@@ -52,6 +51,42 @@ def play_start_intro():
     Sound.play_cymais_intro_sound()
 
 if __name__ == "__main__":
+    # Detect --no-sound option early
+    no_sound = '--no-sound' in sys.argv
+    if no_sound:
+        sys.argv.remove('--no-sound')
+
+    # Warning loop for failures
+    def warning_loop():
+        try:
+            while True:
+                Sound.play_warning_sound()
+        except Exception:
+            pass
+
+    # Start intro sounds in background if enabled
+    if not no_sound:
+        threading.Thread(target=play_start_intro, daemon=True).start()
+
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    import signal
+
+    # Handler for segmentation faults
+    def segv_handler(signum, frame):
+        # Play failure and warning loop on segmentation fault
+        if not no_sound:
+            Sound.play_finished_failed_sound()
+            stop_event = threading.Event()
+            threading.Thread(target=warning_loop, args=(stop_event,), daemon=True).start()
+        print("Segmentation fault detected. Press Enter to stop warnings.")
+        input()
+        if not no_sound:
+            stop_event.set()
+        sys.exit(1)
+
+    signal.signal(signal.SIGSEGV, segv_handler)
+
+    # Detect --no-sound option
     # Detect --no-sound option
     no_sound = '--no-sound' in sys.argv
     if no_sound:
@@ -67,13 +102,13 @@ if __name__ == "__main__":
 
     available_cli_commands = list_cli_commands(cli_dir)
 
-    # Special case: user ran `cymais playbook --help`
+    # Special case: user ran `cymais <cmd> --help`
     if len(sys.argv) >= 3 and sys.argv[1] in available_cli_commands and sys.argv[2] == "--help":
         cli_script_path = os.path.join(cli_dir, f"{sys.argv[1]}.py")
         subprocess.run([sys.executable, cli_script_path, "--help"])
         sys.exit(0)
 
-    # Global --help
+    # Global help
     if "--help" in sys.argv or "-h" in sys.argv or len(sys.argv) == 1:
         print("CyMaIS CLI – proxy to tools in ./cli/\n")
         print("Usage:")
@@ -83,10 +118,10 @@ if __name__ == "__main__":
             path = os.path.join(cli_dir, f"{cmd}.py")
             desc = extract_description_via_help(path)
             print(format_command_help(cmd, desc))
-        print("\nUse 'cymais <command> --help' for details on each command.")
+        print("\nUse 'cymais <command> --help' for details.")
         sys.exit(0)
 
-    # Default flow
+    # Execute command and handle exit codes or signals
     try:
         parser = argparse.ArgumentParser(add_help=False)
         parser.add_argument("cli_command", choices=available_cli_commands)
@@ -95,31 +130,39 @@ if __name__ == "__main__":
 
         cli_script_path = os.path.join(cli_dir, f"{args.cli_command}.py")
         full_cmd = [sys.executable, cli_script_path] + args.cli_args
-        result = subprocess.run(full_cmd)
-        retcode = result.returncode
+
+        proc = subprocess.Popen(full_cmd)
+        proc.wait()
+        retcode = proc.returncode
 
         if retcode != 0:
+            # Failure sound
             if not no_sound:
                 Sound.play_finished_failed_sound()
-            print("Command failed. Press Enter to stop warnings.")
-            while True:
-                if not no_sound:
-                    Sound.play_warning_sound()
-                if input() == "":
-                    break
+            sig_msg = f" (terminated by signal {-retcode})" if retcode < 0 else ''
+            print(f"Command failed with exit code {retcode}{sig_msg}. Press Ctrl+C to stop warnings.")
+            if not no_sound:
+                try:
+                    while True:
+                        Sound.play_warning_sound()
+                except KeyboardInterrupt:
+                    pass
             sys.exit(retcode)
+
         else:
             if not no_sound:
                 Sound.play_finished_successfully_sound()
             sys.exit(0)
 
-    except Exception:
+    except Exception as e:
+        # Exception handling
         if not no_sound:
             Sound.play_finished_failed_sound()
-        print("An error occurred. Press Enter to stop warnings.")
-        while True:
-            if not no_sound:
-                Sound.play_warning_sound()
-            if input() == "":
-                break
+        print(f"An exception occurred: {e}. Press Ctrl+C to stop warnings.")
+        if not no_sound:
+            try:
+                while True:
+                    Sound.play_warning_sound()
+            except KeyboardInterrupt:
+                pass
         sys.exit(1)
