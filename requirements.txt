@@ -1,1 +1,3 @@
 colorscheme-generator @ https://github.com/kevinveenbirkenbach/colorscheme-generator/archive/refs/tags/v0.3.0.zip
+simpleaudio
+numpy
