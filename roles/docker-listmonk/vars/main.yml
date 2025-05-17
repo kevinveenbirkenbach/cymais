@@ -65,8 +65,9 @@ listmonk_settings:
 #  - key: "messengers"
 #    value: '[]'
 
-  - key: "app.logo_url"
-    value: '"{{ service_provider.platform.logo }}"'
+  - key:    "app.logo_url"
+    value:  '"{{ service_provider.platform.logo }}"'
+    when:   service_provider.platform.logo | bool
 
   - key: "app.site_name"
     value: '"{{ service_provider.company.titel }} Mailing list"'
@@ -115,8 +116,9 @@ listmonk_settings:
 #  - key: "app.concurrency"
 #    value: '10'
 
-  - key: "app.favicon_url"
-    value: '"{{ service_provider.platform.favicon }}"'
+  - key:    "app.favicon_url"
+    value:  '"{{ service_provider.platform.favicon }}"'
+    when:   service_provider.platform.favicon | bool
 
 #  - key: "bounce.postmark"
 #    value: '{"enabled": false, "password": "", "username": ""}'
