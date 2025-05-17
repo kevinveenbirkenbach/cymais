@@ -62,20 +62,15 @@
     set_fact:
       service_provider: "{{ defaults_service_provider | combine(service_provider | default({}, true), recursive=True) }}"
 
-  - name: Gather base domains (without www)
+  - name: Build base_sld_domains (sld.tld) in one go
     set_fact:
-      base_domains: >-
-        {{
-          domains.values()
-          | flatten
-          + (redirect_domain_mappings | map(attribute='source') | list)
+      base_sld_domains: >-
+        {{ domains
+           | generate_base_sld_domains(redirect_domain_mappings)
         }}
 
-  - name: Extract sld.tld from base_domains
+  - name: Set all domains incl. www redirect if enabled
     set_fact:
-      base_sld_domains: "{{ base_domains | map('regex_replace', '^(?:.*\\.)?([^.]+\\.[^.]+)$', '\\1') | list | unique | sort }}"
-
-  - set_fact:
       all_domains: >-
         {{ domains
           | generate_all_domains(
