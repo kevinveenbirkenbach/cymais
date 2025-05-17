@@ -99,7 +99,7 @@ class LookupModule(LookupBase):
             url = "https://" + domain_url if domain_url else ""
 
             app_data = applications.get(application_id, {})
-            iframe = app_data.get("features", {}).get("iframe", False)
+            iframe = app_data.get("features", {}).get("portfolio_iframe", False)
 
             # Build card dictionary
             card = {

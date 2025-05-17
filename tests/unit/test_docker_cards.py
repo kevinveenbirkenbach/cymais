@@ -47,7 +47,7 @@ galaxy_info:
             "applications": {
                 "portfolio": {
                     "features": {
-                        "iframe": True
+                        "portfolio_iframe": True
                     }
                 }
             },
