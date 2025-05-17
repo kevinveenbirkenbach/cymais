@@ -5,6 +5,9 @@ import os
 import subprocess
 import sys
 import textwrap
+import threading
+
+from cli.sounds import Sound
 
 def format_command_help(name, description, indent=2, col_width=36, width=80):
     prefix = " " * indent + f"{name:<{col_width - indent}}"
@@ -31,13 +34,11 @@ def extract_description_via_help(cli_script_path):
             check=True
         )
         lines = result.stdout.splitlines()
-
         # Skip until first empty line after usage block
         for i, line in enumerate(lines):
             if line.strip().startswith("usage:"):
                 continue
             if line.strip() == "":
-                # description usually comes after usage and empty line
                 for j in range(i+1, len(lines)):
                     desc = lines[j].strip()
                     if desc:
@@ -46,7 +47,20 @@ def extract_description_via_help(cli_script_path):
     except Exception:
         return "-"
 
-def main():
+def play_start_intro():
+    Sound.play_start_sound()
+    Sound.play_cymais_intro_sound()
+
+if __name__ == "__main__":
+    # Detect --no-sound option
+    no_sound = '--no-sound' in sys.argv
+    if no_sound:
+        sys.argv.remove('--no-sound')
+
+    # Start intro sounds in background if enabled
+    if not no_sound:
+        threading.Thread(target=play_start_intro, daemon=True).start()
+
     script_dir = os.path.dirname(os.path.realpath(__file__))
     cli_dir = os.path.join(script_dir, "cli")
     os.chdir(script_dir)
@@ -73,14 +87,39 @@ def main():
         sys.exit(0)
 
     # Default flow
-    parser = argparse.ArgumentParser(add_help=False)
-    parser.add_argument("cli_command", choices=available_cli_commands)
-    parser.add_argument("cli_args", nargs=argparse.REMAINDER)
-    args = parser.parse_args()
+    try:
+        parser = argparse.ArgumentParser(add_help=False)
+        parser.add_argument("cli_command", choices=available_cli_commands)
+        parser.add_argument("cli_args", nargs=argparse.REMAINDER)
+        args = parser.parse_args()
 
-    cli_script_path = os.path.join(cli_dir, f"{args.cli_command}.py")
-    full_cmd = [sys.executable, cli_script_path] + args.cli_args
-    subprocess.run(full_cmd, check=True)
+        cli_script_path = os.path.join(cli_dir, f"{args.cli_command}.py")
+        full_cmd = [sys.executable, cli_script_path] + args.cli_args
+        result = subprocess.run(full_cmd)
+        retcode = result.returncode
 
-if __name__ == "__main__":
-    main()
+        if retcode != 0:
+            if not no_sound:
+                Sound.play_finished_failed_sound()
+            print("Command failed. Press Enter to stop warnings.")
+            while True:
+                if not no_sound:
+                    Sound.play_warning_sound()
+                if input() == "":
+                    break
+            sys.exit(retcode)
+        else:
+            if not no_sound:
+                Sound.play_finished_successfully_sound()
+            sys.exit(0)
+
+    except Exception:
+        if not no_sound:
+            Sound.play_finished_failed_sound()
+        print("An error occurred. Press Enter to stop warnings.")
+        while True:
+            if not no_sound:
+                Sound.play_warning_sound()
+            if input() == "":
+                break
+        sys.exit(1)
