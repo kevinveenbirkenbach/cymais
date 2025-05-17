@@ -3,8 +3,8 @@
   include_role: 
     name: nginx-domain-setup
   loop:
-    - "{{domains.element}}"
-    - "{{domains.synapse}}"
+    - "{{domains.matrix.element}}"
+    - "{{domains.matrix.synapse}}"
   loop_control:
     loop_var: domain
 
@@ -129,13 +129,13 @@
 #- name: add log.config
 #  template: 
 #    src:  "log.config.j2" 
-#    dest: "{{docker_compose.directories.instance}}{{domains.synapse}}.log.config"
+#    dest: "{{docker_compose.directories.instance}}{{domains.matrix.synapse}}.log.config"
 #  notify: recreate matrix
 #
 ## https://github.com/matrix-org/synapse/issues/6303
 #- name: set correct folder permissions
 #  command:
-#    cmd: "docker run --rm --mount type=volume,src=matrix_synapse_data,dst=/data -e SYNAPSE_SERVER_NAME={{domains.synapse}} -e SYNAPSE_REPORT_STATS=no --entrypoint /bin/sh matrixdotorg/synapse:latest -c 'chown -vR 991:991 /data'"
+#    cmd: "docker run --rm --mount type=volume,src=matrix_synapse_data,dst=/data -e SYNAPSE_SERVER_NAME={{domains.matrix.synapse}} -e SYNAPSE_REPORT_STATS=no --entrypoint /bin/sh matrixdotorg/synapse:latest -c 'chown -vR 991:991 /data'"
 #
 #- name: add docker-compose.yml
 #  template: 
