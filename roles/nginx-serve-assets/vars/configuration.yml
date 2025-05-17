@@ -1,2 +1,4 @@
-source_directory: "{{ playbook_dir }}/assets"                           # Directory from which the assets will be copied
-url:              "{{ web_protocol }}://{{domains.file_server}}/assets" # Public address of the assets directory
+source_directory: "{{ playbook_dir }}/assets"                             # Directory from which the assets will be copied
+url: >-
+  {{ (web_protocol ~ '://' ~ domains.file_server | safe_var ~ '/assets')
+     if applications.assets_server.url | safe_var else '' }}

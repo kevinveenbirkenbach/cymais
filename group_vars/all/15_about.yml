@@ -9,12 +9,18 @@ defaults_service_provider:
       city:         "Cybertown"
       postal_code:  "00001"
       country:      "Nexusland"
-    logo:           "{{applications.assets_server.url}}/logo.png"
+    logo: >-
+      {{ (applications.assets_server.url  | safe_var ~ '/logo.png')
+        if applications.assets_server.url  | safe_var else '' }}
   platform:    
     titel:          "CyMaIS Demo"
     subtitel:       "The Future of Self-Hosted Infrastructure. Secure. Automated. Sovereign."
-    logo:           "{{applications.assets_server.url}}/img/logo.png"
-    favicon:        "{{applications.assets_server.url}}/img/favicon.ico"
+    logo: >-
+      {{ (applications.assets_server.url  | safe_var ~ '/logo.png')
+        if applications.assets_server.url  | safe_var else '' }}
+    favicon: >-
+      {{ (applications.assets_server.url  | safe_var ~ '/favicon.ico')
+        if applications.assets_server.url  | safe_var else '' }}
   contact:
     bluesky: >-
       {{ ('@' ~ users.administrator.username ~ '.' ~ domains[application_id]['api'])
