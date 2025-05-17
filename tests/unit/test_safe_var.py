@@ -9,7 +9,7 @@ sys.path.insert(
     os.path.abspath(os.path.join(os.path.dirname(__file__), '../../filter_plugins'))
 )
 
-from safe_var import FilterModule
+from safe import FilterModule
 
 class TestSafeVarFilter(unittest.TestCase):
     def setUp(self):
