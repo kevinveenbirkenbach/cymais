@@ -90,9 +90,10 @@ class LookupModule(LookupBase):
             applications = variables.get("applications", {})
             domain_url = domains.get(application_id, "")
 
-            # Check if domain_url is a list. If so, select the first element.
             if isinstance(domain_url, list):
                 domain_url = domain_url[0]
+            elif isinstance(domain_url, dict):
+                domain_url = next(iter(domain_url.values()))
                 
             # Construct the URL using the domain_url if available.
             url = "https://" + domain_url if domain_url else ""
