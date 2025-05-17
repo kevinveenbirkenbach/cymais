@@ -26,7 +26,7 @@
 - name: create nextcloud nginx proxy configuration file
   template: 
     src:  "nginx/host.conf.j2" 
-    dest: "{{nginx.directories.http.servers}}{{domains[application_id]}}.conf"
+    dest: "{{nginx.directories.http.servers}}{{domains | get_domain(application_id)}}.conf"
   notify: restart nginx
 
 - name: create internal nextcloud nginx configuration

@@ -4,12 +4,12 @@
   include_role: 
     name: nginx-https-get-cert
   vars:
-    domain: "{{domains[application_id]}}"
+    domain: "{{domains | get_domain(application_id)}}"
 
-- name: configure {{domains[application_id]}}.conf
+- name: configure {{domains | get_domain(application_id)}}.conf
   template: 
     src:  "roles/nginx-docker-reverse-proxy/templates/vhost/basic.conf.j2" 
-    dest: "{{nginx.directories.http.servers}}{{domains[application_id]}}.conf"
+    dest: "{{nginx.directories.http.servers}}{{domains | get_domain(application_id)}}.conf"
   notify: restart nginx
   vars: 
-    nginx_docker_reverse_proxy_extra_configuration: "sub_filter '{{source_domain}}' '{{domains[application_id]}}';"
+    nginx_docker_reverse_proxy_extra_configuration: "sub_filter '{{source_domain}}' '{{domains | get_domain(application_id)}}';"

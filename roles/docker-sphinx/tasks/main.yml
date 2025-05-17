@@ -19,7 +19,7 @@
   include_role:
     name: nginx-domain-setup
   vars:
-    domain:     "{{ domains[application_id] }}"
+    domain:     "{{ domains | get_domain(application_id) }}"
     http_port:   "{{ ports.localhost.http[application_id] }}"
 
 - name: "copy docker-compose.yml and env file"

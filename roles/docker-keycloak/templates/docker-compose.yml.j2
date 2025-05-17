@@ -14,7 +14,7 @@ services:
 {% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
     healthcheck:
-      test: ["CMD", "sh", "-c", "exec 3<>/dev/tcp/localhost/9000 && echo -e 'GET /health/live HTTP/1.1\\r\\nHost: {{domains.keycloak}}\\r\\nConnection: close\\r\\n\\r\\n' >&3 && cat <&3"]
+      test: ["CMD", "sh", "-c", "exec 3<>/dev/tcp/localhost/9000 && echo -e 'GET /health/live HTTP/1.1\\r\\nHost: {{domains | get_domain('keycloak')}}\\r\\nConnection: close\\r\\n\\r\\n' >&3 && cat <&3"]
       interval: 30s
       timeout: 10s
       retries: 3

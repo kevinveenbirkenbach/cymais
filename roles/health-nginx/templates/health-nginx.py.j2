@@ -3,6 +3,31 @@ import requests
 import sys
 import re
 
+def get_expected_statuses(domain: str, parts: list[str], redirected_domains: set[str]) -> list[int]:
+    """
+    Determine the expected HTTP status codes based on the domain name.
+
+    Args:
+        domain: The full domain string (e.g. 'example.com').
+        parts: The domain split into its subcomponents (e.g. ['www', 'example', 'com']).
+        redirected_domains: A set of domains that should trigger a redirect.
+
+    Returns:
+        A list of expected HTTP status codes.
+    """
+    {%- if domains | get_domain('listmonk') | safe_var | bool %}
+    if domain == '{{domains | get_domain('listmonk')}}':
+        return [404]
+    {%- endif %}
+    if (parts and parts[0] == 'www') or (domain in redirected_domains):
+        return [301]
+    {%- if domains | get_domain('yourls') | safe_var | bool %}
+    if domain == '{{domains | get_domain('yourls')}}':
+        return [403]
+    {%- endif %}
+    # Default: Expect status code 200 or 302 for a domain
+    return [200,302]
+
 # file in which fqdn server configs are deposit
 config_path = '{{nginx.directories.http.servers}}'
 
@@ -22,19 +47,12 @@ for filename in os.listdir(config_path):
         # Prepare the URL and expected status codes
         url = f"{{ web_protocol }}://{domain}"
         
-        # Default: Expect status code 200 or 302 for a domain
-        expected_statuses = [200,302]
-        
         redirected_domains = [domain['source'] for domain in {{redirect_domain_mappings}}]
-        redirected_domains.append("{{domains.mailu}}")
+        {%- if domains | get_domain('mailu') | safe_var | bool %}
+        redirected_domains.append("{{domains | get_domain('mailu')}}")
+        {%- endif %}
 
-        # Determine expected status codes based on the domain
-        if domain == '{{domains.listmonk}}':
-            expected_statuses = [404]
-        elif parts[0] == 'www' or domain in redirected_domains:
-            expected_statuses = [301]
-        elif domain == '{{domains.yourls}}':
-            expected_statuses = [403]
+        expected_statuses = get_expected_statuses(domain, parts, redirected_domains)
 
         try:
             # Send a HEAD request to get only the response header

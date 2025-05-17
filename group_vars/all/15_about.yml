@@ -17,15 +17,15 @@ defaults_service_provider:
     favicon:        "{{ applications.assets_server.url | safe_var | safe_join('favicon.ico') }}"
   contact:
     bluesky: >-
-      {{ ('@' ~ users.administrator.username ~ '.' ~ domains[application_id]['api'])
+      {{ ('@' ~ users.administrator.username ~ '.' ~ domains.bluesky.api)
          if 'bluesky' in group_names else '' }}
     email: "contact@{{ primary_domain }}"
-    mastodon: "{{ '@' ~ users.administrator.username ~ '@' ~ domains.mastodon if 'mastodon' in group_names else '' }}"
+    mastodon: "{{ '@' ~ users.administrator.username ~ '@' ~ domains | get_domain('mastodon') if 'mastodon' in group_names else '' }}"
     matrix: "{{ '@' ~ users.administrator.username ~ ':' ~ domains.matrix.synapse if 'matrix' in group_names else '' }}"
-    peertube: "{{ '@' ~ users.administrator.username ~ '@' ~ domains.peertube[0] if 'peertube' in group_names else '' }}"
-    pixelfed: "{{ '@' ~ users.administrator.username ~ '@' ~ domains.pixelfed if 'pixelfed' in group_names else '' }}"
+    peertube: "{{ '@' ~ users.administrator.username ~ '@' ~ domains | get_domain('peertube') if 'peertube' in group_names else '' }}"
+    pixelfed: "{{ '@' ~ users.administrator.username ~ '@' ~ domains | get_domain('pixelfed') if 'pixelfed' in group_names else '' }}"
     phone: "+0 000 000 404"
-    wordpress: "{{ '@' ~ users.administrator.username ~ '@' ~ domains.wordpress[0] if 'wordpress' in group_names else '' }}"
+    wordpress: "{{ '@' ~ users.administrator.username ~ '@' ~ domains | get_domain('wordpress') if 'wordpress' in group_names else '' }}"
 
   legal:
     editorial_responsible:  "Johannes Gutenberg"

@@ -21,7 +21,7 @@ class FilterModule(object):
           {{ redirect_list
                | add_redirect_if_group('lam',
                                        'ldap.' ~ primary_domain,
-                                       domains.lam,
+                                       domains | get_domain('lam'),
                                        group_names) }}
         """
         try:

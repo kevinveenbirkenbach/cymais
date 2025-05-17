@@ -21,7 +21,7 @@ return array (
     'oidc_login_auto_redirect' => true,
 
     // Redirect to this page after logging out the user
-    'oidc_login_logout_url' => 'https://{{domains[application_id]}}',
+    'oidc_login_logout_url' => 'https://{{domains | get_domain(application_id)}}',
 
     // If set to true the user will be redirected to the
     // logout endpoint of the OIDC provider after logout

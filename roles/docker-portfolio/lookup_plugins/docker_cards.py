@@ -21,7 +21,7 @@ class LookupModule(LookupBase):
           - Retrieves the description from galaxy_info.description in meta/main.yml
           - Retrieves the icon class from galaxy_info.logo.class
           - Retrieves the tags from galaxy_info.galaxy_tags
-          - Builds the URL using the 'domains' variable (e.g. domains[application_id])
+          - Builds the URL using the 'domains' variable (e.g. domains | get_domain(application_id))
           - Sets the iframe flag from applications[application_id].features.iframe
 
         Only cards whose application_id is included in the variable group_names are returned.

@@ -3,4 +3,4 @@ application_id:     "matomo"
 database_type:      "mariadb"
 
 # I don't know if this is still necessary
-domain:             "{{ domains[application_id] }}"
+domain:             "{{ domains | get_domain(application_id) }}"

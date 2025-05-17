@@ -36,19 +36,19 @@
                 description: Access the central admin console
                 icon:
                   class: fa-solid fa-shield-halved
-                url: https://{{domains.keycloak}}/admin
+                url: https://{{domains | get_domain('keycloak')}}/admin
                 iframe: {{ applications | is_feature_enabled('portfolio_iframe','keycloak') }}
               - name: Profile
                 description: Update your personal admin settings
                 icon:
                   class: fa-solid fa-user-gear
-                url: https://{{ domains.keycloak }}/realms/{{oidc.client.id}}/account
+                url: https://{{ domains | get_domain('keycloak') }}/realms/{{oidc.client.id}}/account
                 iframe: {{ applications | is_feature_enabled('portfolio_iframe','keycloak') }}
               - name: Logout
                 description: End your admin session securely
                 icon:
                   class: fa-solid fa-right-from-bracket
-                url: https://{{ domains.keycloak }}/realms/{{oidc.client.id}}/protocol/openid-connect/logout
+                url: https://{{ domains | get_domain('keycloak') }}/realms/{{oidc.client.id}}/protocol/openid-connect/logout
                 iframe: false
 
             {% endif %}

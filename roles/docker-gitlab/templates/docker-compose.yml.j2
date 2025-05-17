@@ -6,7 +6,7 @@ services:
 
   web:
     image: "gitlab/gitlab-ee:{{applications.gitlab.version}}"
-    hostname: '{{domains[application_id]}}'
+    hostname: '{{domains | get_domain(application_id)}}'
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"

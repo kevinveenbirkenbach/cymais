@@ -3,7 +3,7 @@ cookie_secret           =   "{{ applications[oauth2_proxy_application_id].creden
 email_domains           =   "{{ primary_domain }}"
 cookie_secure           =   "true"                                                  # True is necessary to force the cookie set via https
 upstreams               =   "http://{{ applications[oauth2_proxy_application_id].oauth2_proxy.application }}:{{ applications[oauth2_proxy_application_id].oauth2_proxy.port }}"
-cookie_domains          =   ["{{ domains[oauth2_proxy_application_id] }}", "{{ domains.keycloak }}"]                  # Required so cookie can be read on all subdomains.
+cookie_domains          =   ["{{ domains[oauth2_proxy_application_id] }}", "{{ domains | get_domain('keycloak') }}"]                  # Required so cookie can be read on all subdomains.
 whitelist_domains       =   [".{{ primary_domain }}"]                                 # Required to allow redirection back to original requested target.
 
 # keycloak provider

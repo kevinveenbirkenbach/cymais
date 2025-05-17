@@ -3,7 +3,7 @@
   include_role: 
     name: docker-central-database
 
-- name: "include tasks setup-domain.yml with {{domains[application_id]}}"
+- name: "include tasks setup-domain.yml with {{domains | get_domain(application_id)}}"
   include_tasks: setup-domain.yml
   loop: "{{ mybb_domains + [source_domain] }}"
   loop_control:

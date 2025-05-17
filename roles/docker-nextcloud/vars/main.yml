@@ -7,7 +7,7 @@ database_password:                                  "{{applications.nextcloud.cr
 database_type:                                      "mariadb"                                                     # Database flavor
 
 # Networking
-domain:                                             "{{ domains[application_id] }}"                                 # Public domain at which Nextcloud will be accessable
+domain:                                             "{{ domains | get_domain(application_id) }}"                                 # Public domain at which Nextcloud will be accessable
 http_port:                                          "{{ ports.localhost.http[application_id] }}"                  # Port at which nextcloud is reachable in the local network
 
 # Control Node

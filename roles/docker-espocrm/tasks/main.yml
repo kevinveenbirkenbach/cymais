@@ -11,7 +11,7 @@
     ws_port:              "{{ ports.localhost.websocket[application_id] }}"
     client_max_body_size: "100m"
     vhost_flavour:        "ws_generic"
-    domain:               "{{ domains[application_id] }}"
+    domain:               "{{ domains | get_domain(application_id) }}"
     http_port:            "{{ ports.localhost.http[application_id] }}"
 
 - name: "copy docker-compose.yml and env file"

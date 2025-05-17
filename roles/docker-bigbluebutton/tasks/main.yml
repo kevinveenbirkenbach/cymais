@@ -54,7 +54,7 @@
 
 - name: Wait for BigBlueButton
   wait_for:
-    host: "{{ domains.bigbluebutton }}"
+    host: "{{ domains | get_domain('bigbluebutton') }}"
     port: 80
     delay: 5
     timeout: 600

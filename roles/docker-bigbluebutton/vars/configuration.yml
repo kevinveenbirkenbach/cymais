@@ -11,7 +11,7 @@ database:
   name:      "multiple_databases"
   username:  "postgres2"
 urls:
-  api:                        "{{ web_protocol }}://{{domains.bigbluebutton}}/bigbluebutton/"  # API Address used by Nextcloud Integration
+  api:                        "{{ web_protocol }}://{{domains | get_domain('bigbluebutton')}}/bigbluebutton/"  # API Address used by Nextcloud Integration
 features:
   matomo:             true
   css:                true

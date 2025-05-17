@@ -10,5 +10,5 @@ cert_mount_directory:         "{{docker_compose.directories.volumes}}certs/"
 # @see https://github.com/heviat/Mailu-OIDC/tree/2024.06
 docker_source:                "{{ 'ghcr.io/heviat' if applications[application_id].features.oidc | bool else 'ghcr.io/mailu' }}"
 
-domain:                       "{{ domains[application_id] }}"
+domain:                       "{{ domains | get_domain(application_id) }}"
 http_port:                     "{{ ports.localhost.http[application_id] }}"
