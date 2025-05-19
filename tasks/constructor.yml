@@ -17,6 +17,13 @@
     set_fact:
       domains: "{{ defaults_domains | combine(domains | default({}, true), recursive=True) }}"
 
+  - name: "Merged Variables"
+    # Add new merged variables here
+    debug:
+      msg:
+        domains:          "{{ defaults_domains }}"
+    when: enable_debug | bool
+
   - name: Merge redirect domain definitions into dictionary
     set_fact:
       combined_mapping: >-

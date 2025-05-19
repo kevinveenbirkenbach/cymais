@@ -8,7 +8,7 @@ sys.path.insert(
     os.path.abspath(os.path.join(os.path.dirname(__file__), '../../filter_plugins'))
 )
 
-from domain_filters import FilterModule
+from generate_base_sld_domains import FilterModule
 
 class TestGenerateBaseSldDomains(unittest.TestCase):
     def setUp(self):
