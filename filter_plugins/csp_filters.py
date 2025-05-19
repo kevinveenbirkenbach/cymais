@@ -126,7 +126,7 @@ class FilterModule(object):
                     self.is_feature_enabled(applications, 'portfolio_iframe', application_id)
                     and directive == 'frame-ancestors'
                 ):
-                    domain = domains.get(application_id)  # e.g. "sub.example.com" or "example.com"
+                    domain = domains.get('portfolio')[0]  # e.g. "sub.example.com" or "example.com"
                     # Extract the second-level + top-level domain and prefix with "*."
                     sld_tld = ".".join(domain.split(".")[-2:])  # yields "example.com"
                     tokens.append(f"*.{sld_tld}")               # yields "*.example.com"
