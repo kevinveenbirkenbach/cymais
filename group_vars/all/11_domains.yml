@@ -1,10 +1,6 @@
 defaults_domains: "{{ defaults_applications | canonical_domains_map(primary_domain) }}"
 
-defaults_redirect_domain_mappings: >-
-  {{ []
-     | add_redirect_if_group('lam',             domains.ldap,                    domains.lam,           group_names)
-     | add_redirect_if_group('phpmyldapadmin',  domains.ldap,                    domains.phpmyldapadmin,group_names)
-  }}
+defaults_redirect_domain_mappings: "{{ applications | domain_mappings(primary_domain) }}"
 
 # Domains which are deprecated and should be cleaned up
 deprecated_domains: []

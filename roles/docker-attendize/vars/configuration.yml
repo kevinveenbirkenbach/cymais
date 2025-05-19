@@ -1,12 +1,10 @@
-version:                      "latest"
+version:            "latest"
 credentials:
-# database_password: Password for the database
-
 features:
-  matomo:             true
-  css:                true
+  matomo:           true
+  css:              true
   portfolio_iframe: false
-  central_database:   true
+  central_database: true
 
 domains:
   canonical:
