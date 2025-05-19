@@ -6,7 +6,7 @@ import_realm:         True                                # If True realm will b
 credentials:
 features:
   matomo:             true
-  css:                true
+  css:                false
   portfolio_iframe:   true
   ldap:               true
   central_database:   true

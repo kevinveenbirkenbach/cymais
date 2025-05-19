@@ -167,5 +167,29 @@ class TestCspFilters(unittest.TestCase):
         )
         self.assertNotIn("https://www.google.com", header_disabled)
 
+    def test_build_csp_header_frame_ancestors(self):
+        """
+        frame-ancestors should include the wildcarded SLD+TLD when
+        'portfolio_iframe' is enabled, and omit it when disabled.
+        """
+        # Ensure feature enabled and domain set
+        self.apps['app1']['features']['portfolio_iframe'] = True
+        # simulate a subdomain for the application
+        self.domains['app1'] = 'sub.domain-example.com'
+        
+        header = self.filter.build_csp_header(self.apps, 'app1', self.domains, web_protocol='https')
+        # Expect '*.domain-example.com' in the frame-ancestors directive
+        self.assertRegex(
+            header,
+            r"frame-ancestors\s+'self'\s+\*\.domain-example\.com;"
+        )
+
+        # Now disable the feature and rebuild
+        self.apps['app1']['features']['portfolio_iframe'] = False
+        header_no = self.filter.build_csp_header(self.apps, 'app1', self.domains, web_protocol='https')
+        # Should no longer contain the wildcarded sld.tld
+        self.assertNotIn("*.domain-example.com", header_no)
+
+
 if __name__ == '__main__':
     unittest.main()

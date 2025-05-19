@@ -10,3 +10,9 @@ features:
   central_database:   true
   oauth2:             true
 hostname:             central-mariadb
+csp:
+  flags:
+    style-src:
+      unsafe-inline: true
+    script-src:
+      unsafe-inline: true

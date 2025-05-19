@@ -120,6 +120,16 @@ class FilterModule(object):
                 ):
                     tokens.append('https://www.google.com')
 
+                # Enable loading via ancestors
+                if (
+                    self.is_feature_enabled(applications, 'portfolio_iframe', application_id)
+                    and directive == 'frame-ancestors'
+                ):
+                    domain = domains.get(application_id)  # e.g. "sub.example.com" or "example.com"
+                    # Extract the second-level + top-level domain and prefix with "*."
+                    sld_tld = ".".join(domain.split(".")[-2:])  # yields "example.com"
+                    tokens.append(f"*.{sld_tld}")               # yields "*.example.com"
+
                 # whitelist
                 tokens += self.get_csp_whitelist(applications, application_id, directive)
 

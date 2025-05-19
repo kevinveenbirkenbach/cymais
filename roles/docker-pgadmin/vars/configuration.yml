@@ -13,3 +13,12 @@ features:
   portfolio_iframe:     false
   central_database:       true
   oauth2:                 true
+csp:
+  flags:
+    style-src:
+      unsafe-inline: true
+    script-src:
+      unsafe-inline: true
+  whitelist:
+    font-src:
+      - "data:"
