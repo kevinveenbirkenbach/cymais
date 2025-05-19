@@ -1,6 +1,2 @@
-defaults_domains: "{{ defaults_applications | canonical_domains_map(primary_domain) }}"
-
-defaults_redirect_domain_mappings: "{{ applications | domain_mappings(primary_domain) }}"
-
 # Domains which are deprecated and should be cleaned up
 deprecated_domains: []

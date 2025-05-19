@@ -31,5 +31,5 @@ The Nginx File Server role is ideal for hosting static files, sharing resources 
 
 - [Nginx Official Website](https://nginx.org/)
 - [Let's Encrypt](https://letsencrypt.org/)
-- [HTTP File Server (Wikipedia)](https://en.wikipedia.org/wiki/HTTP_File_Server)
+- [HTTP File Server (Wikipedia)](https://en.wikipedia.org/wiki/HTTP_file-server)
 - [HTTPS (Wikipedia)](https://en.wikipedia.org/wiki/HTTPS)

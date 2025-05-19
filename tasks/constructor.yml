@@ -9,43 +9,54 @@
     set_fact:
       system_email: "{{ default_system_email | combine(system_email | default({}, true), recursive=True) }}"
 
+  - name: Merge current play applications
+    set_fact:
+      current_play_applications: >-
+        {{ 
+          defaults_applications | 
+          combine(applications | default({}, true), recursive=True) |
+          applications_if_group_and_deps(group_names)
+          }}
+
+  - name: Merge current play domain definitions
+    set_fact:
+      current_play_domains: >- 
+        {{  current_play_applications |
+            canonical_domains_map(primary_domain) | 
+            combine(domains | default({}, true), recursive=True) 
+        }}
+
+  - name: Set current play all domains incl. www redirect if enabled
+    set_fact:
+      current_play_domains_all: >-
+        {{ 
+          current_play_domains  | 
+          generate_all_domains(
+              ('www_redirect' in group_names)
+          )
+        }}
+  
+  - name: Set current play redirect domain mappings 
+    set_fact:
+      current_play_redirect_domain_mappings: >-
+        {{ 
+          current_play_applications |
+          domain_mappings(primary_domain) | 
+          merge_mapping(redirect_domain_mappings, 'source') 
+        }}
+
   - name: Merge application definitions
     set_fact:
       applications: "{{ defaults_applications | combine(applications | default({}, true), recursive=True) }}"
 
-  - name: Merge domain definitions
+  - name: Merge domain definitions for all domains
     set_fact:
-      domains: "{{ defaults_domains | combine(domains | default({}, true), recursive=True) }}"
-
-  - name: Merge redirect domain definitions into dictionary
-    set_fact:
-      combined_mapping: >-
-        {{
-          (defaults_redirect_domain_mappings | items2dict(key_name='source', value_name='target'))
-          | combine(
-              (redirect_domain_mappings | default([]) | items2dict(key_name='source', value_name='target')),
-              recursive=True
-            )
+      domains: >-
+        {{ 
+          defaults_applications | 
+          canonical_domains_map(primary_domain) | 
+          combine(domains | default({}, true), recursive=True) 
         }}
-
-  - name: Transform combined mapping to list with source and target keys
-    set_fact:
-      redirect_domain_mappings: "{{ redirect_domain_mappings | default([]) + [ {'source': item.key, 'target': item.value} ] }}"
-    loop: "{{ combined_mapping | dict2items }}"
-
-# @todo implement
-#  - name: Ensure features.integrated is set based on group membership
-#    set_fact:
-#      applications: "{{ applications | combine({ item.key: updated_app }, recursive=True) }}"
-#    vars:
-#      original_app: "{{ applications[item.key] | default({}) }}"
-#      original_features: "{{ original_app.features | default({}) }}"
-#      needs_integration: original_features.integrated is not defined
-#      updated_features: >-
-#        {{ original_features | combine({'integrated': (item.key in group_names)}) if needs_integration else original_features }}
-#      updated_app: >-
-#        {{ original_app | combine({'features': updated_features}) }}
-#    loop: "{{ applications | dict2items }}"
 
   - name: Merge networks definitions
     set_fact:
@@ -62,34 +73,6 @@
   - name: Merge service_provider configuration
     set_fact:
       service_provider: "{{ defaults_service_provider | combine(service_provider | default({}, true), recursive=True) }}"
-
-  - name: Build base_sld_domains (sld.tld) in one go
-    set_fact:
-      base_sld_domains: >-
-        {{ domains
-           | generate_base_sld_domains(redirect_domain_mappings)
-        }}
-
-  - name: Set all domains incl. www redirect if enabled
-    set_fact:
-      all_domains: >-
-        {{ domains
-          | generate_all_domains(
-              ('www_redirect' in group_names)
-            )
-        }}
-
-  - name: "Merged Variables"
-    # Add new merged variables here
-    debug:
-      msg:
-        domains:          "{{ domains }}"
-        applications:     "{{ applications }}"
-        oidc:             "{{ oidc }}"
-        service_provider: "{{ service_provider }}"
-        users:            "{{ users }}"
-        all_domains:      "{{ all_domains }}"
-    when: enable_debug | bool
 
 - name: init root user
   include_role:

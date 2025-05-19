@@ -50,7 +50,7 @@ ports:
       keycloak:         8032
       lam:              8033
       phpmyadmin:       8034
-      snipe_it:         8035
+      snipe-it:         8035
       sphinx:           8036
       phpldapadmin:     8037
       fusiondirectory:  8038

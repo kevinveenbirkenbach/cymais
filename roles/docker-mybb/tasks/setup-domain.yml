@@ -1,5 +1,3 @@
-{# receives https certificate and setup proxy with domain replace #}
-
 - name: "include role receive certbot certificate"
   include_role: 
     name: nginx-https-get-cert

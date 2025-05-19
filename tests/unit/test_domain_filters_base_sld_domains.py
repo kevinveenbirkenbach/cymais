@@ -5,44 +5,66 @@ import os
 # Ensure filter_plugins directory is on the path
 sys.path.insert(
     0,
-    os.path.abspath(os.path.join(os.path.dirname(__file__), '../../filter_plugins'))
+    os.path.abspath(os.path.join(os.path.dirname(__file__), '../filter_plugins'))
 )
 
 from generate_base_sld_domains import FilterModule
+from ansible.errors import AnsibleFilterError
 
 class TestGenerateBaseSldDomains(unittest.TestCase):
     def setUp(self):
         self.filter = FilterModule().generate_base_sld_domains
 
-    def test_simple_string_and_redirect(self):
-        domains = {'app': 'sub.example.com'}
-        redirects = [{'source': 'alias.example.com'}]
-        result = self.filter(domains, redirects)
+    def test_simple_list(self):
+        domains = [
+            'sub.example.com',
+            'alias.example.com',
+            'example.com'
+        ]
+        result = self.filter(domains)
         self.assertEqual(result, ['example.com'])
 
-    def test_without_redirect_mappings(self):
-        domains = {
-            'a': 'a.co',
-            'b': ['b.co', 'sub.c.co'],
-            'c': {'x': 'x.co'}
-        }
-        result = self.filter(domains, None)
-        self.assertEqual(result, ['a.co', 'b.co', 'c.co', 'x.co'])
+    def test_mixed_tlds_and_subdomains(self):
+        domains = [
+            'a.co', 'b.co', 'sub.b.co', 'x.co', 'www.x.co'
+        ]
+        result = self.filter(domains)
+        self.assertEqual(result, ['a.co', 'b.co', 'x.co'])
 
-    def test_redirect_list_sources(self):
-        domains = {'app': 'app.domain.org'}
-        redirects = [{'source': ['alias.domain.org', 'deep.sub.example.net']}]
-        result = self.filter(domains, redirects)
-        self.assertEqual(result, ['domain.org', 'example.net'])
+    def test_invalid_non_string_raise(self):
+        for bad in [42, None]:
+            with self.assertRaises(AnsibleFilterError):
+                self.filter([bad])
 
-    def test_duplicate_entries_and_sorting(self):
-        domains = {
-            'x': ['one.com', 'sub.one.com'],
-            'y': 'two.com',
-            'z': {'k': 'one.com'}
-        }
-        redirects = [{'source': 'deep.two.com'}]
-        result = self.filter(domains, redirects)
+    def test_localhost_allowed(self):
+        domains = ['localhost']
+        result = self.filter(domains)
+        self.assertEqual(result, ['localhost'])
+
+    def test_ip_raises(self):
+        with self.assertRaises(AnsibleFilterError):
+            self.filter(['127.0.0.1'])
+
+    def test_nested_subdomains(self):
+        domains = ['sub.sub2.one']
+        result = self.filter(domains)
+        self.assertEqual(result, ['sub2.one'])
+
+    def test_deeply_nested_subdomains(self):
+        domains = ['sub3.sub2.sub1.one']
+        result = self.filter(domains)
+        self.assertEqual(result, ['sub1.one'])
+
+    def test_empty_and_malformed_raise(self):
+        for bad in ['', '.', '...']:
+            with self.assertRaises(AnsibleFilterError):
+                self.filter([bad])
+
+    def test_sorting_and_duplicates(self):
+        domains = [
+            'one.com', 'sub.one.com', 'two.com', 'deep.two.com', 'one.com'
+        ]
+        result = self.filter(domains)
         self.assertEqual(result, ['one.com', 'two.com'])
 
 if __name__ == '__main__':

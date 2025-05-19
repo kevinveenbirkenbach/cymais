@@ -47,7 +47,7 @@ for filename in os.listdir(config_path):
         # Prepare the URL and expected status codes
         url = f"{{ web_protocol }}://{domain}"
         
-        redirected_domains = [domain['source'] for domain in {{redirect_domain_mappings}}]
+        redirected_domains = [domain['source'] for domain in {{current_play_redirect_domain_mappings}}]
         {%- if domains.mailu | safe_var | bool %}
         redirected_domains.append("{{domains | get_domain('mailu')}}")
         {%- endif %}

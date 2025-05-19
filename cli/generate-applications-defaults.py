@@ -3,6 +3,7 @@
 import argparse
 import os
 import yaml
+import sys
 from pathlib import Path
 
 def load_yaml_file(path):
@@ -36,7 +37,13 @@ def main():
             continue
 
         vars_data = load_yaml_file(vars_main)
-        application_id = vars_data.get("application_id")
+        try:
+            application_id = vars_data.get("application_id")
+        except Exception as e:
+            # print the exception message
+            print(f"Warning: failed to read application_id from {vars_data} in {vars_main}.\nException: {e}", file=sys.stderr)
+            # exit with status 0
+            sys.exit(1)
 
         if not application_id:
             print(f"[!] Skipping {role_name}: application_id not defined in vars/main.yml")

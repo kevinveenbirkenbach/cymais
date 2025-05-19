@@ -1,7 +1,7 @@
 ---
-- name: Filter www-prefixed domains from all_domains
+- name: Filter www-prefixed domains from current_play_domains_all
   set_fact:
-    www_domains: "{{ all_domains | select('match', '^www\\.') | list }}"
+    www_domains: "{{ current_play_domains_all | select('match', '^www\\.') | list }}"
 
 - name: Include nginx-redirect-domains role for www-to-bare redirects
   include_role:

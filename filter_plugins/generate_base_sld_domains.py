@@ -5,33 +5,40 @@ class FilterModule(object):
     def filters(self):
         return {'generate_base_sld_domains': self.generate_base_sld_domains}
 
-    def generate_base_sld_domains(self, domains_dict, redirect_mappings):
+    def generate_base_sld_domains(self, domains_list):
         """
-        Flatten domains_dict und redirect_mappings, extrahiere SLDs (z.B. example.com),
-        dedupe und sortiere.
+        Given a list of hostnames, extract the second-level domain (SLD.TLD) for any hostname
+        with two or more labels, return single-label hostnames as-is, and reject IPs,
+        empty or malformed strings, and non-strings. Deduplicate and sort.
         """
-        def _flatten(domains):
-            flat = []
-            for v in (domains or {}).values():
-                if isinstance(v, str):
-                    flat.append(v)
-                elif isinstance(v, list):
-                    flat.extend(v)
-                elif isinstance(v, dict):
-                    flat.extend(v.values())
-            return flat
+        if not isinstance(domains_list, list):
+            raise AnsibleFilterError(
+                f"generate_base_sld_domains expected a list, got {type(domains_list).__name__}"
+            )
 
-        try:
-            flat = _flatten(domains_dict)
-            for mapping in redirect_mappings or []:
-                src = mapping.get('source')
-                if isinstance(src, str):
-                    flat.append(src)
-                elif isinstance(src, list):
-                    flat.extend(src)
+        ip_pattern = re.compile(r'^\d{1,3}(?:\.\d{1,3}){3}$')
+        results = set()
 
-            pattern = re.compile(r'^(?:.*\.)?([^.]+\.[^.]+)$')
-            slds = {m.group(1) for d in flat if (m := pattern.match(d))}
-            return sorted(slds)
-        except Exception as exc:
-            raise AnsibleFilterError(f"generate_base_sld_domains failed: {exc}")
+        for hostname in domains_list:
+            # type check
+            if not isinstance(hostname, str):
+                raise AnsibleFilterError(f"Invalid domain entry (not a string): {hostname!r}")
+
+            # malformed or empty
+            if not hostname or hostname.startswith('.') or hostname.endswith('.') or '..' in hostname:
+                raise AnsibleFilterError(f"Invalid domain entry (malformed): {hostname!r}")
+
+            # IP addresses disallowed
+            if ip_pattern.match(hostname):
+                raise AnsibleFilterError(f"IP addresses not allowed: {hostname!r}")
+
+            # single-label hostnames
+            labels = hostname.split('.')
+            if len(labels) == 1:
+                results.add(hostname)
+            else:
+                # always keep only the last two labels (SLD.TLD)
+                sld = ".".join(labels[-2:])
+                results.add(sld)
+
+        return sorted(results)

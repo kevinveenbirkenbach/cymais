@@ -5,12 +5,12 @@ services:
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
   application:
-    image: grokability/snipe-it:{{applications.snipe_it.version}}
+    image: grokability/snipe-it:{{applications[application_id].version}}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - data:/var/lib/snipeit
     ports:
-      - "127.0.0.1:{{ports.localhost.http.snipe_it}}:80"
+      - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
     healthcheck:
