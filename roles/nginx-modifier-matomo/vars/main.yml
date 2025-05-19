@@ -1,2 +1,2 @@
 base_domain:      "{{ domain | regex_replace('^(?:.*\\.)?(.+\\..+)$', '\\1') }}"
-verification_url: "{{ web_protocol }}://{{domains.matomo}}/index.php?module=API&method=SitesManager.getSitesIdFromSiteUrl&url=https://{{base_domain}}&format=json&token_auth={{applications.matomo.credentials.auth_token}}"
+verification_url: "{{ web_protocol }}://{{domains | get_domain('mastodon')}}/index.php?module=API&method=SitesManager.getSitesIdFromSiteUrl&url=https://{{base_domain}}&format=json&token_auth={{applications.matomo.credentials.auth_token}}"

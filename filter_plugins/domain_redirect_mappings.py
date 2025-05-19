@@ -8,9 +8,8 @@ class FilterModule(object):
         """
         Build a flat list of redirect mappings for all apps:
           - source: each alias domain
-          - target: the first canonical domain (app.domains.canonical[0] or default)
-
-        Logic for computing aliases and canonicals is identical to alias_domains_map + canonical_domains_map.
+          - target: the first canonical domain
+        Skip mappings where source == target, since they make no sense.
         """
         def parse_entry(domains_cfg, key, app_id):
             if key not in domains_cfg:
@@ -55,12 +54,9 @@ class FilterModule(object):
         for app_id, cfg in apps.items():
             domains_cfg = cfg.get('domains')
             if domains_cfg is None:
-                # no domains key → no aliases
                 alias_map[app_id] = []
                 continue
-
             if isinstance(domains_cfg, dict) and not domains_cfg:
-                # empty domains dict → only default
                 alias_map[app_id] = [default_domain(app_id, primary_domain)]
                 continue
 
@@ -79,13 +75,16 @@ class FilterModule(object):
 
             alias_map[app_id] = aliases
 
-        # 3) Build flat list of {source, target} entries
+        # 3) Build flat list of {source, target} entries,
+        #    skipping self-mappings
         mappings = []
         for app_id, sources in alias_map.items():
-            # pick first canonical domain as target
             canon_list = canonical_map.get(app_id, [])
             target = canon_list[0] if canon_list else default_domain(app_id, primary_domain)
             for src in sources:
+                if src == target:
+                    # skip self-redirects
+                    continue
                 mappings.append({
                     'source': src,
                     'target': target

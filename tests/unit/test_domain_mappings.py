@@ -30,9 +30,7 @@ class TestDomainMappings(unittest.TestCase):
     def test_empty_domains_cfg(self):
         apps = {'app1': {'domains': {}}}
         default = 'app1.example.com'
-        expected = [
-            {'source': default, 'target': default}
-        ]
+        expected = []
         result = self.filter.domain_mappings(apps, self.primary)
         self.assertEqual(result, expected)
 
@@ -45,7 +43,6 @@ class TestDomainMappings(unittest.TestCase):
         default = 'app1.example.com'
         expected = [
             {'source': 'alias.com',    'target': default},
-            {'source': default,        'target': default},
         ]
         result = self.filter.domain_mappings(apps, self.primary)
         # order not important
@@ -84,10 +81,7 @@ class TestDomainMappings(unittest.TestCase):
             'app2': {'domains': {'canonical': ['c2.com']}},
         }
         expected = [
-            # app1
             {'source': 'a1.com',              'target': 'app1.example.com'},
-            {'source': 'app1.example.com',    'target': 'app1.example.com'},
-            # app2
             {'source': 'app2.example.com',    'target': 'c2.com'},
         ]
         result = self.filter.domain_mappings(apps, self.primary)
