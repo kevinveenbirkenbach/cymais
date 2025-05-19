@@ -25,9 +25,9 @@ csp:
   whitelist:
     connect-src:
       - "{{ primary_domain }}"
-      - "{{ domains.matrix.synapse | safe_var }}"
+      - "matrix.{{ primary_domain }}"
     script-src:
-      - "{{ domains.matrix.synapse | safe_var }}"
+      - "element.{{ primary_domain }}"
       - "https://cdn.jsdelivr.net"
 plugins:
 # You need to enable them in the inventory file
@@ -39,3 +39,8 @@ plugins:
   slack:      false
   telegram:   false
   whatsapp:   false
+
+domains:
+  canonical:
+    synapse: "matrix.{{ primary_domain }}"
+    element: "element.{{ primary_domain }}"

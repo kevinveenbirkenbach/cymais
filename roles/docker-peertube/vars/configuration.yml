@@ -10,3 +10,8 @@ csp:
       unsafe-inline: true
     style-src:
       unsafe-inline: true
+domains:
+  canonical:
+    - "video.{{ primary_domain }}"
+  aliases:
+    - "videos.{{ primary_domain }}"

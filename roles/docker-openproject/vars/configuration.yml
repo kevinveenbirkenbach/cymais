@@ -17,3 +17,6 @@ csp:
   flags:
     script-src:
       unsafe-inline: true
+domains:
+  canonical:
+    - "project.{{ primary_domain }}"

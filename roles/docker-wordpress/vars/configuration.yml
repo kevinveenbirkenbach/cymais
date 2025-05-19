@@ -31,6 +31,9 @@ csp:
       - "https://fonts.bunny.net"
     script-src:
       - "https://cdn.gtranslate.net"
-      - "{{ domains | get_domain('wordpress') }}"
+      - "blog.{{ primary_domain }}"
     style-src:
       - "https://fonts.bunny.net"
+domains:
+  canonical:
+    - "blog.{{ primary_domain }}"

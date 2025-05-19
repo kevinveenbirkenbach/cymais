@@ -6,7 +6,7 @@ oauth2_proxy:
 features:
   matomo:             true
   css:                false
-  portfolio_iframe: false
+  portfolio_iframe:   false
   central_database:   true
   oauth2:             true
 hostname:             central-mariadb
@@ -16,3 +16,7 @@ csp:
       unsafe-inline: true
     script-src:
       unsafe-inline: true
+domains:
+  aliases:
+    - "mysql.{{ primary_domain }}"
+    - "mariadb.{{ primary_domain }}"

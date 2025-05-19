@@ -23,3 +23,6 @@ csp:
       - "blob:"
     manifest-src:
       - "data:"
+domains:
+  aliases:
+    - "git.{{ primary_domain }}"

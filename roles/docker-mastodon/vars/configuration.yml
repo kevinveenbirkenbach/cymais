@@ -1,19 +1,13 @@
-version:                      "latest"
-single_user_mode:             false                                           # Set true for initial setup
-setup:                        false                                           # Set true in inventory file to execute the setup and initializing procedures
-credentials:
-# Check out the README.md of the docker-mastodon role to get detailled instructions about how to setup the credentials
-#     database_password:                              
-#     secret_key_base:                                
-#     otp_secret:                                     
-#     vapid_private_key:                                  
-#     vapid_public_key:                                   
-#     active_record_encryption_deterministic_key:                            
-#     active_record_encryption_key_derivation_salt:                          
-#     active_record_encryption_primary_key:                                  
+version:              "latest"
+single_user_mode:     false                                           # Set true for initial setup
+setup:                false                                           # Set true in inventory file to execute the setup and initializing procedures
+credentials:                            
 features:
-  matomo: true
-  css: true
-  portfolio_iframe: false
-  oidc: true
-  central_database: true
+  matomo:             true
+  css:                true
+  portfolio_iframe:   false
+  oidc:               true
+  central_database:   true
+domains:
+  canonical:
+    - "microblog.{{ primary_domain }}"

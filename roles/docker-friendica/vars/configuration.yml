@@ -2,6 +2,9 @@ version:              "latest"
 features:
   matomo:             true
   css:                true
-  portfolio_iframe: true
+  portfolio_iframe:   true
   oidc:               true
   central_database:   true
+domains:
+  aliases:
+    - "social.{{ primary_domain }}"

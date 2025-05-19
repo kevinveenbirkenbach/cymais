@@ -7,3 +7,7 @@ features:
   css:                true
   portfolio_iframe: false
   central_database:   true
+
+domains:
+  canonical:
+    - "tickets.{{ primary_domain }}"

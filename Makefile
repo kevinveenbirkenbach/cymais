@@ -1,5 +1,5 @@
 ROLES_DIR         	:= ./roles
-APPLICATIONS_OUT  	:= ./group_vars/all/11_applications.yml
+APPLICATIONS_OUT  	:= ./group_vars/all/03_applications.yml
 APPLICATIONS_SCRIPT := ./cli/generate-applications-defaults.py
 INCLUDES_OUT      	:= ./tasks/include-docker-roles.yml
 INCLUDES_SCRIPT   	:= ./cli/generate-role-includes.py

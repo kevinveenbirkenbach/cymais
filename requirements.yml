@@ -4,4 +4,6 @@ collections:
 pacman:
   - ansible
   - python-passlib
-  - python-pytest 
+  - python-pytest
+yay:
+  - python-simpleaudio

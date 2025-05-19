@@ -3,7 +3,7 @@ version:              "latest"
 features:
   matomo:             true
   css:                true
-  portfolio_iframe: false
+  portfolio_iframe:   false
   central_database:   true
 csp:
   flags:
@@ -12,3 +12,8 @@ csp:
       unsafe-eval:   true
     style-src:
       unsafe-inline: true
+domains:
+  canonical:
+    - "picture.{{ primary_domain }}"
+  aliases:
+    - "pictures.{{ primary_domain }}"

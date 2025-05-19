@@ -15,7 +15,7 @@ def load_yaml_file(path):
 def main():
     parser = argparse.ArgumentParser(description="Generate defaults_applications YAML from docker roles.")
     parser.add_argument("--roles-dir", default="roles", help="Path to the roles directory (default: roles)")
-    parser.add_argument("--output-file", default="group_vars/all/11_applications.yml", help="Path to output YAML file")
+    parser.add_argument("--output-file", default="group_vars/all/03_applications.yml", help="Path to output YAML file")
 
     args = parser.parse_args()
     cwd = Path.cwd()

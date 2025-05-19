@@ -6,5 +6,9 @@ features:
   ldap:               true
   central_database:   true
 credentials:
-#  database_password: # Needs to be defined in inventory file
-#  django_secret:     # Needs to be defined in inventory file
+domains:
+  canonical:
+    - "audio.{{ primary_domain }}"
+  aliases:
+    - "music.{{ primary_domain }}"
+    - "sound.{{ primary_domain }}"

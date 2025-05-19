@@ -1,13 +1,13 @@
-version:                        "latest"
+version:          "latest"
 network:
-  local:                        True                                # Activates local network. Necessary for LDIF import routines
-  docker:                       True                                # Activates docker network to allow other docker containers to connect
-  public:                       False                               # Set to true in inventory file if you want to expose the LDAP port to the internet
-hostname:                       "ldap"                              # Hostname of the LDAP Server in the central_ldap network
-webinterface:                   "lam"                               # The webinterface which should be used. Possible: lam and phpldapadmin
+  local:          True                                # Activates local network. Necessary for LDIF import routines
+  docker:         True                                # Activates docker network to allow other docker containers to connect
+  public:         False                               # Set to true in inventory file if you want to expose the LDAP port to the internet
+hostname:         "ldap"                              # Hostname of the LDAP Server in the central_ldap network
+webinterface:     "lam"                               # The webinterface which should be used. Possible: lam and phpldapadmin
 users:  
   administrator:
-    username:                   "{{users.administrator.username}}"  # Administrator username
+    username:     "{{users.administrator.username}}"  # Administrator username
 credentials:
 features:
-  ldap: true
+  ldap:           true

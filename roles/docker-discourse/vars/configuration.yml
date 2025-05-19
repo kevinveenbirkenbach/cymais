@@ -17,3 +17,6 @@ csp:
   whitelist:
     font-src:
       - "http://*.{{primary_domain}}"
+domains:
+  canonical:
+    - "forum.{{ primary_domain }}"

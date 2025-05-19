@@ -1,6 +1,6 @@
-def is_feature_enabled(applications, feature: str, application_id: str) -> bool:
+def is_feature_enabled(applications: dict, feature: str, application_id: str) -> bool:
     """
-    Check if a generic feature is enabled for the given application.
+    Return True if applications[application_id].features[feature] is truthy.
     """
     app = applications.get(application_id, {})
     return bool(app.get('features', {}).get(feature, False))

@@ -1,0 +1,3 @@
+domains:
+  canonical:
+    - "wiki.{{ primary_domain }}"

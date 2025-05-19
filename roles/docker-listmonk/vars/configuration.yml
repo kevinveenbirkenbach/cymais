@@ -6,6 +6,9 @@ version:                    "latest"                              # Docker Image
 features:
   matomo:                   true
   css:                      true
-  portfolio_iframe:       true
+  portfolio_iframe:         true
   central_database:         true
   oidc:                     true
+domains:
+  canonical:
+    - "newsletter.{{ primary_domain }}"

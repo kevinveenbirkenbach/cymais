@@ -9,6 +9,11 @@ oauth2_proxy:
 features:
   matomo:             true
   css:                true
-  portfolio_iframe: false
+  portfolio_iframe:   false
   central_database:   true
   oauth2:             true
+domains:
+  canonical:
+    - "s.{{ primary_domain }}"
+  aliases:
+    - "short.{{ primary_domain }}"

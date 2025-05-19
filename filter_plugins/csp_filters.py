@@ -12,9 +12,10 @@ class FilterModule(object):
             'build_csp_header': self.build_csp_header,
         }
 
-    def is_feature_enabled(self, applications, feature: str, application_id: str) -> bool:
+    @staticmethod
+    def is_feature_enabled(applications: dict, feature: str, application_id: str) -> bool:
         """
-        Check if a generic feature is enabled for the given application.
+        Return True if applications[application_id].features[feature] is truthy.
         """
         app = applications.get(application_id, {})
         return bool(app.get('features', {}).get(feature, False))
@@ -99,7 +100,7 @@ class FilterModule(object):
 
             for directive in directives:
                 tokens = ["'self'"]
-                
+
                 # unsafe-eval / unsafe-inline flags
                 flags = self.get_csp_flags(applications, application_id, directive)
                 tokens += flags

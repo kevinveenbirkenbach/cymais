@@ -8,6 +8,11 @@
   - name: Merge system_email definitions
     set_fact:
       system_email: "{{ default_system_email | combine(system_email | default({}, true), recursive=True) }}"
+
+  - name: Merge application definitions
+    set_fact:
+      applications: "{{ defaults_applications | combine(applications | default({}, true), recursive=True) }}"
+
   - name: Merge domain definitions
     set_fact:
       domains: "{{ defaults_domains | combine(domains | default({}, true), recursive=True) }}"
@@ -27,10 +32,6 @@
     set_fact:
       redirect_domain_mappings: "{{ redirect_domain_mappings | default([]) + [ {'source': item.key, 'target': item.value} ] }}"
     loop: "{{ combined_mapping | dict2items }}"
-
-  - name: Merge application definitions
-    set_fact:
-      applications: "{{ defaults_applications | combine(applications | default({}, true), recursive=True) }}"
 
 # @todo implement
 #  - name: Ensure features.integrated is set based on group membership

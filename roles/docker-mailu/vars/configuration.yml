@@ -7,14 +7,12 @@ oidc:
   enable_user_creation:   true                              # Users will be created if not existing
 domain:                   "{{primary_domain}}"              # The main domain from which mails will be send \ email suffix behind @
 credentials:                                     
-# secret_key:                                               # Set to a randomly generated 16 bytes string
-# database_password:                                        # Needs to be set in inventory file
-# api_token:                                                # Configures the authentication token. The minimum length is 3 characters. This is a mandatory setting for using the RESTful API.
-# initial_administrator_password:                           # Initial administrator password for setup 
-# dkim_public_key:                                          # Must be set in inventory file
 features:
   matomo:                 true
   css:                    true
-  portfolio_iframe:     false                             # Deactivated mailu iframe loading until keycloak supports it
+  portfolio_iframe:       false                             # Deactivated mailu iframe loading until keycloak supports it
   oidc:                   true
   central_database:       false                             # Deactivate central database for mailu, I don't know why the database deactivation is necessary
+domains:
+  canonical:
+    - "mail.{{ primary_domain }}"

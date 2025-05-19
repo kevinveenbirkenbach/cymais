@@ -1,19 +1,22 @@
-version:                  "latest"
+version:              "latest"
 users:
   administrator:
-    username:             "{{ users.administrator.username }}"
-    email:                "{{ users.administrator.email }}"
+    username:         "{{ users.administrator.username }}"
+    email:            "{{ users.administrator.email }}"
 
 credentials:
 features:
   matomo:             true
   css:                false
-  portfolio_iframe: false
+  portfolio_iframe:   false
   ldap:               false
   oidc:               true
   central_database:   true
 csp:
   flags:
     script-src:
-      unsafe-inline: true
-      unsafe-eval:   true
+      unsafe-inline:  true
+      unsafe-eval:    true
+domains:
+  aliases:
+    - "crm.{{ primary_domain }}"

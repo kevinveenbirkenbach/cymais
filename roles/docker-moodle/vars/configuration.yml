@@ -23,3 +23,6 @@ csp:
       - "blob:"
     script-src:
       - "https://cdn.jsdelivr.net"
+domains:
+  canonical:
+    - "academy.{{ primary_domain }}"

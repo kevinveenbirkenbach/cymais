@@ -1,6 +1,6 @@
 features:
-  matomo:               true
-  css:                  true
+  matomo:             true
+  css:                true
   portfolio_iframe:   false
 csp:
   flags:
@@ -9,3 +9,6 @@ csp:
       unsafe-eval:    true
     style-src:
       unsafe-inline:  true
+domains:
+  canonical:
+    - "docs.{{ primary_domain }}"

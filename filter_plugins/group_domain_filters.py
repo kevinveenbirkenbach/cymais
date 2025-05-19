@@ -1,16 +1,9 @@
+from ansible.errors import AnsibleFilterError
+import sys
 import os
 import yaml
-from ansible.errors import AnsibleFilterError
 
 class FilterModule(object):
-    """
-    Custom filters for conditional domain assignments, handling both direct group matches
-    and recursive role dependency resolution.
-
-    Determines if a given application_id (domain_key) should have its domain added by checking:
-      - If domain_key is explicitly listed in group_names, or
-      - If domain_key matches any application_id of roles reachable from active groups via dependencies.
-    """
 
     def filters(self):
         return {
@@ -39,9 +32,27 @@ class FilterModule(object):
                 result[domain_key] = domain_value
                 return result
 
-            # Setup roles directory path
-            plugin_dir = os.path.dirname(__file__)
-            project_root = os.path.abspath(os.path.join(plugin_dir, '..'))
+            # Determine plugin directory based on filter plugin module if available
+            plugin_dir = None
+            for module in sys.modules.values():
+                fm = getattr(module, 'FilterModule', None)
+                if fm is not None:
+                    try:
+                        # Access staticmethod, compare underlying function
+                        if getattr(fm, 'add_domain_if_group') is DomainFilterUtil.add_domain_if_group:
+                            plugin_dir = os.path.dirname(module.__file__)
+                            break
+                    except Exception:
+                        continue
+
+            if plugin_dir:
+                # The plugin_dir is the filter_plugins directory; project_root is one level up
+                project_root = os.path.abspath(os.path.join(plugin_dir, '..'))
+            else:
+                # Fallback: locate project root relative to this utility file
+                plugin_dir = os.path.dirname(__file__)
+                project_root = os.path.abspath(os.path.join(plugin_dir, '..'))
+
             roles_dir = os.path.join(project_root, 'roles')
 
             # Collect all roles reachable from the active groups

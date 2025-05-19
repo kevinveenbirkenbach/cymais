@@ -1,21 +1,23 @@
 version:                        "latest"
 oauth2_proxy:
-  application:                  application # Needs to be the same as webinterface
-  port:                         80          # application port
+  application:                  application
+  port:                         80
 credentials:
-#  oauth2_proxy_cookie_secret:  None # Set via openssl rand -hex 16
-#  administrator_password:      "None"  # CHANGE for security reasons  
 features:
   matomo:                       true
   css:                          true
-  portfolio_iframe:           true
+  portfolio_iframe:             true
   ldap:                         true
   central_database:             false
   oauth2:                       false
 csp:
   flags:
     style-src:
-      unsafe-inline: true
+      unsafe-inline:            true
     script-src:
-      unsafe-inline: true
-      unsafe-eval:   true
+      unsafe-inline:            true
+      unsafe-eval:              true
+domains:
+  aliases:
+    - "ldap.{{primary_domain}}"
+

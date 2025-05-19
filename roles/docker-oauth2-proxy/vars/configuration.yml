@@ -1,7 +1,6 @@
-configuration_file: "oauth2-proxy-keycloak.cfg"                                                                 # Needs to be set true in the roles which use it
-version:            "latest"                                                                                    # Docker Image version
-redirect_url:       "{{ web_protocol }}://{{domains | get_domain('keycloak')}}/auth/realms/{{primary_domain}}/protocol/openid-connect/auth"  # The redirect URL for the OAuth2 flow. It should match the redirect URL configured in Keycloak.
-allowed_roles:      admin                                                                                       # Restrict it default to admin role. Use the vars/main.yml to open the specific role for other groups  
+configuration_file: "oauth2-proxy-keycloak.cfg" # Needs to be set true in the roles which use it
+version:            "latest"                    # Docker Image version
+allowed_roles:      admin                       # Restrict it default to admin role. Use the vars/main.yml to open the specific role for other groups  
 features:
   matomo: true
   css: true

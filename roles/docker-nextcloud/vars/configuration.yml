@@ -1,6 +1,4 @@
 version:                      "production"                                      # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
-ldap:
-  enabled:                    True                                              # Enables LDAP by default
 csp:
   flags:
     style-src:
@@ -10,6 +8,10 @@ csp:
   whitelist:
     font-src:
       - "data:"
+domains:
+  canonical:
+    - "cloud.{{ primary_domain }}"
+
 oidc:
   enabled:                    "{{ applications.nextcloud.features.oidc | default(true) }}"      # Activate OIDC for Nextcloud
   # floavor decides which OICD plugin should be used. 
@@ -23,7 +25,7 @@ credentials:
 features:
   matomo:                       true
   css:                          true
-  portfolio_iframe:           false
+  portfolio_iframe:             false
   ldap:                         true
   oidc:                         true
   central_database:             true
