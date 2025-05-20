@@ -19,4 +19,6 @@ galaxy_info:
   documentation: https://s.veen.world/cymais
   logo:
     class: "fa-solid fa-network-wired"
+  run_after:  
+      - docker-keycloak
 dependencies: []

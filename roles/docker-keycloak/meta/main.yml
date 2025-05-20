@@ -19,9 +19,6 @@ galaxy_info:
   documentation: https://s.veen.world/cymais
   logo:
     class: "fa-solid fa-lock"
+  run_after:  
+      - docker-matomo
 dependencies: []
-role_run_order:
-  before: 
-    - all
-  after:  
-    - docker-ldap

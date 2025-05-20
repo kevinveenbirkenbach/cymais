@@ -1,13 +1,10 @@
 import os
-import argparse
 import yaml
-
+import argparse
+from collections import defaultdict, deque
 
 def find_roles(roles_dir, prefix=None):
-    """
-    Yield absolute paths of role directories under roles_dir.
-    Only include roles whose directory name starts with prefix (if given) and contain meta/main.yml.
-    """
+    """Find all roles in the given directory."""
     for entry in os.listdir(roles_dir):
         if prefix and not entry.startswith(prefix):
             continue
@@ -16,87 +13,120 @@ def find_roles(roles_dir, prefix=None):
         if os.path.isdir(path) and os.path.isfile(meta_file):
             yield path, meta_file
 
-
-def load_role_order(meta_file):
-    """
-    Load the meta/main.yml and return the role_run_order field.
-    Returns a dict with 'before' and 'after' keys. Defaults to empty lists if not found.
-    """
+def load_run_after(meta_file):
+    """Load the 'run_after' from the meta/main.yml of a role."""
     with open(meta_file, 'r') as f:
         data = yaml.safe_load(f) or {}
-    run_order = data.get('role_run_order', {})
-    before = run_order.get('before', [])
-    after = run_order.get('after', [])
-    
-    # If "all" is in before or after, treat it as a special value
-    if "all" in before:
-        before.remove("all")
-        before.insert(0, "all")  # Treat "all" as the first item
-    if "all" in after:
-        after.remove("all")
-        after.append("all")  # Treat "all" as the last item
-    
-    return {
-        'before': before,
-        'after': after
-    }
+    return data.get('galaxy_info', {}).get('run_after', [])
 
+def load_application_id(role_path):
+    """Load the application_id from the vars/main.yml of the role."""
+    vars_file = os.path.join(role_path, 'vars', 'main.yml')
+    if os.path.exists(vars_file):
+        with open(vars_file, 'r') as f:
+            data = yaml.safe_load(f) or {}
+        return data.get('application_id')
+    return None
 
-def sort_roles_by_order(roles_dir, prefix=None):
-    roles = []
-    
-    # Collect roles and their before/after dependencies
+def build_dependency_graph(roles_dir, prefix=None):
+    """Build a dependency graph where each role points to the roles it depends on."""
+    graph = defaultdict(list)
+    in_degree = defaultdict(int)
+    roles = {}
+
     for role_path, meta_file in find_roles(roles_dir, prefix):
-        run_order = load_role_order(meta_file)
+        run_after = load_run_after(meta_file)
+        application_id = load_application_id(role_path)
         role_name = os.path.basename(role_path)
-        roles.append({
+        roles[role_name] = {
             'role_name': role_name,
-            'before': run_order['before'],
-            'after': run_order['after'],
+            'run_after': run_after,
+            'application_id': application_id,
             'path': role_path
-        })
+        }
 
-    # Now sort the roles based on before/after relationships
+        # If the role has dependencies, build the graph
+        for dependency in run_after:
+            graph[dependency].append(role_name)
+            in_degree[role_name] += 1
+
+        # Ensure roles with no dependencies have an in-degree of 0
+        if role_name not in in_degree:
+            in_degree[role_name] = 0
+
+    return graph, in_degree, roles
+
+def topological_sort(graph, in_degree):
+    """Perform topological sort on the dependency graph."""
+    # Queue for roles with no incoming dependencies (in_degree == 0)
+    queue = deque([role for role, degree in in_degree.items() if degree == 0])
     sorted_roles = []
-    unresolved_roles = roles[:]
-    
-    # First, place roles with "before: all" at the start
-    roles_with_before_all = [role for role in unresolved_roles if "all" in role['before']]
-    sorted_roles.extend(roles_with_before_all)
-    unresolved_roles = [role for role in unresolved_roles if "all" not in role['before']]
-    
-    while unresolved_roles:
-        # Find roles with no dependencies in 'before'
-        ready_roles = [role for role in unresolved_roles if not any(dep in [r['role_name'] for r in unresolved_roles] for dep in role['before'])]
-        
-        if not ready_roles:
-            raise ValueError("Circular dependency detected in 'before'/'after' fields")
 
-        for role in ready_roles:
-            sorted_roles.append(role)
-            unresolved_roles.remove(role)
+    while queue:
+        role = queue.popleft()
+        sorted_roles.append(role)
 
-            # Remove from the 'before' lists of remaining roles
-            for r in unresolved_roles:
-                r['before'] = [dep for dep in r['before'] if dep != role['role_name']]
+        # Reduce in-degree for roles dependent on the current role
+        for neighbor in graph[role]:
+            in_degree[neighbor] -= 1
+            if in_degree[neighbor] == 0:
+                queue.append(neighbor)
 
-    # Finally, place roles with "after: all" at the end
-    roles_with_after_all = [role for role in unresolved_roles if "all" in role['after']]
-    sorted_roles.extend(roles_with_after_all)
-    unresolved_roles = [role for role in unresolved_roles if "all" not in role['after']]
+    if len(sorted_roles) != len(in_degree):
+        # If the number of sorted roles doesn't match the number of roles,
+        # there was a cycle in the graph (not all roles could be sorted)
+        raise Exception("Circular dependency detected among the roles!")
 
     return sorted_roles
 
+def print_dependency_tree(graph):
+    """Print the dependency tree visually on the console."""
+    def print_node(role, indent=0):
+        print("  " * indent + role)
+        for dependency in graph[role]:
+            print_node(dependency, indent + 1)
+
+    # Print the tree starting from roles with no dependencies
+    all_roles = set(graph.keys())
+    dependent_roles = {role for dependencies in graph.values() for role in dependencies}
+    root_roles = all_roles - dependent_roles
+
+    printed_roles = []
+
+    def collect_roles(role, indent=0):
+        printed_roles.append(role)
+        for dependency in graph[role]:
+            collect_roles(dependency, indent + 1)
+
+    for root in root_roles:
+        collect_roles(root)
+
+    return printed_roles
 
 def generate_playbook_entries(roles_dir, prefix=None):
-    entries = []
-    sorted_roles = sort_roles_by_order(roles_dir, prefix)
+    """Generate playbook entries based on the sorted order."""
+    # Build dependency graph
+    graph, in_degree, roles = build_dependency_graph(roles_dir, prefix)
 
-    for role in sorted_roles:
-        # entry text
+    # Print and collect roles in tree order
+    tree_sorted_roles = print_dependency_tree(graph)
+
+    # Topologically sort the roles
+    sorted_role_names = topological_sort(graph, in_degree)
+
+    # Ensure that roles that appear in the tree come first
+    final_sorted_roles = [role for role in tree_sorted_roles if role in sorted_role_names]
+
+    # Include the remaining unsorted roles
+    final_sorted_roles += [role for role in sorted_role_names if role not in final_sorted_roles]
+
+    # Generate the playbook entries
+    entries = []
+    for role_name in final_sorted_roles:
+        role = roles[role_name]
         entry = (
-            f"- name: setup {role['role_name']}\n"
-            f"  when: (\"{role['role_name']}\" in group_names)\n"
+            f"- name: setup {role['application_id']}\n"  # Use application_id here
+            f"  when: ('{role['application_id']}' in group_names)\n"  # Correct condition format
             f"  include_role:\n"
             f"    name: {role['role_name']}\n"
         )
@@ -104,10 +134,9 @@ def generate_playbook_entries(roles_dir, prefix=None):
 
     return entries
 
-
 def main():
     parser = argparse.ArgumentParser(
-        description='Generate an Ansible playbook include file from Docker roles and application_ids, sorted by role_run_order.'
+        description='Generate an Ansible playbook include file from Docker roles, sorted by run_after order.'
     )
     parser.add_argument(
         'roles_dir',
@@ -123,8 +152,14 @@ def main():
         help='Output file path (default: stdout)',
         default=None
     )
+    parser.add_argument(
+        '-t', '--tree',
+        action='store_true',
+        help='Display the dependency tree of roles visually'
+    )
     args = parser.parse_args()
 
+    # Generate and output the playbook entries
     entries = generate_playbook_entries(args.roles_dir, args.prefix)
     output = ''.join(entries)
 
@@ -134,7 +169,6 @@ def main():
         print(f"Playbook entries written to {args.output}")
     else:
         print(output)
-
 
 if __name__ == '__main__':
     main()
