@@ -3,11 +3,11 @@
   include_role:
     name: nginx-https-get-cert-modify-all
   vars:
-    domain:     "{{domains | get_domain(application_id)}}"
+    domain:     "{{ domains | get_domain(application_id) }}"
     http_port:  "{{ ports.localhost.http[application_id] }}"
 
 - name: "generate {{domains | get_domain(application_id)}}.conf"
   template: 
     src:  "nginx.conf.j2" 
-    dest: "{{nginx.directories.http.servers}}{{domains | get_domain(application_id)}}.conf"
+    dest: "{{ nginx.directories.http.servers }}{{ domains | get_domain(application_id) }}.conf"
   notify: restart nginx

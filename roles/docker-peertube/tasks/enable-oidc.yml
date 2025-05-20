@@ -1,7 +1,28 @@
+- name: "Load OIDC Settings vor Peertube"
+  include_vars: vars/oidc-settings.yml
+  changed_when: false
+
 - name: "Install auth-openid-connect plugin for Peertube"
   command: >
     docker exec {{ container_name }} \
     npm run plugin:install -- --npm-name {{oidc_plugin}}
+
+#- name: "Insert the settings column of the auth-openid-connect plugin"
+#  community.postgresql.postgresql_query:
+#    db: "{{ database_name }}"
+#    login_user: "{{ database_username }}"
+#    login_password: "{{ database_password }}"
+#    login_host: "127.0.0.1"
+#    login_port: "{{ database_port }}"
+#    query: |
+#      INSERT INTO public.plugin (name, settings, enabled)
+#      VALUES (
+#        'auth-openid-connect',
+#        '{{ oidc_settings | to_json }}',
+#        TRUE
+#      );
+#  register: result_insert
+#  ignore_errors: yes
 
 - name: "Update the settings column of the auth-openid-connect plugin"
   community.postgresql.postgresql_query:
@@ -11,20 +32,8 @@
     login_host: "127.0.0.1"
     login_port: "{{ database_port }}"
     query: |
-      UPDATE plugins
-      SET settings = '{
-        "scope": "openid email profile",
-        "client-id": "{{ oidc.client.id }}",
-        "discover-url": "{{ oidc.client.discovery_document }}",
-        "client-secret": "{{ oidc.client.secret }}",
-        "mail-property": "email",
-        "auth-display-name": "{{ oidc.button_text }}",
-        "username-property": "{{ oidc.attributes.username }}",
-        "signature-algorithm": "RS256",
-        "display-name-property": "{{ oidc.attributes.username }}"
-      }',
+      UPDATE public.plugin
+      SET settings = '{{ oidc_settings | to_json }}',
       enabled = TRUE
       WHERE name = 'auth-openid-connect';
-  when: applications | is_feature_enabled('oidc', application_id)
-  become: true
-  become_user: "{{ container_name }}"
+  #when: result_insert.rc != 0
