@@ -56,8 +56,8 @@
     dest: "{{docker_repository_path}}/app/config.yaml"
   notify: docker compose project setup
   when:
-    - config_file.stat.exists
     - run_once_docker_portfolio is not defined
+    - config_file.stat.exists
 
 - name: Copy default config.yaml from the role template if host-specific file does not exist
   template:
@@ -65,8 +65,8 @@
     dest: "{{docker_repository_path}}/app/config.yaml"
   notify: docker compose project setup
   when:
-    - not config_file.stat.exists
     - run_once_docker_portfolio is not defined
+    - not config_file.stat.exists
 
 - name: add docker-compose.yml
   template:

@@ -18,5 +18,5 @@
       UPDATE public.plugin
       SET settings = '{{ oidc_settings | to_json }}',
       enabled = TRUE,
-      uninstalled = False,
+      uninstalled = FALSE
       WHERE name = 'auth-openid-connect';
