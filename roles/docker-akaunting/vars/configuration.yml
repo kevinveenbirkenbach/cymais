@@ -8,8 +8,6 @@ features:
   portfolio_iframe:       false
   central_database:       true
 credentials:
-#  database_password:     Needs to be defined in inventory file 
-#  setup_admin_password:  Needs to be defined in inventory file
 domains:
   canonical:
     - "accounting.{{ primary_domain }}"

@@ -2,7 +2,7 @@ version:              "1.4.0"
 features:
   matomo:             true
   css:                true
-  portfolio_iframe: true
+  portfolio_iframe:   true
   ldap:               true
   central_database:   true
 credentials:

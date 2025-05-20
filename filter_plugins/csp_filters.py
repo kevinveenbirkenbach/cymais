@@ -110,7 +110,7 @@ class FilterModule(object):
                     self.is_feature_enabled(applications, matomo_feature_name, application_id)
                     and directive in ['script-src', 'connect-src']
                 ):
-                    matomo_domain = domains.get('matomo')
+                    matomo_domain = domains.get('matomo')[0]
                     if matomo_domain:
                         tokens.append(f"{web_protocol}://{matomo_domain}")
 

@@ -1,3 +1,2 @@
 source_directory: "{{ playbook_dir }}/assets"
-url: "{{ web_protocol ~ '://' ~ 'file-server' 
-   | load_configuration('domains.canonical[0]') ~ '/assets' }}"
+url: "{{ web_protocol ~ '://' ~ 'files.' ~ primary_domain ~ '/assets' }}"

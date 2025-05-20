@@ -9,12 +9,12 @@ defaults_service_provider:
       city:         "Cybertown"
       postal_code:  "00001"
       country:      "Nexusland"
-    logo:           "{{ applications['assets-server'].url | safe_var | safe_join('img/logo.png') }}"
+    logo:           "{{ applications['assets-server'].url ~ '/img/logo.png' }}"
   platform:    
     titel:          "CyMaIS Demo"
     subtitel:       "The Future of Self-Hosted Infrastructure. Secure. Automated. Sovereign."
-    logo:           "{{ applications['assets-server'].url | safe_var | safe_join('img/logo.png') }}"
-    favicon:        "{{ applications['assets-server'].url | safe_var | safe_join('img/favicon.ico') }}"
+    logo:           "{{ applications['assets-server'].url ~ '/img/logo.png' }}"
+    favicon:        "{{ applications['assets-server'].url ~ '/img/favicon.ico' }}"
   contact:
     bluesky: >-
       {{ ('@' ~ users.administrator.username ~ '.' ~ domains.bluesky.api)
@@ -30,4 +30,4 @@ defaults_service_provider:
   legal:
     editorial_responsible:  "Johannes Gutenberg"
     source_code:            "https://github.com/kevinveenbirkenbach/cymais"
-    imprint: "{{web_protocol}}://{{domains['html-server']}}/imprint.html"
+    imprint: "{{web_protocol}}://{{ domains | get_domain('html-server') }}/imprint.html"
