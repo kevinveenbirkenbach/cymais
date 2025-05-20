@@ -7,23 +7,6 @@
     docker exec {{ container_name }} \
     npm run plugin:install -- --npm-name {{oidc_plugin}}
 
-#- name: "Insert the settings column of the auth-openid-connect plugin"
-#  community.postgresql.postgresql_query:
-#    db: "{{ database_name }}"
-#    login_user: "{{ database_username }}"
-#    login_password: "{{ database_password }}"
-#    login_host: "127.0.0.1"
-#    login_port: "{{ database_port }}"
-#    query: |
-#      INSERT INTO public.plugin (name, settings, enabled)
-#      VALUES (
-#        'auth-openid-connect',
-#        '{{ oidc_settings | to_json }}',
-#        TRUE
-#      );
-#  register: result_insert
-#  ignore_errors: yes
-
 - name: "Update the settings column of the auth-openid-connect plugin"
   community.postgresql.postgresql_query:
     db: "{{ database_name }}"
@@ -34,6 +17,6 @@
     query: |
       UPDATE public.plugin
       SET settings = '{{ oidc_settings | to_json }}',
-      enabled = TRUE
+      enabled = TRUE,
+      uninstalled = False,
       WHERE name = 'auth-openid-connect';
-  #when: result_insert.rc != 0
