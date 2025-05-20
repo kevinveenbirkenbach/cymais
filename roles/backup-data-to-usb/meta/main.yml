@@ -23,5 +23,5 @@ galaxy_info:
   issue_tracker_url: https://s.veen.world/cymaisissues
   documentation: https://s.veen.world/cymais
 dependencies:
-  - role: cleanup-backups-service
-  - role: system-maintenance-lock
+  - cleanup-backups-service
+  - system-maintenance-lock

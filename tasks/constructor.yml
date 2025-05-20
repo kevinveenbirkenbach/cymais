@@ -28,6 +28,24 @@
             canonical_domains_map(primary_domain) | 
             combine(domains | default({}, true), recursive=True) 
         }}
+  
+  - name: Merge domain definitions for all domains
+    set_fact:
+      domains: >-
+        {{ 
+          defaults_applications | 
+          canonical_domains_map(primary_domain) | 
+          combine(domains | default({}, true), recursive=True) 
+        }}
+
+  - name: Merge redirect_domain_mappings
+    set_fact:
+      # The following mapping is necessary to define the exceptions for domains which are created, but which aren't used
+      redirect_domain_mappings: "{{
+        []  | 
+        add_redirect_if_group('assets-server',    domains | get_domain('assets-server'), domains | get_domain('file-server'),  group_names) | 
+        merge_mapping(redirect_domain_mappings, 'source')
+      }}"
 
   - name: Set current play redirect domain mappings 
     set_fact:
@@ -51,15 +69,6 @@
           generate_all_domains(
             ('www_redirect' in group_names)
           )
-        }}
-
-  - name: Merge domain definitions for all domains
-    set_fact:
-      domains: >-
-        {{ 
-          defaults_applications | 
-          canonical_domains_map(primary_domain) | 
-          combine(domains | default({}, true), recursive=True) 
         }}
 
   - name: Merge networks definitions

@@ -3,14 +3,28 @@
     docker exec {{ container_name }} \
     npm run plugin:install -- --npm-name {{oidc_plugin}}
 
-- name: Update Peertube config for OpenID Connect
-  ansible.builtin.lineinfile:
-    path: /opt/peertube/config/production.yaml
-    regexp: '^{{ item.key }}:'
-    line: "{{ item.key }}: {{ item.value }}"
-  loop:
-    - { key: "oidc.client_id", value: "{{ oidc_client_id }}" }
-    - { key: "oidc.client_secret", value: "{{ oidc_client_secret }}" }
-    - { key: "oidc.discover_url", value: "{{ oidc_discover_url }}" }
-    - { key: "oidc.scope", value: "openid email profile" }
-  become: yes
+- name: "Update the settings column of the auth-openid-connect plugin"
+  community.postgresql.postgresql_query:
+    db: "{{ database_name }}"
+    login_user: "{{ database_username }}"
+    login_password: "{{ database_password }}"
+    login_host: "127.0.0.1"
+    login_port: "{{ database_port }}"
+    query: |
+      UPDATE plugins
+      SET settings = '{
+        "scope": "openid email profile",
+        "client-id": "{{ oidc.client.id }}",
+        "discover-url": "{{ oidc.client.discovery_document }}",
+        "client-secret": "{{ oidc.client.secret }}",
+        "mail-property": "email",
+        "auth-display-name": "{{ oidc.button_text }}",
+        "username-property": "{{ oidc.attributes.username }}",
+        "signature-algorithm": "RS256",
+        "display-name-property": "{{ oidc.attributes.username }}"
+      }',
+      enabled = TRUE
+      WHERE name = 'auth-openid-connect';
+  when: applications | is_feature_enabled('oidc', application_id)
+  become: true
+  become_user: "{{ container_name }}"

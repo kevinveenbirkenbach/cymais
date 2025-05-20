@@ -13,7 +13,7 @@ def get_meta_info(role_path):
     if not os.path.isfile(meta_file):
         return [], []
     meta_data = load_yaml_file(meta_file)
-    run_order = meta_data.get('applications_run_order', {})
+    run_order = meta_data.get('role_run_order', {})
     before = run_order.get('before', [])
     after = run_order.get('after', [])
     return before, after

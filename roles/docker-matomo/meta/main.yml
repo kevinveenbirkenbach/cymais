@@ -18,4 +18,8 @@ galaxy_info:
   documentation: "https://s.veen.world/cymais"
   logo:
     class: "fa-solid fa-chart-line"
-dependencies: []
+role_run_order:
+  before:
+    - all
+  after: 
+    - docker-keycloak

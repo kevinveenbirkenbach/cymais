@@ -20,3 +20,8 @@ galaxy_info:
   logo:
     class: "fa-solid fa-lock"
 dependencies: []
+role_run_order:
+  before: 
+    - all
+  after:  
+    - docker-ldap
