@@ -2,9 +2,12 @@ import pytest
 import sys, os
 from pathlib import Path
 
-# 1) Add project root (two levels up) so 'cli' is on the path
-PROJECT_ROOT = Path(__file__).parent.parent.parent.resolve()
-sys.path.insert(0, str(PROJECT_ROOT))
+sys.path.insert(
+    0,
+    os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "../../cli")
+    ),
+)
 
 # 2) Import from the cli package
 import cli.create_credentials as gvc
