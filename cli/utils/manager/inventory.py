@@ -44,7 +44,7 @@ class InventoryManager:
         "central_database" in data["features"] and \
         data["features"]["central_database"]:
             # Add 'central_database' value (password) to credentials
-            target.setdefault("credentials", {})["central_database"] = self.generate_value("alphanumeric")
+            target.setdefault("credentials", {})["database_password"] = self.generate_value("alphanumeric")
 
         # Apply recursion only for the `credentials` section
         self.recurse_credentials(self.schema, target)
