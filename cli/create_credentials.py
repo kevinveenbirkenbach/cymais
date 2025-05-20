@@ -9,6 +9,12 @@ from utils.handler.vault import VaultHandler, VaultScalar
 from utils.handler.yaml import YamlHandler
 from yaml.dumper import SafeDumper
 
+def ask_for_confirmation(key: str) -> bool:
+    """Prompt the user for confirmation to overwrite an existing value."""
+    confirmation = input(f"Are you sure you want to overwrite the value for '{key}'? (y/n): ").strip().lower()
+    return confirmation == 'y'
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Selectively vault credentials + become-password in your inventory."
@@ -17,6 +23,7 @@ def main():
     parser.add_argument("--inventory-file", required=True, help="Host vars file to update")
     parser.add_argument("--vault-password-file", required=True, help="Vault password file")
     parser.add_argument("--set", nargs="*", default=[], help="Override values key.subkey=VALUE")
+    parser.add_argument("-f", "--force", action="store_true", help="Force overwrite without confirmation")
     args = parser.parse_args()
 
     # Parsing overrides
@@ -46,7 +53,15 @@ def main():
             body = "\n".join(line[indent:] for line in lines[1:])
             updated_inventory["ansible_become_password"] = VaultScalar(body)
 
-    # 4) Save the updated inventory to file
+    # 4) Ask for confirmation before overwriting existing values
+    if not args.force:
+        for key in updated_inventory.get("applications", {}).get(manager.app_id, {}).get("credentials", {}).keys():
+            if key in updated_inventory["applications"][manager.app_id]["credentials"]:
+                if not ask_for_confirmation(key):
+                    print(f"Skipping overwrite of '{key}'.")
+                    continue
+
+    # 5) Save the updated inventory to file
     with open(args.inventory_file, "w", encoding="utf-8") as f:
         yaml.dump(updated_inventory, f, sort_keys=False, Dumper=SafeDumper)
 
