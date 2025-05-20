@@ -1,9 +1,4 @@
 credentials:
-  database_password:
-    description: "Password for the Keycloak PostgreSQL database"
-    algorithm: "bcrypt"
-    validation: "^\\$2[aby]\\$.{56}$"
-
   administrator_password:
     description: "Password for the Keycloak administrator user (used in bootstrap and CLI access)"
     algorithm: "sha256"

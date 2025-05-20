@@ -1,8 +1,4 @@
 credentials:
-  database_password:
-    description: "Password for the Moodle database user"
-    algorithm: "bcrypt"
-    validation: "^\\$2[aby]\\$.{56}$"
   user_password:
     description: "Initial password for the Moodle admin user"
     algorithm: "sha256"

@@ -1,9 +1,4 @@
 credentials:
-  database_password:
-    description: "Password for the GitLab PostgreSQL database"
-    algorithm: "bcrypt"
-    validation: "^\\$2[aby]\\$.{56}$"
-
   initial_root_password:
     description: "Initial password for the GitLab root user"
     algorithm: "sha256"

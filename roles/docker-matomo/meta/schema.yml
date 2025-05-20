@@ -1,8 +1,4 @@
 credentials:
-  database_password:
-    description: "Password for the Matomo database user"
-    algorithm: "bcrypt"
-    validation: "^\\$2[aby]\\$.{56}$"
 
   auth_token:
     description: "Authentication token for the Matomo HTTP API (used for automation and integrations)"

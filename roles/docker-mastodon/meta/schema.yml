@@ -1,9 +1,4 @@
 credentials:
-  database_password:
-    description: "Password for the Mastodon PostgreSQL database user"
-    algorithm: "bcrypt"
-    validation: "^\\$2[aby]\\$.{56}$"
-
   secret_key_base:
     description: "Main secret key used to verify the integrity of signed cookies and tokens"
     algorithm: "sha256"

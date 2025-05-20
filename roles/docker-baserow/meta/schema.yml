@@ -1,5 +1,0 @@
-credentials:
-  database_password:
-    description: "Password for the PostgreSQL database used by Baserow"
-    algorithm: "bcrypt"
-    validation: "^\\$2[aby]\\$.{56}$"

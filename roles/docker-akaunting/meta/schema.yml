@@ -1,8 +1,4 @@
 credentials:
-  database_password:
-    description: "Database password for MariaDB"
-    algorithm: "bcrypt"
-    validation: "^\\$2[aby]\\$.{56}$"
   setup_admin_password:
     description: "Initial admin user password for Akaunting"
     algorithm: "sha256"

@@ -1,9 +1,4 @@
 credentials:
-  database_password:
-    description: "Password for the Snipe-IT database user"
-    algorithm: "bcrypt"
-    validation: "^\\$2[aby]\\$.{56}$"
-
   app_key:
     description: "Application encryption key for Snipe-IT (.env APP_KEY)"
     algorithm: "plain"
