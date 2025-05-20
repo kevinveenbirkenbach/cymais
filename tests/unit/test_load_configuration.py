@@ -15,9 +15,9 @@ class TestLoadConfigurationFilter(unittest.TestCase):
     def setUp(self):
         _cfg_cache.clear()
         self.f = FilterModule().filters()['load_configuration']
-        self.app = 'html_server'
+        self.app = 'html-server'
         self.nested_cfg = {
-            'html_server': {
+            'html-server': {
                 'features': {'matomo': True},
                 'domains': {'canonical': ['html.example.com']}
             }
@@ -76,8 +76,8 @@ class TestLoadConfigurationFilter(unittest.TestCase):
     @patch('load_configuration.os.listdir', return_value=['r1'])
     @patch('load_configuration.os.path.isdir', return_value=True)
     @patch('load_configuration.os.path.exists', return_value=True)
-    @patch('load_configuration.open', mock_open(read_data="html_server: {}"))
-    @patch('load_configuration.yaml.safe_load', return_value={'html_server': {}})
+    @patch('load_configuration.open', mock_open(read_data="html-server: {}"))
+    @patch('load_configuration.yaml.safe_load', return_value={'html-server': {}})
     def test_key_not_found_after_load(self, *_):
         with self.assertRaises(AnsibleFilterError):
             self.f(self.app, 'does.not.exist')

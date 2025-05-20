@@ -1,8 +1,3 @@
-- name: "Debug: cloudflare_domains"
-  debug:
-    var: cloudflare_domains
-  when: enable_debug
-
 - name: Create or update Cloudflare A-record for {{ item }}
   community.general.cloudflare_dns:
     api_token: "{{ cloudflare_api_token }}"

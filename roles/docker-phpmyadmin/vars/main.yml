@@ -1,3 +1,3 @@
 application_id:       "phpmyadmin"
 database_type:        "mariadb"
-database_host:        "{{ 'central-' + database_type if applications | is_feature_enabled('central_database',application_id)"
+database_host:        "{{ 'central-' + database_type if applications | is_feature_enabled('central_database',application_id) }}"

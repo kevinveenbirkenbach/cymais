@@ -32,7 +32,7 @@
   include_role:
     name: nginx-redirect-domains
   vars:
-    domain_mappings: "{{current_play_redirect_domain_mappings}}"
+    domain_mappings: "{{ current_play_domain_mappings_redirect}}"
 
 - name: setup www redirect 
   when: ("www_redirect" in group_names)

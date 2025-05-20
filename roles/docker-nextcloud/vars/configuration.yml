@@ -20,8 +20,6 @@ oidc:
   # @see https://apps.nextcloud.com/apps/sociallogin
   flavor:                     "oidc_login"                                      # Keeping on sociallogin because the other option is not implemented yet                                             
 credentials:
-#  database_password:          Null       # Needs to be set in inventory file
-#  administrator_password:     None       # Keep in mind to change the password fast after creation and activate 2FA
 features:
   matomo:                       true
   css:                          true

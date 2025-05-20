@@ -9,14 +9,17 @@
     set_fact:
       system_email: "{{ default_system_email | combine(system_email | default({}, true), recursive=True) }}"
 
+  - name: Merge application definitions
+    set_fact:
+      applications: "{{ defaults_applications | combine(applications | default({}, true), recursive=True) }}"
+
   - name: Merge current play applications
     set_fact:
       current_play_applications: >-
         {{ 
-          defaults_applications | 
-          combine(applications | default({}, true), recursive=True) |
+          applications |
           applications_if_group_and_deps(group_names)
-          }}
+        }}
 
   - name: Merge current play domain definitions
     set_fact:
@@ -26,28 +29,29 @@
             combine(domains | default({}, true), recursive=True) 
         }}
 
-  - name: Set current play all domains incl. www redirect if enabled
-    set_fact:
-      current_play_domains_all: >-
-        {{ 
-          current_play_domains  | 
-          generate_all_domains(
-              ('www_redirect' in group_names)
-          )
-        }}
-  
   - name: Set current play redirect domain mappings 
     set_fact:
-      current_play_redirect_domain_mappings: >-
+      current_play_domain_mappings_redirect: >-
         {{ 
           current_play_applications |
           domain_mappings(primary_domain) | 
           merge_mapping(redirect_domain_mappings, 'source') 
         }}
 
-  - name: Merge application definitions
+  - name: Set current play all domains incl. www redirect if enabled
     set_fact:
-      applications: "{{ defaults_applications | combine(applications | default({}, true), recursive=True) }}"
+      current_play_domains_all: >-
+        {{
+          (current_play_domains |
+          combine(
+            current_play_domain_mappings_redirect | 
+            items2dict(key_name='target', value_name='source'),
+            recursive=True
+          )) |
+          generate_all_domains(
+            ('www_redirect' in group_names)
+          )
+        }}
 
   - name: Merge domain definitions for all domains
     set_fact:
