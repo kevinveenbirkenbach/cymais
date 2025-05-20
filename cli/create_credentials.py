@@ -9,6 +9,7 @@ from utils.handler.vault import VaultHandler, VaultScalar
 from utils.handler.yaml import YamlHandler
 from yaml.dumper import SafeDumper
 
+
 def ask_for_confirmation(key: str) -> bool:
     """Prompt the user for confirmation to overwrite an existing value."""
     confirmation = input(f"Are you sure you want to overwrite the value for '{key}'? (y/n): ").strip().lower()
@@ -40,8 +41,19 @@ def main():
     # 1) Apply schema and update inventory
     updated_inventory = manager.apply_schema()
 
-    # 2) Vault any leaves under 'credentials:' mappings
-    manager.vault_handler.encrypt_leaves(updated_inventory, args.vault_password_file)
+    # 2) Apply vault encryption ONLY to 'credentials' fields (we no longer apply it globally)
+    credentials = updated_inventory.get("applications", {}).get(manager.app_id, {}).get("credentials", {})
+    for key, value in credentials.items():
+        if not value.lstrip().startswith("$ANSIBLE_VAULT"):  # Only apply encryption if the value is not already vaulted
+            if key in credentials and not args.force:
+                if not ask_for_confirmation(key):  # Ask for confirmation before overwriting
+                    print(f"Skipping overwrite of '{key}'.")
+                    continue
+            encrypted_value = manager.vault_handler.encrypt_string(value, key)
+            lines = encrypted_value.splitlines()
+            indent = len(lines[1]) - len(lines[1].lstrip())
+            body = "\n".join(line[indent:] for line in lines[1:])
+            credentials[key] = VaultScalar(body)  # Store encrypted value as VaultScalar
 
     # 3) Vault top-level ansible_become_password if present
     if "ansible_become_password" in updated_inventory:
@@ -53,19 +65,12 @@ def main():
             body = "\n".join(line[indent:] for line in lines[1:])
             updated_inventory["ansible_become_password"] = VaultScalar(body)
 
-    # 4) Ask for confirmation before overwriting existing values
-    if not args.force:
-        for key in updated_inventory.get("applications", {}).get(manager.app_id, {}).get("credentials", {}).keys():
-            if key in updated_inventory["applications"][manager.app_id]["credentials"]:
-                if not ask_for_confirmation(key):
-                    print(f"Skipping overwrite of '{key}'.")
-                    continue
-
-    # 5) Save the updated inventory to file
+    # 4) Save the updated inventory to file
     with open(args.inventory_file, "w", encoding="utf-8") as f:
         yaml.dump(updated_inventory, f, sort_keys=False, Dumper=SafeDumper)
 
     print(f"✅ Inventory selectively vaulted → {args.inventory_file}")
+
 
 if __name__ == "__main__":
     main()

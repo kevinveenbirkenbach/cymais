@@ -47,15 +47,17 @@ class InventoryManager:
                 "value": self.generate_value("alphanumeric")  # Generate the password value
             }
 
-        self.recurse(self.schema, target)
+        # Apply recursion only for the `credentials` section
+        self.recurse_credentials(self.schema, target)
         return self.inventory
 
-    def recurse(self, branch: dict, dest: dict, prefix: str = ""):
-        """Recursively process the schema and generate values."""
+    def recurse_credentials(self, branch: dict, dest: dict, prefix: str = ""):
+        """Recursively process only the 'credentials' section and generate values."""
         for key, meta in branch.items():
             full_key = f"{prefix}.{key}" if prefix else key
 
-            if isinstance(meta, dict) and all(k in meta for k in ("description", "algorithm", "validation")):
+            # Only process 'credentials' section for encryption
+            if prefix == "credentials" and isinstance(meta, dict) and all(k in meta for k in ("description", "algorithm", "validation")):
                 alg = meta["algorithm"]
                 if alg == "plain":
                     # Must be supplied via --set
@@ -66,6 +68,14 @@ class InventoryManager:
                 else:
                     plain = self.overrides.get(full_key, self.generate_value(alg))
 
+                # Check if the value already starts with '$ANSIBLE_VAULT', indicating it's already vaulted
+                existing_value = dest.get(key)
+                if existing_value and existing_value.lstrip().startswith("$ANSIBLE_VAULT"):
+                    # Skip vaulting if the value is already vaulted
+                    print(f"Skipping encryption for '{key}', as it is already vaulted.")
+                    continue
+
+                # Encrypt only if it's not already vaulted
                 snippet = self.vault_handler.encrypt_string(plain, key)
                 lines = snippet.splitlines()
                 indent = len(lines[1]) - len(lines[1].lstrip())
@@ -74,11 +84,11 @@ class InventoryManager:
 
             elif isinstance(meta, dict):
                 sub = dest.setdefault(key, {})
-                self.recurse(meta, sub, full_key)
+                self.recurse_credentials(meta, sub, full_key)
             else:
                 dest[key] = meta
-    
-    def generate_secure_alphanumeric(length: int) -> str:
+
+    def generate_secure_alphanumeric(self, length: int) -> str:
         """Generate a cryptographically secure random alphanumeric string of the given length."""
         characters = string.ascii_letters + string.digits  # a-zA-Z0-9
         return ''.join(secrets.choice(characters) for _ in range(length))
@@ -95,5 +105,5 @@ class InventoryManager:
             pw = secrets.token_urlsafe(16).encode()
             return bcrypt.hashpw(pw, bcrypt.gensalt()).decode()
         if algorithm == "alphanumeric":
-            return generate_secure_alphanumeric(64)
+            return self.generate_secure_alphanumeric(64)
         return "undefined"

@@ -1,9 +1,4 @@
 credentials:
-  database_password:
-    description: "Password for the PeerTube PostgreSQL database"
-    algorithm: "bcrypt"
-    validation: "^\\$2[aby]\\$.{56}$"
-
   secret:
     description: "PeerTube secret used for session signing and CSRF protection"
     algorithm: "sha256"
