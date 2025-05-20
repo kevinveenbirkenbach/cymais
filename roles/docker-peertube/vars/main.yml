@@ -1,2 +1,4 @@
-application_id:      "peertube"
-database_type:      "postgres"
+application_id: "peertube"
+database_type:  "postgres"
+container_name: "{{ application_id }}"
+oidc_plugin:    "peertube-plugin-auth-openid-connect"

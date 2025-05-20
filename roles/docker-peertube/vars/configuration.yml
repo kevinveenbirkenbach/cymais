@@ -4,6 +4,7 @@ features:
   css:                false
   portfolio_iframe:   false
   central_database:   true
+  oidc:               false
 csp:
   flags:
     script-src:

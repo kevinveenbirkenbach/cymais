@@ -13,3 +13,11 @@
 
 - name: "copy docker-compose.yml and env file"
   include_tasks: copy-docker-compose-and-env.yml
+
+- name: "Install and activate auth-openid-connect plugin if OIDC is enabled"
+  include_tasks: enable-oidc.yml
+  when: applications | is_feature_enabled('oidc',application_id)
+
+- name: "Deinstall and disable auth-openid-connect plugin if OIDC is enabled"
+  include_tasks: disable-oidc.yml
+  when: applications | is_feature_enabled('oidc',application_id)

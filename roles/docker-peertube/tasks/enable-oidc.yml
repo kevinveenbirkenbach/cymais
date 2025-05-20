@@ -1,0 +1,16 @@
+- name: "Install auth-openid-connect plugin for Peertube"
+  command: >
+    docker exec {{ container_name }} \
+    npm run plugin:install -- --npm-name {{oidc_plugin}}
+
+- name: Update Peertube config for OpenID Connect
+  ansible.builtin.lineinfile:
+    path: /opt/peertube/config/production.yaml
+    regexp: '^{{ item.key }}:'
+    line: "{{ item.key }}: {{ item.value }}"
+  loop:
+    - { key: "oidc.client_id", value: "{{ oidc_client_id }}" }
+    - { key: "oidc.client_secret", value: "{{ oidc_client_secret }}" }
+    - { key: "oidc.discover_url", value: "{{ oidc_discover_url }}" }
+    - { key: "oidc.scope", value: "openid email profile" }
+  become: yes
