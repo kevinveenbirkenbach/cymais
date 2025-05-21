@@ -1,4 +1,4 @@
-site_titel:           "Global Learning Academy on {{primary_domain}}"
+site_titel:           "Academy on {{primary_domain}}"
 users:
   administrator:
     username:         "{{users.administrator.username}}"

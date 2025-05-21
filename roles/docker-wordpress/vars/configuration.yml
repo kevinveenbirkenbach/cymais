@@ -13,7 +13,7 @@ plugins:
 features:
   matomo:             true
   css:                false
-  portfolio_iframe: false
+  portfolio_iframe:   false
   oidc:               true
   central_database:   true
 csp:
