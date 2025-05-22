@@ -112,7 +112,7 @@
       description: Access our comprehensive documentation and support resources to help you get the most out of the software.
       icon:
         class: fas fa-book
-      url: https://{{domains.sphinx}}
+      url: https://{{domains | get_domain('sphinx')}}
       iframe: {{ applications | is_feature_enabled('portfolio_iframe','sphinx') }}
 
 {% endif %}
@@ -123,10 +123,16 @@
       description: Checkout the presentation
       icon:
         class: "fas fa-chalkboard-teacher"
-      url: https://{{domains.presentation}}
+      url: https://{{domains | get_domain('presentation')}}
       iframe: {{ applications | is_feature_enabled('portfolio_iframe','presentation') }}
 
 {% endif %}
+    - name: Solutions
+      description: "Software and IT Infrastructure Solutions by Kevin Veen-Birkenbach" 
+      icon:
+          class: fa-solid fa-rocket
+      url: "https://cybermaster.space/"
+      iframe: false
 
     - name: Imprint
       description: Check out the imprint information

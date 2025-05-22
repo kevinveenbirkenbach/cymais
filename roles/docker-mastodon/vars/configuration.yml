@@ -11,3 +11,7 @@ features:
 domains:
   canonical:
     - "microblog.{{ primary_domain }}"
+csp:
+  whitelist:
+    frame-src:
+      - "*"

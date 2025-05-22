@@ -19,6 +19,8 @@ csp:
   flags:
     style-src:
       unsafe-inline: true
+    script-src:
+      unsafe-inline: true
 domains:
   canonical:
     - "{{ primary_domain }}"

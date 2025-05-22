@@ -28,5 +28,5 @@ galaxy_info:
   documentation: "https://s.veen.world/cymais"
   logo:
     class: "fa-solid fa-video"  
-  run_after:  
+  run_after:
     - docker-keycloak

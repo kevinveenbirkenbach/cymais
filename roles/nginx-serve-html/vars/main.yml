@@ -1,2 +1,4 @@
-application_id: "html-server"
-domain:         "{{domains | get_domain(application_id)}}"
+application_id:       "html-server"
+domain:               "{{domains | get_domain(application_id)}}"
+features:
+  portfolio_iframe:   true  # Necessary for imprint loading

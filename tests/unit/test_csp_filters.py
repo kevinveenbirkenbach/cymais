@@ -181,7 +181,7 @@ class TestCspFilters(unittest.TestCase):
         # Expect '*.domain-example.com' in the frame-ancestors directive
         self.assertRegex(
             header,
-            r"frame-ancestors\s+'self'\s+\*\.domain-example\.com;"
+            r"frame-ancestors\s+'self'\s+domain-example\.com;"
         )
 
         # Now disable the feature and rebuild

@@ -28,6 +28,8 @@ class TestCspConfigurationConsistency(unittest.TestCase):
             return True
         if entry.startswith(('data:', 'blob:')):
             return True
+        if entry == '*':
+            return True
         parsed = urlparse(entry)
         return parsed.scheme in ('http', 'https') and bool(parsed.netloc)
 

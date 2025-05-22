@@ -120,17 +120,28 @@ def generate_playbook_entries(roles_dir, prefix=None):
     # Include the remaining unsorted roles
     final_sorted_roles += [role for role in sorted_role_names if role not in final_sorted_roles]
 
+    # Remove duplicates, keeping only the last occurrence of each role
+    seen = set()
+    deduplicated_roles = []
+    for role in reversed(final_sorted_roles):
+        if role not in seen:
+            deduplicated_roles.insert(0, role)
+            seen.add(role)
+
     # Generate the playbook entries
     entries = []
-    for role_name in final_sorted_roles:
+    for role_name in deduplicated_roles:
         role = roles[role_name]
-        entry = (
-            f"- name: setup {role['application_id']}\n"  # Use application_id here
-            f"  when: ('{role['application_id']}' in group_names)\n"  # Correct condition format
+        entries.append(
+            f"- name: setup {role['application_id']}\n"
+            f"  when: ('{role['application_id']}' in group_names)\n"
             f"  include_role:\n"
             f"    name: {role['role_name']}\n"
         )
-        entries.append(entry)
+        entries.append(
+            f"- name: flush handlers after {role['application_id']}\n"
+            f"  meta: flush_handlers\n"
+        )
 
     return entries
 

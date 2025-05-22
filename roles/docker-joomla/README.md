@@ -2,7 +2,7 @@
 
 ## Description
 
-Elevate your website management with Joomla, a powerful content management system that fuses versatility with dynamic design. Experience a vibrant platform that inspires creativity and drives your digital presence to new, energetic heights.
+Elevate your website management with [Joomla](https://www.joomla.org/), a powerful content management system that fuses versatility with dynamic design. Experience a vibrant platform that inspires creativity and drives your digital presence to new, energetic heights.
 
 ## Overview
 
