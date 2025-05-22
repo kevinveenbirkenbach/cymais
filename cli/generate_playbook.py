@@ -120,12 +120,12 @@ def generate_playbook_entries(roles_dir, prefix=None):
     # Include the remaining unsorted roles
     final_sorted_roles += [role for role in sorted_role_names if role not in final_sorted_roles]
 
-    # Remove duplicates, keeping only the last occurrence of each role
+    # Remove duplicates, keeping only the first occurrence to preserve dependency order
     seen = set()
     deduplicated_roles = []
-    for role in reversed(final_sorted_roles):
+    for role in final_sorted_roles:
         if role not in seen:
-            deduplicated_roles.insert(0, role)
+            deduplicated_roles.append(role)
             seen.add(role)
 
     # Generate the playbook entries
