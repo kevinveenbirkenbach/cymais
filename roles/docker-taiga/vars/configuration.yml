@@ -8,8 +8,8 @@ oidc:
 flavor:               'taigaio' # Potential flavors: robrotheram, taigaio
 features:
   matomo:             true
-  css:                true
-  portfolio_iframe: false
+  css:                false
+  portfolio_iframe:   false
   oidc:               false
   central_database:   true
 
