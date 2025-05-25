@@ -23,6 +23,7 @@ def get_docker_compose(path_docker_compose_instances: str, application_id: str) 
         'files': {
             'env':            f"{base}.env/env",
             'docker_compose': f"{base}docker-compose.yml",
+            'dockerfile':     f"{base}Dockerfile",
         }
     }
 

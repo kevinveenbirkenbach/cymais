@@ -19,15 +19,15 @@ defaults_service_provider:
     bluesky: >-
       {{ ('@' ~ users.administrator.username ~ '.' ~ domains.bluesky.api)
          if 'bluesky' in group_names else '' }}
-    email: "contact@{{ primary_domain }}"
-    mastodon: "{{ '@' ~ users.administrator.username ~ '@' ~ domains | get_domain('mastodon') if 'mastodon' in group_names else '' }}"
-    matrix: "{{ '@' ~ users.administrator.username ~ ':' ~ domains.matrix.synapse if 'matrix' in group_names else '' }}"
-    peertube: "{{ '@' ~ users.administrator.username ~ '@' ~ domains | get_domain('peertube') if 'peertube' in group_names else '' }}"
-    pixelfed: "{{ '@' ~ users.administrator.username ~ '@' ~ domains | get_domain('pixelfed') if 'pixelfed' in group_names else '' }}"
-    phone: "+0 000 000 404"
-    wordpress: "{{ '@' ~ users.administrator.username ~ '@' ~ domains | get_domain('wordpress') if 'wordpress' in group_names else '' }}"
+    email:          "contact@{{ primary_domain }}"
+    mastodon:       "{{ '@' ~ users.administrator.username ~ '@' ~ domains | get_domain('mastodon') if 'mastodon' in group_names else '' }}"
+    matrix:         "{{ '@' ~ users.administrator.username ~ ':' ~ domains.matrix.synapse if 'matrix' in group_names else '' }}"
+    peertube:       "{{ '@' ~ users.administrator.username ~ '@' ~ domains | get_domain('peertube') if 'peertube' in group_names else '' }}"
+    pixelfed:       "{{ '@' ~ users.administrator.username ~ '@' ~ domains | get_domain('pixelfed') if 'pixelfed' in group_names else '' }}"
+    phone:          "+0 000 000 404"
+    wordpress:      "{{ '@' ~ users.administrator.username ~ '@' ~ domains | get_domain('wordpress') if 'wordpress' in group_names else '' }}"
 
   legal:
     editorial_responsible:  "Johannes Gutenberg"
     source_code:            "https://github.com/kevinveenbirkenbach/cymais"
-    imprint: "{{web_protocol}}://{{ domains | get_domain('html-server') }}/imprint.html"
+    imprint:                "{{web_protocol}}://{{ domains | get_domain('html-server') }}/imprint.html"

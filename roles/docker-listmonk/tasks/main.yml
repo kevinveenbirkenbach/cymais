@@ -25,8 +25,7 @@
     dest: "{{docker_compose.directories.config}}config.toml"
   notify: docker compose project setup
 
-- name: "copy docker-compose.yml and env file"
-  include_tasks: copy-docker-compose-and-env.yml
+- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
 
 - name: Check if listmonk database is already initialized
   command: docker compose exec -T {{database_host}} psql -U {{database_username}} -d {{database_name}} -c "\dt"

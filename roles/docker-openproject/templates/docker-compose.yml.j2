@@ -4,7 +4,7 @@ x-op-app: &app
     driver: journald
   image: {{custom_openproject_image}}
   build:
-    context: {{openproject_plugins_service}}
+    context: .
     dockerfile: Dockerfile
 
 services:

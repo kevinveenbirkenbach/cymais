@@ -1,0 +1,35 @@
+- name:           "Create (optional) '{{ docker_compose.files.dockerfile }}'"
+  template:
+    src:          "{{ playbook_dir }}/roles/{{ role_name }}/templates/{{ template_name }}"
+    dest:         "{{ docker_compose.files.dockerfile }}"
+  notify:         docker compose project build and setup
+  ignore_errors:  true
+
+- name:           "Create (optional) '{{ docker_compose.files.env }}'"
+  template:
+    src:          "env.j2"
+    dest:         "{{ docker_compose.files.env }}"
+    mode:         '770'
+    force:        yes
+  notify:         docker compose project setup
+  register:       env_template
+  ignore_errors:  true
+
+- name:           "Create (obligatoric) '{{ docker_compose.files.docker_compose }}'"
+  template:
+    src:          "docker-compose.yml.j2"
+    dest:         "{{ docker_compose.files.docker_compose }}"
+  notify:         docker compose project setup
+  register:       docker_compose_template
+
+- name:           "Check if any container is running in {{ docker_compose.directories.instance }}"
+  command:        docker compose ps -q --filter status=running
+  args:
+    chdir:        "{{ docker_compose.directories.instance }}"
+  register:       docker_ps
+  changed_when:   (docker_ps.stdout | trim) == ""
+  notify:         docker compose project setup
+  when:           not (docker_compose_template.changed or env_template.changed)
+
+- name:           flush docker compose project setup
+  meta:           flush_handlers

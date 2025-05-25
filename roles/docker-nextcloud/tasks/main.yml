@@ -35,8 +35,7 @@
     dest: "{{docker_compose.directories.volumes}}nginx.conf"
   notify: restart nextcloud nginx service
 
-- name: "copy docker-compose.yml and env file"
-  include_tasks: copy-docker-compose-and-env.yml
+- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
 
 - name: Flush all handlers immediately so that occ can be used
   meta: flush_handlers

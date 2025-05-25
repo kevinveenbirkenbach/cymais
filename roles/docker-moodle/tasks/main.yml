@@ -10,14 +10,7 @@
     domain:   "{{ domains | get_domain(application_id) }}"
     http_port:   "{{ ports.localhost.http[application_id] }}"
 
-- name: "Transfer Dockerfile to {{ docker_compose.directories.instance }}"
-  template:
-    src: Dockerfile.j2
-    dest: "{{ docker_compose.directories.instance }}Dockerfile"
-  notify: docker compose project build and setup
-
-- name: "copy docker-compose.yml and env file"
-  include_tasks: copy-docker-compose-and-env.yml
+- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
 
 - name: "Configure OIDC login for Moodle if enabled"
   include_tasks: oidc.yml

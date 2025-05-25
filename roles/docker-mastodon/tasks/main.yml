@@ -16,8 +16,7 @@
     client_max_body_size: "80m"
     vhost_flavour:        "ws_generic"
 
-- name: "copy docker-compose.yml and env file"
-  include_tasks: copy-docker-compose-and-env.yml
+- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
 
 - name: flush docker service
   meta: flush_handlers

@@ -2,7 +2,8 @@ application_id:               "openproject"
 docker_repository_address:    "https://github.com/opf/openproject-deploy"
 database_type:                "postgres"
 
-openproject_plugins_service:  "{{docker_compose.directories.services}}plugins/"
+openproject_plugins_folder:  "{{docker_compose.directories.volumes}}plugins/"
+
 custom_openproject_image:     "custom_openproject"
 
 # The following volume doesn't have a practcical function. It just exist to prevent the creation of unnecessary anonymous volumes

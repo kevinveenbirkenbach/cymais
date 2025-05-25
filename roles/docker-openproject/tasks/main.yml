@@ -10,23 +10,16 @@
     domain:   "{{ domains | get_domain(application_id) }}"
     http_port:   "{{ ports.localhost.http[application_id] }}"
 
-- name: "Create {{openproject_plugins_service}}"
+- name: "Create {{openproject_plugins_folder}}"
   file:
-    path: "{{openproject_plugins_service}}"
+    path: "{{openproject_plugins_folder}}"
     state: directory
     mode: '0755'
 
-- name: "Transfering Gemfile.plugins to {{openproject_plugins_service}}"
+- name: "Transfering Gemfile.plugins to {{openproject_plugins_folder}}"
   copy:
     src: Gemfile.plugins
-    dest: "{{openproject_plugins_service}}Gemfile.plugins"
-  notify:
-    - docker compose project build and setup
-
-- name: "Transfering Dockerfile to {{openproject_plugins_service}}Dockerfile"
-  template:
-    src: Dockerfile
-    dest: "{{openproject_plugins_service}}Dockerfile"
+    dest: "{{openproject_plugins_folder}}Gemfile.plugins"
   notify:
     - docker compose project build and setup
 
@@ -40,8 +33,7 @@
     state: directory
     mode: 0755
 
-- name: "copy docker-compose.yml and env file"
-  include_tasks: copy-docker-compose-and-env.yml
+- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
 
 - name: flush docker service
   meta: flush_handlers

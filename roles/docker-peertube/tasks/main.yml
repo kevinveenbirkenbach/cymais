@@ -11,8 +11,7 @@
   vars:
     http: "{{ ports.localhost.http[application_id] }}"
 
-- name: "copy docker-compose.yml and env file"
-  include_tasks: copy-docker-compose-and-env.yml
+- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
 
 - name: "Install and activate auth-openid-connect plugin if OIDC is enabled"
   include_tasks: enable-oidc.yml

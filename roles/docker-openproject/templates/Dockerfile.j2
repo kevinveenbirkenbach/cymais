@@ -5,7 +5,7 @@ FROM openproject/community:{{applications.openproject.version}}
 # path inside of the container. Say for `/app/vendor/plugins/openproject-slack`:
 # COPY /path/to/my/local/openproject-slack /app/vendor/plugins/openproject-slack
 
-COPY Gemfile.plugins /app/
+COPY volumes/plugins/Gemfile.plugins /app/
 
 # If the plugin uses any external NPM dependencies you have to install them here.
 # RUN npm add npm <package-name>*
