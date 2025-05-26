@@ -18,6 +18,11 @@ csp:
     script-src:
       unsafe-inline:  true
       unsafe-eval:    true
+    style-src:
+      unsafe-inline:  true
+  whitelist:
+    connect-src:
+      - ws://espocrm.{{ primary_domain }}
 domains:
   aliases:
     - "crm.{{ primary_domain }}"
