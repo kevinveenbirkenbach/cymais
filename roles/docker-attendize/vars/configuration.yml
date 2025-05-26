@@ -1,4 +1,6 @@
-version:            "latest"
+image:              
+  web:              "attendize_web:latest"
+  worker:           "attendize_worker:latest"
 credentials:
 features:
   matomo:           true

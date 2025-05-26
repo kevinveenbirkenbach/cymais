@@ -1,12 +1,13 @@
-version:                  "latest"
-company_name:             "{{primary_domain}}"
-company_email:            "{{users.administrator.email}}"
-setup_admin_email:        "{{users.administrator.email}}"
+images:
+  application:      "docker.io/akaunting/akaunting:latest"
+company_name:       "{{primary_domain}}"
+company_email:      "{{users.administrator.email}}"
+setup_admin_email:  "{{users.administrator.email}}"
 features:
-  matomo:                 true
-  css:                    true
-  portfolio_iframe:       false
-  central_database:       true
+  matomo:           true
+  css:              true
+  portfolio_iframe: false
+  central_database: true
 credentials:
 domains:
   canonical:

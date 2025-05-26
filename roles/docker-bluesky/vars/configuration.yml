@@ -1,6 +1,8 @@
 users:
   administrator:
     email:          "{{users.administrator.email}}"
+images:
+  pds:              "ghcr.io/bluesky-social/pds:latest"
 pds:
   version:          "latest"
 credentials:

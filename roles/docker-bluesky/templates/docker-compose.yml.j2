@@ -1,6 +1,6 @@
 services:
   pds:
-    image: "ghcr.io/bluesky-social/pds:{{applications.bluesky.pds.version}}"
+    image: "{{ applications[application_id].images.pds }}"
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
         - pds_data:/opt/pds
