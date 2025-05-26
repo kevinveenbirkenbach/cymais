@@ -1,4 +1,5 @@
-version:                          "latest"  # Use latest docker image 
+images:
+  gitea:                          "gitea/gitea:latest"
 configuration:
   repository:
     enable_push_create_user:      True      # Allow users to push local repositories to Gitea and have them automatically created for a user.
@@ -7,14 +8,14 @@ configuration:
 features:
   matomo:                         true
   css:                            true
-  portfolio_iframe:             true
+  portfolio_iframe:               true
   central_database:               true
 csp:
   flags:
     script-src:
-      unsafe-inline: true
+      unsafe-inline:              true
     style-src:
-      unsafe-inline: true
+      unsafe-inline:              true
   whitelist:
     font-src:
       - "data:"

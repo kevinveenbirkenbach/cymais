@@ -6,7 +6,7 @@ services:
 
   application:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    image: "{{ applications[application_id].images.application }}"
+    image: "{{ applications[application_id].images.baserow }}"
     container_name: baserow-application
     volumes:
       - data:/baserow/data

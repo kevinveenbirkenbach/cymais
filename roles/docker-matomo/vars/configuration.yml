@@ -1,4 +1,5 @@
-version:              "latest"
+images:
+  matomo:             "matomo:latest"
 features:
   matomo:             true
   css:                false

@@ -4,7 +4,7 @@ services:
 
   application:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    image: listmonk/listmonk:{{applications.listmonk.version}}
+    image: "{{ applications[application_id].images.listmonk }}"
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:9000"
     volumes:

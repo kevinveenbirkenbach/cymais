@@ -3,7 +3,7 @@ services:
 {% include 'roles/docker-oauth2-proxy/templates/container.yml.j2' %}
 
   application:
-    image: bitnami/openldap:{{ applications[application_id].version }}
+    image: "{{ applications[application_id].images.openldap }}"
     container_name: {{ applications[application_id].hostname }}
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
 {% if applications[application_id].network.public | bool or applications[application_id].network.local | bool %}

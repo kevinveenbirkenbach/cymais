@@ -3,7 +3,7 @@ services:
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
   web:
-    image: espocrm/espocrm:{{ applications[application_id].version }}
+    image: "{{ applications[application_id].images.espocrm }}"
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost/"]
@@ -15,7 +15,7 @@ services:
       - data:/var/www/html
 
   daemon:
-    image: espocrm/espocrm:{{ applications[application_id].version }}
+    image: "{{ applications[application_id].images.espocrm }}"
     restart: {{docker_restart_policy}}
     logging:
       driver: journald
@@ -25,7 +25,7 @@ services:
       - data:/var/www/html
 
   websocket:
-    image: espocrm/espocrm:{{ applications[application_id].version }}
+    image: "{{ applications[application_id].images.espocrm }}"
     restart: {{docker_restart_policy}}
     logging:
       driver: journald

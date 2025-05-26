@@ -3,7 +3,7 @@ services:
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
   synapse:
-    image: matrixdotorg/synapse:{{applications[application_id].synapse.version}}
+    image: "{{ applications[application_id].images.synapse }}"
     container_name: matrix-synapse
     restart: {{docker_restart_policy}}
     logging:
@@ -36,7 +36,7 @@ services:
 {% endif %}
 {% include 'templates/docker/container/networks.yml.j2' %}
   element:
-    image: vectorim/element-web:{{applications[application_id].element.version}}
+    image: "{{ applications[application_id].images.element }}"
     container_name: matrix-element
     restart: {{docker_restart_policy}}
     volumes:

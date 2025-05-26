@@ -1,4 +1,7 @@
-version:              "1.4.0"
+images:               
+  api:        "funkwhale/api:1.4.0"
+  front:      "funkwhale/front:1.4.0"
+  typesense:  "typesense/typesense"
 features:
   matomo:             true
   css:                true

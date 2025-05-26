@@ -5,7 +5,7 @@ services:
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
   web:
-    image: ghcr.io/mastodon/mastodon:{{applications.mastodon.version}}
+    image: "{{ applications[application_id].images.mastodon }}"
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
     healthcheck:
@@ -18,7 +18,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   streaming:
-    image: ghcr.io/mastodon/mastodon-streaming:{{applications.mastodon.version}}
+    image: "{{ applications[application_id].images.streaming }}"
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     command: node ./streaming
     healthcheck:
@@ -29,7 +29,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   sidekiq:
-    image: ghcr.io/mastodon/mastodon:{{applications.mastodon.version}}
+    image: "{{ applications[application_id].images.mastodon }}"
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     command: bundle exec sidekiq
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}

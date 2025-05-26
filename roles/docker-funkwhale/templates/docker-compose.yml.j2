@@ -14,7 +14,7 @@ services:
     # flag:
     #   celery -A funkwhale_api.taskapp worker -l INFO --concurrency=4
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    image: funkwhale/api:{{applications.funkwhale.version}}
+    image: "{{ applications[application_id].images.api }}"
     command: celery -A funkwhale_api.taskapp worker -l INFO --concurrency={{celeryd_concurrency}}
     environment:
       - C_FORCE_ROOT=true
@@ -26,14 +26,14 @@ services:
 
   celerybeat:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    image: funkwhale/api:{{applications.funkwhale.version}}
+    image: "{{ applications[application_id].images.api }}"
     command: celery -A funkwhale_api.taskapp beat --pidfile= -l INFO
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   api:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    image: funkwhale/api:{{applications.funkwhale.version}}
+    image: "{{ applications[application_id].images.api }}"
     volumes:
       - "music:{{music_directory_path}}:ro"
       - "data:{{media_root}}"
@@ -45,7 +45,7 @@ services:
 
   front:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    image: funkwhale/front:{{applications.funkwhale.version}}
+    image: "{{ applications[application_id].images.front }}"
     depends_on:
       - api
     environment:
@@ -60,7 +60,7 @@ services:
   
   typesense:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    image: typesense/typesense:0.24.0
+    image: "{{ applications[application_id].images.typesense }}"
     volumes:
       - ./typesense/data:/data
     command: --data-dir /data --enable-cors

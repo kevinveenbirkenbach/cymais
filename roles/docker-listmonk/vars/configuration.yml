@@ -1,3 +1,5 @@
+images:
+  listmonk:                 "listmonk/listmonk:latest"
 users:
   administrator:
     username:               "{{users.administrator.username}}"    # Listmonk administrator account username

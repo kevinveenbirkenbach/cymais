@@ -1,5 +1,5 @@
 images:
-  application:      "docker.io/akaunting/akaunting:latest"
+  akaunting:      "docker.io/akaunting/akaunting:latest"
 company_name:       "{{primary_domain}}"
 company_email:      "{{users.administrator.email}}"
 setup_admin_email:  "{{users.administrator.email}}"

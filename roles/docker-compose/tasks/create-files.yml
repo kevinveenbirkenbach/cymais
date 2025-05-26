@@ -1,9 +1,13 @@
 - name:           "Create (optional) '{{ docker_compose.files.dockerfile }}'"
   template:
-    src:          "{{ playbook_dir }}/roles/{{ role_name }}/templates/{{ template_name }}"
+    src:          "{{ playbook_dir }}/roles/{{ role_name }}/templates/Dockerfile"
     dest:         "{{ docker_compose.files.dockerfile }}"
   notify:         docker compose project build and setup
-  ignore_errors:  true
+  ignore_errors:  false
+  register:       create_dockerfile_result
+  failed_when:
+    - create_dockerfile_result is failed
+    - "'Could not find or access' not in create_dockerfile_result.msg"
 
 - name:           "Create (optional) '{{ docker_compose.files.env }}'"
   template:
@@ -13,7 +17,10 @@
     force:        yes
   notify:         docker compose project setup
   register:       env_template
-  ignore_errors:  true
+  ignore_errors:  false
+  failed_when:
+    - env_template is failed
+    - "'Could not find or access' not in env_template.msg"
 
 - name:           "Create (obligatoric) '{{ docker_compose.files.docker_compose }}'"
   template:

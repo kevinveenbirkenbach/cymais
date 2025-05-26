@@ -4,7 +4,7 @@ services:
 
   application:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    image: matomo:{{applications.matomo.version}}
+    image: "{{ applications[application_id].images.matomo }}"
     ports:
       - "127.0.0.1:{{ports.localhost.http.matomo}}:80"
     volumes:

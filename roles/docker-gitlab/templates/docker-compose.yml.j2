@@ -5,7 +5,7 @@ services:
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
   web:
-    image: "gitlab/gitlab-ee:{{applications.gitlab.version}}"
+    image: "{{ applications[application_id].images.gitlab }}"
     hostname: '{{domains | get_domain(application_id)}}'
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     ports:

@@ -1,4 +1,5 @@
-version:              "latest"
+images: 
+  keycloak:           "quay.io/keycloak/keycloak:latest"
 users:
   administrator:
     username:         "{{users.administrator.username}}"  # Administrator Username for Keycloak

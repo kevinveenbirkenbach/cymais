@@ -1,4 +1,5 @@
-version:              "latest"
+images:
+  joomla:             "joomla:latest"
 features:
   matomo:             true
   css:                true

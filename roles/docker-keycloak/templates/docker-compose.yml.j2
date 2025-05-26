@@ -3,7 +3,7 @@ services:
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
   application:
-    image: quay.io/keycloak/keycloak:{{applications.keycloak.version}}
+    image: "{{ applications[application_id].images.keycloak }}"
     container_name: {{container_name}}
     command: start {% if applications[application_id].import_realm | bool %}--import-realm{% endif %}
     {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
