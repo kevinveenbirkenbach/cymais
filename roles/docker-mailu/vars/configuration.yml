@@ -16,3 +16,8 @@ features:
 domains:
   canonical:
     - "mail.{{ primary_domain }}"
+flags:
+  style-src:
+    unsafe-inline:        true
+  script-src:
+    unsafe-inline:        true

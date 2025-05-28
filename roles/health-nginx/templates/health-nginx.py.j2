@@ -15,16 +15,12 @@ def get_expected_statuses(domain: str, parts: list[str], redirected_domains: set
     Returns:
         A list of expected HTTP status codes.
     """
-    {%- if domains.listmonk | safe_var | bool %}
     if domain == '{{domains | get_domain('listmonk')}}':
         return [404]
-    {%- endif %}
     if (parts and parts[0] == 'www') or (domain in redirected_domains):
         return [301]
-    {%- if domains.yourls | safe_var | bool %}
     if domain == '{{domains | get_domain('yourls')}}':
         return [403]
-    {%- endif %}
     # Default: Expect status code 200 or 302 for a domain
     return [200,302]
 
@@ -48,9 +44,7 @@ for filename in os.listdir(config_path):
         url = f"{{ web_protocol }}://{domain}"
         
         redirected_domains = [domain['source'] for domain in {{ current_play_domain_mappings_redirect}}]
-        {%- if domains.mailu | safe_var | bool %}
         redirected_domains.append("{{domains | get_domain('mailu')}}")
-        {%- endif %}
 
         expected_statuses = get_expected_statuses(domain, parts, redirected_domains)
 

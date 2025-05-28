@@ -19,4 +19,5 @@ galaxy_info:
   documentation: "https://s.veen.world/cymais"
   logo:
     class: "fa-solid fa-phone"
-dependencies: []
+  run_after:  
+    - docker-keycloak

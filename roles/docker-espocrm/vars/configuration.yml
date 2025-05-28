@@ -22,7 +22,7 @@ csp:
       unsafe-inline:  true
   whitelist:
     connect-src:
-      - ws://espocrm.{{ primary_domain }}
+      - wss://espocrm.{{ primary_domain }}
 domains:
   aliases:
     - "crm.{{ primary_domain }}"

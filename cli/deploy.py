@@ -6,8 +6,9 @@ import os
 import datetime
 
 def run_ansible_playbook(inventory, playbook, modes, limit=None, password_file=None, verbose=0, skip_tests=False):
-    start_time = datetime.datetime.now().isoformat()
-    print(f"\n▶️ Script started at: {start_time}\n")
+    start_time = datetime.datetime.now()
+    print(f"\n▶️ Script started at: {start_time.isoformat()}\n")
+    
     print("\n🛠️  Building project (make build)...\n")
     subprocess.run(["make", "build"], check=True)
 
@@ -35,8 +36,11 @@ def run_ansible_playbook(inventory, playbook, modes, limit=None, password_file=N
     print("\n🚀 Launching Ansible Playbook...\n")
     subprocess.run(cmd, check=True)
 
-    end_time = datetime.datetime.now().isoformat()
-    print(f"\n✅ Script ended at: {end_time}\n")
+    end_time = datetime.datetime.now()
+    print(f"\n✅ Script ended at: {end_time.isoformat()}\n")
+
+    duration = end_time - start_time
+    print(f"⏱️ Total execution time: {duration}\n")
 
 def main():
     script_dir = os.path.dirname(os.path.realpath(__file__))
