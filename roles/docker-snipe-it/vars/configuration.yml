@@ -1,9 +1,18 @@
 version:              "latest"
 features:
   matomo:             true
-  css:                true
+  css:                false
   portfolio_iframe:   false
   central_database:   true
 domains:
   canonical:
     - "inventory.{{ primary_domain }}"
+csp:
+  flags:
+    script-src:
+      unsafe-inline: true
+    style-src:
+      unsafe-inline: true
+  whitelist:
+    font-src:
+      - "data:"

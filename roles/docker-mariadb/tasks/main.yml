@@ -69,11 +69,13 @@
     login_host: 127.0.0.1
     login_port: "{{database_port}}"
 
-- name: Grant database privileges
-  ansible.builtin.shell:
-    cmd: "docker exec {{applications.mariadb.hostname }} mariadb -u root -p{{ applications.mariadb.credentials.root_password }} -e \"GRANT ALL PRIVILEGES ON {{database_name}}.* TO '{{database_username}}'@'%';\""
-  args:
-    executable: /bin/bash
+# Deactivated due to https://chatgpt.com/share/683ba14b-0e74-800f-9ad1-a8979bc77093
+# @todo Remove if this works fine in the future. 
+#- name: Grant database privileges
+#  ansible.builtin.shell:
+#    cmd: "docker exec {{applications.mariadb.hostname }} mariadb -u root -p{{ applications.mariadb.credentials.root_password }} -e \"GRANT ALL PRIVILEGES ON `{{database_name}}`.* TO '{{database_username}}'@'%';\""
+#  args:
+#    executable: /bin/bash
 
 - name: run the docker_mariadb tasks once
   set_fact:
