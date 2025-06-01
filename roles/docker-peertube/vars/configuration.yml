@@ -8,9 +8,12 @@ features:
 csp:
   flags:
     script-src:
-      unsafe-inline: true
+      unsafe-inline:  true
     style-src:
-      unsafe-inline: true
+      unsafe-inline:  true
+  whitelist:
+    frame-ancestors:
+      - "*"
 domains:
   canonical:
     - "video.{{ primary_domain }}"
