@@ -91,6 +91,7 @@ class FilterModule(object):
                 'frame-ancestors',
                 'frame-src',
                 'script-src',
+                'script-src-elem',
                 'style-src',
                 'font-src',
                 'worker-src',
@@ -115,11 +116,11 @@ class FilterModule(object):
                         tokens.append(f"{web_protocol}://{matomo_domain}")
 
                 # ReCaptcha integration: allow loading scripts from Google if feature enabled
-                if (
-                    self.is_feature_enabled(applications, 'recaptcha', application_id)
-                    and directive == 'script-src'
-                ):
-                    tokens.append('https://www.google.com')
+                if self.is_feature_enabled(applications, 'recaptcha', application_id):
+                    if directive == 'script-src':
+                        tokens.append('https://www.google.com')
+                    if directive == 'script-src-elem':
+                        tokens.append('https://www.gstatic.com')
 
                 # Enable loading via ancestors
                 if (
