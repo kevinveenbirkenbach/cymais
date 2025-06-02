@@ -3,6 +3,11 @@
 - name: "include docker-compose role"
   include_role: 
     name: docker-compose
+  vars:
+    database_instance:  "{{ application_id }}"
+    database_password:  "{{ applications[application_id].credentials.postgresql_secret }}"
+    database_username:  "postgres"
+    database_name:      ""                              # Multiple databases
 
 - name:                 "Seed BigBlueButton Database for Backup"
   include_tasks:        "{{ playbook_dir }}/roles/backup-docker-to-local/tasks/seed-database-to-backup.yml"

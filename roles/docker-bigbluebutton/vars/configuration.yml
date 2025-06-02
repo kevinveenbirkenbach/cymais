@@ -15,3 +15,9 @@ features:
 domains:
   canonical:
     - "meet.{{ primary_domain }}"
+csp:  
+  flags:
+    script-src:
+      unsafe-inline:  true
+    style-src:
+      unsafe-inline:  true
