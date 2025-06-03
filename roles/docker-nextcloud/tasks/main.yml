@@ -64,3 +64,11 @@
     'Removing' in db_indices_result.stdout or 
     'updated successfully' in db_indices_result.stdout
   failed_when: db_indices_result.rc != 0
+
+- name: Ensure Nextcloud administrator is in the 'admin' group
+  command: >
+    docker exec -u {{ nextcloud_docker_user }} {{ applications.nextcloud.container.application }}
+    php occ group:adduser admin {{ applications.nextcloud.users.administrator.username }}
+  register: add_admin_to_group
+  changed_when: "'Added user' in add_admin_to_group.stdout"
+  failed_when: add_admin_to_group.rc != 0 and "'is already a member of' not in add_admin_to_group.stderr"

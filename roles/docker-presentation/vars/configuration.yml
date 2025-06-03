@@ -17,8 +17,10 @@ csp:
   flags:
     style-src:
       unsafe-inline: true
+    script-src:
+      unsafe-eval:  true
     script-src-elem:
-      unsafe-eval:   true
+      unsafe-inline: true
 domains:
   canonical:
     - "slides.{{ primary_domain }}"

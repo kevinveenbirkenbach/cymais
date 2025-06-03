@@ -117,7 +117,7 @@ class FilterModule(object):
 
                 # ReCaptcha integration: allow loading scripts from Google if feature enabled
                 if self.is_feature_enabled(applications, 'recaptcha', application_id):
-                    if directive == 'script-src-elem':
+                    if directive in ['script-src-elem',"frame-src"]:
                         tokens.append('https://www.gstatic.com')
                         tokens.append('https://www.google.com')
 
