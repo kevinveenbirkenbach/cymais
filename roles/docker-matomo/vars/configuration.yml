@@ -8,12 +8,12 @@ features:
   oauth2:             false
 csp:
   whitelist:
-    script-src:
+    script-src-elem:
       - https://cdn.matomo.cloud
     style-src:
       - https://fonts.googleapis.com
   flags:
-    script-src:
+    script-src-elem:
       unsafe-inline: true
       unsafe-eval:   true
     style-src:

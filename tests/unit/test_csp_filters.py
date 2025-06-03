@@ -24,7 +24,7 @@ class TestCspFilters(unittest.TestCase):
                 },
                 'csp': {
                     'whitelist': {
-                        'script-src': ['https://cdn.example.com'],
+                        'script-src-elem': ['https://cdn.example.com'],
                         'connect-src': 'https://api.example.com',
                     },
                     'flags': {
@@ -53,7 +53,7 @@ class TestCspFilters(unittest.TestCase):
         }
 
     def test_get_csp_whitelist_list(self):
-        result = self.filter.get_csp_whitelist(self.apps, 'app1', 'script-src')
+        result = self.filter.get_csp_whitelist(self.apps, 'app1', 'script-src-elem')
         self.assertEqual(result, ['https://cdn.example.com'])
 
     def test_get_csp_whitelist_string(self):
@@ -84,7 +84,11 @@ class TestCspFilters(unittest.TestCase):
         self.assertIn("default-src 'self';", header)
         # script-src directive should include unsafe-eval, Matomo domain and CDN (hash may follow)
         self.assertIn(
-            "script-src 'self' 'unsafe-eval' https://matomo.example.org https://cdn.example.com",
+            "script-src-elem 'self' https://matomo.example.org https://cdn.example.com",
+            header
+        )
+        self.assertIn(
+            "script-src 'self' 'unsafe-eval'",
             header
         )
         # connect-src directive unchanged (no inline hash)

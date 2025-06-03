@@ -10,6 +10,7 @@ class TestCspConfigurationConsistency(unittest.TestCase):
         'frame-ancestors',
         'frame-src',
         'script-src',
+        'script-src-elem',
         'style-src',
         'font-src',
         'worker-src',

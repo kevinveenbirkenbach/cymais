@@ -9,7 +9,7 @@ domains:
     - "inventory.{{ primary_domain }}"
 csp:
   flags:
-    script-src:
+    script-src-elem:
       unsafe-inline: true
     style-src:
       unsafe-inline: true

@@ -109,7 +109,7 @@ class FilterModule(object):
                 # Matomo integration
                 if (
                     self.is_feature_enabled(applications, matomo_feature_name, application_id)
-                    and directive in ['script-src', 'connect-src']
+                    and directive in ['script-src-elem', 'connect-src']
                 ):
                     matomo_domain = domains.get('matomo')[0]
                     if matomo_domain:
@@ -117,10 +117,9 @@ class FilterModule(object):
 
                 # ReCaptcha integration: allow loading scripts from Google if feature enabled
                 if self.is_feature_enabled(applications, 'recaptcha', application_id):
-                    if directive == 'script-src':
-                        tokens.append('https://www.google.com')
                     if directive == 'script-src-elem':
                         tokens.append('https://www.gstatic.com')
+                        tokens.append('https://www.google.com')
 
                 # Enable loading via ancestors
                 if (

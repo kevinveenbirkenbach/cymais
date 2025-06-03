@@ -20,7 +20,7 @@ csp:
   flags:
     style-src:
       unsafe-inline:  true
-    script-src:
+    script-src-elem:
       unsafe-inline:  true
       unsafe-eval:    true
   whitelist:
@@ -29,7 +29,7 @@ csp:
     font-src:
       - "data:"
       - "https://fonts.bunny.net"
-    script-src:
+    script-src-elem:
       - "https://cdn.gtranslate.net"
       - "blog.{{ primary_domain }}"
     style-src:

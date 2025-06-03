@@ -7,7 +7,7 @@ features:
   oidc:               true
 csp:
   flags:
-    script-src:
+    script-src-elem:
       unsafe-inline:  true
     style-src:
       unsafe-inline:  true

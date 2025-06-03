@@ -5,7 +5,7 @@ features:
 
 csp:
   whitelist:
-    script-src:
+    script-src-elem:
       - https://cdnjs.cloudflare.com
       - https://code.jquery.com
       - https://cdn.jsdelivr.net
@@ -17,7 +17,7 @@ csp:
   flags:
     style-src:
       unsafe-inline: true
-    script-src:
+    script-src-elem:
       unsafe-eval:   true
 domains:
   canonical:

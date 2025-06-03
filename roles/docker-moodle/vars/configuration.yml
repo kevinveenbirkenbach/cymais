@@ -12,7 +12,7 @@ features:
   oidc:               false
 csp:
   flags:
-    script-src:
+    script-src-elem:
       unsafe-inline:  true
       unsafe-eval:    true
     style-src:
@@ -21,7 +21,7 @@ csp:
     font-src:
       - "data:"
       - "blob:"
-    script-src:
+    script-src-elem:
       - "https://cdn.jsdelivr.net"
 domains:
   canonical:
