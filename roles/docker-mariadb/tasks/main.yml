@@ -38,9 +38,12 @@
 
 - name: Wait until the MariaDB container is healthy
   community.docker.docker_container_info:
-    name: "{{applications.mariadb.hostname }}"
+    name: "{{ applications.mariadb.hostname }}"
   register: db_info
-  until: db_info.containers[0].State.Health.Status == "healthy"
+  until:
+  - db_info.containers is defined
+  - db_info.containers | length > 0
+  - db_info.containers[0].State.Health.Status == "healthy"
   retries: 30
   delay: 5
   when:

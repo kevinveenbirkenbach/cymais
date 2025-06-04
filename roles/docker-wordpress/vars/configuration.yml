@@ -22,6 +22,7 @@ csp:
       unsafe-inline:  true
     script-src-elem:
       unsafe-inline:  true
+    script-src:
       unsafe-eval:    true
   whitelist:
     worker-src:
@@ -34,6 +35,20 @@ csp:
       - "blog.{{ primary_domain }}"
     style-src:
       - "https://fonts.bunny.net"
+    frame-src:
+      - "blob:"
+      - "*.{{ primary_domain }}"
+    #frame-src: >-
+    #  {{
+    #    ['*.{}'.format(primary_domain)]
+    #    +
+    #    (
+    #      applications.wordpress.domains.canonical
+    #      | default([])
+    #      | map('regex_replace', '^(.*)$', 'blob:\g<1>')
+    #      | list
+    #    )
+    #  }}
 domains:
   canonical:
     - "blog.{{ primary_domain }}"

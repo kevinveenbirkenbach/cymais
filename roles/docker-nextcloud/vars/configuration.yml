@@ -22,7 +22,7 @@ oidc:
 credentials:
 features:
   matomo:                       true
-  css:                          true
+  css:                          false
   portfolio_iframe:             false
   ldap:                         true
   oidc:                         true

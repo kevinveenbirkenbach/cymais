@@ -6,7 +6,7 @@
 - name: "Include role nginx-domain-setup for {{ application_id }}"
   include_role:
     name: nginx-domain-setup
-  loop: "{{ domains.wordpress }}"
+  loop: "{{ applications[application_id].domains.canonical }}"
   loop_control:
     loop_var: domain
   vars:

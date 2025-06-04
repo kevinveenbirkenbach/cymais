@@ -9,7 +9,7 @@ domain:                   "{{primary_domain}}"              # The main domain fr
 credentials:                                     
 features:
   matomo:                 true
-  css:                    true
+  css:                    false
   portfolio_iframe:       false                             # Deactivated mailu iframe loading until keycloak supports it
   oidc:                   true
   central_database:       false                             # Deactivate central database for mailu, I don't know why the database deactivation is necessary
@@ -20,5 +20,5 @@ csp:
   flags:
     style-src:
       unsafe-inline:        true
-    script-src-elem:
+    script-src:
       unsafe-inline:        true
