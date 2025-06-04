@@ -38,17 +38,6 @@ csp:
     frame-src:
       - "blob:"
       - "*.{{ primary_domain }}"
-    #frame-src: >-
-    #  {{
-    #    ['*.{}'.format(primary_domain)]
-    #    +
-    #    (
-    #      applications.wordpress.domains.canonical
-    #      | default([])
-    #      | map('regex_replace', '^(.*)$', 'blob:\g<1>')
-    #      | list
-    #    )
-    #  }}
 domains:
   canonical:
     - "blog.{{ primary_domain }}"
