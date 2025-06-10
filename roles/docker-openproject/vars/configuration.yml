@@ -8,7 +8,7 @@ ldap:
     users:            False   # Set true to filter users
 features:
   matomo:             true
-  css:                true
+  css:                false   # Temporary deactivated. Needs to be optimized for production use.
   portfolio_iframe:   false
   ldap:               true
   central_database:   true
