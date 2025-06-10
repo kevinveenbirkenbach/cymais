@@ -77,7 +77,7 @@
             (application_id): {
               'csp': {
                 'hashes': {
-                  'script-src': (
+                  'script-src-elem': (
                     applications[application_id]['csp']['hashes'].get('script-src', [])
                     + [ matomo_tracking_code_one_liner ]
                   )

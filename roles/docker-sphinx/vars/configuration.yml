@@ -4,6 +4,8 @@ features:
   portfolio_iframe:   false
 csp:
   flags:
+    script-src:
+      unsafe-eval:    true
     script-src-elem:
       unsafe-inline:  true
       unsafe-eval:    true

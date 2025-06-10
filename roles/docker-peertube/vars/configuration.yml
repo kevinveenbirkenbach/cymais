@@ -7,6 +7,8 @@ features:
   oidc:               true
 csp:
   flags:
+    script-src-elem:
+      unsafe-inline:  true
     script-src:
       unsafe-inline:  true
     style-src:

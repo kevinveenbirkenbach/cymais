@@ -20,6 +20,8 @@ csp:
       unsafe-eval:    true
     style-src:
       unsafe-inline:  true
+    script-src:
+      unsafe-eval:    true
   whitelist:
     connect-src:
       - wss://espocrm.{{ primary_domain }}

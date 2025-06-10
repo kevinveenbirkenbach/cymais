@@ -13,11 +13,14 @@ csp:
     style-src:
       - https://fonts.googleapis.com
   flags:
+    script-src:
+      unsafe-eval:   true
     script-src-elem:
       unsafe-inline: true
       unsafe-eval:   true
     style-src:
       unsafe-inline: true
+      unsafe-eval:   true
 domains:
   aliases:
     - "analytics.{{ primary_domain }}"
