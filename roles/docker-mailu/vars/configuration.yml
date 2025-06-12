@@ -20,5 +20,6 @@ csp:
   flags:
     style-src:
       unsafe-inline:        true
-    script-src:
+    script-src-elem:
       unsafe-inline:        true
+    
