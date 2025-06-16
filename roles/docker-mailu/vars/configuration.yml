@@ -24,4 +24,5 @@ csp:
       unsafe-inline:        true
     script-src:
       unsafe-inline:        true
+      unsafe-eval:          true
     
