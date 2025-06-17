@@ -19,13 +19,13 @@
     src:  "taiga/{{item}}.py.j2"
     dest: "{{ docker_compose.directories.config }}taiga-{{item}}.py"
   when:   applications[application_id].features.oidc and applications[application_id].oidc.flavor == 'taigaio'
-  notify: docker compose project build and setup
+  notify: docker compose up
   loop:   "{{ settings_files }}"
 
 - name: "create {{docker_compose_init}}"
   template:
     src:  "docker-compose-inits.yml.j2"
     dest:  "{{docker_compose_init}}"
-  notify: docker compose project build and setup
+  notify: docker compose up
 
 - include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"

@@ -45,6 +45,6 @@
     repo: "https://github.com/bluesky-social/social-app.git"
     dest: "{{social_app_path}}"
     version: "main"
-  notify: docker compose project build and setup 
+  notify: docker compose up 
 
 - include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"

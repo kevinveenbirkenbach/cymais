@@ -29,7 +29,7 @@
     repo: "{{ docker_repository_address }}"
     dest: "{{ docker_repository_directory  | default(docker_compose.directories.instance) }}"
     update: yes
-  notify: docker compose project setup
+  notify: docker compose up
   become: true
 
 - name: "restore detached files"
@@ -45,4 +45,4 @@
     src: "{{ item }}.j2"
     dest: "{{docker_compose.directories.instance}}{{ item }}"
   loop: "{{ detached_files }}"
-  notify: docker compose project setup
+  notify: docker compose up

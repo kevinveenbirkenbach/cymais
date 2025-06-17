@@ -5,35 +5,25 @@
 #- name: shut down docker compose project 
 #  command:
 #    cmd: docker-compose -p "{{ application_id }}" down
-#  listen: docker compose project setup
+#  listen: docker compose up
 #  when: mode_reset | bool
 
 # default setup for docker compose files
-- name: docker compose project setup
+- name: docker compose up
   shell: > 
     docker-compose -p {{ application_id }} up -d --force-recreate --remove-orphans
     2>&1 | tee >(systemd-cat -t docker-compose-{{ application_id }})
-  args:
-    chdir: "{{ docker_compose.directories.instance }}"
-    executable: /bin/bash
-  environment:
-    COMPOSE_HTTP_TIMEOUT: 600
-    DOCKER_CLIENT_TIMEOUT: 600
-  listen: docker compose project setup
-
-# it's necessary to rebuild when a build in the docker compose files is defined
-# for performance reasons it's not recommended to use this if there is no build tag specified
-- name: docker compose project build and setup 
   shell: >
-    docker-compose -p {{ application_id }} up -d --force-recreate --build --remove-orphans 
-    2>&1 | tee >(systemd-cat -t docker-compose-{{ application_id }})
+      docker-compose -p {{ application_id }} up -d
+      --force-recreate --remove-orphans --build
+      2>&1 | tee >(systemd-cat -t docker-compose-{{ application_id }})
   args:
     chdir: "{{ docker_compose.directories.instance }}"
     executable: /bin/bash
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600
-  listen: docker compose project build and setup
+  listen: docker compose up
 
 - name: docker compose restart
   command:

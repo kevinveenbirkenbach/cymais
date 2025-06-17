@@ -19,7 +19,7 @@
   template: 
     src: "env/{{database_type}}.env.j2"
     dest: "{{database_env}}"
-  notify: docker compose project build and setup
+  notify: docker compose up
   when: not applications | is_feature_enabled('central_database',application_id)
 
 - name: "Create central database"

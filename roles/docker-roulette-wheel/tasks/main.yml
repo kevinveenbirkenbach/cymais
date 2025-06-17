@@ -8,7 +8,7 @@
     repo: "https://github.com/kevinveenbirkenbach/roulette-wheel.git"
     dest: "{{app_path}}"
     update: yes
-  notify: docker compose project setup
+  notify: docker compose up
   become: true
   ignore_errors: true
 

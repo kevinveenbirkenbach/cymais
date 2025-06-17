@@ -17,7 +17,7 @@
     group:  "{{nextcloud_docker_user_id}}"
   loop:     "{{ lookup('fileglob', role_path ~ '/templates/config/*.j2', wantlist=True) }}"
   # Not all type of changes take instantly place. Due to this reason a rebuild is required.
-  notify: docker compose project setup
+  notify: docker compose up
 
 - name: "include role for {{application_id}} to receive certs & do modification routines"
   include_role:

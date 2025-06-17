@@ -10,7 +10,7 @@
     src: servers.json.j2
     dest: "{{ pgadmin_host_server_file }}"
     mode: "0644"
-  notify: docker compose project setup
+  notify: docker compose up
 
 - name: "Render .pgpass file"
   template:
@@ -19,4 +19,4 @@
     owner: "{{ pgadmin_user }}"
     group: "{{ pgadmin_group }}"
     mode: "0600"
-  notify: docker compose project setup
+  notify: docker compose up

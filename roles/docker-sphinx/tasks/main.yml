@@ -9,7 +9,7 @@
     name: pkgmgr-install
   vars:
     package_name: cymais-sphinx
-    package_notify: docker compose project build and setup
+    package_notify: docker compose up
 
 - name: Get path of cymais-sphinx using pkgmgr
   command: pkgmgr path cymais-sphinx

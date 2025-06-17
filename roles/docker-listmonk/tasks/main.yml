@@ -23,7 +23,7 @@
   template: 
     src:  "config.toml.j2" 
     dest: "{{docker_compose.directories.config}}config.toml"
-  notify: docker compose project setup
+  notify: docker compose up
 
 - include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
 

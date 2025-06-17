@@ -17,13 +17,13 @@
   template:
     src: upload.ini.j2
     dest: "{{ docker_compose.directories.instance }}upload.ini"
-  notify: docker compose project build and setup
+  notify: docker compose up
 
 - name: "Transfering msmtprc to {{ host_msmtp_conf }}"
   template:
     src: "{{ playbook_dir }}/roles/msmtp/templates/msmtprc.conf.j2"
     dest: "{{ host_msmtp_conf }}"
-  notify: docker compose project build and setup
+  notify: docker compose up
 
 - include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
 

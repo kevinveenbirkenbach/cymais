@@ -25,6 +25,6 @@
     dest: "{{docker_compose.files.env}}"
     mode: '770'
     force: yes
-  notify: docker compose project setup
+  notify: docker compose up
 
 - include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"

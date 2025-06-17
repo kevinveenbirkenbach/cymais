@@ -33,7 +33,7 @@
     src:  docker-compose.yml.j2 
     dest: "{{docker_compose.directories.instance}}docker-compose.yml"
   notify:
-    - docker compose project setup
+    - docker compose up
   when: run_once_docker_discourse is not defined
 
 - name: flush, to recreate discourse docker compose

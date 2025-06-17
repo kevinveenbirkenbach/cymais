@@ -9,7 +9,7 @@
     name: pkgmgr-install
   vars:
     package_name: cymais-presentation
-    package_notify: docker compose project build and setup
+    package_notify: docker compose up
 
 - name: Get path of cymais-presentation using pkgmgr
   command: pkgmgr path cymais-presentation

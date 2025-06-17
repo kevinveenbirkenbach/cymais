@@ -2,7 +2,7 @@
   template:
     src:          "{{ playbook_dir }}/roles/{{ role_name }}/templates/Dockerfile.j2"
     dest:         "{{ docker_compose.files.dockerfile }}"
-  notify:         docker compose project build and setup
+  notify:         docker compose up
   ignore_errors:  false
   register:       create_dockerfile_result
   failed_when:
@@ -15,7 +15,7 @@
     dest:         "{{ docker_compose.files.env }}"
     mode:         '770'
     force:        yes
-  notify:         docker compose project setup
+  notify:         docker compose up
   register:       env_template
   ignore_errors:  false
   failed_when:
@@ -26,7 +26,7 @@
   template:
     src:          "docker-compose.yml.j2"
     dest:         "{{ docker_compose.files.docker_compose }}"
-  notify:         docker compose project setup
+  notify:         docker compose up
   register:       docker_compose_template
 
 - name:           "Check if any container is running in {{ docker_compose.directories.instance }}"
@@ -35,8 +35,8 @@
     chdir:        "{{ docker_compose.directories.instance }}"
   register:       docker_ps
   changed_when:   (docker_ps.stdout | trim) == ""
-  notify:         docker compose project setup
+  notify:         docker compose up
   when:           not (docker_compose_template.changed or env_template.changed)
 
-- name:           flush docker compose project setup
+- name:           flush docker compose up
   meta:           flush_handlers

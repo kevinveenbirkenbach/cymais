@@ -54,7 +54,7 @@
   template:
     src: "{{ config_inventory_path }}"
     dest: "{{docker_repository_path}}/app/config.yaml"
-  notify: docker compose project setup
+  notify: docker compose up
   when:
     - run_once_docker_portfolio is not defined
     - config_file.stat.exists
@@ -63,7 +63,7 @@
   template:
     src: "config.yaml.j2"
     dest: "{{docker_repository_path}}/app/config.yaml"
-  notify: docker compose project setup
+  notify: docker compose up
   when:
     - run_once_docker_portfolio is not defined
     - not config_file.stat.exists
@@ -72,7 +72,7 @@
   template:
     src:  docker-compose.yml.j2 
     dest: "{docker_compose.directories.instance}}docker-compose.yml"
-  notify: docker compose project setup
+  notify: docker compose up
   when: run_once_docker_portfolio is not defined
 
 - name: run the portfolio tasks once

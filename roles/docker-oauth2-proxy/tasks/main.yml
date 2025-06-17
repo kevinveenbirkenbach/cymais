@@ -3,4 +3,4 @@
     src: oauth2-proxy-keycloak.cfg.j2
     dest: "{{(path_docker_compose_instances | get_docker_compose(oauth2_proxy_application_id)).directories.volumes}}{{applications[application_id].configuration_file}}"
   notify:
-    - docker compose project setup
+    - docker compose up

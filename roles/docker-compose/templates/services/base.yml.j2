@@ -1,4 +1,5 @@
-# Base for docker services
+{# Base for docker services #}
+
     restart: {{docker_restart_policy}}
     env_file:
       - "{{docker_compose.files.env}}"

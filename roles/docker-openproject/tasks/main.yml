@@ -21,7 +21,7 @@
     src: Gemfile.plugins
     dest: "{{openproject_plugins_folder}}Gemfile.plugins"
   notify:
-    - docker compose project build and setup
+    - docker compose up
 
 - name: "include role docker-repository-setup for {{application_id}}"
   include_role: 
