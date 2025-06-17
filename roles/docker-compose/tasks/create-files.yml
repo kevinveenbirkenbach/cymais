@@ -1,6 +1,6 @@
 - name:           "Create (optional) '{{ docker_compose.files.dockerfile }}'"
   template:
-    src:          "{{ playbook_dir }}/roles/{{ role_name }}/templates/Dockerfile"
+    src:          "{{ playbook_dir }}/roles/{{ role_name }}/templates/Dockerfile.j2"
     dest:         "{{ docker_compose.files.dockerfile }}"
   notify:         docker compose project build and setup
   ignore_errors:  false

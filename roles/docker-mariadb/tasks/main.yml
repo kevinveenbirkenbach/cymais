@@ -53,12 +53,14 @@
 
 - name: "Create database: {{ database_name }}"
   mysql_db:
-    name: "{{ database_name }}"
-    state: present
-    login_user: root
+    name:           "{{ database_name }}"
+    state:          present
+    login_user:     root
     login_password: "{{ applications.mariadb.credentials.root_password }}"
-    login_host: 127.0.0.1
-    login_port: "{{database_port}}"
+    login_host:     127.0.0.1
+    login_port:     "{{ database_port }}"
+    encoding:       "{{ database_encoding }}"
+    collation:      "{{ database_collation }}"
 
 - name: "Create database user: {{ database_username }}"
   mysql_user:
