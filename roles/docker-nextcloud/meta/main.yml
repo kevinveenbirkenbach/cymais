@@ -28,3 +28,7 @@ galaxy_info:
   documentation: "https://s.veen.world/cymais/docker-nextcloud"
   logo:
     class: "fa-solid fa-cloud"
+  run_after:
+    - docker-collabora
+    - docker-keycloak
+    - docker-mastodon

@@ -20,6 +20,28 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
         ipv4_address: 192.168.102.69
 
+  # @Todo activate
+  #nc-talk:
+  #  image: nextcloud/aio-talk:latest
+  #  container_name: talk_hpb
+  #  hostname: hpb_yt
+  #  restart: unless-stopped
+  #  init: true
+  #  ports:
+  #    - 3478:3478/tcp #TURN TCP
+  #    - 3478:3478/udp #TURN UDP
+  #    - 8181:8081/tcp #Signaling
+  #  environment:
+  #    - NC_DOMAIN=cloud.yourdomain.tld
+  #    - TALK_HOST=signaling.yourdomain.tld
+  #    - TURN_SECRET=${TURN_SECRET}
+  #    - SIGNALING_SECRET=${SIGNALING_SECRET}
+  #    - TZ=Europe/Berlin
+  #    - TALK_PORT=3478
+  #    - INTERNAL_SECRET=${INTERNAL_SECRET}
+  #  networks:
+  #    - nxnetwork_yt
+
   web:
     image: nginx:alpine
     container_name: {{applications.nextcloud.container.proxy}}

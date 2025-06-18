@@ -36,6 +36,7 @@ legacy_login_mask:
 container:
   application:                  "nextcloud-application"                         # Nextcloud application container name
   proxy:                        "nextcloud-web"                                 # Nextcloud Proxy Container Name
+  collabora:                    "nextcloud-collabora"                                                   
 performance:
   php:
     memory_limit:               "{{ ((ansible_memtotal_mb | int) / 30)|int }}M" # Dynamic set memory limit

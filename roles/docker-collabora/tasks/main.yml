@@ -1,0 +1,20 @@
+- name: create nextcloud nginx proxy configuration file
+  template: 
+    src:  "nginx.conf.j2" 
+    dest: "{{nginx.directories.http.servers}}{{domains | get_domain(application_id)}}.conf"
+  notify: restart nginx
+
+- name: "Include docker-compose role"
+  include_role: 
+    name: docker-compose
+
+- name: Create Docker network for Collabora
+  docker_network:
+    name: central_mariadb
+    state: present
+    ipam_config:
+      - subnet: "{{ networks.local.collabora.subnet }}"
+  when: run_once_docker_mariadb is not defined
+
+- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
+
