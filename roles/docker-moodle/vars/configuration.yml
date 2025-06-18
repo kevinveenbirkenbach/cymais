@@ -3,20 +3,23 @@ users:
   administrator:
     username:         "{{users.administrator.username}}"
     email:            "{{users.administrator.email}}"
-version:              "latest"
+version:              "4.5"                                 # Latest LTS - Necessary for OIDC
 features:
   matomo:             true
   css:                false
   portfolio_iframe:   false
   central_database:   true
-  oidc:               false
+  oidc:               true
 csp:
   flags:
     script-src-elem:
       unsafe-inline:  true
       unsafe-eval:    true
+    script-src:
+      unsafe-eval:    true
     style-src:
       unsafe-inline:  true
+      unsafe-eval:    true
   whitelist:
     font-src:
       - "data:"

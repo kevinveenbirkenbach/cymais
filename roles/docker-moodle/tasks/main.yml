@@ -12,6 +12,26 @@
 
 - include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
 
+- name: Wait until the Moodle container is healthy
+  shell: docker inspect --format '{% raw %}{{.State.Health.Status}}{% endraw %}' {{ container_name }}
+  register: health_check
+  until: health_check.stdout.strip() == "healthy"
+  retries: 120
+  delay: 5
+
+- name: "Include ownership settings tasks for moodle"
+  include_tasks: ownership.yml
+
 - name: "Configure OIDC login for Moodle if enabled"
   include_tasks: oidc.yml
   when: applications | is_feature_enabled('oidc',application_id)
+
+- name: Run Moodle system check
+  command: >
+    docker exec --user {{ bitnami_user }} {{ container_name }}
+    php /opt/bitnami/moodle/admin/cli/checks.php
+  register: moodle_checks
+  changed_when: false
+  failed_when: >
+    moodle_checks.rc != 0 or
+    "OK: All" not in moodle_checks.stdout

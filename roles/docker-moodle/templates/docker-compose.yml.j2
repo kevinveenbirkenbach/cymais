@@ -11,8 +11,8 @@ services:
       - 127.0.0.1:{{ports.localhost.http[application_id]}}:8080
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
-      - 'moodle:/bitnami/moodle'
-      - 'data:/bitnami/moodledata'
+      - 'code:{{ bitnami_code_link }}'
+      - 'data:{{ bitnami_data_dir }}'
     healthcheck:
       test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/localhost/8080 && echo -e 'GET / HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && cat <&3 | grep -q 'HTTP/1.1'"]
       interval: 30s
@@ -22,7 +22,7 @@ services:
 {% include 'templates/docker/container/networks.yml.j2' %}
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}
-  moodle:
+  code:
   data:
 
 {% include 'templates/docker/compose/networks.yml.j2' %}

@@ -1,24 +1,57 @@
 ---
-- name: "Upgrade Moodle to apply OIDC plugin"
-  command: "docker exec {{ container_name }} php admin/cli/upgrade.php --non-interactive"
+
+- name: Check if OIDC plugin is present in container
+  command: >
+    docker exec --user root {{ container_name }} test -d {{ bitnami_oidc_plugin_dir }}
+  register: oidc_plugin_check
+  ignore_errors: true
+  changed_when: false
+
+- name: Fail if plugin not present to avoid broken auth
+  fail:
+    msg: "OIDC plugin not present – skipping configuration"
+  when: oidc_plugin_check.rc != 0
+
+#- name: "Upgrade Moodle to apply OIDC plugin"
+#  command: "docker exec --user {{ bitnami_user }} {{ container_name }} php /opt/bitnami/moodle/admin/cli/upgrade.php --non-interactive"
+#
+#- name: Clear Moodle cache
+#  command: >
+#    docker exec --user {{ bitnami_user }} {{ container_name }} php /opt/bitnami/moodle/admin/cli/purge_caches.php
 
 - name: "Set Moodle OIDC configuration via CLI"
   loop:
-    - { name: "issuerurl", value: "{{ oidc.client.issuer_url }}" }
-    - { name: "clientid", value: "{{ oidc.client.id }}" }
-    - { name: "clientsecret", value: "{{ oidc.client.secret }}" }
-    - { name: "authmethod", value: "oidc" }
-    - { name: "loginflow", value: "authorization_code" }
-    - { name: "idpname", value: "Keycloak" }
-    - { name: "scopes", value: "openid profile email" }
-    - { name: "authenticationendpoint", value: "{{ oidc.client.authorize_url }}" }
-    - { name: "tokenendpoint", value: "{{ oidc.client.token_url }}" }
-    - { name: "userinfoendpoint", value: "{{ oidc.client.user_info_url }}" }
+    - { name: "idptype",              value: 3 }
+    - { name: "clientauthmethod",     value: 1 }  
+    - { name: "clientid",             value: "{{ oidc.client.id }}" }
+    - { name: "clientsecret",         value: "{{ oidc.client.secret }}" }
+    - { name: "opname",               value: "{{oidc.button_text}}" }
+    - { name: "oidcscope",            value: "openid profile email" }
+    - { name: "authendpoint",         value: "{{ oidc.client.authorize_url }}" }
+    - { name: "tokenendpoint",        value: "{{ oidc.client.token_url }}" }
+    - { name: "bindingusernameclaim", value: "{{ oidc.attributes.username }}" }
+    - { name: "single_sign_off",      value: 1 }  # Logs the user out from the IDP
+    - { name: "logouturi",            value: "{{ oidc.client.logout_url }}" }
+    - { name: "icon",                 value: "moodle:t/lock" }
+    - { name: "field_map_firstname",  value: "{{ oidc.attributes.given_name }}" }
+    - { name: "field_map_lastname",   value: "{{ oidc.attributes.family_name }}" }
+    #- { name: "showloginform",        value: 0 }  # Deactivate if OIDC is active
+    - { name: "alternateloginurl",    value: "{{ web_protocol }}://{{ domains | get_domain(application_id) }}/auth/oidc/" }
   loop_control:
     label: "{{ item.name }}"
   command: >
-    docker exec {{ container_name }} php admin/cli/cfg.php --component=auth_oidc
+    docker exec --user {{ bitnami_user }} {{ container_name }} php /opt/bitnami/moodle/admin/cli/cfg.php --component=auth_oidc
     --name={{ item.name }} --set="{{ item.value }}"
 
 - name: "Enable OIDC login"
-  command: "docker exec {{ container_name }} php admin/cli/cfg.php --name=auth --set=oidc"
+  command: "docker exec --user {{ bitnami_user }} {{ container_name }} php /opt/bitnami/moodle/admin/cli/cfg.php --name=auth --set=oidc"
+
+- name: Set auth = 'oidc' for all users except guest
+  shell: >
+    docker exec {{ database_instance }} mariadb -u {{ database_username }} -p{{ database_password }}
+    -e "UPDATE moodle.mdl_user SET auth = 'oidc' WHERE username != 'guest';"
+  args:
+    executable: /bin/bash
+
+#- name: Prevent Account Creation
+#  command: docker exec --user {{ bitnami_user }} {{ container_name }} php /opt/bitnami/moodle/admin/cli/cfg.php --name=authpreventaccountcreation --set=1

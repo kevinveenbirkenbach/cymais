@@ -51,7 +51,7 @@ certbot_webroot_path:                     "/var/lib/letsencrypt/" # Path used by
 certbot_cert_path:                        "/etc/letsencrypt/live" # Path containing active certificate symlinks for domains
 
 ## Docker Role Specific Parameters
-docker_restart_policy:        "unless-stopped"
+docker_restart_policy:                    "unless-stopped"
 
 # helper
-_applications_nextcloud_oidc_flavor:  "{{ applications.nextcloud.oidc.flavor | default('oidc_login' if applications.nextcloud.features.ldap | default(true) else 'sociallogin') }}"
+_applications_nextcloud_oidc_flavor:      "{{ applications.nextcloud.oidc.flavor | default('oidc_login' if applications.nextcloud.features.ldap | default(true) else 'sociallogin') }}"

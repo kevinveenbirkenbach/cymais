@@ -1,4 +1,10 @@
 ---
-application_id: "moodle"
-database_type:  "mariadb"
-container_name: "{{ application_id }}"
+application_id:           "moodle"
+database_type:            "mariadb"
+container_name:           "{{ application_id }}"
+bitnami_code_link:        "/bitnami/moodle"
+bitnami_code_dir:         "/opt{{bitnami_code_link}}"
+bitnami_data_dir:         "/bitnami/moodledata"
+bitnami_oidc_plugin_dir:  "{{ bitnami_code_dir }}/auth/oidc"
+bitnami_user:             "daemon"  
+bitnami_user_group:       "{{ bitnami_user }}:{{ bitnami_user }}"
