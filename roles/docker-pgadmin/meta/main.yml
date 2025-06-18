@@ -25,4 +25,4 @@ galaxy_info:
   logo:
     class: "fa-solid fa-database"
   run_after:
-    - docker-postgres
+    - docker-matomo

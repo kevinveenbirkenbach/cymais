@@ -19,4 +19,4 @@ galaxy_info:
   logo:
     class: "fa-solid fa-chart-line"
   run_after:
-    - "docker-ldap"
+    - "docker-postgres"
