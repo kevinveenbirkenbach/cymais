@@ -20,6 +20,8 @@ features:
   central_database:   true
 csp:
   flags:
+    script-src:
+      unsafe-eval:   true
     script-src-elem:
       unsafe-inline: true
       unsafe-eval:   true
@@ -27,8 +29,7 @@ csp:
       unsafe-inline: true
   whitelist:
     connect-src:
-      - "{{ primary_domain }}"
-      - "matrix.{{ primary_domain }}"
+      - "*"
     script-src-elem:
       - "element.{{ primary_domain }}"
       - "https://cdn.jsdelivr.net"

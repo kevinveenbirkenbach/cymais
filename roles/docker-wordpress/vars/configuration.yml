@@ -16,6 +16,7 @@ features:
   portfolio_iframe:   false
   oidc:               true
   central_database:   true
+version:              latest
 csp:
   flags:
     style-src:
@@ -31,7 +32,8 @@ csp:
       - "data:"
       - "https://fonts.bunny.net"
     script-src-elem:
-      - "https://cdn.gtranslate.net"
+      - "https://cdn.gtranslate.net"    # Necessary for translation plugins
+      - "https://translate.google.com"  # Necessary for translation plugins
       - "blog.{{ primary_domain }}"
     style-src:
       - "https://fonts.bunny.net"

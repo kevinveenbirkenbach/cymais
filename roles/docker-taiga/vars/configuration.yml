@@ -20,6 +20,8 @@ csp:
       unsafe-eval:   true
     style-src:
       unsafe-inline: true
+    script-src:
+      unsafe-eval:    true
 domains:
   canonical:
     - "kanban.{{ primary_domain }}"
