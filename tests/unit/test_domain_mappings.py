@@ -86,6 +86,17 @@ class TestDomainMappings(unittest.TestCase):
         ]
         result = self.filter.domain_mappings(apps, self.primary)
         self.assertCountEqual(result, expected)
+        
+    def test_multiple_aliases(self):
+        apps = {
+            'app1': {'domains': {'aliases': ['a1.com','a2.com']}}
+        }
+        expected = [
+            {'source': 'a1.com', 'target': 'app1.example.com'},
+            {'source': 'a2.com', 'target': 'app1.example.com'}
+        ]
+        result = self.filter.domain_mappings(apps, self.primary)
+        self.assertCountEqual(result, expected)
 
     def test_invalid_aliases_type(self):
         apps = {

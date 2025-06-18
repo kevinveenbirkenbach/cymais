@@ -63,7 +63,7 @@
           (current_play_domains |
           combine(
             current_play_domain_mappings_redirect | 
-            items2dict(key_name='target', value_name='source'),
+            items2dict(key_name='source', value_name='source'),
             recursive=True
           )) |
           generate_all_domains(
