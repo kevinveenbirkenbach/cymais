@@ -34,7 +34,10 @@
     - { name: "logouturi",            value: "{{ oidc.client.logout_url }}" }
     - { name: "icon",                 value: "moodle:t/lock" }
     - { name: "field_map_firstname",  value: "{{ oidc.attributes.given_name }}" }
+    - { name: "field_lock_firstname", value: "locked" }
     - { name: "field_map_lastname",   value: "{{ oidc.attributes.family_name }}" }
+    - { name: "field_lock_lastname",  value: "locked" }
+    - { name: "field_map_email",      value: "locked" }
     #- { name: "showloginform",        value: 0 }  # Deactivate if OIDC is active
     - { name: "alternateloginurl",    value: "{{ web_protocol }}://{{ domains | get_domain(application_id) }}/auth/oidc/" }
   loop_control:

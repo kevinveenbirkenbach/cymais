@@ -28,4 +28,7 @@ galaxy_info:
   documentation: "https://s.veen.world/cymais"
   logo:
     class: "fa-solid fa-tasks"
-dependencies: []
+  run_after:
+    - docker-postgres
+    - docker-matomo
+    - docker-keycloak

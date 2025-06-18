@@ -26,3 +26,4 @@ galaxy_info:
   run_after:
     - docker-ldap
     - docker-matomo
+    - docker-keycloak

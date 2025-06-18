@@ -28,3 +28,4 @@ galaxy_info:
   run_after:
     - docker-mariadb
     - docker-matomo
+    - docker-keycloak

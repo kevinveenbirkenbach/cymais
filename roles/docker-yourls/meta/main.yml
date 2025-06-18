@@ -25,4 +25,7 @@ galaxy_info:
   documentation: "https://s.veen.world/cymais"
   logo:
     class: "fa-solid fa-link"
-dependencies: []
+  run_after:
+    - docker-mariadb
+    - docker-matomo
+    - docker-keycloak

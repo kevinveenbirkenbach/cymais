@@ -26,3 +26,4 @@ galaxy_info:
     class: "fa-solid fa-database"
   run_after:
     - docker-matomo
+    - docker-keycloak
