@@ -5,7 +5,7 @@ services:
 {% include 'templates/docker/services/redis.yml.j2' %}
 
   application:
-    image: zknt/pixelfed:{{applications.pixelfed.version}}
+    image: "{{ applications[application_id].images.pixelfed }}"
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - "data:/var/www/storage"
@@ -15,7 +15,7 @@ services:
 {% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
   worker:
-    image: zknt/pixelfed:{{applications.pixelfed.version}}
+    image: "{{ applications[application_id].images.pixelfed }}"
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
       - "data:/var/www/storage"

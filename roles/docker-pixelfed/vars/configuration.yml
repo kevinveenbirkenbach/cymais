@@ -1,5 +1,7 @@
 titel:                "Pictures on {{primary_domain}}"
-version:              "latest"
+#version:              "latest"
+images:
+  pixelfed:           "ghcr.io/pixelfed/pixelfed:latest"
 features:
   matomo:             true
   css:                true
@@ -7,6 +9,8 @@ features:
   central_database:   true
 csp:
   flags:
+    script-src:
+      unsafe-eval:   true
     script-src-elem:
       unsafe-inline: true
       unsafe-eval:   true
