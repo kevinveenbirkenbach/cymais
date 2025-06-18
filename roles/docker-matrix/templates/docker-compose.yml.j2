@@ -25,7 +25,7 @@ services:
       interval: 1m
       timeout: 10s
       retries: 3
-{% if bridges | bool %}
+{% if bridges | length > 0 %}
 {% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
 {% for item in bridges %}
       mautrix-{{item.bridge_name}}:
