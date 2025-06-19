@@ -162,12 +162,17 @@ if __name__ == "__main__":
                 text=True
             )
             os.close(slave_fd)
+            import errno
             with os.fdopen(master_fd) as master:
-                for line in master:
-                    ts = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
-                    log_file.write(f"{ts} {line}")
-                    log_file.flush()
-                    print(line, end='')
+                try:
+                    for line in master:
+                        ts = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+                        log_file.write(f"{ts} {line}")
+                        log_file.flush()
+                        print(line, end='')
+                except OSError as e:
+                    if e.errno != errno.EIO:
+                        raise
             proc.wait()
             rc = proc.returncode
         else:
