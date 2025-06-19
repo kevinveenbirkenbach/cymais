@@ -7,6 +7,8 @@ import sys
 import textwrap
 import threading
 import signal
+from datetime import datetime
+import pty
 
 from cli.sounds import Sound
 
@@ -60,17 +62,20 @@ def failure_with_warning_loop():
         print("Warnings stopped by user.")
 
 if __name__ == "__main__":
-    # Parse --no-sound early and remove from args
+    # Parse --no-sound and --log early and remove from args
     no_sound = False
+    log_enabled = False
     if '--no-sound' in sys.argv:
         no_sound = True
         sys.argv.remove('--no-sound')
+    if '--log' in sys.argv:
+        log_enabled = True
+        sys.argv.remove('--log')
 
     # Setup segfault handler to catch crashes
     def segv_handler(signum, frame):
         if not no_sound:
             Sound.play_finished_failed_sound()
-            # Loop warning until interrupted
             try:
                 while True:
                     Sound.play_warning_sound()
@@ -91,12 +96,13 @@ if __name__ == "__main__":
 
     available_cli_commands = list_cli_commands(cli_dir)
 
-            # Handle help invocation
+    # Handle help invocation
     if len(sys.argv) == 1 or sys.argv[1] in ('-h', '--help'):
         print("CyMaIS CLI – proxy to tools in ./cli/")
-        print("Usage: cymais [--no-sound] <command> [options]")
+        print("Usage: cymais [--no-sound] [--log] <command> [options]")
         print("Options:")
         print("  --no-sound        Suppress all sounds during execution")
+        print("  --log             Log all proxied command output to logfile.log")
         print("  -h, --help        Show this help message and exit")
         print("Available commands:")
         for cmd in available_cli_commands:
@@ -119,10 +125,40 @@ if __name__ == "__main__":
     cmd_path = os.path.join(cli_dir, f"{args.cli_command}.py")
     full_cmd = [sys.executable, cmd_path] + args.cli_args
 
+    log_file = None
+    if log_enabled:
+        log_file_path = os.path.join(script_dir, 'logfile.log')
+        log_file = open(log_file_path, 'a', encoding='utf-8')
+
     try:
-        proc = subprocess.Popen(full_cmd)
-        proc.wait()
-        rc = proc.returncode
+        if log_enabled:
+            # Use a pseudo-terminal to preserve color formatting
+            master_fd, slave_fd = pty.openpty()
+            proc = subprocess.Popen(
+                full_cmd,
+                stdin=slave_fd,
+                stdout=slave_fd,
+                stderr=slave_fd,
+                text=True
+            )
+            os.close(slave_fd)
+            with os.fdopen(master_fd) as m:
+                for line in m:
+                    ts = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+                    log_file.write(f"{ts} {line}")
+                    log_file.flush()
+                    # Print raw line (with ANSI escapes) to stdout
+                    print(line, end='')
+            proc.wait()
+            rc = proc.returncode
+        else:
+            proc = subprocess.Popen(full_cmd)
+            proc.wait()
+            rc = proc.returncode
+
+        if log_file:
+            log_file.close()
+
         if rc != 0:
             print(f"Command '{args.cli_command}' failed with exit code {rc}.")
             failure_with_warning_loop()
