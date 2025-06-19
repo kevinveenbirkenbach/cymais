@@ -5,6 +5,7 @@ import sys
 import stat
 import tempfile
 import unittest
+from unittest import mock
 
 # Insert project root into import path so we can import main.py
 sys.path.insert(
@@ -39,6 +40,11 @@ class TestMainHelpers(unittest.TestCase):
             # Only 'one' and 'two' should be returned, in sorted order
             commands = main.list_cli_commands(tmpdir)
             self.assertEqual(commands, ["one", "two"])
+            
+    def test_git_clean_repo_invokes_git_clean(self):
+        with mock.patch('main.subprocess.run') as mock_run:
+            main.git_clean_repo()
+            mock_run.assert_called_once_with(['git', 'clean', '-Xfd'], check=True)
 
     def test_extract_description_via_help_with_description(self):
         # Create a dummy script that prints a help description

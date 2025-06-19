@@ -48,6 +48,10 @@ def extract_description_via_help(cli_script_path):
     except Exception:
         return "-"
 
+def git_clean_repo():
+    """Remove all Git-ignored files and directories in the current repository."""
+    subprocess.run(['git', 'clean', '-Xfd'], check=True)
+
 def play_start_intro():
     Sound.play_start_sound()
     Sound.play_cymais_intro_sound()
@@ -61,16 +65,27 @@ def failure_with_warning_loop():
     except KeyboardInterrupt:
         print("Warnings stopped by user.")
 
+from cli.sounds import Sound  # ensure Sound imported
+
+def _main():
+    # existing main block logic here
+    pass
+
 if __name__ == "__main__":
-    # Parse --no-sound and --log early and remove from args
+    _main()
+    # Parse --no-sound, --log and --git-clean early and remove from args
     no_sound = False
     log_enabled = False
+    git_clean = False
     if '--no-sound' in sys.argv:
         no_sound = True
         sys.argv.remove('--no-sound')
     if '--log' in sys.argv:
         log_enabled = True
         sys.argv.remove('--log')
+    if '--git-clean' in sys.argv:
+        git_clean = True
+        sys.argv.remove('--git-clean')
 
     # Setup segfault handler to catch crashes
     def segv_handler(signum, frame):
@@ -94,15 +109,20 @@ if __name__ == "__main__":
     cli_dir = os.path.join(script_dir, "cli")
     os.chdir(script_dir)
 
+    # If requested, clean git-ignored files
+    if git_clean:
+        git_clean_repo()
+
     available_cli_commands = list_cli_commands(cli_dir)
 
     # Handle help invocation
     if len(sys.argv) == 1 or sys.argv[1] in ('-h', '--help'):
         print("CyMaIS CLI – proxy to tools in ./cli/")
-        print("Usage: cymais [--no-sound] [--log] <command> [options]")
+        print("Usage: cymais [--no-sound] [--log] [--git-clean] <command> [options]")
         print("Options:")
         print("  --no-sound        Suppress all sounds during execution")
         print("  --log             Log all proxied command output to logfile.log")
+        print("  --git-clean       Remove all Git-ignored files before running")
         print("  -h, --help        Show this help message and exit")
         print("Available commands:")
         for cmd in available_cli_commands:
@@ -142,12 +162,11 @@ if __name__ == "__main__":
                 text=True
             )
             os.close(slave_fd)
-            with os.fdopen(master_fd) as m:
-                for line in m:
+            with os.fdopen(master_fd) as master:
+                for line in master:
                     ts = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
                     log_file.write(f"{ts} {line}")
                     log_file.flush()
-                    # Print raw line (with ANSI escapes) to stdout
                     print(line, end='')
             proc.wait()
             rc = proc.returncode
