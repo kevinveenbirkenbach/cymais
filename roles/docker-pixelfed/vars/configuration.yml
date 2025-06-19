@@ -1,16 +1,18 @@
 titel:                "Pictures on {{primary_domain}}"
 #version:              "latest"
 images:
-  pixelfed:           "ghcr.io/pixelfed/pixelfed:latest"
+  pixelfed:           "zknt/pixelfed:latest"
 features:
   matomo:             true
-  css:                true
+  css:                false # Needs to be reactivated
   portfolio_iframe:   false
   central_database:   true
+  oidc:               true
 csp:
   flags:
     script-src:
       unsafe-eval:   true
+      unsafe-inline: true
     script-src-elem:
       unsafe-inline: true
       unsafe-eval:   true

@@ -6,6 +6,8 @@ from typing import Dict
 from utils.handler.yaml import YamlHandler
 from utils.handler.vault import VaultHandler, VaultScalar
 import string
+import sys
+import base64
 
 class InventoryManager:
     def __init__(self, role_path: Path, inventory_path: Path, vault_pw: str, overrides: Dict[str, str]):
@@ -112,4 +114,6 @@ class InventoryManager:
             return bcrypt.hashpw(pw, bcrypt.gensalt()).decode()
         if algorithm == "alphanumeric":
             return self.generate_secure_alphanumeric(64)
+        if algorithm == "base64_prefixed_32":
+            return "base64:" + base64.b64encode(secrets.token_bytes(32)).decode()
         return "undefined"

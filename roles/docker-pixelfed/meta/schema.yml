@@ -1,5 +1,5 @@
 credentials:
   app_key:
-    description: "Application key used for encryption in Pixelfed (.env APP_KEY)"
-    algorithm: "plain"
-    validation: "^base64:[A-Za-z0-9+/=]{40,}$"
+    description:  "Generic 32-byte base64 key with base64: prefix"
+    algorithm:    base64_prefixed_32
+    validation:   '^base64:[A-Za-z0-9+/]{43}=$'

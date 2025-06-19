@@ -2,30 +2,22 @@
 
 ## Description
 
-Pixelfed is a decentralized image sharing platform that champions creativity and privacy. It offers a secure, community‑driven alternative to centralized social media networks by enabling federated communication and robust content sharing through a modern web interface.
+Pixelfed is a decentralized image-sharing platform that champions creativity and privacy. It offers a secure, community-driven alternative to centralized social networks by enabling federated communication and seamless content sharing through a modern web interface.
 
 ## Overview
 
-This Docker Compose deployment automates the installation and management of a Pixelfed instance
+This Docker Compose deployment automates the installation and operation of a Pixelfed instance.
 
-## Features 
+## Features
 
-- **Decentralized Content Sharing:**  
-  Empower users to share photos and visual content on an interoperable, federated network with enhanced privacy controls.
-
-- **Modern, Responsive Web Interface:**  
-  Access an intuitive and dynamic user interface designed for effortless browsing, administration, and content management.
-
-- **Robust Scalability & Performance:**  
-  Leverage integrated Redis caching and a secure database (MariaDB or PostgreSQL) to ensure smooth scaling and high performance.
-
-- **Flexible Configuration:**  
-  Easily customize settings such as cache sizes, domain settings, and authentication options with environment variables and templated configuration files.
-
-- **Maintenance & Administration Tools:**  
-  Includes a suite of CLI commands and web‑based management tools to clear cache, manage the database, and monitor application status.
+* **Decentralized Content Sharing:** Empower users to share photos and visual content across an interoperable, federated network with enhanced privacy controls.
+* **Modern, Responsive Web Interface:** Access an intuitive and adaptive UI for effortless browsing, administration, and content management.
+* **Robust Scalability & Performance:** Leverage integrated Redis caching and a reliable database (MariaDB or PostgreSQL) for smooth scaling and high performance.
+* **Flexible Configuration:** Customize cache sizes, domain settings, and authentication options via environment variables and templated configuration files.
+* **Maintenance & Administration Tools:** Built-in CLI and web-based tools to clear caches, manage the database, and monitor application health.
+* **Single Sign-On (SSO) / OpenID Connect (OIDC):** Seamless integration with external identity providers for centralized authentication.
 
 ## Other Resources
 
-- [Pixelfed GitHub Repository](https://github.com/pixelfed/pixelfed)
-- [OIDC Plugin Installation Guide](https://chat.openai.com/share/67a4f448-4be8-800f-8639-4c15cb2fb44e)
+* [Official Pixelfed website](https://pixelfed.org/)
+* [Pixelfed GitHub repository](https://github.com/pixelfed/pixelfed)
