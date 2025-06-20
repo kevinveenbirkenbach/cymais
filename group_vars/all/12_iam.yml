@@ -40,6 +40,7 @@ defaults_oidc:
 # Keep in mind to mapp this variables if there is ever the possibility for the user to define them in the inventory
 _ldap_dn_base:      "dc={{primary_domain_sld}},dc={{primary_domain_tld}}"
 _ldap_server_port:  "{% if applications.ldap.network.docker | bool %}{{ ports.localhost.ldap.ldap }}{% else %}{{ ports.localhost.ldaps.ldap }}{% endif %}"
+_ldap_user_id:      "uid"
 
 ldap:
   # Distinguished Names (DN)
@@ -56,7 +57,7 @@ ldap:
     application_roles:  "ou=application_roles,{{_ldap_dn_base}}"
   attributes:
     # Attribut to identify the user
-    user_id:            "uid" 
+    user_id:            "{{ _ldap_user_id }}" 
   # Password to access dn.bind
   bind_credential:      "{{applications.ldap.credentials.administrator_database_password}}"
   server:
@@ -66,7 +67,9 @@ ldap:
   network:
     local:              "{{applications.ldap.network.docker}}" # Uses the application configuration to define if local network should be available or not
   user_objects:
-    - person          # Basic person attributes (sn, cn …) – RFC 4519
-    - inetOrgPerson   # Extended Internet / intranet person – RFC 2798
-    - posixAccount    # POSIX/UNIX login attributes (uidNumber, gidNumber …) – RFC 2307
-    - nextcloudUser   # Nextcloud-specific auxiliary attributes (nextcloudQuota, nextcloudEnabled) – Nextcloud schema
+    - person            # Basic person attributes (sn, cn …) – RFC 4519
+    - inetOrgPerson     # Extended Internet / intranet person – RFC 2798
+    - posixAccount      # POSIX/UNIX login attributes (uidNumber, gidNumber …) – RFC 2307
+    - nextcloudUser     # Nextcloud-specific auxiliary attributes (nextcloudQuota, nextcloudEnabled) – Nextcloud schema
+  filters:
+    user_filter:        "(&(|(objectclass=inetOrgPerson))({{_ldap_user_id}}=%{{_ldap_user_id}}))"

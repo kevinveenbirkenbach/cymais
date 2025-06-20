@@ -103,15 +103,22 @@ hooks:
     - exec:
         cd: $home/plugins
         cmd:
-          - git clone  --depth=1 https://github.com/discourse/docker_manager.git
-          - git clone  --depth=1 https://github.com/discourse/discourse-activity-pub.git
-          - git clone  --depth=1 https://github.com/discourse/discourse-calendar.git
-          - git clone  --depth=1 https://github.com/discourse/discourse-akismet.git
-          - git clone  --depth=1 https://github.com/discourse/discourse-cakeday.git
-          - git clone  --depth=1 https://github.com/discourse/discourse-solved.git
-          - git clone  --depth=1 https://github.com/discourse/discourse-voting.git
-          - git clone  --depth=1 https://github.com/discourse/discourse-oauth2-basic.git
-          - git clone  --depth=1 https://github.com/discourse/discourse-openid-connect.git
+          - git clone --depth=1 https://github.com/discourse/docker_manager.git
+          - git clone --depth=1 https://github.com/discourse/discourse-activity-pub.git
+          - git clone --depth=1 https://github.com/discourse/discourse-calendar.git
+          - git clone --depth=1 https://github.com/discourse/discourse-akismet.git
+          - git clone --depth=1 https://github.com/discourse/discourse-cakeday.git
+          - git clone --depth=1 https://github.com/discourse/discourse-solved.git
+          - git clone --depth=1 https://github.com/discourse/discourse-voting.git
+          - git clone --depth=1 https://github.com/discourse/discourse-oauth2-basic.git
+
+{% if applications | is_feature_enabled('oidc',application_id) %}
+          - git clone --depth=1 https://github.com/discourse/discourse-openid-connect.git
+{% endif %}
+
+{% if applications | is_feature_enabled('ldap',application_id) %}
+          - git clone --depth=1 https://github.com/jonmbake/discourse-ldap-auth.git
+{% endif %}
 
 ## Any custom commands to run after building
 run:
@@ -143,6 +150,30 @@ run:
   - exec: rails r "SiteSetting.openid_connect_allow_association_change = false"
   - exec: rails r "SiteSetting.openid_connect_rp_initiated_logout = true"
 {% endif %}
+
+{% if applications | is_feature_enabled('ldap',application_id) %}
+  # Enable LDAP authentication
+  - exec: rails r "SiteSetting.ldap_auth_enabled = true"
+  - exec: rails r "SiteSetting.ldap_sync_enabled = true"
+
+  # LDAP connection settings
+  - exec: rails r "SiteSetting.ldap_sync_host = '{{ ldap.server.domain }}'"
+  - exec: rails r "SiteSetting.ldap_sync_port = {{ ldap.server.port }}"
+  - exec: rails r "SiteSetting.ldap_encryption = 'simple_tls'"
+  - exec: rails r "SiteSetting.ldap_base_dn = '{{ ldap.dn.root }}'"
+  - exec: rails r "SiteSetting.ldap_bind_dn = '{{ ldap.dn.administrator }}'"
+  - exec: rails r "SiteSetting.ldap_bind_password = '{{ ldap.bind_credential }}'"
+
+  # LDAP additional configuration
+  - exec: rails r "SiteSetting.ldap_user_filter = '{{ ldap.filters.user_filter }}'"
+  - exec: rails r "SiteSetting.ldap_group_base_dn = '{{ ldap.dn.groups }}'"
+  - exec: rails r "SiteSetting.ldap_group_member_check = 'memberUid'"
+
+  - exec: rails r "SiteSetting.ldap_sync_period = 1"
+  - exec: rails r "SiteSetting.ldap_sync_unit = 'hours'"
+
+{% endif %}
+
   - exec: echo "End of custom commands"
 
 docker_args:

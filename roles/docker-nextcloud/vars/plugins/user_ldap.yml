@@ -107,7 +107,7 @@ plugin_configuration:
   -
     appid: "user_ldap"
     configkey: "s01ldap_login_filter"
-    configvalue: "(&(|(objectclass=inetOrgPerson))({{ldap.attributes.user_id}}=%{{ldap.attributes.user_id}}))"
+    configvalue: "{{ ldap.filters.user_filter }}"
   -
     appid: "user_ldap"
     configkey: "s01ldap_login_filter_mode"
