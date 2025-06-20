@@ -62,7 +62,8 @@ env:
   DISCOURSE_SMTP_PORT:              {{ system_email.port }}
   DISCOURSE_SMTP_USER_NAME:         {{ users['no-reply'].email }}
   DISCOURSE_SMTP_PASSWORD:          {{ users['no-reply'].mailu_token }}
-  DISCOURSE_SMTP_ENABLE_START_TLS:  {{ system_email.start_tls | upper }}
+  DISCOURSE_SMTP_ENABLE_START_TLS:  {{ system_email.start_tls }}
+  DISCOURSE_SMTP_FORCE_TLS:         {{ system_email.tls }}
   DISCOURSE_SMTP_DOMAIN:            {{ system_email.domain }}
   DISCOURSE_NOTIFICATION_EMAIL:     {{ users['no-reply'].email }}
 
