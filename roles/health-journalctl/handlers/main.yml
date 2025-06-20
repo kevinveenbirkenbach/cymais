@@ -1,5 +1,5 @@
-- name: reload health-msmtp.cymais.service
+- name: "reload health-journalctl.cymais.service"
   systemd:
-    name: health-msmtp.cymais.service
+    name: health-journalctl.cymais.service
     enabled: yes
     daemon_reload: yes

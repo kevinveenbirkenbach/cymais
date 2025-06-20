@@ -1,0 +1,11 @@
+---
+- name: python-yaml install
+  pacman:
+    name: python-yaml
+    state: present
+  when: run_once_python_yaml is not defined
+
+- name: run the python_yaml tasks once
+  set_fact:
+    run_once_python_yaml: true
+  when: run_once_python_yaml is not defined

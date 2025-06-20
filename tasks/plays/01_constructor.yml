@@ -44,7 +44,7 @@
       redirect_domain_mappings: "{{
         []  | 
         add_redirect_if_group('assets-server',    domains | get_domain('assets-server'), domains | get_domain('file-server'),  group_names) | 
-        merge_mapping(redirect_domain_mappings, 'source')
+        merge_mapping(redirect_domain_mappings| default([]), 'source')
       }}"
 
   - name: Set current play redirect domain mappings 
