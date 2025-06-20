@@ -17,9 +17,7 @@
   listen: recreate discourse
 
 - name: rebuild discourse
-  shell: > 
-    ./launcher rebuild {{applications[application_id].container}}
-    2>&1 | tee >(systemd-cat -t rebuild-{{ application_id }})
+  shell: ./launcher rebuild {{applications[application_id].container}}
   args:
     executable: /bin/bash  
     chdir: "{{docker_repository_directory }}"
