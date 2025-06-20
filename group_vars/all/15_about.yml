@@ -2,7 +2,7 @@
 defaults_service_provider:
   type:             "legal"                                                       # Accepted Values: natural, legal
   company:
-    titel:          "CyMaIS GbR"
+    titel:          "CyMaIS by Kevin Veen-Birkenbach"
     slogan:         "CyMaIS — Empowering a Sovereign Digital Future."
     address:
       street:       "Binary Avenue 01"

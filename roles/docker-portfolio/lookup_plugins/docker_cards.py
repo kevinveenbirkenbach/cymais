@@ -114,5 +114,8 @@ class LookupModule(LookupBase):
 
             cards.append(card)
 
+        # Sort A-Z
+        cards.sort(key=lambda c: c['title'].lower())
+
         # Return the list of cards
         return [cards]

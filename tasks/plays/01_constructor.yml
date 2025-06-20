@@ -35,7 +35,7 @@
         {{ 
           defaults_applications | 
           canonical_domains_map(primary_domain) | 
-          combine(domains | default({}, true), recursive=True) 
+          combine(current_play_domains, recursive=True) 
         }}
 
   - name: Merge redirect_domain_mappings

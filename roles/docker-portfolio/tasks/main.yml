@@ -43,9 +43,10 @@
 - name: Debug portfolio data
   debug:
     msg:
-      portfolio_cards: "{{ portfolio_cards }}"
-      portfolio_menu_categories: "{{ portfolio_menu_categories}}"
-      portfolio_menu_data: "{{ portfolio_menu_data }}"
+      portfolio_cards:            "{{ portfolio_cards }}"
+      portfolio_menu_categories:  "{{ portfolio_menu_categories}}"
+      portfolio_menu_data:        "{{ portfolio_menu_data }}"
+      service_provider:           "{{ service_provider }}"
   when:
     - enable_debug | bool
     - run_once_docker_portfolio is not defined
