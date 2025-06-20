@@ -115,6 +115,7 @@ hooks:
 ## Any custom commands to run after building
 run:
   - exec: echo "Beginning of custom commands"
+  - exec: rails r "SiteSetting.force_https = true"
   ## If you want to set the 'From' email address for your first registration, uncomment and change:
   ## After getting the first signup email, re-comment the line. It only needs to run once.
   #- exec: rails r "SiteSetting.notification_email='info@unconfigured.discourse.org'"
