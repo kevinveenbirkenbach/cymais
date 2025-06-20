@@ -2,6 +2,11 @@ version:              "13"    # Update when available. Sadly no rolling release 
 oauth2_proxy:  
   application:        "proxy"
   port:               "80"
+  acl:
+    whitelist:
+      - "/users/me"     # Necessary for Nextcloud Plugin to work
+      - "/api/"         # Necessary for Nextcloud Plugin to work
+      - "/oauth/token"  # Necessary for Nextcloud Plugin to work
 ldap:
   filters:
     administrators:   True    # Set true to filter administrators

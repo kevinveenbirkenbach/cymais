@@ -5,7 +5,9 @@ version:              "latest"
 oauth2_proxy:  
   application:        "application"
   port:               "80"
-  location:           "/admin/"                             # Protects the admin area
+  acl:
+    blacklist:
+      - "/admin/"     # Protects the admin area
 features:
   matomo:             true
   css:                true

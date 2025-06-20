@@ -15,21 +15,47 @@ server
 
   {% include 'roles/letsencrypt/templates/ssl_header.j2' %}
 
-  {% if applications | is_feature_enabled('oauth2',application_id) %}
-    {% if applications[application_id].oauth2_proxy.location is defined %}
-      {# Exposed and Unprotected Location #}
+  {% if applications | is_feature_enabled('oauth2', application_id) %}
+    {% set acl = applications[application_id].oauth2_proxy.acl | default({}) %}
+
+    {% if acl.blacklist is defined %}
+      {# 1. Expose everything by default, then protect blacklisted paths #}
+      {% set oauth2_proxy_enabled = false %}
+      {% set location = "/" %}
       {% include 'roles/nginx-docker-reverse-proxy/templates/location/proxy_basic.conf.j2' %}
+
+      {% for loc in acl.blacklist %}
+        {% set oauth2_proxy_enabled = true %}
+        {% set location = loc %}
+        {% include 'roles/nginx-docker-reverse-proxy/templates/location/proxy_basic.conf.j2' %}
+      {% endfor %}
+
+    {% elif acl.whitelist is defined %}
+      {# 2. Protect everything by default, then expose whitelisted paths #}
       {% set oauth2_proxy_enabled = true %}
-      {% set location = applications[application_id].oauth2_proxy.location %}
-      {# Gated Location by OAuth2 Proxy #}
+      {% set location = "/" %}
       {% include 'roles/nginx-docker-reverse-proxy/templates/location/proxy_basic.conf.j2' %}
+
+      {% for loc in acl.whitelist %}
+        {% set oauth2_proxy_enabled = false %}
+        {% set location = loc %}
+        {% include 'roles/nginx-docker-reverse-proxy/templates/location/proxy_basic.conf.j2' %}
+      {% endfor %}
+
     {% else %}
+      {# 3. OAuth2 enabled but no (or empty) ACL — protect all #}
       {% set oauth2_proxy_enabled = true %}
-      {# Protected Domain by OAuth2 Proxy #}
-      {% include 'roles/nginx-docker-reverse-proxy/templates/location/proxy_basic.conf.j2'%}
+      {% set location = "/" %}
+      {% include 'roles/nginx-docker-reverse-proxy/templates/location/proxy_basic.conf.j2' %}
     {% endif %}
+
   {% else %}
-    {# Exposed Domain - Not protected by OAuth2 Proxy #}
+    {# 4. OAuth2 completely disabled — expose all #}
+    {% set oauth2_proxy_enabled = false %}
+    {% set location = "/" %}
     {% include 'roles/nginx-docker-reverse-proxy/templates/location/proxy_basic.conf.j2' %}
   {% endif %}
+
 }
+
+
