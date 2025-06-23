@@ -1,2 +1,14 @@
 #!/bin/bash
-/usr/bin/curl -s -X POST https://api.telegram.org/bot{{ telegram_bot_token }}/sendMessage -d chat_id={{ telegram_chat_id }} -d text="service $1 on $(hostname) failed"
+
+# determine host name: try hostname command, otherwise use $HOSTNAME
+if command -v hostname &>/dev/null; then
+  host=$(hostname)
+else
+  host="$HOSTNAME"
+fi
+
+# send the Telegram message
+/usr/bin/curl -s -X POST \
+  "https://api.telegram.org/bot${telegram_bot_token}/sendMessage" \
+  -d chat_id="${telegram_chat_id}" \
+  -d text="service $1 on ${host} failed"
