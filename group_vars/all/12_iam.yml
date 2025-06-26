@@ -57,13 +57,16 @@ ldap:
     application_roles:  "ou=application_roles,{{_ldap_dn_base}}"
   attributes:
     # Attribut to identify the user
-    user_id:            "{{ _ldap_user_id }}" 
+    user_id:            "{{ _ldap_user_id }}"
+    mail:               "mail"
+    name:               "cn"
   # Password to access dn.bind
   bind_credential:      "{{applications.ldap.credentials.administrator_database_password}}"
   server:
     domain:             "{{applications.ldap.hostname if applications.ldap.network.docker | bool else domains.ldap}}" # Mapping for public or locale access
     port:               "{{_ldap_server_port}}"
     uri:                "{% if applications.ldap.network.docker | bool %}ldap://{{ applications.ldap.hostname }}{% else %}ldaps://{{ domains.ldap }}{% endif %}:{{ _ldap_server_port }}"
+    security:           "" #TLS, SSL - Leave empty for none
   network:
     local:              "{{applications.ldap.network.docker}}" # Uses the application configuration to define if local network should be available or not
   user_objects:

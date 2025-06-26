@@ -13,6 +13,7 @@ ports:
       pgadmin:          4185
       phpldapadmin:     4186
       fusiondirectory:  4187
+      gitea:            4188
     ldap:
       ldap:             389
     http:

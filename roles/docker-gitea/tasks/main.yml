@@ -11,3 +11,44 @@
     http_port:   "{{ ports.localhost.http[application_id] }}"
 
 - include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
+
+- name: Wait for Gitea HTTP endpoint
+  wait_for:
+    host: "127.0.0.1"
+    port: "{{ ports.localhost.http[application_id] }}"
+    delay: 5
+    timeout: 300
+
+- name: "Run DB migrations inside Gitea container"
+  shell: |
+    docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \
+      exec -T --user git application \
+      /app/gitea/gitea migrate
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  register: migrate
+  changed_when: "'migrations completed' in migrate.stdout"
+
+- name: "Create initial admin user"
+  shell: |
+    docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \
+      exec -T --user git application \
+      /app/gitea/gitea admin user create \
+        --admin \
+        --username "{{ users.administrator.username }}" \
+        --password "{{ users.administrator.password }}" \
+        --email    "{{ users.administrator.email }}" \
+        -c /data/gitea/conf/app.ini
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  register: create_admin
+  changed_when: "'has been successfully created' in create_admin.stdout"
+  failed_when: create_admin.rc != 0 and 'user already exists' not in create_admin.stderr
+
+- name: Execute OIDC Routine
+  include_tasks: oidc.yml
+  vars:
+    action: add
+  register: oidc_add
+  ignore_errors: true
+  when: applications | is_feature_enabled('oidc', application_id)

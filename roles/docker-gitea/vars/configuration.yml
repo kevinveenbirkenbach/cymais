@@ -1,3 +1,4 @@
+title:                            "CyMaIS Code Hub"
 images:
   gitea:                          "gitea/gitea:latest"
 configuration:
@@ -7,9 +8,18 @@ configuration:
     default_push_create_private:  True      # Default private when creating a new repository with push-to-create.
 features:
   matomo:                         true
-  css:                            true
+  css:                            false
   portfolio_iframe:               true
   central_database:               true
+  ldap:                           false     # Deactivated because OIDC is implemented
+  oauth2:                         false     # Deactivated. Use OIDC instead.
+  oidc:                           true
+oauth2_proxy:
+  application:                    "application"
+  port:                           "80"
+  acl:
+    blacklist:
+      - "/user/login"
 csp:
   flags:
     script-src-elem:

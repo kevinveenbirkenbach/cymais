@@ -1,0 +1,63 @@
+- name: "Wait until Gitea setup and migrations are ready"
+  uri:
+    url: "http://127.0.0.1:{{ ports.localhost.http[application_id] }}/api/v1/version"
+    method: GET
+    status_code: 200
+    return_content: no
+  register: gitea_ready
+  until: gitea_ready.status == 200
+  retries: 20
+  delay: 5
+
+- name: "Add Keycloak OIDC Provider"
+  shell: |
+    docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \
+      exec -T --user git application \
+      gitea admin auth add-oauth \
+        --provider openidConnect \
+        --name     "{{ oidc.button_text }}" \
+        --key      "{{ oidc.client.id }}" \
+        --secret   "{{ oidc.client.secret }}" \
+        --auto-discover-url "{{ oidc.client.discovery_document }}" \
+        --scopes   "openid profile email"
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  register: oidc_manage
+  failed_when: oidc_manage.rc != 0 and "login source already exists" not in oidc_manage.stderr
+
+- name: "Lookup existing Keycloak auth source ID"
+  shell: |
+    docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \
+      exec -T --user git application \
+      /app/gitea/gitea admin auth list \
+      | tail -n +2 \
+      | grep -F "{{ oidc.button_text }}" \
+      | awk '{print $1; exit}'
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  register: oidc_source_id_raw
+  failed_when:
+    - oidc_source_id_raw.rc != 0
+    - oidc_source_id_raw.stdout == ""
+  changed_when: false
+
+- name: "Set Keycloak source ID fact"
+  set_fact:
+    oidc_source_id: "{{ oidc_source_id_raw.stdout }}"
+
+- name: "Update Keycloak OIDC Provider"
+  shell: |
+    docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \
+      exec -T --user git application \
+      gitea admin auth update-oauth \
+        --id {{ oidc_source_id }}\
+        --provider openidConnect \
+        --name     "{{ oidc.button_text }}" \
+        --key      "{{ oidc.client.id }}" \
+        --secret   "{{ oidc.client.secret }}" \
+        --auto-discover-url "{{ oidc.client.discovery_document }}" \
+        --scopes   "openid profile email"
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  register: oidc_manage
+  failed_when: oidc_manage.rc != 0
