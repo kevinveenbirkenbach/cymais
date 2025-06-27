@@ -7,7 +7,7 @@
         --host "{{ ldap.server.domain }}" \
         --port {{ ldap.server.port }} \
         --security-protocol "{{ ldap.server.security | trim or 'unencrypted' }}" \
-        --bind-dn "{{ ldap.dn.administrator }}" \
+        --bind-dn "{{ ldap.dn.administrator.data }}" \
         --bind-password "{{ ldap.bind_credential }}" \
         --user-search-base "{{ ldap.dn.users }}" \
         --user-filter "{{ ldap.filters.users.login }}" \
@@ -51,7 +51,7 @@
         --host "{{ ldap.server.domain }}" \
         --port {{ ldap.server.port }} \
         --security-protocol "{{ ldap.server.security | trim or 'unencrypted' }}" \
-        --bind-dn "{{ ldap.dn.administrator }}" \
+        --bind-dn "{{ ldap.dn.administrator.data }}" \
         --bind-password "{{ ldap.bind_credential }}" \
         --user-search-base "{{ ldap.dn.users }}" \
         --user-filter "(&(objectClass=inetOrgPerson)(uid=%s))" \

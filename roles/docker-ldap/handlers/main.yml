@@ -45,7 +45,7 @@
 
 - name: "Import users, groups, etc. to LDAP"
   shell: >
-    docker exec -i {{ applications[application_id].hostname }} ldapadd -x -D "{{ldap.dn.administrator}}" -w "{{ldap.bind_credential}}" -c -f "{{ldif_docker_path}}data/{{ item | basename | regex_replace('\.j2$', '') }}"
+    docker exec -i {{ applications[application_id].hostname }} ldapadd -x -D "{{ldap.dn.administrator.data}}" -w "{{ldap.bind_credential}}" -c -f "{{ldif_docker_path}}data/{{ item | basename | regex_replace('\.j2$', '') }}"
   register: ldapadd_result
   changed_when: "'adding new entry' in ldapadd_result.stdout"
   failed_when: ldapadd_result.rc not in [0, 20, 68]

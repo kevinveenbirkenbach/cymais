@@ -20,6 +20,3 @@ galaxy_info:
   documentation: https://s.veen.world/cymais
   logo:
     class: "fa-solid fa-users"
-  #run_after:
-  #  - "0"
-dependencies: []

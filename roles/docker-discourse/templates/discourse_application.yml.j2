@@ -161,7 +161,7 @@ run:
   - exec: rails r "SiteSetting.ldap_sync_port = {{ ldap.server.port }}"
   - exec: rails r "SiteSetting.ldap_encryption = 'simple_tls'"
   - exec: rails r "SiteSetting.ldap_base_dn = '{{ ldap.dn.root }}'"
-  - exec: rails r "SiteSetting.ldap_bind_dn = '{{ ldap.dn.administrator }}'"
+  - exec: rails r "SiteSetting.ldap_bind_dn = '{{ ldap.dn.administrator.data }}'"
   - exec: rails r "SiteSetting.ldap_bind_password = '{{ ldap.bind_credential }}'"
 
   # LDAP additional configuration

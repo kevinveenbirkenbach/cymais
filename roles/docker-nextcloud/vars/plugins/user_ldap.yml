@@ -67,7 +67,7 @@ plugin_configuration:
   -
     appid: "user_ldap"
     configkey: "s01ldap_dn"
-    configvalue: "{{ldap.dn.administrator}}"
+    configvalue: "{{ldap.dn.administrator.data}}"
   -
     appid: "user_ldap"
     configkey: "s01ldap_email_attr"

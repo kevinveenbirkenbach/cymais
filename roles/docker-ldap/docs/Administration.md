@@ -2,6 +2,15 @@
 
 ## Configuration
 
+## Load env 
+
+To use the following commands firs load the env:
+```bash
+export $(grep -v '^[[:space:]]*#' ./.env/env \
+         | sed -E 's/#.*$//; /^[[:space:]]*$/d; s/^[[:space:]]*//; s/[[:space:]]*$//; s/[[:space:]]*=[[:space:]]*/=/' \
+         | xargs)
+```
+
 ### Show Configuration
 ```bash
 docker exec -it ldap bash -c "ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b 'cn=config'"

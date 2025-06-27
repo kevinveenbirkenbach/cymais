@@ -17,7 +17,7 @@ services:
       test: >
         bash -c '
         ldapsearch -x -H ldap://localhost:{{ ldap_docker_port }} \
-          -D "{{ ldap.dn.administrator }}" -w "{{ ldap.bind_credential }}" -b "{{ ldap.dn.root }}" > /dev/null \
+          -D "{{ ldap.dn.administrator.data }}" -w "{{ ldap.bind_credential }}" -b "{{ ldap.dn.root }}" > /dev/null \
         && ldapsearch -Y EXTERNAL -H ldapi:/// \
           -b cn=config "(&(objectClass=olcOverlayConfig)(olcOverlay=memberof))" \
         | grep "olcOverlay:" | grep -q "memberof"

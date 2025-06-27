@@ -49,11 +49,10 @@
     state: present
 
 - name: "Include Nextcloud Schema"
-  include_tasks: create_nextcloud_schema.yml
-  vars:
-    ldap_server_uri: "ldap://127.0.0.1:{{ ports.localhost.ldap.ldap }}"
-    ldap_bind_dn:    "cn={{ applications[application_id].users.administrator.username }},cn=config"
-    ldap_bind_pw:    "{{ applications[application_id].credentials.administrator_password }}"
+  include_tasks: schemas/nextcloud.yml
+
+- name: "Include openssh-lpk Schema"
+  include_tasks: schemas/openssh_lpk.yml
 
 ###############################################################################
 # 1) Create the LDAP entry if it does not yet exist
@@ -61,10 +60,10 @@
 - name: Ensure LDAP users exist
   community.general.ldap_entry:
     dn: "{{ ldap.attributes.user_id }}={{ item.key }},{{ ldap.dn.users }}"
-    server_uri: "ldap://127.0.0.1:{{ ports.localhost.ldap.ldap }}"
-    bind_dn: "{{ ldap.dn.administrator }}"
+    server_uri: "{{ ldap_server_uri }}"
+    bind_dn: "{{ ldap.dn.administrator.data }}"
     bind_pw: "{{ ldap.bind_credential }}"
-    objectClass: "{{ ldap.user_objects }}"
+    objectClass: "{{ ldap.user_objects.structural }}"
     attributes:
       uid:           "{{ item.key }}" # {{ ldap.attributes.user_id }} can't be used as key here, dynamic key generation isn't possible
       sn:            "{{ item.value.sn  | default(item.key) }}"
@@ -85,13 +84,13 @@
 - name: Ensure required objectClass values and mail address are present
   community.general.ldap_attrs:
     dn: "{{ ldap.attributes.user_id }}={{ item.key }},{{ ldap.dn.users }}"
-    server_uri: "ldap://127.0.0.1:{{ ports.localhost.ldap.ldap }}"
-    bind_dn: "{{ ldap.dn.administrator }}"
+    server_uri: "{{ ldap_server_uri }}"
+    bind_dn: "{{ ldap.dn.administrator.data }}"
     bind_pw: "{{ ldap.bind_credential }}"
     attributes:
-      objectClass: "{{ ldap.user_objects }}"
+      objectClass: "{{ ldap.user_objects.structural }}"
       mail:        "{{ item.value.email }}"
-    state: exact        # ‘exact’ is safest for single-valued attributes
+    state: exact
   loop: "{{ users | dict2items }}"
   loop_control:
     label: "{{ item.key }}"
@@ -99,8 +98,8 @@
 - name: "Ensure container for application roles exists"
   community.general.ldap_entry:
     dn: "{{ ldap.dn.application_roles }}"
-    server_uri: "ldap://127.0.0.1:{{ ports.localhost.ldap.ldap }}"
-    bind_dn:  "{{ ldap.dn.administrator }}"
+    server_uri: "{{ ldap_server_uri }}"
+    bind_dn:  "{{ ldap.dn.administrator.data }}"
     bind_pw:  "{{ ldap.bind_credential }}"
     objectClass: organizationalUnit
     attributes:
