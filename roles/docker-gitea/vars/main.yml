@@ -1,2 +1,17 @@
 application_id:     "gitea"
 database_type:      "mariadb"
+gitea_ldap_auth_args:
+  - '--name "LDAP ({{ primary_domain }})"'
+  - '--host "{{ ldap.server.domain }}"'
+  - '--port {{ ldap.server.port }}'
+  - '--security-protocol "{{ ldap.server.security | trim or "unencrypted" }}"'
+  - '--bind-dn "{{ ldap.dn.administrator.data }}"'
+  - '--bind-password "{{ ldap.bind_credential }}"'
+  - '--user-search-base "{{ ldap.dn.users }}"'
+  - '--user-filter  "(&(objectClass=inetOrgPerson)(uid=%s))"'
+  - '--username-attribute "{{ ldap.attributes.user_id }}"'
+  - '--firstname-attribute "{{ ldap.attributes.firstname }}"'
+  - '--surname-attribute "{{ ldap.attributes.surname }}"'
+  - '--email-attribute "{{ ldap.attributes.mail }}"'
+  - '--public-ssh-key-attribute "{{ ldap.attributes.ssh_public_key }}"'
+  - '--synchronize-users'

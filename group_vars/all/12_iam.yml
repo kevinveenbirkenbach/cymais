@@ -93,6 +93,7 @@ ldap:
     fullname:           "cn"
     firstname:          "givenname"
     surname:            "sn"
+    ssh_public_key:     "sshPublicKey"
   # Password to access dn.bind
   bind_credential:      "{{applications.ldap.credentials.administrator_database_password}}"
   server:
