@@ -1,6 +1,6 @@
 {
   "id": "3b03105b-5fe6-4b53-ba24-c8796525be0e",
-  "realm": "{{realm}}",
+  "realm": "{{ keycloak_realm }}",
   "displayName": "",
   "displayNameHtml": "",
   "notBefore": 0,
@@ -60,7 +60,7 @@
       },
       {
         "id": "01d9dd2a-75b2-47a2-af36-b14251f1b956",
-        "name": "default-roles-{{realm}}",
+        "name": "default-roles-{{ keycloak_realm }}",
         "description": "${role_default-roles}",
         "composite": true,
         "composites": {
@@ -302,7 +302,7 @@
           "attributes": {}
         }
       ],
-      "{{realm}}": [],
+      "{{ keycloak_realm }}": [],
       "security-admin-console": [],
       "admin-cli": [],
       "account-console": [],
@@ -410,7 +410,7 @@
   "groups": [],
   "defaultRole": {
     "id": "01d9dd2a-75b2-47a2-af36-b14251f1b956",
-    "name": "default-roles-{{realm}}",
+    "name": "default-roles-{{ keycloak_realm }}",
     "description": "${role_default-roles}",
     "composite": true,
     "clientRole": false,
@@ -464,18 +464,18 @@
   "users": [
     {
       "id": "19ecedfd-acf2-49e8-9f66-91ab71d54fc3",
-      "username": "service-account-{{realm}}",
+      "username": "service-account-{{ keycloak_realm }}",
       "emailVerified": false,
       "createdTimestamp": 1737925519602,
       "enabled": true,
       "totp": false,
-      "serviceAccountClientId": "{{realm}}",
+      "serviceAccountClientId": "{{ keycloak_realm }}",
       "disableableCredentialTypes": [],
       "requiredActions": [
         "CONFIGURE_TOTP"
       ],
       "realmRoles": [
-        "default-roles-{{realm}}"
+        "default-roles-{{ keycloak_realm }}"
       ],
       "notBefore": 0,
       "groups": []
@@ -508,13 +508,13 @@
       "description": "",
       "rootUrl": "${authBaseUrl}",
       "adminUrl": "",
-      "baseUrl": "/realms/{{realm}}/account/",
+      "baseUrl": "/realms/{{ keycloak_realm }}/account/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "/realms/{{realm}}/account/*"
+        "/realms/{{ keycloak_realm }}/account/*"
       ],
       "webOrigins": [
         "{{ web_protocol }}://{{domains | get_domain('keycloak')}}"
@@ -564,13 +564,13 @@
       "description": "",
       "rootUrl": "${authBaseUrl}",
       "adminUrl": "",
-      "baseUrl": "/realms/{{realm}}/account/",
+      "baseUrl": "/realms/{{ keycloak_realm }}/account/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "/realms/{{realm}}/account/*"
+        "/realms/{{ keycloak_realm }}/account/*"
       ],
       "webOrigins": [
         "*"
@@ -756,13 +756,13 @@
       "clientId": "security-admin-console",
       "name": "${client_security-admin-console}",
       "rootUrl": "${authAdminUrl}",
-      "baseUrl": "/admin/{{realm}}/console/",
+      "baseUrl": "/admin/{{ keycloak_realm }}/console/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "/admin/{{realm}}/console/*"
+        "/admin/{{ keycloak_realm }}/console/*"
       ],
       "webOrigins": [
         "+"
@@ -822,12 +822,12 @@
     },
     {
       "id": "7b5f97e3-7fa8-4d86-b1e9-80aac996da26",
-      "clientId": "{{realm}}",
+      "clientId": "{{ keycloak_realm }}",
       "name": "",
       "description": "",
-      "rootUrl":  "{{ web_protocol }}://{{realm}}/",
-      "adminUrl": "{{ web_protocol }}://{{realm}}/",
-      "baseUrl":  "{{ web_protocol }}://{{realm}}/",
+      "rootUrl":  "{{ web_protocol }}://{{ keycloak_realm }}/",
+      "adminUrl": "{{ web_protocol }}://{{ keycloak_realm }}/",
+      "baseUrl":  "{{ web_protocol }}://{{ keycloak_realm }}/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
@@ -1792,7 +1792,7 @@
         "subComponents": {},
         "config": {
           "kc.user.profile.config": [
-            "{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"pattern\":{\"pattern\":\"^[a-z0-9]+$\",\"error-message\":\"\"}},\"annotations\":{},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"firstName\",\"displayName\":\"${firstName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"lastName\",\"displayName\":\"${lastName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false}],\"groups\":[{\"name\":\"user-metadata\",\"displayHeader\":\"User metadata\",\"displayDescription\":\"Attributes, which refer to user metadata\"}]}"
+            "{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"pattern\":{\"pattern\":\"^[a-z0-9]+$\",\"error-message\":\"\"}},\"annotations\":{},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"firstName\",\"displayName\":\"${firstName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"lastName\",\"displayName\":\"${lastName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"{{ ldap.attributes.ssh_public_key }}\",\"displayName\":\"SSH Public Key\",\"validations\":{},\"annotations\":{},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"user-metadata\",\"multivalued\":true}],\"groups\":[{\"name\":\"user-metadata\",\"displayHeader\":\"User metadata\",\"displayDescription\":\"Attributes, which refer to user metadata\"}]}"
           ]
         }
       }
@@ -1974,6 +1974,35 @@
                 ],
                 "user.model.attribute": [
                   "username"
+                ]
+              }
+            },
+            {
+              "id": "24cd9c3b-e22d-4540-bddf-ae7faac0196c",
+              "name": "SSH Public Key",
+              "providerId": "user-attribute-ldap-mapper",
+              "subComponents": {},
+              "config": {
+                "ldap.attribute": [
+                  "{{ ldap.attributes.ssh_public_key }}"
+                ],
+                "is.mandatory.in.ldap": [
+                  "false"
+                ],
+                "attribute.force.default": [
+                  "false"
+                ],
+                "is.binary.attribute": [
+                  "false"
+                ],
+                "read.only": [
+                  "false"
+                ],
+                "always.read.value.from.ldap": [
+                  "true"
+                ],
+                "user.model.attribute": [
+                  "{{ ldap.attributes.ssh_public_key }}"
                 ]
               }
             },

@@ -25,3 +25,7 @@
     mode: '770'
   loop: "{{ lookup('fileglob', '{{ role_path }}/templates/import/*.j2', wantlist=True) }}"
   notify: docker compose up
+
+# Deactivated temporary. Import now via realm.yml
+#- name: Implement SSH Public Key Attribut
+#  include_tasks: attributes/ssh_public_key.yml

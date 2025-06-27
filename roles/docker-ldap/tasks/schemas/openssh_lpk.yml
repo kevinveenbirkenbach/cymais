@@ -8,7 +8,7 @@
   vars:
     schema_name: "openssh-lpk"
     attribute_defs:
-      - "( 1.3.6.1.4.1.24552.1.1 NAME 'sshPublicKey' DESC 'OpenSSH Public Key' EQUALITY octetStringMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.40 )"
+      - "( 1.3.6.1.4.1.24552.1.1 NAME '{{ ldap.attributes.ssh_public_key }}' DESC 'OpenSSH Public Key' EQUALITY octetStringMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.40 )"
       - "( 1.3.6.1.4.1.24552.1.2 NAME 'sshFingerprint' DESC 'OpenSSH Public Key Fingerprint' EQUALITY octetStringMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.40 )"
     objectclass_defs:
       - >-
@@ -17,7 +17,7 @@
           DESC 'Auxiliary class for OpenSSH public keys'
           SUP top
           AUXILIARY
-          MAY ( sshPublicKey $ sshFingerprint ) )
+          MAY ( {{ ldap.attributes.ssh_public_key }} $ sshFingerprint ) )
 
   command: >
     ldapsm
