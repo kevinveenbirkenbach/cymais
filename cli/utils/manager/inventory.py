@@ -105,6 +105,7 @@ class InventoryManager:
         """Generate a value based on the provided algorithm."""
         if algorithm == "random_hex":
             return secrets.token_hex(64)
+        
         if algorithm == "sha256":
             return hashlib.sha256(secrets.token_bytes(32)).hexdigest()
         if algorithm == "sha1":
@@ -116,4 +117,7 @@ class InventoryManager:
             return self.generate_secure_alphanumeric(64)
         if algorithm == "base64_prefixed_32":
             return "base64:" + base64.b64encode(secrets.token_bytes(32)).decode()
+        if algorithm == "random_hex_16":
+            # 16 Bytes → 32 Hex-Characters
+            return secrets.token_hex(16)
         return "undefined"

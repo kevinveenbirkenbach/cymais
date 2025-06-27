@@ -1,0 +1,23 @@
+
+- name: "Lookup existing OIDC auth source ID"
+  shell: |
+    docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \
+      exec -T --user git application \
+      gitea admin auth list \
+      | awk -v name="{{ oidc.button_text }}" '$0 ~ name {print $1; exit}'
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  register: oidc_source_id_raw
+  failed_when: false
+  changed_when: false
+
+- name: "Delete existing OIDC auth source if present"
+  shell: |
+    docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \
+      exec -T --user git application \
+      gitea admin auth delete --id {{ oidc_source_id_raw.stdout }}
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  when: oidc_source_id_raw.stdout != ""
+  register: oidc_delete
+  failed_when: oidc_delete.rc != 0

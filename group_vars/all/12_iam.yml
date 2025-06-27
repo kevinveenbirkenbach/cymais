@@ -38,9 +38,10 @@ defaults_oidc:
 
 # Helper Variables:
 # Keep in mind to mapp this variables if there is ever the possibility for the user to define them in the inventory
-_ldap_dn_base:      "dc={{primary_domain_sld}},dc={{primary_domain_tld}}"
-_ldap_server_port:  "{% if applications.ldap.network.docker | bool %}{{ ports.localhost.ldap.ldap }}{% else %}{{ ports.localhost.ldaps.ldap }}{% endif %}"
-_ldap_user_id:      "uid"
+_ldap_dn_base:            "dc={{primary_domain_sld}},dc={{primary_domain_tld}}"
+_ldap_server_port:        "{% if applications.ldap.network.docker | bool %}{{ ports.localhost.ldap.ldap }}{% else %}{{ ports.localhost.ldaps.ldap }}{% endif %}"
+_ldap_user_id:            "uid"
+_ldap_filters_users_all:  "(|(objectclass=inetOrgPerson))"
 
 ldap:
   # Distinguished Names (DN)
@@ -59,7 +60,9 @@ ldap:
     # Attribut to identify the user
     user_id:            "{{ _ldap_user_id }}"
     mail:               "mail"
-    name:               "cn"
+    fullname:           "cn"
+    firstname:          "givenname"
+    surname:            "sn"
   # Password to access dn.bind
   bind_credential:      "{{applications.ldap.credentials.administrator_database_password}}"
   server:
@@ -74,5 +77,9 @@ ldap:
     - inetOrgPerson     # Extended Internet / intranet person – RFC 2798
     - posixAccount      # POSIX/UNIX login attributes (uidNumber, gidNumber …) – RFC 2307
     - nextcloudUser     # Nextcloud-specific auxiliary attributes (nextcloudQuota, nextcloudEnabled) – Nextcloud schema
+    - ldapPublicKey     # Necessary for setting SSH keys for gitea
+
   filters:
-    user_filter:        "(&(|(objectclass=inetOrgPerson))({{_ldap_user_id}}=%{{_ldap_user_id}}))"
+    users:
+      login:            "(&{{ _ldap_filters_users_all }}({{_ldap_user_id}}=%{{_ldap_user_id}}))"
+      all:              "{{ _ldap_filters_users_all }}"

@@ -27,3 +27,12 @@ To access the database execute
 ```
 ## bash in application
 docker-compose exec -it application /bin/sh
+
+## user management
+
+### Change password
+```bash 
+docker-compose exec --user git application gitea admin user change-password \
+  --username administrator \
+  --password "MyNewSecureP@ssw0rd"
+```

@@ -1,0 +1,22 @@
+- name: "1) Gather all existing user DNs"
+  community.general.ldap_search:
+    server_uri: "{{ ldap.server.uri }}"
+    bind_dn:    "{{ ldap.dn.administrator }}"
+    bind_pw:    "{{ ldap.bind_credential }}"
+    base:       "{{ ldap.dn.users }}"
+    filter:     "{{ ldap.filters.users.all }}"
+    attributes: ["dn"]
+  register: ldap_existing_users
+
+- name: "2) Update each existing user with all user_objects"
+  community.general.ldap_attrs:
+    server_uri: "{{ ldap.server.uri }}"
+    bind_dn:    "{{ ldap.dn.administrator }}"
+    bind_pw:    "{{ ldap.bind_credential }}"
+    dn:         "{{ item.dn }}"
+    attributes:
+      objectClass: "{{ ldap.user_objects }}"
+    state: exact
+  loop: "{{ ldap_existing_users.entries }}"
+  loop_control:
+    label: "{{ item.dn }}"

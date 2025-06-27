@@ -45,10 +45,21 @@
   changed_when: "'has been successfully created' in create_admin.stdout"
   failed_when: create_admin.rc != 0 and 'user already exists' not in create_admin.stderr
 
-- name: Execute OIDC Routine
-  include_tasks: oidc.yml
-  vars:
-    action: add
-  register: oidc_add
-  ignore_errors: true
-  when: applications | is_feature_enabled('oidc', application_id)
+- name: "Wait until Gitea setup and migrations are ready"
+  uri:
+    url: "http://127.0.0.1:{{ ports.localhost.http[application_id] }}/api/v1/version"
+    method: GET
+    status_code: 200
+    return_content: no
+  register: gitea_ready
+  until: gitea_ready.status == 200
+  retries: 20
+  delay: 5
+  when: applications | is_feature_enabled('oidc', application_id) or applications | is_feature_enabled('ldap', application_id)
+
+- name: Execute Setup Routines
+  include_tasks: setup.yml
+
+- name: Execute Cleanup Routines
+  include_tasks: cleanup.yml 
+  when: mode_cleanup

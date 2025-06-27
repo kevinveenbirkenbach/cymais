@@ -1,14 +1,3 @@
-- name: "Wait until Gitea setup and migrations are ready"
-  uri:
-    url: "http://127.0.0.1:{{ ports.localhost.http[application_id] }}/api/v1/version"
-    method: GET
-    status_code: 200
-    return_content: no
-  register: gitea_ready
-  until: gitea_ready.status == 200
-  retries: 20
-  delay: 5
-
 - name: "Add Keycloak OIDC Provider"
   shell: |
     docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \

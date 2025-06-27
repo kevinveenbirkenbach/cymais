@@ -18,6 +18,8 @@ csp:
     script-src-elem:
       unsafe-inline:            true
       unsafe-eval:              true
+    script-src:
+      unsafe-inline:            true
 domains:
   aliases:
     - "ldap.{{primary_domain}}"

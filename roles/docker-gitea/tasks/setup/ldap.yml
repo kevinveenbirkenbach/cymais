@@ -1,0 +1,66 @@
+- name: "Add LDAP Authentication Source"
+  shell: |
+    docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \
+      exec -T --user git application \
+      gitea admin auth add-ldap \
+        --name "LDAP ({{ primary_domain }})" \
+        --host "{{ ldap.server.domain }}" \
+        --port {{ ldap.server.port }} \
+        --security-protocol "{{ ldap.server.security | trim or 'unencrypted' }}" \
+        --bind-dn "{{ ldap.dn.administrator }}" \
+        --bind-password "{{ ldap.bind_credential }}" \
+        --user-search-base "{{ ldap.dn.users }}" \
+        --user-filter "{{ ldap.filters.users.login }}" \
+        --username-attribute "{{ ldap.attributes.user_id }}" \
+        --firstname-attribute "{{ ldap.attributes.firstname }}" \
+        --surname-attribute "{{ ldap.attributes.surname }}" \
+        --email-attribute "{{ ldap.attributes.mail }}" \
+        --synchronize-users      # turns on per-login sync
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  register: ldap_manage
+  failed_when: ldap_manage.rc != 0 and "login source already exists" not in ldap_manage.stderr
+
+- name: "Lookup existing LDAP auth source ID"
+  shell: |
+    docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \
+      exec -T --user git application \
+      gitea admin auth list \
+      | tail -n +2 \
+      | grep -F "LDAP ({{ primary_domain }})" \
+      | awk '{print $1; exit}'
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  register: ldap_source_id_raw
+  failed_when:
+    - ldap_source_id_raw.rc != 0
+    - ldap_source_id_raw.stdout == ""
+  changed_when: false
+
+- name: "Set LDAP source ID fact"
+  set_fact:
+    ldap_source_id: "{{ ldap_source_id_raw.stdout }}"
+
+- name: "Update LDAP Authentication Source"
+  shell: |
+    docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \
+      exec -T --user git application \
+      gitea admin auth update-ldap \
+        --id {{ ldap_source_id }} \
+        --name "LDAP ({{ primary_domain }})" \
+        --host "{{ ldap.server.domain }}" \
+        --port {{ ldap.server.port }} \
+        --security-protocol "{{ ldap.server.security | trim or 'unencrypted' }}" \
+        --bind-dn "{{ ldap.dn.administrator }}" \
+        --bind-password "{{ ldap.bind_credential }}" \
+        --user-search-base "{{ ldap.dn.users }}" \
+        --user-filter "(&(objectClass=inetOrgPerson)(uid=%s))" \
+        --username-attribute "{{ ldap.attributes.user_id }}" \
+        --firstname-attribute "{{ ldap.attributes.firstname }}" \
+        --surname-attribute "{{ ldap.attributes.surname }}" \
+        --email-attribute "{{ ldap.attributes.mail }}" \
+        --synchronize-users
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  register: ldap_manage
+  failed_when: ldap_manage.rc != 0

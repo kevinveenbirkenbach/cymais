@@ -114,3 +114,6 @@
     - data
   loop_control:
     loop_var: folder
+
+- name: "Add Objects to all users"
+  include_tasks: add_user_objects.yml

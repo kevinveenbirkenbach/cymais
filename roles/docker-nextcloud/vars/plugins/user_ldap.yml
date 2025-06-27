@@ -107,7 +107,7 @@ plugin_configuration:
   -
     appid: "user_ldap"
     configkey: "s01ldap_login_filter"
-    configvalue: "{{ ldap.filters.user_filter }}"
+    configvalue: "{{ ldap.filters.users.login }}"
   -
     appid: "user_ldap"
     configkey: "s01ldap_login_filter_mode"
@@ -163,7 +163,7 @@ plugin_configuration:
   -
     appid: "user_ldap"
     configkey: "s01ldap_userlist_filter"
-    configvalue: "(|(objectclass=inetOrgPerson))"
+    configvalue: "{{ ldap.filters.users.login }}"
   -
     appid: "user_ldap"
     configkey: "s01use_memberof_to_detect_membership"

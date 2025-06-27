@@ -11,12 +11,12 @@ features:
   css:                            false
   portfolio_iframe:               true
   central_database:               true
-  ldap:                           false     # Deactivated because OIDC is implemented
-  oauth2:                         false     # Deactivated. Use OIDC instead.
-  oidc:                           true
+  ldap:                           true
+  oauth2:                         true
+  oidc:                           false # Deactivated because users aren't auto-created. 
 oauth2_proxy:
   application:                    "application"
-  port:                           "80"
+  port:                           "3000"
   acl:
     blacklist:
       - "/user/login"

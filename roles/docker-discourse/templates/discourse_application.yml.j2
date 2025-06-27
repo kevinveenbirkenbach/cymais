@@ -165,7 +165,7 @@ run:
   - exec: rails r "SiteSetting.ldap_bind_password = '{{ ldap.bind_credential }}'"
 
   # LDAP additional configuration
-  - exec: rails r "SiteSetting.ldap_user_filter = '{{ ldap.filters.user_filter }}'"
+  - exec: rails r "SiteSetting.ldap_user_filter = '{{ ldap.filters.users.login }}'"
   - exec: rails r "SiteSetting.ldap_group_base_dn = '{{ ldap.dn.groups }}'"
   - exec: rails r "SiteSetting.ldap_group_member_check = 'memberUid'"
 

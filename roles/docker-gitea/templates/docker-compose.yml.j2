@@ -2,6 +2,8 @@ services:
 
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
+{% include 'roles/docker-oauth2-proxy/templates/container.yml.j2' %}
+
   application:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     image: "{{ applications[application_id].images.gitea }}"
