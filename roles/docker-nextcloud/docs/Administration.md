@@ -14,3 +14,7 @@ Inside the container, install a text editor and edit the config:
 ```bash
 apk add --no-cache nano && nano config/config.php
 ```
+
+## Logs
+
+The logs you will find here on the host: **/var/lib/docker/volumes/nextcloud_data/_data/data/nextcloud.log**

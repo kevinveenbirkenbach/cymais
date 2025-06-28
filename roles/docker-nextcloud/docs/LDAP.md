@@ -1,7 +1,3 @@
-Natürlich, hier ist der aktualisierte Abschnitt inklusive des allgemeinen LDAP-Synchronisationsbefehls:
-
----
-
 ## Add LDAP Users Manually for Immediate Sharing
 
 In a default Nextcloud + LDAP setup, user accounts are only created in the internal Nextcloud database **after their first login**. This means that even if a user exists in LDAP, they **cannot receive shared files or folders** until they have logged in at least once—or are manually synchronized.
@@ -43,7 +39,3 @@ docker exec -u www-data nextcloud-application php occ user:sync-account-data
 ```
 
 This step is especially useful after modifying LDAP attributes or group memberships, ensuring up-to-date data in the Nextcloud UI and permission system.
-
----
-
-Let me know if you'd like a similar section for OIDC or automated sync in Ansible.

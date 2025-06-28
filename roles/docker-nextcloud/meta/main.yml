@@ -32,3 +32,4 @@ galaxy_info:
     - docker-collabora
     - docker-keycloak
     - docker-mastodon
+    - docker-mariadb
