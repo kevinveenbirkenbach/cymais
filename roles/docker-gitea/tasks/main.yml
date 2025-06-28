@@ -63,3 +63,13 @@
 - name: Execute Cleanup Routines
   include_tasks: cleanup.yml 
   when: mode_cleanup
+
+- name: Include DNS role to register Gitea domain(s)
+  include_role:
+    name: dns-records-cloudflare
+  vars:
+    cloudflare_api_token:   "{{ certbot_dns_api_token }}"
+    cloudflare_domains:     "{{ [ domains | get_domain(application_id) ] }}"
+    cloudflare_target_ip:   "{{ networks.internet.ip4 }}"
+    cloudflare_proxied:     false
+  when: dns_provider == 'cloudflare'
