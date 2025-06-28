@@ -163,7 +163,7 @@ plugin_configuration:
   -
     appid: "user_ldap"
     configkey: "s01ldap_userlist_filter"
-    configvalue: "{{ ldap.filters.users.login }}"
+    configvalue: "{{ ldap.filters.users.all }}"
   -
     appid: "user_ldap"
     configkey: "s01use_memberof_to_detect_membership"
