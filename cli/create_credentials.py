@@ -12,7 +12,9 @@ from yaml.dumper import SafeDumper
 
 def ask_for_confirmation(key: str) -> bool:
     """Prompt the user for confirmation to overwrite an existing value."""
-    confirmation = input(f"Are you sure you want to overwrite the value for '{key}'? (y/n): ").strip().lower()
+    confirmation = input(
+        f"Are you sure you want to overwrite the value for '{key}'? (y/n): "
+    ).strip().lower()
     return confirmation == 'y'
 
 
@@ -20,17 +22,31 @@ def main():
     parser = argparse.ArgumentParser(
         description="Selectively vault credentials + become-password in your inventory."
     )
-    parser.add_argument("--role-path", required=True, help="Path to your role")
-    parser.add_argument("--inventory-file", required=True, help="Host vars file to update")
-    parser.add_argument("--vault-password-file", required=True, help="Vault password file")
-    parser.add_argument("--set", nargs="*", default=[], help="Override values key.subkey=VALUE")
-    parser.add_argument("-f", "--force", action="store_true", help="Force overwrite without confirmation")
+    parser.add_argument(
+        "--role-path", required=True, help="Path to your role"
+    )
+    parser.add_argument(
+        "--inventory-file", required=True, help="Host vars file to update"
+    )
+    parser.add_argument(
+        "--vault-password-file", required=True, help="Vault password file"
+    )
+    parser.add_argument(
+        "--set", nargs="*", default=[], help="Override values key.subkey=VALUE"
+    )
+    parser.add_argument(
+        "-f", "--force", action="store_true",
+        help="Force overwrite without confirmation"
+    )
     args = parser.parse_args()
 
-    # Parsing overrides
-    overrides = {k.strip(): v.strip() for pair in args.set for k, v in [pair.split("=", 1)]}
+    # Parse overrides
+    overrides = {
+        k.strip(): v.strip()
+        for pair in args.set for k, v in [pair.split("=", 1)]
+    }
 
-    # Initialize the Inventory Manager
+    # Initialize inventory manager
     manager = InventoryManager(
         role_path=Path(args.role_path),
         inventory_path=Path(args.inventory_file),
@@ -38,34 +54,57 @@ def main():
         overrides=overrides
     )
 
-    # 1) Apply schema and update inventory
+    # Load existing credentials to preserve
+    existing_apps = manager.inventory.get("applications", {})
+    existing_creds = {}
+    if manager.app_id in existing_apps:
+        existing_creds = existing_apps[manager.app_id].get("credentials", {}).copy()
+
+    # Apply schema (may generate defaults)
     updated_inventory = manager.apply_schema()
 
-    # 2) Apply vault encryption ONLY to 'credentials' fields (we no longer apply it globally)
-    credentials = updated_inventory.get("applications", {}).get(manager.app_id, {}).get("credentials", {})
-    for key, value in credentials.items():
-        if not value.lstrip().startswith("$ANSIBLE_VAULT"):  # Only apply encryption if the value is not already vaulted
-            if key in credentials and not args.force:
-                if not ask_for_confirmation(key):  # Ask for confirmation before overwriting
-                    print(f"Skipping overwrite of '{key}'.")
-                    continue
-            encrypted_value = manager.vault_handler.encrypt_string(value, key)
-            lines = encrypted_value.splitlines()
-            indent = len(lines[1]) - len(lines[1].lstrip())
-            body = "\n".join(line[indent:] for line in lines[1:])
-            credentials[key] = VaultScalar(body)  # Store encrypted value as VaultScalar
+    # Restore existing database_password if present
+    apps = updated_inventory.setdefault("applications", {})
+    app_block = apps.setdefault(manager.app_id, {})
+    creds = app_block.setdefault("credentials", {})
+    if "database_password" in existing_creds:
+        creds["database_password"] = existing_creds["database_password"]
 
-    # 3) Vault top-level ansible_become_password if present
+    # Store original plaintext values
+    original_plain = {key: str(val) for key, val in creds.items()}
+
+    for key, raw_val in list(creds.items()):
+        # Skip if already vaulted
+        if isinstance(raw_val, VaultScalar) or str(raw_val).lstrip().startswith("$ANSIBLE_VAULT"):
+            continue
+
+        # Determine plaintext
+        plain = original_plain.get(key, "")
+        if key in overrides and (args.force or ask_for_confirmation(key)):
+            plain = overrides[key]
+
+        # Encrypt the plaintext
+        encrypted = manager.vault_handler.encrypt_string(plain, key)
+        lines = encrypted.splitlines()
+        indent = len(lines[1]) - len(lines[1].lstrip())
+        body = "\n".join(line[indent:] for line in lines[1:])
+        creds[key] = VaultScalar(body)
+
+    # Vault top-level become password if present
     if "ansible_become_password" in updated_inventory:
         val = str(updated_inventory["ansible_become_password"])
-        if not val.lstrip().startswith("$ANSIBLE_VAULT"):
-            snippet = manager.vault_handler.encrypt_string(val, "ansible_become_password")
+        if val.lstrip().startswith("$ANSIBLE_VAULT"):
+            updated_inventory["ansible_become_password"] = VaultScalar(val)
+        else:
+            snippet = manager.vault_handler.encrypt_string(
+                val, "ansible_become_password"
+            )
             lines = snippet.splitlines()
             indent = len(lines[1]) - len(lines[1].lstrip())
             body = "\n".join(line[indent:] for line in lines[1:])
             updated_inventory["ansible_become_password"] = VaultScalar(body)
 
-    # 4) Save the updated inventory to file
+    # Write back to file
     with open(args.inventory_file, "w", encoding="utf-8") as f:
         yaml.dump(updated_inventory, f, sort_keys=False, Dumper=SafeDumper)
 
