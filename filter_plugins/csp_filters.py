@@ -96,6 +96,7 @@ class FilterModule(object):
                 'font-src',
                 'worker-src',
                 'manifest-src',
+                'media-src',
             ]
             parts = []
 

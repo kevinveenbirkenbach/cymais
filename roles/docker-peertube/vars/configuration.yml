@@ -16,6 +16,10 @@ csp:
   whitelist:
     frame-ancestors:
       - "*"
+    media-src:
+      - "blob:"
+    font-src:
+      - "data:"
 domains:
   canonical:
     - "video.{{ primary_domain }}"

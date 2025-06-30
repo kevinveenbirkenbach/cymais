@@ -15,6 +15,7 @@ class TestCspConfigurationConsistency(unittest.TestCase):
         'font-src',
         'worker-src',
         'manifest-src',
+        'media-src'
     }
     SUPPORTED_FLAGS = {'unsafe-eval', 'unsafe-inline'}
 
