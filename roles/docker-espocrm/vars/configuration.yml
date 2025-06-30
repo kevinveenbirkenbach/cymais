@@ -25,6 +25,7 @@ csp:
   whitelist:
     connect-src:
       - wss://espocrm.{{ primary_domain }}
+      - "data:"
 domains:
   aliases:
     - "crm.{{ primary_domain }}"
