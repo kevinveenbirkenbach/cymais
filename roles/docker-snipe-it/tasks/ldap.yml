@@ -1,0 +1,30 @@
+# @See https://raw.githubusercontent.com/snipe/snipe-it/master/app/Models/Setting.php
+---
+- name: "Enable und konfiguriere LDAP in Snipe-IT"
+  community.mysql.mysql_query:
+    login_host: "{{ database_host }}"
+    login_port: "{{ database_port }}"
+    login_user: "{{ database_username }}"
+    login_password: "{{ database_password }}"
+    db: "{{ database_name }}"
+    query: |
+      UPDATE settings SET
+        ldap_enabled              = 1,
+        ldap_server               = '{{ ldap.server.uri }}',
+        ldap_port                 = '{{ ldap.server.port }}',
+        ldap_uname                = '{{ ldap.dn.administrator.data }}',
+        ldap_pword                = '{{ ldap.bind_credential }}',
+        ldap_basedn               = '{{ ldap.dn.root }}',
+        ldap_filter               = '{{ ldap.filters.users.all }}',
+        ldap_username_field       = '{{ ldap.attributes.user_id }}',
+        ldap_lname_field          = '{{ ldap.attributes.surname }}',
+        ldap_fname_field          = '{{ ldap.attributes.firstname }}',
+        ldap_auth_filter_query    = '{{ ldap.filters.users.login }}',
+        ldap_version              = 3,
+        ldap_pw_sync              = 0,
+        is_ad                     = 0,
+        ad_domain                 = '',
+        ldap_default_group        = '',
+        ldap_email                = '{{ ldap.attributes.mail }}',
+        ldap_mem_lim              = '{{ LDAP_MEM_LIM }}',
+        ldap_time_lim             = '{{ LDAP_TIME_LIM }}';

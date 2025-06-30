@@ -4,6 +4,8 @@ features:
   css:                false
   portfolio_iframe:   false
   central_database:   true
+  ldap:               false
+  oauth2:             false
 domains:
   canonical:
     - "inventory.{{ primary_domain }}"
