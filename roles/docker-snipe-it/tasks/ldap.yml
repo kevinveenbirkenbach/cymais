@@ -45,7 +45,6 @@
     $s->ldap_server              = "{{ ldap.server.uri }}";
     $s->ldap_port                = {{ ldap.server.port }};
     $s->ldap_uname               = "{{ ldap.dn.administrator.data }}";
-    $s->ldap_pword               = "{{ ldap.bind_credential }}";
     $s->ldap_basedn              = "{{ ldap.dn.users }}";
     $s->ldap_filter              = "&(objectClass=inetOrgPerson)";
     $s->ldap_username_field      = "{{ ldap.attributes.user_id }}";
