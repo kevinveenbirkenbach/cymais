@@ -78,7 +78,7 @@ class TestInventoryManager(unittest.TestCase):
                 InventoryManager(role_dir, self.tmpdir / "inventory.yml", "pw", {}).load_application_id(role_dir)
 
     def test_generate_value_algorithms(self):
-        """Verify generate_value produces outputs of the expected form."""
+        """Verify generate_value produces outputs of the expected form and contains no dollar signs."""
         # Bypass __init__ to avoid YAML loading
         im = InventoryManager.__new__(InventoryManager)
 
@@ -86,27 +86,40 @@ class TestInventoryManager(unittest.TestCase):
         hex_val = im.generate_value("random_hex")
         self.assertEqual(len(hex_val), 128)
         self.assertTrue(all(c in "0123456789abcdef" for c in hex_val))
+        self.assertNotIn('$', hex_val)  # no dollar sign
 
         # sha256 → 64 hex chars
         sha256_val = im.generate_value("sha256")
         self.assertEqual(len(sha256_val), 64)
+        self.assertNotIn('$', sha256_val)  # no dollar sign
 
         # sha1 → 40 hex chars
         sha1_val = im.generate_value("sha1")
         self.assertEqual(len(sha1_val), 40)
+        self.assertNotIn('$', sha1_val)  # no dollar sign
 
-        # bcrypt → starts with bcrypt prefix
+        # bcrypt → should *not* start with '$2' after escaping, and contain no '$'
         bcrypt_val = im.generate_value("bcrypt")
-        self.assertTrue(bcrypt_val.startswith("$2"))
+        self.assertFalse(bcrypt_val.startswith("$2"))
+        self.assertNotIn('$', bcrypt_val)  # no dollar sign
 
         # alphanumeric → 64 chars
         alnum = im.generate_value("alphanumeric")
         self.assertEqual(len(alnum), 64)
         self.assertTrue(alnum.isalnum())
+        self.assertNotIn('$', alnum)  # no dollar sign
 
         # base64_prefixed_32 → starts with "base64:"
         b64 = im.generate_value("base64_prefixed_32")
         self.assertTrue(b64.startswith("base64:"))
+        self.assertNotIn('$', b64)  # no dollar sign
+
+        # random_hex_16 → 32 hex chars
+        hex16 = im.generate_value("random_hex_16")
+        self.assertEqual(len(hex16), 32)
+        self.assertTrue(all(c in "0123456789abcdef" for c in hex16))
+        self.assertNotIn('$', hex16)  # no dollar sign
+
 
     def test_apply_schema_and_recurse(self):
         """

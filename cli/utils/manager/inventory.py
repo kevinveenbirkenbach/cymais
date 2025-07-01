@@ -49,7 +49,7 @@ class InventoryManager:
                 target.setdefault("credentials", {})["database_password"] = self.generate_value("alphanumeric")
             if "oauth2" in data["features"] and \
             data["features"]["oauth2"]:
-                target.setdefault("credentials", {})["oauth2"] = self.generate_value("random_hex_16")
+                target.setdefault("credentials", {})["oauth2_proxy_cookie_secret"] = self.generate_value("random_hex_16")
 
         # Apply recursion only for the `credentials` section
         self.recurse_credentials(self.schema, target)
@@ -148,8 +148,13 @@ class InventoryManager:
         if algorithm == "sha1":
             return hashlib.sha1(secrets.token_bytes(20)).hexdigest()
         if algorithm == "bcrypt":
+            # Generate a random password and hash it with bcrypt
             pw = secrets.token_urlsafe(16).encode()
-            return bcrypt.hashpw(pw, bcrypt.gensalt()).decode()
+            raw_hash = bcrypt.hashpw(pw, bcrypt.gensalt()).decode()
+            # Replace every '$' with a random lowercase alphanumeric character
+            alnum = string.digits + string.ascii_lowercase
+            escaped = "".join(secrets.choice(alnum) if ch == '$' else ch for ch in raw_hash)
+            return escaped
         if algorithm == "alphanumeric":
             return self.generate_secure_alphanumeric(64)
         if algorithm == "base64_prefixed_32":

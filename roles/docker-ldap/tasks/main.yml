@@ -25,6 +25,10 @@
   
 - include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
 
+- name: "Reset LDAP admin passwords"
+  include_tasks: reset_admin_passwords.yml
+  when: applications[application_id].network.local
+
 - name: "create directory {{ldif_host_path}}{{item}}"
   file:
     path: "{{ldif_host_path}}{{item}}"
@@ -59,13 +63,13 @@
 ###############################################################################
 - name: Ensure LDAP users exist
   community.general.ldap_entry:
-    dn: "{{ ldap.attributes.user_id }}={{ item.key }},{{ ldap.dn.users }}"
-    server_uri: "{{ ldap_server_uri }}"
-    bind_dn: "{{ ldap.dn.administrator.data }}"
-    bind_pw: "{{ ldap.bind_credential }}"
-    objectClass: "{{ ldap.user_objects.structural }}"
+    dn:           "{{ ldap.attributes.user_id }}={{ item.key }},{{ ldap.dn.users }}"
+    server_uri:   "{{ ldap_server_uri }}"
+    bind_dn:      "{{ ldap.dn.administrator.data }}"
+    bind_pw:      "{{ ldap.bind_credential }}"
+    objectClass:  "{{ ldap.user_objects.structural }}"
     attributes:
-      uid:           "{{ item.key }}" # {{ ldap.attributes.user_id }} can't be used as key here, dynamic key generation isn't possible
+      uid:           "{{ item.value.username }}"
       sn:            "{{ item.value.sn  | default(item.key) }}"
       cn:            "{{ item.value.cn  | default(item.key) }}"
       userPassword:  "{SSHA}{{ item.value.password }}"
