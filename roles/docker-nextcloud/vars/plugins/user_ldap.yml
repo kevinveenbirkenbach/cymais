@@ -160,10 +160,16 @@ plugin_configuration:
     appid: "user_ldap"
     configkey: "s01ldap_userfilter_objectclass"
     configvalue: "inetOrgPerson"
-  -
+  - 
     appid: "user_ldap"
     configkey: "s01ldap_userlist_filter"
-    configvalue: "{% if applications[application_id].plugins.user_ldap.user_directory.enabled %}{{ ldap.filters.users.all }}{% endif %}"
+    configvalue: |-
+      {% if applications[application_id].plugins.user_ldap.user_directory.enabled %}
+      {{ ldap.filters.users.all }}
+      {% else %}
+      ()
+      {% endif %}
+
   -
     appid: "user_ldap"
     configkey: "s01use_memberof_to_detect_membership"
