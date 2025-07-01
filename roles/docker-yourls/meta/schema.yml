@@ -4,11 +4,6 @@ credentials:
     algorithm: "sha256"
     validation: "^[a-f0-9]{64}$"
 
-  database_password:
-    description: "Password for the YOURLS database user"
-    algorithm: "bcrypt"
-    validation: "^\\$2[aby]\\$.{56}$"
-
   oauth2_proxy_cookie_secret:
     description: "Secret used to encrypt cookies for the OAuth2 proxy (hex-encoded, 16 bytes)"
     algorithm: "random_hex_16"

@@ -5,12 +5,12 @@
     msg:
       domain: "{{ domain }}"
       base_domain: "{{ base_domain }}"
-      verification_url: "{{ verification_url }}"
+      matomo_verification_url: "{{ matomo_verification_url }}"
   when: enable_debug | bool
 
 - name: "Check if site {{ domain }} is allready registered at Matomo"
   uri:
-    url:            "{{verification_url}}"
+    url:            "{{ matomo_verification_url }}"
     method:         GET
     return_content: yes
     status_code:    200
@@ -29,9 +29,9 @@
 
 - name: Add site to Matomo and get ID if not exists
   uri:
-    url: "{{ web_protocol }}://{{ domains.matomo }}/index.php"
+    url: "{{ matomo_index_php_url }}"
     method: POST
-    body: "module=API&method=SitesManager.addSite&siteName={{ base_domain }}&urls=https://{{ base_domain }}&token_auth={{ applications.matomo.credentials.auth_token }}&format=json"
+    body: "module=API&method=SitesManager.addSite&siteName={{ base_domain }}&urls=https://{{ base_domain }}&token_auth={{ matomo_auth_token }}&format=json"
     body_format: form-urlencoded
     status_code: 200
     return_content: yes

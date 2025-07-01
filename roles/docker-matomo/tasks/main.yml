@@ -19,3 +19,17 @@
   set_fact:
     run_once_docker_matomo: true
   when: run_once_docker_matomo is not defined
+
+- name: Exclude global IPs in Matomo
+  uri:
+    url: "{{ matomo_index_php_url }}"
+    method: POST
+    body_format: form-urlencoded
+    body:
+      module: API
+      method: SitesManager.setGlobalExcludedIps
+      excludedIps: "{{ matomo_excluded_ips | join(',') }}"
+      format: json
+      token_auth: "{{ matomo_auth_token }}"
+    return_content: yes
+    status_code: 200

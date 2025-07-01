@@ -222,6 +222,8 @@ plugins:
   user_ldap:
     # Nextcloud user LDAP: integrates LDAP for user management and authentication (https://apps.nextcloud.com/apps/user_ldap)
     enabled: "{{ applications.nextcloud.features.ldap | default(true) }}"
+    user_directory:
+      enabled:  true # Enables the LDAP User Directory Search
   user_oidc:
     # Nextcloud User OIDC: integrates OpenID Connect for user authentication (https://apps.nextcloud.com/apps/user_oidc)
     enabled:    "{{ _applications_nextcloud_oidc_flavor=='user_oidc' | lower }}"
