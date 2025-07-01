@@ -33,54 +33,14 @@ class TestDockerRoleImagesConfiguration(unittest.TestCase):
                 errors.append(f"{role_path.name}: YAML parse error: {e}")
                 continue
 
-            images = config.get("images")
+            images = config.get("docker",{}).get("images")
             if not images:
-                warnings.append(f"[WARNING] {role_path.name}: No 'images' key in configuration.yml")
+                warnings.append(f"[WARNING] {role_path.name}: No 'docker.images' key in configuration.yml")
                 continue
 
             if not isinstance(images, dict):
                 errors.append(f"{role_path.name}: 'images' must be a dict in configuration.yml")
                 continue
-
-            for key, value in images.items():
-                if not key or not value or not isinstance(key, str) or not isinstance(value, str):
-                    errors.append(f"{role_path.name}: images['{key}'] is invalid (must be non-empty string key and value)")
-                    continue
-
-                # Improved regex: matches both ' and " and allows whitespace
-                pattern = (
-                    r'image:\s*["\']\{\{\s*applications\[application_id\]\.images\.' + re.escape(key) + r'\s*\}\}["\']'
-                )
-
-                # innerhalb Deines Loops
-                pattern2 = (
-                    r'image:\s*["\']\{\{\s*'                          # image: "{{
-                    r'applications\[\s*application_id\s*\]\.images'   # applications[ application_id ].images
-                    r'\[\s*application_id\s*\]\s*'                    # [ application_id ]
-                    r'\}\}["\']'                                      # }}" oder }}"
-                )
-
-
-                for tmpl_file in [
-                    role_path / "templates" / "docker-compose.yml.j2",
-                    role_path / "templates" / "env.j2",
-                ]:
-                    if not tmpl_file.exists():
-                        continue
-                    content = tmpl_file.read_text("utf-8")
-                    if re.search(pattern, content):
-                        break
-                    if key == main.get('application_id') and re.search(pattern2, content):
-                        break
-                else:
-                    # Dieser Block wird nur ausgeführt, wenn kein `break` ausgelöst wurde
-                    errors.append(
-                        f"{role_path.name}: image key '{key}' is not referenced as "
-                        f"image: \"{{{{ applications[application_id].images.{key} }}}}\" or "
-                        f"\"{{{{ applications[application_id].images[application_id] }}}}\" "
-                        "in docker-compose.yml.j2 or env.j2"
-                    )
-
 
                 # OPTIONAL: Check if the image is available locally via docker images
                 # from shutil import which

@@ -1,15 +1,14 @@
-# filter_plugins/docker_image.py
+def get_docker_image(applications, application_id, image_key:str=None):
+    image_key = image_key if image_key else application_id
+    docker = applications.get(application_id, {}).get("docker", {})
+    version = docker.get("versions", {}).get(image_key)
+    image = docker.get("images", {}).get(image_key)
 
-def get_docker_image(applications, application_id, image_key):
-    app = applications.get(application_id, {})
-    docker = app.get("docker", {})
-    images = docker.get("images", {})
-    versions = docker.get("versions", {})
-    version = versions.get(image_key) or app.get("version")
-    image = images.get(image_key)
+    if not image:
+        raise ValueError(f"Missing image for {application_id}:{image_key}")
 
-    if not image or not version:
-        raise ValueError(f"Missing image or version for {application_id}:{image_key}")
+    if not version:
+        raise ValueError(f"Missing version for {application_id}:{image_key}")
     
     return f"{image}:{version}"
 

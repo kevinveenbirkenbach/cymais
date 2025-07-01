@@ -4,3 +4,14 @@ images:
 features:
   central_database: true
   oidc:             true
+csp:
+  flags:
+    script-src-elem:
+      unsafe-inline:  true
+    script-src:
+      unsafe-eval:  true
+domains:
+  canonical:
+    - "event.{{ primary_domain }}"
+  aliases:
+    - "events.{{ primary_domain }}"

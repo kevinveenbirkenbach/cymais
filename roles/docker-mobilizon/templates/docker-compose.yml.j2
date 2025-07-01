@@ -1,21 +1,19 @@
-version: "3"
-
 services:
 
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
-  mobilizon:
+  application:
     image: "{{ applications[application_id].images[application_id] }}"
     volumes:
       - uploads:/var/lib/mobilizon/uploads
-      # - ./config.exs:/etc/mobilizon/config.exs:ro
+      - {{ mobilizon_host_conf_exs_file }}:/etc/mobilizon/config.exs:ro
     ports:
       - "127.0.0.1:{{ ports.localhost.http[application_id] }}:{{ mobilizon_exposed_docker_port }}"
-  healthcheck:
-    test: ["CMD", "curl", "-f", "http://127.0.0.1:{{ mobilizon_exposed_docker_port }}"]
-    interval: 30s
-    timeout: 10s
-    retries: 3
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:{{ mobilizon_exposed_docker_port }}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
 {% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}

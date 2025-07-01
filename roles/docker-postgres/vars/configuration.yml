@@ -1,3 +1,10 @@
-# Please set an version in your inventory file - Rolling release for postgres isn't recommended
-version:  "latest"
 hostname: "central-postgres"
+docker:
+  images:
+    # Postgis is necessary for mobilizon
+    postgres: postgis/postgis
+  versions:  
+    # Please set an version in your inventory file! 
+    # Rolling release isn't recommended
+    postgres: "latest"
+

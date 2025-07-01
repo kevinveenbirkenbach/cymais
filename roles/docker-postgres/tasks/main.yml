@@ -9,7 +9,7 @@
 - name: Install PostgreSQL
   docker_container:
     name: "{{ applications.postgres.hostname }}"
-    image: "postgres:{{applications.postgres.version}}"
+    image: "{{ applications | get_docker_image(application_id) }}"
     detach: yes
     env:
       POSTGRES_PASSWORD: "{{ applications.postgres.credentials.postgres_password }}"
@@ -117,6 +117,21 @@
       GRANT USAGE ON SCHEMA public TO {{ database_username }};
       GRANT CREATE ON SCHEMA public TO {{ database_username }};
       ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL PRIVILEGES ON TABLES TO {{ database_username }};
+
+- name: Ensure PostGIS-related extensions are installed
+  community.postgresql.postgresql_ext:
+    db: "{{ database_name }}"
+    ext: "{{ item }}"
+    state: present
+    login_user: postgres
+    login_password: "{{ applications.postgres.credentials.postgres_password }}"
+    login_host: 127.0.0.1
+    login_port: "{{ database_port }}"
+  loop:
+    - postgis
+    - pg_trgm
+    - unaccent
+  when: database_gis_enabled is defined and database_gis_enabled
 
 - name: Run the docker_postgres tasks once
   set_fact:
