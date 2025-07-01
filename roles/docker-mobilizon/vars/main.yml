@@ -1,0 +1,4 @@
+application_id:                 mobilizon
+database_type:                  "mariadb"
+mobilizon_oidc_callback_url:    "{{ web_protocol }}://{{ domains | get_domain(application_id) }}/auth/openid_connect/callback"
+mobilizon_exposed_docker_port:  4000

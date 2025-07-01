@@ -6,7 +6,7 @@ services:
 
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
 
-    image: "{{ applications[application_id].images.akaunting }}"
+    image: "{{ applications[application_id].images[application_id] }}"
     build:
       context: .
     ports:

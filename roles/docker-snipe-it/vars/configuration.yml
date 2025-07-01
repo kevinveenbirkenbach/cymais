@@ -21,3 +21,9 @@ csp:
   whitelist:
     font-src:
       - "data:"
+oauth2_proxy:
+  application:  "application"
+  port:         "80"
+  acl:
+    blacklist:
+      - "/login"

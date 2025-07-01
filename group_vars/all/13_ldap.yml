@@ -1,36 +1,3 @@
-#############################################
-### Identity and Access Management (IAM)  ###
-#############################################
-
-#############################################
-### OIDC                                  ###
-#############################################
-# @see https://en.wikipedia.org/wiki/OpenID_Connect
-
-## Helper Variables:
-_oidc_client_realm:       "{{ oidc.client.realm if oidc.client is defined and oidc.client.realm is defined else primary_domain }}"
-_oidc_client_issuer_url:  "{{ web_protocol }}://{{domains | get_domain('keycloak')}}/realms/{{_oidc_client_realm}}"
-
-defaults_oidc:
-  client:
-    id:                   "{{primary_domain}}"                                              # Client identifier, typically matching your primary domain
-#   secret:                                                                                 # Client secret for authenticating with the OIDC provider (set in the inventory file). Recommend greater then 32 characters
-    realm:                "{{_oidc_client_realm}}"                                          # The realm to which the client belongs in the OIDC provider
-    issuer_url:           "{{_oidc_client_issuer_url}}"                                     # Base URL of the OIDC provider (issuer)
-    discovery_document:   "{{_oidc_client_issuer_url}}/.well-known/openid-configuration"    # URL for fetching the provider's configuration details
-    authorize_url:        "{{_oidc_client_issuer_url}}/protocol/openid-connect/auth"        # Endpoint to start the authorization process
-    token_url:            "{{_oidc_client_issuer_url}}/protocol/openid-connect/token"       # Endpoint to exchange authorization codes for tokens (note: 'token_url' may be a typo for 'token_url')
-    user_info_url:        "{{_oidc_client_issuer_url}}/protocol/openid-connect/userinfo"    # Endpoint to retrieve user information
-    logout_url:           "{{_oidc_client_issuer_url}}/protocol/openid-connect/logout"      # Endpoint to log out the user
-    change_credentials:   "{{_oidc_client_issuer_url}}account/account-security/signing-in"  # URL for managing or changing user credentials
-    certs:                "{{_oidc_client_issuer_url}}/protocol/openid-connect/certs"       # JSON Web Key Set (JWKS)
-  button_text:            "SSO Login ({{primary_domain | upper}})"                           # Default button text
-  attributes:
-    # Attribut to identify the user
-    username:             "preferred_username"
-    given_name:           "givenName"
-    family_name:          "surname"
-    email:                "email"
 
 #############################################
 ### LDAP                                  ###

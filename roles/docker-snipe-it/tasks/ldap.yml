@@ -1,30 +1,85 @@
 # @See https://raw.githubusercontent.com/snipe/snipe-it/master/app/Models/Setting.php
 ---
-- name: "Enable und konfiguriere LDAP in Snipe-IT"
-  community.mysql.mysql_query:
-    login_host: "{{ database_host }}"
-    login_port: "{{ database_port }}"
-    login_user: "{{ database_username }}"
-    login_password: "{{ database_password }}"
-    db: "{{ database_name }}"
-    query: |
-      UPDATE settings SET
-        ldap_enabled              = 1,
-        ldap_server               = '{{ ldap.server.uri }}',
-        ldap_port                 = '{{ ldap.server.port }}',
-        ldap_uname                = '{{ ldap.dn.administrator.data }}',
-        ldap_pword                = '{{ ldap.bind_credential }}',
-        ldap_basedn               = '{{ ldap.dn.root }}',
-        ldap_filter               = '{{ ldap.filters.users.all }}',
-        ldap_username_field       = '{{ ldap.attributes.user_id }}',
-        ldap_lname_field          = '{{ ldap.attributes.surname }}',
-        ldap_fname_field          = '{{ ldap.attributes.firstname }}',
-        ldap_auth_filter_query    = '{{ ldap.filters.users.login }}',
-        ldap_version              = 3,
-        ldap_pw_sync              = 0,
-        is_ad                     = 0,
-        ad_domain                 = '',
-        ldap_default_group        = '',
-        ldap_email                = '{{ ldap.attributes.mail }}',
-        ldap_mem_lim              = '{{ LDAP_MEM_LIM }}',
-        ldap_time_lim             = '{{ LDAP_TIME_LIM }}';
+- name: "Wait until the Snipe-IT Login is available"
+  uri:
+    url: "{{ snipe_it_url }}/login"
+    method: GET
+    return_content: no
+    status_code: 200
+  register: snipeit_admin_check
+  retries: 30
+  delay: 5
+  until: snipeit_admin_check.status == 200
+  when: not ( applications | is_feature_enabled('oauth2', application_id))
+
+- name: "Set all LDAP settings via Laravel Setting model (inside container as www-data)"
+  shell: |
+    docker-compose exec -T -e XDG_CONFIG_HOME=/tmp -u www-data application sh -c 'php artisan tinker << "EOF"
+    $s = \App\Models\Setting::getSettings();
+    $s->ldap_enabled             = 1;
+    $s->ldap_server              = "{{ ldap.server.uri }}";
+    $s->ldap_port                = {{ ldap.server.port }};
+    $s->ldap_uname               = "{{ ldap.dn.administrator.data }}";
+    $s->ldap_pword               = "{{ ldap.bind_credential }}";
+    $s->ldap_basedn              = "{{ ldap.dn.root }}";
+    $s->ldap_filter              = "objectclass=inetOrgPerson";
+    $s->ldap_username_field      = "{{ ldap.attributes.user_id }}";
+    $s->ldap_fname_field         = "{{ ldap.attributes.firstname }}";
+    $s->ldap_lname_field         = "{{ ldap.attributes.surname }}";
+    $s->ldap_auth_filter_query   = "{{ ldap.filters.users.login }}";
+    $s->ldap_version             = 3;
+    $s->ldap_pw_sync             = 0;
+    $s->is_ad                    = 0;
+    $s->ad_domain                = "";
+    $s->ldap_default_group       = "";
+    $s->ldap_email               = "{{ ldap.attributes.mail }}";
+    $s->custom_forgot_pass_url   = "{{ ldap.attributes.mail }}";
+    $s->save();
+    EOF'
+  args:
+    #chdir: "/opt/docker/snipe-it/"
+    chdir: "{{ docker_compose.directories.instance }}"
+  register: ldap_tinker
+  failed_when: >
+    ldap_tinker.stdout_lines is not defined
+    or ldap_tinker.stdout_lines[0] != '= true'
+  changed_when: >
+    ldap_tinker.stdout_lines is defined
+    and ldap_tinker.stdout_lines[0] == '= true'
+  notify: docker compose up
+
+- name: "Clear Laravel config & cache (inside container as www-data)"
+  shell: |
+    docker-compose exec -T -u www-data application php artisan config:clear
+    docker-compose exec -T -u www-data application php artisan cache:clear
+  args:
+    #chdir: "/opt/docker/snipe-it/"
+    chdir: "{{ docker_compose.directories.instance }}"
+  notify: docker compose up 
+
+#- name: "Enable und konfiguriere LDAP in Snipe-IT"
+#  community.mysql.mysql_query:
+#    login_host: "127.0.0.1"
+#    login_port: "{{ database_port }}"
+#    login_user: "{{ database_username }}"
+#    login_password: "{{ database_password }}"
+#    login_db: "{{ database_name }}"
+#    query: |
+#      UPDATE settings SET
+#        ldap_enabled              = 1,
+#        ldap_server               = '{{ ldap.server.uri }}',
+#        ldap_port                 = '{{ ldap.server.port }}',
+#        ldap_uname                = '{{ ldap.dn.administrator.data }}',
+#        ldap_pword                = '{{ ldap.bind_credential }}',
+#        ldap_basedn               = '{{ ldap.dn.root }}',
+#        ldap_filter               = '{{ ldap.filters.users.all }}',
+#        ldap_username_field       = '{{ ldap.attributes.user_id }}',
+#        ldap_lname_field          = '{{ ldap.attributes.surname }}',
+#        ldap_fname_field          = '{{ ldap.attributes.firstname }}',
+#        ldap_auth_filter_query    = '{{ ldap.filters.users.login }}',
+#        ldap_version              = 3,
+#        ldap_pw_sync              = 0,
+#        is_ad                     = 0,
+#        ad_domain                 = '',
+#        ldap_default_group        = '',
+#        ldap_email                = '{{ ldap.attributes.mail }}';

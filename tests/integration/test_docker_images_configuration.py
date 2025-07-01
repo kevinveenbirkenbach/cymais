@@ -27,6 +27,8 @@ class TestDockerRoleImagesConfiguration(unittest.TestCase):
 
             try:
                 config = yaml.safe_load(cfg_file.read_text("utf-8")) or {}
+                main_file = role_path / "vars" / "main.yml"
+                main = yaml.safe_load(main_file.read_text("utf-8")) or {}
             except yaml.YAMLError as e:
                 errors.append(f"{role_path.name}: YAML parse error: {e}")
                 continue
@@ -50,20 +52,33 @@ class TestDockerRoleImagesConfiguration(unittest.TestCase):
                     r'image:\s*["\']\{\{\s*applications\[application_id\]\.images\.' + re.escape(key) + r'\s*\}\}["\']'
                 )
 
-                found = False
+                # innerhalb Deines Loops
+                pattern2 = (
+                    r'image:\s*["\']\{\{\s*'                          # image: "{{
+                    r'applications\[\s*application_id\s*\]\.images'   # applications[ application_id ].images
+                    r'\[\s*application_id\s*\]\s*'                    # [ application_id ]
+                    r'\}\}["\']'                                      # }}" oder }}"
+                )
+
+
                 for tmpl_file in [
                     role_path / "templates" / "docker-compose.yml.j2",
-                    role_path / "templates" / "env.j2"
+                    role_path / "templates" / "env.j2",
                 ]:
-                    if tmpl_file.exists():
-                        content = tmpl_file.read_text("utf-8")
-                        if re.search(pattern, content):
-                            found = True
-                            break
-                if not found:
+                    if not tmpl_file.exists():
+                        continue
+                    content = tmpl_file.read_text("utf-8")
+                    if re.search(pattern, content):
+                        break
+                    if key == main.get('application_id') and re.search(pattern2, content):
+                        break
+                else:
+                    # Dieser Block wird nur ausgeführt, wenn kein `break` ausgelöst wurde
                     errors.append(
                         f"{role_path.name}: image key '{key}' is not referenced as "
-                        f'image: \"{{{{ applications[application_id].images.{key} }}}}\" in docker-compose.yml.j2 or env.j2'
+                        f"image: \"{{{{ applications[application_id].images.{key} }}}}\" or "
+                        f"\"{{{{ applications[application_id].images[application_id] }}}}\" "
+                        "in docker-compose.yml.j2 or env.j2"
                     )
 
 

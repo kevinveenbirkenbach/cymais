@@ -5,7 +5,7 @@ services:
 {% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
 
   web:
-    image: "{{ applications[application_id].images.mastodon }}"
+    image: "{{ applications[application_id].images[application_id] }}"
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
     healthcheck:

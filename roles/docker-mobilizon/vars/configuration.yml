@@ -1,0 +1,3 @@
+titel:        "Mobilizon on {{ primary_domain | upper }}"
+images:
+  mobilizon:  "docker.io/framasoft/mobilizon"

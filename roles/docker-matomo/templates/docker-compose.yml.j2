@@ -4,9 +4,9 @@ services:
 
   application:
 {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    image: "{{ applications[application_id].images.matomo }}"
+    image: "{{ applications[application_id].images[application_id] }}"
     ports:
-      - "127.0.0.1:{{ports.localhost.http.matomo}}:80"
+      - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
     volumes:
       - data:/var/www/html
 {% include 'templates/docker/container/depends-on-just-database.yml.j2' %}

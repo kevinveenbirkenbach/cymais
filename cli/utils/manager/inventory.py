@@ -42,11 +42,14 @@ class InventoryManager:
         data = YamlHandler.load_yaml(vars_file)
 
         # Check if 'central-database' is enabled in the features section of data
-        if "features" in data and \
-        "central_database" in data["features"] and \
-        data["features"]["central_database"]:
-            # Add 'central_database' value (password) to credentials
-            target.setdefault("credentials", {})["database_password"] = self.generate_value("alphanumeric")
+        if "features" in data:
+            if "central_database" in data["features"] and \
+            data["features"]["central_database"]:
+                # Add 'central_database' value (password) to credentials
+                target.setdefault("credentials", {})["database_password"] = self.generate_value("alphanumeric")
+            if "oauth2" in data["features"] and \
+            data["features"]["oauth2"]:
+                target.setdefault("credentials", {})["oauth2"] = self.generate_value("random_hex_16")
 
         # Apply recursion only for the `credentials` section
         self.recurse_credentials(self.schema, target)
@@ -102,7 +105,41 @@ class InventoryManager:
         return ''.join(secrets.choice(characters) for _ in range(length))
 
     def generate_value(self, algorithm: str) -> str:
-        """Generate a value based on the provided algorithm."""
+        """
+        Generate a random secret value according to the specified algorithm.
+
+        Supported algorithms:
+        • "random_hex"
+            – Returns a 64-byte (512-bit) secure random string, encoded as 128 hexadecimal characters.
+            – Use when you need maximum entropy in a hex-only format.
+
+        • "sha256"
+            – Generates 32 random bytes, hashes them with SHA-256, and returns a 64-character hex digest.
+            – Good for when you want a fixed-length (256-bit) hash output.
+
+        • "sha1"
+            – Generates 20 random bytes, hashes them with SHA-1, and returns a 40-character hex digest.
+            – Only use in legacy contexts; SHA-1 is considered weaker than SHA-256.
+
+        • "bcrypt"
+            – Creates a random 16-byte URL-safe password, then applies a bcrypt hash.
+            – Suitable for storing user-style passwords where bcrypt verification is needed.
+
+        • "alphanumeric"
+            – Produces a 64-character string drawn from [A–Z, a–z, 0–9].
+            – Offers ≈380 bits of entropy; human-friendly charset.
+
+        • "base64_prefixed_32"
+            – Generates 32 random bytes, encodes them in Base64, and prefixes the result with "base64:".
+            – Useful when downstream systems expect a Base64 format.
+
+        • "random_hex_16"
+            – Returns 16 random bytes (128 bits) encoded as 32 hexadecimal characters.
+            – Handy for shorter tokens or salts.
+
+        Returns:
+            A securely generated string according to the chosen algorithm.
+        """
         if algorithm == "random_hex":
             return secrets.token_hex(64)
         

@@ -1,11 +1,5 @@
 credentials:
-
   auth_token:
     description: "Authentication token for the Matomo HTTP API (used for automation and integrations)"
     algorithm: "sha256"
     validation: "^[a-f0-9]{64}$"
-
-  oauth2_proxy_cookie_secret:
-    description: "Secret used to encrypt cookies for the OAuth2 proxy (hex-encoded, 16 bytes)"
-    algorithm: "random_hex_16"
-    validation: "^[a-f0-9]{32}$"
