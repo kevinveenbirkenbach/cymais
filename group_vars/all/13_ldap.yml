@@ -62,7 +62,7 @@ ldap:
     surname:            "sn"
     ssh_public_key:     "sshPublicKey"
   # Password to access dn.bind
-  bind_credential:      "{{applications.ldap.credentials.administrator_database_password}}"
+  bind_credential:      "{{ applications.ldap.credentials.administrator_database_password }}"
   server:
     domain:             "{{applications.ldap.hostname if applications.ldap.network.docker | bool else domains.ldap}}" # Mapping for public or locale access
     port:               "{{_ldap_server_port}}"

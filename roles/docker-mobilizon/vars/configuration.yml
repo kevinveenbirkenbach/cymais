@@ -4,6 +4,7 @@ images:
 features:
   central_database: true
   oidc:             true
+  matomo:           true
 csp:
   flags:
     script-src-elem:

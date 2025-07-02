@@ -1,13 +1,19 @@
-images:               
-  api:        "funkwhale/api:1.4.0"
-  front:      "funkwhale/front:1.4.0"
-  typesense:  "typesense/typesense"
+docker:
+  versions:               
+    api:        "1.4.0"
+    front:      "1.4.0"
+    typesense:  "typesense/typesense"
+  images:               
+    api:        "funkwhale/api"
+    front:      "funkwhale/front"
+    typesense:  "typesense/typesense"
 features:
   matomo:             true
-  css:                true
+  css:                false
   portfolio_iframe:   true
   ldap:               true
   central_database:   true
+  oauth2:             false # Doesn't make sense to activate it atm, because login is possible on homepage
 credentials:
 domains:
   canonical:
@@ -15,3 +21,16 @@ domains:
   aliases:
     - "music.{{ primary_domain }}"
     - "sound.{{ primary_domain }}"
+csp:  
+  flags:
+    style-src:
+      unsafe-inline:  true
+  whitelist:
+    font-src:
+      -  "data:"
+oauth2_proxy:  
+  application:        "front"
+  port:               "80"
+  acl:
+    blacklist:
+      - "/login"
