@@ -1,12 +1,5 @@
 images:
   listmonk:                 "listmonk/listmonk:latest"
-users:
-  administrator:
-    username:               "administrator"
-  bounce:
-    username:               "bounce"
-  newsletter:
-    username:               "newsletter"
 public_api_activated:       False                                 # Security hole. Can be used for spaming
 version:                    "latest"                              # Docker Image version
 features:

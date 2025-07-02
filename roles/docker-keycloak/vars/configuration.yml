@@ -1,8 +1,5 @@
 images: 
   keycloak:           "quay.io/keycloak/keycloak:latest"
-users:
-  administrator:
-    username:         "administrator"
 import_realm:         True                                # If True realm will be imported. If false skip.
 credentials:
 features:

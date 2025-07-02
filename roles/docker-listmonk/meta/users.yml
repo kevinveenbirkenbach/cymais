@@ -1,0 +1,7 @@
+users:
+  administrator:
+    username:               "administrator"
+  bounce:
+    username:               "bounce"
+  newsletter:
+    username:               "newsletter"

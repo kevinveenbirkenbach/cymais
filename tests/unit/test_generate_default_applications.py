@@ -23,7 +23,7 @@ class TestGenerateDefaultApplications(unittest.TestCase):
         (self.sample_role / "vars" / "configuration.yml").write_text("foo: bar\nbaz: 123\n")
 
         # Output file path
-        self.output_file = self.temp_dir / "group_vars" / "all" / "03_applications.yml"
+        self.output_file = self.temp_dir / "group_vars" / "all" / "04_applications.yml"
 
     def tearDown(self):
         shutil.rmtree(self.temp_dir)

@@ -93,7 +93,7 @@ def build_users(defs, primary_domain, start_id, become_pwd):
 
 def load_user_defs(roles_dir):
     """
-    Scan all roles/*/vars/configuration.yml files and extract 'users:' sections.
+    Scan all roles/*/meta/users.yml files and extract 'users:' sections.
 
     Raises an exception if conflicting definitions are found.
 
@@ -106,7 +106,7 @@ def load_user_defs(roles_dir):
     Raises:
         ValueError: On invalid format or conflicting field values.
     """
-    pattern = os.path.join(roles_dir, '*/vars/configuration.yml')
+    pattern = os.path.join(roles_dir, '*/meta/users.yml')
     files = sorted(glob.glob(pattern))
     merged = OrderedDict()
 
@@ -151,11 +151,11 @@ def dictify(data):
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description='Generate a users.yml by merging all roles/*/vars/configuration.yml users sections.'
+        description='Generate a users.yml by merging all roles/*/meta/users.yml users sections.'
     )
     parser.add_argument(
         '--roles-dir', '-r', required=True,
-        help='Directory containing roles (e.g., roles/*/vars/configuration.yml).'
+        help='Directory containing roles (e.g., roles/*/meta/users.yml).'
     )
     parser.add_argument(
         '--output', '-o', required=True,

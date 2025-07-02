@@ -1,9 +1,6 @@
 images:
   synapse:            "matrixdotorg/synapse:latest"
   element:            "vectorim/element-web:latest"
-users:
-  administrator:
-    username:         "administrator"
 playbook_tags:        "setup-all,start"                  # For the initial update use: install-all,ensure-matrix-users-created,start
 server_name:          "{{primary_domain}}"               # Adress for the account names etc.
 synapse:

@@ -1,8 +1,4 @@
 title:                "Blog"                                      # Wordpress titel
-users:                                                            # Credentials
-  administrator:                                                  # Wordpress administrator
-    username:         "administrator"
-    email:            "administrator@{{ primary_domain }}"
 plugins:
   wp-discourse:
     enabled:          "{{ 'discourse' in group_names | lower }}"

@@ -1,7 +1,4 @@
 site_titel:           "Academy on {{primary_domain}}"
-users:
-  administrator:
-    username:         "administrator"
 version:              "4.5"                                 # Latest LTS - Necessary for OIDC
 features:
   matomo:             true

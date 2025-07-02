@@ -1,11 +1,5 @@
 images:              
   espocrm:            "espocrm/espocrm:latest"
-users:
-  administrator:
-    username:         "administrator"
-  contact:
-    description:      "General contact account"
-    username:         "contact"
 features:
   matomo:             true
   css:                false

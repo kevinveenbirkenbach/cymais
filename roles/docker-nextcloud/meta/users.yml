@@ -1,0 +1,5 @@
+users:      
+  administrator:
+    username:                  "administrator"
+  no-reply:
+    username: "no-reply"
