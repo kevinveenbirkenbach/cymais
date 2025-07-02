@@ -6,6 +6,12 @@ USERS_SCRIPT		:= ./cli/generate_users.py
 INCLUDES_OUT      	:= ./tasks/utils/docker-roles.yml
 INCLUDES_SCRIPT   	:= ./cli/generate_playbook.py
 
+EXTRA_USERS := $(shell \
+	find $(ROLES_DIR) -maxdepth 1 -type d -name 'docker*' -printf '%f\n' \
+	| sed -E 's/^docker[_-]?//' \
+	| paste -sd, - \
+)
+
 .PHONY: build install test
 
 build:
@@ -15,7 +21,7 @@ build:
 	@echo "✅ Applications defaults written to $(APPLICATIONS_OUT)\n"
 	@echo "🔧 Generating users defaults → $(USERS_OUT) from roles in $(ROLES_DIR)…"
 	@mkdir -p $(dir $(USERS_OUT))
-	python3 $(USERS_SCRIPT) --roles-dir $(ROLES_DIR) --output $(USERS_OUT)
+	python3 $(USERS_SCRIPT) --roles-dir $(ROLES_DIR) --output $(USERS_OUT) --extra-users "$(EXTRA_USERS)"
 	@echo "✅ Users defaults written to $(USERS_OUT)\n"
 	@echo "🔧 Generating Docker role includes → $(INCLUDES_OUT)…"
 	@mkdir -p $(dir $(INCLUDES_OUT))

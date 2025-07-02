@@ -3,7 +3,7 @@ images:
 users:
   administrator:
     username:         "administrator"
-  crm:
+  contact:
     description:      "General contact account"
     username:         "contact"
 features:

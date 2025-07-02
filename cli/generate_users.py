@@ -25,8 +25,7 @@ def build_users(defs, primary_domain, start_id, become_pwd):
     """
     users = OrderedDict()
     used_uids = set()
-    used_gids = set()
-
+    
     # Pre-collect any provided uids/gids and check for duplicates
     for key, overrides in defs.items():
         if 'uid' in overrides:
@@ -34,11 +33,6 @@ def build_users(defs, primary_domain, start_id, become_pwd):
             if uid in used_uids:
                 raise ValueError(f"Duplicate uid {uid} for user '{key}'")
             used_uids.add(uid)
-        if 'gid' in overrides:
-            gid = overrides['gid']
-            if gid in used_gids:
-                raise ValueError(f"Duplicate gid {gid} for user '{key}'")
-            used_gids.add(gid)
 
     next_free = start_id
     def allocate_free_id():
@@ -48,7 +42,6 @@ def build_users(defs, primary_domain, start_id, become_pwd):
             next_free += 1
         free = next_free
         used_uids.add(free)
-        used_gids.add(free)
         next_free += 1
         return free
 
@@ -68,13 +61,8 @@ def build_users(defs, primary_domain, start_id, become_pwd):
         if 'gid' in overrides:
             gid = overrides['gid']
         else:
-            # if gid not provided, default to uid (and ensure uniqueness)
-            if uid in used_gids:
-                # already added in allocate_free_id or pre-collect
-                gid = uid
-            else:
-                gid = uid
-                used_gids.add(gid)
+            # default GID to UID
+            gid = uid
 
         entry = {
             'username': username,
@@ -102,8 +90,6 @@ def build_users(defs, primary_domain, start_id, become_pwd):
             raise ValueError(f"Duplicate username '{un}' in merged users")
         if em in seen_emails:
             raise ValueError(f"Duplicate email '{em}' in merged users")
-        if gd in seen_gids:
-            raise ValueError(f"Duplicate gid '{gd}' in merged users")
         seen_usernames.add(un)
         seen_emails.add(em)
         seen_gids.add(gd)
@@ -185,6 +171,11 @@ def parse_args():
         '--start-id', '-s', type=int, default=1001,
         help='Starting uid/gid number (default: 1001).'
     )
+    parser.add_argument(
+        '--extra-users', '-e',
+        help='Comma-separated list of additional usernames to include.',
+        default=None
+    )
     return parser.parse_args()
 
 
@@ -198,6 +189,17 @@ def main():
     except ValueError as e:
         print(f"Error merging user definitions: {e}", file=sys.stderr)
         sys.exit(1)
+
+    # Add extra users if any
+    if args.extra_users:
+        for name in args.extra_users.split(','):
+            user = name.strip()
+            if not user:
+                continue
+            if user in user_defs:
+                print(f"Warning: extra user '{user}' already defined; skipping.", file=sys.stderr)
+            else:
+                user_defs[user] = {}
 
     try:
         users = build_users(

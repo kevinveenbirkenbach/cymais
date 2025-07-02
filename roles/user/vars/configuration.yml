@@ -1,0 +1,126 @@
+# Reserved usernames
+users:
+  root:
+    username: root
+    uid: 0
+    gid: 0
+    description: "System superuser"
+  daemon:
+    username: daemon
+    description: "Daemon processes owner"
+  bin:
+    username: bin
+    description: "Owner of essential binaries"
+  sys:
+    username: sys
+    description: "System files owner"
+  sync:
+    username: sync
+    description: "Sync user for filesystem synchronization"
+  games:
+    username: games
+    description: "Games and educational software owner"
+  man:
+    username: man
+    description: "Manual pages viewer"
+  lp:
+    username: lp
+    description: "Printer spooler"
+  mail:
+    username: mail
+    description: "Mail system"
+  news:
+    username: news
+    description: "Network news system"
+  uucp:
+    username: uucp
+    description: "UUCP system"
+  proxy:
+    username: proxy
+    description: "Proxy user"
+  www-data:
+    username: www-data
+    description: "Web server user"
+  backup:
+    username: backup
+    description: "Backup operator"
+  list:
+    username: list
+    description: "Mailing list manager"
+  irc:
+    username: irc
+    description: "IRC services user"
+  gnats:
+    username: gnats
+    description: "GNATS bug-reporting system"
+  nobody:
+    username: nobody
+    description: "Unprivileged user"
+  messagebus:
+    username: messagebus
+    description: "D-Bus message bus system"
+  sshd:
+    username: sshd
+    description: "SSH daemon"
+  rpc:
+    username: rpc
+    description: "Rpcbind daemon"
+  ftp:
+    username: ftp
+    description: "FTP server"
+  postfix:
+    username: postfix
+    description: "Postfix mail transfer agent"
+  mysql:
+    username: mysql
+    description: "MySQL database server"
+  mongodb:
+    username: mongodb
+    description: "MongoDB database server"
+  admin:
+    username: admin
+    description: "Generic reserved username"
+  administrator:
+    username: administrator
+  user:
+    username: user
+    description: "Generic reserved username"
+  test:
+    username: test
+    description: "Generic reserved username"
+  guest:
+    username: guest
+    description: "Generic reserved username"
+  demo:
+    username: demo
+    description: "Generic reserved username"
+  info:
+    username: info
+    description: "Generic reserved username"
+  support:
+    username: support
+    description: "Generic reserved username"
+  helpdesk:
+    username: helpdesk
+    description: "Generic reserved username"
+  operator:
+    username: operator
+    description: "Generic reserved username"
+  staff:
+    username: staff
+    description: "Generic reserved username"
+  smtp:
+    username: smtp
+    description: "Generic reserved username"
+  imap:
+    username: imap
+    description: "Generic reserved username"
+  pop:
+    username: pop
+    description: "Generic reserved username"
+  webmaster:
+    username: webmaster
+    description: "Generic reserved username"
+  mailman:
+    username: mailman
+    description: "Generic reserved username"
