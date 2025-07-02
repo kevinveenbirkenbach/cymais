@@ -50,24 +50,18 @@ def build_users(defs, primary_domain, start_id, become_pwd):
         username = overrides.get('username', key)
         email = overrides.get('email', f"{username}@{primary_domain}")
         description = overrides.get('description')
-
+        password = overrides.get('password',become_pwd)
         # UID assignment
         if 'uid' in overrides:
             uid = overrides['uid']
         else:
             uid = allocate_free_id()
-
-        # GID assignment
-        if 'gid' in overrides:
-            gid = overrides['gid']
-        else:
-            # default GID to UID
-            gid = uid
+        gid = overrides.get('gid',uid)
 
         entry = {
             'username': username,
             'email':    email,
-            'password': become_pwd,
+            'password': password,
             'uid':      uid,
             'gid':      gid
         }
@@ -182,7 +176,7 @@ def parse_args():
 def main():
     args = parse_args()
     primary_domain = '{{ primary_domain }}'
-    become_pwd = '{{ ansible_become_password }}'
+    become_pwd = '{{ lookup("password", "/dev/null length=42 chars=ascii_letters,digits") }}'
 
     try:
         user_defs = load_user_defs(args.roles_dir)

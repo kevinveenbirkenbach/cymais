@@ -37,6 +37,45 @@ class TestGenerateUsers(unittest.TestCase):
         self.assertEqual(users['carol']['uid'], 1002)
         self.assertEqual(users['carol']['gid'], 1002)
 
+    def test_build_users_default_lookup_password(self):
+        """
+        When no 'password' override is provided,
+        the become_pwd lookup template string must be used as the password.
+        """
+        defs = {'frank': {}}
+        lookup_template = '{{ lookup("password", "/dev/null length=42 chars=ascii_letters,digits") }}'
+        users = generate_users.build_users(
+            defs=defs,
+            primary_domain='example.com',
+            start_id=1001,
+            become_pwd=lookup_template
+        )
+        self.assertEqual(
+            users['frank']['password'],
+            lookup_template,
+            "The lookup template string was not correctly applied as the default password"
+        )
+
+    def test_build_users_override_password(self):
+        """
+        When a 'password' override is provided,
+        that custom password must be used instead of become_pwd.
+        """
+        defs = {'eva': {'password': 'custompw'}}
+        lookup_template = '{{ lookup("password", "/dev/null length=42 chars=ascii_letters,digits") }}'
+        users = generate_users.build_users(
+            defs=defs,
+            primary_domain='example.com',
+            start_id=1001,
+            become_pwd=lookup_template
+        )
+        self.assertEqual(
+            users['eva']['password'],
+            'custompw',
+            "The override password was not correctly applied"
+        )
+
+
     def test_build_users_duplicate_override_uid(self):
         defs = {
             'u1': {'uid': 1001},
