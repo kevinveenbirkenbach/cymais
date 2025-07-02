@@ -2,49 +2,59 @@
 
 import os
 import sys
+import unittest
 
 # Add module_utils/ to the import path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..", "module_utils")))
+sys.path.insert(
+    0,
+    os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__),
+            "../../..",
+            "module_utils",
+        )
+    ),
+)
 
 from module_utils.cert_utils import CertUtils
 
-def test_matches():
-    tests = [
-        # Exact matches
-        ("example.com", "example.com", True),
-        ("www.example.com", "www.example.com", True),
-        ("api.example.com", "api.example.com", True),
 
-        # Wildcard matches
-        ("sub.example.com", "*.example.com", True),
-        ("www.example.com", "*.example.com", True),
+class TestCertUtilsMatches(unittest.TestCase):
+    def setUp(self):
+        # prepare your test cases
+        self.tests = [
+            # Exact matches
+            ("example.com", "example.com", True),
+            ("www.example.com", "www.example.com", True),
+            ("api.example.com", "api.example.com", True),
 
-        # Wildcard non-matches
-        ("example.com", "*.example.com", False),  # base domain is not covered
-        ("deep.sub.example.com", "*.example.com", False),  # too deep
-        ("sub.deep.example.com", "*.deep.example.com", True),  # correct: one level below
+            # Wildcard matches
+            ("sub.example.com", "*.example.com", True),
+            ("www.example.com", "*.example.com", True),
 
-        # Special cases
-        ("deep.api.example.com", "*.api.example.com", True),
-        ("api.example.com", "*.api.example.com", False),  # base not covered by wildcard
+            # Wildcard non-matches
+            ("example.com", "*.example.com", False),      # base domain is not covered
+            ("deep.sub.example.com", "*.example.com", False),  # too deep
+            ("sub.deep.example.com", "*.deep.example.com", True),  # correct: one level below
 
-        # Completely different domains
-        ("test.other.com", "*.example.com", False),
-    ]
+            # Special cases
+            ("deep.api.example.com", "*.api.example.com", True),
+            ("api.example.com", "*.api.example.com", False),  # base not covered by wildcard
 
-    passed = 0
-    failed = 0
+            # Completely different domains
+            ("test.other.com", "*.example.com", False),
+        ]
 
-    for domain, san, expected in tests:
-        result = CertUtils.matches(domain, san)
-        if result == expected:
-            print(f"✅ PASS: {domain} vs {san} -> {result}")
-            passed += 1
-        else:
-            print(f"❌ FAIL: {domain} vs {san} -> {result} (expected {expected})")
-            failed += 1
+    def test_matches(self):
+        for domain, san, expected in self.tests:
+            with self.subTest(domain=domain, san=san):
+                result = CertUtils.matches(domain, san)
+                self.assertEqual(
+                    result,
+                    expected,
+                    msg=f"CertUtils.matches({domain!r}, {san!r}) returned {result}, expected {expected}",
+                )
 
-    print(f"\nSummary: {passed} passed, {failed} failed")
 
 if __name__ == "__main__":
-    test_matches()
+    unittest.main()
