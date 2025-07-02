@@ -9,7 +9,7 @@ from collections import OrderedDict
 
 def build_users(defs, primary_domain, start_id, become_pwd):
     """
-    Build user entries with auto-incremented uid/gid and default username/email.
+    Build user entries with auto-incremented uid/gid, default username/email, and optional description.
 
     Args:
         defs (OrderedDict): Keys are user IDs, values are dicts with optional overrides.
@@ -19,16 +19,62 @@ def build_users(defs, primary_domain, start_id, become_pwd):
 
     Returns:
         OrderedDict: Merged user definitions with full fields.
+
+    Raises:
+        ValueError: If duplicate override uids/gids or conflicts in generated values.
     """
     users = OrderedDict()
-    next_id = start_id
+    used_uids = set()
+    used_gids = set()
 
+    # Pre-collect any provided uids/gids and check for duplicates
+    for key, overrides in defs.items():
+        if 'uid' in overrides:
+            uid = overrides['uid']
+            if uid in used_uids:
+                raise ValueError(f"Duplicate uid {uid} for user '{key}'")
+            used_uids.add(uid)
+        if 'gid' in overrides:
+            gid = overrides['gid']
+            if gid in used_gids:
+                raise ValueError(f"Duplicate gid {gid} for user '{key}'")
+            used_gids.add(gid)
+
+    next_free = start_id
+    def allocate_free_id():
+        nonlocal next_free
+        # find next free id not in used_uids
+        while next_free in used_uids:
+            next_free += 1
+        free = next_free
+        used_uids.add(free)
+        used_gids.add(free)
+        next_free += 1
+        return free
+
+    # Build entries
     for key, overrides in defs.items():
         username = overrides.get('username', key)
         email = overrides.get('email', f"{username}@{primary_domain}")
-        uid = overrides.get('uid', next_id)
-        gid = overrides.get('gid', next_id)
-        is_admin = overrides.get('is_admin', False)
+        description = overrides.get('description')
+
+        # UID assignment
+        if 'uid' in overrides:
+            uid = overrides['uid']
+        else:
+            uid = allocate_free_id()
+
+        # GID assignment
+        if 'gid' in overrides:
+            gid = overrides['gid']
+        else:
+            # if gid not provided, default to uid (and ensure uniqueness)
+            if uid in used_gids:
+                # already added in allocate_free_id or pre-collect
+                gid = uid
+            else:
+                gid = uid
+                used_gids.add(gid)
 
         entry = {
             'username': username,
@@ -37,11 +83,30 @@ def build_users(defs, primary_domain, start_id, become_pwd):
             'uid':      uid,
             'gid':      gid
         }
-        if is_admin:
+        if description is not None:
+            entry['description'] = description
+        if overrides.get('is_admin', False):
             entry['is_admin'] = True
 
         users[key] = entry
-        next_id += 1
+
+    # Validate uniqueness of username, email, and gid
+    seen_usernames = set()
+    seen_emails = set()
+    seen_gids = set()
+    for key, entry in users.items():
+        un = entry['username']
+        em = entry['email']
+        gd = entry['gid']
+        if un in seen_usernames:
+            raise ValueError(f"Duplicate username '{un}' in merged users")
+        if em in seen_emails:
+            raise ValueError(f"Duplicate email '{em}' in merged users")
+        if gd in seen_gids:
+            raise ValueError(f"Duplicate gid '{gd}' in merged users")
+        seen_usernames.add(un)
+        seen_emails.add(em)
+        seen_gids.add(gd)
 
     return users
 
@@ -134,12 +199,16 @@ def main():
         print(f"Error merging user definitions: {e}", file=sys.stderr)
         sys.exit(1)
 
-    users = build_users(
-        defs=user_defs,
-        primary_domain=primary_domain,
-        start_id=args.start_id,
-        become_pwd=become_pwd
-    )
+    try:
+        users = build_users(
+            defs=user_defs,
+            primary_domain=primary_domain,
+            start_id=args.start_id,
+            become_pwd=become_pwd
+        )
+    except ValueError as e:
+        print(f"Error building user entries: {e}", file=sys.stderr)
+        sys.exit(1)
 
     default_users = {'default_users': users}
     plain_data = dictify(default_users)
