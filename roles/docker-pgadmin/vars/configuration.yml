@@ -3,7 +3,7 @@ server_mode:              False                             # If true then the p
 master_password_required: True                              # Master password is required. Recommended True. False is a security risk.
 users:
   administrator:
-    email:                "{{ users.administrator.email }}" # Initial login email address
+    email:                "administrator@{{ primary_domain }}"
 oauth2_proxy:
   application:            "application"
   port:                   "80"

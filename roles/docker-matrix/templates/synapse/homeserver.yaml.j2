@@ -28,7 +28,7 @@ web_client_location:            "{{ web_protocol }}://{{domains.matrix.element}}
 public_baseurl:                 "{{ web_protocol }}://{{domains.matrix.synapse}}"
 trusted_key_servers:
   - server_name: "matrix.org"
-admin_contact: 'mailto:{{users.administrator.email}}'
+admin_contact: 'mailto:{{ users.administrator.email }}'
 
 email:
   smtp_host:                    "{{system_email.host}}"

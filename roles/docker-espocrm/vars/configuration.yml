@@ -2,10 +2,10 @@ images:
   espocrm:            "espocrm/espocrm:latest"
 users:
   administrator:
-    username:         "{{ users.administrator.username }}"
-    email:            "{{ users.administrator.email }}"
-
-credentials:
+    username:         "administrator"
+  crm:
+    description:      "General contact account"
+    username:         "contact"
 features:
   matomo:             true
   css:                false
@@ -26,6 +26,8 @@ csp:
     connect-src:
       - wss://espocrm.{{ primary_domain }}
       - "data:"
+    frame-src:
+      - https://s.espocrm.com/
 domains:
   aliases:
     - "crm.{{ primary_domain }}"

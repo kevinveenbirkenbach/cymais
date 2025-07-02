@@ -1,6 +1,6 @@
 users:
   administrator:
-    username:         "{{users.administrator.username}}"
+    username:         "administrator"
 version:              "latest"
 oauth2_proxy:  
   application:        "application"

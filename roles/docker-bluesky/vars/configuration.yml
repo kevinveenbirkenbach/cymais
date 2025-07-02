@@ -1,6 +1,6 @@
 users:
   administrator:
-    email:          "{{users.administrator.email}}"
+    email:          "administrator@{{ primary_domain }}"
 images:
   pds:              "ghcr.io/bluesky-social/pds:latest"
 pds:

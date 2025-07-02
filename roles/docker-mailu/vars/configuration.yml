@@ -1,7 +1,7 @@
 version:                  "2024.06"                         # Docker Image Version
 users:
   administrator:
-    email:                "{{users.administrator.email}}"   # Administrator Email for DNS Records
+    email:                "administrator@{{ primary_domain }}"   # Administrator Email for DNS Records
 oidc:
   email_by_username:      true                              # If true, then the mail is set by the username. If wrong then the OIDC user email is used
   enable_user_creation:   true                              # Users will be created if not existing

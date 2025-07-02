@@ -21,3 +21,4 @@ galaxy_info:
     class: "fa-solid fa-phone"
   run_after:  
     - docker-keycloak
+    - docker-mailu

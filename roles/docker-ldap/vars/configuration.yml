@@ -8,7 +8,7 @@ hostname:         "ldap"                              # Hostname of the LDAP Ser
 webinterface:     "lam"                               # The webinterface which should be used. Possible: lam and phpldapadmin
 users:  
   administrator:
-    username:     "{{users.administrator.username}}"  # Administrator username
+    username:     "administrator"
 credentials:
 features:
   ldap:           true

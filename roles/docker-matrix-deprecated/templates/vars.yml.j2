@@ -46,7 +46,7 @@ devture_traefik_config_entrypoint_web_forwardedHeaders_insecure: true
 # you won't be required to define this variable (see `docs/configuring-playbook-ssl-certificates.md`).
 #
 # Example value: someone@example.com
-devture_traefik_config_certificatesResolvers_acme_email: "{{users.administrator.email}}"
+devture_traefik_config_certificatesResolvers_acme_email: "{{ users.administrator.email }}"
 
 # A Postgres password to use for the superuser Postgres user (called `matrix` by default).
 #

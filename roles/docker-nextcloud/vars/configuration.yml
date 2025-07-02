@@ -29,7 +29,9 @@ features:
   central_database:             true
 users:      
   administrator:
-    username:                  "{{users.administrator.username}}"
+    username:                  "administrator"
+  no-reply:
+    username: "no-reply"
 default_quota:                 '1000000000'                                     # Quota to assign if no quota is specified in the OIDC response (bytes)
 legacy_login_mask:   
   enabled:                      False                                           # If true, then legacy  login mask is shown. Otherwise just SSO

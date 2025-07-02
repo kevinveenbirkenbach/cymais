@@ -1,8 +1,8 @@
 images:
   akaunting:      "docker.io/akaunting/akaunting:latest"
 company_name:       "{{primary_domain}}"
-company_email:      "{{users.administrator.email}}"
-setup_admin_email:  "{{users.administrator.email}}"
+company_email:      "{{ users.administrator.email }}"
+setup_admin_email:  "{{ users.administrator.email }}"
 features:
   matomo:           true
   css:              true

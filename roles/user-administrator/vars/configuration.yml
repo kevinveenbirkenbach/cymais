@@ -1,0 +1,9 @@
+users:
+  administrator:
+    description:        "System Administrator"
+    username:           "administrator"
+    email:              "administrator@{{ primary_domain }}"
+    password:           "{{ ansible_become_password }}"
+    uid:                1001
+    gid:                1001
+    is_admin:           true

@@ -1,110 +1,50 @@
-# Helper Variables
-
-# Helper Variables for administrator
-_users_administrator_username:  "{{ users.administrator.username | default('administrator') }}"
-_users_administrator_email:     "{{ users.administrator.email | default(_users_administrator_username ~ '@' ~ primary_domain) }}"
-
-# Helper Variables for bounce
-_users_bounce_username:        "{{ users.bounce.username | default('bounce') }}"
-_users_bounce_email:           "{{ users.bounce.email | default(_users_bounce_username ~ '@' ~ primary_domain) }}"
-
-# Helper Variables for no-reply
-_users_no_reply_username:       "{{ users['no-reply'].username | default('no-reply') }}"
-_users_no_reply_email:          "{{ users['no-reply'].email | default(_users_no_reply_username ~ '@' ~ primary_domain) }}"
-
-# Helper Variables for blackhole
-_users_blackhole_username:       "{{ users.blackhole.username | default('no-reply') }}"
-_users_blackhole_email:          "{{ users.blackhole.email | default(_users_blackhole_username ~ '@' ~ primary_domain) }}"
-
-# Helper Variables for contact user
-_users_contact_username:       "{{ users.contact.username | default('contact') }}"
-_users_contact_email:          "{{ users.contact.email | default(_users_contact_username ~ '@' ~ primary_domain) }}"
-
-# Helper Variables for support
-_users_support_username:       "{{ users.support.username | default('support') }}"
-_users_support_email:          "{{ users.support.email | default(_users_support_username ~ '@' ~ primary_domain) }}"
-
-# Helper Variables for helpdesk
-_users_helpdesk_username:      "{{ users.helpdesk.username | default('helpdesk') }}"
-_users_helpdesk_email:         "{{ users.helpdesk.email | default(_users_helpdesk_username ~ '@' ~ primary_domain) }}"
-
-# Extract SLD and TLD from primary_domain
-_users_sld_username:           "{{ primary_domain.split('.')[0] }}"
-_users_sld_email:              "{{ _users_sld_username ~ '@' ~ primary_domain }}"
-
-_users_tld_username:           "{{ primary_domain.split('.')[-1] }}"
-_users_tld_email:              "{{ _users_tld_username ~ '@' ~ primary_domain }}"
-
-# Administrator
 default_users:
-
-  # Credentials will be used as administration credentials for all applications and the system
   administrator:
-    username:           "{{_users_administrator_username}}"     # Username of the administrator
-    email:              "{{_users_administrator_email}}"        # Email of the administrator
-    password:           "{{ansible_become_password}}"           # Example initialisation password needs to be set in inventory file
-    uid:                1001                                    # Posix User ID
-    gid:                1001                                    # Posix Group ID
-    is_admin:           true                                    # Define as admin user
-
-  # Account for Newsletter bouncing
-  bounce:
-    username:           "{{ _users_bounce_username }}"          # Bounce-handler account username
-    email:              "{{ _users_bounce_email }}"             # Email address for handling bounces
-    password:           "{{ansible_become_password}}"           # Example initialisation password needs to be set in inventory file
-    uid:                1002                                    # Posix User ID for bounce
-    gid:                1002                                    # Posix Group ID for bounce
-
-  # User to send System Emails from
-  no-reply:
-    username:           "{{ _users_no_reply_username }}"        # No-reply account username
-    email:              "{{ _users_no_reply_email }}"           # Email address for outgoing no-reply mails
-    password:           "{{ansible_become_password}}"           # Example initialisation password needs to be set in inventory file
-    uid:                1003                                    # Posix User ID for no-reply
-    gid:                1003                                    # Posix Group ID for no-reply
-
-  # Emails etc, what you send to this user will be forgetten
+    username: administrator
+    email: administrator@{{ primary_domain }}
+    password: '{{ ansible_become_password }}'
+    uid: 1001
+    gid: 1001
+    is_admin: true
   blackhole:
-    username:           "{{ _users_blackhole_username }}"       # Blackhole account username
-    email:              "{{ _users_blackhole_email }}"          # Email address to which emails can be send which well be forgetten
-    password:           "{{ansible_become_password}}"           # Example initialisation password needs to be set in inventory file
-    uid:                1004                                    # Posix User ID for bounce
-    gid:                1004                                    # Posix Group ID for bounce
-
-  # The contact user account which clients and plattform users can contact
-  contact:
-    username:           "{{ _users_contact_username }}"         # Contact account username
-    email:              "{{ _users_contact_email }}"            # Email address to which initial contacct emails can be send
-    password:           "{{ansible_become_password}}"           # Example initialisation password needs to be set in inventory file
-    uid:                1005                                    # Posix User ID for bounce
-    gid:                1005                                    # Posix Group ID for bounce
-
-  # Support and Helpdesk accounts
-  support:
-    username:           "{{ _users_support_username }}"         # Support account username
-    email:              "{{ _users_support_email }}"            # Email for customer and platform support communication
-    password:           "{{ ansible_become_password }}"         # Example initialisation password needs to be set in inventory file
-    uid:                1006                                    # Posix User ID for support
-    gid:                1006                                    # Posix Group ID for support
-
-  helpdesk:
-    username:           "{{ _users_helpdesk_username }}"        # Helpdesk account username
-    email:              "{{ _users_helpdesk_email }}"           # Email for internal technical helpdesk communication
-    password:           "{{ ansible_become_password }}"         # Example initialisation password needs to be set in inventory file
-    uid:                1007                                    # Posix User ID for helpdesk
-    gid:                1007                                    # Posix Group ID for helpdesk
-
-  sld_user:
-    username:           "{{ _users_sld_username }}"             # Username based on SLD of the primary domain
-    email:              "{{ _users_sld_email }}"                # Email address with SLD username
-    password:           "{{ ansible_become_password }}"         # Init password from inventory
-    uid:                1008
-    gid:                1008
-
-  tld_user:
-    username:           "{{ _users_tld_username }}"             # Username based on TLD of the primary domain
-    email:              "{{ _users_tld_email }}"                # Email address with TLD username
-    password:           "{{ ansible_become_password }}"         # Init password from inventory
-    uid:                1009
-    gid:                1009
-
+    username: blackhole
+    email: blackhole@{{ primary_domain }}
+    password: '{{ ansible_become_password }}'
+    uid: 1002
+    gid: 1002
+  crm:
+    username: contact
+    email: contact@{{ primary_domain }}
+    password: '{{ ansible_become_password }}'
+    uid: 1003
+    gid: 1003
+  bounce:
+    username: bounce
+    email: bounce@{{ primary_domain }}
+    password: '{{ ansible_become_password }}'
+    uid: 1004
+    gid: 1004
+  newsletter:
+    username: newsletter
+    email: newsletter@{{ primary_domain }}
+    password: '{{ ansible_become_password }}'
+    uid: 1005
+    gid: 1005
+  no-reply:
+    username: no-reply
+    email: no-reply@{{ primary_domain }}
+    password: '{{ ansible_become_password }}'
+    uid: 1006
+    gid: 1006
+  sld:
+    username: '{{ primary_domain.split(''.'')[0] }}'
+    email: '{{ primary_domain.split(''.'')[0] }}@{{ primary_domain }}'
+    password: '{{ ansible_become_password }}'
+    uid: 1007
+    gid: 1007
+  tld:
+    username: '{{ primary_domain.split(''.'')[1] }}'
+    email: '{{ primary_domain.split(''.'')[1] }}@{{ primary_domain }}'
+    password: '{{ ansible_become_password }}'
+    uid: 1008
+    gid: 1008

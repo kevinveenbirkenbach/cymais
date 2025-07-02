@@ -1,7 +1,7 @@
 #!/bin/bash
 
 /usr/bin/sendmail -t <<ERRMAIL
-To: {{users.administrator.email}}
+To: {{ users.administrator.email }}
 From: systemd <{{ users['no-reply'].email }}>
 Subject: $1
 Content-Transfer-Encoding: 8bit

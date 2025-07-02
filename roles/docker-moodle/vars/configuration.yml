@@ -1,8 +1,7 @@
 site_titel:           "Academy on {{primary_domain}}"
 users:
   administrator:
-    username:         "{{users.administrator.username}}"
-    email:            "{{users.administrator.email}}"
+    username:         "administrator"
 version:              "4.5"                                 # Latest LTS - Necessary for OIDC
 features:
   matomo:             true
