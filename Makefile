@@ -1,6 +1,6 @@
 ROLES_DIR         	:= ./roles
 APPLICATIONS_OUT  	:= ./group_vars/all/04_applications.yml
-APPLICATIONS_SCRIPT := ./cli/generate-applications-defaults.py
+APPLICATIONS_SCRIPT := ./cli/generate_applications.py
 USERS_OUT  			:= ./group_vars/all/03_users.yml
 USERS_SCRIPT		:= ./cli/generate_users.py
 INCLUDES_OUT      	:= ./tasks/utils/docker-roles.yml
@@ -9,6 +9,7 @@ INCLUDES_SCRIPT   	:= ./cli/generate_playbook.py
 EXTRA_USERS := $(shell \
 	find $(ROLES_DIR) -maxdepth 1 -type d -name 'docker*' -printf '%f\n' \
 	| sed -E 's/^docker[_-]?//' \
+	| grep -E -x '[a-z0-9]+' \
 	| paste -sd, - \
 )
 

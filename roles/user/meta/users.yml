@@ -44,9 +44,6 @@ users:
   proxy:
     username: proxy
     description: "Proxy user"
-  www-data:
-    username: www-data
-    description: "Web server user"
   backup:
     username: backup
     description: "Backup operator"
