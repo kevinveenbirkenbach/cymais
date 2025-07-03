@@ -35,16 +35,17 @@ ldap:
       # Typically: “cn=admin,cn=config”
       configuration: "cn={{ applications.ldap.users.administrator.username }},cn=config"
 
-
-    # -------------------------------------------------------------------------
-    # Organizational Units (OUs)
-    # Pre-created containers in the data tree to organize entries.
-    # – users:  Where all person/posixAccount entries live.
-    # – groups: Where you define your application or business groups.
-    # – roles:  A flat container for application-role entries (e.g. “cn=app1-user”).
-    users:             "ou=users,{{ _ldap_dn_base }}"
-    groups:            "ou=groups,{{ _ldap_dn_base }}"
-    application_roles: "ou=application_roles,{{ _ldap_dn_base }}"
+    ou:
+      # -------------------------------------------------------------------------
+      # Organizational Units (OUs)
+      # Pre-created containers in the directory tree to logically separate entries:
+      # – users:  Contains all user objects (person/posixAccount entries).
+      # – groups: Contains organizational or business groups (e.g., departments, teams).
+      # – roles:  Contains application-specific RBAC roles 
+      #           (e.g., "cn=app1-user", "cn=yourls-admin").
+      users:   "ou=users,{{ _ldap_dn_base }}"
+      groups:  "ou=groups,{{ _ldap_dn_base }}"
+      roles:   "ou=roles,{{ _ldap_dn_base }}"
 
     # -------------------------------------------------------------------------
     # Additional Notes

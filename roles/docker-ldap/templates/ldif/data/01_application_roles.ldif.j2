@@ -1,42 +1,34 @@
-{% for app, config in applications.items() %}
-dn: cn={{ app }}-administrator,{{ldap.dn.application_roles}}
+{% for application_id, application_config in applications.items() %}
+
+  {# 1. Build up roles dict, defaulting to {} if rbac oder roles fehlt, then ensure administrator immer dabei ist #}
+  {% set base_roles = application_config.rbac.roles | default({}) %}
+  {% set roles = base_roles | combine({
+      'administrator': {
+        'description': 'Has full administrative access: manage themes, plugins, settings, and users'
+      }
+    }) 
+  %}
+
+  {# 2. Emit role definitions #}
+  {% for role_name, role_conf in roles.items() %}
+dn: cn={{ application_id }}-{{ role_name }},{{ ldap.dn.ou.roles }}
 objectClass: top
 objectClass: organizationalRole
-cn: {{ app }}-administrator
-description: Administrator role for {{ app }} (automatically generated)
+cn: {{ application_id }}-{{ role_name }}
+description: {{ role_conf.description }}
 
-dn: cn={{ app }}-user,{{ldap.dn.application_roles}}
-objectClass: top
-objectClass: organizationalRole
-cn: {{ app }}-user
-description: Standard user role for {{ app }} (automatically generated)
-
-{% endfor %}
-
-{% for username, user in users.items() %}
-
-#######################################################################
-# Assign {{ username }} to application user roles
-#######################################################################
-{% for app, config in applications.items() %}
-
-# Assign {{ username }} to {{ app }}-users
-
-dn: cn={{ app }}-user,{{ ldap.dn.application_roles }}
+    {# 3. Assign only if user has that role #}
+    {% for username, user_config in users.items() %}
+        {% set user_roles = user_config.roles | default([]) %}
+        {% if role_name in user_roles %}
+dn: cn={{ application_id }}-{{ role_name }},{{ ldap.dn.ou.roles }}
 changetype: modify
 add: roleOccupant
-roleOccupant: {{ ldap.attributes.user_id }}={{ username }},{{ ldap.dn.users }}
+roleOccupant: {{ ldap.attributes.user_id }}={{ username }},{{ ldap.dn.ou.users }}
 
-{% if users.is_admin | default(false) | bool %}
+        {% endif %}
+    {% endfor %}
 
-# Assign {{ username }} to {{ app }}-administrator
-dn: cn={{ app }}-administrator,{{ ldap.dn.application_roles }}
-changetype: modify
-add: roleOccupant
-roleOccupant: {{ ldap.attributes.user_id }}={{ users.administrator.username }},{{ ldap.dn.users }}
-
-{% endif %}
-
-{% endfor %}
+  {% endfor %}
 
 {% endfor %}

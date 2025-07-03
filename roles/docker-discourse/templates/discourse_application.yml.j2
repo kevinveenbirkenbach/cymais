@@ -166,7 +166,7 @@ run:
 
   # LDAP additional configuration
   - exec: rails r "SiteSetting.ldap_user_filter = '{{ ldap.filters.users.login }}'"
-  - exec: rails r "SiteSetting.ldap_group_base_dn = '{{ ldap.dn.groups }}'"
+  - exec: rails r "SiteSetting.ldap_group_base_dn = '{{ ldap.dn.ou.groups }}'"
   - exec: rails r "SiteSetting.ldap_group_member_check = 'memberUid'"
 
   - exec: rails r "SiteSetting.ldap_sync_period = 1"

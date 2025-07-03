@@ -63,7 +63,7 @@
 ###############################################################################
 - name: Ensure LDAP users exist
   community.general.ldap_entry:
-    dn:           "{{ ldap.attributes.user_id }}={{ item.key }},{{ ldap.dn.users }}"
+    dn:           "{{ ldap.attributes.user_id }}={{ item.key }},{{ ldap.dn.ou.users }}"
     server_uri:   "{{ ldap_server_uri }}"
     bind_dn:      "{{ ldap.dn.administrator.data }}"
     bind_pw:      "{{ ldap.bind_credential }}"
@@ -87,7 +87,7 @@
 ###############################################################################
 - name: Ensure required objectClass values and mail address are present
   community.general.ldap_attrs:
-    dn: "{{ ldap.attributes.user_id }}={{ item.key }},{{ ldap.dn.users }}"
+    dn: "{{ ldap.attributes.user_id }}={{ item.key }},{{ ldap.dn.ou.users }}"
     server_uri: "{{ ldap_server_uri }}"
     bind_dn: "{{ ldap.dn.administrator.data }}"
     bind_pw: "{{ ldap.bind_credential }}"
@@ -101,7 +101,7 @@
 
 - name: "Ensure container for application roles exists"
   community.general.ldap_entry:
-    dn: "{{ ldap.dn.application_roles }}"
+    dn: "{{ ldap.dn.ou.roles }}"
     server_uri: "{{ ldap_server_uri }}"
     bind_dn:  "{{ ldap.dn.administrator.data }}"
     bind_pw:  "{{ ldap.bind_credential }}"

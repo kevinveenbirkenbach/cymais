@@ -6,4 +6,5 @@ users:
     password:           "{{ ansible_become_password }}"
     uid:                1001
     gid:                1001
-    is_admin:           true
+    roles:
+      - administrator

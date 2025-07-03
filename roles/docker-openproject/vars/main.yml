@@ -19,9 +19,9 @@ openproject_rails_settings:
 
 openproject_filters:
   administrators: >-
-    {{ '(memberOf=cn=openproject-admins,' ~ ldap.dn.application_roles ~ ')' 
+    {{ '(memberOf=cn=openproject-admins,' ~ ldap.dn.ou.roles ~ ')' 
        if applications[application_id].ldap.filters.administrators else '' }}
 
   users: >-
-    {{ '(memberOf=cn=openproject-users,' ~ ldap.dn.application_roles ~ ')' 
+    {{ '(memberOf=cn=openproject-users,' ~ ldap.dn.ou.roles ~ ')' 
        if applications[application_id].ldap.filters.users else '' }}

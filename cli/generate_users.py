@@ -50,6 +50,7 @@ def build_users(defs, primary_domain, start_id, become_pwd):
         username = overrides.get('username', key)
         email = overrides.get('email', f"{username}@{primary_domain}")
         description = overrides.get('description')
+        roles = overrides.get('roles',[])
         password = overrides.get('password',become_pwd)
         # UID assignment
         if 'uid' in overrides:
@@ -63,12 +64,11 @@ def build_users(defs, primary_domain, start_id, become_pwd):
             'email':    email,
             'password': password,
             'uid':      uid,
-            'gid':      gid
+            'gid':      gid,
+            'roles':    roles
         }
         if description is not None:
             entry['description'] = description
-        if overrides.get('is_admin', False):
-            entry['is_admin'] = True
 
         users[key] = entry
 

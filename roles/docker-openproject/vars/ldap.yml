@@ -4,7 +4,7 @@ openproject_ldap:
   port:                   "{{ ldap.server.port }}"                    # LDAP server port (typically 389 or 636)
   account:                "{{ ldap.dn.administrator.data }}"          # Bind DN (used for authentication)
   account_password:       "{{ ldap.bind_credential }}"                # Bind password
-  base_dn:                "{{ ldap.dn.users }}"                       # Base DN for user search
+  base_dn:                "{{ ldap.dn.ou.users }}"                       # Base DN for user search
   attr_login:             "{{ ldap.attributes.user_id }}"             # LDAP attribute used for login
   attr_firstname:         "givenName"                                 # LDAP attribute for first name
   attr_lastname:          "{{ ldap.attributes.surname }}"             # LDAP attribute for last name

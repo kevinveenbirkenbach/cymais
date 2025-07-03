@@ -3,7 +3,7 @@
     server_uri: "{{ ldap_server_uri }}"
     bind_dn:    "{{ ldap.dn.administrator.data }}"
     bind_pw:    "{{ ldap.bind_credential }}"
-    dn:         "{{ ldap.dn.users }}"
+    dn:         "{{ ldap.dn.ou.users }}"
     scope:      subordinate
     filter:     "{{ ldap.filters.users.all }}"
     attrs:

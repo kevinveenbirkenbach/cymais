@@ -2,6 +2,8 @@ version:              "latest"
 oauth2_proxy:  
   application:        "application"
   port:               "80"
+  allowed_groups:
+    - "yourls-administrator"
   acl:
     blacklist:
       - "/admin/"     # Protects the admin area

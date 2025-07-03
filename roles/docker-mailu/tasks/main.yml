@@ -32,7 +32,13 @@
     mailu_domain:             "{{ primary_domain }}"
     mailu_api_base_url:       "http://127.0.0.1:8080/api/v1"
     mailu_global_api_token:   "{{ applications.mailu.credentials.api_token }}"
-    mailu_action:             "{{ item.value.is_admin | default(false) | ternary('admin','user') }}"
+    mailu_action: >-
+      {{
+        (
+          'administrator' in (item.value.get('roles', []))
+        )
+        | ternary('admin','user')
+      }}
     mailu_user_key:           "{{ item.key }}"
     mailu_user_name:          "{{ item.value.username }}"
     mailu_password:           "{{ item.value.password }}"

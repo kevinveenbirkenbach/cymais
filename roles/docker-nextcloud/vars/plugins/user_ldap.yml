@@ -42,7 +42,7 @@ plugin_configuration:
   -
     appid: "user_ldap"
     configkey: "s01ldap_base_users"
-    configvalue: "{{ldap.dn.users}}"
+    configvalue: "{{ldap.dn.ou.users}}"
 
   -
     appid: "user_ldap"
