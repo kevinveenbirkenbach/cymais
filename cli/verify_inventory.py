@@ -69,17 +69,24 @@ def load_inventory_files(inventory_dir):
     return all_data
 
 
+def find_defaults_applications_file():
+    candidates = list(Path("group_vars/all").glob("*_applications.yml"))
+    if len(candidates) != 1:
+        raise RuntimeError(f"Expected exactly one *_applications.yml file in group_vars/all, found {len(candidates)}")
+    return candidates[0]
+
+
 def main():
     parser = argparse.ArgumentParser(description="Verify application variable consistency with defaults.")
-    parser.add_argument("inventory_dir", help="Path to inventory directory (contains inventory.yml and *_vars/")
-    parser.add_argument("--defaults", default="group_vars/all/04_applications.yml", help="Path to defaults_applications file")
+    parser.add_argument("inventory_dir", help="Path to inventory directory (contains inventory.yml and *_vars/)")
     args = parser.parse_args()
 
-    defaults_data = load_yaml_file(args.defaults)
+    defaults_path = find_defaults_applications_file()
+    defaults_data = load_yaml_file(defaults_path)
     defaults = defaults_data.get("defaults_applications", {}) if defaults_data else {}
 
     if not defaults:
-        print("Error: No 'defaults_applications' found in defaults file.", file=sys.stderr)
+        print(f"Error: No 'defaults_applications' found in {defaults_path}.", file=sys.stderr)
         sys.exit(1)
 
     all_errors = []
