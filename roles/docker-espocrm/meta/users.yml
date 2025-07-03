@@ -2,5 +2,6 @@ users:
   administrator:
     username:         "administrator"
   contact:
-    description:      "General contact account"
-    username:         "contact"
+    description:          "General contact account"
+    username:             "contact"
+    mailu_token_enabled:  true

@@ -1,24 +1,3 @@
-- name: "Ensure Mailu user '{{ mailu_user_key }};{{ mailu_user_name }}@{{ mailu_domain }}'' exists"
-  command: >
-    docker compose exec admin flask mailu {{ mailu_action }}
-      {{ mailu_user_name }} {{ mailu_domain }} '{{ mailu_password }}'
-  args:
-    chdir: "{{ mailu_compose_dir }}"
-  register: mailu_user_result
-  failed_when: >
-    mailu_user_result.rc != 0 and
-    (
-      "exists, not created" not in mailu_user_result.stderr and
-      "Duplicate entry"   not in mailu_user_result.stderr
-    )
-  changed_when: mailu_user_result.rc == 0
-
-- name: "Change password for user '{{ mailu_user_key }};{{ mailu_user_name }}@{{ mailu_domain }}'"
-  command: >
-    docker compose exec admin flask mailu password
-      {{ mailu_user_name }} {{ mailu_domain }} '{{ mailu_password }}'
-  args:
-    chdir: "{{ mailu_compose_dir }}"
 
 - name: "Fetch existing API tokens via curl inside admin container"
   command: >-

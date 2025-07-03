@@ -3,5 +3,7 @@ users:
     username:               "administrator"
   bounce:
     username:               "bounce"
+    mailu_token_enabled:    true
   newsletter:
     username:               "newsletter"
+    mailu_token_enabled:    true

@@ -25,8 +25,8 @@
   meta: flush_handlers
   when: run_once_docker_mailu is not defined
 
-- name: "Create Mailu accounts and API tokens"
-  include_tasks: create-mailu-user-and-token.yml
+- name: "Create Mailu accounts"
+  include_tasks: create-mailu-user.yml
   vars:
     mailu_compose_dir:        "{{ docker_compose.directories.instance }}"
     mailu_domain:             "{{ primary_domain }}"
@@ -36,6 +36,7 @@
     mailu_user_key:           "{{ item.key }}"
     mailu_user_name:          "{{ item.value.username }}"
     mailu_password:           "{{ item.value.password }}"
+    mailu_token_enabled:      "{{ item.value.mailu_token_enabled | default(false)}}"
     mailu_token_ip:           "{{ item.value.ip | default('') }}"
   loop:                       "{{ users | dict2items }}"
   loop_control:

@@ -1,5 +1,6 @@
 users:      
   administrator:
-    username:                  "administrator"
+    username:               "administrator"
   no-reply:
-    username: "no-reply"
+    username:               "no-reply"
+    mailu_token_enabled:    true
