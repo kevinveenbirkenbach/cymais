@@ -1,4 +1,5 @@
 hostname: "central-postgres"
+port: 5432
 docker:
   images:
     # Postgis is necessary for mobilizon
@@ -7,4 +8,3 @@ docker:
     # Please set an version in your inventory file! 
     # Rolling release isn't recommended
     postgres: "latest"
-

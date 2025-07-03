@@ -8,19 +8,19 @@
 
 - name: Install PostgreSQL
   docker_container:
-    name: "{{ applications.postgres.hostname }}"
+    name: "{{ applications[application_id].hostname }}"
     image: "{{ applications | get_docker_image(application_id) }}"
     detach: yes
     env:
-      POSTGRES_PASSWORD: "{{ applications.postgres.credentials.postgres_password }}"
+      POSTGRES_PASSWORD: "{{ applications[application_id].credentials.postgres_password }}"
       POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C" # Necessary for docker-matrix
     networks:
       - name: central_postgres
     published_ports:
-      - "127.0.0.1:{{database_port}}:5432"
+      - "127.0.0.1:{{ applications[application_id].port }}:5432"
     volumes:
       - central_postgres_database:/var/lib/postgresql/data
-    restart_policy: "{{docker_restart_policy}}"
+    restart_policy: "{{ docker_restart_policy }}"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
@@ -31,7 +31,7 @@
   when: run_once_docker_postgres is not defined
 
 - name: Wait for Postgres inside the container
-  shell: "docker exec {{ applications.postgres.hostname }} pg_isready -U postgres"
+  shell: "docker exec {{ applications[application_id].hostname }} pg_isready -U postgres"
   register: pg_ready
   until: pg_ready.rc == 0
   retries: 30
@@ -47,91 +47,12 @@
     state: present
   when: run_once_docker_postgres is not defined
 
-- name: "Create database: {{ database_name }}"
-  postgresql_db:
-    name: "{{ database_name }}"
-    state: present
-    login_user: postgres
-    login_password: "{{ applications.postgres.credentials.postgres_password }}"
-    login_host: 127.0.0.1
-    login_port: "{{database_port}}"
-
-- name: "Create database user: {{ database_username }}"
-  postgresql_user:
-    name:           "{{ database_username }}"
-    password:       "{{ database_password }}"
-    db:             "{{ database_name }}"
-    state:          present
-    login_user:     postgres
-    login_password: "{{ applications.postgres.credentials.postgres_password }}"
-    login_host:     127.0.0.1
-    login_port:     "{{database_port}}"
-
-- name: "Set privileges for database user: {{ database_username }}"
-  postgresql_privs:
-    db:             "{{ database_name }}"
-    role:           "{{ database_username }}"
-    objs:           ALL_IN_SCHEMA
-    privs:          ALL
-    type:           table
-    state:          present
-    login_user:     postgres
-    login_password: "{{ applications.postgres.credentials.postgres_password }}"
-    login_host:     127.0.0.1
-    login_port:     "{{database_port}}"
-
-- name: Grant all privileges at the database level
-  postgresql_privs:
-    db: "{{ database_name }}"
-    role: "{{ database_username }}"
-    privs: ALL
-    type: database
-    state: present
-    login_user: postgres
-    login_password: "{{ applications.postgres.credentials.postgres_password }}"
-    login_host: 127.0.0.1
-    login_port: "{{database_port}}"
-
-- name: Grant all privileges on all tables in the public schema
-  postgresql_privs:
-    db: "{{ database_name }}"
-    role: "{{ database_username }}"
-    objs: ALL_IN_SCHEMA
-    privs: ALL
-    type: table
-    schema: public
-    state: present
-    login_user: postgres
-    login_password: "{{ applications.postgres.credentials.postgres_password }}"
-    login_host: 127.0.0.1
-    login_port: "{{database_port}}"
-
-- name: Set comprehensive privileges for user on public schema
-  postgresql_query:
-    db: "{{ database_name }}"
-    login_user: postgres
-    login_password: "{{ applications.postgres.credentials.postgres_password }}"
-    login_host: 127.0.0.1
-    login_port: "{{database_port}}"
-    query: |
-      GRANT USAGE ON SCHEMA public TO {{ database_username }};
-      GRANT CREATE ON SCHEMA public TO {{ database_username }};
-      ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL PRIVILEGES ON TABLES TO {{ database_username }};
-
-- name: Ensure PostGIS-related extensions are installed
-  community.postgresql.postgresql_ext:
-    db: "{{ database_name }}"
-    ext: "{{ item }}"
-    state: present
-    login_user: postgres
-    login_password: "{{ applications.postgres.credentials.postgres_password }}"
-    login_host: 127.0.0.1
-    login_port: "{{ database_port }}"
-  loop:
-    - postgis
-    - pg_trgm
-    - unaccent
-  when: database_gis_enabled is defined and database_gis_enabled
+- name: Load database initialization tasks dynamically
+  include_tasks: init_database.yml
+  when:
+    - database_username is defined
+    - database_password is defined
+    - database_name is defined
 
 - name: Run the docker_postgres tasks once
   set_fact:
