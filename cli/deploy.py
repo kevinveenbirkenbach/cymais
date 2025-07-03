@@ -4,8 +4,9 @@ import argparse
 import subprocess
 import os
 import datetime
+import sys
 
-def run_ansible_playbook(inventory, playbook, modes, limit=None, password_file=None, verbose=0, skip_tests:bool=False):
+def run_ansible_playbook(inventory, playbook, modes, limit=None, password_file=None, verbose=0, skip_tests=False):
     start_time = datetime.datetime.now()
     print(f"\n▶️ Script started at: {start_time.isoformat()}\n")
     
@@ -95,11 +96,26 @@ def main():
         help="Skip running 'make test' even if tests are normally enabled."
     )
     parser.add_argument(
+        "--skip-validation", action="store_true",
+        help="Skip inventory validation before deployment."
+    )
+    parser.add_argument(
         "-v", "--verbose", action="count", default=0,
         help="Increase verbosity level. Multiple -v flags increase detail (e.g., -vvv for maximum log output)."
     )
 
     args = parser.parse_args()
+
+    if not args.skip_validation:
+        print("\n🔍 Validating inventory before deployment...\n")
+        try:
+            subprocess.run(
+                [sys.executable, os.path.join(script_dir, "validate_inventory.py"), os.path.dirname(args.inventory)],
+                check=True
+            )
+        except subprocess.CalledProcessError:
+            print("\n❌ Inventory validation failed. Deployment aborted.\n", file=sys.stderr)
+            sys.exit(1)
 
     modes = {
         "mode_reset": args.reset,
