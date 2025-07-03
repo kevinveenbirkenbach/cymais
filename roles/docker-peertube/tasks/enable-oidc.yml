@@ -2,10 +2,19 @@
   include_vars: vars/oidc-settings.yml
   changed_when: false
 
+- name: Check if OIDC plugin is already installed
+  command: >
+    docker exec {{ container_name }} test -d /data/plugins/data/peertube-plugin-auth-openid-connect
+  register: peertube_oidc_plugin_check
+  failed_when:  false
+  changed_when: false
+
 - name: "Install auth-openid-connect plugin for Peertube"
   command: >
     docker exec {{ container_name }} \
     npm run plugin:install -- --npm-name {{oidc_plugin}}
+  when: peertube_oidc_plugin_check.rc != 0
+  notify: docker compose up
 
 - name: "Update the settings column of the auth-openid-connect plugin"
   community.postgresql.postgresql_query:
@@ -20,3 +29,5 @@
       enabled = TRUE,
       uninstalled = FALSE
       WHERE name = 'auth-openid-connect';
+  notify: docker compose up
+  when: peertube_oidc_plugin_check.rc != 0
