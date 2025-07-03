@@ -19,4 +19,7 @@ galaxy_info:
   logo:
     class: "fa-solid fa-music"
   run_after:
+    - docker-matomo
+    - docker-keycloak
+    - docker-mailu
     - docker-ldap

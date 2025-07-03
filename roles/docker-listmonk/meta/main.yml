@@ -19,5 +19,7 @@ galaxy_info:
   documentation: "https://s.veen.world/cymais"
   logo:
     class: "fa-solid fa-list"
-dependencies:
-  - docker-mailu
+  run_after:
+    - docker-matomo
+    - docker-keycloak
+    - docker-mailu

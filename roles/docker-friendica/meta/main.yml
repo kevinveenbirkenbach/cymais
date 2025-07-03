@@ -18,4 +18,6 @@ galaxy_info:
   documentation: https://s.veen.world/cymais
   logo:
     class: "fa-solid fa-users"
-dependencies: []
+  run_after:
+    - docker-matomo
+    - docker-keycloak

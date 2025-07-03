@@ -105,32 +105,13 @@ def print_dependency_tree(graph):
 
 def generate_playbook_entries(roles_dir, prefix=None):
     """Generate playbook entries based on the sorted order."""
-    # Build dependency graph
     graph, in_degree, roles = build_dependency_graph(roles_dir, prefix)
 
-    # Print and collect roles in tree order
-    tree_sorted_roles = print_dependency_tree(graph)
-
-    # Topologically sort the roles
+    # Detect cycles and get correct topological order
     sorted_role_names = topological_sort(graph, in_degree)
 
-    # Ensure that roles that appear in the tree come first
-    final_sorted_roles = [role for role in tree_sorted_roles if role in sorted_role_names]
-
-    # Include the remaining unsorted roles
-    final_sorted_roles += [role for role in sorted_role_names if role not in final_sorted_roles]
-
-    # Remove duplicates, keeping only the first occurrence to preserve dependency order
-    seen = set()
-    deduplicated_roles = []
-    for role in final_sorted_roles:
-        if role not in seen:
-            deduplicated_roles.append(role)
-            seen.add(role)
-
-    # Generate the playbook entries
     entries = []
-    for role_name in deduplicated_roles:
+    for role_name in sorted_role_names:
         role = roles[role_name]
         entries.append(
             f"- name: setup {role['application_id']}\n"

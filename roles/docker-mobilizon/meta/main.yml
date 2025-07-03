@@ -19,4 +19,8 @@ galaxy_info:
   logo:
     class: "fa-solid fa-calendar-days"
   run_after:
-    - "docker-postgres"
+    - docker-matomo
+    - docker-keycloak
+    - docker-mailu
+    - docker-ldap
+    - docker-postgres
