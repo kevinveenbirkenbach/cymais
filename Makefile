@@ -31,7 +31,5 @@ install: build
 	@echo "⚙️  Install complete."
 
 test:
-	@echo "🧪 Running Unit Tests..."
-	python -m unittest discover -s tests/unit
-	@echo "🔬 Running Integration Tests..."
-	python -m unittest discover -s tests/integration
+	@echo "🧪 Running Tests..."
+	python -m unittest discover -s tests

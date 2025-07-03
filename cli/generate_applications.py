@@ -6,6 +6,11 @@ import yaml
 import sys
 from pathlib import Path
 
+plugin_path = Path(__file__).resolve().parent / ".." / "lookup_plugins"
+sys.path.insert(0, str(plugin_path))
+
+from application_gid import LookupModule
+
 def load_yaml_file(path):
     """Load a YAML file if it exists, otherwise return an empty dict."""
     if not path.exists():
@@ -37,6 +42,7 @@ def main():
     # Initialize result structure
     result = {"defaults_applications": {}}
 
+    gid_lookup = LookupModule()
     # Process each role for application configs
     for role_dir in sorted(roles_dir.iterdir()):
         role_name = role_dir.name
@@ -67,6 +73,12 @@ def main():
 
         config_data = load_yaml_file(config_file)
         if config_data:
+            try:
+                gid_number = gid_lookup.run([application_id], roles_dir=str(roles_dir))[0]
+            except Exception as e:
+                print(f"Warning: failed to determine gid for '{application_id}': {e}", file=sys.stderr)
+                sys.exit(1)
+            config_data["group_id"] = gid_number
             result["defaults_applications"][application_id] = config_data
             users_meta_file = role_dir / "meta" / "users.yml"
             transformed_users = {}

@@ -46,6 +46,10 @@ docker exec -it ldap bash -c "ldapsearch -LLL -o ldif-wrap=no -x -D \"\$LDAP_ADM
 ### Delete Groups and Subgroup
 To delete the group inclusive all subgroups use:
 ```bash
-docker exec -it ldap bash -c "ldapsearch -LLL -o ldif-wrap=no -x -D \"\$LDAP_ADMIN_DN\" -w \"\$LDAP_ADMIN_PASSWORD\" -b \"ou=applications,ou=groups,\$LDAP_ROOT\" dn | sed -n 's/^dn: //p' | tac | while read -r dn; do echo \"Deleting \$dn\"; ldapdelete -x -D \"\$LDAP_ADMIN_DN\" -w \"\$LDAP_ADMIN_PASSWORD\" \"\$dn\"; done"
-
+docker exec -it ldap \
+  ldapdelete -x \
+    -D "$LDAP_ADMIN_DN" \
+    -w "$LDAP_ADMIN_PASSWORD" \
+    -r \
+    "ou=groups,dc=veen,dc=world"
 ```

@@ -1,34 +1,30 @@
-{% for application_id, application_config in applications.items() %}
-
-  {# 1. Build up roles dict, defaulting to {} if rbac oder roles fehlt, then ensure administrator immer dabei ist #}
-  {% set base_roles = application_config.rbac.roles | default({}) %}
-  {% set roles = base_roles | combine({
-      'administrator': {
-        'description': 'Has full administrative access: manage themes, plugins, settings, and users'
-      }
-    }) 
+{%- for application_id, application_config in applications.items() %}
+  {%- set base_roles = application_config.rbac.roles | default({}) %}
+  {%- set roles = base_roles | combine({
+        'administrator': {
+          'description': 'Has full administrative access: manage themes, plugins, settings, and users'
+        }
+      }) 
   %}
 
-  {# 2. Emit role definitions #}
-  {% for role_name, role_conf in roles.items() %}
+  {%- for role_name, role_conf in roles.items() %}
 dn: cn={{ application_id }}-{{ role_name }},{{ ldap.dn.ou.roles }}
 objectClass: top
 objectClass: organizationalRole
+objectClass: posixGroup
+gidNumber: {{ application_config['group_id'] }}
 cn: {{ application_id }}-{{ role_name }}
 description: {{ role_conf.description }}
 
-    {# 3. Assign only if user has that role #}
-    {% for username, user_config in users.items() %}
-        {% set user_roles = user_config.roles | default([]) %}
-        {% if role_name in user_roles %}
+    {%- for username, user_config in users.items() %}
+      {%- set user_roles = user_config.roles | default([]) %}
+      {%- if role_name in user_roles %}
 dn: cn={{ application_id }}-{{ role_name }},{{ ldap.dn.ou.roles }}
 changetype: modify
 add: roleOccupant
 roleOccupant: {{ ldap.attributes.user_id }}={{ username }},{{ ldap.dn.ou.users }}
 
-        {% endif %}
-    {% endfor %}
-
-  {% endfor %}
-
-{% endfor %}
+      {%- endif %}
+    {%- endfor %}
+  {%- endfor %}
+{%- endfor %}
