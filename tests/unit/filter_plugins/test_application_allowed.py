@@ -31,7 +31,7 @@ class TestApplicationAllowed(unittest.TestCase):
     def test_group_names_wrong_type(self):
         # invalid group_names type
         with self.assertRaises(AnsibleFilterError):
-            application_allowed('app1', 'not_a_list', None)
+            application_allowed(1232312, 'not_a_list', None)
 
     def test_allowed_applications_edge_cases(self):
         # whitespace-only entries do not affect result
