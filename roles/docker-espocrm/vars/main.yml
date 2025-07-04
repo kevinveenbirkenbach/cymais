@@ -1,5 +1,3 @@
 application_id: "espocrm"
 # EspoCRM uses MySQL/MariaDB
 database_type: "mariadb"
-email:
-  from_name: "Customer Relationship Management ({{ primary_domain }})"

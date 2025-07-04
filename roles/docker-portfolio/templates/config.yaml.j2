@@ -46,7 +46,7 @@ accounts:
       iframe: {{ applications | is_feature_enabled('portfolio_iframe','pixelfed') }}
 {% endif %}
 {% if service_provider.contact.peertube  is defined and service_provider.contact.peertube  != "" %}
-    - name: Peertube
+    - name: Videos
       description: Discover {{ 'our' if service_provider.type == 'legal' else 'my' }} videos on Peertube.
       icon:
         class: fa-solid fa-video

@@ -147,8 +147,12 @@ if __name__ == "__main__":
 
     log_file = None
     if log_enabled:
-        log_file_path = os.path.join(script_dir, 'logfile.log')
+        log_dir = os.path.join(script_dir, 'logs')
+        os.makedirs(log_dir, exist_ok=True)
+        timestamp = datetime.now().strftime('%Y%m%dT%H%M%S')
+        log_file_path = os.path.join(log_dir, f'{timestamp}.log')
         log_file = open(log_file_path, 'a', encoding='utf-8')
+
 
     try:
         if log_enabled:

@@ -7,26 +7,44 @@ import glob
 from collections import OrderedDict
 
 
+def represent_str(dumper, data):
+    """
+    Custom YAML string representer that forces double quotes around any string
+    containing a Jinja2 placeholder ({{ ... }}).
+    """
+    if isinstance(data, str) and '{{' in data:
+        return dumper.represent_scalar(
+            'tag:yaml.org,2002:str',
+            data,
+            style='"'
+        )
+    return dumper.represent_scalar(
+        'tag:yaml.org,2002:str',
+        data
+    )
+
+
 def build_users(defs, primary_domain, start_id, become_pwd):
     """
-    Build user entries with auto-incremented uid/gid, default username/email, and optional description.
+    Construct user entries with auto-incremented UID/GID, default username/email,
+    and optional description.
 
     Args:
-        defs (OrderedDict): Keys are user IDs, values are dicts with optional overrides.
-        primary_domain (str): e.g., 'example.com'.
-        start_id (int): Starting uid/gid (e.g., 1001).
-        become_pwd (str): Password string for all users.
+        defs (OrderedDict): Mapping of user keys to their override settings.
+        primary_domain (str): The primary domain for email addresses (e.g. 'example.com').
+        start_id (int): Starting number for UID/GID allocation (e.g. 1001).
+        become_pwd (str): Default password string for users without an override.
 
     Returns:
-        OrderedDict: Merged user definitions with full fields.
+        OrderedDict: Complete user definitions with all required fields filled in.
 
     Raises:
-        ValueError: If duplicate override uids/gids or conflicts in generated values.
+        ValueError: If there are duplicate UIDs, usernames, or emails.
     """
     users = OrderedDict()
     used_uids = set()
-    
-    # Pre-collect any provided uids/gids and check for duplicates
+
+    # Collect any preset UIDs to avoid collisions
     for key, overrides in defs.items():
         if 'uid' in overrides:
             uid = overrides['uid']
@@ -34,79 +52,76 @@ def build_users(defs, primary_domain, start_id, become_pwd):
                 raise ValueError(f"Duplicate uid {uid} for user '{key}'")
             used_uids.add(uid)
 
-    next_free = start_id
-    def allocate_free_id():
-        nonlocal next_free
-        # find next free id not in used_uids
-        while next_free in used_uids:
-            next_free += 1
-        free = next_free
-        used_uids.add(free)
-        next_free += 1
-        return free
+    next_uid = start_id
+    def allocate_uid():
+        nonlocal next_uid
+        # Find the next free UID not already used
+        while next_uid in used_uids:
+            next_uid += 1
+        free_uid = next_uid
+        used_uids.add(free_uid)
+        next_uid += 1
+        return free_uid
 
-    # Build entries
+    # Build each user entry
     for key, overrides in defs.items():
         username = overrides.get('username', key)
         email = overrides.get('email', f"{username}@{primary_domain}")
         description = overrides.get('description')
-        roles = overrides.get('roles',[])
-        password = overrides.get('password',become_pwd)
-        # UID assignment
+        roles = overrides.get('roles', [])
+        password = overrides.get('password', become_pwd)
+
+        # Determine UID and GID
         if 'uid' in overrides:
             uid = overrides['uid']
         else:
-            uid = allocate_free_id()
-        gid = overrides.get('gid',uid)
+            uid = allocate_uid()
+        gid = overrides.get('gid', uid)
 
         entry = {
             'username': username,
-            'email':    email,
+            'email': email,
             'password': password,
-            'uid':      uid,
-            'gid':      gid,
-            'roles':    roles
+            'uid': uid,
+            'gid': gid,
+            'roles': roles
         }
         if description is not None:
             entry['description'] = description
 
         users[key] = entry
 
-    # Validate uniqueness of username, email, and gid
+    # Ensure uniqueness of usernames and emails
     seen_usernames = set()
     seen_emails = set()
-    seen_gids = set()
+
     for key, entry in users.items():
         un = entry['username']
         em = entry['email']
-        gd = entry['gid']
         if un in seen_usernames:
             raise ValueError(f"Duplicate username '{un}' in merged users")
         if em in seen_emails:
             raise ValueError(f"Duplicate email '{em}' in merged users")
         seen_usernames.add(un)
         seen_emails.add(em)
-        seen_gids.add(gd)
 
     return users
 
 
-def load_user_defs(roles_dir):
+def load_user_defs(roles_directory):
     """
-    Scan all roles/*/meta/users.yml files and extract 'users:' sections.
-
-    Raises an exception if conflicting definitions are found.
+    Scan all roles/*/meta/users.yml files and merge any 'users:' sections.
 
     Args:
-        roles_dir (str): Path to the directory containing role subdirectories.
+        roles_directory (str): Path to the directory containing role subdirectories.
 
     Returns:
-        OrderedDict: Merged user definitions.
+        OrderedDict: Merged user definitions from all roles.
 
     Raises:
-        ValueError: On invalid format or conflicting field values.
+        ValueError: On invalid format or conflicting override values.
     """
-    pattern = os.path.join(roles_dir, '*/meta/users.yml')
+    pattern = os.path.join(roles_directory, '*/meta/users.yml')
     files = sorted(glob.glob(pattern))
     merged = OrderedDict()
 
@@ -128,8 +143,7 @@ def load_user_defs(roles_dir):
                 for field, value in overrides.items():
                     if field in existing and existing[field] != value:
                         raise ValueError(
-                            f"Conflict for user '{key}': field '{field}' has existing value "
-                            f"'{existing[field]}', tried to set '{value}' in {filepath}"
+                            f"Conflict for user '{key}': field '{field}' has existing value '{existing[field]}', tried to set '{value}' in {filepath}"
                         )
                 existing.update(overrides)
 
@@ -138,7 +152,7 @@ def load_user_defs(roles_dir):
 
 def dictify(data):
     """
-    Recursively convert OrderedDict to regular dict before YAML dump.
+    Recursively convert OrderedDict to regular dict for YAML dumping.
     """
     if isinstance(data, OrderedDict):
         return {k: dictify(v) for k, v in data.items()}
@@ -151,7 +165,7 @@ def dictify(data):
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description='Generate a users.yml by merging all roles/*/meta/users.yml users sections.'
+        description='Generate a users.yml by merging all roles/*/meta/users.yml definitions.'
     )
     parser.add_argument(
         '--roles-dir', '-r', required=True,
@@ -163,7 +177,7 @@ def parse_args():
     )
     parser.add_argument(
         '--start-id', '-s', type=int, default=1001,
-        help='Starting uid/gid number (default: 1001).'
+        help='Starting UID/GID number (default: 1001).'
     )
     parser.add_argument(
         '--extra-users', '-e',
@@ -179,42 +193,41 @@ def main():
     become_pwd = '{{ lookup("password", "/dev/null length=42 chars=ascii_letters,digits") }}'
 
     try:
-        user_defs = load_user_defs(args.roles_dir)
+        definitions = load_user_defs(args.roles_dir)
     except ValueError as e:
         print(f"Error merging user definitions: {e}", file=sys.stderr)
         sys.exit(1)
 
-    # Add extra users if any
+    # Add extra users if specified
     if args.extra_users:
         for name in args.extra_users.split(','):
-            user = name.strip()
-            if not user:
+            user_key = name.strip()
+            if not user_key:
                 continue
-            if user in user_defs:
-                print(f"Warning: extra user '{user}' already defined; skipping.", file=sys.stderr)
+            if user_key in definitions:
+                print(f"Warning: extra user '{user_key}' already defined; skipping.", file=sys.stderr)
             else:
-                user_defs[user] = {}
+                definitions[user_key] = {}
 
     try:
         users = build_users(
-            defs=user_defs,
-            primary_domain=primary_domain,
-            start_id=args.start_id,
-            become_pwd=become_pwd
+            definitions,
+            primary_domain,
+            args.start_id,
+            become_pwd
         )
     except ValueError as e:
         print(f"Error building user entries: {e}", file=sys.stderr)
         sys.exit(1)
 
+    # Convert OrderedDict into plain dict for YAML
     default_users = {'default_users': users}
     plain_data = dictify(default_users)
 
-    # Ensure strings are represented without Python-specific tags
-    yaml.SafeDumper.add_representer(
-        str,
-        lambda dumper, data: dumper.represent_scalar('tag:yaml.org,2002:str', data)
-    )
+    # Register custom string representer
+    yaml.SafeDumper.add_representer(str, represent_str)
 
+    # Dump the YAML file
     with open(args.output, 'w') as f:
         yaml.safe_dump(
             plain_data,

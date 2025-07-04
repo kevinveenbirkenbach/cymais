@@ -52,4 +52,4 @@
   listen:
     - "Import data LDIF files"
     - "Import all LDIF files"
-  loop: "{{ lookup('fileglob', role_path ~ '/templates/ldif/data/*.j2', wantlist=True) }}"
+  loop: "{{ query('fileglob', role_path ~ '/templates/ldif/data/*.j2') | sort }}"

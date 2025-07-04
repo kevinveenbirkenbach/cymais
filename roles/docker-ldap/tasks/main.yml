@@ -78,6 +78,8 @@
       uidNumber:     "{{ item.value.uid | int }}"
       gidNumber:     "{{ item.value.gid | int }}"
     state: present            # ↳ creates but never updates
+  async: 60
+  poll: 0
   loop: "{{ users | dict2items }}"
   loop_control:
     label: "{{ item.key }}"
@@ -95,6 +97,8 @@
       objectClass: "{{ ldap.user_objects.structural }}"
       mail:        "{{ item.value.email }}"
     state: exact
+  async: 60
+  poll: 0
   loop: "{{ users | dict2items }}"
   loop_control:
     label: "{{ item.key }}"

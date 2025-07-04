@@ -21,6 +21,8 @@
     attributes:
       objectClass: "{{ missing_auxiliary }}"
     state: present
+  async: 60
+  poll: 0
   loop: "{{ ldap_users_with_classes.results }}"
   loop_control:
     label: "{{ item.dn }}"

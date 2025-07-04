@@ -42,7 +42,6 @@
     mailu_user_key:           "{{ item.key }}"
     mailu_user_name:          "{{ item.value.username }}"
     mailu_password:           "{{ item.value.password }}"
-    mailu_token_enabled:      "{{ item.value.mailu_token_enabled | default(false)}}"
     mailu_token_ip:           "{{ item.value.ip | default('') }}"
   loop:                       "{{ users | dict2items }}"
   loop_control:

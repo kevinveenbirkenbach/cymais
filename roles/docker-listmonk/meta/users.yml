@@ -3,7 +3,9 @@ users:
     username:               "administrator"
   bounce:
     username:               "bounce"
-    mailu_token_enabled:    true
+    roles:
+      - mail-bot
   newsletter:
     username:               "newsletter"
-    mailu_token_enabled:    true
+    roles:
+      - mail-bot

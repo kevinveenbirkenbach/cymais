@@ -1,0 +1,23 @@
+{% for dn, entry in (applications | build_ldap_role_entries(users, ldap)).items() %}
+
+dn: {{ dn }}
+{% for oc in entry.objectClass %}
+objectClass: {{ oc }}
+{% endfor %}
+{% if entry.gidNumber is defined %}
+gidNumber: {{ entry.gidNumber }}
+{% endif %}
+cn: {{ entry.cn }}
+description: {{ entry.description }}
+{% if entry.memberUid is defined %}
+{% for uid in entry.memberUid %}
+memberUid: {{ uid }}
+{% endfor %}
+{% endif %}
+{% if entry.member is defined %}
+{% for m in entry.member %}
+member: {{ m }}
+{% endfor %}
+{% endif %}
+
+{% endfor %}

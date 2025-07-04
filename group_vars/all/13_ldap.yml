@@ -90,3 +90,8 @@ ldap:
     users:
       login:            "(&{{ _ldap_filters_users_all }}({{_ldap_user_id}}=%{{_ldap_user_id}}))"
       all:              "{{ _ldap_filters_users_all }}"
+  rbac:
+    flavors:
+      # Valid values posixGroup, groupOfNames
+      - groupOfNames
+      # - posixGroup
