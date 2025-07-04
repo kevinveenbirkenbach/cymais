@@ -151,7 +151,7 @@ def main():
         playbook=playbook_file,
         modes=modes,
         limit=args.limit,
-        allowed_applications=args.allowed_applications,
+        allowed_applications=args.id,
         password_file=args.password_file,
         verbose=args.verbose,
         skip_tests=args.skip_tests

@@ -2,16 +2,14 @@ import os
 import sys
 import unittest
 
-# Add the filter_plugins directory from the docker-matrix role to the import path
 sys.path.insert(
     0,
     os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "../../../roles/docker-matrix")
+        os.path.join(os.path.dirname(__file__), "../../../roles/docker-matrix/filter_plugins")
     ),
 )
 
-from filter_plugins.bridge_filters import filter_enabled_bridges
-
+from bridge_filters import filter_enabled_bridges
 
 class TestBridgeFilters(unittest.TestCase):
     def test_no_bridges_returns_empty_list(self):
