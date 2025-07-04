@@ -1,5 +1,11 @@
 # Administration
 
+## CLI
+The CLI you reach via
+```bash
+docker compose exec --user www-data application bin/console
+```
+
 ## Full Reset 🚫➡️✅
 
 The following environment variables need to be defined for successful operation:
