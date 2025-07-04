@@ -3,6 +3,17 @@
   include_role: 
     name: docker-central-database
 
+- name: "create {{ friendica_host_ldap_config }}"
+  template: 
+    src:  "ldapauth.config.php.j2" 
+    dest: "{{ friendica_host_ldap_config }}"
+    mode: '644'
+    owner: root
+    group: 33
+    force: yes
+  notify: docker compose up
+  when: applications | is_feature_enabled('ldap',application_id)
+
 - name: "include role nginx-domain-setup for {{application_id}}"
   include_role:
     name: nginx-domain-setup
@@ -11,3 +22,37 @@
     http_port:   "{{ ports.localhost.http[application_id] }}"
 
 - include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
+
+- name: Build friendica_addons based on features
+  set_fact:
+    friendica_addons: >-
+      {{
+        friendica_addons | default([])
+        + [{
+            'name': item.key,
+            'enabled': (
+              applications[application_id].features.oidc
+                if item.key == 'keycloakpassword'
+              else applications[application_id].features.ldap
+                if item.key == 'ldapauth'
+              else (item.value.enabled if item.value is mapping and 'enabled' in item.value else False)
+            )
+          }]
+      }}
+  loop: "{{ applications[application_id].addons | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+
+- name: Ensure Friendica addons are in sync
+  command: >
+    docker compose exec --user www-data
+    application
+    bin/console addon
+    {{ 'enable' if item.enabled else 'disable' }}
+    {{ item.name }}
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  loop: "{{ friendica_addons }}"
+  loop_control:
+    label: "{{ item.name }}"
+

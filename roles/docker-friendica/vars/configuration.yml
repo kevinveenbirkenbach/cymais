@@ -2,10 +2,27 @@ images:
   friendica:          "friendica:latest"
 features:
   matomo:             true
-  css:                true
+  css:                false # Temporary deactivated
   portfolio_iframe:   true
-  oidc:               true
+  oidc:               false # Implementation doesn't work yet
   central_database:   true
+  ldap:               true
+  oauth2:             false # No special login side which could be protected, use 2FA of Friendica instead
 domains:
-  aliases:
+  canonical:
     - "social.{{ primary_domain }}"
+csp:
+  flags:
+    script-src-elem:
+      unsafe-inline:  true
+    script-src:
+      unsafe-inline:  true
+      unsafe-eval:    true
+    style-src:
+      unsafe-inline:  true
+oauth2_proxy:  
+  application:        "application"
+  port:               "80"
+addons:
+  keycloakpassword:
+  ldapauth:

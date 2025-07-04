@@ -6,8 +6,9 @@ services:
     image: "{{ applications[application_id].images.friendica }}"
     {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
     volumes:
-      - html:/var/www/html
-      - data:/var/www/data
+      - html:{{ friendica_application_base }}
+      - data:/var/www/data # I assume that this one is unnessecarry
+      - {{ friendica_host_ldap_config }}:{{ friendica_docker_ldap_config }}:ro 
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
 
