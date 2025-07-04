@@ -115,7 +115,7 @@ def generate_playbook_entries(roles_dir, prefix=None):
         role = roles[role_name]
         entries.append(
             f"- name: setup {role['application_id']}\n"
-            f"  when: ('{role['application_id']}' in group_names)\n"
+            f"  when: {role['application_id']} | application_allowed(group_names, allowed_applications)\n"
             f"  include_role:\n"
             f"    name: {role['role_name']}\n"
         )

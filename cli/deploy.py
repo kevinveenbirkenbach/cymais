@@ -6,7 +6,8 @@ import os
 import datetime
 import sys
 
-def run_ansible_playbook(inventory, playbook, modes, limit=None, password_file=None, verbose=0, skip_tests=False):
+
+def run_ansible_playbook(inventory, playbook, modes, limit=None, allowed_applications=None, password_file=None, verbose=0, skip_tests=False):
     start_time = datetime.datetime.now()
     print(f"\n▶️ Script started at: {start_time.isoformat()}\n")
     
@@ -22,6 +23,15 @@ def run_ansible_playbook(inventory, playbook, modes, limit=None, password_file=N
     if limit:
         cmd.extend(["--limit", limit])
 
+    # Pass application IDs parameter as extra var if provided
+    if allowed_applications:
+        joined = ",".join(allowed_applications)
+        cmd.extend(["-e", f"allowed_applications={joined}"])
+    else:
+        # No IDs provided: execute all applications defined in the inventory
+        cmd.extend(["-e", "allowed_applications=all"])
+
+    # Pass other mode flags
     for key, value in modes.items():
         val = str(value).lower() if isinstance(value, bool) else str(value)
         cmd.extend(["-e", f"{key}={val}"])
@@ -42,6 +52,7 @@ def run_ansible_playbook(inventory, playbook, modes, limit=None, password_file=N
 
     duration = end_time - start_time
     print(f"⏱️ Total execution time: {duration}\n")
+
 
 def main():
     script_dir = os.path.dirname(os.path.realpath(__file__))
@@ -100,6 +111,12 @@ def main():
         help="Skip inventory validation before deployment."
     )
     parser.add_argument(
+        "--id", 
+        nargs="+",
+        default=[],
+        help="List of application_id's for partial deploy. If not set, all application IDs defined in the inventory will be executed."
+    )
+    parser.add_argument(
         "-v", "--verbose", action="count", default=0,
         help="Increase verbosity level. Multiple -v flags increase detail (e.g., -vvv for maximum log output)."
     )
@@ -134,6 +151,7 @@ def main():
         playbook=playbook_file,
         modes=modes,
         limit=args.limit,
+        allowed_applications=args.allowed_applications,
         password_file=args.password_file,
         verbose=args.verbose,
         skip_tests=args.skip_tests

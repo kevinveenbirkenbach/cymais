@@ -55,3 +55,6 @@ docker_restart_policy:                    "unless-stopped"
 
 # helper
 _applications_nextcloud_oidc_flavor:      "{{ applications.nextcloud.oidc.flavor | default('oidc_login' if applications.nextcloud.features.ldap | default(true) else 'sociallogin') }}"
+
+# default value if not set via CLI (-e) or in playbook vars
+allowed_applications: []
