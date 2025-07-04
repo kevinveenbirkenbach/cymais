@@ -20,3 +20,8 @@ csp:
 domains:
   canonical:
     - "auth.{{ primary_domain }}"
+scopes:
+  rbac_roles: rbac_roles
+  nextcloud:  nextcloud
+
+rbac_groups:  "/rbac"

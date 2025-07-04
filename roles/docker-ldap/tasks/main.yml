@@ -63,11 +63,11 @@
 ###############################################################################
 - name: Ensure LDAP users exist
   community.general.ldap_entry:
-    dn:           "{{ ldap.attributes.user_id }}={{ item.key }},{{ ldap.dn.ou.users }}"
+    dn:           "{{ ldap.user.attributes.id }}={{ item.key }},{{ ldap.dn.ou.users }}"
     server_uri:   "{{ ldap_server_uri }}"
     bind_dn:      "{{ ldap.dn.administrator.data }}"
     bind_pw:      "{{ ldap.bind_credential }}"
-    objectClass:  "{{ ldap.user_objects.structural }}"
+    objectClass:  "{{ ldap.user.objects.structural }}"
     attributes:
       uid:           "{{ item.value.username }}"
       sn:            "{{ item.value.sn  | default(item.key) }}"
@@ -89,12 +89,12 @@
 ###############################################################################
 - name: Ensure required objectClass values and mail address are present
   community.general.ldap_attrs:
-    dn: "{{ ldap.attributes.user_id }}={{ item.key }},{{ ldap.dn.ou.users }}"
+    dn: "{{ ldap.user.attributes.id }}={{ item.key }},{{ ldap.dn.ou.users }}"
     server_uri: "{{ ldap_server_uri }}"
     bind_dn: "{{ ldap.dn.administrator.data }}"
     bind_pw: "{{ ldap.bind_credential }}"
     attributes:
-      objectClass: "{{ ldap.user_objects.structural }}"
+      objectClass: "{{ ldap.user.objects.structural }}"
       mail:        "{{ item.value.email }}"
     state: exact
   async: 60

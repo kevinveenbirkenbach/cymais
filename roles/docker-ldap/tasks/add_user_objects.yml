@@ -9,7 +9,7 @@
     attrs:
       - dn
       - objectClass
-      - "{{ ldap.attributes.user_id }}"
+      - "{{ ldap.user.attributes.id }}"
   register: ldap_users_with_classes
 
 - name: Add only missing auxiliary classes
@@ -28,7 +28,7 @@
     label: "{{ item.dn }}"
   vars:
     missing_auxiliary: >-
-      {{ ldap.user_objects.auxiliary 
+      {{ (ldap.user.objects.auxiliary.values() | list) 
          | difference(item.objectClass | default([]))
       }}
   when: missing_auxiliary | length > 0

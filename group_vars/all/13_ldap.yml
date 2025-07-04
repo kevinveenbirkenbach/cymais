@@ -54,14 +54,6 @@ ldap:
     # – Keeping these distinct prevents accidental use of config credentials
     #   for ordinary user/group operations, and vice versa.
 
-  attributes:
-    # Attribut to identify the user
-    user_id:            "{{ _ldap_user_id }}"
-    mail:               "mail"
-    fullname:           "cn"
-    firstname:          "givenname"
-    surname:            "sn"
-    ssh_public_key:     "sshPublicKey"
   # Password to access dn.bind
   bind_credential:      "{{ applications.ldap.credentials.administrator_database_password }}"
   server:
@@ -71,21 +63,30 @@ ldap:
     security:           "" #TLS, SSL - Leave empty for none
   network:
     local:              "{{applications.ldap.network.docker}}" # Uses the application configuration to define if local network should be available or not
-  user_objects:
-    structural:
-      - person            # Structural Classes define the core identity of an entry:
-                          # • Specify mandatory attributes (e.g. sn, cn)
-                          # • Each entry must have exactly one structural class
-      - inetOrgPerson     # An extension of person adding internet-related attributes
-                          # (e.g. mail, employeeNumber)
-      - posixAccount      # Provides UNIX account attributes (uidNumber, gidNumber,
-                          # homeDirectory)
-    auxiliary:
-      - nextcloudUser     # Auxiliary Classes attach optional attributes without
-                          # changing the entry’s structural role. Here they add
-                          # nextcloudQuota and nextcloudEnabled for Nextcloud.
-      - ldapPublicKey     # Allows storing SSH public keys for services like Gitea.
-
+  user:
+    objects:
+      structural:
+        - person            # Structural Classes define the core identity of an entry:
+                            # • Specify mandatory attributes (e.g. sn, cn)
+                            # • Each entry must have exactly one structural class
+        - inetOrgPerson     # An extension of person adding internet-related attributes
+                            # (e.g. mail, employeeNumber)
+        - posixAccount      # Provides UNIX account attributes (uidNumber, gidNumber,
+                            # homeDirectory)
+      auxiliary:
+        nextloud_user:  "nextcloudUser"   # Auxiliary Classes attach optional attributes without
+                                          # changing the entry’s structural role. Here they add
+                                          # nextcloudQuota and nextcloudEnabled for Nextcloud.
+        ssh_public_key: "ldapPublicKey"   # Allows storing SSH public keys for services like Gitea.
+    attributes:
+      # Attribut to identify the user
+      id:                 "{{ _ldap_user_id }}"
+      mail:               "mail"
+      fullname:           "cn"
+      firstname:          "givenname"
+      surname:            "sn"
+      ssh_public_key:     "sshPublicKey"
+      nextcloud_quota:    "nextcloudQuota"
   filters:
     users:
       login:            "(&{{ _ldap_filters_users_all }}({{_ldap_user_id}}=%{{_ldap_user_id}}))"

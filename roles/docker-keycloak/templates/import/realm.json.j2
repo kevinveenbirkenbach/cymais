@@ -885,12 +885,14 @@
         "email"
       ],
       "optionalClientScopes": [
-        "nextcloud",
         "address",
         "phone",
         "organization",
         "offline_access",
-        "microprofile-jwt"
+        "microprofile-jwt",
+        "{{ applications[application_id]scopes.rbac_roles }}",
+        "{{ applications[application_id]scopes.nextcloud }}"
+
       ]
     }
   ],
@@ -1195,7 +1197,7 @@
     },
     {
       "id": "15dd4961-5b4f-4635-a3f1-a21e1fa7bf3a",
-      "name": "nextcloud",
+      "name": "{{ applications[application_id]scopes.nextcloud }}",
       "description": "Optimized mappers for nextcloud oidc_login with ldap.",
       "protocol": "openid-connect",
       "attributes": {
@@ -1207,7 +1209,7 @@
       "protocolMappers": [
         {
           "id": "62190b21-f649-4aa2-806a-2bf7ba103ce1",
-          "name": "nextcloudQuota",
+          "name": "{{ ldap.user.attributes.nextcloud_quota }}",
           "protocol": "openid-connect",
           "protocolMapper": "oidc-usermodel-attribute-mapper",
           "consentRequired": false,
@@ -1216,11 +1218,11 @@
             "introspection.token.claim": "true",
             "multivalued": "false",
             "userinfo.token.claim": "true",
-            "user.attribute": "nextcloudQuota",
+            "user.attribute": "{{ ldap.user.attributes.nextcloud_quota }}",
             "id.token.claim": "true",
             "lightweight.claim": "false",
             "access.token.claim": "true",
-            "claim.name": "nextcloudQuota",
+            "claim.name": "{{ ldap.user.attributes.nextcloud_quota }}",
             "jsonType.label": "int"
           }
         },
@@ -1239,8 +1241,39 @@
             "id.token.claim": "true",
             "lightweight.claim": "false",
             "access.token.claim": "true",
-            "claim.name": "{{ldap.attributes.user_id}}",
+            "claim.name": "{{ldap.user.attributes.id}}",
             "jsonType.label": "String"
+          }
+        }
+      ]
+    },
+    {
+      "id": "59917c48-a7ef-464a-a8b0-ea24316db18e",
+      "name": "{{ applications[application_id]scopes.rbac_roles }}",
+      "description": "RBAC Groups",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "false",
+        "display.on.consent.screen": "true",
+        "gui.order": "",
+        "consent.screen.text": ""
+      },
+      "protocolMappers": [
+        {
+          "id": "0388cdf9-4751-484a-956c-431dbd872578",
+          "name": "groups",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-group-membership-mapper",
+          "consentRequired": false,
+          "config": {
+            "full.path": "true",
+            "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
+            "multivalued": "true",
+            "id.token.claim": "true",
+            "lightweight.claim": "false",
+            "access.token.claim": "true",
+            "claim.name": "{{ oidc.claims.groups }}"
           }
         }
       ]
@@ -1637,12 +1670,13 @@
     "basic"
   ],
   "defaultOptionalClientScopes": [
-    "nextcloud",
     "offline_access",
     "address",
     "phone",
     "microprofile-jwt",
-    "organization"
+    "organization",
+    "{{ applications[application_id]scopes.rbac_roles }}",
+    "{{ applications[application_id]scopes.nextcloud }}"
   ],
   "browserSecurityHeaders": {
     "contentSecurityPolicyReportOnly": "",
@@ -1792,7 +1826,7 @@
         "subComponents": {},
         "config": {
           "kc.user.profile.config": [
-            "{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"pattern\":{\"pattern\":\"^[a-z0-9]+$\",\"error-message\":\"\"}},\"annotations\":{},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"firstName\",\"displayName\":\"${firstName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"lastName\",\"displayName\":\"${lastName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"{{ ldap.attributes.ssh_public_key }}\",\"displayName\":\"SSH Public Key\",\"validations\":{},\"annotations\":{},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"user-metadata\",\"multivalued\":true}],\"groups\":[{\"name\":\"user-metadata\",\"displayHeader\":\"User metadata\",\"displayDescription\":\"Attributes, which refer to user metadata\"}]}"
+            "{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"pattern\":{\"pattern\":\"^[a-z0-9]+$\",\"error-message\":\"\"}},\"annotations\":{},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"firstName\",\"displayName\":\"${firstName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"lastName\",\"displayName\":\"${lastName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"{{ ldap.user.attributes.ssh_public_key }}\",\"displayName\":\"SSH Public Key\",\"validations\":{},\"annotations\":{},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"user-metadata\",\"multivalued\":true}],\"groups\":[{\"name\":\"user-metadata\",\"displayHeader\":\"User metadata\",\"displayDescription\":\"Attributes, which refer to user metadata\"}]}"
           ]
         }
       }
@@ -1858,12 +1892,12 @@
             },
             {
               "id": "12b99578-e0bf-4eeb-b0fb-8e400c0cd73e",
-              "name": "nextcloudQuota",
+              "name": "{{ ldap.user.attributes.nextcloud_quota }}",
               "providerId": "user-attribute-ldap-mapper",
               "subComponents": {},
               "config": {
                 "ldap.attribute": [
-                  "nextcloudQuota"
+                  "{{ ldap.user.attributes.nextcloud_quota }}"
                 ],
                 "is.mandatory.in.ldap": [
                   "false"
@@ -1881,7 +1915,86 @@
                   "false"
                 ],
                 "user.model.attribute": [
-                  "nextcloudQuota"
+                  "{{ ldap.user.attributes.nextcloud_quota }}"
+                ]
+              }
+            },
+            {
+              "id": "24cd9c3b-e22d-4540-bddf-ae7faac0196c",
+              "name": "SSH Public Key",
+              "providerId": "user-attribute-ldap-mapper",
+              "subComponents": {},
+              "config": {
+                "ldap.attribute": [
+                  "{{ ldap.user.attributes.ssh_public_key }}"
+                ],
+                "is.mandatory.in.ldap": [
+                  "false"
+                ],
+                "attribute.force.default": [
+                  "false"
+                ],
+                "is.binary.attribute": [
+                  "false"
+                ],
+                "read.only": [
+                  "false"
+                ],
+                "always.read.value.from.ldap": [
+                  "true"
+                ],
+                "user.model.attribute": [
+                  "{{ ldap.user.attributes.ssh_public_key }}"
+                ]
+              }
+            },
+            {
+              "id": "f56e4551-c5b5-4596-b567-bc8309a74e72",
+              "name": "ldap-roles",
+              "providerId": "group-ldap-mapper",
+              "subComponents": {},
+              "config": {
+                "membership.attribute.type": [
+                  "DN"
+                ],
+                "group.name.ldap.attribute": [
+                  "{{ ldap.user.attributes.fullname }}"
+                ],
+                "membership.user.ldap.attribute": [
+                  "{{ ldap.user.attributes.id }}"
+                ],
+                "preserve.group.inheritance": [
+                  "false"
+                ],
+                "groups.dn": [
+                  "{{ ldap.dn.ou.roles }}"
+                ],
+                "mode": [
+                  "LDAP_ONLY"
+                ],
+                "user.roles.retrieve.strategy": [
+                  "LOAD_GROUPS_BY_MEMBER_ATTRIBUTE"
+                ],
+                "groups.ldap.filter": [
+                  "(objectClass=groupOfNames)"
+                ],
+                "membership.ldap.attribute": [
+                  "member"
+                ],
+                "ignore.missing.groups": [
+                  "true"
+                ],
+                "group.object.classes": [
+                  "groupOfNames"
+                ],
+                "memberof.ldap.attribute": [
+                  "memberOf"
+                ],
+                "drop.non.existing.groups.during.sync": [
+                  "false"
+                ],
+                "groups.path": [
+                  "{{ applications[application_id].rbac_groups }}"
                 ]
               }
             },
@@ -1944,7 +2057,7 @@
                   "true"
                 ],
                 "ldap.full.name.attribute": [
-                  "{{ ldap.attributes.fullname }}"
+                  "{{ ldap.user.attributes.fullname }}"
                 ]
               }
             },
@@ -1955,7 +2068,7 @@
               "subComponents": {},
               "config": {
                 "ldap.attribute": [
-                  "{{ldap.attributes.user_id}}"
+                  "{{ldap.user.attributes.id}}"
                 ],
                 "is.mandatory.in.ldap": [
                   "true"
@@ -1984,7 +2097,7 @@
               "subComponents": {},
               "config": {
                 "ldap.attribute": [
-                  "{{ ldap.attributes.ssh_public_key }}"
+                  "{{ ldap.user.attributes.ssh_public_key }}"
                 ],
                 "is.mandatory.in.ldap": [
                   "false"
@@ -2002,7 +2115,7 @@
                   "true"
                 ],
                 "user.model.attribute": [
-                  "{{ ldap.attributes.ssh_public_key }}"
+                  "{{ ldap.user.attributes.ssh_public_key }}"
                 ]
               }
             },
@@ -2069,7 +2182,7 @@
             "-1"
           ],
           "usernameLDAPAttribute": [
-            "{{ldap.attributes.user_id}}"
+            "{{ldap.user.attributes.id}}"
           ],
           "bindDn": [
             "{{ldap.dn.administrator.data}}"
@@ -2081,7 +2194,7 @@
             "other"
           ],
           "uuidLDAPAttribute": [
-            "{{ldap.attributes.user_id}}"
+            "{{ldap.user.attributes.id}}"
           ],
           "allowKerberosAuthentication": [
             "false"
@@ -2111,10 +2224,10 @@
             "false"
           ],
           "userObjectClasses": [
-            "{{ ldap.user_objects | join(', ') }}"
+            "{{ ldap.user.objects | join(', ') }}"
           ],
           "rdnLDAPAttribute": [
-            "{{ldap.attributes.user_id}}"
+            "{{ldap.user.attributes.id}}"
           ],
           "editMode": [
             "WRITABLE"

@@ -40,3 +40,5 @@ defaults_oidc:
     given_name:           "givenName"
     family_name:          "surname"
     email:                "email"
+  claims:
+    groups:               "groups"

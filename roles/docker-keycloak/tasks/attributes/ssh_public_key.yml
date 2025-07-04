@@ -32,19 +32,19 @@
   set_fact:
     ldap_component_id: "{{ (ldap_components.stdout | from_json)[0].id }}"
 
-- name: Ensure {{ ldap.attributes.ssh_public_key }} LDAP Mapper exists
+- name: Ensure {{ ldap.user.attributes.ssh_public_key }} LDAP Mapper exists
   shell: |
     docker exec -i keycloak_application bash -c '
       /opt/keycloak/bin/kcadm.sh get components -r {{ keycloak_realm }} \
-      | grep -q "\"name\" : \"{{ ldap.attributes.ssh_public_key }}\"" \
+      | grep -q "\"name\" : \"{{ ldap.user.attributes.ssh_public_key }}\"" \
       || printf "%s\n" "{
-        \"name\": \"{{ ldap.attributes.ssh_public_key }}\",
+        \"name\": \"{{ ldap.user.attributes.ssh_public_key }}\",
         \"parentId\": \"{{ ldap_component_id }}\",
         \"providerId\": \"user-attribute-ldap-mapper\",
         \"providerType\": \"org.keycloak.storage.ldap.mappers.LDAPStorageMapper\",
         \"config\": {
-          \"user.model.attribute\": [\"{{ ldap.attributes.ssh_public_key }}\"],
-          \"ldap.attribute\": [\"{{ ldap.attributes.ssh_public_key }}\"],
+          \"user.model.attribute\": [\"{{ ldap.user.attributes.ssh_public_key }}\"],
+          \"ldap.attribute\": [\"{{ ldap.user.attributes.ssh_public_key }}\"],
           \"read.only\": [\"false\"],
           \"write.only\": [\"true\"],
           \"always.read.value.from.ldap\": [\"false\"],
