@@ -35,7 +35,11 @@ docker exec -it ldap ldapsearch -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcDat
 To execute the following commands set the credentials via:
 
 ```bash
-export $(grep -Ev '^(#|$)' .env/env | xargs)
+eval $(
+  grep -v '^\s*#' .env/env \
+  | sed -E 's/\s*#.*//' \
+  | sed -E 's/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$/export \1="\2"/'
+)
 ```
 
 ### Show all Entries
