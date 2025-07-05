@@ -19,7 +19,7 @@ defaults_service_provider:
     bluesky: >-
       {{ ('@' ~ users.contact.username ~ '.' ~ domains.bluesky.api)
          if 'bluesky' in group_names else '' }}
-    email:          "{{ users.contact.username ~ '@' ~ domains | get_domain('mailu') if 'mailu' in group_names else '' }}"
+    email:          "{{ users.contact.username ~ '@' ~ primary_domain if 'mailu' in group_names else '' }}"
     mastodon:       "{{ '@' ~ users.contact.username ~ '@' ~ domains | get_domain('mastodon') if 'mastodon' in group_names else '' }}"
     matrix:         "{{ '@' ~ users.contact.username ~ ':' ~ domains.matrix.synapse if 'matrix' in group_names else '' }}"
     peertube:       "{{ '@' ~ users.contact.username ~ '@' ~ domains | get_domain('peertube') if 'peertube' in group_names else '' }}"
