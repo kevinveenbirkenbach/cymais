@@ -21,9 +21,9 @@ portfolio_menu_categories:
     tags:
       - project
       - kanban
-      - management
       - openproject
       - taiga
+      - espocrm
   
   Social Media:
     description: "Social Media Tools"
@@ -36,7 +36,6 @@ portfolio_menu_categories:
       - music platform
       - social network
       - bluesky
-      - friendica
       - funkwhale
       - mastodon
       - peertube

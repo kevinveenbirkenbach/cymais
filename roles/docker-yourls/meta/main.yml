@@ -3,7 +3,6 @@ galaxy_info:
   author: "Kevin Veen-Birkenbach"
   description: >
     Streamline your online presence with YOURLS — a nimble, open‑source URL shortener that empowers you to create, track, and manage short links effortlessly.
-    This containerized deployment integrates centralized MariaDB support and a customizable environment, ensuring a secure and scalable solution for all your link management needs.
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |

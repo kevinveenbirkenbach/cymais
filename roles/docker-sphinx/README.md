@@ -1,4 +1,4 @@
-# Sphinx Documentation
+# Sphinx
 
 ## Description
 
