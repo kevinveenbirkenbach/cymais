@@ -1,6 +1,6 @@
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Empower your customer relationship management with EspoCRM, an open-source platform that combines workflow automation, seamless LDAP/OIDC SSO integration, and a sleek, lightweight user interface. Tailored for businesses of all sizes, EspoCRM enables you to manage your sales, customer interactions, and business processes with ease, fostering productivity and streamlined communication across teams."
+  description: "Empower your customer relationship management with EspoCRM. Tailored for businesses of all sizes, EspoCRM enables you to manage your sales, customer interactions, and business processes with ease, fostering productivity and streamlined communication across teams."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |

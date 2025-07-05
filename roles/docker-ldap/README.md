@@ -1,4 +1,4 @@
-# LDAP Directory
+# LDAP
 
 ## Description
 
