@@ -9,6 +9,6 @@ fi
 
 # send the Telegram message
 /usr/bin/curl -s -X POST \
-  "https://api.telegram.org/bot${telegram_bot_token}/sendMessage" \
-  -d chat_id="${telegram_chat_id}" \
+  "https://api.telegram.org/bot{{ telegram_bot_token }}/sendMessage" \
+  -d chat_id="{{ telegram_chat_id }}" \
   -d text="service $1 on ${host} failed"
