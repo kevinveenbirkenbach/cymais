@@ -10,8 +10,6 @@
     domain:   "{{ domains | get_domain(application_id) }}"
     http_port:   "{{ ports.localhost.http[application_id] }}"
 
-- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
-
 - name: "create directory {{import_directory_host}}"
   file:
     path: "{{import_directory_host}}"

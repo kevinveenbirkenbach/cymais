@@ -14,8 +14,6 @@
     domain:               "{{ domains | get_domain(application_id) }}"
     http_port:            "{{ ports.localhost.http[application_id] }}"
 
-- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
-
 - name: Set OIDC scopes in EspoCRM config (inside web container)
   ansible.builtin.shell: |
     docker compose exec -T web php -r '

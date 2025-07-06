@@ -16,5 +16,3 @@
       - subnet: "{{ networks.local.collabora.subnet }}"
   when: run_once_docker_mariadb is not defined
 
-- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
-

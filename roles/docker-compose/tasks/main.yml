@@ -16,11 +16,5 @@
     mode: '0755'
   with_dict: "{{ docker_compose.directories }}"
 
-- name: flush docker service
-  meta: flush_handlers
-  when: run_once_docker_compose is not defined
-
-- name: run the docker tasks once
-  set_fact:
-    run_once_docker_compose: true
-  when: run_once_docker_compose is not defined
+- include_tasks: "create-files.yml"
+  when: not docker_compose_skipp_file_creation | bool

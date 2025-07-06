@@ -25,7 +25,6 @@
     dest: "{{ host_msmtp_conf }}"
   notify: docker compose up
 
-- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
 
 - name: "Install wordpress"
   include_tasks: install.yml

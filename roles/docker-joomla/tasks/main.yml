@@ -12,5 +12,3 @@
   loop: "{{ domains }}"
   loop_control:
     loop_var: domain
-
-- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"

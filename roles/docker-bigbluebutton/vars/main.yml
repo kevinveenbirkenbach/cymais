@@ -11,3 +11,5 @@ domain:                       "{{ domains | get_domain(application_id) }}"
 http_port:                    "{{ ports.localhost.http[application_id] }}"
 bbb_env_file_link:            "{{ docker_compose.directories.instance }}.env"    
 bbb_env_file_origine:         "{{ bbb_repository_directory }}.env"
+
+docker_compose_skipp_file_creation: true # Skipp creation of docker-compose.yml file

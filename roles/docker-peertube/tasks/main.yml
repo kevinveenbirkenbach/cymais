@@ -11,8 +11,6 @@
   vars:
     http: "{{ ports.localhost.http[application_id] }}"
 
-- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
-
 - name: "Install and activate auth-openid-connect plugin if OIDC is enabled"
   include_tasks: enable-oidc.yml
   when: applications | is_feature_enabled('oidc',application_id)

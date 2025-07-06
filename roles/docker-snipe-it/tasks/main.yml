@@ -10,7 +10,6 @@
     domain:   "{{ domains | get_domain(application_id) }}"
     http_port:   "{{ ports.localhost.http[application_id] }}"
 
-- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
 
 - name: "Configure Snipe-IT LDAP settings"
   import_tasks: ldap.yml

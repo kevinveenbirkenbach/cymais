@@ -21,8 +21,6 @@
     domain:   "{{ domains | get_domain(application_id) }}"
     http_port:   "{{ ports.localhost.http[application_id] }}"
 
-- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
-
 - name: Build friendica_addons based on features
   set_fact:
     friendica_addons: >-

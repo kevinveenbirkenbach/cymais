@@ -33,8 +33,6 @@
     state: directory
     mode: 0755
 
-- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
-
 - name: flush docker service
   meta: flush_handlers
 

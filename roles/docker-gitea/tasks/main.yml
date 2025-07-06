@@ -10,8 +10,6 @@
     domain:   "{{ domains | get_domain(application_id) }}"
     http_port:   "{{ ports.localhost.http[application_id] }}"
 
-- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
-
 - name: Wait for Gitea HTTP endpoint
   wait_for:
     host: "127.0.0.1"

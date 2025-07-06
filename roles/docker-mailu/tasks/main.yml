@@ -18,9 +18,6 @@
     name: nginx-docker-cert-deploy
   when: run_once_docker_mailu is not defined
 
-- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
-  when: run_once_docker_mailu is not defined
-
 - name: Flush docker service handlers
   meta: flush_handlers
   when: run_once_docker_mailu is not defined

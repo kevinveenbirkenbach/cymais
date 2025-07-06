@@ -10,8 +10,6 @@
     domain:   "{{ domains | get_domain(application_id) }}"
     http_port:   "{{ ports.localhost.http[application_id] }}"
 
-- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
-
 - name: Wait until the Moodle container is healthy
   shell: docker inspect --format '{% raw %}{{.State.Health.Status}}{% endraw %}' {{ container_name }}
   register: health_check

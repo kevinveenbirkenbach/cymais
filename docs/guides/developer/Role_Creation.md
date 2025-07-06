@@ -97,8 +97,6 @@ Now that you have defined the application settings, domain, and application ID, 
       vars:
         domain: "{{ domains | get_domain(application_id) }}"
         http_port: "{{ ports.localhost.http[application_id] }}"
-
-    - include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
     ```
 
 3. **`docker-compose.yml.j2`**:

@@ -11,5 +11,3 @@
   notify: docker compose up
   become: true
   ignore_errors: true
-
-- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"

@@ -22,8 +22,6 @@
     state: present
     ipam_config:
       - subnet: "{{ networks.local.central_ldap.subnet }}"
-  
-- include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/create-files.yml"
 
 - name: "Reset LDAP admin passwords"
   include_tasks: reset_admin_passwords.yml
