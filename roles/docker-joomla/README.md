@@ -18,7 +18,7 @@ For detailed administration procedures, please refer to the [Administration.md](
 - **Integrated Database Support:** Utilize an external PostgreSQL database for robust data storage.
 - **Nginx Reverse Proxy:** Ensure secure and efficient access to your Joomla instance.
 
-## Additional Resources
+## Further Resources
 
 - [Joomla Official Website](https://www.joomla.org/)
 

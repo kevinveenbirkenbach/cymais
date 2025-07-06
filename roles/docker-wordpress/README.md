@@ -37,7 +37,7 @@ This deployment provides a containerized WordPress instance optimized for multis
 
 The goal of this deployment is to provide a production‑ready, scalable WordPress instance with multisite capabilities and enhanced performance. By automating the custom image build and configuration processes via Docker Compose and Ansible, it minimizes manual intervention, reduces errors, and allows you to concentrate on building great content.
 
-## Additional Resources
+## Further Resources
 
 - [WordPress Official Website](https://wordpress.org/)
 - [WordPress Multisite Documentation](https://wordpress.org/support/article/create-a-network/)

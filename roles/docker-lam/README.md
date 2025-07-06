@@ -15,6 +15,6 @@ This role deploys LAM in a Docker environment and integrates it with an Nginx re
 - **Secure Access:** Utilize Nginx reverse proxy integration to safeguard your management interface.
 - **Efficient Administration:** Streamline the handling of LDAP objects such as users, groups, and organizational units.
 
-## Additional Resources
+## Further Resources
 
 - [LDAP Account Manager Official Website](https://www.ldap-account-manager.org/)

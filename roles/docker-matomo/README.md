@@ -16,7 +16,7 @@ This role deploys Matomo using Docker, automating the setup of your analytics pl
 - **Customizable Setup:** Configure database connections, admin credentials, and server settings via environment variables and a TOML configuration file.
 - **Scalable Deployment:** Use Docker to ensure your analytics platform can grow with your traffic demands.
 
-## Additional Resources
+## Further Resources
 
 - [Matomo Official Website](https://matomo.org/)
 

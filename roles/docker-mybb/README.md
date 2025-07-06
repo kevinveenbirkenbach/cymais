@@ -15,7 +15,7 @@ This role deploys MyBB using Docker, leveraging Docker Compose to manage both th
 - **Robust Deployment:** Achieve reliable and scalable deployment of your forum via Docker Compose, ensuring seamless service continuity.
 - **Secure and Flexible Access:** Integrate with an Nginx reverse proxy to securely manage traffic and domain access.
 
-## Additional Resources
+## Further Resources
 
 - [MyBB Docker Repository](https://github.com/mybb/docker)
 - [MyBB Official Website](https://mybb.com/)

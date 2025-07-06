@@ -16,7 +16,7 @@ This role deploys Baserow using Docker Compose, integrating key components such 
 - **Scalable Architecture:** Efficiently handle increasing workloads while maintaining high performance.
 - **Robust API Integration:** Leverage a comprehensive API to extend functionalities and integrate with other systems.
 
-## Additional Resources
+## Further Resources
 
 - [Baserow Homepage](https://baserow.io/)
 - [Enable Single Sign-On (SSO)](https://baserow.io/user-docs/enable-single-sign-on-sso)

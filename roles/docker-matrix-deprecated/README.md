@@ -22,7 +22,7 @@ For detailed configuration and operational instructions, please refer to the inc
 - **Scalable Architecture:** Handle increasing user loads and message volumes with high performance.
 - **Ansible Automation:** Enjoy a fully automated, reproducible deployment using Ansible.
 
-## Additional Resources
+## Further Resources
 
 - [Matrix Official Website](https://matrix.org/)
 - [Matrix Documentation](https://matrix.org/docs/)

@@ -16,7 +16,7 @@ This role deploys Mobilizon using Docker, automating the setup of your event man
 - **Customizable Setup:** Configure database connections, instance settings, and admin credentials via environment variables and a TOML configuration file.  
 - **Scalable Deployment:** Use Docker to ensure your event platform grows seamlessly with your community’s needs.
 
-## Additional Resources
+## Further Resources
 
 - [Mobilizon Official Website](https://mobilizon.org)
 

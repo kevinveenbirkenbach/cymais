@@ -27,7 +27,7 @@ For more information about this role, visit the GitHub repositories:
 - **Flexible Deployment:** Easily scale and customize using Docker Compose, with configurable settings for networking, storage, and external services.
 - **OIDC Support:** Optionally integrate with OpenID Connect for centralized authentication across your services.
 
-## Additional Resources
+## Further Resources
 
 - [Mailu Official Website](https://mailu.io/)
 - [Mailu compose setup guide](https://mailu.io/1.7/compose/setup.html)

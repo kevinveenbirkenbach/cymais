@@ -18,7 +18,7 @@ For detailed administration procedures, please refer to the [Administration.md](
 - **Built-in Database Access:** Seamlessly interact with the underlying MariaDB for your Git service.
 - **Integrated Configuration:** Easily manage settings via environment variables and Docker Compose templates.
 
-## Additional Resources
+## Further Resources
 
 - [Gitea Official Website](https://gitea.io/)
 - [Gitea LDAP integration](https://docs.gitea.com/usage/authentication)

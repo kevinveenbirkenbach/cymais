@@ -17,7 +17,7 @@ This role deploys Moodle using Docker, automating the setup of both the Moodle a
 - **Secure Web Access:** Configured to work seamlessly behind an Nginx reverse proxy for enhanced security and performance.
 * **Single Sign-On (SSO) / OpenID Connect (OIDC):** Seamless integration with external identity providers for centralized authentication.
 
-## Additional Resources
+## Further Resources
 
 - [Bitnami Moodle Container on GitHub](https://github.com/bitnami/containers/tree/main/bitnami/moodle)
 - [Moodle Official Website](https://moodle.org/)

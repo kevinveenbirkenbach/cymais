@@ -23,7 +23,7 @@ For detailed setup instructions, please refer to [Installation.md](./Installatio
 
 For more information about Attendize and its capabilities, please visit the [Attendize Homepage](https://attendize.com).
 
-## Additional Resources
+## Further Resources
 
 - [Attendize GitHub Repository](https://github.com/Attendize/Attendize.git)
 - [Attendize Documentation](https://github.com/Attendize/Attendize)

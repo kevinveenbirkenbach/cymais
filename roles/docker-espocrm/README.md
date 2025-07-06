@@ -25,7 +25,7 @@ With this role, you'll have a production-ready CRM environment that's secure, sc
 - **Health Checks & Logging:** Monitor service health and logs with built-in checks and journald 📈  
 - **Modular Role Composition:** Leverages central roles for database and Nginx, ensuring consistency across deployments 🔄  
 
-## Additional Resources
+## Further Resources
 
 - [EspoCRM Official Website](https://www.espocrm.com/) 🌍  
 - [EspoCRM Documentation](https://docs.espocrm.com/) 📖  

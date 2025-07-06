@@ -19,7 +19,7 @@ For detailed usage and configuration, please refer to the following files in thi
 - **Scalable Architecture:** Utilize a Docker-based deployment that adapts easily to increasing traffic and community size.
 - **Extensive Plugin Support:** Enhance your forum with a wide range of plugins and integrations for additional functionality.
 
-## Additional Resources
+## Further Resources
 
 - [Discourse Official Website](https://www.discourse.org/)
 - [Discourse GitHub Repository](https://github.com/discourse/discourse_docker.git)

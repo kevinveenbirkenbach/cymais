@@ -15,7 +15,7 @@ This role deploys Keycloak in a Docker environment, integrating it with a Postgr
 - **Standards Support:** Seamlessly integrate with SAML, OpenID Connect, and OAuth2 to support various authentication flows.
 - **Scalable and Customizable:** Easily tailor settings and scale your Keycloak instance to meet growing demands.
 
-## Additional Resources
+## Further Resources
 
 - [Keycloak Official Website](https://www.keycloak.org/)
 - [Official Keycloak Documentation](https://www.keycloak.org/documentation.html)

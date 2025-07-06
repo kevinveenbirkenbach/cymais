@@ -18,7 +18,7 @@ For detailed administration procedures, please refer to the [Administration.md](
 - **Configuration Debugging:** Quickly inspect environment variables, volume data, and configuration files to troubleshoot issues.
 - **Autoinstall Capability:** Automate initial installation steps to rapidly deploy a working Friendica instance.
 
-## Additional Resources
+## Further Resources
 
 - [Friendica Docker Hub](https://hub.docker.com/_/friendica)
 - [Friendica Installation Documentation](https://wiki.friendi.ca/docs/install)

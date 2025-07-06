@@ -22,7 +22,7 @@ For further setup instructions and advanced configuration details, please refer 
 - **Comprehensive Query Capabilities:** Utilize LDAP search tools to efficiently query and manage directory data.
 - **High Performance and Scalability:** Designed to handle large-scale deployments with rapid lookup and authentication response times.
 
-## Additional Resources
+## Further Resources
 
 - [Bitnami OpenLDAP](https://hub.docker.com/r/bitnami/openldap)
 - [phpLDAPadmin Documentation](https://github.com/leenooks/phpLDAPadmin/wiki/Docker-Container)

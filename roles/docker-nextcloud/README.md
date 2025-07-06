@@ -21,7 +21,7 @@ This role provisions a complete Nextcloud deployment using Docker Compose. It au
 
 A detailled documentation for the use and administration of Nextcloud on CyMaIS you will find [here](docs/README.md)
 
-## Additional Resources
+## Further Resources
 
 - [Nextcloud Official Website](https://nextcloud.com/)
 - [Nextcloud Docker Documentation](https://github.com/nextcloud/docker)

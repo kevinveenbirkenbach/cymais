@@ -17,7 +17,7 @@ For a detailed walkthrough of this role, please refer to the [ChatGPT Session Tr
 - **Nginx Reverse Proxy Integration:** Simplifies secure access with an Nginx reverse proxy.
 - **Customizable Configuration:** Easily tailor deployment settings using Ansible variables and templates.
 
-## Additional Resources
+## Further Resources
 
 - [GitLab Official Website](https://about.gitlab.com/)
 - [Running GitLab on Docker](https://ralph.blog.imixs.com/2019/06/09/running-gitlab-on-docker/)

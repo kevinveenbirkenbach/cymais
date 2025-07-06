@@ -23,7 +23,7 @@ For detailed configuration and operational instructions, please refer to the fol
 - **Flexible Authentication:** Integrated support for OpenID Connect (OIDC) simplifies user login and enhances security.
 - **Customizable User Experience:** Configure themes, timeline settings, and notification options to tailor the social experience to your community.
 
-## Additional Resources
+## Further Resources
 
 - [Mastodon Official Website](https://joinmastodon.org/)
 - [Mastodon Documentation](https://docs.joinmastodon.org/)

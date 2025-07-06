@@ -20,7 +20,7 @@ For detailed configuration and operational instructions, please refer to the fol
 - **Scalable Architecture:** Designed to handle increasing user loads and message volumes with high performance.
 - **Flexible Client Support:** Access Matrix services via modern web clients like Element, which offer an intuitive and real-time user experience.
 
-## Additional Resources
+## Further Resources
 
 - [Matrix Official Website](https://matrix.org/)
 - [Matrix Documentation](https://matrix.org/docs/)

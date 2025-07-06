@@ -18,7 +18,7 @@ This role deploys Listmonk using Docker, ensuring a robust and scalable setup fo
 - **Flexible Configuration:** Easily customize settings such as database connections, admin credentials, and server configurations via a TOML file.
 - **Robust Infrastructure:** Seamlessly integrates with PostgreSQL for reliable data management and supports deployment behind a reverse proxy.
 
-## Additional Resources
+## Further Resources
 
 - [Listmonk Official Website](https://listmonk.app/)
 - [Listmonk Installation Documentation](https://listmonk.app/docs/installation/)

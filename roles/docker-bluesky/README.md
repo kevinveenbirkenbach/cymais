@@ -20,7 +20,7 @@ For DNS configuration and other setup details, please refer to [Installation.md]
 - **Real-Time Content Delivery:** Enjoy dynamic and instantaneous updates for a modern social experience.
 - **Developer-Friendly API:** Integrate with external systems and extend functionalities through a robust set of APIs.
 
-## Additional Resources
+## Further Resources
 
 - [Self-hosting Bluesky with Docker and SWAG](https://therobbiedavis.com/selfhosting-bluesky-with-docker-and-swag/)
 - [Notes on Self-hosting Bluesky PDS with Other Services](https://cprimozic.net/notes/posts/notes-on-self-hosting-bluesky-pds-alongside-other-services/)

@@ -16,7 +16,7 @@ This role deploys MediaWiki using Docker, automating the setup of your wiki inst
 - **Scalable Deployment:** Utilize Docker for a portable and scalable setup that adapts as your community grows.
 - **Secure and Reliable:** Benefit from secure access via an Nginx reverse proxy combined with a MariaDB backend for reliable data storage.
 
-## Additional Resources
+## Further Resources
 
 - [MediaWiki Official Website](https://www.mediawiki.org/)
 - [MediaWiki Documentation](https://www.mediawiki.org/wiki/Manual:Configuration_settings)
