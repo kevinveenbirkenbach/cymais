@@ -23,10 +23,6 @@
   notify:
     - docker compose up
 
-- name: "include role docker-repository-setup for {{application_id}}"
-  include_role: 
-    name: docker-repository-setup
-
 - name: "create {{dummy_volume}}"
   file:
     path: "{{dummy_volume}}"

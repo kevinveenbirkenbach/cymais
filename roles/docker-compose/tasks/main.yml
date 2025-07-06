@@ -16,5 +16,8 @@
     mode: '0755'
   with_dict: "{{ docker_compose.directories }}"
 
-- include_tasks: "create-files.yml"
+- include_tasks: "repository.yml"
+  when: docker_repository | bool
+
+- include_tasks: "files.yml"
   when: not docker_compose_skipp_file_creation | bool

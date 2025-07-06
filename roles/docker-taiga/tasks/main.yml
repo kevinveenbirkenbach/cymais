@@ -10,10 +10,6 @@
     domain:   "{{ domains | get_domain(application_id) }}"
     http_port:   "{{ ports.localhost.http[application_id] }}"
 
-- name: "include role docker-repository-setup for {{application_id}}"
-  include_role: 
-    name: docker-repository-setup
-
 - name: "copy templates {{ settings_files }} for taiga-contrib-oidc-auth"
   template:
     src:  "taiga/{{item}}.py.j2"

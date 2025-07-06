@@ -1,6 +1,7 @@
 application_id:               "openproject"
 docker_repository_address:    "https://github.com/opf/openproject-deploy"
 database_type:                "postgres"
+docker_repository:            true
 
 openproject_plugins_folder:  "{{docker_compose.directories.volumes}}plugins/"
 

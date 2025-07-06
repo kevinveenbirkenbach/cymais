@@ -8,6 +8,14 @@
 #  listen: docker compose up
 #  when: mode_reset | bool
 
+- name: rebuild docker repository
+  command:
+    cmd:   docker compose build
+    chdir: "{{docker_repository_path}}"
+  environment:
+    COMPOSE_HTTP_TIMEOUT: 600
+    DOCKER_CLIENT_TIMEOUT: 600
+
 # default setup for docker compose files
 - name: docker compose up
   shell: docker-compose -p {{ application_id }} up -d --force-recreate --remove-orphans --build

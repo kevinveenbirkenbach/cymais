@@ -1,10 +1,10 @@
-- name: Create (optional) Dockerfile
+- name: "Create (optional) Dockerfile for {{ application_id }}"
   template:
     src: "{{ item }}"
     dest: "{{ docker_compose.files.dockerfile }}"
-  with_first_found:
-    - "{{ playbook_dir }}/roles/{{ role_name }}/templates/Dockerfile.j2"
-    - "{{ playbook_dir }}/roles/{{ role_name }}/files/Dockerfile"
+  loop:
+    - "{{ playbook_dir }}/roles/docker-{{ application_id }}/templates/Dockerfile.j2"
+    - "{{ playbook_dir }}/roles/docker-{{ application_id }}/files/Dockerfile"
   notify: docker compose up
   register: create_dockerfile_result
   failed_when:
@@ -19,9 +19,9 @@
     force:        yes
   notify:         docker compose up
   register:       env_template
-  with_first_found:
-    - "{{ playbook_dir }}/roles/{{ role_name }}/templates/env.j2"
-    - "{{ playbook_dir }}/roles/{{ role_name }}/files/env"
+  loop:
+    - "{{ playbook_dir }}/roles/docker-{{ application_id }}/templates/env.j2"
+    - "{{ playbook_dir }}/roles/docker-{{ application_id }}/files/env"
   failed_when:
     - env_template is failed
     - "'Could not find or access' not in env_template.msg"

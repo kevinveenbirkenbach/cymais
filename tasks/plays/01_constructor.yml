@@ -1,16 +1,8 @@
 ---
-
-- name: Show effective filter_plugins setting
-  shell: ansible-config dump --only-changed | grep -i filter_plugins || echo "using default"
-  register: filter_cfg
-
-- name: Debug filter_plugins config
+- name: "Debug: allowed_applications"
   debug:
-    msg: "{{ filter_cfg.stdout_lines }}"
-
-- name: "Debug: show which ansible.cfg was used"
-  debug:
-    msg: "{{ ansible_config_file }}"
+    msg: "{{ allowed_applications }}"
+  when: enable_debug | bool
 
 - name: Merge variables
   block:
@@ -110,51 +102,51 @@
   when: mode_update | bool
 
 - name: setup standard wireguard
-  when: ("wireguard_server" in group_names)
+  when: ('wireguard_server' | application_allowed(group_names, allowed_applications))
   include_role:
     name: wireguard
 
 # vpn setup
 - name: setup wireguard client behind firewall\nat
-  when: ("wireguard_behind_firewall" in group_names)
+  when: ('wireguard_behind_firewall' | application_allowed(group_names, allowed_applications))
   include_role:
     name: client-wireguard-behind-firewall
 
 - name: setup wireguard client
-  when: ("wireguard_client" in group_names)
+  when: ('wireguard_client' | application_allowed(group_names, allowed_applications))
   include_role:
     name: client-wireguard
 
 ## backup setup
 - name: setup replica backup hosts
-  when: ("backup_remote_to_local" in group_names)
+  when: ('backup_remote_to_local' | application_allowed(group_names, allowed_applications))
   include_role:
     name: backup-remote-to-local
 
 - name: setup backup to swappable
-  when: ("backup_to_usb" in group_names)
+  when: ('backup_to_usb' | application_allowed(group_names, allowed_applications))
   include_role:
     name: backup-data-to-usb
 
 ## driver setup
 - name: driver-intel
-  when: ("intel" in group_names)
+  when: ('intel' | application_allowed(group_names, allowed_applications))
   include_role:
     name: driver-intel
 
 - name: setup multiprinter hosts
-  when: ("epson_multiprinter" in group_names)
+  when: ('epson_multiprinter' | application_allowed(group_names, allowed_applications))
   include_role:
     name: driver-epson-multiprinter
 
 
 - name: setup hibernate lid switch
-  when: ("driver-lid-switch" in group_names)
+  when: ('driver-lid-switch' | application_allowed(group_names, allowed_applications))
   include_role:
     name: driver-lid-switch
 
 ## system setup 
 - name: setup swapfile hosts
-  when: ("swapfile" in group_names)
+  when: ('swapfile' | application_allowed(group_names, allowed_applications))
   include_role:
     name: system-swapfile

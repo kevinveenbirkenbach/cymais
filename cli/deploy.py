@@ -27,9 +27,6 @@ def run_ansible_playbook(inventory, playbook, modes, limit=None, allowed_applica
     if allowed_applications:
         joined = ",".join(allowed_applications)
         cmd.extend(["-e", f"allowed_applications={joined}"])
-    else:
-        # No IDs provided: execute all applications defined in the inventory
-        cmd.extend(["-e", "allowed_applications=all"])
 
     # Pass other mode flags
     for key, value in modes.items():

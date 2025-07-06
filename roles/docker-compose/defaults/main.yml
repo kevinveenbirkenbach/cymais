@@ -1,1 +1,2 @@
 docker_compose_skipp_file_creation: false # If set to true the file creation will be skipped
+docker_repository:                  true  # Activates docker repository download and routine

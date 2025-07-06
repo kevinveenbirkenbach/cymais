@@ -1,8 +1,8 @@
 - name: optimize storage performance
   include_role:
     name: system-storage-optimizer
-  when: "(path_mass_storage is defined or path_rapid_storage is defined) and enable_system_storage_optimizer | bool and (docker_enabled is defined and docker_enabled | bool) "
-
+  when: ('storage-optimizer' | application_allowed(group_names, allowed_applications))
+  
 - name: Cleanup Docker Anonymous Volumes
   import_role:
     name: cleanup-docker-anonymous-volumes

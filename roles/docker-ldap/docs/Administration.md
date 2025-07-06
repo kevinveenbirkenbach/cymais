@@ -68,5 +68,5 @@ docker exec -i ldap \
     -D "$LDAP_ADMIN_DN" \
     -w "$LDAP_ADMIN_PASSWORD" \
     -c \
-    -f "/tmp/ldif/data/01_rbac_roles.ldif"
+    -f "/tmp/ldif/data/01_rbac.ldif"
 ```

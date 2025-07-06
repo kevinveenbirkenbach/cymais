@@ -12,11 +12,6 @@
     http_port:   "{{ ports.localhost.http[application_id] }}"
   when: run_once_docker_portfolio is not defined
 
-- name: "include role docker-repository-setup for {{application_id}}"
-  include_role: 
-    name: docker-repository-setup
-  when: run_once_docker_portfolio is not defined
-
 - name: "Check if host-specific config.yaml exists in {{ config_inventory_path }}"
   stat:
     path: "{{ config_inventory_path }}"
