@@ -3,7 +3,7 @@ database_type:      "postgres"
 
 listmonk_settings:
   - key: "app.root_url"
-    value: '"{{ web_protocol }}://{{ domains | get_domain(application_id) }}"'
+    value: '"{{ domains | get_url(application_id, web_protocol) }}"'
 
   - key: "app.notify_emails"
     value: "{{ [ users.administrator.email ] | to_json }}"

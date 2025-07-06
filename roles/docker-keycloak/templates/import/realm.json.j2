@@ -517,7 +517,7 @@
         "/realms/{{ keycloak_realm }}/account/*"
       ],
       "webOrigins": [
-        "{{ web_protocol }}://{{domains | get_domain('keycloak')}}"
+        "{{ domains | get_url('keycloak', web_protocol) }}"
       ],
       "notBefore": 0,
       "bearerOnly": false,

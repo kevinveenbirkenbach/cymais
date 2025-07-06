@@ -5,7 +5,7 @@ import sharp from 'sharp';
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Helper: turn 'nextcloud' → 'siNextcloud'
+// Helper: convert 'nextcloud' → 'siNextcloud'
 function getExportName(slug) {
   return 'si' + slug
     .split('-')
@@ -13,8 +13,13 @@ function getExportName(slug) {
     .join('');
 }
 
-// GET /icons/:slug.svg
-app.get('/icons/:slug.svg', (req, res) => {
+// Root: redirect to your documentation
+app.get('/', (req, res) => {
+  res.redirect('https://docs.cymais.cloud/roles/docker-{{ application_id }}/README.html');
+});
+
+// GET /:slug.svg
+app.get('/:slug.svg', (req, res) => {
   const slug = req.params.slug.toLowerCase();
   const exportName = getExportName(slug);
   const icon = icons[exportName];
@@ -23,11 +28,12 @@ app.get('/icons/:slug.svg', (req, res) => {
     return res.status(404).send('Icon not found');
   }
 
-  res.type('image/svg+xml').send(icon.svg);
+  res.type('image/svg+xml');
+  res.send(icon.svg);
 });
 
-// GET /icons/:slug.png?size=...
-app.get('/icons/:slug.png', async (req, res) => {
+// GET /:slug.png?size=...
+app.get('/:slug.png', async (req, res) => {
   const slug = req.params.slug.toLowerCase();
   const size = parseInt(req.query.size, 10) || 128;
   const exportName = getExportName(slug);
@@ -38,12 +44,13 @@ app.get('/icons/:slug.png', async (req, res) => {
   }
 
   try {
-    const png = await sharp(Buffer.from(icon.svg))
+    const pngBuffer = await sharp(Buffer.from(icon.svg))
       .resize(size, size)
       .png()
       .toBuffer();
 
-    res.type('image/png').send(png);
+    res.type('image/png');
+    res.send(pngBuffer);
   } catch (err) {
     console.error('PNG generation error:', err);
     res.status(500).send('PNG generation error');

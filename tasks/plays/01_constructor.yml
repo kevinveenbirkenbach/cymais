@@ -1,4 +1,17 @@
 ---
+
+- name: Show effective filter_plugins setting
+  shell: ansible-config dump --only-changed | grep -i filter_plugins || echo "using default"
+  register: filter_cfg
+
+- name: Debug filter_plugins config
+  debug:
+    msg: "{{ filter_cfg.stdout_lines }}"
+
+- name: "Debug: show which ansible.cfg was used"
+  debug:
+    msg: "{{ ansible_config_file }}"
+
 - name: Merge variables
   block:
   - name: Merge users

@@ -1,4 +1,4 @@
 application_id:     "snipe-it"
 database_password:  "{{ applications[application_id].credentials.database_password }}"
 database_type:      "mariadb"
-snipe_it_url:       "{{ web_protocol }}://{{domains | get_domain(application_id)}}"
+snipe_it_url:       "{{ domains | get_url(application_id, web_protocol) }}"

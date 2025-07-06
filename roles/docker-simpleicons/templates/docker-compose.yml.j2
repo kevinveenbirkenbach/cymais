@@ -1,0 +1,14 @@
+services:
+  application:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: simpleicons-server:latest
+    container_name: simpleicons-server
+    ports:
+      - "{{ports.localhost.http[application_id]}}:3000"
+{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'templates/docker/container/networks.yml.j2' %}
+
+{% include 'templates/docker/compose/networks.yml.j2' %}
+

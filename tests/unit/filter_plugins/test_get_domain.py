@@ -1,17 +1,8 @@
-# tests/unit/test_get_domain_filter.py
+# tests/unit/test_get_domain.py
 import unittest
 import sys
 import os
-
-# Ensure filter_plugins directory is on the path
-sys.path.insert(
-    0,
-    os.path.abspath(
-        os.path.join(os.path.dirname(__file__), '../../../filter_plugins')
-    )
-)
-
-from get_domain_filter import FilterModule
+from filter_plugins.get_domain import FilterModule
 from ansible.errors import AnsibleFilterError
 
 class TestGetDomainFilter(unittest.TestCase):

@@ -13,7 +13,7 @@ services:
      environment:
        SPRING_PROFILES_ACTIVE: docker,postgresql,saml2
        OPENJPA_REMOTE_COMMIT: sjvm
-       SERVICE_DISCOVERY_ADDRESS: {{ web_protocol }}://{{ domains | get_domain(application_id) }}/{{syncope_paths[rest]}}/
+       SERVICE_DISCOVERY_ADDRESS: {{ domains | get_url(application_id, web_protocol) }}/{{syncope_paths[rest]}}/
     # database variablen auslesen
 
    console: 
@@ -25,7 +25,7 @@ services:
      restart: always
      environment:
        SPRING_PROFILES_ACTIVE: docker,saml2
-       SERVICE_DISCOVERY_ADDRESS: {{ web_protocol }}://{{ domains | get_domain(application_id) }}/{{syncope_paths[console]}}/
+       SERVICE_DISCOVERY_ADDRESS: {{ domains | get_url(application_id, web_protocol) }}/{{syncope_paths[console]}}/
 
    enduser: 
      depends_on:
@@ -36,5 +36,5 @@ services:
      restart: always
      environment:
        SPRING_PROFILES_ACTIVE: docker,saml2
-       SERVICE_DISCOVERY_ADDRESS: {{ web_protocol }}://{{ domains | get_domain(application_id) }}/{{syncope_paths[enduser]}}/
+       SERVICE_DISCOVERY_ADDRESS: {{ domains | get_url(application_id, web_protocol) }}/{{syncope_paths[enduser]}}/
        

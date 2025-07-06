@@ -4,4 +4,4 @@ plugin_configuration:
     configvalue:  "{{ applications.bigbluebutton.credentials.shared_secret }}"
   - appid:        "bbb"
     configkey:    "api.url"
-    configvalue:  "{{ web_protocol }}://{{domains | get_domain('bigbluebutton')}}{{applications.bigbluebutton.api_suffix}}"
+    configvalue:  "{{ domains | get_url('bigbluebutton', web_protocol) }}{{applications.bigbluebutton.api_suffix}}"

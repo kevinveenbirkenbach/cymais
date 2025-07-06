@@ -2,7 +2,7 @@
 application_id:       "matomo"
 database_type:        "mariadb"
 matomo_excluded_ips:  "{{ applications.matomo.excluded_ips }}"
-matomo_index_php_url: "{{ web_protocol }}://{{ domains | get_domain('matomo') }}/index.php"
+matomo_index_php_url: "{{ domains | get_url('matomo', web_protocol) }}/index.php"
 matomo_auth_token:    "{{ applications.matomo.credentials.auth_token }}"
 
 
