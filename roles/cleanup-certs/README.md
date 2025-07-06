@@ -2,24 +2,36 @@
 
 ## Description
 
-This Ansible role automates the process of detecting, revoking, and deleting unused Let's Encrypt certificates. It leverages the [`certreap`](https://github.com/kevinveenbirkenbach/certreap) tool to identify which certificates are no longer referenced by any active NGINX configuration and removes them accordingly.
+This Ansible role automates the detection, revocation and deletion of unused Let's Encrypt certificates. It leverages the [`certreap`](https://github.com/kevinveenbirkenbach/certreap) tool to identify certificates no longer referenced by any active NGINX configuration and removes them automatically.
 
 ## Overview
 
-Optimized for Archlinux, this role installs the certificate cleanup tool, configures a systemd service, and sets up an optional recurring systemd timer for automatic cleanup. It integrates with dependent roles for timer scheduling and system notifications.
-
-## Purpose
-
-Certbot Reaper helps you maintain a clean and secure server environment by regularly removing obsolete SSL certificates. This prevents unnecessary renewal attempts, clutter, and potential security risks from stale certificates.
+- Installs the `certreap` cleanup tool using the `pkgmgr-install` role
+- Deploys and configures a `cleanup-certs.cymais.service` systemd unit
+- (Optionally) Sets up a recurring cleanup via a systemd timer using the `systemd-timer` role
+- Integrates with `systemd-notifier` to send failure notifications
+- Ensures idempotent execution with a `run_once_cleanup_certs` flag
 
 ## Features
 
-- **Certificate Cleanup Tool Installation:** Installs `certreap` using [pkgmgr](https://github.com/kevinveenbirkenbach/package-manager)
-- **Systemd Service Configuration:** Deploys and manages `cleanup-certs.cymais.service`
-- **Systemd Timer Scheduling:** Optional timer via the `systemd-timer` role
-- **Smart Execution Logic:** Ensures idempotent configuration using a `run_once` flag
+- **Certificate Cleanup Tool Installation**  
+  Uses `pkgmgr-install` to install the `certreap` binary.
 
-## License
+- **Systemd Service Configuration**  
+  Deploys `cleanup-certs.cymais.service` and reloads/restarts it on changes.
 
-This role is licensed under the [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl).  
-Commercial use is not permitted without explicit permission.
+- **Systemd Timer Scheduling**  
+  Optionally wires in a timer via the `systemd-timer` role, controlled by the `on_calendar_cleanup_certs` variable.
+
+- **Smart Execution Logic**  
+  Prevents multiple runs in one play by setting a `run_once_cleanup_certs` fact.
+
+- **Failure Notification**  
+  Triggers `systemd-notifier.cymais@cleanup-certs.cymais.service` on failure.
+
+## Further Resources
+
+- [certreap on GitHub](https://github.com/kevinveenbirkenbach/certreap)  
+- [Ansible community.general.pacman module](https://docs.ansible.com/ansible/latest/collections/community/general/pacman_module.html)  
+- [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)  
+- [systemd.unit(5) manual](https://www.freedesktop.org/software/systemd/man/systemd.unit.html)  

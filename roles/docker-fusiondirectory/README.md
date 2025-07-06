@@ -1,34 +1,29 @@
-# FusionDirectory (DRAFT)
-
-# Warning
-This application isn't implemented yet
+# FusionDirectory
 
 ## Description
 
-This Ansible role deploys and configures [FusionDirectory](https://www.fusiondirectory.org/) – a powerful web-based LDAP administration tool. Using Docker Compose, the role runs a pre-configured FusionDirectory container which allows you to manage your LDAP directory through a user-friendly web interface.
+This Ansible role deploys and configures [FusionDirectory](https://www.fusiondirectory.org/)—a web-based LDAP administration tool—using Docker Compose. It runs a pre-configured FusionDirectory container, connects it to your existing LDAP service, and ensures a consistent, repeatable setup.
 
 ## Overview
 
-Designed to simplify LDAP management, this role:
-- Loads necessary FusionDirectory-specific variables.
-- Generates an environment file based on a template.
-- Deploys a FusionDirectory Docker container via Docker Compose.
-- Integrates with your existing central LDAP service.
-
-## Purpose
-
-The purpose of this role is to automate the deployment of FusionDirectory in your Docker environment, ensuring a quick and consistent setup for managing your LDAP data. Ideal for production or homelab deployments, it reduces manual configuration steps and helps enforce best practices.
+- Loads and templating of FusionDirectory-specific variables  
+- Generates a `.env` file for the container environment  
+- Deploys the FusionDirectory container via Docker Compose  
+- Configures NGINX (via the `nginx-domain-setup` role) to expose the service  
+- Integrates with your central LDAP server for authentication  
 
 ## Features
 
-- **Easy Deployment:** Minimal manual setup via pre-configured templates and variables.
-- **LDAP Integration:** Connects seamlessly with your existing central LDAP server.
-- **Web Interface:** Provides an intuitive GUI for LDAP administration.
-- **Docker Compose Integration:** Automates container creation and restart.
+- **Easy Deployment:** Runs FusionDirectory in Docker Compose with minimal manual steps  
+- **LDAP Integration:** Connects to your existing LDAP backend for user management  
+- **Environment Management:** Builds an environment file from role variables and templates  
+- **NGINX Setup:** Automatically configures a virtual host for FusionDirectory  
+- **Docker-Native:** Leverages the `docker-compose` role for container orchestration  
+- **Idempotent:** Safe to run multiple times without side effects  
 
-## Credits 📝
+## Further Resources
 
-Developed and maintained by **Kevin Veen-Birkenbach**.  
-Learn more at [www.veen.world](https://www.veen.world)  
-Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
-License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)
+- [FusionDirectory Official Website](https://www.fusiondirectory.org/)  
+- [FusionDirectory Docker Image (tiredofit/fusiondirectory)](https://hub.docker.com/r/tiredofit/fusiondirectory)  
+- [Role Source & Documentation (CyMaIS)](https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/docker-fusiondirectory)  
+- [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)  

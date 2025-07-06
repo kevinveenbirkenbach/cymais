@@ -1,39 +1,37 @@
-# Bluray-Player
+# client-bluray-player
+
+## Description
+
+This Ansible role installs and configures all the software required for Blu-ray playback on Arch Linux–based systems. It ensures that VLC and the necessary libraries for Blu-ray disc decryption and playback (`libaacs`, `libbluray`) are present, and provides hooks for optional AUR packages.
 
 ## Overview
-Welcome to the `client-bluray-player` role, a part of the `cymais` repository. This role is dedicated to setting up software required for Blu-ray playback on personal computers. It focuses on installing necessary packages to enable the use of Blu-ray media with VLC player and other compatible software.
 
-## Role Contents
-The `main.yml` file in this role consists of tasks that automate the installation of the following packages:
-1. **Install VLC and Blu-ray Software**:
-   - `vlc`: A versatile media player that supports Blu-ray playback.
-   - `libaacs`: A library for Blu-ray disc encryption handling.
-   - `libbluray`: A library for Blu-ray disc playback support.
+- Uses the `community.general.pacman` module to install:
+  - `vlc` (media player with Blu-ray support)  
+  - `libaacs` (AACS decryption library)  
+  - `libbluray` (Blu-ray playback support library)  
+- Contains commented-out tasks for optional AUR packages (`aacskeys`, `libbdplus`) you can enable as needed.
+- Designed for idempotent execution on Arch Linux and derivatives.
 
-There are commented-out tasks for installing additional AUR packages, such as `aacskeys` and `libbdplus`, which can be enabled as per the user's requirements.
+## Features
 
-## Other Resources and Resources
-For more in-depth information and guidance on Blu-ray playback and software configuration, the following resources can be consulted:
-- [Arch Linux Wiki on Blu-ray](https://wiki.archlinux.org/title/Blu-ray#Using_aacskeys)
-- [Guide to Play Blu-ray with VLC](https://videobyte.de/play-blu-ray-with-vlc)
-- [Manjaro Forum Discussion on Blu-ray UHD Playback](https://archived.forum.manjaro.org/t/wie-kann-ich-bluray-uhd-abspielen/127396/12)
-- [FV Online DB](http://fvonline-db.bplaced.net/)
+- **VLC Installation**  
+  Installs `vlc` for general media and Blu-ray playback.
 
-## Dependencies
-This role depends on the `java` role, which ensures the Java runtime is available – a requirement for certain Blu-ray playback tools and functionalities.
+- **AACS & BD+ Support**  
+  Installs `libaacs` and `libbluray` to handle Blu-ray disc encryption and playback.
 
-## Prerequisites
-- **Ansible**: Ansible must be installed on your system to use this role.
-- **Arch Linux-based System**: Designed for Arch Linux distributions, using the `pacman` package manager.
+- **Optional AUR Packages**  
+  Drop-in tasks for `aacskeys` and `libbdplus` via AUR (commented out by default).
 
-## Running the Role
-To utilize this role:
-1. Clone the `cymais` repository.
-2. Navigate to the `roles/client-bluray-player` directory.
-3. Execute the role using Ansible, with appropriate permissions for installing packages.
+- **Idempotent Role**  
+  Safe to run multiple times without unintended side effects.
 
-## Customization
-You can customize this role by enabling or adding additional tasks for other AUR packages related to Blu-ray playback as needed.
+- **Arch Linux–Optimized**  
+  Leverages Pacman for fast and reliable package management.
 
-## Support and Contributions
-For support, feedback, or contributions to enhance the role's capabilities, please open an issue or submit a pull request in the `cymais` repository. Contributions that improve Blu-ray playback support or compatibility are highly appreciated.
+## Further Resources
+
+- [Arch Linux Wiki: Blu-ray Playback](https://wiki.archlinux.org/title/Blu-ray#Using_aacskeys)  
+- [Play Blu-ray with VLC Guide](https://videobyte.de/play-blu-ray-with-vlc)  
+- [FV Online DB – Blu-ray Tools](http://fvonline-db.bplaced.net/)  
