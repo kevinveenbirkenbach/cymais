@@ -1,9 +1,4 @@
 ---
-# Docker Routines
-- name: "include docker-compose role"
-  include_role: 
-    name: docker-compose
-
 - name: "pkgmgr install"
   include_role:
     name: pkgmgr-install
@@ -15,9 +10,13 @@
   command: pkgmgr path cymais-presentation
   register: path_cymais_presentation_output
 
-- name: Get path of cymais using pkgmgr
+- name: Get path of cymais using pkgmgrpull docker repository
   command: pkgmgr path cymais
   register: path_cymais_output
+
+- name: "include docker-compose role"
+  include_role: 
+    name: docker-compose
 
 - name: "include role nginx-domain-setup for {{application_id}}"
   include_role:
