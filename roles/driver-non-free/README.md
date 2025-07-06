@@ -22,7 +22,4 @@ This Ansible role installs non-free GPU drivers on Arch Linux systems by invokin
   Single-task role with minimal overhead.
 
 ## Further Resources
-
-- [Manjaro Hardware Detection (mhwd) Documentation](https://wiki.manjaro.org/index.php/Hardware_Detection)  
-- [Arch Linux mhwd Package](https://archlinux.org/packages/community/x86_64/manjaro-tools-mhwd/)  
-- [Ansible Shell Module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html)  
+- [Arch Linux mhwd Package](https://archlinux.org/packages/community/x86_64/manjaro-tools-mhwd/)

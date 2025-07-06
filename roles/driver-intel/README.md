@@ -20,5 +20,4 @@ The `driver-intel` role leverages the `community.general.pacman` module to:
 
 ## Further Resources
 
-* [community.general.pacman module documentation](https://docs.ansible.com/ansible/latest/collections/community/general/pacman_module.html)
 * [Intel Media Driver upstream documentation](https://01.org/intel-media-sdk)
