@@ -1,9 +1,5 @@
 ---
 # Docker Routines
-- name: "include docker-compose role"
-  include_role: 
-    name: docker-compose
-
 - name: "pkgmgr install"
   include_role:
     name: pkgmgr-install
@@ -14,6 +10,10 @@
 - name: Get path of cymais-sphinx using pkgmgr
   command: pkgmgr path cymais-sphinx
   register: path_cymais_sphinx_output
+
+- name: "include docker-compose role"
+  include_role: 
+    name: docker-compose
 
 - name: "include role nginx-domain-setup for {{application_id}}"
   include_role:

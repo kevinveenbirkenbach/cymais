@@ -48,8 +48,10 @@ class TestBuildLdapRoleEntries(unittest.TestCase):
                     "roles": "ou=roles,dc=example,dc=org"
                 }
             },
-            "attributes": {
-                "user_id": "uid"
+            "user":{
+                "attributes": {
+                    "id": "uid"
+                }
             },
             "rbac": {
                 "flavors": ["posixGroup", "groupOfNames"]

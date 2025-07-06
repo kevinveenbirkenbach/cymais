@@ -17,7 +17,7 @@ def build_ldap_role_entries(applications, users, ldap):
 
         group_id = application_config.get("group_id")
         user_dn_base = ldap["dn"]["ou"]["users"]
-        ldap_user_attr = ldap["attributes"]["user_id"]
+        ldap_user_attr = ldap["user"]["attributes"]["id"]
         role_dn_base = ldap["dn"]["ou"]["roles"]
         flavors = ldap.get("rbac", {}).get("flavors", [])
 

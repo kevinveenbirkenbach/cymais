@@ -21,3 +21,8 @@ galaxy_info:
   documentation: "https://github.com/kevinveenbirkenbach/cymais/roles/{{application_id}}"
   logo:
     class: "{{ logo_classes }}"
+  run_after:
+    - docker-matomo
+    - docker-keycloak
+    - docker-mailu
+dependencies: []
