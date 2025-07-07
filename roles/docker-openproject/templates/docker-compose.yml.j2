@@ -34,7 +34,7 @@ x-op-app: &app
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     command: "./docker/prod/web"
     container_name: openproject-web
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
 {% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
       cache:
         condition: service_started
@@ -52,7 +52,7 @@ x-op-app: &app
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     command: "./docker/prod/worker"
     container_name: openproject-worker
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
 {% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
       cache:
         condition: service_started
@@ -68,7 +68,7 @@ x-op-app: &app
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     command: "./docker/prod/cron"
     container_name: openproject-cron
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
 {% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
       cache:
         condition: service_started
@@ -87,7 +87,7 @@ x-op-app: &app
     logging:
       driver: journald
     restart: on-failure
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
     volumes:
       - "data:/var/openproject/assets"
       - "{{dummy_volume}}:/var/openproject/pgdata" # This mount is unnecessary and just done to prevent anonymous volumes

@@ -11,7 +11,7 @@
     volumes:
       - {{docker_repository_path}}app:/app
     restart: unless-stopped
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
 {% include 'roles/docker-container/templates/healthcheck/tcp.yml.j2' %}
 
 {% include 'roles/docker-compose/templates/networks.yml.j2' %}

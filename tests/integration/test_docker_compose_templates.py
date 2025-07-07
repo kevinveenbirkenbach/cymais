@@ -22,7 +22,7 @@ class TestDockerComposeTemplates(unittest.TestCase):
     def test_docker_compose_includes(self):
         """
         Verifies for each found docker-compose.yml.j2:
-        1. BASE_INCLUDE and NET_INCLUDE are present
+        1. BASE_INCLUDE and NET_INCLUDE are present exactly once
         2. BASE_INCLUDE appears before NET_INCLUDE
         3. Only allowed lines appear before BASE_INCLUDE (invalid lines issue warnings)
         """
@@ -36,17 +36,24 @@ class TestDockerComposeTemplates(unittest.TestCase):
                 content = template_path.read_text(encoding='utf-8')
                 lines = content.splitlines()
 
-                # Find BASE_INCLUDE
-                try:
-                    idx_base = lines.index(self.BASE_INCLUDE)
-                except ValueError:
-                    self.fail(f"{template_path}: '{self.BASE_INCLUDE}' not found")
+                # Check each include occurs exactly once
+                count_base = lines.count(self.BASE_INCLUDE)
+                self.assertEqual(
+                    count_base,
+                    1,
+                    f"{template_path}: '{self.BASE_INCLUDE}' occurs {count_base} times, expected once"
+                )
+                count_net = lines.count(self.NET_INCLUDE)
+                self.assertEqual(
+                    count_net,
+                    1,
+                    f"{template_path}: '{self.NET_INCLUDE}' occurs {count_net} times, expected once"
+                )
 
-                # Find NET_INCLUDE
-                try:
-                    idx_net = lines.index(self.NET_INCLUDE)
-                except ValueError:
-                    self.fail(f"{template_path}: '{self.NET_INCLUDE}' not found")
+                # Find BASE_INCLUDE index
+                idx_base = lines.index(self.BASE_INCLUDE)
+                # Find NET_INCLUDE index
+                idx_net = lines.index(self.NET_INCLUDE)
 
                 # Check order
                 self.assertLess(

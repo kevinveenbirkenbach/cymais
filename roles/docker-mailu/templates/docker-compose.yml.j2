@@ -4,7 +4,7 @@
   resolver:
     image: {{docker_source}}/unbound:{{applications.mailu.version}}
 {% include 'roles/docker-container/templates/base.yml.j2' %}
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
         ipv4_address: {{networks.local.mailu.dns}}
 
   front:
@@ -26,7 +26,7 @@
 {% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
       resolver:
         condition: service_started
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
       webmail:
       radicale:
     dns:
@@ -45,7 +45,7 @@
         condition: service_started
     dns:
       - {{networks.local.mailu.dns}}
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
 
   imap:
     image: {{docker_source}}/dovecot:{{applications.mailu.version}}
@@ -58,7 +58,7 @@
       - resolver
     dns:
       - {{networks.local.mailu.dns}}
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
 
   smtp:
     image: {{docker_source}}/postfix:{{applications.mailu.version}}
@@ -71,7 +71,7 @@
       - resolver
     dns:
       - {{networks.local.mailu.dns}}
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
 
   oletools:
     image: {{docker_source}}/oletools:{{applications.mailu.version}}
@@ -81,7 +81,7 @@
       - resolver
     dns:
       - {{networks.local.mailu.dns}}
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
       noinet:
 
   antispam:
@@ -98,7 +98,7 @@
       - resolver
     dns:
       - {{networks.local.mailu.dns}}
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
       noinet:  
 
 
@@ -112,7 +112,7 @@
       - resolver
     dns:
       - {{networks.local.mailu.dns}}
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
 
   webdav:
     image: {{docker_source}}/radicale:{{applications.mailu.version}}
@@ -123,7 +123,7 @@
       - resolver
     dns:
       - {{networks.local.mailu.dns}}
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
       radicale:
 
   fetchmail:
@@ -138,7 +138,7 @@
       - resolver
     dns:
       - {{networks.local.mailu.dns}}
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
 
   webmail:
     image: {{docker_source}}/webmail:{{applications.mailu.version}}
@@ -152,7 +152,7 @@
       - resolver
     dns:
       - {{networks.local.mailu.dns}}
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
       webmail:
 
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}

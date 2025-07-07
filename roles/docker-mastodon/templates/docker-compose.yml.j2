@@ -12,7 +12,7 @@
 {% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
     volumes:
       - data:/mastodon/public/system
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
 
   streaming:
 {% set container_port = 4000 %}
@@ -24,7 +24,7 @@
     ports:
       - "127.0.0.1:{{ports.localhost.websocket[application_id]}}:{{ container_port }}"
 {% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
 
   sidekiq:
     image: "{{ applications[application_id].images.mastodon }}"
@@ -35,7 +35,7 @@
       - data:/mastodon/public/system
     healthcheck:
       test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 6' || false"]
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
 
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   redis:

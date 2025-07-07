@@ -13,7 +13,7 @@
       - data:/data
       - config:/config
 {% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
     healthcheck:
       # This just tests if the service is running on port 9000. It doesn't check if there is an 200 or e.g. an 404 response
 {% include 'roles/docker-container/templates/healthcheck/tcp.yml.j2' %}

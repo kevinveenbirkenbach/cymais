@@ -9,7 +9,7 @@
     ports:
       - "{{ports.localhost.http[application_id]}}:80"
 {% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
   worker:
     image: "{{ applications[application_id].images.pixelfed }}"
 {% include 'roles/docker-container/templates/base.yml.j2' %}
@@ -25,7 +25,7 @@
 {% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
       application:
         condition: service_started
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
 
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   redis:

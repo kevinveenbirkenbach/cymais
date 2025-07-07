@@ -12,13 +12,13 @@
       worker:
     env_file:
       - ./.env
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
 
   worker:
     image: "{{ applications[application_id].images.worker }}"
 {% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
       maildev:
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
     volumes:
       - .:/usr/share/nginx/html
       - .:/var/www
