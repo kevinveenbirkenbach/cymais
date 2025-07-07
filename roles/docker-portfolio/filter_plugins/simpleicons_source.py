@@ -9,7 +9,7 @@ from ansible.errors import AnsibleFilterError
 def slugify(name):
     """Convert a display name to a simple-icons slug format."""
     # Replace spaces and uppercase letters
-    return re.sub(r'\s+', '-', name.strip().lower())
+    return re.sub(r'\s+', '', name.strip().lower())
 
 
 def add_simpleicon_source(cards, domains, web_protocol='https'):

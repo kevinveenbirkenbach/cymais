@@ -8,7 +8,7 @@ api_suffix:           "/bigbluebutton/"
 features:
   matomo:             true
   css:                true
-  portfolio_iframe:   false
+  portfolio_iframe:   true
   ldap:               false
   oidc:               true
   central_database:   false
