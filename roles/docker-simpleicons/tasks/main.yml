@@ -26,5 +26,5 @@
 
 - name: run the simpleicons tasks once
   set_fact:
-    run_once_docker_portfolio: true
+    run_once_docker_simpleicon: true
   when: run_once_docker_simpleicons is not defined

@@ -1,6 +1,6 @@
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
   application:
-{% set container_port = 8008 %}
+{% set container_port = 8000 %}
     build: 
       context: {{ path_cymais_sphinx_output.stdout }}
       dockerfile: {{ path_cymais_sphinx_output.stdout }}/Dockerfile

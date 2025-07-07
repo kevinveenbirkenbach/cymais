@@ -102,7 +102,7 @@ company:
 navigation:
   header:
     children:
-    - link: accounts.publishingchannels.children
+    - link: accounts.publishingchannels
     - name: Contact
       description: Get in touch with {{ 'us' if service_provider.type == 'legal' else 'me' }} 
       icon:
@@ -139,5 +139,11 @@ navigation:
         identifier: "{{service_provider.contact.matrix}}"
 
 {% endif %}
+
+    - name: Toggle Fullscreen
+      description: Enter or exit fullscreen mode
+      icon:
+        class: fa-solid fa-expand-arrows-alt
+      onclick: "toggleFullscreen()"
 
 {% include 'footer_menu.yaml.j2' %}

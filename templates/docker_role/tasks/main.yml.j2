@@ -33,6 +33,6 @@
 
 - name: run the {% endraw %}{{ application_id }}{% raw %} tasks once
   set_fact:
-    run_once_docker_portfolio: true
+    run_once_docker_{% endraw %}{{ application_id }}{% raw %}: true
   when: run_once_docker_{% endraw %}{{ application_id }}{% raw %} is not defined
 {% endraw %}

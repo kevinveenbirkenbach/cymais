@@ -2,6 +2,8 @@ features:
   matomo:           true
   css:              true
   portfolio_iframe: false
+  simpleicons:      true  # Activate Brand Icons for your groups
+nasa_api_key:       false # Set api key to use the Nasa Picture of the Day as Background
 csp:
   whitelist:
     script-src-elem:

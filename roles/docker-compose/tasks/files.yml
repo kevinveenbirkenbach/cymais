@@ -41,6 +41,3 @@
   changed_when:   (docker_ps.stdout | trim) == ""
   notify:         docker compose up
   when:           not (docker_compose_template.changed or env_template.changed)
-
-- name:           flush docker compose up
-  meta:           flush_handlers

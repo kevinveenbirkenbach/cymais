@@ -24,3 +24,5 @@ galaxy_info:
   documentation: "https://github.com/kevinveenbirkenbach/portfolio#readme"
   logo:
     class: "fa-solid fa-briefcase"
+  run_after:
+  - docker-simpleicons

@@ -5,7 +5,7 @@
     name: pkgmgr-install
   vars:
     package_name: cymais-sphinx
-    package_notify: docker compose up
+    # package_notify: docker compose up
 
 - name: Get path of cymais-sphinx using pkgmgr
   command: pkgmgr path cymais-sphinx
@@ -21,3 +21,8 @@
   vars:
     domain:     "{{ domains | get_domain(application_id) }}"
     http_port:   "{{ ports.localhost.http[application_id] }}"
+
+# Hack because it wasn't possible to fix an handler bug in pkgmgr install
+- name: „Trigger“ docker compose up
+  command: /bin/true
+  notify: docker compose up
