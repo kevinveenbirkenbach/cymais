@@ -1,0 +1,27 @@
+
+credentials: {}
+docker:
+  images: {}                # @todo Move under services
+  versions: {}              # @todo Move under services
+  services:
+    redis:
+      enabled:      false   # Enable Redis 
+    database:
+      enabled:      false   # Enable the database 
+features:
+  matomo:           true    # Enable Matomo Tracking
+  css:              true    # Enable Global CSS Styling
+  portfolio_iframe: true    # Enable loading of app in iframe
+  ldap:             false   # Enable LDAP Network
+  central_database: false   # Enable Central Database Network
+  recaptcha:        false   # Enable ReCaptcha
+  oauth2:           false   # Enable the OAuth2-Proy
+csp:                        
+domains:
+  canonical:
+    - "icons.{{ primary_domain }}"
+rbac:
+  roles:
+    mail-bot:
+      description: "Has an token to send and recieve emails"
+

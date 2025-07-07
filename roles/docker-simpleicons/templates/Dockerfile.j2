@@ -1,7 +1,7 @@
 FROM node:latest AS builder
 
 WORKDIR /app
-COPY package*.json ./
+COPY ./config/package*.json ./
 
 RUN npm install
 
@@ -9,8 +9,8 @@ FROM node:latest
 
 WORKDIR /app
 COPY --from=builder /app/node_modules ./node_modules
-COPY server.js .
+COPY ./config/server.js .
 
-EXPOSE 3000
+EXPOSE {{ container_port }}
 
 CMD ["node", "server.js"]
