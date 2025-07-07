@@ -1,4 +1,4 @@
-# Matomo Analytics
+# Matomo
 
 ## Description
 
