@@ -1,20 +1,4 @@
-services:
-
-{% include 'roles/docker-oauth2-proxy/templates/container.yml.j2' %}
-
-  application:
-    container_name: {{ application_id }}
-    image: ghcr.io/ldapaccountmanager/lam:{{applications[application_id].version}}
-    ports:
-      - 127.0.0.1:{{ports.localhost.http[application_id]}}:80 
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-{% include 'templates/docker/container/networks.yml.j2' %}
-
-{# include 'templates/docker/compose/volumes.yml.j2' #}
-
-{% include 'templates/docker/compose/networks.yml.j2' %}
-
-services:
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
   fusiondirectory:
     image: tiredofit/fusiondirectory:latest
     container_name: fusiondirectory
@@ -39,5 +23,7 @@ services:
       - fusiondirectory_data:/assets/fusiondirectory
     restart: always
 
-volumes:
+{% include 'templates/docker/compose/volumes.yml.j2' %}
   fusiondirectory_data:
+
+{% include 'templates/docker/compose/networks.yml.j2' %}

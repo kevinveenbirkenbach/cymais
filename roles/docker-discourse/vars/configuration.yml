@@ -21,3 +21,9 @@ csp:
 domains:
   canonical:
     - "forum.{{ primary_domain }}"
+docker:
+  services:
+    database:
+      enabled: true
+    redis:
+      enabled: true

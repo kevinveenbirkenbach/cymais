@@ -1,3 +1,9 @@
 domains:
   canonical:
     - "collabora.{{ primary_domain }}"
+docker:
+  services:
+    redis:
+      enabled: true
+    database: 
+      enabled: false # May this is wrong. Just set during refactoring

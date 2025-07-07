@@ -1,22 +1,18 @@
-services:
-
-{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
 
   application:
     image: "{{ applications[application_id].images.keycloak }}"
     container_name: {{container_name}}
     command: start {% if applications[application_id].import_realm | bool %}--import-realm{% endif %}
-    {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+    {% include 'roles/docker-container/templates/base.yml.j2' %}
     ports:
       - "{{ keycloak_server_host }}:8080"
     volumes:
       - "{{import_directory_host}}:{{import_directory_docker}}"
-{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
-    healthcheck:
-      test: ["CMD", "sh", "-c", "exec 3<>/dev/tcp/localhost/9000 && echo -e 'GET /health/live HTTP/1.1\\r\\nHost: {{domains | get_domain('keycloak')}}\\r\\nConnection: close\\r\\n\\r\\n' >&3 && cat <&3"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+{% set container_port = 9000 %}
+{% set container_healthcheck = 'health/live' %}
+{% include 'roles/docker-container/templates/healthcheck/tcp.yml.j2' %}
 
 {% include 'templates/docker/compose/networks.yml.j2' %}

@@ -12,4 +12,8 @@ credentials:
 domains:
   canonical:
     - "accounting.{{ primary_domain }}"
+docker:
+  services:
+    database:
+      enabled: true
 

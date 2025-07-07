@@ -1,6 +1,7 @@
 ---
 # General
 application_id:                                     "nextcloud"                                                   # Application identifier
+container_port:                                   80
 
 # Database
 database_password:                                  "{{applications.nextcloud.credentials.database_password}}"    # Database password

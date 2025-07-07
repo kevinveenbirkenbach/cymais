@@ -1,9 +1,0 @@
-{# This template needs to be included in docker-compose.yml containers, which depend on a database, redis and optional additional volumes #}
-    depends_on:
-{% if not applications | is_feature_enabled('central_database',application_id) %}
-      database:
-        condition: service_healthy
-{% endif %}
-      redis:
-        condition: service_healthy
-{{ "\n" }}

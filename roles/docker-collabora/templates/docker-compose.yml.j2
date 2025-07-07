@@ -1,6 +1,4 @@
-services:
-
-{% include 'templates/docker/services/redis.yml.j2' %}
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
 
   collabora:
     image: collabora/code
@@ -8,8 +6,8 @@ services:
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
 
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-{% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
 {% include 'templates/docker/compose/networks.yml.j2' %}

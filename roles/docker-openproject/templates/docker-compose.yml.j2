@@ -7,18 +7,15 @@ x-op-app: &app
     context: .
     dockerfile: Dockerfile
 
-services:
-{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
-
-{% include 'roles/docker-oauth2-proxy/templates/container.yml.j2' %}
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
 
   cache:
     image: memcached
     container_name: openproject-memcached
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
 
   proxy:
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     image: {{custom_openproject_image}}
     container_name: openproject-proxy
     command: "./docker/prod/proxy"
@@ -34,32 +31,29 @@ services:
 
   web:
     <<: *app
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     command: "./docker/prod/web"
     container_name: openproject-web
 {% include 'templates/docker/container/networks.yml.j2' %}
-{% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
       cache:
         condition: service_started
       seeder:
         condition: service_started
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health_checks/default"]
-      interval: 10s
-      timeout: 3s
-      retries: 3
-      start_period: 30s
+{% set container_port = 8080 %}
+{% set container_healthcheck = 'health_checks/default' %}
+{% include 'roles/docker-container/templates/healthcheck/curl.yml.j2' %}
     volumes:
       - "data:/var/openproject/assets"
       - "{{dummy_volume}}:/var/openproject/pgdata" # This mount is unnecessary and just done to prevent anonymous volumes
       
   worker:
     <<: *app
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     command: "./docker/prod/worker"
     container_name: openproject-worker
 {% include 'templates/docker/container/networks.yml.j2' %}
-{% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
       cache:
         condition: service_started
       seeder:
@@ -71,11 +65,11 @@ services:
 
   cron:
     <<: *app
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     command: "./docker/prod/cron"
     container_name: openproject-cron
 {% include 'templates/docker/container/networks.yml.j2' %}
-{% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
       cache:
         condition: service_started
       seeder:
@@ -98,7 +92,7 @@ services:
       - "data:/var/openproject/assets"
       - "{{dummy_volume}}:/var/openproject/pgdata" # This mount is unnecessary and just done to prevent anonymous volumes
 
-{% include 'templates/docker/compose/networks.yml.j2' %}
-
 {% include 'templates/docker/compose/volumes.yml.j2' %}
   data:
+
+{% include 'templates/docker/compose/networks.yml.j2' %}

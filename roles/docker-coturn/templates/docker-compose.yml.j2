@@ -1,24 +1,18 @@
-services:
-
-{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
-
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
   application:
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     image: "gitea/gitea:{{applications.gitea.version}}"
     ports:
-      - "127.0.0.1:{{ports.localhost.http[application_id]}}:3000"
+      - "127.0.0.1:{{ports.localhost.http[application_id]}}:{{ container_port }}"
       - "{{ports.public.ssh[application_id]}}:22"
     volumes:
       - data:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:3000"]
-      interval: 1m
-      timeout: 10s
-      retries: 3
+{% include 'roles/docker-container/templates/healthcheck/curl.yml.j2' %}
+
 {% include 'templates/docker/container/networks.yml.j2' %}
-{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}
   data:

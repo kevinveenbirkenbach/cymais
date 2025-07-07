@@ -1,13 +1,11 @@
-services:
-
-{% include 'roles/docker-oauth2-proxy/templates/container.yml.j2' %}
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
 
   application:
     container_name: {{ application_id }}
     image: leenooks/phpldapadmin:{{applications[application_id].version}}
     ports:
       - 127.0.0.1:{{ports.localhost.http[application_id]}}:8080
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
 
 {% include 'templates/docker/container/networks.yml.j2' %}
 

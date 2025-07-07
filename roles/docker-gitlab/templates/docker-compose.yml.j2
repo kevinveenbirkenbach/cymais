@@ -1,13 +1,9 @@
-services:
-
-{% include 'templates/docker/services/redis.yml.j2' %}
-
-{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
 
   web:
     image: "{{ applications[application_id].images.gitlab }}"
     hostname: '{{domains | get_domain(application_id)}}'
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
       - "{{ports.public.ssh[application_id]}}:22"
@@ -16,13 +12,13 @@ services:
       - 'logs:/var/log/gitlab'
       - 'data:/var/opt/gitlab'
     shm_size: '256m'
-{% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
-
-{% include 'templates/docker/compose/networks.yml.j2' %}
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}
   redis:
   config:
   logs:
   data:
+
+{% include 'templates/docker/compose/networks.yml.j2' %}

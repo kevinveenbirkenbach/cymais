@@ -37,3 +37,7 @@ csp:
 domains:
   aliases:
     - "git.{{ primary_domain }}"
+docker:
+  services:
+    database:
+      enabled: true

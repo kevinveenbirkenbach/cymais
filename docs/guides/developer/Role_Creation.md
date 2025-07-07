@@ -111,11 +111,6 @@ Now that you have defined the application settings, domain, and application ID, 
           dockerfile: {{ path_cymais_my_service_output.stdout }}/Dockerfile
         ports:
           - "127.0.0.1:{{ ports.localhost.http[application_id] }}:5000"
-        healthcheck:
-          test: ["CMD", "curl", "-f", "http://127.0.0.1:5000"]
-          interval: 1m
-          timeout: 10s
-          retries: 3
         volumes:
           - {{ path_cymais_my_service_output.stdout }}:/app
           - {{ path_cymais_output.stdout }}:/source

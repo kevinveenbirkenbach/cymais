@@ -1,7 +1,13 @@
 images:
-  baserow:        "baserow/baserow:latest"
+  baserow:            "baserow/baserow:latest"
 features:
   matomo:             true
   css:                true
   portfolio_iframe:   true
   central_database:   true
+docker:
+  services:
+    redis:
+      enabled:        true
+    database:
+      enabled: true

@@ -1,0 +1,15 @@
+{# Base template for all docker-compose.yml.j2 #}
+services:
+{# Load Database #}
+{% if applications[application_id].docker.database.enabled | default(false) | bool %}
+{% include 'roles/docker-central-database/templates/services/main.yml.j2' %}
+{% endif %}
+{# Load Redis #}
+{% if applications[application_id].docker.redis.enabled | default(false) | bool %}
+{% include 'templates/docker/services/redis.yml.j2' %}
+{% endif %}
+{# Load OAuth2 Proxy #}
+{% if not applications | is_feature_enabled('oauth2',application_id) %}
+{% include 'roles/docker-oauth2-proxy/templates/container.yml.j2' %}
+{% endif %}
+{{ "\n" }}

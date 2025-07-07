@@ -25,3 +25,7 @@ csp:
 domains:
   canonical:
     - "academy.{{ primary_domain }}"
+docker:
+  services:
+    database:
+      enabled: true

@@ -1,17 +1,17 @@
-services:
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
+
   pds:
+{% set container_port = 3000 %}
+{% set container_healthcheck = 'xrpc/_health' %}
     image: "{{ applications[application_id].images.pds }}"
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
         - pds_data:/opt/pds
         - {{pdsadmin_file_path}}:/usr/local/bin/pdsadmin:ro
     ports:
-      - "127.0.0.1:{{ports.localhost.http.bluesky_api}}:3000"
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "http://127.0.0.1:3000/xrpc/_health"]
-      interval: 1m
-      timeout: 10s
-      retries: 3
+      - "127.0.0.1:{{ports.localhost.http.bluesky_api}}:{{ container_port }}"
+
+{% include 'roles/docker-container/templates/healthcheck/wget.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
 #  Deactivated for the moment @see https://github.com/bluesky-social/social-app

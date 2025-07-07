@@ -1,7 +1,0 @@
-{# This template needs to be included in docker-compose.yml containers, which just depend on a database #}
-{% if not applications | is_feature_enabled('central_database',application_id) %}
-    depends_on:
-      database:
-        condition: service_healthy
-{% endif %}
-{{ "\n" }}

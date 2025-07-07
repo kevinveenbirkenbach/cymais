@@ -17,3 +17,9 @@ csp:
   whitelist:
     frame-src:
       - "*"
+docker:
+  services:
+    redis:
+      enabled: true
+    database: 
+      enabled: true

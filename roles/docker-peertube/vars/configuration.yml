@@ -25,3 +25,9 @@ domains:
     - "video.{{ primary_domain }}"
   aliases:
     - "videos.{{ primary_domain }}"
+docker:
+  services:
+    redis:
+      enabled: true
+    database: 
+      enabled: true

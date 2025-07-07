@@ -39,6 +39,10 @@ csp:
 domains:
   canonical:
     - "blog.{{ primary_domain }}"
+docker:
+  services:
+    database:
+      enabled: true
 rbac:
   roles:
     subscriber:

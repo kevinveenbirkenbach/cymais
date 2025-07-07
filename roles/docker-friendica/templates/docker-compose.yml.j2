@@ -1,10 +1,7 @@
-services:
-
-{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
-
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
   application:
     image: "{{ applications[application_id].images.friendica }}"
-    {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+    {% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - html:{{ friendica_application_base }}
       - data:/var/www/data # I assume that this one is unnessecarry
@@ -12,10 +9,9 @@ services:
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
 
-{% include 'roles/docker-compose/templates/services/msmtp_curl_test.yml.j2' %}
-
+{% include 'roles/docker-container/templates/healthcheck/msmtp_curl.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
-{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}
   data:

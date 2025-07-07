@@ -1,5 +1,6 @@
-application_id:      "listmonk"
-database_type:      "postgres"
+application_id: "listmonk"
+database_type:  "postgres"
+container_port: "9000"
 
 listmonk_settings:
   - key: "app.root_url"

@@ -1,38 +1,36 @@
-services:
-
-{% include 'templates/docker/services/redis.yml.j2' %}
-
-{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
 
   web:
+{% set container_port = 3000 %}
+{% set container_healthcheck = 'health' %}
     image: "{{ applications[application_id].images[application_id] }}"
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
-    command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
-    healthcheck:
-      test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:3000/health || exit 1']
+{% include 'roles/docker-container/templates/base.yml.j2' %}
+    command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p {{ container_port }}"
+{% include 'roles/docker-container/templates/healthcheck/wget.yml.j2' %}
     ports:
-      - "127.0.0.1:{{ports.localhost.http[application_id]}}:3000"
-{% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
+      - "127.0.0.1:{{ports.localhost.http[application_id]}}:{{ container_port }}"
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
     volumes:
       - data:/mastodon/public/system
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   streaming:
+{% set container_port = 4000 %}
+{% set container_healthcheck = 'api/v1/streaming/health' %}
     image: "{{ applications[application_id].images.streaming }}"
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     command: node ./streaming
-    healthcheck:
-      test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:4000/api/v1/streaming/health || exit 1']
+{% include 'roles/docker-container/templates/healthcheck/wget.yml.j2' %}
     ports:
-      - "127.0.0.1:{{ports.localhost.websocket[application_id]}}:4000"
-{% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
+      - "127.0.0.1:{{ports.localhost.websocket[application_id]}}:{{ container_port }}"
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   sidekiq:
     image: "{{ applications[application_id].images.mastodon }}"
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     command: bundle exec sidekiq
-{% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
     volumes:
       - data:/mastodon/public/system
     healthcheck:

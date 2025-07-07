@@ -16,3 +16,7 @@ domains:
     - "event.{{ primary_domain }}"
   aliases:
     - "events.{{ primary_domain }}"
+docker:
+  services:
+    database:
+      enabled: true

@@ -1,10 +1,7 @@
-services:
-
-{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
-
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
   application:
 
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
 
     image: "{{ applications[application_id].images[application_id] }}"
     build:
@@ -16,7 +13,7 @@ services:
     environment:
       - AKAUNTING_SETUP
 {% include 'templates/docker/container/networks.yml.j2' %}
-{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}
   data:

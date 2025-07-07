@@ -1,4 +1,4 @@
-services:
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
     application:
         container_name: roulette_application
         build:
@@ -6,3 +6,5 @@ services:
         ports:
         - 127.0.0.1:{{ports.localhost.http[application_id]}}:8080
         restart: {{docker_restart_policy}}
+
+{% include 'templates/docker/compose/networks.yml.j2' %}

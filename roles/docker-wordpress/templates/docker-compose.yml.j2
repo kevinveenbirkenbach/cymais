@@ -1,9 +1,6 @@
-services:
-
-{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
-
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
   application:
-    {% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+    {% include 'roles/docker-container/templates/base.yml.j2' %}
     image: {{wordpress_custom_image}}
     container_name: wordpress-application
     build:
@@ -13,9 +10,8 @@ services:
     volumes:
       - data:{{ wordpress_docker_html_path }}
 
-{% include 'roles/docker-compose/templates/services/msmtp_curl_test.yml.j2' %}
-
-{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+{% include 'roles/docker-container/templates/healthcheck/msmtp_curl.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
 {% include 'templates/docker/compose/networks.yml.j2' %}

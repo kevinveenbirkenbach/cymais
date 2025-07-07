@@ -12,7 +12,10 @@ features:
   portfolio_iframe:   false
   oidc:               false
   central_database:   true
-
+docker:
+  services:
+    database:
+      enabled: true
 csp:
   flags:
     script-src-elem:
@@ -21,7 +24,7 @@ csp:
     style-src:
       unsafe-inline: true
     script-src:
-      unsafe-eval:    true
+      unsafe-eval:   true
 domains:
   canonical:
     - "kanban.{{ primary_domain }}"

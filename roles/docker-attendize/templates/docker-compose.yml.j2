@@ -1,8 +1,4 @@
-services:
-
-{% include 'templates/docker/services/redis.yml.j2' %}
-
-{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
 
   web:
     image: "{{ applications[application_id].images.web }}"
@@ -11,7 +7,7 @@ services:
     volumes:
       - .:/usr/share/nginx/html
       - .:/var/www
-{% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
       maildev:
       worker:
     env_file:
@@ -20,7 +16,7 @@ services:
 
   worker:
     image: "{{ applications[application_id].images.worker }}"
-{% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
       maildev:
 {% include 'templates/docker/container/networks.yml.j2' %}
     volumes:

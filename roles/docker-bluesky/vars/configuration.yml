@@ -12,3 +12,7 @@ domains:
   canonical:
     web:  "bskyweb.{{ primary_domain }}"
     api:  "bluesky.{{ primary_domain }}"
+docker:
+  services:
+    database:
+      enabled: true

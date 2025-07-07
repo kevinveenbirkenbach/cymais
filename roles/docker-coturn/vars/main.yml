@@ -1,2 +1,3 @@
 application_id:     "coturn"
+container_port:   3000
 #database_type:      "mariadb"

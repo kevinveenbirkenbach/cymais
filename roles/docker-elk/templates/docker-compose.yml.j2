@@ -1,4 +1,4 @@
-services:
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
   elasticsearch:
     build:
       context: elasticsearch/
@@ -61,5 +61,7 @@ services:
     depends_on:
       - elasticsearch
 
-volumes:
+{% include 'templates/docker/compose/volumes.yml.j2' %}
   elasticsearch:
+
+{% include 'templates/docker/compose/networks.yml.j2' %}

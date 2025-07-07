@@ -18,3 +18,7 @@ domains:
     - "s.{{ primary_domain }}"
   aliases:
     - "short.{{ primary_domain }}"
+docker:
+  services:
+    database:
+      enabled: true

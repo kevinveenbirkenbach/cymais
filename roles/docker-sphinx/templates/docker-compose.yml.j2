@@ -1,16 +1,13 @@
-services:
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
   application:
+{% set container_port = 8008 %}
     build: 
       context: {{ path_cymais_sphinx_output.stdout }}
       dockerfile: {{ path_cymais_sphinx_output.stdout }}/Dockerfile
     ports:
-      - "127.0.0.1:{{ports.localhost.http[application_id]}}:8000"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000"]
-      interval: 1m
-      timeout: 10s
-      retries: 3
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+      - "127.0.0.1:{{ports.localhost.http[application_id]}}:{{ container_port }}"
+{% include 'roles/docker-container/templates/healthcheck/curl.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
 {% include 'templates/docker/compose/networks.yml.j2' %}

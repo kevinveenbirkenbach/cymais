@@ -1,8 +1,4 @@
-services:
-
-{% include 'templates/docker/services/redis.yml.j2' %}
-
-{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
 
 {% include 'templates/docker/compose/volumes.yml.j2' %}
   redis:

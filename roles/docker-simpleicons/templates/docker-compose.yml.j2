@@ -1,4 +1,4 @@
-services:
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
   application:
     build:
       context: .
@@ -7,7 +7,7 @@ services:
     container_name: simpleicons-server
     ports:
       - "{{ports.localhost.http[application_id]}}:3000"
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
 {% include 'templates/docker/compose/networks.yml.j2' %}

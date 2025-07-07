@@ -1,7 +1,4 @@
-services:
-
-{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
-
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
    application: 
      depends_on:
        - db
@@ -9,7 +6,7 @@ services:
      ports:
        - "18080:8080"
      restart: always
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
      environment:
        SPRING_PROFILES_ACTIVE: docker,postgresql,saml2
        OPENJPA_REMOTE_COMMIT: sjvm
@@ -37,4 +34,5 @@ services:
      environment:
        SPRING_PROFILES_ACTIVE: docker,saml2
        SERVICE_DISCOVERY_ADDRESS: {{ domains | get_url(application_id, web_protocol) }}/{{syncope_paths[enduser]}}/
-       
+
+{% include 'templates/docker/compose/networks.yml.j2' %}

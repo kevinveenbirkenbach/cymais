@@ -1,19 +1,21 @@
 services:
-  portfolio:
-    build:
-      context: {{docker_repository_path}}
-      dockerfile: Dockerfile
-    image: application-portfolio
-    container_name: portfolio
-    ports:
-      - 127.0.0.1:{{ports.localhost.http[application_id]}}:5000
+
+{% include 'roles/docker-central-database/templates/services/main.yml.j2' %}
+
+  application:
+    image: "{{ applications[application_id].images[application_id] }}"
     volumes:
-      - {{docker_repository_path}}app:/app
-    restart: unless-stopped
+      - uploads:/var/lib/mobilizon/uploads
+      - {{ mobilizon_host_conf_exs_file }}:/etc/mobilizon/config.exs:ro
+    ports:
+      - "127.0.0.1:{{ ports.localhost.http[application_id] }}:{{ container_port }}"
+{% include 'roles/docker-container/templates/healthcheck/curl.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
-    healthcheck:
-      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/localhost/5000 && echo -e 'GET / HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && cat <&3 | grep -q 'HTTP/1.1'"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+
+{% include 'templates/docker/compose/volumes.yml.j2' %}
+  uploads:
+
 {% include 'templates/docker/compose/networks.yml.j2' %}
+

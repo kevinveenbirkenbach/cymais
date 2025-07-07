@@ -7,6 +7,11 @@ docker:
     api:        "funkwhale/api"
     front:      "funkwhale/front"
     typesense:  "typesense/typesense"
+  services:
+    redis:
+      enabled: true
+    database:
+      enabled: true
 features:
   matomo:             true
   css:                false

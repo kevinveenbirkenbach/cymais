@@ -25,3 +25,7 @@ scopes:
   nextcloud:  nextcloud
 
 rbac_groups:  "/rbac"
+docker:
+  services:
+    database:
+      enabled: true

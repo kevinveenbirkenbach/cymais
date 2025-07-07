@@ -1,19 +1,15 @@
-services:
-
-{% include 'templates/docker/services/redis.yml.j2' %}
-
-{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
 
   # Core services
   resolver:
     image: {{docker_source}}/unbound:{{applications.mailu.version}}
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
         ipv4_address: {{networks.local.mailu.dns}}
 
   front:
     image: {{docker_source}}/nginx:{{applications.mailu.version}}
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
       - "{{networks.internet.ip4}}:25:25"
@@ -27,7 +23,7 @@ services:
     volumes:
       - "{{docker_compose.directories.volumes}}overrides/nginx:/overrides:ro"
       - "{{cert_mount_directory}}:/certs:ro"
-{% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
       resolver:
         condition: service_started
 {% include 'templates/docker/container/networks.yml.j2' %}
@@ -38,11 +34,11 @@ services:
       
   admin:
     image: {{docker_source}}/admin:{{applications.mailu.version}}
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - "admin_data:/data"
       - "dkim:/dkim"
-{% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
       resolver:
         condition: service_started
       front:
@@ -53,7 +49,7 @@ services:
 
   imap:
     image: {{docker_source}}/dovecot:{{applications.mailu.version}}
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - "dovecot_mail:/mail"
       - "{{docker_compose.directories.volumes}}overrides:/overrides:ro"
@@ -66,7 +62,7 @@ services:
 
   smtp:
     image: {{docker_source}}/postfix:{{applications.mailu.version}}
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - "{{docker_compose.directories.volumes}}overrides:/overrides:ro"
       - "smtp_queue:/queue"
@@ -90,7 +86,7 @@ services:
 
   antispam:
     image: {{docker_source}}/rspamd:{{applications.mailu.version}}
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - "filter:/var/lib/rspamd"
       - "dkim:/dkim"
@@ -109,7 +105,7 @@ services:
   # Optional services
   antivirus:
     image: clamav/clamav-debian:latest
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - "filter:/data"
     depends_on:
@@ -120,7 +116,7 @@ services:
 
   webdav:
     image: {{docker_source}}/radicale:{{applications.mailu.version}}
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - "webdav_data:/data"
     depends_on:
@@ -134,7 +130,7 @@ services:
     image: {{docker_source}}/fetchmail:{{applications.mailu.version}}
     volumes:
       - "admin_data:/data"
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     depends_on:
       - admin
       - smtp
@@ -146,7 +142,7 @@ services:
 
   webmail:
     image: {{docker_source}}/webmail:{{applications.mailu.version}}
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - "webmail_data:/data"
       - "{{docker_compose.directories.volumes}}overrides:/overrides:ro"

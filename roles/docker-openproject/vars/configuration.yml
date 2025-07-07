@@ -27,3 +27,8 @@ csp:
 domains:
   canonical:
     - "project.{{ primary_domain }}"
+
+docker:
+  services:
+    database:
+      enabled: true

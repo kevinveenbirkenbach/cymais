@@ -1,4 +1,5 @@
 application_id:     "gitea"
+container_port:   3000
 database_type:      "mariadb"
 gitea_ldap_auth_args:
   - '--name "LDAP ({{ primary_domain }})"'

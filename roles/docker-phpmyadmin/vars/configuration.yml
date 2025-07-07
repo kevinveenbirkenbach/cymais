@@ -20,3 +20,7 @@ domains:
   aliases:
     - "mysql.{{ primary_domain }}"
     - "mariadb.{{ primary_domain }}"
+docker:
+  services:
+    database:
+      enabled: true

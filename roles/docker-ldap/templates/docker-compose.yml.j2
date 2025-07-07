@@ -1,11 +1,9 @@
-services:
-
-{% include 'roles/docker-oauth2-proxy/templates/container.yml.j2' %}
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
 
   application:
     image: "{{ applications[application_id].images.openldap }}"
     container_name: {{ applications[application_id].hostname }}
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
 {% if applications[application_id].network.public | bool or applications[application_id].network.local | bool %}
     ports:
       - 127.0.0.1:{{ports.localhost.ldap.ldap}}:{{ldap_docker_port}}  # Expose just on localhost so that nginx stream proxy can use it

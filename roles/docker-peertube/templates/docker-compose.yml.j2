@@ -1,29 +1,22 @@
-services:
-  
-{% include 'templates/docker/services/redis.yml.j2' %}
-
-{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
 
   application:
+{% set container_port = 9000 %}
     image: chocobozzz/peertube:production-{{ applications[application_id].version }}
     container_name: {{ container_name }}
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     ports:
      - "1935:1935"  # @todo Add to ports
-     - "127.0.0.1:{{ports.localhost.http[application_id]}}:9000" 
+     - "127.0.0.1:{{ports.localhost.http[application_id]}}:{{ container_port }}" 
     volumes:
       - assets:/app/client/dist
       - data:/data
       - config:/config
-{% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
     healthcheck:
       # This just tests if the service is running on port 9000. It doesn't check if there is an 200 or e.g. an 404 response
-      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/localhost/9000 && echo -e 'GET / HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && cat <&3 | grep -q 'HTTP/1.1'"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-
+{% include 'roles/docker-container/templates/healthcheck/tcp.yml.j2' %}
 {% include 'templates/docker/compose/volumes.yml.j2' %}
   assets:
   data:

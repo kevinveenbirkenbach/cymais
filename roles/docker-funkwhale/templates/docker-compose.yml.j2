@@ -1,8 +1,4 @@
-services:
-{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
-
-{% include 'templates/docker/services/redis.yml.j2' %}
-
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
   celeryworker:
     # Celery workers handle background tasks (such file imports or federation
     # messaging). The more processes a worker gets, the more tasks
@@ -12,7 +8,7 @@ services:
     # of CPUs. You can adjust this, by explicitly setting the --concurrency
     # flag:
     #   celery -A funkwhale_api.taskapp worker -l INFO --concurrency=4
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     image: "{{ applications | get_docker_image(application_id,'api') }}"
     command: celery -A funkwhale_api.taskapp worker -l INFO --concurrency={{celeryd_concurrency}}
     environment:
@@ -20,18 +16,18 @@ services:
     volumes:
       - "data:{{funkwhale_media_root}}"
       - "music:{{funkwhale_music_directory_path}}:ro"
-{% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   celerybeat:
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     image: "{{ applications | get_docker_image(application_id,'api') }}"
     command: celery -A funkwhale_api.taskapp beat --pidfile= -l INFO
-{% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   api:
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     image: "{{ applications | get_docker_image(application_id,'api') }}"
     volumes:
       - "music:{{funkwhale_music_directory_path}}:ro"
@@ -39,11 +35,11 @@ services:
       - "funkwhale_static_root:{{funkwhale_static_root}}"
     ports:
       - "{{ funkwhale_docker_api_port }}"
-{% include 'templates/docker/container/depends-on-database-redis.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
   front:
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     image: "{{ applications | get_docker_image(application_id,'front') }}"
     depends_on:
       - api
@@ -56,7 +52,7 @@ services:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
   
   typesense:
-{% include 'roles/docker-compose/templates/services/base.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
     image: "{{ applications[application_id].docker.images.typesense }}"
     volumes:
       - ./typesense/data:/data

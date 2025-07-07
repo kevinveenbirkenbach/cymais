@@ -26,3 +26,7 @@ oauth2_proxy:
 addons:
   keycloakpassword:
   ldapauth:
+docker:
+  services:
+    database:
+      enabled: true

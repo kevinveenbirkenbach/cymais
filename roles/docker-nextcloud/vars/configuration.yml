@@ -11,7 +11,12 @@ csp:
 domains:
   canonical:
     - "cloud.{{ primary_domain }}"
-
+docker:
+  services:
+    redis:
+      enabled: true
+    database: 
+      enabled: true
 oidc:
   enabled:                    "{{ applications.nextcloud.features.oidc | default(true) }}"      # Activate OIDC for Nextcloud
   # floavor decides which OICD plugin should be used. 

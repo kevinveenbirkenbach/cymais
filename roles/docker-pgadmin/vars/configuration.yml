@@ -19,3 +19,7 @@ csp:
   whitelist:
     font-src:
       - "data:"
+docker:
+  services:
+    database:
+      enabled: true

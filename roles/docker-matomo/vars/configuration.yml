@@ -25,3 +25,8 @@ domains:
   aliases:
     - "analytics.{{ primary_domain }}"
 excluded_ips: "{{ networks.internet.values() | list }}"
+
+docker:
+  services:
+    database:
+      enabled: true

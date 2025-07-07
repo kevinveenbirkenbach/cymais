@@ -3,7 +3,7 @@ services:
     image: taigaio/taiga-back:latest
     environment:
       CELERY_ENABLED: "False"
-{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
     entrypoint: "python manage.py"
     volumes:

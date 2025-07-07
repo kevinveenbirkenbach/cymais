@@ -11,3 +11,7 @@ features:
 domains:
   canonical:
     - "newsletter.{{ primary_domain }}"
+docker:
+  services:
+    database:
+      enabled: true

@@ -1,7 +1,10 @@
 credentials:
 docker:
-    images: {}
-    versions: {}
+  images: {}                # @todo Move under services
+  versions: {}              # @todo Move under services
+  services:
+    redis:
+      enabled:      false   # Enable Redis 
 features:
   matomo:           true    # Enable Matomo Tracking
   css:              true    # Enable Global CSS Styling
@@ -16,4 +19,8 @@ csp:
 domains:
   canonical:        []      # Urls under which the domain should be directly accessible
   alias:            []      # Alias redirections to the first element of the canonical domains
+rbac:
+  roles:
+    mail-bot:
+      description: "Has an token to send and recieve emails"
 

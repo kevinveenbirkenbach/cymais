@@ -23,3 +23,9 @@ domains:
     - "picture.{{ primary_domain }}"
   aliases:
     - "pictures.{{ primary_domain }}"
+docker:
+  services:
+    redis:
+      enabled: true
+    database: 
+      enabled: true

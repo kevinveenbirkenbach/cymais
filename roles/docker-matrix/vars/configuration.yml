@@ -1,3 +1,7 @@
+docker:
+  services:
+    database:
+      enabled: true
 images:
   synapse:            "matrixdotorg/synapse:latest"
   element:            "vectorim/element-web:latest"

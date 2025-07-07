@@ -1,8 +1,6 @@
-services:
-
-{% include 'roles/docker-central-database/templates/services/' + database_type + '.yml.j2' %}
-
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
   synapse:
+{% set container_port = 8008 %}
     image: "{{ applications[application_id].images.synapse }}"
     container_name: matrix-synapse
     restart: {{docker_restart_policy}}
@@ -19,35 +17,27 @@ services:
       - SYNAPSE_SERVER_NAME={{domains.matrix.synapse}}
       - SYNAPSE_REPORT_STATS=no
     ports:
-      - "127.0.0.1:{{ports.localhost.http.synapse}}:8008"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8008/"]
-      interval: 1m
-      timeout: 10s
-      retries: 3
+      - "127.0.0.1:{{ports.localhost.http.synapse}}:{{ container_port }}"
+{% include 'roles/docker-container/templates/healthcheck/curl.yml.j2' %}
 {% if bridges | length > 0 %}
-{% include 'templates/docker/container/depends-on-also-database.yml.j2' %}
 {% for item in bridges %}
       mautrix-{{item.bridge_name}}:
         condition: service_healthy
 {% endfor %}
 {% else %}
-{% include 'templates/docker/container/depends-on-just-database.yml.j2' %}
 {% endif %}
+{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
   element:
+{% set container_port = 80 %}
     image: "{{ applications[application_id].images.element }}"
     container_name: matrix-element
     restart: {{docker_restart_policy}}
     volumes:
       - ./element-config.json:/app/config.json
     ports:
-      - "127.0.0.1:{{ports.localhost.http.element}}:80"
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:80/"]
-      interval: 1m
-      timeout: 10s
-      retries: 3
+      - "127.0.0.1:{{ports.localhost.http.element}}:{{ container_port }}"
+{% include 'roles/docker-container/templates/healthcheck/wget.yml.j2' %}
 {% include 'templates/docker/container/networks.yml.j2' %}
 
 {% for item in bridges %}
