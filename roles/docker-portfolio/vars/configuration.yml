@@ -3,7 +3,7 @@ features:
   css:              true
   portfolio_iframe: false
   simpleicons:      true  # Activate Brand Icons for your groups
-nasa_api_key:       false # Set api key to use the Nasa Picture of the Day as Background
+  javascript:       true  # Necessary for URL sync
 csp:
   whitelist:
     script-src-elem:

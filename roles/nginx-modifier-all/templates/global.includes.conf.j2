@@ -2,20 +2,32 @@
 sub_filter_once off;
 sub_filter_types text/html;
 
-{% set features_css_final     = applications.get(application_id).get('features').get('css') | bool %}
-{% set features_matomo_final  = applications.get(application_id).get('features').get('matomo') | bool %}
+{% set modifier_css_enabled     = applications | is_feature_enabled('css',application_id) %}
+{% set modifier_matomo_enabled  = applications | is_feature_enabled('matomo',application_id) %}
+{% set modifier_iframe_enabled  = applications | is_feature_enabled('portfolio_iframe',application_id) %}
+{% set modifier_javascript_enabled  = applications | is_feature_enabled('javascript',application_id) %}
 
-
-{% if features_matomo_final | bool %}
-  {# Include Global Matomo Tracking #}
-  {% include 'roles/nginx-modifier-matomo/templates/matomo-tracking.conf.j2' %}
+{% if modifier_iframe_enabled or modifier_css_enabled or modifier_matomo_enabled or modifier_javascript_enabled %}
+sub_filter '</head>' ' 
+        {%- if modifier_css_enabled -%}
+          {%- include "roles/nginx-modifier-css/templates/head_sub.j2" -%}
+        {%- endif -%}
+        {%- if modifier_matomo_enabled -%}
+          {%- include "roles/nginx-modifier-matomo/templates/head_sub.j2" -%}
+        {%- endif -%}
+        {%- if modifier_iframe_enabled -%}
+          {%- include "roles/nginx-modifier-iframe/templates/head_sub.j2" -%}
+        {%- endif -%}
+        {%- if modifier_javascript_enabled -%}
+          {%- include "roles/nginx-modifier-javascript/templates/head_sub.j2" -%}
+        {%- endif -%}
+      </head>';
 {% endif %}
 
-{% if features_css_final | bool or features_matomo_final | bool %}
-  sub_filter '</head>' '{% if features_matomo_final | bool %}{% include 'roles/nginx-modifier-matomo/templates/script.j2' %}{% endif %}{% if features_css_final | bool %}{% include 'roles/nginx-modifier-css/templates/link.j2' %}{% endif %}</head>';
+{% if modifier_css_enabled | bool %}
+{% include 'roles/nginx-modifier-css/templates/location.conf.j2' %}
 {% endif %}
 
-{% if features_css_final | bool %}
-  {# Include Global CSS Location #}
-  {% include 'roles/nginx-modifier-css/templates/location.conf.j2' %}
+{% if modifier_matomo_enabled %}
+{% include 'roles/nginx-modifier-matomo/templates/matomo-tracking.conf.j2' %}
 {% endif %}

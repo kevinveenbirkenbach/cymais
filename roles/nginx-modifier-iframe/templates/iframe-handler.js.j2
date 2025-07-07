@@ -1,0 +1,46 @@
+(function() {
+  var primary = "{{ primary_domain }}";
+  var allowedOrigin = "https://{{ domains | get_domain('portfolio') }}";
+
+  function notifyParent() {
+    try {
+      window.parent.postMessage({
+        type: "iframeLocationChange",
+        href: window.location.href
+      }, allowedOrigin);
+    } catch (e) {}
+  }
+
+  function forceExternalLinks() {
+    Array.prototype.forEach.call(document.querySelectorAll("a[href]"), function(a) {
+      try {
+        var url = new URL(a.href, location);
+        if (!url.hostname.endsWith(primary)) {
+          a.target = "_blank";
+          a.rel = "noopener";
+        }
+      } catch (e) {}
+    });
+  }
+
+  window.addEventListener("load", function() {
+    notifyParent();
+    forceExternalLinks();
+  });
+  window.addEventListener("popstate", function() {
+    notifyParent();
+    forceExternalLinks();
+  });
+
+  // SPA support
+  var _pushState = history.pushState;
+  history.pushState = function() {
+    _pushState.apply(history, arguments);
+    notifyParent();
+    forceExternalLinks();
+  };
+})();
+
+{% if enable_debug | bool %}
+console.log("[iframe-sync] Sender for iframe messages is active.");
+{% endif %}

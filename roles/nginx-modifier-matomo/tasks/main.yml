@@ -45,45 +45,16 @@
   when: "matomo_site_id is not defined or matomo_site_id is none"
   changed_when: false
 
-- name: Set the Matomo tracking code from a template file
+- name: Load Matomo tracking JS template
   set_fact:
-    matomo_tracking_code: "{{ lookup('template', 'matomo-tracking.js.j2') }}"
+    matomo_tracking_code: "{{ lookup('template','matomo-tracking.js.j2') }}"
 
-- name: Set the tracking code as a one-liner
+- name: Collapse Matomo code into one-liner
   set_fact:
-    matomo_tracking_code_one_liner: "{{ matomo_tracking_code | regex_replace('\\n', '') | regex_replace('\\s+', ' ') }}"
+    matomo_tracking_code_one_liner: "{{ matomo_tracking_code | to_one_liner }}"
 
-- name: Ensure csp.hashes exists for this app
+- name: Append Matomo CSP hash
   set_fact:
-    applications: >-
-      {{
-        applications
-        | combine({
-            (application_id): {
-              'csp': {
-                'hashes': {}
-              }
-            }
-          }, recursive=True)
-      }}
+    applications: "{{ applications | append_csp_hash(application_id, matomo_tracking_code_one_liner) }}"
   changed_when: false
 
-- name: Append Matomo one-liner to script-src inline hashes
-  set_fact:
-    applications: >-
-      {{
-        applications
-        | combine({
-            (application_id): {
-              'csp': {
-                'hashes': {
-                  'script-src-elem': (
-                    applications[application_id]['csp']['hashes'].get('script-src', [])
-                    + [ matomo_tracking_code_one_liner ]
-                  )
-                }
-              }
-            }
-          }, recursive=True)
-      }}
-  changed_when: false

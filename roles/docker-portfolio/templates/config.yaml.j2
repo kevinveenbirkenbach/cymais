@@ -6,8 +6,8 @@ accounts:
   icon:
     class: fa-solid fa-users
   children:
-  - name: Publishing Channels
-    description: Platforms where I share content.
+  - name: Follow Us
+    description: Follow us to stay up to recieve the newest CyMaIS updates 
     icon:
       class: fas fa-newspaper
 {% if ["mastodon", "bluesky"] | any_in(group_names) %}
@@ -32,7 +32,7 @@ accounts:
         icon:
           class: fa-brands fa-bluesky
         alternatives:
-        - link: accounts.publishingchannels.microblogs.mastodon
+        - link: accounts.followus.microblogs.mastodon
         identifier: "{{service_provider.contact.bluesky}}"
 {% endif %}
 {% endif %}
@@ -102,7 +102,6 @@ company:
 navigation:
   header:
     children:
-    - link: accounts.publishingchannels
     - name: Contact
       description: Get in touch with {{ 'us' if service_provider.type == 'legal' else 'me' }} 
       icon:
@@ -145,5 +144,11 @@ navigation:
       icon:
         class: fa-solid fa-expand-arrows-alt
       onclick: "toggleFullscreen()"
+
+    - name: Open in new tab
+      description: Open the currently embedded iframe URL in a fresh browser tab
+      icon:
+        class: fa-solid fa-up-right-from-square
+      onclick: openIframeInNewTab()
 
 {% include 'footer_menu.yaml.j2' %}

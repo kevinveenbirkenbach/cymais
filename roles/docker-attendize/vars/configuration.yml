@@ -5,7 +5,7 @@ credentials:
 features:
   matomo:           true
   css:              true
-  portfolio_iframe: false
+  portfolio_iframe: true
   central_database: true
 docker:
   services:

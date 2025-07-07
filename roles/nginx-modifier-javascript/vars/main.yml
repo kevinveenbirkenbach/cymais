@@ -1,0 +1,1 @@
+modifier_javascript_template_file: "{{ playbook_dir }}/roles/docker-{{ application_id }}/templates/javascript.js.j2"
