@@ -5,7 +5,7 @@ credentials:
 features:
   matomo:             true
   css:                true
-  portfolio_iframe:   false
+  portfolio_iframe:   true
   oidc:               true
   central_database:   true
   ldap:               false         # @todo implement and activate

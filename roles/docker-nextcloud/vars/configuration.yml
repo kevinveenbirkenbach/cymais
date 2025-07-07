@@ -28,7 +28,7 @@ credentials:
 features:
   matomo:                       true
   css:                          false
-  portfolio_iframe:             false
+  portfolio_iframe:             true
   ldap:                         true
   oidc:                         true
   central_database:             true
