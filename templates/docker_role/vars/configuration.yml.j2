@@ -1,3 +1,4 @@
+{% raw %}
 credentials:
 docker:
   images: {}                # @todo Move under services
@@ -5,6 +6,8 @@ docker:
   services:
     redis:
       enabled:      false   # Enable Redis 
+    database:
+      enabled:      false   # Enable the database 
 features:
   matomo:           true    # Enable Matomo Tracking
   css:              true    # Enable Global CSS Styling
@@ -24,3 +27,4 @@ rbac:
     mail-bot:
       description: "Has an token to send and recieve emails"
 
+{% endraw %}

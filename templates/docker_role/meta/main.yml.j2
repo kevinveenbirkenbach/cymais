@@ -1,28 +1,20 @@
+{% raw %}
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "{{ description }}"
+  description: ""
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: | 
     Kevin Veen-Birkenbach
     Consulting & Coaching Solutions
     https://www.veen.world
-  platforms:
-    - name: Docker
-      versions:
-        - latest
-  galaxy_tags:
-  {% for tag in tags %}
-    - {{ tag }}
-  {% endfor %}
+  galaxy_tags: []
   repository: "https://github.com/kevinveenbirkenbach/cymais"
   issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
-  documentation: "https://github.com/kevinveenbirkenbach/cymais/roles/{{application_id}}"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/"
   logo:
-    class: "{{ logo_classes }}"
-  run_after:
-    - docker-matomo
-    - docker-keycloak
-    - docker-mailu
+    class: ""
+  run_after: []
 dependencies: []
+{% endraw %}

@@ -1,3 +1,4 @@
+{% raw %}
 services:
 
 {% include 'roles/docker-central-database/templates/services/main.yml.j2' %}
@@ -13,7 +14,7 @@ services:
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
-  uploads:
 
 {% include 'roles/docker-compose/templates/networks.yml.j2' %}
+{% endraw %}
 
