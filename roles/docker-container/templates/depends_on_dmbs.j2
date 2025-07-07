@@ -3,16 +3,16 @@
       and not (applications[application_id].docker.redis.enabled
                | default(false)
                | bool) %}
-  depends_on: []
+    depends_on: []
 {% else %}
-  depends_on:
+    depends_on:
   {% if not applications | is_feature_enabled('central_database', application_id) %}
-    database:
-      condition: service_healthy
+      database:
+        condition: service_healthy
   {% endif %}
   {% if applications[application_id].docker.redis.enabled | default(false) | bool %}
-    redis:
-      condition: service_healthy
+      redis:
+        condition: service_healthy
   {% endif %}
 {% endif %}
 {{ "\n" }}
