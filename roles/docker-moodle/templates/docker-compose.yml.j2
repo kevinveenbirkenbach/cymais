@@ -1,7 +1,7 @@
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
 
   moodle:
-{% set container_port = 8008 %}
+{% set container_port = 8080 %}
     container_name: {{ container_name }}
     build:
       context: .
