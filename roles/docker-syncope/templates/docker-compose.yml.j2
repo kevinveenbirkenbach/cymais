@@ -35,4 +35,4 @@
        SPRING_PROFILES_ACTIVE: docker,saml2
        SERVICE_DISCOVERY_ADDRESS: {{ domains | get_url(application_id, web_protocol) }}/{{syncope_paths[enduser]}}/
 
-{% include 'templates/docker/compose/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}

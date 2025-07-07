@@ -12,7 +12,7 @@
       - "127.0.0.1:{{ports.localhost.http.bluesky_api}}:{{ container_port }}"
 
 {% include 'roles/docker-container/templates/healthcheck/wget.yml.j2' %}
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
 
 #  Deactivated for the moment @see https://github.com/bluesky-social/social-app
   web:
@@ -33,9 +33,9 @@
       interval: 30s
       timeout: 10s
       retries: 3
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
 
-{% include 'templates/docker/compose/volumes.yml.j2' %}
+{% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   pds_data:
 
-{% include 'templates/docker/compose/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}

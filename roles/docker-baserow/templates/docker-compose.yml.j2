@@ -8,11 +8,11 @@
       - data:/baserow/data
     ports:
       - "{{ports.localhost.http[application_id]}}:80"
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
 {% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
 
-{% include 'templates/docker/compose/volumes.yml.j2' %}
+{% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   data:
   redis:
 
-{% include 'templates/docker/compose/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}

@@ -4,11 +4,11 @@ services:
     environment:
       CELERY_ENABLED: "False"
 {% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
     entrypoint: "python manage.py"
     volumes:
       - static-data:/taiga-back/static
       - media-data:/taiga-back/media
       # - ./config.py:/taiga-back/settings/config.py
-{% include 'templates/docker/compose/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
   taiga:

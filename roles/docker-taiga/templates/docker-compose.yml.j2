@@ -15,7 +15,7 @@
 
 {% endif %}
 
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
       taiga:
 {% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
       taiga-events-rabbitmq:
@@ -50,7 +50,7 @@
 
 {% endif %}
 
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
       taiga:
 {% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
       taiga-events-rabbitmq:
@@ -72,13 +72,13 @@
     volumes:
       - async-rabbitmq-data:/var/lib/rabbitmq
 {% include 'roles/docker-container/templates/base.yml.j2' %}
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
       taiga:
 
   taiga-front:
     image: {{taiga_image_frontend}}:{{applications.taiga.version}}
 {% include 'roles/docker-container/templates/base.yml.j2' %}
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
       taiga:
 #    volumes:
 #      - {{ taiga_frontend_conf_path }}:/usr/share/nginx/html/conf.json:ro
@@ -86,7 +86,7 @@
   taiga-events:
     image: taigaio/taiga-events:latest
 {% include 'roles/docker-container/templates/base.yml.j2' %}
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
       taiga:
     depends_on:
       taiga-events-rabbitmq:
@@ -99,14 +99,14 @@
       - events-rabbitmq-data:/var/lib/rabbitmq
 {% include 'roles/docker-container/templates/base.yml.j2' %}
 
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
       taiga:
 
   taiga-protected:
     image: taigaio/taiga-protected:latest
 {% include 'roles/docker-container/templates/base.yml.j2' %}
 
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
       taiga:
 
   taiga-gateway:
@@ -119,18 +119,18 @@
       - media-data:/taiga/media
 {% include 'roles/docker-container/templates/base.yml.j2' %}
 
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
       taiga:
     depends_on:
       - taiga-front
       - taiga-back
       - taiga-events
 
-{% include 'templates/docker/compose/volumes.yml.j2' %}
+{% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   static-data:
   media-data:
   async-rabbitmq-data:
   events-rabbitmq-data:
 
-{% include 'templates/docker/compose/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
   taiga:

@@ -13,14 +13,14 @@
       - data:/data
       - config:/config
 {% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
     healthcheck:
       # This just tests if the service is running on port 9000. It doesn't check if there is an 200 or e.g. an 404 response
 {% include 'roles/docker-container/templates/healthcheck/tcp.yml.j2' %}
-{% include 'templates/docker/compose/volumes.yml.j2' %}
+{% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   assets:
   data:
   redis:
   config:
 
-{% include 'templates/docker/compose/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}

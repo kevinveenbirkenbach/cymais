@@ -9,7 +9,7 @@
       - {{ path_cymais_presentation_output.stdout }}:/app
       - {{ path_cymais_output.stdout }}:/source
 {% include 'roles/docker-container/templates/base.yml.j2' %}
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
 
-{% include 'templates/docker/compose/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
 

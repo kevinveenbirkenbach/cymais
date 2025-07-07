@@ -8,7 +8,7 @@
     ports:
       - "{{ports.localhost.http[application_id]}}:3000"
 {% include 'roles/docker-container/templates/base.yml.j2' %}
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
 
-{% include 'templates/docker/compose/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
 

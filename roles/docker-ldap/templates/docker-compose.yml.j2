@@ -20,9 +20,9 @@
           -b cn=config "(&(objectClass=olcOverlayConfig)(olcOverlay=memberof))" \
         | grep "olcOverlay:" | grep -q "memberof"
         '
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
 
-{% include 'templates/docker/compose/volumes.yml.j2' %}
+{% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   data:
 
-{% include 'templates/docker/compose/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}

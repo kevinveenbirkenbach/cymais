@@ -9,7 +9,7 @@
     volumes:
       - data:/var/www/html
 {% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
 
   server:
     logging:
@@ -23,9 +23,9 @@
     volumes:
     - "{{docker_compose_instance_confd_directory}}:{{target_mount_conf_d_directory}}:ro"
     - "data:/var/www/html:ro"
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
 
-{% include 'templates/docker/compose/volumes.yml.j2' %}
+{% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   data:
 
-{% include 'templates/docker/compose/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}

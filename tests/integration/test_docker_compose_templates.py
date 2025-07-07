@@ -17,7 +17,7 @@ class TestDockerComposeTemplates(unittest.TestCase):
     ]
 
     BASE_INCLUDE = "{% include 'roles/docker-compose/templates/base.yml.j2' %}"
-    NET_INCLUDE = "{% include 'templates/docker/compose/networks.yml.j2' %}"
+    NET_INCLUDE = "{% include 'roles/docker-compose/templates/networks.yml.j2' %}"
 
     def test_docker_compose_includes(self):
         """

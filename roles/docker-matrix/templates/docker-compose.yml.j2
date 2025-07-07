@@ -27,7 +27,7 @@
 {% else %}
 {% endif %}
 {% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
   element:
 {% set container_port = 80 %}
     image: "{{ applications[application_id].images.element }}"
@@ -38,7 +38,7 @@
     ports:
       - "127.0.0.1:{{ports.localhost.http.element}}:{{ container_port }}"
 {% include 'roles/docker-container/templates/healthcheck/wget.yml.j2' %}
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
 
 {% for item in bridges %}
   mautrix-{{item.bridge_name}}:
@@ -52,7 +52,7 @@
       interval: 1m
       timeout: 10s
       retries: 3
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
 {% endfor %}
 {% if applications[application_id].plugins.chatgpt | bool %}
   matrix-chatgpt-bot:
@@ -96,10 +96,10 @@
       MATRIX_RICH_TEXT: 'true'
 {% endif %}
 
-{% include 'templates/docker/compose/volumes.yml.j2' %}
+{% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   synapse_data:
 {% if applications[application_id].plugins.chatgpt | bool %}
     chatgpt_data:
 {% endif %}
 
-{% include 'templates/docker/compose/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}

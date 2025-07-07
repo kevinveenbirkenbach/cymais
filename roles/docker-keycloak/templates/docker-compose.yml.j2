@@ -10,9 +10,9 @@
     volumes:
       - "{{import_directory_host}}:{{import_directory_docker}}"
 {% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
-{% include 'templates/docker/container/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
 {% set container_port = 9000 %}
 {% set container_healthcheck = 'health/live' %}
 {% include 'roles/docker-container/templates/healthcheck/tcp.yml.j2' %}
 
-{% include 'templates/docker/compose/networks.yml.j2' %}
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
