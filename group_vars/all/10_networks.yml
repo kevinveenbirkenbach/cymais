@@ -44,7 +44,7 @@ defaults_networks:
       subnet: 192.168.102.0/28
     mailu:
       # Use one of the last container ips for dns resolving so that it isn't used
-      dns:    192.168.102.29
+      dns: 192.168.102.29
       subnet: 192.168.102.16/28
     moodle:
       subnet: 192.168.102.32/28
@@ -86,7 +86,9 @@ defaults_networks:
       subnet: 192.168.103.80/28
     collabora:
       subnet: 192.168.103.96/28
-      
+    simpleicons:
+      subnet: 192.168.103.112/28
+
     # /24 Networks / 254 Usable Clients
     bigbluebutton:
       subnet: 10.7.7.0/24 # This variable does not have an impact. It's just there for documentation reasons, because this network is used in bbb
@@ -96,4 +98,3 @@ defaults_networks:
       subnet: 192.168.201.0/24
     central_ldap:
       subnet: 192.168.202.0/24
-  
