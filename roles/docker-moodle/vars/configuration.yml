@@ -3,7 +3,7 @@ version:              "4.5"                                 # Latest LTS - Neces
 features:
   matomo:             true
   css:                false
-  portfolio_iframe:   false
+  portfolio_iframe:   true
   central_database:   true
   oidc:               true
 csp:

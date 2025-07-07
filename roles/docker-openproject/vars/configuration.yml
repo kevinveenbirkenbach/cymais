@@ -14,7 +14,7 @@ ldap:
 features:
   matomo:             true
   css:                false   # Temporary deactivated. Needs to be optimized for production use.
-  portfolio_iframe:   false
+  portfolio_iframe:   true
   ldap:               true
   central_database:   true
   oauth2:             true

@@ -9,7 +9,7 @@ plugins:
 features:
   matomo:             true
   css:                false
-  portfolio_iframe:   false
+  portfolio_iframe:   true
   oidc:               true
   central_database:   true
 version:              latest

@@ -6,7 +6,7 @@ oauth2_proxy:
 features:
   matomo:             true
   css:                false
-  portfolio_iframe:   false
+  portfolio_iframe:   true
   central_database:   true
   oauth2:             true
 hostname:             central-mariadb
