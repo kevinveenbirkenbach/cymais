@@ -27,6 +27,12 @@ CyMaIS leverages **Docker, Linux, and Ansible** to provide an automated and modu
 More informations about the features you will find [here](docs/overview/Features.md).
 
 ## Get Started 🚀
+
+### Use it online 🌐 
+
+Give CyMaIS a spin at cymais.cloud – sign up in seconds, click around, and see how easy infra magic can be! 🚀🔧✨
+
+### Install locally 💻
 1. **Install CyMaIS** via [Kevin's Package Manager](https://github.com/kevinveenbirkenbach/package-manager)
 2. **Setup CyMaIS** using:
    ```sh
