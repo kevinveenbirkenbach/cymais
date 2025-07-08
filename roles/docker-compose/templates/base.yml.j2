@@ -9,7 +9,7 @@ services:
 {% include 'roles/docker-redis/templates/service.yml.j2' %}
 {% endif %}
 {# Load OAuth2 Proxy #}
-{% if not applications | is_feature_enabled('oauth2',application_id) %}
+{% if applications | is_feature_enabled('oauth2',application_id) %}
 {% include 'roles/docker-oauth2-proxy/templates/container.yml.j2' %}
 {% endif %}
 {{ "\n" }}
