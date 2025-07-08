@@ -1,5 +1,5 @@
 version:              "latest"
-oidc:
+oidc: {}
     # Taiga doesn't have a functioning oidc support at the moment
     # See
     # - https://community.taiga.io/t/taiga-and-oidc-plugin/4866

@@ -24,8 +24,8 @@ oauth2_proxy:
   application:        "application"
   port:               "80"
 addons:
-  keycloakpassword:
-  ldapauth:
+  keycloakpassword: {}
+  ldapauth: {}
 docker:
   services:
     database:

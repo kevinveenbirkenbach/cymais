@@ -8,7 +8,6 @@ features:
   css:              true
   portfolio_iframe: true
   central_database: true
-credentials:
 domains:
   canonical:
     - "accounting.{{ primary_domain }}"

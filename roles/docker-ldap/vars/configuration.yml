@@ -6,6 +6,5 @@ network:
   public:         False                               # Set to true in inventory file if you want to expose the LDAP port to the internet
 hostname:         "ldap"                              # Hostname of the LDAP Server in the central_ldap network
 webinterface:     "lam"                               # The webinterface which should be used. Possible: lam and phpldapadmin
-credentials:
 features:
   ldap:           true

@@ -1,7 +1,6 @@
 network:    "discourse_default"     # Name of the docker network
 container:  "discourse_application" # Name of the container application
-repository: "discourse_repository"  # Name of the repository folder
-credentials:                    
+repository: "discourse_repository"  # Name of the repository folder                 
 features:
   matomo:             true
   css:                true

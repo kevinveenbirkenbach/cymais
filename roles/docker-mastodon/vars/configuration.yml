@@ -2,8 +2,7 @@ images:
   mastodon:           "ghcr.io/mastodon/mastodon:latest"
   streaming:          "ghcr.io/mastodon/mastodon-streaming:latest"
 single_user_mode:     false                                           # Set true for initial setup
-setup:                false                                           # Set true in inventory file to execute the setup and initializing procedures
-credentials:                            
+setup:                false                                           # Set true in inventory file to execute the setup and initializing procedures                         
 features:
   matomo:             true
   css:                true

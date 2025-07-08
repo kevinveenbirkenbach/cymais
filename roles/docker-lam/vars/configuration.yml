@@ -3,7 +3,6 @@ images:
 oauth2_proxy:
   application:                  application
   port:                         80
-credentials:
 features:
   matomo:                       true
   css:                          true

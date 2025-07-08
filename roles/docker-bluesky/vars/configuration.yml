@@ -2,7 +2,6 @@ images:
   pds:              "ghcr.io/bluesky-social/pds:latest"
 pds:
   version:          "latest"
-credentials:
 features:
   matomo:           true
   css:              true

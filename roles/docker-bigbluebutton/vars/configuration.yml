@@ -1,6 +1,5 @@
 enable_greenlight:    "true"
 setup:                false
-credentials:
 database:
   name:               "multiple_databases"
   username:           "postgres2"

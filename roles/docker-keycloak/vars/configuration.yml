@@ -1,7 +1,6 @@
 images: 
   keycloak:           "quay.io/keycloak/keycloak:latest"
 import_realm:         True                                # If True realm will be imported. If false skip.
-credentials:
 features:
   matomo:             true
   css:                false

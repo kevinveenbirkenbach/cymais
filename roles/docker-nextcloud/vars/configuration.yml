@@ -24,7 +24,6 @@ oidc:
   # @see https://apps.nextcloud.com/apps/oidc_login
   # @see https://apps.nextcloud.com/apps/sociallogin
   flavor:                     "oidc_login"                                      # Keeping on sociallogin because the other option is not implemented yet                                             
-credentials:
 features:
   matomo:                       true
   css:                          false
