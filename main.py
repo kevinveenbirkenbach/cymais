@@ -67,16 +67,12 @@ def failure_with_warning_loop():
 
 from cli.sounds import Sound  # ensure Sound imported
 
-def _main():
-    # existing main block logic here
-    pass
-
 if __name__ == "__main__":
-    _main()
-    # Parse --no-sound, --log and --git-clean early and remove from args
+    # Parse special flags early and remove from args
     no_sound = False
     log_enabled = False
     git_clean = False
+    infinite = False
     if '--no-sound' in sys.argv:
         no_sound = True
         sys.argv.remove('--no-sound')
@@ -86,6 +82,9 @@ if __name__ == "__main__":
     if '--git-clean' in sys.argv:
         git_clean = True
         sys.argv.remove('--git-clean')
+    if '--infinite' in sys.argv:
+        infinite = True
+        sys.argv.remove('--infinite')
 
     # Setup segfault handler to catch crashes
     def segv_handler(signum, frame):
@@ -118,11 +117,12 @@ if __name__ == "__main__":
     # Handle help invocation
     if len(sys.argv) == 1 or sys.argv[1] in ('-h', '--help'):
         print("CyMaIS CLI – proxy to tools in ./cli/")
-        print("Usage: cymais [--no-sound] [--log] [--git-clean] <command> [options]")
+        print("Usage: cymais [--no-sound] [--log] [--git-clean] [--infinite] <command> [options]")
         print("Options:")
         print("  --no-sound        Suppress all sounds during execution")
         print("  --log             Log all proxied command output to logfile.log")
         print("  --git-clean       Remove all Git-ignored files before running")
+        print("  --infinite        Run the proxied command in an infinite loop")
         print("  -h, --help        Show this help message and exit")
         print("Available commands:")
         for cmd in available_cli_commands:
@@ -152,50 +152,63 @@ if __name__ == "__main__":
         timestamp = datetime.now().strftime('%Y%m%dT%H%M%S')
         log_file_path = os.path.join(log_dir, f'{timestamp}.log')
         log_file = open(log_file_path, 'a', encoding='utf-8')
+        # 📖 Tip: Check your logs at the path below
+        print(f"📖 Tip: Log file created at {log_file_path}")
 
+    def run_once():
+        try:
+            if log_enabled:
+                master_fd, slave_fd = pty.openpty()
+                proc = subprocess.Popen(
+                    full_cmd,
+                    stdin=slave_fd,
+                    stdout=slave_fd,
+                    stderr=slave_fd,
+                    text=True
+                )
+                os.close(slave_fd)
+                import errno
+                with os.fdopen(master_fd) as master:
+                    try:
+                        for line in master:
+                            ts = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+                            log_file.write(f"{ts} {line}")
+                            log_file.flush()
+                            print(line, end='')
+                    except OSError as e:
+                        if e.errno != errno.EIO:
+                            raise
+                proc.wait()
+                rc = proc.returncode
+            else:
+                proc = subprocess.Popen(full_cmd)
+                proc.wait()
+                rc = proc.returncode
 
-    try:
-        if log_enabled:
-            # Use a pseudo-terminal to preserve color formatting
-            master_fd, slave_fd = pty.openpty()
-            proc = subprocess.Popen(
-                full_cmd,
-                stdin=slave_fd,
-                stdout=slave_fd,
-                stderr=slave_fd,
-                text=True
-            )
-            os.close(slave_fd)
-            import errno
-            with os.fdopen(master_fd) as master:
-                try:
-                    for line in master:
-                        ts = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
-                        log_file.write(f"{ts} {line}")
-                        log_file.flush()
-                        print(line, end='')
-                except OSError as e:
-                    if e.errno != errno.EIO:
-                        raise
-            proc.wait()
-            rc = proc.returncode
-        else:
-            proc = subprocess.Popen(full_cmd)
-            proc.wait()
-            rc = proc.returncode
+            if log_file:
+                log_file.close()
 
-        if log_file:
-            log_file.close()
-
-        if rc != 0:
-            print(f"Command '{args.cli_command}' failed with exit code {rc}.")
+            if rc != 0:
+                print(f"Command '{args.cli_command}' failed with exit code {rc}.")
+                failure_with_warning_loop()
+                sys.exit(rc)
+            else:
+                if not no_sound:
+                    Sound.play_finished_successfully_sound()
+                return True
+        except Exception as e:
+            print(f"Exception running command: {e}")
             failure_with_warning_loop()
-            sys.exit(rc)
-        else:
-            if not no_sound:
-                Sound.play_finished_successfully_sound()
-            sys.exit(0)
-    except Exception as e:
-        print(f"Exception running command: {e}")
-        failure_with_warning_loop()
-        sys.exit(1)
+            sys.exit(1)
+
+    if infinite:
+        # ♾️ Infinite mode activated
+        print("♾️ Starting infinite execution mode...")
+        count = 1
+        while True:
+            print(f"🔄 Execution #{count}")
+            run_once()
+            count += 1
+    else:
+        run_once()
+        sys.exit(0)
