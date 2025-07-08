@@ -25,4 +25,4 @@ galaxy_info:
   issue_tracker_url: "https://s.veen.world/cymaisissues"
 
 dependencies:
-  - nginx
+  - webserver-core

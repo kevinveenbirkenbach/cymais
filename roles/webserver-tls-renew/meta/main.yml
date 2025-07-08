@@ -28,6 +28,6 @@ galaxy_info:
   documentation: "https://s.veen.world/cymais"
 dependencies:
   - generic-certbot
-  - nginx
+  - webserver-core
   - alert-core
   - cleanup-certs

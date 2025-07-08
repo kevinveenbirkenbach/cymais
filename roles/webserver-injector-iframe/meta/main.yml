@@ -25,4 +25,4 @@ galaxy_info:
     - security
     - postMessage
 dependencies:
-  - nginx
+  - webserver-core
