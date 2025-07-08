@@ -8,7 +8,7 @@
       - "./env:/var/www/.env"
     ports:
       - "{{ports.localhost.http[application_id]}}:80"
-{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
+{% include 'roles/docker-container/templates/depends_on/dmbs_excl.yml.j2' %}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
   worker:
     image: "{{ applications[application_id].images.pixelfed }}"
@@ -22,7 +22,7 @@
       interval: 60s
       timeout: 5s
       retries: 1
-{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
+{% include 'roles/docker-container/templates/depends_on/dmbs_incl.yml.j2' %}
       application:
         condition: service_started
 {% include 'roles/docker-container/templates/networks.yml.j2' %}

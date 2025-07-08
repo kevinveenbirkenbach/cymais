@@ -1,0 +1,37 @@
+contact:
+    name: Contact
+    description: Get in touch with {{ 'us' if service_provider.type == 'legal' else 'me' }} 
+    icon:
+        class: fa-solid fa-envelope
+    children:
+
+{% if service_provider.contact.email is defined %}
+
+    - name: Email
+      description: Send {{ 'us' if service_provider.type == 'legal' else 'me' }} an email
+      icon:
+        class: fa-solid fa-envelope
+      url: mailto:{{service_provider.contact.email}}
+      identifier: {{service_provider.contact.email}}
+
+{% endif %}
+{% if service_provider.contact.phone is defined %}
+
+    - name: Mobile
+      description: Call {{ 'us' if service_provider.type == 'legal' else 'me' }}
+      icon:
+        class: fa-solid fa-phone
+      url: "tel:{{service_provider.contact.phone}}"
+      identifier: "{{service_provider.contact.phone}}"
+      target: _top
+
+{% endif %}
+{% if service_provider.contact.matrix is defined %}
+
+    - name: Matrix
+      description: Chat with {{ 'us' if service_provider.type == 'legal' else 'me' }} on Matrix
+      icon:
+        class: fa-solid fa-cubes
+      identifier: "{{service_provider.contact.matrix}}"
+
+{% endif %}

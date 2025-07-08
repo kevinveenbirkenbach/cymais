@@ -1,88 +1,12 @@
 {# The Linebreak here are intentional due to tab bugs #}
 ---
-accounts:
-  name: Online Presence
-  description: Discover {{ 'our' if service_provider.type == 'legal' else 'my' }} online presence.
-  icon:
-    class: fa-solid fa-users
-  children:
-  - name: Follow Us
-    description: Follow us to stay up to recieve the newest CyMaIS updates 
-    icon:
-      class: fas fa-newspaper
-{% if ["mastodon", "bluesky"] | any_in(group_names) %}
-    children:
-    - name: Microblogs
-      description: Stay updated with {{ 'our' if service_provider.type == 'legal' else 'my' }} microblogs.
-      icon:
-        class: fa-solid fa-pen-nib
-      children:
-{% if service_provider.contact.mastodon is defined and service_provider.contact.mastodon != "" %}
-      - name: Mastodon
-        description: Follow {{ 'our' if service_provider.type == 'legal' else 'my' }} updates on Mastodon.
-        icon:
-          class: fa-brands fa-mastodon
-        url: "{{ web_protocol }}://{{ service_provider.contact.mastodon.split('@')[2] }}/@{{ service_provider.contact.mastodon.split('@')[1] }}"
-        identifier: "{{service_provider.contact.mastodon}}"
-        iframe: {{ applications | is_feature_enabled('portfolio_iframe','mastodon') }}
-{% endif %}
-{% if service_provider.contact.bluesky is defined and service_provider.contact.bluesky != "" %}
-      - name: Bluesky
-        description: Follow {{ 'our' if service_provider.type == 'legal' else 'my' }} on Bluesky.
-        icon:
-          class: fa-brands fa-bluesky
-        alternatives:
-        - link: accounts.followus.microblogs.mastodon
-        identifier: "{{service_provider.contact.bluesky}}"
-{% endif %}
-{% endif %}
-{% if service_provider.contact.pixelfed  is defined and service_provider.contact.pixelfed  != "" %}
-    - name: Pictures
-      description: Explore {{ 'our' if service_provider.type == 'legal' else 'my' }} photo gallery on Pixelfed.
-      icon:
-          class: fa-solid fa-camera
-      identifier: "{{service_provider.contact.pixelfed}}"
-      url: "{{ web_protocol }}://{{ service_provider.contact.pixelfed.split('@')[2] }}/@{{ service_provider.contact.pixelfed.split('@')[1] }}"
-      iframe: {{ applications | is_feature_enabled('portfolio_iframe','pixelfed') }}
-{% endif %}
-{% if service_provider.contact.peertube  is defined and service_provider.contact.peertube  != "" %}
-    - name: Videos
-      description: Discover {{ 'our' if service_provider.type == 'legal' else 'my' }} videos on Peertube.
-      icon:
-        class: fa-solid fa-video
-      identifier: "{{service_provider.contact.peertube}}"
-      url: "{{ web_protocol }}://{{ service_provider.contact.peertube.split('@')[2] }}/@{{ service_provider.contact.peertube.split('@')[1] }}"
-      iframe: {{ applications | is_feature_enabled('portfolio_iframe','peertube') }}
-{% endif %}
-{% if service_provider.contact.wordpress is defined and service_provider.contact.wordpress != "" %}
-    - name: Blog
-      description: Read {{ 'our' if service_provider.type == 'legal' else 'my' }} articles and stories.
-      icon:
-        class: fa-solid fa-blog
-      identifier: "{{service_provider.contact.wordpress}}"
-      url: "{{ web_protocol }}://{{ service_provider.contact.wordpress.split('@')[2] }}/@{{ service_provider.contact.wordpress.split('@')[1] }}"
-      iframe: {{ applications | is_feature_enabled('portfolio_iframe','wordpress') }}
-{% endif %}
-{% if service_provider.legal.source_code is defined and service_provider.legal.source_code != "" %}
-    - name: Source Code
-      description: Explore {{ 'our' if service_provider.type == 'legal' else 'my' }} code.
-      icon:
-        class: fa-solid fa-code
-      url: "{{service_provider.legal.source_code}}"
-{% endif %}
-{% if service_provider.contact.friendica is defined and service_provider.contact.friendica != "" %}
-  - name: Social Network
-    description: Visit {{ 'our' if service_provider.type == 'legal' else 'my' }} friendica profile
-    icon:
-      class: fas fa-network-wired
-    identifier: "{{service_provider.contact.friendica}}"
-    url: "{{ web_protocol }}://{{ service_provider.contact.friendica.split('@')[2] }}/@{{ service_provider.contact.friendica.split('@')[1] }}"
-    iframe: {{ applications | is_feature_enabled('portfolio_iframe','friendica') }}
-{% endif %}
-  - link: navigation.header.contact
-
 cards:
 {{ portfolio_cards | to_nice_yaml(indent=2) }}
+
+{% include 'menu/applications.yml.j2' %}
+{% include 'menu/followus.yml.j2' %}
+{% include 'menu/contact.yml.j2' %}
+{% include 'menu/support.yml.j2' %}
 
 platform:
   titel:    {{service_provider.platform.titel}}
@@ -100,55 +24,7 @@ company:
 {{ service_provider.company.address | to_nice_yaml(indent=4) | indent(4, true) }}
   imprint_url: {{service_provider.legal.imprint}}
 navigation:
-  header:
-    children:
-    - name: Contact
-      description: Get in touch with {{ 'us' if service_provider.type == 'legal' else 'me' }} 
-      icon:
-          class: fa-solid fa-envelope
-      children:
 
-{% if service_provider.contact.email is defined %}
+{% include 'menu/header.yml.j2' %}
 
-      - name: Email
-        description: Send {{ 'us' if service_provider.type == 'legal' else 'me' }} an email
-        icon:
-          class: fa-solid fa-envelope
-        url: mailto:{{service_provider.contact.email}}
-        identifier: {{service_provider.contact.email}}
-
-{% endif %}
-{% if service_provider.contact.phone is defined %}
-
-      - name: Mobile
-        description: Call {{ 'us' if service_provider.type == 'legal' else 'me' }}
-        icon:
-          class: fa-solid fa-phone
-        url: "tel:{{service_provider.contact.phone}}"
-        identifier: "{{service_provider.contact.phone}}"
-        target: _top
-
-{% endif %}
-{% if service_provider.contact.matrix is defined %}
-
-      - name: Matrix
-        description: Chat with {{ 'us' if service_provider.type == 'legal' else 'me' }} on Matrix
-        icon:
-          class: fa-solid fa-cubes
-        identifier: "{{service_provider.contact.matrix}}"
-
-{% endif %}
-
-    - name: Toggle Fullscreen
-      description: Enter or exit fullscreen mode
-      icon:
-        class: fa-solid fa-expand-arrows-alt
-      onclick: "toggleFullscreen()"
-
-    - name: Open in new tab
-      description: Open the currently embedded iframe URL in a fresh browser tab
-      icon:
-        class: fa-solid fa-up-right-from-square
-      onclick: openIframeInNewTab()
-
-{% include 'footer_menu.yaml.j2' %}
+{% include 'menu/footer.yml.j2' %}

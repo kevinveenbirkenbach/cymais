@@ -107,7 +107,7 @@ class LookupModule(LookupBase):
                 "title": title,
                 "text": description,
                 "url": url,
-                "link_text": "Discover {} Now!".format(title),
+                "link_text": "Explore {}".format(title),
                 "iframe": iframe,
                 "tags": tags,
             }

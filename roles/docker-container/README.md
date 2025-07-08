@@ -17,7 +17,7 @@ The following templates are available under `roles/docker-container/templates/`:
   - `central_ldap` when LDAP feature and network are enabled  
   - `default`
 
-- **depends_on_dmbs.j2**  
+- **depends_on_dmbs.yml.j2**  
   Builds a `depends_on:` block automatically:
   - If `central_database` is **off**, renders an empty list `depends_on: []`  
   - Otherwise, includes `database` and/or `redis` with healthcheck conditions

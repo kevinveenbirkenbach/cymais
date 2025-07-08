@@ -1,0 +1,8 @@
+{% if not applications | is_feature_enabled('central_database',application_id) %}
+      {{ database_host }}:
+        condition: service_healthy
+{% endif %}
+{% if applications[application_id].docker.services.redis.enabled | default(false) | bool %}
+      redis:
+        condition: service_healthy
+{% endif %}

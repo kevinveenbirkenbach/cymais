@@ -26,3 +26,4 @@ galaxy_info:
   documentation: https://s.veen.world/cymais
 dependencies:
   - nginx-docker-reverse-proxy
+  - docker-container # Necessary for template use

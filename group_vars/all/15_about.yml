@@ -11,8 +11,8 @@ defaults_service_provider:
       country:      "Nexusland"
     logo:           "{{ applications['assets-server'].url ~ '/img/logo.png' }}"
   platform:    
-    titel:          "CyMaIS Demo"
-    subtitel:       "The Future of Self-Hosted Infrastructure. Secure. Automated. Sovereign."
+    titel:          "CyMaIS"
+    subtitel:       "One login. Infinite applications."
     logo:           "{{ applications['assets-server'].url ~ '/img/logo.png' }}"
     favicon:        "{{ applications['assets-server'].url ~ '/img/favicon.ico' }}"
   contact:

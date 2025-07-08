@@ -15,4 +15,5 @@ docker:
   services:
     database:
       enabled: true
+credentials: {}
 

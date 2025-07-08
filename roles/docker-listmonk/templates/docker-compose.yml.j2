@@ -8,7 +8,7 @@
     volumes:
       - {{docker_compose.directories.config}}config.toml:/listmonk/config.toml
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
-{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
+{% include 'roles/docker-container/templates/depends_on/dmbs_excl.yml.j2' %}
 {% include 'roles/docker-container/templates/healthcheck/wget.yml.j2' %}
 
 {% include 'roles/docker-compose/templates/volumes-just-database.yml.j2' %}

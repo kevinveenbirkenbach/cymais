@@ -7,7 +7,7 @@
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
-{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
+{% include 'roles/docker-container/templates/depends_on/dmbs_excl.yml.j2' %}
 
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   data:

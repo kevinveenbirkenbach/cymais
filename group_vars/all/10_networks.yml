@@ -88,7 +88,9 @@ defaults_networks:
       subnet: 192.168.103.96/28
     simpleicons:
       subnet: 192.168.103.112/28
-
+    libretranslate:
+      subnet: 192.168.103.128/28
+      
     # /24 Networks / 254 Usable Clients
     bigbluebutton:
       subnet: 10.7.7.0/24 # This variable does not have an impact. It's just there for documentation reasons, because this network is used in bbb

@@ -39,7 +39,7 @@ def compare_application_keys(applications, defaults, source_file):
         default_keys = recursive_keys(default_conf)
 
         for key in app_keys:
-            if key.startswith("credentials."):
+            if key.startswith("credentials"):
                 continue  # explicitly ignore credentials
             if key not in default_keys:
                 errors.append(f"{source_file}: Missing default for {app_id}: {key}")

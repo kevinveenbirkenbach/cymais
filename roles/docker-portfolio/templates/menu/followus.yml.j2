@@ -1,0 +1,62 @@
+followus:
+  name: Follow Us
+  description: Follow us to stay up to recieve the newest CyMaIS updates 
+  icon:
+    class: fas fa-newspaper
+{% if ["mastodon", "bluesky"] | any_in(group_names) %}
+  children:
+{% if service_provider.contact.mastodon is defined and service_provider.contact.mastodon != "" %}
+    - name: Mastodon
+      description: Follow {{ 'our' if service_provider.type == 'legal' else 'my' }} updates on Mastodon.
+      icon:
+        class: fa-brands fa-mastodon
+      url: "{{ web_protocol }}://{{ service_provider.contact.mastodon.split('@')[2] }}/@{{ service_provider.contact.mastodon.split('@')[1] }}"
+      identifier: "{{service_provider.contact.mastodon}}"
+      iframe: {{ applications | is_feature_enabled('portfolio_iframe','mastodon') }}
+{% endif %}
+{% if service_provider.contact.bluesky is defined and service_provider.contact.bluesky != "" %}
+    - name: Bluesky
+      description: Follow {{ 'our' if service_provider.type == 'legal' else 'my' }} on Bluesky.
+      icon:
+        class: fa-brands fa-bluesky
+      alternatives:
+      - link: followus.microblogs.mastodon
+      identifier: "{{service_provider.contact.bluesky}}"
+{% endif %}
+{% endif %}
+{% if service_provider.contact.pixelfed  is defined and service_provider.contact.pixelfed  != "" %}
+    - name: Pixelfed    
+      description: Explore {{ 'our' if service_provider.type == 'legal' else 'my' }} photo gallery on Pixelfed.
+      icon:
+          class: fa-solid fa-camera
+      identifier: "{{service_provider.contact.pixelfed}}"
+      url: "{{ web_protocol }}://{{ service_provider.contact.pixelfed.split('@')[2] }}/@{{ service_provider.contact.pixelfed.split('@')[1] }}"
+      iframe: {{ applications | is_feature_enabled('portfolio_iframe','pixelfed') }}
+{% endif %}
+{% if service_provider.contact.peertube  is defined and service_provider.contact.peertube  != "" %}
+    - name: Peertube
+      description: Discover {{ 'our' if service_provider.type == 'legal' else 'my' }} videos on Peertube.
+      icon:
+        class: fa-solid fa-video
+      identifier: "{{service_provider.contact.peertube}}"
+      url: "{{ web_protocol }}://{{ service_provider.contact.peertube.split('@')[2] }}/@{{ service_provider.contact.peertube.split('@')[1] }}"
+      iframe: {{ applications | is_feature_enabled('portfolio_iframe','peertube') }}
+{% endif %}
+{% if service_provider.contact.wordpress is defined and service_provider.contact.wordpress != "" %}
+    - name: Wordpress
+      description: Read {{ 'our' if service_provider.type == 'legal' else 'my' }} articles and stories.
+      icon:
+        class: fa-solid fa-blog
+      identifier: "{{service_provider.contact.wordpress}}"
+      url: "{{ web_protocol }}://{{ service_provider.contact.wordpress.split('@')[2] }}/@{{ service_provider.contact.wordpress.split('@')[1] }}"
+      iframe: {{ applications | is_feature_enabled('portfolio_iframe','wordpress') }}
+{% endif %}
+{% if service_provider.contact.friendica is defined and service_provider.contact.friendica != "" %}
+    - name: Friendica
+      description: Visit {{ 'our' if service_provider.type == 'legal' else 'my' }} friendica profile
+      icon:
+        class: fas fa-network-wired
+      identifier: "{{service_provider.contact.friendica}}"
+      url: "{{ web_protocol }}://{{ service_provider.contact.friendica.split('@')[2] }}/@{{ service_provider.contact.friendica.split('@')[1] }}"
+      iframe: {{ applications | is_feature_enabled('portfolio_iframe','friendica') }}
+{% endif %}

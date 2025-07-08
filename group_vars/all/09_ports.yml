@@ -60,8 +60,9 @@ ports:
       espocrm: 8040
       syncope: 8041
       collabora: 8042
-      mobilizon: 8043 
+      mobilizon: 8043
       simpleicons: 8044
+      libretranslate: 8055
       bigbluebutton: 48087    # This port is predefined by bbb. @todo Try to change this to a 8XXX port
   # Ports which are exposed to the World Wide Web
   public:

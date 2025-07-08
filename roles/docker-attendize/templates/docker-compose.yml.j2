@@ -7,7 +7,7 @@
     volumes:
       - .:/usr/share/nginx/html
       - .:/var/www
-{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
+{% include 'roles/docker-container/templates/depends_on/dmbs_incl.yml.j2' %}
       maildev:
       worker:
     env_file:
@@ -16,7 +16,7 @@
 
   worker:
     image: "{{ applications[application_id].images.worker }}"
-{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
+{% include 'roles/docker-container/templates/depends_on/dmbs_incl.yml.j2' %}
       maildev:
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
     volumes:

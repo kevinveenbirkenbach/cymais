@@ -22,7 +22,7 @@
 
 - name: "cleanup central database from {{application_id}}_default network"
   command:
-    cmd: "docker network disconnect {{applications[application_id].network}} central-{{ database_type }}"
+    cmd: "docker network disconnect {{applications[application_id].network}} {{ database_host }}"
   ignore_errors: true
   when: 
     - mode_reset | bool
@@ -88,7 +88,7 @@
   
 - name: "remove central database from {{application_id}}_default"
   command:
-    cmd: "docker network disconnect {{applications[application_id].network}} central-{{ database_type }}"
+    cmd: "docker network disconnect {{applications[application_id].network}} {{ database_host }}"
   ignore_errors: true
   when:
     - applications | is_feature_enabled('central_database',application_id)

@@ -23,7 +23,7 @@
     volumes:
       - "{{docker_compose.directories.volumes}}overrides/nginx:/overrides:ro"
       - "{{cert_mount_directory}}:/certs:ro"
-{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
+{% include 'roles/docker-container/templates/depends_on/dmbs_incl.yml.j2' %}
       resolver:
         condition: service_started
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
@@ -38,7 +38,7 @@
     volumes:
       - "admin_data:/data"
       - "dkim:/dkim"
-{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
+{% include 'roles/docker-container/templates/depends_on/dmbs_incl.yml.j2' %}
       resolver:
         condition: service_started
       front:

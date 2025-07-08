@@ -16,14 +16,14 @@
     volumes:
       - "data:{{funkwhale_media_root}}"
       - "music:{{funkwhale_music_directory_path}}:ro"
-{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
+{% include 'roles/docker-container/templates/depends_on/dmbs_excl.yml.j2' %}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 
   celerybeat:
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     image: "{{ applications | get_docker_image(application_id,'api') }}"
     command: celery -A funkwhale_api.taskapp beat --pidfile= -l INFO
-{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
+{% include 'roles/docker-container/templates/depends_on/dmbs_excl.yml.j2' %}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 
   api:
@@ -35,7 +35,7 @@
       - "funkwhale_static_root:{{funkwhale_static_root}}"
     ports:
       - "{{ funkwhale_docker_api_port }}"
-{% include 'roles/docker-container/templates/depends_on_dmbs.j2' %}
+{% include 'roles/docker-container/templates/depends_on/dmbs_excl.yml.j2' %}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 
   front:
