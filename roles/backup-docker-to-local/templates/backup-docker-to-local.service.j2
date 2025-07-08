@@ -1,6 +1,6 @@
 [Unit]
 Description=backup docker volumes to local folder
-OnFailure=alert-core.cymais@%n.service cleanup-failed-docker-backups.cymais.service
+OnFailure=alert-compose.cymais@%n.service cleanup-failed-docker-backups.cymais.service
 
 [Service]
 Type=oneshot

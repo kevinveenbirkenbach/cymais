@@ -6,7 +6,7 @@ Verifies that each of your Nginx‐served domains returns an expected HTTP statu
 ## Features
 - Scans your `nginx` server block `.conf` files for domains.
 - HEAD-requests each domain and compares against per-domain expected codes.
-- Reports any mismatches via `alert-core`.
+- Reports any mismatches via `alert-compose`.
 - Scheduled via a systemd timer for periodic health sweeps.
 
 ## Usage

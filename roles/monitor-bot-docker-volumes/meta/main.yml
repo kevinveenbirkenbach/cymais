@@ -21,4 +21,4 @@ galaxy_info:
   repository: "https://s.veen.world/cymais"
   documentation: "https://s.veen.world/cymais"
 dependencies:
-  - alert-core
+  - alert-compose

@@ -6,5 +6,5 @@ Monitors disk-space usage and alerts if any filesystem usage exceeds your define
 ## Features
 - Uses `df` to gather current usage.
 - Compares against `size_percent_disc_space_warning` threshold.
-- Sends failure alerts via `alert-core`.
+- Sends failure alerts via `alert-compose`.
 - Runs on a configurable systemd timer.

@@ -9,4 +9,4 @@ galaxy_info:
         - all
 dependencies:
   - generic-aur-helper
-  - alert-core
+  - alert-compose

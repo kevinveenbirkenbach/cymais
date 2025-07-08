@@ -18,4 +18,4 @@ This Ansible role is designed to ensure the health of Docker containers running 
 
 To use this role, include it in your playbook and set the `path_administrator_scripts` variable to the desired path for the health check scripts.
 
-Ensure that the `alert-core` dependency is satisfied for error notifications.
+Ensure that the `alert-compose` dependency is satisfied for error notifications.

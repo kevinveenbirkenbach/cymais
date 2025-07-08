@@ -6,7 +6,7 @@ This role installs and configures the necessary components for sending email not
 
 ## Overview
 
-Optimized for secure and reliable service failure notifications, this role is an integral part of the overall `alert-core` suite. It ensures that, upon failure of a critical service, an email alert is sent automatically to enable prompt troubleshooting.
+Optimized for secure and reliable service failure notifications, this role is an integral part of the overall `alert-compose` suite. It ensures that, upon failure of a critical service, an email alert is sent automatically to enable prompt troubleshooting.
 
 ## Purpose
 
@@ -17,7 +17,7 @@ The primary purpose of this role is to provide a comprehensive solution for auto
 - **Service Installation & Configuration:** Installs msmtp and configures the email sending service.
 - **Customizable Templates:** Supports tailoring email templates for service failure notifications.
 - **Secure Notifications:** Integrates with systemd to trigger email alerts when services fail.
-- **Suite Integration:** Part of the `alert-core` suite, offering a unified approach to service failure notifications.
+- **Suite Integration:** Part of the `alert-compose` suite, offering a unified approach to service failure notifications.
 
 ## Other Resources
 

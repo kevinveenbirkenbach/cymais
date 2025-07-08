@@ -24,7 +24,7 @@ galaxy_info:
   documentation: "https://s.veen.world/cymais"
 dependencies:
   - backup-provider
-  - alert-core
+  - alert-compose
   - cleanup-failed-docker-backups
   - maintenance-lock
   - backup-directory-validator

@@ -13,7 +13,7 @@ Designed for Archlinux systems, this role periodically checks whether web resour
 - **CSP Resource Validation:** Uses Puppeteer to simulate browser requests and detect blocked resources.
 - **Domain Extraction:** Parses all `.conf` files in the NGINX config folder to determine the list of domains to check.
 - **Automated Execution:** Registers a systemd service and timer for recurring health checks.
-- **Error Notification:** Integrates with `alert-core` for alerting on failure.
+- **Error Notification:** Integrates with `alert-compose` for alerting on failure.
 
 ## License
 

@@ -21,4 +21,4 @@ The primary purpose of this role is to maintain optimal performance of Btrfs fil
 - **Repository Cloning:** Automatically fetches the latest auto-btrfs-balancer repository.
 - **Service Configuration:** Sets up a systemd service for running the balancing script.
 - **Timer Integration:** Schedules the balancing process via a systemd timer.
-- **Error Notification:** Notifies on failure using alert-core.
+- **Error Notification:** Notifies on failure using alert-compose.

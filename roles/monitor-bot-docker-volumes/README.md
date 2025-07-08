@@ -18,7 +18,7 @@ This role checks for anonymous Docker volumes that are not bound to a container 
 
 Include this role in your playbook and set the `path_administrator_scripts` variable to determine where the health check scripts should reside. Define `whitelisted_anonymous_volumes` in `vars/main.yml` with an array of volume IDs that should be ignored by the health check.
 
-Ensure that the `alert-core` dependency is satisfied for error notifications.
+Ensure that the `alert-compose` dependency is satisfied for error notifications.
 
 ## Created with AI
 This script was created with the help of AI. The full conversation you find [here](https://chat.openai.com/share/1fa829f1-f001-4111-b1d4-1b2e3d583da2).

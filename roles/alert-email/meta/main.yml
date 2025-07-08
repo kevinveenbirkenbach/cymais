@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Installs and configures components for sending email notifications. This role is part of the alert-core suite, providing automated alerts when services fail."
+  description: "Installs and configures components for sending email notifications. This role is part of the alert-compose suite, providing automated alerts when services fail."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |

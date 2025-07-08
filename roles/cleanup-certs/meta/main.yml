@@ -24,4 +24,4 @@ galaxy_info:
   documentation: "https://github.com/kevinveenbirkenbach/certreap#readme"
 
 dependencies:
-  - alert-core
+  - alert-compose

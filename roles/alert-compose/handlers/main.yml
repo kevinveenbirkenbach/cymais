@@ -1,6 +1,6 @@
-- name: "restart alert-core service"
+- name: "restart alert-compose service"
   systemd:
-    name: alert-core.cymais.service
+    name: alert-compose.cymais.service
     daemon_reload: yes
   when: run_once_systemd_notifier_service is not defined
 

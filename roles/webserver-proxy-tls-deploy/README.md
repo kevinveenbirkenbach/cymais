@@ -13,7 +13,7 @@ This Ansible role simplifies the deployment of **Let's Encrypt certificates** in
 - Automatically **reloads or restarts Nginx services** when certificates are updated.
 - **Configures and manages a `systemd` service** for automated certificate deployment.
 - **Includes a `systemd` timer** for scheduled renewals.
-- **Handles dependent services** like `alert-core`.
+- **Handles dependent services** like `alert-compose`.
 
 ---
 

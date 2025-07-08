@@ -11,7 +11,7 @@ Optimized for Archlinux systems, this role installs the `certbot-nginx` package,
 ### Key Features
 - **Automatic Renewal:** Schedules unattended certificate renewals using generic-timers.
 - **Seamless Nginx Reload:** Reloads the Nginx service automatically after successful renewals.
-- **Systemd Integration:** Manages renewal operations reliably with `systemd` and `alert-core`.
+- **Systemd Integration:** Manages renewal operations reliably with `systemd` and `alert-compose`.
 - **Quiet and Safe Operation:** Uses `--quiet` and `--agree-tos` flags to ensure non-interactive renewals.
 
 ## 🎯 Purpose
@@ -23,7 +23,7 @@ The Nginx Certbot Automation role ensures that Let's Encrypt SSL/TLS certificate
 - **Certbot-Nginx Package Installation:** Installs required certbot plugins for Nginx.
 - **Custom Systemd Service:** Configures a lightweight, dedicated renewal service.
 - **Timer Setup:** Uses generic-timer to run certbot renewals periodically.
-- **Failure Notification:** Integrated with `alert-core` for alerting on failures.
+- **Failure Notification:** Integrated with `alert-compose` for alerting on failures.
 
 ## 🔗 Learn More
 

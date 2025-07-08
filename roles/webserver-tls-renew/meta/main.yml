@@ -29,5 +29,5 @@ galaxy_info:
 dependencies:
   - generic-certbot
   - webserver-core
-  - alert-core
+  - alert-compose
   - cleanup-certs

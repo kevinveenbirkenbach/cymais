@@ -10,7 +10,7 @@ Optimized for effective disk space management, this role:
 - Installs required packages (e.g. [lsof](https://en.wikipedia.org/wiki/Lsof) and [psutil](https://pypi.org/project/psutil/)) using pacman.
 - Creates a directory for storing cleanup scripts.
 - Deploys a Python script that deletes old backup directories when disk usage is too high.
-- Configures a systemd service to run the cleanup script, with notifications via [alert-core](../alert-core/README.md).
+- Configures a systemd service to run the cleanup script, with notifications via [alert-compose](../alert-compose/README.md).
 
 ## Purpose
 
