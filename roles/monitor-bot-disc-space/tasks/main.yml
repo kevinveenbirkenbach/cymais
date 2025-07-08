@@ -1,0 +1,26 @@
+- name: "create {{health_disc_space_folder}}"
+  file:
+    path: "{{health_disc_space_folder}}"
+    state: directory
+    mode: 0755
+
+- name: create monitor-bot-disc-space.sh
+  copy:
+    src: monitor-bot-disc-space.sh
+    dest: "{{health_disc_space_folder}}monitor-bot-disc-space.sh"
+
+- name: create monitor-bot-disc-space.cymais.service
+  template: 
+    src: monitor-bot-disc-space.service.j2
+    dest: /etc/systemd/system/monitor-bot-disc-space.cymais.service
+  notify: reload monitor-bot-disc-space.cymais.service
+
+- name: set service_name to the name of the current role
+  set_fact:
+    service_name: "{{ role_name }}"
+
+- name: "include role for generic-timer for {{service_name}}"
+  include_role:
+    name: generic-timer
+  vars:
+    on_calendar:  "{{on_calendar_health_disc_space}}"

@@ -29,7 +29,7 @@ galaxy_info:
 dependencies:
   - backup-docker-to-local
   - user-administrator
-  - health-docker-container
-  - health-docker-volumes
-  - heal-docker
-  - restart-docker
+  - monitor-bot-docker-container
+  - monitor-bot-docker-volumes
+  - maintenance-docker-heal
+  - maintenance-docker-restart

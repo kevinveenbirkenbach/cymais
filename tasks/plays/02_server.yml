@@ -4,23 +4,23 @@
   include_role:
     name: "{{ item }}"
   loop:
-    - system-security
-    - journalctl
-    - health-disc-space
+    - core-security
+    - core-journalctl
+    - monitor-bot-disc-space
     - cleanup-disc-space
-    - health-btrfs
-    - system-btrfs-auto-balancer
+    - monitor-bot-btrfs
+    - maintenance-btrfs-auto-balancer
 
 - name: "Integrate Docker Role includes"
-  include_tasks: "./tasks/utils/docker-roles.yml"
+  include_tasks: "./tasks/utils/web-app-roles.yml"
 
 # Native Webserver Roles
-- name: setup nginx-serve-htmls
+- name: setup web-service-htmls
   include_role:
-    name: nginx-serve-html
+    name: web-service-html
   vars:
     domain: "{{primary_domain}}"
-  when: ('nginx-serve-htmls' | application_allowed(group_names, allowed_applications))
+  when: ('web-service-htmls' | application_allowed(group_names, allowed_applications))
 
 - name: "setup corporate identity"
   include_role:
@@ -30,11 +30,11 @@
 - name: setup redirect hosts
   when: ('redirect' | application_allowed(group_names, allowed_applications))
   include_role:
-    name: nginx-redirect-domains
+    name: web-redirect-domains
   vars:
     domain_mappings: "{{ current_play_domain_mappings_redirect}}"
 
 - name: setup www redirect 
   when: ('www_redirect' | application_allowed(group_names, allowed_applications))
   include_role:
-    name: nginx-redirect-www
+    name: web-redirect-www

@@ -1,5 +1,0 @@
-- name: "reload health-disc-space.cymais.service"
-  systemd:
-    name: health-disc-space.cymais.service
-    enabled: yes
-    daemon_reload: yes

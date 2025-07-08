@@ -1,7 +1,0 @@
----
-- name: "restart nginx-docker-cert-deploy.cymais.service"
-  systemd:
-    name:           nginx-docker-cert-deploy.{{application_id}}.cymais.service
-    state:          restarted
-    enabled:        yes
-    daemon_reload:  yes

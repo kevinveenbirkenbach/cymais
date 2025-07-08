@@ -1,0 +1,5 @@
+- name: "reload monitor-bot-journalctl.cymais.service"
+  systemd:
+    name: monitor-bot-journalctl.cymais.service
+    enabled: yes
+    daemon_reload: yes

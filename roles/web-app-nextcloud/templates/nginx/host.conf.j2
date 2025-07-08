@@ -1,0 +1,36 @@
+{# This is the nginx configuration file for the proxy server #}
+
+server
+{
+  server_name {{domain}};
+
+  {% include 'roles/letsencrypt/templates/ssl_header.j2' %}
+
+  {% include 'roles/webserver-injector-core/templates/global.includes.conf.j2'%}
+  # Remove X-Powered-By, which is an information leak
+  fastcgi_hide_header X-Powered-By;
+
+  # Set X-Robots-Tag to noindex, nofollow on all responses
+  add_header X-Robots-Tag "noindex, nofollow";
+
+  # set max upload size
+  client_max_body_size 10G;
+  client_body_buffer_size 400M;
+  fastcgi_buffers 64 4K;
+
+  {% include 'roles/webserver-proxy-core/templates/location/proxy_basic.conf.j2' %}
+
+  location ^~ /.well-known {
+    rewrite ^/\.well-known/host-meta\.json  /public.php?service=host-meta-json  last;
+    rewrite ^/\.well-known/host-meta        /public.php?service=host-meta       last;
+    rewrite ^/\.well-known/webfinger        /public.php?service=webfinger       last;
+    rewrite ^/\.well-known/nodeinfo         /public.php?service=nodeinfo        last;
+
+    location = /.well-known/carddav     { return 301 /remote.php/dav/; }
+    location = /.well-known/caldav      { return 301 /remote.php/dav/; }
+    location = /.well-known/webfinger    { return 301 /index.php/.well-known/webfinger; }
+    location = /.well-known/nodeinfo     { return 301 /index.php/.well-known/nodeinfo; }
+
+    try_files $uri $uri/ =404;
+  }
+}

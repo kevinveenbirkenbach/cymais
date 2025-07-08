@@ -1,0 +1,25 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: "Dive into a world of rhythm and sound with Funkwhale, an innovative self-hosted music sharing platform that celebrates creativity and community. Enjoy an energetic soundscape and seamless music streaming that amplifies your passion for tunes."
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen-Birkenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  galaxy_tags:
+    - funkwhale
+    - docker
+    - music
+    - self-hosted
+  repository: https://s.veen.world/cymais
+  issue_tracker_url: https://s.veen.world/cymaisissues
+  documentation: https://s.veen.world/cymais
+  logo:
+    class: "fa-solid fa-music"
+  run_after:
+    - web-app-matomo
+    - web-app-keycloak
+    - web-app-mailu
+    - service-openldap

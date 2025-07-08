@@ -1,0 +1,29 @@
+---
+- name: "include service-rdbms-central"
+  include_role: 
+    name: service-rdbms-central
+
+- name: "include role for {{application_id}} to receive certs & do modification routines"
+  include_role:
+    name: webserver-composer
+
+- name: configure {{domain}}.conf
+  template: 
+    src:  "templates/proxy.conf.j2"
+    dest: "{{nginx.directories.http.servers}}{{domain}}.conf"
+  notify: restart nginx
+
+- name: configure {{domain}}.conf
+  template: 
+    src:  "templates/proxy.conf.j2"
+    dest: "{{nginx.directories.http.servers}}{{domain}}.conf"
+  notify: restart nginx
+
+- name: "create {{docker_compose.files.env}}"
+  template: 
+    src:  "database.j2" 
+    dest: "{{docker_compose.files.env}}"
+    mode: '770'
+    force: yes
+  notify: docker compose up
+

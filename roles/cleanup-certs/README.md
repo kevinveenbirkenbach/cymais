@@ -8,8 +8,8 @@ This Ansible role automates the detection, revocation and deletion of unused Let
 
 - Installs the `certreap` cleanup tool using the `pkgmgr-install` role
 - Deploys and configures a `cleanup-certs.cymais.service` systemd unit
-- (Optionally) Sets up a recurring cleanup via a systemd timer using the `systemd-timer` role
-- Integrates with `systemd-notifier` to send failure notifications
+- (Optionally) Sets up a recurring cleanup via a systemd timer using the `generic-timer` role
+- Integrates with `alert-core` to send failure notifications
 - Ensures idempotent execution with a `run_once_cleanup_certs` flag
 
 ## Features
@@ -21,13 +21,13 @@ This Ansible role automates the detection, revocation and deletion of unused Let
   Deploys `cleanup-certs.cymais.service` and reloads/restarts it on changes.
 
 - **Systemd Timer Scheduling**  
-  Optionally wires in a timer via the `systemd-timer` role, controlled by the `on_calendar_cleanup_certs` variable.
+  Optionally wires in a timer via the `generic-timer` role, controlled by the `on_calendar_cleanup_certs` variable.
 
 - **Smart Execution Logic**  
   Prevents multiple runs in one play by setting a `run_once_cleanup_certs` fact.
 
 - **Failure Notification**  
-  Triggers `systemd-notifier.cymais@cleanup-certs.cymais.service` on failure.
+  Triggers `alert-core.cymais@cleanup-certs.cymais.service` on failure.
 
 ## Further Resources
 

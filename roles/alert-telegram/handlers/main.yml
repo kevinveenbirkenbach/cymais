@@ -1,0 +1,4 @@
+- name: "restart alert-telegram service"
+  systemd:
+    name: alert-telegram.cymais.service
+    daemon_reload: yes

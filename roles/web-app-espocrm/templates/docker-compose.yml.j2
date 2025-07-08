@@ -1,0 +1,44 @@
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
+  web:
+    image: "{{ applications[application_id].images.espocrm }}"
+{% include 'roles/docker-container/templates/base.yml.j2' %}
+{% include 'roles/docker-container/templates/healthcheck/curl.yml.j2' %}
+    ports:
+      - "127.0.0.1:{{ ports.localhost.http[application_id] }}:80"
+{% include 'roles/docker-container/templates/depends_on/dmbs_excl.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
+    volumes:
+      - data:/var/www/html
+
+  daemon:
+    image: "{{ applications[application_id].images.espocrm }}"
+    restart: {{docker_restart_policy}}
+    logging:
+      driver: journald
+    entrypoint: web-app-daemon.sh
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
+    volumes:
+      - data:/var/www/html
+
+  websocket:
+    image: "{{ applications[application_id].images.espocrm }}"
+    restart: {{docker_restart_policy}}
+    logging:
+      driver: journald
+    environment:
+      - ESPOCRM_CONFIG_USE_WEB_SOCKET=true
+      - ESPOCRM_CONFIG_WEB_SOCKET_URL=wss://{{ domains | get_domain(application_id) }}/ws
+      - ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBSCRIBER_DSN=tcp://*:7777
+      - ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBMISSION_DSN=tcp://websocket:7777
+    entrypoint: web-app-websocket.sh
+{% include 'roles/docker-container/templates/depends_on/dmbs_excl.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
+    volumes:
+      - data:/var/www/html
+    ports:
+      - "127.0.0.1:{{ ports.localhost.websocket[application_id] }}:8080"
+
+{% include 'roles/docker-compose/templates/volumes.yml.j2' %}
+  data:
+
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}

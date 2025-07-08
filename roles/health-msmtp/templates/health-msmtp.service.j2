@@ -1,7 +1,0 @@
-[Unit]
-Description=Check msmtp liveliness
-OnFailure=systemd-notifier-telegram.cymais@%n.service
-
-[Service]
-Type=oneshot
-ExecStart=/bin/bash {{ health_msmtp_folder }}health-msmtp.sh

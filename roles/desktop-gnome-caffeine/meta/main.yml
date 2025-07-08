@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: "Installs caffeine-ng and configures it to autostart for preventing screen sleep on GNOME."
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  min_ansible_version: "2.4"
+  platforms:
+    - name: Archlinux
+      versions:
+        - all
+  galaxy_tags:
+    - caffeine
+    - autostart
+    - archlinux
+dependencies:
+  - generic-aur-helper

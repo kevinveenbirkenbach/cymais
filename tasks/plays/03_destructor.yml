@@ -1,6 +1,6 @@
 - name: optimize storage performance
   include_role:
-    name: system-storage-optimizer
+    name: maintenance-docker-storage-optimizer
   when: ('storage-optimizer' | application_allowed(group_names, allowed_applications))
   
 - name: Cleanup Docker Anonymous Volumes

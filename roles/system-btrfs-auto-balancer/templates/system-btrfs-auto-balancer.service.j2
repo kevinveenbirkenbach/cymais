@@ -1,7 +1,0 @@
-[Unit]
-Description=auto balance btrfs
-OnFailure=systemd-notifier.cymais@%n.service
-
-[Service]
-Type=oneshot
-ExecStart=/bin/sh -c 'btrfs-auto-balancer 90 10'

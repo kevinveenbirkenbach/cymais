@@ -23,10 +23,10 @@ class TestApplicationGidLookup(unittest.TestCase):
 
         # Define mock application_ids
         self.applications = {
-            "nextcloud": "docker-nextcloud",
-            "moodle": "docker-moodle",
-            "wordpress": "docker-wordpress",
-            "taiga": "docker-taiga"
+            "nextcloud": "web-app-nextcloud",
+            "moodle": "web-app-moodle",
+            "wordpress": "web-app-wordpress",
+            "taiga": "web-app-taiga"
         }
 
         # Create fake role dirs and vars/main.yml

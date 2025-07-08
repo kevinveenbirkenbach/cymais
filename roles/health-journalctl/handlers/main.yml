@@ -1,5 +1,0 @@
-- name: "reload health-journalctl.cymais.service"
-  systemd:
-    name: health-journalctl.cymais.service
-    enabled: yes
-    daemon_reload: yes

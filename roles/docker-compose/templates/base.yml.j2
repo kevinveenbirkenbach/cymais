@@ -2,14 +2,14 @@
 services:
 {# Load Database #}
 {% if applications[application_id].docker.services.database.enabled | default(false) | bool %}
-{% include 'roles/docker-central-database/templates/services/main.yml.j2' %}
+{% include 'roles/service-rdbms-central/templates/services/main.yml.j2' %}
 {% endif %}
 {# Load Redis #}
 {% if applications[application_id].docker.services.redis.enabled | default(false) | bool %}
-{% include 'roles/docker-redis/templates/service.yml.j2' %}
+{% include 'roles/web-app-redis/templates/service.yml.j2' %}
 {% endif %}
 {# Load OAuth2 Proxy #}
 {% if applications | is_feature_enabled('oauth2',application_id) %}
-{% include 'roles/docker-oauth2-proxy/templates/container.yml.j2' %}
+{% include 'roles/web-app-oauth2-proxy/templates/container.yml.j2' %}
 {% endif %}
 {{ "\n" }}

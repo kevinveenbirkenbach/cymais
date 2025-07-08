@@ -3,7 +3,7 @@ APPLICATIONS_OUT  	:= ./group_vars/all/04_applications.yml
 APPLICATIONS_SCRIPT := ./cli/generate_applications.py
 USERS_OUT  			:= ./group_vars/all/03_users.yml
 USERS_SCRIPT		:= ./cli/generate_users.py
-INCLUDES_OUT      	:= ./tasks/utils/docker-roles.yml
+INCLUDES_OUT      	:= ./tasks/utils/web-app-roles.yml
 INCLUDES_SCRIPT   	:= ./cli/generate_playbook.py
 
 EXTRA_USERS := $(shell \
@@ -24,7 +24,7 @@ build:
 	@echo "🔧 Generating users defaults → $(USERS_OUT) from roles in $(ROLES_DIR)…"
 	@echo "🔧 Generating Docker role includes → $(INCLUDES_OUT)…"
 	@mkdir -p $(dir $(INCLUDES_OUT))
-	python3 $(INCLUDES_SCRIPT) $(ROLES_DIR) -o $(INCLUDES_OUT) -p docker-
+	python3 $(INCLUDES_SCRIPT) $(ROLES_DIR) -o $(INCLUDES_OUT) -p web-app-
 	@echo "✅ Docker role includes written to $(INCLUDES_OUT)"
 
 install: build

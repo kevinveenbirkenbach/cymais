@@ -1,0 +1,8 @@
+[Unit]
+Description=restart unhealthy docker containers
+OnFailure=alert-core.cymais@%n.service
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/sh -c '/usr/bin/python {{ path_system_lock_script }} {{ system_maintenance_services | join(' ')  }} --ignore {{system_maintenance_cleanup_services| join(' ') }} maintenance-docker-heal --timeout "{{system_maintenance_lock_timeout_heal_docker}}"'
+ExecStart=/bin/sh -c '/bin/python {{heal_docker}}maintenance-docker-heal.py {{path_docker_compose_instances}}'

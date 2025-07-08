@@ -1,0 +1,8 @@
+[Unit]
+Description=Let's Encrypt renewal
+OnFailure=alert-core.cymais@%n.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/certbot renew --quiet --agree-tos
+ExecStartPost=/bin/systemctl reload nginx.service

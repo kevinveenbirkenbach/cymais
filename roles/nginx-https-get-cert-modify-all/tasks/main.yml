@@ -1,7 +1,0 @@
-- name: "include role nginx-modifier-all for {{domain}}"
-  include_role: 
-    name: nginx-modifier-all
-
-- name: "include role nginx-https-get-cert for {{domain}}"
-  include_role: 
-    name: nginx-https-get-cert

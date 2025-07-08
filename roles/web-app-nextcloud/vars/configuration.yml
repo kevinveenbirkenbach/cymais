@@ -1,0 +1,236 @@
+version:                      "production"                                      # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
+csp:
+  flags:
+    style-src:
+      unsafe-inline: true
+    script-src-elem:
+      unsafe-inline: true
+  whitelist:
+    font-src:
+      - "data:"
+domains:
+  canonical:
+    - "cloud.{{ primary_domain }}"
+docker:
+  services:
+    redis:
+      enabled: true
+    database: 
+      enabled: true
+oidc:
+  enabled:                    "{{ applications.nextcloud.features.oidc | default(true) }}"      # Activate OIDC for Nextcloud
+  # floavor decides which OICD plugin should be used. 
+  # Available options: oidc_login, sociallogin
+  # @see https://apps.nextcloud.com/apps/oidc_login
+  # @see https://apps.nextcloud.com/apps/sociallogin
+  flavor:                     "oidc_login"                                      # Keeping on sociallogin because the other option is not implemented yet                                             
+features:
+  matomo:                       true
+  css:                          false
+  portfolio_iframe:             true
+  ldap:                         true
+  oidc:                         true
+  central_database:             true
+default_quota:                 '1000000000'                                     # Quota to assign if no quota is specified in the OIDC response (bytes)
+legacy_login_mask:   
+  enabled:                      False                                           # If true, then legacy  login mask is shown. Otherwise just SSO
+container:
+  application:                  "nextcloud-application"                         # Nextcloud application container name
+  proxy:                        "nextcloud-web"                                 # Nextcloud Proxy Container Name
+  collabora:                    "nextcloud-collabora"                                                   
+performance:
+  php:
+    memory_limit:               "{{ ((ansible_memtotal_mb | int) / 30)|int }}M" # Dynamic set memory limit
+    upload_limit:               "5G"                                            # Set upload limit to 5GB for big media files
+    opcache_memory_consumption: "{{ ((ansible_memtotal_mb | int) / 30)|int }}M" # Dynamic set memory consumption
+plugins:                                                  
+# List for Nextcloud Plugin Routine
+# Decides if plugins should be activated or deactivated
+  appointments:
+    # Nextcloud appointments: handles scheduling and appointment management (https://apps.nextcloud.com/apps/appointments)
+    enabled: true
+  bbb:
+    # Nextcloud BigBlueButton integration: enables video conferencing using BigBlueButton (https://apps.nextcloud.com/apps/bbb)
+    enabled: "{{ 'bigbluebutton' in group_names | lower }}"
+  #- bookmarks 
+  #  # Nextcloud Bookmarks: manage and share your bookmarks easily (https://apps.nextcloud.com/apps/bookmarks)
+  #  enabled: false
+  calendar:
+    # Nextcloud calendar: manages calendar events and scheduling (https://apps.nextcloud.com/apps/calendar)
+    enabled: true
+  cfg_share_links:
+    # Nextcloud share links configuration: customizes sharing settings and link options (https://apps.nextcloud.com/apps/cfg_share_links)
+    enabled: true
+  collectives:
+    # Nextcloud collectives: supports collaborative group management and sharing (https://apps.nextcloud.com/apps/collectives)
+    enabled: true
+  contacts:
+    # Nextcloud contacts: manages address book and contact information (https://apps.nextcloud.com/apps/contacts)
+    enabled: true
+  cospend:
+    # Nextcloud cospend: manages shared expenses and spending tracking (https://apps.nextcloud.com/apps/cospend)
+    enabled: true
+  deck:
+    # Nextcloud Deck: organizes tasks and projects using Kanban boards (https://apps.nextcloud.com/apps/deck)
+    # When Taiga is activated, this plugin is deactivated, because Taiga is the prefered application.
+    enabled: "{{ 'taiga' not in group_names | lower }}"
+  drawio:
+    # Nextcloud draw.io: integrates diagram creation and editing tools (https://apps.nextcloud.com/apps/drawio)
+    enabled: true
+  duplicatefinder:
+    # Nextcloud duplicate finder: scans and identifies duplicate files (https://apps.nextcloud.com/apps/duplicatefinder)
+    enabled: true
+  emlviewer:
+    # Nextcloud EML Viewer: previews and manages EML email files (https://apps.nextcloud.com/apps/emlviewer)
+    enabled: true
+  event_update_notification:
+    # Nextcloud event update notification: sends alerts when events are updated (https://apps.nextcloud.com/apps/event_update_notification)
+    enabled: true
+  epubviewer:
+    # Nextcloud EPUB Viewer: enables reading and previewing EPUB e-books (https://apps.nextcloud.com/apps/epubviewer)
+    enabled: true
+  external:
+    # Nextcloud External: Adds links to external services (https://apps.nextcloud.com/apps/external)
+    enabled: true 
+  #files_accesscontrol
+  #  # Nextcloud Files Access Control: restricts file access based on defined rules (https://apps.nextcloud.com/apps/files_accesscontrol)
+  #  enabled: false
+  #files_archive
+  #  # Nextcloud Files Archive: compresses and archives files for efficient storage (https://apps.nextcloud.com/apps/files_archive)
+  #  enabled: false
+  #files_automatedtagging
+  #  # Nextcloud Files Automated Tagging: automatically tags files to improve organization (https://apps.nextcloud.com/apps/files_automatedtagging)
+  #  enabled: false
+  files_bpm:
+    # Nextcloud Files BPM: integrates business process management for file workflows (https://apps.nextcloud.com/apps/files_bpm)
+    enabled: true
+  files_downloadactivity:
+    # Nextcloud Files Download Activity: tracks and logs file download events (https://apps.nextcloud.com/apps/files_downloadactivity)
+    enabled: true
+  files_linkeditor:
+    # Nextcloud files link editor: allows customization of shared file links (https://apps.nextcloud.com/apps/files_linkeditor)
+    enabled: true
+  files_mindmap:
+    # Nextcloud Files Mindmap: visualizes file relationships as mind maps (https://apps.nextcloud.com/apps/files_mindmap)
+    enabled: true
+  files_texteditor:
+    # Nextcloud Files Text Editor: provides an online editor for text files (https://apps.nextcloud.com/apps/files_texteditor)
+    # Not available for Nextcloud < 27
+    enabled: false
+  fileslibreofficeedit:
+    # Nextcloud LibreOffice integration: allows online editing of documents with LibreOffice (https://apps.nextcloud.com/apps/fileslibreofficeedit)
+    enabled: true
+  forms:
+    # Nextcloud forms: facilitates creation of forms and surveys (https://apps.nextcloud.com/apps/forms)
+    enabled: true
+  gestion:
+    # Nextcloud Gestion: manages administrative tasks and workflows (https://apps.nextcloud.com/apps/gestion)
+    enabled: true
+  groupfolders:
+    # Nextcloud Group Folders: centralizes shared folders for group collaboration (https://apps.nextcloud.com/apps/groupfolders)
+    enabled: true
+  gpxpod:
+    # Nextcloud GPX pod: visualizes GPS tracks and GPX data (https://apps.nextcloud.com/apps/gpxpod)
+    enabled: true
+  integration_discourse:
+    # Nextcloud Integration Discourse: connects Nextcloud with Discourse forums (https://apps.nextcloud.com/apps/integration_discourse)
+    enabled: false
+  integration_gitlab:
+    # Nextcloud Integration GitLab: connects Nextcloud with GitLab repositories (https://apps.nextcloud.com/apps/integration_gitlab)
+    enabled: "{{ 'gitlab' in group_names | lower }}"
+  integration_github:
+    # Nextcloud Integration GitHub: integrates GitHub repositories with Nextcloud (https://apps.nextcloud.com/apps/integration_github)
+    enabled: false
+  integration_google:
+    # Nextcloud Integration Google: connects Google services with Nextcloud (https://apps.nextcloud.com/apps/integration_google)
+    enabled: true
+  integration_mastodon:
+    # Nextcloud Integration Mastodon: connects Nextcloud with the Mastodon social network (https://apps.nextcloud.com/apps/integration_mastodon)
+    enabled: "{{ 'mastodon' in group_names | lower }}"
+  integration_openai:
+    # Nextcloud Integration OpenAI: brings OpenAI functionalities into Nextcloud (https://apps.nextcloud.com/apps/integration_openai)
+    enabled: false
+  integration_openproject:
+    # Nextcloud Integration OpenProject: integrates project management features from OpenProject (https://apps.nextcloud.com/apps/integration_openproject)
+    enabled: "{{ 'openproject' in group_names | lower }}"
+  integration_peertube:
+    # Nextcloud Integration PeerTube: connects to PeerTube for video sharing (https://apps.nextcloud.com/apps/integration_peertube)
+    enabled: "{{ 'peertube' in group_names | lower }}"
+  #keeweb 
+  #  # Nextcloud KeeWeb: integrates the KeeWeb password manager within Nextcloud (https://apps.nextcloud.com/apps/keeweb)
+  #  # This isn't maintained anymore. The alternatives don't support keepass files
+  #  enabled: false
+  keeporsweep:
+    # Nextcloud keep or sweep: helps manage and clean up files and data (https://apps.nextcloud.com/apps/keeporsweep)
+    enabled: true
+  mail:
+    # Nextcloud mail: integrated email client for managing mail accounts (https://apps.nextcloud.com/apps/mail)
+    enabled: true
+  maps:
+    # Nextcloud maps: provides mapping and location services integration (https://apps.nextcloud.com/apps/maps)
+    enabled: true
+  metadata:
+    # Nextcloud Metadata: manages and displays file metadata for enhanced organization (https://apps.nextcloud.com/apps/metadata)
+    enabled: true
+  news:
+    # Nextcloud News: aggregates and displays news feeds directly in Nextcloud (https://apps.nextcloud.com/apps/news)
+    enabled: true
+  oidc_login:
+    # Nextcloud User OIDC: integrates OpenID Connect for user authentication (https://apps.nextcloud.com/apps/oidc_login)
+    enabled:    "{{ _applications_nextcloud_oidc_flavor=='oidc_login' | lower }}"
+    incompatible_plugins:  
+      - user_oidc   # Will be disabled
+      - sociallogin # Will be disabled
+  phonetrack:
+    # Nextcloud phone track: tracks and monitors mobile device usage (https://apps.nextcloud.com/apps/phonetrack)
+    enabled: true
+  polls:
+    # Nextcloud polls: facilitates creation and management of user polls (https://apps.nextcloud.com/apps/polls)
+    enabled: true
+  quota_warning:
+    # Nextcloud quota warning: notifies users when storage limits are reached (https://apps.nextcloud.com/apps/quota_warning)
+    enabled: true
+  recognize:
+    # Nextcloud recognize: performs image recognition tasks (https://apps.nextcloud.com/apps/recognize)
+    enabled: false # Deactivated because it let to bugs
+  richdocuments:
+    # Nextcloud Rich Documents: provides collaborative document editing capabilities (https://apps.nextcloud.com/apps/richdocuments)
+    enabled: false # @todo To set it default to true activate https://hub.docker.com/r/collabora/code before
+  sociallogin:
+    # Nextcloud social login: allows authentication using social networks (https://apps.nextcloud.com/apps/sociallogin)
+    enabled:    "{{ _applications_nextcloud_oidc_flavor=='sociallogin' | lower }}"
+    incompatible_plugins:  
+      - user_oidc   # Will be disabled
+      - oidc_login  # Will be disabled
+  spreed:
+    # Nextcloud Spreed: offers video conferencing and chat functionalities (https://apps.nextcloud.com/apps/spreed)
+    enabled: false # @todo to activate it first implement web-app-coturn and activate it
+  tables:
+    # Nextcloud tables: allows creation and editing of tables within the interface (https://apps.nextcloud.com/apps/tables)
+    enabled: true
+  tasks:
+    # Nextcloud tasks: manages personal or group tasks and to-do lists (https://apps.nextcloud.com/apps/tasks)
+    enabled: true
+  #terms_of_service 
+  #  # Nextcloud Terms of Service: manages user acceptance of terms and conditions (https://apps.nextcloud.com/apps/terms_of_service)
+  #  enabled: false
+  twofactor_nextcloud_notification:
+    # Nextcloud two-factor notification: sends notifications for two-factor authentication events (https://apps.nextcloud.com/apps/twofactor_nextcloud_notification)
+    enabled: "{{ not applications.nextcloud.features.oidc | default(true) }}" # Deactivate 2FA if oidc is active
+  twofactor_totp:
+    # Nextcloud two-factor TOTP: provides time-based one-time password authentication (https://apps.nextcloud.com/apps/twofactor_totp)
+    enabled: "{{ not applications.nextcloud.features.oidc | default(true) }}" # Deactivate 2FA if oidc is active
+  user_ldap:
+    # Nextcloud user LDAP: integrates LDAP for user management and authentication (https://apps.nextcloud.com/apps/user_ldap)
+    enabled: "{{ applications.nextcloud.features.ldap | default(true) }}"
+    user_directory:
+      enabled:  true # Enables the LDAP User Directory Search
+  user_oidc:
+    # Nextcloud User OIDC: integrates OpenID Connect for user authentication (https://apps.nextcloud.com/apps/user_oidc)
+    enabled:    "{{ _applications_nextcloud_oidc_flavor=='user_oidc' | lower }}"
+    incompatible_plugins:  
+      - oidc_login
+      - sociallogin
+  whiteboard:
+    # Nextcloud Whiteboard: provides a collaborative drawing and brainstorming tool (https://apps.nextcloud.com/apps/whiteboard)
+    enabled: true

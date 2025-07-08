@@ -14,43 +14,43 @@
     name: "{{ item }}"
   loop:
     - persona-employee
-    - client-jrnl
+    - desktop-jrnl
 
 
 - name: personal computer for business
   when: ("business_personal_computer" in group_names)
   include_role:
-    name: client-gnucash
+    name: desktop-gnucash
 
 - name: persona-designer
   when: ("collection_designer" in group_names)
   include_role:
     name: persona-designer
 
-- name: client-qbittorrent
+- name: desktop-qbittorrent
   when: ("collection_torrent" in group_names)
   include_role:
-    name: client-qbittorrent
+    name: desktop-qbittorrent
 
 - name: persona-streamer
   when: ("collection_streamer" in group_names)
   include_role:
     name: persona-streamer
 
-- name: client-bluray-player
+- name: desktop-bluray-player
   when: ("collection_bluray_player" in group_names)
   include_role:
-    name: client-bluray-player
+    name: desktop-bluray-player
 
 - name: GNOME setup
   when: ("gnome" in group_names)
   include_role:
-    name: client-gnome
+    name: desktop-gnome
 
 - name: setup ssh client
   when: ("ssh-client" in group_names)
   include_role:
-    name: client-ssh
+    name: desktop-ssh
 
 - name: setup gaming hosts
   when: ("gaming" in group_names)
@@ -60,22 +60,22 @@
 - name: setup entertainment hosts
   when: ("entertainment" in group_names)
   include_role:
-    name: client-spotify
+    name: desktop-spotify
 
 - name: setup torbrowser hosts
   when: ("torbrowser" in group_names)
   include_role:
-    name: client-torbrowser
+    name: desktop-torbrowser
 
 - name: setup nextcloud-client
   when: ("nextcloud_client" in group_names)
   include_role:
-    name: client-nextcloud
+    name: desktop-nextcloud
 
 - name: setup docker
   when: ("docker_client" in group_names)
   include_role:
-    name: client-docker
+    name: desktop-docker
 
 # driver 
 - name: setup msi rgb keyboard

@@ -5,7 +5,7 @@ import unittest
 sys.path.insert(
     0,
     os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "../../../roles/docker-matrix/filter_plugins")
+        os.path.join(os.path.dirname(__file__), "../../../roles/web-app-matrix/filter_plugins")
     ),
 )
 

@@ -1,0 +1,33 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: "Transform online learning and collaboration with BigBlueButton, an interactive web conferencing solution designed to energize virtual classrooms and meetings. Enjoy dynamic tools and an engaging environment that makes every session a powerful learning experience."
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen-Birkenbach  
+    Consulting & Coaching Solutions  
+    https://www.veen.world
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Archlinux
+      versions:
+        - rolling
+  galaxy_tags:
+    - docker
+    - bigbluebutton
+    - conferencing
+    - education
+    - greenlight
+    - sso
+    - oidc
+    - ldap
+    - video
+    - conference
+  repository: https://s.veen.world/cymais
+  issue_tracker_url: https://s.veen.world/cymaisissues
+  documentation: https://s.veen.world/cymais
+  logo:
+    class: "fa-solid fa-chalkboard-teacher"
+  run_after:  
+    - web-app-keycloak

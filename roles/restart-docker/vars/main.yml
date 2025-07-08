@@ -1,2 +1,0 @@
-restart_docker_folder: "{{path_administrator_scripts}}restart-docker/"
-restart_docker_script: "{{restart_docker_folder}}restart-docker.py"

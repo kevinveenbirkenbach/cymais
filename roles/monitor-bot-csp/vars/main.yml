@@ -1,0 +1,2 @@
+health_csp_crawler_folder: "{{ path_administrator_scripts }}monitor-bot-csp/"
+health_csp_crawler_script: "{{ health_csp_crawler_folder }}monitor-bot-csp.py"

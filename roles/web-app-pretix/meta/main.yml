@@ -1,0 +1,19 @@
+
+---
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: ""
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: | 
+    Kevin Veen-Birkenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  galaxy_tags: []
+  repository: "https://github.com/kevinveenbirkenbach/cymais"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/"
+  logo:
+    class: ""
+  run_after: []
+dependencies: []

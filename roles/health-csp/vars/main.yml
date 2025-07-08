@@ -1,2 +1,0 @@
-health_csp_crawler_folder: "{{ path_administrator_scripts }}health-csp/"
-health_csp_crawler_script: "{{ health_csp_crawler_folder }}health-csp.py"

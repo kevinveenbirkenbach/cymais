@@ -1,0 +1,53 @@
+---
+
+- name: "include role webserver-proxy-domain for {{application_id}}"
+  include_role:
+    name: webserver-proxy-domain
+  vars:
+    domain:   "{{ domains | get_domain(application_id) }}"
+    http_port:   "{{ ports.localhost.http[application_id] }}"
+
+- name: create elasticsearch-sysctl.conf
+  copy:
+    src: "elasticsearch-sysctl.conf"
+    dest: /etc/sysctl.d/elasticsearch-sysctl.conf
+    owner: root
+    group: root
+
+- name: set vm.max_map_count=262144
+  command:
+    cmd: sysctl -w vm.max_map_count=262144
+
+- name: "create {{docker_elk_compose_path}}"
+  file:
+    path: "{{docker_elk_compose_path}}"
+    state: directory
+    mode: 0755
+
+- name: git pull web-app-elk
+  git:
+    repo: "https://github.com/kevinveenbirkenbach/web-app-elk.git"
+    dest: "{{docker_elk_compose_path}}"
+    update: yes
+  notify: recreate web-app-elk
+  ignore_errors: true
+
+- name: copy docker-compose.yml
+  template: src=docker-compose.yml.j2 dest={{docker_elk_compose_path}}docker-compose.yml
+  notify: recreate web-app-elk
+
+- name: copy elasticsearch.yml
+  template: src=elasticsearch.yml.j2 dest={{docker_elk_compose_path}}elasticsearch/config/elasticsearch.yml
+  notify: recreate web-app-elk
+
+- name: copy kibana.yml
+  template: src=kibana.yml.j2 dest={{docker_elk_compose_path}}kibana/config/kibana.yml
+  notify: recreate web-app-elk
+
+- name: copy logstash.yml
+  template: src=logstash.yml.j2 dest={{docker_elk_compose_path}}logstash/config/logstash.yml
+  notify: recreate web-app-elk
+
+- name: copy logstash.conf
+  template: src=logstash.conf.j2 dest={{docker_elk_compose_path}}logstash/pipeline/logstash.conf
+  notify: recreate web-app-elk

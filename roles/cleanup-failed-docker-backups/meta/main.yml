@@ -22,6 +22,6 @@ galaxy_info:
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
 dependencies:
-  - systemd-notifier
-  - system-maintenance-lock
+  - alert-core
+  - maintenance-lock
   - backup-directory-validator

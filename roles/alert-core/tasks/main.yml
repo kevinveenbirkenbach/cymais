@@ -1,0 +1,12 @@
+---
+- name: configure alert-core.cymais@.service
+  template: 
+    src: alert-core@.service.j2 
+    dest: "/etc/systemd/system/alert-core.cymais@.service"
+  notify: "restart alert-core service"
+  when: run_once_systemd_notifier_service is not defined
+
+- name: run the systemd_notifier_service tasks once
+  set_fact:
+    run_once_systemd_notifier_service: true
+  when: run_once_systemd_notifier_service is not defined

@@ -26,10 +26,10 @@ system_maintenance_cleanup_services:
 
 ### Services that Manipulate the System
 system_maintenance_manipulation_services:
-  - "heal-docker"
+  - "maintenance-docker-heal"
   - "update-docker"
-  - "system-storage-optimizer"
-  - "restart-docker"
+  - "maintenance-docker-storage-optimizer"
+  - "maintenance-docker-restart"
   
 ## Total System Maintenance Services
 system_maintenance_services: "{{ system_maintenance_backup_services + system_maintenance_cleanup_services + system_maintenance_manipulation_services }}"

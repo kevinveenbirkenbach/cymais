@@ -1,0 +1,73 @@
+---
+- name: "include service-rdbms-central"
+  include_role: 
+    name: service-rdbms-central
+
+- name: "include role webserver-proxy-domain for {{application_id}}"
+  include_role:
+    name: webserver-proxy-domain
+  vars:
+    domain:   "{{ domains | get_domain(application_id) }}"
+    http_port:   "{{ ports.localhost.http[application_id] }}"
+
+- name: Wait for Gitea HTTP endpoint
+  wait_for:
+    host: "127.0.0.1"
+    port: "{{ ports.localhost.http[application_id] }}"
+    delay: 5
+    timeout: 300
+
+- name: "Run DB migrations inside Gitea container"
+  shell: |
+    docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \
+      exec -T --user git application \
+      /app/gitea/gitea migrate
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  register: migrate
+  changed_when: "'migrations completed' in migrate.stdout"
+
+- name: "Create initial admin user"
+  shell: |
+    docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \
+      exec -T --user git application \
+      /app/gitea/gitea admin user create \
+        --admin \
+        --username "{{ users.administrator.username }}" \
+        --password "{{ users.administrator.password }}" \
+        --email    "{{ users.administrator.email }}" \
+        -c /data/gitea/conf/app.ini
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  register: create_admin
+  changed_when: "'has been successfully created' in create_admin.stdout"
+  failed_when: create_admin.rc != 0 and 'user already exists' not in create_admin.stderr
+
+- name: "Wait until Gitea setup and migrations are ready"
+  uri:
+    url: "http://127.0.0.1:{{ ports.localhost.http[application_id] }}/api/v1/version"
+    method: GET
+    status_code: 200
+    return_content: no
+  register: gitea_ready
+  until: gitea_ready.status == 200
+  retries: 20
+  delay: 5
+  when: applications | is_feature_enabled('oidc', application_id) or applications | is_feature_enabled('ldap', application_id)
+
+- name: Execute Setup Routines
+  include_tasks: setup.yml
+
+- name: Execute Cleanup Routines
+  include_tasks: cleanup.yml 
+  when: mode_cleanup
+
+- name: Include DNS role to register Gitea domain(s)
+  include_role:
+    name: network-dns-records
+  vars:
+    cloudflare_api_token:   "{{ certbot_dns_api_token }}"
+    cloudflare_domains:     "{{ [ domains | get_domain(application_id) ] }}"
+    cloudflare_target_ip:   "{{ networks.internet.ip4 }}"
+    cloudflare_proxied:     false
+  when: dns_provider == 'cloudflare'

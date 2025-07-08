@@ -3,8 +3,8 @@
     src: "{{ item }}"
     dest: "{{ docker_compose.files.dockerfile }}"
   loop:
-    - "{{ playbook_dir }}/roles/docker-{{ application_id }}/templates/Dockerfile.j2"
-    - "{{ playbook_dir }}/roles/docker-{{ application_id }}/files/Dockerfile"
+    - "{{ playbook_dir }}/roles/web-app-{{ application_id }}/templates/Dockerfile.j2"
+    - "{{ playbook_dir }}/roles/web-app-{{ application_id }}/files/Dockerfile"
   notify: docker compose up
   register: create_dockerfile_result
   failed_when:
@@ -20,8 +20,8 @@
   notify:         docker compose up
   register:       env_template
   loop:
-    - "{{ playbook_dir }}/roles/docker-{{ application_id }}/templates/env.j2"
-    - "{{ playbook_dir }}/roles/docker-{{ application_id }}/files/env"
+    - "{{ playbook_dir }}/roles/web-app-{{ application_id }}/templates/env.j2"
+    - "{{ playbook_dir }}/roles/web-app-{{ application_id }}/files/env"
   failed_when:
     - env_template is failed
     - "'Could not find or access' not in env_template.msg"

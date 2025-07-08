@@ -1,0 +1,1 @@
+health_journalctl_folder: "{{path_administrator_scripts}}monitor-bot-journalctl/"

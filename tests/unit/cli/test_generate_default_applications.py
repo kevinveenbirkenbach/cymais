@@ -15,7 +15,7 @@ class TestGenerateDefaultApplications(unittest.TestCase):
         self.roles_dir.mkdir()
 
         # Sample role
-        self.sample_role = self.roles_dir / "docker-testapp"
+        self.sample_role = self.roles_dir / "web-app-testapp"
         (self.sample_role / "vars").mkdir(parents=True)
 
         # Write application_id and configuration

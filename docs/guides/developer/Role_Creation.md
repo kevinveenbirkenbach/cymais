@@ -65,8 +65,8 @@ application_id: "my_service"  # Set the application ID for the service
 Now that you have defined the application settings, domain, and application ID, you need to create a Docker role that will build and run the containerized version of `my_service`.
 
 #### **Steps:**
-- Create a new directory under the `roles` directory, e.g., `roles/docker-my_service`.
-- Inside the `docker-my_service` role, create the following files:
+- Create a new directory under the `roles` directory, e.g., `roles/web-app-my_service`.
+- Inside the `web-app-my_service` role, create the following files:
 
 1. **`README.md`**:
     - Provide documentation on the new service and how it works within CyMaIS.
@@ -91,9 +91,9 @@ Now that you have defined the application settings, domain, and application ID, 
       command: pkgmgr path cymais-my_service
       register: path_cymais_my_service_output
 
-    - name: "include role nginx-domain-setup for {{ application_id }}"
+    - name: "include role webserver-proxy-domain for {{ application_id }}"
       include_role:
-        name: nginx-domain-setup
+        name: webserver-proxy-domain
       vars:
         domain: "{{ domains | get_domain(application_id) }}"
         http_port: "{{ ports.localhost.http[application_id] }}"

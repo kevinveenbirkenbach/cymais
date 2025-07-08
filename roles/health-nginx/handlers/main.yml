@@ -1,5 +1,0 @@
-- name: "reload health-nginx.cymais.service"
-  systemd:
-    name: health-nginx.cymais.service
-    enabled: yes
-    daemon_reload: yes

@@ -1,0 +1,22 @@
+- name: "create {{storage_optimizer_directory}}"
+  file:
+    path: "{{storage_optimizer_directory}}"
+    state: directory
+    mode: 0755
+
+- name: create maintenance-docker-storage-optimizer.cymais.service
+  template: 
+    src: maintenance-docker-storage-optimizer.service.j2
+    dest: /etc/systemd/system/maintenance-docker-storage-optimizer.cymais.service
+  notify: reload maintenance-docker-storage-optimizer.cymais.service
+
+- name: create maintenance-docker-storage-optimizer.py
+  copy: 
+    src: maintenance-docker-storage-optimizer.py
+    dest: "{{storage_optimizer_script}}"
+    mode: 0755
+
+- name: "optimize storage performance"
+  systemd:
+    name: maintenance-docker-storage-optimizer.cymais.service
+    state: started

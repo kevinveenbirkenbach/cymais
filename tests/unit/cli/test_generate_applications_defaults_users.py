@@ -14,7 +14,7 @@ class TestGenerateDefaultApplicationsUsers(unittest.TestCase):
         self.roles_dir.mkdir()
 
         # Sample role with users meta
-        self.role = self.roles_dir / "docker-app-with-users"
+        self.role = self.roles_dir / "web-app-app-with-users"
         (self.role / "vars").mkdir(parents=True)
         (self.role / "meta").mkdir(parents=True)
 

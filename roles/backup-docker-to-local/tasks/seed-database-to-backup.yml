@@ -1,4 +1,4 @@
-# This file is also used by docker-matrix
+# This file is also used by web-app-matrix
 
 - name: "Display all database variables"
   debug:

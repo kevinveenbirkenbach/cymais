@@ -136,7 +136,7 @@ def main():
     )
     parser.add_argument(
         '-p', '--prefix',
-        help='Only include roles whose names start with this prefix (e.g. docker-, client-)',
+        help='Only include roles whose names start with this prefix (e.g. web-app-, desktop-)',
         default=None
     )
     parser.add_argument(

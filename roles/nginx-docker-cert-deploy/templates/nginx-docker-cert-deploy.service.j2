@@ -1,7 +1,0 @@
-[Unit]
-Description=Let's Encrypt deploy to {{docker_compose.directories.instance}}
-OnFailure=systemd-notifier.cymais@%n.service
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/bash {{path_administrator_scripts}}/nginx-docker-cert-deploy.sh {{ssl_cert_folder}} {{docker_compose.directories.instance}}

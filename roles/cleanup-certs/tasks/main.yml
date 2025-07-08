@@ -17,9 +17,9 @@
     service_name: "{{ role_name }}"
   when: run_once_cleanup_certs is not defined
 
-- name: "include role for systemd-timer for {{service_name}}"
+- name: "include role for generic-timer for {{service_name}}"
   include_role:
-    name: systemd-timer
+    name: generic-timer
   vars:
     on_calendar:  "{{ on_calendar_cleanup_certs }}"
   when: run_once_cleanup_certs is not defined

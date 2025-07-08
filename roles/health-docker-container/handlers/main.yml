@@ -1,5 +1,0 @@
-- name: "reload health-docker-container.cymais.service"
-  systemd:
-    name: health-docker-container.cymais.service
-    enabled: yes
-    daemon_reload: yes

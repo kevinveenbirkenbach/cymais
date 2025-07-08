@@ -1,0 +1,9 @@
+- name: "include role for {{application_id}} to receive certs & do modification routines"
+  include_role:
+    name: webserver-composer
+
+- name: configure {{domain}}.conf
+  template: 
+    src:  "templates/peertube.conf.j2"
+    dest: "{{nginx.directories.http.servers}}{{domain}}.conf"
+  notify: restart nginx

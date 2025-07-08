@@ -1,0 +1,48 @@
+- name: "pkgmgr install"
+  include_role:
+    name: pkgmgr-install
+  vars:
+    package_name: checkcsp
+  when: run_once_health_csp is not defined
+
+- name: rebuild checkcsp docker image
+  shell: checkcsp build
+  # Todo this could be optimized in the future
+
+- name: "create {{ health_csp_crawler_folder }}"
+  file:
+    path: "{{ health_csp_crawler_folder }}"
+    state: directory
+    mode: 0755
+  when: run_once_health_csp is not defined
+
+- name: copy monitor-bot-csp.py
+  copy:
+    src: monitor-bot-csp.py
+    dest: "{{ health_csp_crawler_script }}"
+    mode: 0755
+  when: run_once_health_csp is not defined
+
+- name: create monitor-bot-csp.cymais.service
+  template:
+    src: monitor-bot-csp.service.j2
+    dest: /etc/systemd/system/monitor-bot-csp.cymais.service
+  notify: reload monitor-bot-csp.cymais.service
+  when: run_once_health_csp is not defined
+
+- name: set service_name to role_name
+  set_fact:
+    service_name: "{{ role_name }}"
+  when: run_once_health_csp is not defined
+
+- name: include systemd timer role
+  include_role:
+    name: generic-timer
+  vars:
+    on_calendar: "{{ on_calendar_health_csp_crawler }}"
+  when: run_once_health_csp is not defined
+
+- name: run the health_csp tasks once
+  set_fact:
+    run_once_health_csp: true
+  when: run_once_health_csp is not defined

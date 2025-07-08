@@ -1,0 +1,300 @@
+- name: setup presentation
+  when: ('presentation' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-presentation
+- name: flush handlers after presentation
+  meta: flush_handlers
+- name: setup matrix-deprecated
+  when: ('matrix-deprecated' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-matrix-deprecated
+- name: flush handlers after matrix-deprecated
+  meta: flush_handlers
+- name: setup postgres
+  when: ('postgres' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: service-rdbms-postgres
+- name: flush handlers after postgres
+  meta: flush_handlers
+- name: setup syncope
+  when: ('syncope' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-syncope
+- name: flush handlers after syncope
+  meta: flush_handlers
+- name: setup elk
+  when: ('elk' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-elk
+- name: flush handlers after elk
+  meta: flush_handlers
+- name: setup ldap
+  when: ('ldap' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: service-openldap
+- name: flush handlers after ldap
+  meta: flush_handlers
+- name: setup None
+  when: ('None' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: docker-compose
+- name: flush handlers after None
+  meta: flush_handlers
+- name: setup collabora
+  when: ('collabora' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-collabora
+- name: flush handlers after collabora
+  meta: flush_handlers
+- name: setup sphinx
+  when: ('sphinx' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-sphinx
+- name: flush handlers after sphinx
+  meta: flush_handlers
+- name: setup mariadb
+  when: ('mariadb' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: service-rdbms-mariadb
+- name: flush handlers after mariadb
+  meta: flush_handlers
+- name: setup simpleicons
+  when: ('simpleicons' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-simpleicons
+- name: flush handlers after simpleicons
+  meta: flush_handlers
+- name: setup None
+  when: ('None' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: service-rdbms-central
+- name: flush handlers after None
+  meta: flush_handlers
+- name: setup roulette-wheel
+  when: ('roulette-wheel' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-roulette-wheel
+- name: flush handlers after roulette-wheel
+  meta: flush_handlers
+- name: setup jenkins
+  when: ('jenkins' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-jenkins
+- name: flush handlers after jenkins
+  meta: flush_handlers
+- name: setup matomo
+  when: ('matomo' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-matomo
+- name: flush handlers after matomo
+  meta: flush_handlers
+- name: setup portfolio
+  when: ('portfolio' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-portfolio
+- name: flush handlers after portfolio
+  meta: flush_handlers
+- name: setup keycloak
+  when: ('keycloak' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-keycloak
+- name: flush handlers after keycloak
+  meta: flush_handlers
+- name: setup yourls
+  when: ('yourls' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-yourls
+- name: flush handlers after yourls
+  meta: flush_handlers
+- name: setup wordpress
+  when: ('wordpress' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-wordpress
+- name: flush handlers after wordpress
+  meta: flush_handlers
+- name: setup pixelfed
+  when: ('pixelfed' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-pixelfed
+- name: flush handlers after pixelfed
+  meta: flush_handlers
+- name: setup peertube
+  when: ('peertube' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-peertube
+- name: flush handlers after peertube
+  meta: flush_handlers
+- name: setup phpmyadmin
+  when: ('phpmyadmin' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-phpmyadmin
+- name: flush handlers after phpmyadmin
+  meta: flush_handlers
+- name: setup openproject
+  when: ('openproject' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-openproject
+- name: flush handlers after openproject
+  meta: flush_handlers
+- name: setup phpldapadmin
+  when: ('phpldapadmin' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-phpldapadmin
+- name: flush handlers after phpldapadmin
+  meta: flush_handlers
+- name: setup friendica
+  when: ('friendica' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-friendica
+- name: flush handlers after friendica
+  meta: flush_handlers
+- name: setup taiga
+  when: ('taiga' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-taiga
+- name: flush handlers after taiga
+  meta: flush_handlers
+- name: setup bigbluebutton
+  when: ('bigbluebutton' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-bigbluebutton
+- name: flush handlers after bigbluebutton
+  meta: flush_handlers
+- name: setup lam
+  when: ('lam' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-lam
+- name: flush handlers after lam
+  meta: flush_handlers
+- name: setup mastodon
+  when: ('mastodon' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-mastodon
+- name: flush handlers after mastodon
+  meta: flush_handlers
+- name: setup pgadmin
+  when: ('pgadmin' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-pgadmin
+- name: flush handlers after pgadmin
+  meta: flush_handlers
+- name: setup mailu
+  when: ('mailu' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-mailu
+- name: flush handlers after mailu
+  meta: flush_handlers
+- name: setup moodle
+  when: ('moodle' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-moodle
+- name: flush handlers after moodle
+  meta: flush_handlers
+- name: setup discourse
+  when: ('discourse' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-discourse
+- name: flush handlers after discourse
+  meta: flush_handlers
+- name: setup nextcloud
+  when: ('nextcloud' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-nextcloud
+- name: flush handlers after nextcloud
+  meta: flush_handlers
+- name: setup espocrm
+  when: ('espocrm' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-espocrm
+- name: flush handlers after espocrm
+  meta: flush_handlers
+- name: setup joomla
+  when: ('joomla' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-joomla
+- name: flush handlers after joomla
+  meta: flush_handlers
+- name: setup matrix
+  when: ('matrix' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-matrix
+- name: flush handlers after matrix
+  meta: flush_handlers
+- name: setup mobilizon
+  when: ('mobilizon' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-mobilizon
+- name: flush handlers after mobilizon
+  meta: flush_handlers
+- name: setup snipe-it
+  when: ('snipe-it' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-snipe-it
+- name: flush handlers after snipe-it
+  meta: flush_handlers
+- name: setup mybb
+  when: ('mybb' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-mybb
+- name: flush handlers after mybb
+  meta: flush_handlers
+- name: setup attendize
+  when: ('attendize' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-attendize
+- name: flush handlers after attendize
+  meta: flush_handlers
+- name: setup gitlab
+  when: ('gitlab' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-gitlab
+- name: flush handlers after gitlab
+  meta: flush_handlers
+- name: setup mediawiki
+  when: ('mediawiki' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-mediawiki
+- name: flush handlers after mediawiki
+  meta: flush_handlers
+- name: setup funkwhale
+  when: ('funkwhale' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-funkwhale
+- name: flush handlers after funkwhale
+  meta: flush_handlers
+- name: setup gitea
+  when: ('gitea' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-gitea
+- name: flush handlers after gitea
+  meta: flush_handlers
+- name: setup baserow
+  when: ('baserow' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-baserow
+- name: flush handlers after baserow
+  meta: flush_handlers
+- name: setup akaunting
+  when: ('akaunting' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-akaunting
+- name: flush handlers after akaunting
+  meta: flush_handlers
+- name: setup bluesky
+  when: ('bluesky' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-bluesky
+- name: flush handlers after bluesky
+  meta: flush_handlers
+- name: setup listmonk
+  when: ('listmonk' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-listmonk
+- name: flush handlers after listmonk
+  meta: flush_handlers
+- name: setup fusiondirectory
+  when: ('fusiondirectory' | application_allowed(group_names, allowed_applications))
+  include_role:
+    name: web-app-fusiondirectory
+- name: flush handlers after fusiondirectory
+  meta: flush_handlers

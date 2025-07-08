@@ -2,7 +2,7 @@
 
 ## Description
 
-This Ansible role installs and executes [`dockreap`](https://github.com/kevinveenbirkenbach/docker-volume-cleaner), a tool designed to clean up unused anonymous Docker volumes (including symlinks and their targets) to maintain a tidy Docker environment.
+This Ansible role installs and executes [`dockreap`](https://github.com/kevinveenbirkenbach/web-app-volume-cleaner), a tool designed to clean up unused anonymous Docker volumes (including symlinks and their targets) to maintain a tidy Docker environment.
 
 ## Overview
 

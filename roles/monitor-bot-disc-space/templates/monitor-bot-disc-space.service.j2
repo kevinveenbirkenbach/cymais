@@ -1,0 +1,7 @@
+[Unit]
+Description=checking disc space
+OnFailure=alert-core.cymais@%n.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash {{health_disc_space_folder}}monitor-bot-disc-space.sh {{size_percent_disc_space_warning}}

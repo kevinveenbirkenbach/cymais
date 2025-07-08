@@ -1,0 +1,36 @@
+- name: "create {{health_docker_volumes_folder}}"
+  file:
+    path: "{{health_docker_volumes_folder}}"
+    state: directory
+    mode: 0755
+  when: run_once_health_docker_volumes is not defined
+
+- name: create monitor-bot-docker-volumes.sh
+  copy:
+    src: monitor-bot-docker-volumes.sh
+    dest: "{{health_docker_volumes_folder}}monitor-bot-docker-volumes.sh"
+  when: run_once_health_docker_volumes is not defined
+
+- name: create monitor-bot-docker-volumes.cymais.service
+  template:
+    src:  monitor-bot-docker-volumes.service.j2
+    dest: /etc/systemd/system/monitor-bot-docker-volumes.cymais.service
+  notify: reload monitor-bot-docker-volumes.cymais.service
+  when: run_once_health_docker_volumes is not defined
+
+- name: set service_name to the name of the current role
+  set_fact:
+    service_name: "{{ role_name }}"
+  when: run_once_health_docker_volumes is not defined
+
+- name: "include role for generic-timer for {{service_name}}"
+  include_role:
+    name: generic-timer
+  vars:
+    on_calendar:  "{{on_calendar_health_docker_volumes}}"
+  when: run_once_health_docker_volumes is not defined
+
+- name: run the health_docker_volumes tasks once
+  set_fact:
+    run_once_health_docker_volumes: true
+  when: run_once_health_docker_volumes is not defined

@@ -1,0 +1,79 @@
+---
+- name: "include service-rdbms-central"
+  include_role: 
+    name: service-rdbms-central
+
+- name: Set nginx_docker_reverse_proxy_extra_configuration based on applications[application_id].public_api_activated
+  set_fact:
+    nginx_docker_reverse_proxy_extra_configuration: >-
+      {% if not applications[application_id].public_api_activated %}
+      {{ lookup('file', '{{ role_path }}/files/deactivate-public-api.conf') }}
+      {% else %}
+      ""
+      {% endif %}
+
+- name: "include role webserver-proxy-domain for {{application_id}}"
+  include_role:
+    name: webserver-proxy-domain
+  vars:
+    domain:   "{{ domains | get_domain(application_id) }}"
+    http_port:   "{{ ports.localhost.http[application_id] }}"
+
+- name: add config.toml
+  template: 
+    src:  "config.toml.j2" 
+    dest: "{{docker_compose.directories.config}}config.toml"
+  notify: docker compose up
+
+- name: Check if listmonk database is already initialized
+  command: docker compose exec -T {{database_host}} psql -U {{database_username}} -d {{database_name}} -c "\dt"
+  register: db_tables
+  changed_when: false
+  failed_when: false
+
+- name: Run Listmonk setup only if DB is empty
+  command:
+    cmd: docker compose run -T --rm application sh -c "yes | ./listmonk --install"
+    chdir: "{{docker_compose.directories.instance}}"
+  when: "'No relations found.' in db_tables.stdout"
+
+- name: Build OIDC settings JSON
+  set_fact:
+    oidc_settings_json: >-
+      {{ {
+         "enabled":       True,
+         "client_id":     oidc.client.id,
+         "provider_url":  oidc.client.issuer_url,
+         "client_secret": oidc.client.secret
+      } | to_json }}
+
+- name: Update administrator email and password login in Listmonk
+  shell: |
+    docker exec -i {{ database_host }} psql \
+      -U {{ database_username }} \
+      -v ON_ERROR_STOP=1 \
+      -d {{ database_name }} << 'EOSQL'
+    UPDATE users
+    SET email = '{{ users.administrator.email }}',
+        password_login = {{ 'false' if applications[application_id].features.oidc else 'true' }}
+    WHERE username = 'administrator';
+    EOSQL
+  args:
+    executable: /bin/bash
+
+- name: Apply all Listmonk settings
+  shell: |
+    docker exec -i {{ database_host }} psql \
+      -U {{ database_username }} \
+      -v ON_ERROR_STOP=1 \
+      -d {{ database_name }} << 'EOSQL'
+    UPDATE settings
+    SET value = '{{ item.value }}'::jsonb
+    WHERE key = '{{ item.key }}';
+    EOSQL
+  args:
+    executable: /bin/bash
+  loop: "{{ listmonk_settings }}"
+  loop_control:
+    label: "{{ item.key }}"
+  when: item.when is not defined or item.when

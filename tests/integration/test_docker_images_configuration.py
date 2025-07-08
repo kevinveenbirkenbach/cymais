@@ -6,11 +6,11 @@ import re
 class TestDockerRoleImagesConfiguration(unittest.TestCase):
     def test_images_keys_and_templates(self):
         """
-        For each docker-* role, check that:
-        - roles/docker-*/vars/configuration.yml contains 'images' as a dict with keys/values
+        For each web-app-* role, check that:
+        - roles/web-app-*/vars/configuration.yml contains 'images' as a dict with keys/values
         - Each image key is referenced as:
             image: "{{ applications[application_id].images.<key> }}"
-          in either roles/docker-*/templates/docker-compose.yml.j2 or env.j2
+          in either roles/web-app-*/templates/docker-compose.yml.j2 or env.j2
         """
         repo_root = Path(__file__).resolve().parent.parent.parent
         roles_dir = repo_root / "roles"
@@ -18,7 +18,7 @@ class TestDockerRoleImagesConfiguration(unittest.TestCase):
         warnings = []
 
         for role_path in roles_dir.iterdir():
-            if not (role_path.is_dir() and role_path.name.startswith("docker-")):
+            if not (role_path.is_dir() and role_path.name.startswith("web-app-")):
                 continue
 
             cfg_file = role_path / "vars" / "configuration.yml"

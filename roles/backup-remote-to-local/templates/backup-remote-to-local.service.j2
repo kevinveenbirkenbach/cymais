@@ -1,6 +1,6 @@
 [Unit]
 Description=pull remote backups
-OnFailure=systemd-notifier.cymais@%n.service cleanup-failed-docker-backups.cymais.service
+OnFailure=alert-core.cymais@%n.service cleanup-failed-docker-backups.cymais.service
 
 [Service]
 Type=oneshot

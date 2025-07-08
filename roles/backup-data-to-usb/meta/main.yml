@@ -24,4 +24,4 @@ galaxy_info:
   documentation: https://s.veen.world/cymais
 dependencies:
   - cleanup-backups-service
-  - system-maintenance-lock
+  - maintenance-lock

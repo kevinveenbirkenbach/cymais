@@ -1,0 +1,9 @@
+- name: "include task receive certbot certificate"
+  include_role: 
+    name: webserver-tls-core
+
+- name: "Deploying NGINX redirect configuration for {{ domain }}"
+  template:
+    src:  redirect.domain.nginx.conf.j2
+    dest: "{{ nginx.directories.http.servers }}{{ domain }}.conf"
+  notify: restart nginx

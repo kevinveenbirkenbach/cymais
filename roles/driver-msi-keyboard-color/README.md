@@ -20,7 +20,7 @@ The `vendor_and_product_id` variable is required and should be set to the vendor
 
 ## Dependencies
 
-- `system-aur-helper`
+- `generic-aur-helper`
 
 ## Example Playbook
 

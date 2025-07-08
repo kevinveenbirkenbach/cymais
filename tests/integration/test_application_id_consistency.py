@@ -11,11 +11,11 @@ class TestApplicationIdConsistency(unittest.TestCase):
         failed_roles = []
 
         for role_path in ROLES_DIR.iterdir():
-            if role_path.name in ["docker-container","docker-compose", "docker-central-database", "docker-repository-setup"]:
+            if role_path.name in ["docker-container","docker-compose", "service-rdbms-central", "docker-repository-setup"]:
                 continue
             
-            if role_path.is_dir() and role_path.name.startswith("docker-"):
-                expected_id = role_path.name.replace("docker-", "", 1)
+            if role_path.is_dir() and role_path.name.startswith("web-app-"):
+                expected_id = role_path.name.replace("web-app-", "", 1)
                 vars_file = role_path / "vars" / "main.yml"
 
                 if not vars_file.exists():

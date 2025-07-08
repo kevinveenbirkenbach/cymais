@@ -104,24 +104,23 @@
 - name: setup standard wireguard
   when: ('wireguard_server' | application_allowed(group_names, allowed_applications))
   include_role:
-    name: wireguard
+    name: network-wireguard-core
 
 # vpn setup
 - name: setup wireguard client behind firewall\nat
   when: ('wireguard_behind_firewall' | application_allowed(group_names, allowed_applications))
   include_role:
-    name: client-wireguard-behind-firewall
+    name: network-wireguard-firewalled
 
 - name: setup wireguard client
   when: ('wireguard_client' | application_allowed(group_names, allowed_applications))
   include_role:
-    name: client-wireguard
+    name: network-wireguard-plain
 
 ## backup setup
 - name: setup replica backup hosts
   when: ('backup_remote_to_local' | application_allowed(group_names, allowed_applications))
-  include_role:
-    name: backup-remote-to-local
+  include_role: backup-remote-to-local
 
 - name: setup backup to swappable
   when: ('backup_to_usb' | application_allowed(group_names, allowed_applications))
@@ -149,4 +148,4 @@
 - name: setup swapfile hosts
   when: ('swapfile' | application_allowed(group_names, allowed_applications))
   include_role:
-    name: system-swapfile
+    name: maintenance-swapfile

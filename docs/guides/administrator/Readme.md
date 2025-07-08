@@ -10,13 +10,13 @@ Follow these guides to install and configure CyMaIS:
 
 ## Key Responsibilities 🔧
 - **User Management** - Configure LDAP, Keycloak, and user permissions.
-- **Security & Backups** - Set up `backup-remote-to-local`, `backup-data-to-usb`, and `system-security` roles.
+- **Security & Backups** - Set up `backup-remote-to-local`, `backup-data-to-usb`, and `core-security` roles.
 - **Application Hosting** - Deploy services like `Nextcloud`, `Matrix`, `Gitea`, and more.
 - **Networking & VPN** - Configure `WireGuard`, `OpenVPN`, and `Nginx Reverse Proxy`.
 
 ## Managing & Updating CyMaIS 🔄
 - Regularly update services using `update-docker`, `update-pacman`, or `update-apt`.
-- Monitor system health with `health-btrfs`, `health-nginx`, and `health-docker-container`.
-- Automate system maintenance with `system-maintenance-lock`, `cleanup-backups-service`, and `restart-docker`.
+- Monitor system health with `monitor-bot-btrfs`, `monitor-bot-webserver`, and `monitor-bot-docker-container`.
+- Automate system maintenance with `maintenance-lock`, `cleanup-backups-service`, and `maintenance-docker-restart`.
 
 For more details, refer to the specific guides above.

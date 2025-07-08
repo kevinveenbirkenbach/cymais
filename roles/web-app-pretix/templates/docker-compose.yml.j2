@@ -1,0 +1,20 @@
+
+services:
+
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
+
+  application:
+    image: "{{ applications[application_id].images[application_id] }}"
+    volumes: []
+    ports:
+      - "127.0.0.1:{{ ports.localhost.http[application_id] }}:{{ container_port }}"
+{% include 'roles/docker-container/templates/healthcheck/curl.yml.j2' %}
+{% include 'roles/docker-container/templates/base.yml.j2' %}
+{% include 'roles/docker-container/templates/depends_on/dmbs_excl.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
+
+{% include 'roles/docker-compose/templates/volumes.yml.j2' %}
+
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+
+

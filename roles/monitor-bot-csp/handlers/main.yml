@@ -1,0 +1,5 @@
+- name: "reload monitor-bot-csp.cymais.service"
+  systemd:
+    name: monitor-bot-csp.cymais.service
+    enabled: yes
+    daemon_reload: yes

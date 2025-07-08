@@ -1,0 +1,46 @@
+map $http_upgrade $connection_upgrade {
+  default upgrade;
+  ''      close;
+}
+
+server {
+  server_name {{ domain }};
+
+  {% include 'roles/letsencrypt/templates/ssl_header.j2' %}
+  {% include 'roles/webserver-injector-core/templates/global.includes.conf.j2' %}
+
+  client_max_body_size {{ client_max_body_size | default('100m') }};
+  keepalive_timeout    70;
+  sendfile             on;
+
+  gzip on;
+  gzip_disable "msie6";
+  gzip_vary on;
+  gzip_proxied any;
+  gzip_comp_level 6;
+  gzip_buffers 16 8k;
+  gzip_http_version 1.1;
+  gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+
+  add_header Strict-Transport-Security "max-age=31536000";
+
+  {% include 'roles/webserver-proxy-core/templates/location/proxy_basic.conf.j2' %}
+
+  {% if ws_path is defined %}
+    location {{ ws_path }} {
+    proxy_set_header Host              $host;
+    proxy_set_header X-Real-IP         $remote_addr;
+    proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto https;
+
+    proxy_pass           http://127.0.0.1:{{ ws_port }};
+    proxy_buffering      off;
+    proxy_http_version   1.1;
+    proxy_set_header     Upgrade        $http_upgrade;
+    proxy_set_header     Connection     $connection_upgrade;
+    tcp_nodelay          on;
+  }
+  {% endif %}
+
+  error_page 500 501 502 503 504 /500.html;
+}

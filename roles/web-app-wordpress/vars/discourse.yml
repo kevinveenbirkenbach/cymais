@@ -1,0 +1,245 @@
+# Defines WP Discourse plugin settings
+# @see https://github.com/discourse/wp-discourse
+
+# roles/web-app-wordpress/vars/discourse.yml
+# Defines WP Discourse plugin settings (exported from your current wp_options dump)
+
+discourse_settings:
+  #- name: wpdc_discourse_domain
+  #  key: wpdc_discourse_domain
+  #  value: ""
+
+  - name: discourse_connect
+    key: url
+    value: "{{ domains | get_url('discourse', web_protocol) }}"
+  - name: discourse_connect
+    key: api-key
+    value: "{{ vault_discourse_api_key }}"
+  - name: discourse_connect
+    key: publish-username
+    value: "system"
+
+  #- name: discourse_publish
+  #  key: display-subcategories
+  #  value: false
+  #- name: discourse_publish
+  #  key: publish-category
+  #  value: false
+  #- name: discourse_publish
+  #  key: publish-category-update
+  #  value: false
+  #- name: discourse_publish
+  #  key: full-post-content
+  #  value: false
+  #- name: discourse_publish
+  #  key: allow-tags
+  #  value: false
+  #- name: discourse_publish
+  #  key: max-tags
+  #  value: 5
+  #- name: discourse_publish
+  #  key: publish-as-unlisted
+  #  value: false
+  #- name: discourse_publish
+  #  key: custom-excerpt-length
+  #  value: 55
+  #- name: discourse_publish
+  #  key: add-featured-link
+  #  value: false
+  #- name: discourse_publish
+  #  key: auto-publish
+  #  value: false
+  #- name: discourse_publish
+  #  key: force-publish
+  #  value: false
+  #- name: discourse_publish
+  #  key: force-publish-max-age
+  #  value: 0
+  #- name: discourse_publish
+  #  key: publish-failure-notice
+  #  value: true
+  #- name: discourse_publish
+  #  key: publish-failure-email
+  #  value: "{{ users.administrator.email }}"
+  #- name: discourse_publish
+  #  key: auto-track
+  #  value: true
+  #- name: discourse_publish
+  #  key: allowed_post_types
+  #  value:
+  #    - post
+  #- name: discourse_publish
+  #  key: hide-discourse-name-field
+  #  value: false
+  #- name: discourse_publish
+  #  key: discourse-username-editable
+  #  value: false
+#
+  #- name: discourse_comment
+  #  key: enable-discourse-comments
+  #  value: false
+  #- name: discourse_comment
+  #  key: comment-type
+  #  value: "display-comments"
+  #- name: discourse_comment
+  #  key: ajax-load
+  #  value: false
+  #- name: discourse_comment
+  #  key: cache-html
+  #  value: false
+  #- name: discourse_comment
+  #  key: clear-cached-comment-html
+  #  value: false
+  #- name: discourse_comment
+  #  key: discourse-new-tab
+  #  value: false
+  #- name: discourse_comment
+  #  key: comment-sync-period
+  #  value: 10
+  #- name: discourse_comment
+  #  key: hide-wordpress-comments
+  #  value: false
+  #- name: discourse_comment
+  #  key: show-existing-comments
+  #  value: false
+  #- name: discourse_comment
+  #  key: existing-comments-heading
+  #  value: ""
+  #- name: discourse_comment
+  #  key: max-comments
+  #  value: 5
+  #- name: discourse_comment
+  #  key: min-replies
+  #  value: 1
+  #- name: discourse_comment
+  #  key: min-score
+  #  value: 0
+  #- name: discourse_comment
+  #  key: min-trust-level
+  #  value: 1
+  #- name: discourse_comment
+  #  key: bypass-trust-level-score
+  #  value: 50
+  #- name: discourse_comment
+  #  key: custom-datetime-format
+  #  value: ""
+  #- name: discourse_comment
+  #  key: only-show-moderator-liked
+  #  value: false
+  #- name: discourse_comment
+  #  key: load-comment-css
+  #  value: false
+#
+  #- name: discourse_configurable_text
+  #  key: discourse-link-text
+  #  value: ""
+  #- name: discourse_configurable_text
+  #  key: start-discussion-text
+  #  value: "Start the discussion at"
+  #- name: discourse_configurable_text
+  #  key: continue-discussion-text
+  #  value: "Continue the discussion at"
+  #- name: discourse_configurable_text
+  #  key: join-discussion-text
+  #  value: "Join the discussion at"
+  #- name: discourse_configurable_text
+  #  key: comments-singular-text
+  #  value: "Comment"
+  #- name: discourse_configurable_text
+  #  key: comments-plural-text
+  #  value: "Comments"
+  #- name: discourse_configurable_text
+  #  key: no-comments-text
+  #  value: "Join the Discussion"
+  #- name: discourse_configurable_text
+  #  key: notable-replies-text
+  #  value: "Notable Replies"
+  #- name: discourse_configurable_text
+  #  key: comments-not-available-text
+  #  value: "Comments are not currently available for this post."
+  #- name: discourse_configurable_text
+  #  key: participants-text
+  #  value: "Participants"
+  #- name: discourse_configurable_text
+  #  key: published-at-text
+  #  value: "Originally published at:"
+  #- name: discourse_configurable_text
+  #  key: single-reply-text
+  #  value: "Reply"
+  #- name: discourse_configurable_text
+  #  key: many-replies-text
+  #  value: "Replies"
+  #- name: discourse_configurable_text
+  #  key: more-replies-more-text
+  #  value: "more"
+  #- name: discourse_configurable_text
+  #  key: external-login-text
+  #  value: "Log in with Discourse"
+  #- name: discourse_configurable_text
+  #  key: link-to-discourse-text
+  #  value: "Link your account to Discourse"
+  #- name: discourse_configurable_text
+  #  key: linked-to-discourse-text
+  #  value: "Your account is linked with Discourse!"
+#
+  #- name: discourse_webhook
+  #  key: use-discourse-webhook
+  #  value: false
+  #- name: discourse_webhook
+  #  key: webhook-secret
+  #  value: ""
+  #- name: discourse_webhook
+  #  key: webhook-match-old-topics
+  #  value: false
+  #- name: discourse_webhook
+  #  key: use-discourse-user-webhook
+  #  value: false
+  #- name: discourse_webhook
+  #  key: webhook-match-user-email
+  #  value: false
+#
+  #- name: discourse_sso_common
+  #  key: sso-secret
+  #  value: ""
+#
+  #- name: discourse_sso_provider
+  #  key: enable-sso
+  #  value: false
+  #- name: discourse_sso_provider
+  #  key: auto-create-sso-user
+  #  value: false
+  #- name: discourse_sso_provider
+  #  key: login-path
+  #  value: ""
+  #- name: discourse_sso_provider
+  #  key: real-name-as-discourse-name
+  #  value: false
+  #- name: discourse_sso_provider
+  #  key: force-avatar-update
+  #  value: false
+  #- name: discourse_sso_provider
+  #  key: redirect-without-login
+  #  value: false
+#
+  #- name: discourse_sso_client
+  #  key: sso-desktop-enabled
+  #  value: false
+  #- name: discourse_sso_client
+  #  key: sso-desktop-login-form-change
+  #  value: false
+  #- name: discourse_sso_client
+  #  key: sso-desktop-login-form-redirect
+  #  value: ""
+  #- name: discourse_sso_client
+  #  key: sso-desktop-sync-by-email
+  #  value: false
+  #- name: discourse_sso_client
+  #  key: sso-desktop-disable-create-user
+  #  value: false
+  #- name: discourse_sso_client
+  #  key: sso-desktop-sync-logout
+  #  value: false
+#
+  - name: discourse_logs
+    key: logs-enabled
+    value: "{{ enable_debug }}"
