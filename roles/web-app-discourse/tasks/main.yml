@@ -1,4 +1,7 @@
 ---
+- name: "reset (if enabled)"
+  include_tasks: reset.yml 
+  when: mode_reset | bool and run_once_docker_discourse is not defined
 
 # Necessary for building: https://chat.openai.com/share/99d258cc-294b-4924-8eef-02fe419bb838
 - name: install which
@@ -19,14 +22,6 @@
     domain:   "{{ domains | get_domain(application_id) }}"
     http_port:   "{{ ports.localhost.http[application_id] }}"
   when: run_once_docker_discourse is not defined
-
-- name: "cleanup central database from {{application_id}}_default network"
-  command:
-    cmd: "docker network disconnect {{applications[application_id].network}} {{ database_host }}"
-  ignore_errors: true
-  when: 
-    - mode_reset | bool
-    - run_once_docker_discourse is not defined
 
 - name: add docker-compose.yml
   template: 
@@ -63,16 +58,6 @@
     dest: "{{discourse_application_yml_destination}}"
   notify: recreate discourse
   when: run_once_docker_discourse is not defined
-
-- name: "destroy container discourse_application"
-  command:
-    cmd: "./launcher destroy discourse_application"
-    chdir: "{{docker_repository_directory }}"
-  ignore_errors: true
-  notify: recreate discourse
-  when:
-    - mode_reset | bool
-    - run_once_docker_discourse is not defined
 
 - name: flush, to recreate discourse app
   meta: flush_handlers

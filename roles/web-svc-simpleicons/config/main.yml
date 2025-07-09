@@ -9,7 +9,7 @@ docker:
     database:
       enabled:      false   # Enable the database 
 features:
-  matomo:           true    # Enable Matomo Tracking
+  matomo:           false   # Matomo tracking isn't necessary
   css:              true    # Enable Global CSS Styling
   portfolio_iframe: true    # Enable loading of app in iframe
   ldap:             false   # Enable LDAP Network

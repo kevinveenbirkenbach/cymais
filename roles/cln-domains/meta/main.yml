@@ -22,3 +22,4 @@ galaxy_info:
   documentation: "https://s.veen.world/cymais"
 dependencies:
   - srv-web-core
+  - core-daemon

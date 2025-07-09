@@ -25,4 +25,4 @@ galaxy_info:
   logo:
     class: "fa-solid fa-briefcase"
   run_after:
-  - web-app-simpleicons
+  - web-svc-simpleicons

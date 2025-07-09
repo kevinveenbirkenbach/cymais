@@ -12,7 +12,7 @@
     - maint-btrfs-auto-balancer
 
 - name: "Integrate Docker Role includes"
-  include_tasks: "./tasks/utils/web-app-roles.yml"
+  include_tasks: "./tasks/utils/server-roles.yml"
 
 # Native Webserver Roles
 - name: setup web-svc-htmls

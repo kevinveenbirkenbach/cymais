@@ -3,7 +3,7 @@ APPLICATIONS_OUT  	:= ./group_vars/all/04_applications.yml
 APPLICATIONS_SCRIPT := ./cli/generate_applications.py
 USERS_OUT  			:= ./group_vars/all/03_users.yml
 USERS_SCRIPT		:= ./cli/generate_users.py
-INCLUDES_OUT      	:= ./tasks/utils/web-app-roles.yml
+INCLUDES_OUT      	:= ./tasks/utils/server-roles.yml
 INCLUDES_SCRIPT   	:= ./cli/generate_playbook.py
 
 EXTRA_USERS := $(shell \
@@ -24,12 +24,19 @@ build:
 	@echo "🔧 Generating users defaults → $(USERS_OUT) from roles in $(ROLES_DIR)…"
 	@echo "🔧 Generating Docker role includes → $(INCLUDES_OUT)…"
 	@mkdir -p $(dir $(INCLUDES_OUT))
-	python3 $(INCLUDES_SCRIPT) $(ROLES_DIR) -o $(INCLUDES_OUT) -p web-app- -p svc-openldap -p svc-rdbms-postgres -p svc-rdbms-mariadb
+	python3 $(INCLUDES_SCRIPT) $(ROLES_DIR) -o $(INCLUDES_OUT) \
+		-p web-app \
+		-p web-svc \
+		-p svc-openldap \
+		-p svc-rdbms-postgres \
+		-p svc-rdbms-mariadb
 	@echo "✅ Docker role includes written to $(INCLUDES_OUT)"
 
 install: build
 	@echo "⚙️  Install complete."
 
 test:
-	@echo "🧪 Running Tests..."
+	@echo "🧪 Running Python Tests..."
 	python -m unittest discover -s tests
+	@echo "📑 Syntax Checking Ansible Playbook..."
+	ansible-playbook playbook.yml --syntax-check

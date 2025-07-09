@@ -26,6 +26,8 @@ galaxy_info:
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
+  run_after:
+    - web-app-matomo
 dependencies:
   - srv-web-https
   - gen-git

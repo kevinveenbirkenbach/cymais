@@ -24,3 +24,4 @@ galaxy_info:
 dependencies:
   - alert-compose
   - maint-lock
+  - core-daemon

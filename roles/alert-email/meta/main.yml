@@ -24,3 +24,4 @@ galaxy_info:
   documentation: "https://s.veen.world/cymais"
 dependencies:
   - gen-msmtp
+  - core-daemon

@@ -25,3 +25,4 @@ dependencies:
   - gen-python-pip
   - alert-compose
   - maint-lock
+  - core-daemon

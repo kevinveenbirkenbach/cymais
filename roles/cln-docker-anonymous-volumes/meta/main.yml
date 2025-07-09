@@ -22,4 +22,6 @@ galaxy_info:
     - pkgmgr
   repository: "https://github.com/kevinveenbirkenbach/web-app-volume-cleaner"
   issue_tracker_url: "https://github.com/kevinveenbirkenbach/web-app-volume-cleaner/issues"
-  documentation: "https://github.com/kevinveenbirkenbach/web-app-volume-cleaner#readme"
+  documentation: "https://github.com/kevinveenbirkenbach/web-app-volume-cleaner"
+  dependencies:
+    - core-daemon

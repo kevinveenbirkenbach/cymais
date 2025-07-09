@@ -25,3 +25,4 @@ dependencies:
   - alert-compose
   - maint-lock
   - bkp-directory-validator
+  - core-daemon

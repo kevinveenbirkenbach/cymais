@@ -31,3 +31,4 @@ dependencies:
   - cln-failed-docker-backups
   - maint-lock
   - user-root
+  - core-daemon

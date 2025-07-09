@@ -1,0 +1,14 @@
+- name: "Load database variables for reset function"
+  include_vars: "{{playbook_dir}}/roles/svc-rdbms-central/vars/main.yml"
+
+- name: "cleanup central database from {{application_id}}_default network"
+  command:
+    cmd: "docker network disconnect {{applications[application_id].network}} {{ database_host }}"
+  ignore_errors: true
+
+- name: "destroy container discourse_application"
+  command:
+    cmd: "./launcher destroy discourse_application"
+    chdir: "{{ docker_repository_directory }}"
+  ignore_errors: true
+  notify: recreate discourse

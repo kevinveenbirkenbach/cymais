@@ -23,3 +23,4 @@ galaxy_info:
   documentation: "https://s.veen.world/cymais"
 dependencies:
   - cln-backups-service
+  - core-daemon

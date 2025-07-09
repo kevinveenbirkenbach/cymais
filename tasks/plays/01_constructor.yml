@@ -50,7 +50,7 @@
         []  | 
         add_redirect_if_group('assets-server',    domains | get_domain('assets-server'), domains | get_domain('file-server'),  group_names) | 
         merge_mapping(redirect_domain_mappings| default([]), 'source')
-      }}"
+        }}"
 
   - name: Set current play redirect domain mappings 
     set_fact:
@@ -120,7 +120,8 @@
 ## backup setup
 - name: setup replica backup hosts
   when: ('backup_remote_to_local' | application_allowed(group_names, allowed_applications))
-  include_role: bkp-remote-to-local
+  include_role:
+    name: bkp-remote-to-local
 
 - name: setup backup to swappable
   when: ('backup_to_usb' | application_allowed(group_names, allowed_applications))

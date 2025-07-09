@@ -15,7 +15,7 @@
     dest: /etc/systemd/system/cln-disc-space.cymais.service
   notify: reload cln-disc-space.cymais.service
 
-- name: set service_name to the name of the current role
+- name: "set 'service_name' to '{{ role_name }}'"
   set_fact:
     service_name: "{{ role_name }}"
 

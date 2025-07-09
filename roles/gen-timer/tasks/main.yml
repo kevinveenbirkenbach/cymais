@@ -1,3 +1,7 @@
+- name: "reset (if enabled)"
+  include_tasks: reset.yml 
+  when: mode_reset | bool and run_once_gen_timer is not defined
+
 - name: create {{service_name}}.cymais.timer
   template:
     src: dummy.timer.j2
@@ -11,3 +15,8 @@
     state: restarted
     enabled: yes
   when: dummy_timer.changed or activate_all_timers | bool
+
+- name: run {{ role_name }} once
+  set_fact:
+    run_once_gen_timer: true
+  when: run_once_gen_timer is not defined

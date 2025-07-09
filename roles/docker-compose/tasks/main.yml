@@ -1,10 +1,8 @@
-- name: "Load variables from {{ role_path }}/vars/docker-compose.yml for whole play"
-  include_vars: "{{ role_path }}/vars/docker-compose.yml"
+- name: "Load variables from {{ docker_compose_variable_file }} for whole play"
+  include_vars: "{{ docker_compose_variable_file }}"
 
-- name: "Remove {{ docker_compose.directories.instance }} and all its contents"
-  file:
-    path: "{{ docker_compose.directories.instance }}"
-    state: absent
+- name: "reset (if enabled)"
+  include_tasks: reset.yml 
   when: mode_reset | bool
 
 # This could lead to problems in docker-compose directories which are based on a git repository

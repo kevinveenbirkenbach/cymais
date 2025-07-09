@@ -16,7 +16,6 @@
     - utils-desk-office-tools
     - desk-jrnl
 
-
 - name: personal computer for business
   when: ("business_personal_computer" in group_names)
   include_role:

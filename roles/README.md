@@ -18,7 +18,7 @@ For a complete list of role categories and detailed definitions, see:
   Generic helpers and language/tool installers (e.g. `gen-git`, `gen-locales`, `gen-timer`)
 
 - **desk-***  
-  Desktop environment and application roles (e.g. `desk-gnome`, `utils-desk-browser`, `desk-libreoffice`)
+  Desktop environment and application roles (e.g. `desk-gnome`, `desk-browser`, `desk-libreoffice`)
 
 ---
 
@@ -28,7 +28,7 @@ For a complete list of role categories and detailed definitions, see:
   Installs and configures the base Nginx server.
 
 - **srv-web-tls-***  
-  Manages TLS certificates and renewal (formerly “https”).
+  Manages TLS certificates and renewal (formerly “https”; e.g. `srv-web-tls-deploy`, `srv-web-tls-renew`).
 
 - **srv-web-proxy-***  
   Proxy and vhost orchestration roles (domain setup, OAuth2 proxy, etc.)
@@ -43,43 +43,43 @@ For a complete list of role categories and detailed definitions, see:
   Static‐content servers (assets, HTML, legal pages, file hosting).
 
 - **web-app-***  
-  Application-specific Docker/Compose roles (e.g. GitLab, Nextcloud, Mastodon).
+  Application-specific Docker/Compose roles (e.g. GitLab, Nextcloud, Mastodon, Redis).
 
 ---
 
 ## Network
 
 - **net-***  
-  Network infrastructure (DNS records, WireGuard, Let’s Encrypt entrypoints).
+  Network infrastructure (DNS records, Let’s Encrypt HTTP entrypoints, WireGuard, etc.)
 
 - **svc-***  
-  Docker‐deployed services that aren’t “apps” (RDBMS, LDAP, Redis, OpenLDAP).
+  Docker-deployed services that aren’t “apps” (RDBMS, LDAP, Redis, OpenLDAP).
 
 ---
 
 ## Monitoring & Alerting
 
 - **mon-bot-***  
-  “Bot”-style health checks with alerts via Telegram, email, etc.
+  “Bot”-style health checks (Btrfs, disk‐space, Docker, journalctl, CSP crawler, webserver) with alerts.
 
 - **monitor-core-***  
-  Low-level system monitors (journalctl, Docker containers, disk space).
+  Low-level system monitors (journalctl, Docker containers, disk space, etc.)
 
 - **alert-***  
-  Failure or status notification handlers (core, email, Telegram).
+  Notification handlers for failures (core, email, Telegram).
 
 ---
 
 ## Maintenance & Healing
 
 - **maint-***  
-  Periodic maintenance tasks (Btrfs balancing, swapfile management).
+  Periodic maintenance tasks (Btrfs balancing, swapfile management, etc.)
 
 - **maint-docker-***  
   Automated recovery and restarts for Docker Compose workloads.
 
 - **cln-***  
-  Housekeeping tasks (old backups, certs, log rotation).
+  Housekeeping tasks (old backups, expired certs, log rotation).
 
 ---
 
@@ -96,7 +96,7 @@ For a complete list of role categories and detailed definitions, see:
   Keeps OS and language packages up to date (`update-apt`, `update-docker`, `update-pip`, etc.)
 
 - **pkgmgr-***  
-  Language or platform package managers (npm, pip, AUR helper).
+  Language or platform package managers (npm, pip, AUR helper, etc.)
 
 ---
 
@@ -106,14 +106,15 @@ For a complete list of role categories and detailed definitions, see:
   Creates user accounts and SSH keys.
 
 - **user-administrator**, **user-root**  
-  Specialized account configurations for privileged users.
+  Specialized configurations for privileged users.
 
 ---
 
 > **Tip:** To find a role quickly, search for its prefix:  
 > `core-`, `gen-`, `desk-`, `srv-web-`, `web-svc-`, `web-app-`,  
-> `net-`, `svc-`, `monitor-`, `alert-`, `maint-`, `cln-`,  
-> `bkp-`, `update-`, `pkgmgr-`, `user-`.
+> `net-`, `svc-`, `mon-bot-`, `monitor-core-`, `alert-`,  
+> `maint-`, `maint-docker-`, `cln-`, `bkp-`, `update-`,  
+> `pkgmgr-`, `user-`.
 
 ---
 

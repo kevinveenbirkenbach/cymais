@@ -21,5 +21,7 @@ galaxy_info:
   documentation: "https://s.veen.world/cymais"
   logo:
     class: "fa-solid fa-dice"
+  run_after:
+    - web-app-matomo
 dependencies:
   - docker-compose

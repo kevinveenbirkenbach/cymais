@@ -1,0 +1,28 @@
+- name: Find all cymais.service units
+  find:
+    paths: /etc/systemd/system
+    patterns: '*.cymais.service'
+  register: cymais_services
+
+- name: Disable and stop each cymais service
+  become: true
+  systemd:
+    name: "{{ item.path | basename }}"
+    enabled: no
+    state: stopped
+  loop: "{{ cymais_services.files }}"
+  loop_control:
+    label: "{{ item.path | basename }}"
+
+- name: Remove all cymais.service files
+  become: true
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ cymais_services.files }}"
+  loop_control:
+    label: "{{ item.path | basename }}"
+
+- name: Reload systemd daemon
+  become: true
+  command: systemctl daemon-reload

@@ -21,7 +21,7 @@
   systemd:
     daemon_reload: yes
 
-- name: set service_name to the name of the current role
+- name: "set 'service_name' to '{{ role_name }}'"
   set_fact:
     service_name: "{{ role_name }}"
 

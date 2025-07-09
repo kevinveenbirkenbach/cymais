@@ -6,14 +6,12 @@
       - nginx-mod-stream
     state:  present
   notify: restart nginx
-  when: run_once_nginx is not defined
+  when: run_once_srv_web_core is not defined
 
-- name: "Delete {{nginx.directories.configuration}} directory, when mode_reset"
-  file:
-    path: "{{ nginx.directories.configuration }}"
-    state: absent
-  when: mode_reset | bool and run_once_nginx is not defined
-
+- name: "reset (if enabled)"
+  include_tasks: reset.yml 
+  when: mode_reset | bool and run_once_srv_web_core is not defined
+  
 - name: Ensure nginx configuration directories are present
   file:
     path: "{{ item }}"
@@ -28,7 +26,7 @@
       (nginx.directories.http.values() | list) +
       [ nginx.directories.streams ] 
     }}
-  when: run_once_nginx is not defined
+  when: run_once_srv_web_core is not defined
 
 - name: Ensure nginx data storage directories are present
   file:
@@ -40,7 +38,7 @@
     mode:  '0755'
   loop: >
     {{ nginx.directories.data.values() | list }}
-  when: run_once_nginx is not defined
+  when: run_once_srv_web_core is not defined
 
 - name: "Include tasks to create cache directories"
   include_tasks: cache_directories.yml
@@ -50,13 +48,13 @@
     src:  nginx.conf.j2 
     dest: /etc/nginx/nginx.conf
   notify: restart nginx
-  when: run_once_nginx is not defined
+  when: run_once_srv_web_core is not defined
 
 - name: flush nginx service
   meta: flush_handlers
-  when: run_once_nginx is not defined
+  when: run_once_srv_web_core is not defined
 
-- name: run the nginx tasks once
+- name: run {{ role_name }} once
   set_fact:
-    run_once_nginx: true
-  when: run_once_nginx is not defined
+    run_once_srv_web_core: true
+  when: run_once_srv_web_core is not defined

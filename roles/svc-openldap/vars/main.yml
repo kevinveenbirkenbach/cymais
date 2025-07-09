@@ -1,4 +1,4 @@
-application_id:     "ldap"
+application_id:     "openldap"
 
 # LDAP Variables
 ldaps_docker_port:  636
