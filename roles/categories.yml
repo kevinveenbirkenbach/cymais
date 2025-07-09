@@ -1,0 +1,184 @@
+categories:
+  core:
+    title: "Core & System"
+    description: "Fundamental system configuration"
+    icon: "fas fa-cogs"
+    gen:
+      title: "gen-*"
+      description: "Helper roles & installers (git, locales, timer, etc.)"
+      icon: "fas fa-wrench"
+    desk:
+      title: "desk-*"
+      description: "Desktop environment roles & apps (GNOME, browser, LibreOffice, etc.)"
+      icon: "fas fa-desktop"
+
+  desk:
+    applications:
+      title: "Desktop Applications"
+      description: "Setup & utilities for desktop apps"
+      icon: "fas fa-desktop"
+    utils:
+      title: "utils-desk-*"
+      description: "Utility roles for desktop tools & development"
+      icon: "fas fa-tools"
+
+  srv:
+    web:
+      core:
+        title: "srv-web-core"
+        description: "Install & configure base Nginx server"
+        icon: "fas fa-server"
+      tls:
+        title: "srv-web-tls-*"
+        description: "Deploy & renew TLS certificates"
+        icon: "fas fa-lock"
+      proxy:
+        title: "srv-web-proxy-*"
+        description: "Proxy & vhost orchestration"
+        icon: "fas fa-project-diagram"
+      injector:
+        core:
+          title: "srv-web-injector-core"
+          description: "Inject core HTML modifiers"
+          icon: "fas fa-code"
+        css:
+          title: "srv-web-injector-css"
+          description: "Inject CSS into responses"
+          icon: "fas fa-paint-brush"
+        iframe:
+          title: "srv-web-injector-iframe"
+          description: "Inject iframe notifier"
+          icon: "fas fa-window-maximize"
+        javascript:
+          title: "srv-web-injector-javascript"
+          description: "Inject JS into responses"
+          icon: "fas fa-code"
+        matomo:
+          title: "srv-web-injector-matomo"
+          description: "Inject Matomo tracking code"
+          icon: "fas fa-chart-pie"
+      composer:
+        title: "srv-web-composer"
+        description: "Compose multiple filters into one include"
+        icon: "fas fa-layer-group"
+
+  web:
+    svc:
+      title: "web-svc-*"
+      description: "Static content servers (assets, HTML, legal, files)"
+      icon: "fas fa-file"
+    app:
+      title: "web-app-*"
+      description: "Deployable web applications (GitLab, Nextcloud, Mastodon, etc.)"
+      icon: "fas fa-docker"
+
+  net:
+    general:
+      title: "net-*"
+      description: "Network setup (DNS, Let's Encrypt HTTP, WireGuard, etc.)"
+      icon: "fas fa-globe"
+    svc:
+      title: "svc-*"
+      description: "Docker infrastructure services (DBMS, LDAP, Redis, etc.)"
+      icon: "fas fa-database"
+    wireguard:
+      core:
+        title: "net-wireguard-core"
+        description: "Core WireGuard configuration"
+        icon: "fas fa-network-wired"
+      firewalled:
+        title: "net-wireguard-firewalled"
+        description: "WireGuard with firewall rules"
+        icon: "fas fa-shield-alt"
+      plain:
+        title: "net-wireguard-plain"
+        description: "WireGuard without extra firewall"
+        icon: "fas fa-network-wired"
+
+  monitoring:
+    bot:
+      title: "mon-bot-*"
+      description: "Bot-style health checks (disk, Docker, webserver, etc.)"
+      icon: "fas fa-robot"
+    core:
+      title: "monitor-core-*"
+      description: "Low-level monitors (journalctl, containers, disk space, etc.)"
+      icon: "fas fa-chart-area"
+
+  alerting:
+    title: "Alerting"
+    description: "Notification handlers for system events"
+    icon: "fas fa-bell"
+    subcategories:
+      email:
+        title: "alert-email"
+        description: "Send alerts via email"
+        icon: "fas fa-envelope"
+      telegram:
+        title: "alert-telegram"
+        description: "Send alerts via Telegram"
+        icon: "fab fa-telegram-plane"
+      compose:
+        title: "alert-compose"
+        description: "Compose multiple alert handlers"
+        icon: "fas fa-project-diagram"
+
+  maintenance:
+    title: "Maintenance & Healing"
+    description: "Periodic maintenance & auto-recovery"
+    icon: "fas fa-tools"
+    subcategories:
+      general:
+        title: "maint-*"
+        description: "Periodic tasks (Btrfs balancing, swapfile, etc.)"
+        icon: "fas fa-sync-alt"
+      docker:
+        title: "maint-docker-*"
+        description: "Automated Docker recovery & restarts"
+        icon: "fas fa-docker"
+      cleanup:
+        title: "cln-*"
+        description: "Housekeeping tasks (backups, certs, logs, etc.)"
+        icon: "fas fa-broom"
+
+  backup:
+    title: "Backup & Restore"
+    description: "Backup strategies & restore procedures"
+    icon: "fas fa-hdd"
+    subcategories:
+      general:
+        title: "bkp-*"
+        description: "Local & remote backups (files, volumes, DBs)"
+        icon: "fas fa-cloud-upload-alt"
+
+  updates:
+    title: "Updates & Package Management"
+    description: "OS & package updates"
+    icon: "fas fa-sync"
+    subcategories:
+      os:
+        title: "update-*"
+        description: "Automatic OS & package updates (apt, Docker, pip, etc.)"
+        icon: "fas fa-download"
+      pkgmgr:
+        title: "pkgmgr-*"
+        description: "Language/platform package managers (npm, pip, AUR, etc.)"
+        icon: "fas fa-box-open"
+
+  users:
+    title: "Users & Access"
+    description: "User accounts & access control"
+    icon: "fas fa-users"
+    subcategories:
+      general:
+        title: "user-*"
+        description: "Create user accounts & SSH keys"
+        icon: "fas fa-user"
+      administrator:
+        title: "user-administrator"
+        description: "Config for admin users"
+        icon: "fas fa-user-shield"
+      root:
+        title: "user-root"
+        description: "Config for root user"
+        icon: "fas fa-user-shield"

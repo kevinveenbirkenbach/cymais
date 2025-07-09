@@ -1,7 +1,7 @@
 ---
-- name: "include svc-rdbms-central"
+- name: "load docker and db for {{application_id}}"
   include_role: 
-    name: svc-rdbms-central
+    name: cmp-db-docker
 
 - name: Set nginx_docker_reverse_proxy_extra_configuration based on applications[application_id].public_api_activated
   set_fact:

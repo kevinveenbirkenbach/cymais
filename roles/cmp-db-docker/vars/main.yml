@@ -1,0 +1,2 @@
+cmp_db_docker_vars_file_db:     "{{ playbook_dir }}/roles/svc-rdbms-central/vars/database.yml"
+cmp_db_docker_vars_file_docker: "{{ playbook_dir }}/roles/docker-compose/vars/docker-compose.yml"

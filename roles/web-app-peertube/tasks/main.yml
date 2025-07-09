@@ -1,7 +1,7 @@
 ---
-- name: "include svc-rdbms-central"
+- name: "load docker and db for {{application_id}}"
   include_role: 
-    name: svc-rdbms-central
+    name: cmp-db-docker
   
 - name: "include create-domains.yml for peertube"
   include_tasks: create-domains.yml

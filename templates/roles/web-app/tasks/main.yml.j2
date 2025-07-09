@@ -3,9 +3,9 @@
 {% if database_type | bool %}
 
 {% raw %}
-- name: "include svc-rdbms-central"
+- name: "load docker and db for {{application_id}}"
   include_role: 
-    name: svc-rdbms-central
+    name: cmp-db-docker
   when: run_once_docker_{% endraw %}{{ application_id }}{% raw %} is not defined
 
 {% endraw %}

@@ -1,18 +1,3 @@
-- name: "set database_application_id (Needed due to lazzy loading issue)"
-  set_fact:
-    database_application_id: "{{ application_id }}"
-
-- name: "Load database variables"
-  include_vars: "{{ item }}"
-  loop:
-    - "{{ docker_var_file }}"   # Important to load docker variables first so that database can use them
-    - "{{ database_var_file }}" # Important to load them before docker role so that backup can use them
-
-# Docker Routines
-- name: "Include docker-compose role"
-  include_role: 
-    name: docker-compose
-
 # The following env file will just be used from the dedicated mariadb container
 # and not the {{applications.mariadb.hostname }}-database
 - name: "Create {{database_env}}"

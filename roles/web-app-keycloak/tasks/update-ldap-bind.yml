@@ -1,0 +1,42 @@
+# Draft 
+
+- name: Wait until Keycloak is up
+  uri:
+    url: "{{ keycloak_server_host_url }}/realms/{{ keycloak_realm }}"
+    method: GET
+    status_code: 200
+    validate_certs: false
+  register: keycloak_up
+  retries: 30
+  delay: 5
+  until: keycloak_up.status == 200
+
+- name: Log in with kcadm.sh
+  shell: |
+    {{ keycloak_kcadm_path }} config credentials \
+      --server {{ keycloak_server_internal_url }} \
+      --realm master \
+      --user {{ keycloak_administrator_username }} \
+      --password {{ keycloak_administrator_password }}
+
+- name: Retrieve LDAP component ID
+  shell: |
+    {{ keycloak_kcadm_path }} get components \
+      -r {{ keycloak_realm }} \
+      --query 'providerId=ldap' \
+      --fields id \
+      --format json \
+      | jq -r '.[0].id'
+  register: ldap_component
+  changed_when: false
+
+- name: Update LDAP bind password
+  vars:
+    new_bind_password: "MyNewLdapPassword123!"
+  shell: |
+    {{ keycloak_kcadm_path }} update components/{{ ldap_component.stdout }} \
+      -r {{ keycloak_realm }} \
+      -s 'config.bindCredential=["{{ new_bind_password }}"]'
+  no_log: true
+  register: update_bind
+  changed_when: update_bind.rc == 0

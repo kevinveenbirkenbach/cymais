@@ -1,7 +1,7 @@
 ---
-- name: "Include svc-rdbms-central"
+- name: "load docker and db for {{application_id}}"
   include_role: 
-    name: svc-rdbms-central
+    name: cmp-db-docker
   
 - name: "Include role srv-web-proxy-domain for {{ application_id }}"
   include_role:
@@ -21,7 +21,7 @@
 
 - name: "Transfering msmtprc to {{ host_msmtp_conf }}"
   template:
-    src: "{{ playbook_dir }}/roles/msmtp/templates/msmtprc.conf.j2"
+    src: "{{ playbook_dir }}/roles/gen-msmtp/templates/msmtprc.conf.j2"
     dest: "{{ host_msmtp_conf }}"
   notify: docker compose up
 

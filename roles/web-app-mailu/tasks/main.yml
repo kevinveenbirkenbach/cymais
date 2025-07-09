@@ -1,7 +1,7 @@
 ---
-- name: "Include svc-rdbms-central"
-  include_role:
-    name: svc-rdbms-central
+- name: "load docker and db for {{application_id}}"
+  include_role: 
+    name: cmp-db-docker
   when: run_once_docker_mailu is not defined
 
 - name: "Include role srv-web-proxy-domain for {{ application_id }}"

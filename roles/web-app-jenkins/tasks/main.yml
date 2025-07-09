@@ -1,3 +1,7 @@
+- name: "load docker and db for {{application_id}}"
+  include_role: 
+    name: cmp-db-docker
+
 - name: "include role srv-web-proxy-domain for {{application_id}}"
   include_role:
     name: srv-web-proxy-domain
@@ -5,15 +9,3 @@
     domain:   "{{ domains | get_domain(application_id) }}"
     http_port:   "{{ ports.localhost.http[application_id] }}"
 
-- name: "docker jenkins"
-  docker_compose:
-    application_id: jenkins
-    definition:
-      application:
-        image: jenkins/jenkins:lts
-        restart: "{{docker_restart_policy}}"
-        ports:
-          - "127.0.0.1:{{ports.localhost.http[application_id]}}:8080"
-        volumes:
-          - jenkins_data:/var/jenkins_home
-        log_driver: journald

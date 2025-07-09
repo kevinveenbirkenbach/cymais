@@ -1,4 +1,5 @@
 ---
+
 - name: "include docker-compose role"
   include_role: 
     name: docker-compose
@@ -22,6 +23,14 @@
     state: present
     ipam_config:
       - subnet: "{{ networks.local.central_ldap.subnet }}"
+
+- name: "Wait for LDAP to be available"
+  wait_for:
+    host: "127.0.0.1"
+    port: "{{ ports.localhost.ldap.openldap }}"
+    delay: 5
+    timeout: 120
+    state: started
 
 - name: "Reset LDAP admin passwords"
   include_tasks: reset_admin_passwords.yml

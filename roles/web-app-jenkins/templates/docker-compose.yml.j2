@@ -1,0 +1,10 @@
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
+    application:
+      image: jenkins/jenkins:lts
+      restart: "{{docker_restart_policy}}"
+      ports:
+        - "127.0.0.1:{{ports.localhost.http[application_id]}}:8080"
+      volumes:
+        - jenkins_data:/var/jenkins_home
+      log_driver: journald
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}

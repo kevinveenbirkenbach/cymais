@@ -1,6 +1,6 @@
-- name: "include svc-rdbms-central"
+- name: "load docker and db for {{application_id}}"
   include_role: 
-    name: svc-rdbms-central
+    name: cmp-db-docker
 
 - name: "include role srv-web-proxy-domain for {{application_id}}"
   include_role:

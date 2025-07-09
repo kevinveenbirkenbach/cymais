@@ -8,9 +8,9 @@
     bridges: "{{ bridges_configuration | filter_enabled_bridges(applications[application_id].plugins) }}"
   changed_when: false
 
-- name: "include svc-rdbms-central"
+- name: "load docker and db for {{application_id}}"
   include_role: 
-    name: svc-rdbms-central
+    name: cmp-db-docker
 
 - name: "include role for {{application_id}} to receive certs & do modification routines"
   include_role:

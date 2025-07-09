@@ -1,0 +1,17 @@
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: >
+    Combines Docker Compose with a central RDBMS role to automatically
+    provision database containers with backup, user, and permission management.
+  company: |
+    Kevin Veen-Birkenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  galaxy_tags:
+    - docker
+    - database
+    - rdbms
+    - backup
+    - compose
