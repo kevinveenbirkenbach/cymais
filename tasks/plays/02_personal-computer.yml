@@ -5,15 +5,15 @@
   include_role:
     name: "{{ item }}"
   loop:
-    - persona-administrator
+    - utils-generic-administrator
     - driver-non-free
 
-- name: persona-employee
+- name: utils-desktop-office-tools
   when: ("collection_officetools" in group_names)
   include_role:
     name: "{{ item }}"
   loop:
-    - persona-employee
+    - utils-desktop-office-tools
     - desktop-jrnl
 
 
@@ -22,20 +22,20 @@
   include_role:
     name: desktop-gnucash
 
-- name: persona-designer
+- name: utils-desktop-design
   when: ("collection_designer" in group_names)
   include_role:
-    name: persona-designer
+    name: utils-desktop-design
 
 - name: desktop-qbittorrent
   when: ("collection_torrent" in group_names)
   include_role:
     name: desktop-qbittorrent
 
-- name: persona-streamer
+- name: desktop-obs
   when: ("collection_streamer" in group_names)
   include_role:
-    name: persona-streamer
+    name: desktop-obs
 
 - name: desktop-bluray-player
   when: ("collection_bluray_player" in group_names)
@@ -55,7 +55,7 @@
 - name: setup gaming hosts
   when: ("gaming" in group_names)
   include_role:
-    name: persona-gamer
+    name: utils-desktop-game-compose
 
 - name: setup entertainment hosts
   when: ("entertainment" in group_names)
