@@ -15,7 +15,7 @@
     restart: {{docker_restart_policy}}
     logging:
       driver: journald
-    entrypoint: web-app-daemon.sh
+    entrypoint: docker-daemon.sh
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
     volumes:
       - data:/var/www/html
@@ -30,7 +30,7 @@
       - ESPOCRM_CONFIG_WEB_SOCKET_URL=wss://{{ domains | get_domain(application_id) }}/ws
       - ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBSCRIBER_DSN=tcp://*:7777
       - ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBMISSION_DSN=tcp://websocket:7777
-    entrypoint: web-app-websocket.sh
+    entrypoint: docker-websocket.sh
 {% include 'roles/docker-container/templates/depends_on/dmbs_excl.yml.j2' %}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
     volumes:
