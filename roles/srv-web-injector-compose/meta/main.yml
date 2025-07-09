@@ -15,14 +15,13 @@ galaxy_info:
     - theming
   repository: "https://github.com/kevinveenbirkenbach/cymais"
   issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
-  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/srv-web-injector-core"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/srv-web-injector-compose"
   min_ansible_version: "2.9"
   platforms:
     - name: Any
       versions:
         - all
 dependencies:
-  - srv-web-injector-matomo
-  - srv-web-injector-css
-  - srv-web-injector-iframe
-  - srv-web-injector-javascript
+# The injections are called in the script. Keep the logic there.
+  - srv-web-core
+  

@@ -11,6 +11,6 @@ server {
     listen 8448 ssl default_server;
     listen [::]:8448 ssl default_server;
 
-    {% include 'roles/srv-web-injector-core/templates/global.includes.conf.j2'%}
+    {% include 'roles/srv-web-injector-compose/templates/global.includes.conf.j2'%}
     {% include 'roles/srv-web-proxy-core/templates/location/proxy_basic.conf.j2' %}
 }

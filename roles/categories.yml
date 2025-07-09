@@ -38,7 +38,7 @@ categories:
         icon: "fas fa-project-diagram"
       injector:
         core:
-          title: "srv-web-injector-core"
+          title: "srv-web-injector-compose"
           description: "Inject core HTML modifiers"
           icon: "fas fa-code"
         css:

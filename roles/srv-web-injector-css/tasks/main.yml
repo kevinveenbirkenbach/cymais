@@ -1,4 +1,4 @@
-# Load this role via srv-web-injector-core for consistency
+# Load this role via srv-web-injector-compose for consistency
 
 - name: Generate color palette with colorscheme-generator
   set_fact:

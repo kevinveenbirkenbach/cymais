@@ -1,6 +1,6 @@
-- name: "include role srv-web-injector-core for {{domain}}"
+- name: "include role srv-web-injector-compose for {{domain}}"
   include_role: 
-    name: srv-web-injector-core
+    name: srv-web-injector-compose
 
 - name: "include role srv-web-tls-core for {{domain}}"
   include_role: 
