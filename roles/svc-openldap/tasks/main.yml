@@ -24,6 +24,8 @@
     ipam_config:
       - subnet: "{{ networks.local.central_ldap.subnet }}"
 
+- meta: flush_handlers
+
 - name: "Wait for LDAP to be available"
   wait_for:
     host: "127.0.0.1"
