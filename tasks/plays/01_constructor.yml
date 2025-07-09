@@ -128,21 +128,21 @@
     name: bkp-data-to-usb
 
 ## driver setup
-- name: driver-intel
+- name: drv-intel
   when: ('intel' | application_allowed(group_names, allowed_applications))
   include_role:
-    name: driver-intel
+    name: drv-intel
 
 - name: setup multiprinter hosts
   when: ('epson_multiprinter' | application_allowed(group_names, allowed_applications))
   include_role:
-    name: driver-epson-multiprinter
+    name: drv-epson-multiprinter
 
 
 - name: setup hibernate lid switch
-  when: ('driver-lid-switch' | application_allowed(group_names, allowed_applications))
+  when: ('drv-lid-switch' | application_allowed(group_names, allowed_applications))
   include_role:
-    name: driver-lid-switch
+    name: drv-lid-switch
 
 ## system setup 
 - name: setup swapfile hosts

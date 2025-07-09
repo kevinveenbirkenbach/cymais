@@ -1,4 +1,4 @@
-# driver-non-free
+# drv-non-free
 
 ## Description
 

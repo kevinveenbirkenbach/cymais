@@ -1,4 +1,4 @@
-# driver-intel
+# drv-intel
 
 ## Description
 
@@ -6,7 +6,7 @@ This Ansible role installs Intel media drivers on systems that use the Pacman pa
 
 ## Overview
 
-The `driver-intel` role leverages the `community.general.pacman` module to:
+The `drv-intel` role leverages the `community.general.pacman` module to:
 
 1. Update the package cache.
 2. Install (or upgrade) the `intel-media-driver` package.

@@ -6,7 +6,7 @@
     name: "{{ item }}"
   loop:
     - utils-generic-administrator
-    - driver-non-free
+    - drv-non-free
 
 - name: utils-desk-office-tools
   when: ("collection_officetools" in group_names)
@@ -81,4 +81,4 @@
 - name: setup msi rgb keyboard
   when: ("msi_perkeyrgb" in group_names)
   include_role:
-    name: driver-msi-keyboard-color
+    name: drv-msi-keyboard-color

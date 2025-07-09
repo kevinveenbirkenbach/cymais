@@ -1,4 +1,4 @@
-# Ansible Role: driver-msi-keyboard-color
+# Ansible Role: drv-msi-keyboard-color
 
 Ansible role to set up dynamic keyboard color change on MSI laptops.
 
