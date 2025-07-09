@@ -18,7 +18,7 @@ To reduce setup time and ensure consistency across developer workstations, this 
 
 - **Installs Visual Studio Code:** A powerful code editor with a wide plugin ecosystem.
 - **Extensible Design:** Acts as a base layer for more specific development stacks (e.g., web, Python, embedded).
-- **Persona Integration:** Extends the `utils-generic-administrator` for technical users with a development focus.
+- **Persona Integration:** Extends the `utils-gen-administrator` for technical users with a development focus.
 
 ## Credits 📝
 

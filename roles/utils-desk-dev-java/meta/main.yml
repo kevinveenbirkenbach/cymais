@@ -25,5 +25,5 @@ galaxy_info:
   issue_tracker_url: https://s.veen.world/cymaisissues
   documentation: https://s.veen.world/cymais
 dependencies:
-  - generic-java
+  - gen-java
   - utils-desk-dev-core

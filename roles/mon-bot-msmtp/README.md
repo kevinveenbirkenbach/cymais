@@ -6,7 +6,7 @@ This Ansible role sends periodic health check emails using **msmtp** to verify t
 
 ## Overview
 
-Optimized for Archlinux, this role creates the required directory structure, installs and configures the mon-bot-check script, and integrates with the **alert-telegram** role. It uses the **generic-timer** role to schedule regular checks based on your customizable `OnCalendar` setting.
+Optimized for Archlinux, this role creates the required directory structure, installs and configures the mon-bot-check script, and integrates with the **alert-telegram** role. It uses the **gen-timer** role to schedule regular checks based on your customizable `OnCalendar` setting.
 
 ## Purpose
 

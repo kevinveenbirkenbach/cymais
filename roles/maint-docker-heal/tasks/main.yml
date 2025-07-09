@@ -24,9 +24,9 @@
     service_name: "{{ role_name }}"
   when: run_once_heal_docker is not defined
 
-- name: "include role for generic-timer for {{service_name}}"
+- name: "include role for gen-timer for {{service_name}}"
   include_role:
-    name: generic-timer
+    name: gen-timer
   vars:
     on_calendar:  "{{on_calendar_heal_docker}}"
   when: run_once_heal_docker is not defined

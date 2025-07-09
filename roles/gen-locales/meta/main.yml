@@ -1,8 +1,6 @@
-# roles/generic-hostname/meta/main.yml
----
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Set the system hostname based on the inventory_hostname"
+  description: "Configure system locales by deploying locale.gen and locale.conf and generating locales"
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -11,9 +9,10 @@ galaxy_info:
     https://www.veen.world
   galaxy_tags:
     - system
-    - hostname
+    - i18n
+    - locales
   repository: "https://github.com/kevinveenbirkenbach/cymais"
   issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
-  documentation: "https://github.com/kevinveenbirkenbach/cymais/roles/generic-hostname"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/roles/gen-locales"
   run_after: []
 dependencies: []

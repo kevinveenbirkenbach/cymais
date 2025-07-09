@@ -16,18 +16,18 @@ To automate the installation of Spotify on Arch-based systems while ensuring pro
 
 - 🎧 Installs the official [Spotify AUR package](https://aur.archlinux.org/packages/spotify)
 - 🛠 Uses `yay` (or other helper) via [`kewlfft.aur`](https://github.com/kewlfft/ansible-aur) Ansible module
-- 🔗 Declares dependency on `generic-aur-helper` for seamless integration
+- 🔗 Declares dependency on `gen-aur-helper` for seamless integration
 
 ## Requirements
 
-- The `generic-aur-helper` role must be applied before using this role.
+- The `gen-aur-helper` role must be applied before using this role.
 - An AUR helper like `yay` must be available on the system.
 
 ## Dependencies
 
 This role depends on:
 
-- [`generic-aur-helper`](../generic-aur-helper) – provides and configures an AUR helper like `yay`
+- [`gen-aur-helper`](../gen-aur-helper) – provides and configures an AUR helper like `yay`
 
 ## Credits 📝
 

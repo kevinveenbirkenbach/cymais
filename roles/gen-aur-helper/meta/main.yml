@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Installs the python-pip package to provide the Python package manager, ensuring that Python packages can be installed reliably on the target system."
+  description: "Installs the AUR helper yay and configures an aur_builder user with appropriate sudo privileges to facilitate AUR package management on Arch Linux systems."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -14,13 +14,12 @@ galaxy_info:
       versions:
         - rolling
   galaxy_tags:
-    - python
-    - pip
-    - package
-    - installation
-    - automation
+    - aur
+    - yay
+    - archlinux
+    - package-management
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
 dependencies:
-  - generic-gcc
+  - gen-fakeroot

@@ -28,4 +28,4 @@ galaxy_info:
   documentation: "https://s.veen.world/cymais"
 dependencies:
   - webserver-https
-  - generic-git
+  - gen-git

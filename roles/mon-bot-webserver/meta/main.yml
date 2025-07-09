@@ -22,5 +22,5 @@ galaxy_info:
   repository: "https://s.veen.world/cymais"
   documentation: "https://s.veen.world/cymais"
 dependencies:
-  - generic-python-pip
+  - gen-python-pip
   - alert-compose

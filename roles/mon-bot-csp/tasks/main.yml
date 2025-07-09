@@ -37,7 +37,7 @@
 
 - name: include systemd timer role
   include_role:
-    name: generic-timer
+    name: gen-timer
   vars:
     on_calendar: "{{ on_calendar_health_csp_crawler }}"
   when: run_once_health_csp is not defined

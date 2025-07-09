@@ -8,7 +8,7 @@ This role sets up a systemd timer to schedule the periodic cleanup of old backup
 
 Optimized for automated maintenance, this role:
 - Sets a fact for the service name.
-- Integrates with the [generic-timer](../generic-timer/README.md) role to schedule cln-backups tasks at defined intervals.
+- Integrates with the [gen-timer](../gen-timer/README.md) role to schedule cln-backups tasks at defined intervals.
 
 ## Purpose
 

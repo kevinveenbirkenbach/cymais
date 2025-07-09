@@ -5,7 +5,7 @@
   include_role:
     name: "{{ item }}"
   loop:
-    - utils-generic-administrator
+    - utils-gen-administrator
     - drv-non-free
 
 - name: utils-desk-office-tools

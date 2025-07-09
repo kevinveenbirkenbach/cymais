@@ -19,4 +19,4 @@ galaxy_info:
     - archlinux
     - automation
 dependencies:
-  - generic-hunspell
+  - gen-hunspell

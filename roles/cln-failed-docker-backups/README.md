@@ -9,7 +9,7 @@ This role cleans up failed Docker backups by pulling a [Git repository](https://
 Optimized for backup maintenance, this role:
 - Clones the cln-failed-docker-backups repository.
 - Configures a systemd service to run the cleanup script.
-- Integrates with the [generic-timer](../generic-timer/README.md) role to schedule periodic cleanup.
+- Integrates with the [gen-timer](../gen-timer/README.md) role to schedule periodic cleanup.
 - Works in conjunction with the bkp-directory-validator role for additional verification.
 
 ## Purpose

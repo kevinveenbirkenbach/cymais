@@ -29,7 +29,7 @@ This Ansible role simplifies the deployment of **Let's Encrypt certificates** in
 3. **Configure `systemd` Service**  
    - Deploys a `systemd` service file for the deployment process.
    
-4. **Include `generic-timer` Role**  
+4. **Include `gen-timer` Role**  
    - Schedules automatic certificate deployment using a `systemd` timer.
 
 ### **2️⃣ Handlers**

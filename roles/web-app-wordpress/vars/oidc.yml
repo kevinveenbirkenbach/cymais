@@ -1,6 +1,6 @@
 # vars/oidc.yml
 # Defines OIDC settings for the OpenID Connect Generic plugin, with explanatory comments.
-# @see https://github.com/oidc-wp/openid-connect-generic/blob/develop/includes/openid-connect-generic-option-settings.php
+# @see https://github.com/oidc-wp/openid-connect-generic/blob/develop/includes/openid-connect-gen-option-settings.php
 
 oidc_settings:
   client_id:                "{{ oidc.client.id }}"                                                # The client ID that identifies WordPress as the OIDC client.

@@ -23,9 +23,9 @@
     dest: "/etc/systemd/system/webserver-proxy-tls-deploy.{{application_id}}.cymais.service"
   notify: restart webserver-proxy-tls-deploy.cymais.service
 
-- name: "include role for generic-timer for {{service_name}}"
+- name: "include role for gen-timer for {{service_name}}"
   include_role:
-    name: generic-timer
+    name: gen-timer
   vars:
     on_calendar:  "{{on_calendar_deploy_certificates}}"
     service_name: "webserver-proxy-tls-deploy.{{application_id}}"

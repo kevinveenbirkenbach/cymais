@@ -26,4 +26,4 @@ galaxy_info:
   documentation: https://s.veen.world/cymais
 dependencies:
   - utils-desk-dev-core
-  - generic-python-pip
+  - gen-python-pip

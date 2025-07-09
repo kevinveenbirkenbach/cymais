@@ -3,9 +3,9 @@
     service_name: "cln-backups"
   when: run_once_cleanup_backups_timer is not defined
 
-- name: "include role for generic-timer for {{service_name}}"
+- name: "include role for gen-timer for {{service_name}}"
   include_role:
-    name: generic-timer
+    name: gen-timer
   vars:
     on_calendar:  "{{on_calendar_cleanup_backups}}"
   when: run_once_cleanup_backups_timer is not defined
