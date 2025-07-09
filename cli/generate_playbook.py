@@ -143,7 +143,7 @@ def main():
     )
     parser.add_argument(
         '-p', '--prefix',
-        help='Only include roles whose names start with this prefix (e.g. web-app-, desktop-)',
+        help='Only include roles whose names start with this prefix (e.g. web-app-, desk-)',
         default=None
     )
     parser.add_argument(

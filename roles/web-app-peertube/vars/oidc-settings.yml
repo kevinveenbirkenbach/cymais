@@ -1,9 +1,9 @@
 oidc_settings: |
   {
     "scope": "openid email profile",
-    "desktop-id": "{{ oidc.client.id }}",
+    "desk-id": "{{ oidc.client.id }}",
     "discover-url": "{{ oidc.client.discovery_document }}",
-    "desktop-secret": "{{ oidc.client.secret }}",
+    "desk-secret": "{{ oidc.client.secret }}",
     "mail-property": "email",
     "auth-display-name": "{{ oidc.button_text }}",
     "username-property": "{{ oidc.attributes.username }}",

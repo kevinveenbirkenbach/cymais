@@ -17,8 +17,8 @@ For a complete list of role categories and detailed definitions, see:
 - **generic-***  
   Generic helpers and language/tool installers (e.g. `generic-git`, `generic-locales`, `generic-timer`)
 
-- **desktop-***  
-  Desktop environment and application roles (e.g. `desktop-gnome`, `desktop-browser`, `desktop-libreoffice`)
+- **desk-***  
+  Desktop environment and application roles (e.g. `desk-gnome`, `utils-desk-browser`, `desk-libreoffice`)
 
 ---
 
@@ -111,7 +111,7 @@ For a complete list of role categories and detailed definitions, see:
 ---
 
 > **Tip:** To find a role quickly, search for its prefix:  
-> `core-`, `generic-`, `desktop-`, `webserver-`, `web-service-`, `web-app-`,  
+> `core-`, `generic-`, `desk-`, `webserver-`, `web-service-`, `web-app-`,  
 > `network-`, `service-`, `monitor-`, `alert-`, `maintenance-`, `cleanup-`,  
 > `backup-`, `update-`, `pkgmgr-`, `user-`.
 

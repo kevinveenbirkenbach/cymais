@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Installs essential tools for Linux system administrators on Linux."
+  description: "Installs tools and environment for Python development on Linux."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -14,15 +14,16 @@ galaxy_info:
       versions:
         - rolling
   galaxy_tags:
-    - system
-    - administration
+    - development
+    - python
+    - software
+    - engineering
     - archlinux
     - persona
-    - tools
+    - pip
   repository: https://s.veen.world/cymais
   issue_tracker_url: https://s.veen.world/cymaisissues
   documentation: https://s.veen.world/cymais
 dependencies:
-  - desk-git
-  - generic-make
-  - generic-gcc
+  - utils-desk-dev-core
+  - generic-python-pip

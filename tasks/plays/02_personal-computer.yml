@@ -8,74 +8,74 @@
     - utils-generic-administrator
     - driver-non-free
 
-- name: utils-desktop-office-tools
+- name: utils-desk-office-tools
   when: ("collection_officetools" in group_names)
   include_role:
     name: "{{ item }}"
   loop:
-    - utils-desktop-office-tools
-    - desktop-jrnl
+    - utils-desk-office-tools
+    - desk-jrnl
 
 
 - name: personal computer for business
   when: ("business_personal_computer" in group_names)
   include_role:
-    name: desktop-gnucash
+    name: desk-gnucash
 
-- name: utils-desktop-design
+- name: utils-desk-design
   when: ("collection_designer" in group_names)
   include_role:
-    name: utils-desktop-design
+    name: utils-desk-design
 
-- name: desktop-qbittorrent
+- name: desk-qbittorrent
   when: ("collection_torrent" in group_names)
   include_role:
-    name: desktop-qbittorrent
+    name: desk-qbittorrent
 
-- name: desktop-obs
+- name: desk-obs
   when: ("collection_streamer" in group_names)
   include_role:
-    name: desktop-obs
+    name: desk-obs
 
-- name: desktop-bluray-player
+- name: desk-bluray-player
   when: ("collection_bluray_player" in group_names)
   include_role:
-    name: desktop-bluray-player
+    name: desk-bluray-player
 
 - name: GNOME setup
   when: ("gnome" in group_names)
   include_role:
-    name: desktop-gnome
+    name: desk-gnome
 
 - name: setup ssh client
   when: ("ssh-client" in group_names)
   include_role:
-    name: desktop-ssh
+    name: desk-ssh
 
 - name: setup gaming hosts
   when: ("gaming" in group_names)
   include_role:
-    name: utils-desktop-game-compose
+    name: utils-desk-game-compose
 
 - name: setup entertainment hosts
   when: ("entertainment" in group_names)
   include_role:
-    name: desktop-spotify
+    name: desk-spotify
 
 - name: setup torbrowser hosts
   when: ("torbrowser" in group_names)
   include_role:
-    name: desktop-torbrowser
+    name: desk-torbrowser
 
 - name: setup nextcloud-client
   when: ("nextcloud_client" in group_names)
   include_role:
-    name: desktop-nextcloud
+    name: desk-nextcloud
 
 - name: setup docker
   when: ("docker_client" in group_names)
   include_role:
-    name: desktop-docker
+    name: desk-docker
 
 # driver 
 - name: setup msi rgb keyboard
