@@ -1,0 +1,32 @@
+- name: install lsof and python-psutil
+  community.general.pacman:
+    name:
+      - lsof
+      - python-psutil
+    state: present
+  when: run_once_cleanup_backups_service is not defined
+
+- name: "create {{cleanup_backups_directory}}"
+  file:
+    path: "{{cleanup_backups_directory}}"
+    state: directory
+    mode: 0755
+  when: run_once_cleanup_backups_service is not defined
+
+- name: create cln-backups.py
+  copy: 
+    src:  "cln-backups.py"
+    dest: "{{cleanup_backups_directory}}cln-backups.py"
+  when: run_once_cleanup_backups_service is not defined
+
+- name: create cln-backups.cymais.service
+  template: 
+    src:  "cln-backups.service.j2"
+    dest: "/etc/systemd/system/cln-backups.cymais.service"
+  notify: reload cln-backups.cymais.service
+  when: run_once_cleanup_backups_service is not defined
+
+- name: run the cleanup_backups_service tasks once
+  set_fact:
+    run_once_cleanup_backups_service: true
+  when: run_once_cleanup_backups_service is not defined

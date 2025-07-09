@@ -8,7 +8,7 @@ This Ansible role automates the process of backing up Docker volumes to a local 
 
 Optimized for Archlinux, this role ensures that Docker volume backups are performed reliably with minimal manual intervention. It integrates with several dependent roles to verify backup success and manage related tasks, including:
 - [bkp-directory-validator](../bkp-directory-validator/) – Validates backup directories.
-- [cleanup-failed-docker-backups](../cleanup-failed-docker-backups/) – Cleans up unsuccessful backup attempts.
+- [cln-failed-docker-backups](../cln-failed-docker-backups/) – Cleans up unsuccessful backup attempts.
 - [generic-timer](../generic-timer/) – Schedules recurring backup tasks.
 - [bkp-provider](../bkp-provider/) – Manages backup sources.
 - [maint-lock](../maint-lock/) – Ensures coordinated maintenance operations.

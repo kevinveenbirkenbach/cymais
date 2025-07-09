@@ -25,6 +25,6 @@ galaxy_info:
 dependencies:
   - bkp-provider
   - alert-compose
-  - cleanup-failed-docker-backups
+  - cln-failed-docker-backups
   - maint-lock
   - bkp-directory-validator

@@ -25,5 +25,5 @@ galaxy_info:
 
 dependencies:
   - webserver-core
-  - cleanup-domains
+  - cln-domains
   - network-letsencrypt

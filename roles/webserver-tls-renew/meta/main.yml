@@ -30,4 +30,4 @@ dependencies:
   - generic-certbot
   - webserver-core
   - alert-compose
-  - cleanup-certs
+  - cln-certs

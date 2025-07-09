@@ -1,0 +1,5 @@
+- name: "Reload cln-failed-docker-backups.cymais.service"
+  systemd:
+    name: cln-failed-docker-backups.cymais.service
+    enabled: yes
+    daemon_reload: yes

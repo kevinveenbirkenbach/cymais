@@ -16,7 +16,7 @@ This role is built on top of your existing `webserver-core` role, and it automat
 When you apply **webserver-https**, it will:
 
 1. **Include** the `webserver-core` role to install and configure Nginx.  
-2. **Clean up** any stale vHost files under `cleanup-domains`.  
+2. **Clean up** any stale vHost files under `cln-domains`.  
 3. **Deploy** the Let’s Encrypt challenge-and-redirect snippet from `network-letsencrypt`.  
 4. **Reload** Nginx automatically when any template changes.
 

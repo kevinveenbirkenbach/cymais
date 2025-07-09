@@ -1,5 +1,0 @@
-- name: "Reload cleanup-failed-docker-backups.cymais.service"
-  systemd:
-    name: cleanup-failed-docker-backups.cymais.service
-    enabled: yes
-    daemon_reload: yes

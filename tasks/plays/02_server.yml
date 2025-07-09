@@ -7,7 +7,7 @@
     - core-security
     - core-journalctl
     - mon-bot-disc-space
-    - cleanup-disc-space
+    - cln-disc-space
     - mon-bot-btrfs
     - maint-btrfs-auto-balancer
 

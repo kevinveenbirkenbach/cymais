@@ -78,7 +78,7 @@ For a complete list of role categories and detailed definitions, see:
 - **maint-docker-***  
   Automated recovery and restarts for Docker Compose workloads.
 
-- **cleanup-***  
+- **cln-***  
   Housekeeping tasks (old backups, certs, log rotation).
 
 ---
@@ -112,7 +112,7 @@ For a complete list of role categories and detailed definitions, see:
 
 > **Tip:** To find a role quickly, search for its prefix:  
 > `core-`, `generic-`, `desk-`, `webserver-`, `web-service-`, `web-app-`,  
-> `network-`, `service-`, `monitor-`, `alert-`, `maint-`, `cleanup-`,  
+> `network-`, `service-`, `monitor-`, `alert-`, `maint-`, `cln-`,  
 > `bkp-`, `update-`, `pkgmgr-`, `user-`.
 
 ---

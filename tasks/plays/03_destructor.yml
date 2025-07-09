@@ -5,7 +5,7 @@
   
 - name: Cleanup Docker Anonymous Volumes
   import_role:
-    name: cleanup-docker-anonymous-volumes
+    name: cln-docker-anonymous-volumes
   when: mode_cleanup | bool
 
 - name: Show all facts

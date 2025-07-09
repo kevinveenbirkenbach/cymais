@@ -20,9 +20,9 @@ system_maintenance_backup_services:
 
 ### Defined Services for System Cleanup
 system_maintenance_cleanup_services:
-  - "cleanup-backups"
-  - "cleanup-disc-space"
-  - "cleanup-failed-docker-backups"
+  - "cln-backups"
+  - "cln-disc-space"
+  - "cln-failed-docker-backups"
 
 ### Services that Manipulate the System
 system_maintenance_manipulation_services:

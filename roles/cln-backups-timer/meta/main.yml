@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Configures the host as a backup provider to facilitate secure backup operations."
+  description: "Schedules periodic cleanup of old backups by configuring a systemd timer to trigger the cln-backups-service role."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -14,14 +14,12 @@ galaxy_info:
       versions:
         - all
   galaxy_tags:
-    - backups
-    - provider
+    - timer
     - backup
+    - cleanup
     - automation
-    - security
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
 dependencies:
-  - bkp-provider-user
-  - cln-backups-timer
+  - cln-backups-service

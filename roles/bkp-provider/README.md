@@ -8,7 +8,7 @@ This role sets up and manages the host as a backup provider. It establishes the 
 
 Optimized for automated backup processes, this role:
 - Configures the host to provide backup services.
-- Integrates seamlessly with the [bkp-provider-user](../bkp-provider-user/README.md) and [cleanup-backups-timer](../cleanup-backups-timer/README.md) roles.
+- Integrates seamlessly with the [bkp-provider-user](../bkp-provider-user/README.md) and [cln-backups-timer](../cln-backups-timer/README.md) roles.
 - Lays the foundation for secure and extensible backup operations.
 
 ## Purpose

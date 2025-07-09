@@ -1,5 +1,0 @@
-- name: "reload cleanup-disc-space.cymais.service"
-  systemd:
-    name: cleanup-disc-space.cymais.service
-    enabled: yes
-    daemon_reload: yes

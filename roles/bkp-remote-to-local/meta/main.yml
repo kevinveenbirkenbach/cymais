@@ -27,7 +27,7 @@ galaxy_info:
 dependencies:
   - generic-git
   - alert-compose
-  - cleanup-backups-timer
-  - cleanup-failed-docker-backups
+  - cln-backups-timer
+  - cln-failed-docker-backups
   - maint-lock
   - user-root
