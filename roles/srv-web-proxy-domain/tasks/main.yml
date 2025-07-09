@@ -32,6 +32,5 @@
   when: applications | is_feature_enabled('oauth2',application_id)
 
 - name: "include the web-app-oauth2-proxy role {{domain}}"
-  include_role:
-    name: web-app-oauth2-proxy
+  include_tasks: "{{ playbook_dir }}/roles/web-app-oauth2-proxy/tasks/main.yml"
   when: applications | is_feature_enabled('oauth2',application_id)
