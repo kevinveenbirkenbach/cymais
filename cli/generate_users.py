@@ -110,7 +110,7 @@ def build_users(defs, primary_domain, start_id, become_pwd):
 
 def load_user_defs(roles_directory):
     """
-    Scan all roles/*/meta/users.yml files and merge any 'users:' sections.
+    Scan all roles/*/users/main.yml files and merge any 'users:' sections.
 
     Args:
         roles_directory (str): Path to the directory containing role subdirectories.
@@ -121,7 +121,7 @@ def load_user_defs(roles_directory):
     Raises:
         ValueError: On invalid format or conflicting override values.
     """
-    pattern = os.path.join(roles_directory, '*/meta/users.yml')
+    pattern = os.path.join(roles_directory, '*/users/main.yml')
     files = sorted(glob.glob(pattern))
     merged = OrderedDict()
 
@@ -165,11 +165,11 @@ def dictify(data):
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description='Generate a users.yml by merging all roles/*/meta/users.yml definitions.'
+        description='Generate a users.yml by merging all roles/*/users/main.yml definitions.'
     )
     parser.add_argument(
         '--roles-dir', '-r', required=True,
-        help='Directory containing roles (e.g., roles/*/meta/users.yml).'
+        help='Directory containing roles (e.g., roles/*/users/main.yml).'
     )
     parser.add_argument(
         '--output', '-o', required=True,

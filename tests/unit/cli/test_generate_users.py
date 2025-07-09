@@ -114,18 +114,18 @@ class TestGenerateUsers(unittest.TestCase):
         # create temp roles structure
         tmp = tempfile.mkdtemp()
         try:
-            os.makedirs(os.path.join(tmp, 'role1/meta'))
-            os.makedirs(os.path.join(tmp, 'role2/meta'))
+            os.makedirs(os.path.join(tmp, 'role1/users'))
+            os.makedirs(os.path.join(tmp, 'role2/users'))
             # role1 defines user x
-            with open(os.path.join(tmp, 'role1/meta/users.yml'), 'w') as f:
+            with open(os.path.join(tmp, 'role1/users/main.yml'), 'w') as f:
                 yaml.safe_dump({'users': {'x': {'email': 'x@a'}}}, f)
             # role2 defines same user x with same value
-            with open(os.path.join(tmp, 'role2/meta/users.yml'), 'w') as f:
+            with open(os.path.join(tmp, 'role2/users/main.yml'), 'w') as f:
                 yaml.safe_dump({'users': {'x': {'email': 'x@a'}}}, f)
             defs = generate_users.load_user_defs(tmp)
             self.assertIn('x', defs)
             # now conflict definition
-            with open(os.path.join(tmp, 'role2/meta/users.yml'), 'w') as f:
+            with open(os.path.join(tmp, 'role2/users/main.yml'), 'w') as f:
                 yaml.safe_dump({'users': {'x': {'email': 'x@b'}}}, f)
             with self.assertRaises(ValueError):
                 generate_users.load_user_defs(tmp)

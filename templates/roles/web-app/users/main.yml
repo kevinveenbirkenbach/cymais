@@ -1,0 +1,7 @@
+# Add here the users which your application needs e.g:
+users:
+  demo:
+    username: demo
+    email: "demo@{{ primary_domain }}"
+    roles: []
+    description: Demo User

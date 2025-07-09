@@ -21,7 +21,7 @@ def load_run_after(meta_file):
 
 def load_application_id(role_path):
     """Load the application_id from the vars/main.yml of the role."""
-    vars_file = os.path.join(role_path, 'main', 'main.yml')
+    vars_file = os.path.join(role_path, 'vars', 'main.yml')
     if os.path.exists(vars_file):
         with open(vars_file, 'r') as f:
             data = yaml.safe_load(f) or {}
@@ -113,14 +113,21 @@ def generate_playbook_entries(roles_dir, prefix=None):
     entries = []
     for role_name in sorted_role_names:
         role = roles[role_name]
+
+        # --- new validation block ---
+        if role.get('application_id') is None:
+            raise ValueError(f"Role '{role_name}' is missing an application_id")
+        # ----------------------------
+
+        app_id = role['application_id']
         entries.append(
-            f"- name: setup {role['application_id']}\n"
-            f"  when: ('{role['application_id']}' | application_allowed(group_names, allowed_applications))\n"
+            f"- name: setup {app_id}\n"
+            f"  when: ('{app_id}' | application_allowed(group_names, allowed_applications))\n"
             f"  include_role:\n"
             f"    name: {role['role_name']}\n"
         )
         entries.append(
-            f"- name: flush handlers after {role['application_id']}\n"
+            f"- name: flush handlers after {app_id}\n"
             f"  meta: flush_handlers\n"
         )
 
