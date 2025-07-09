@@ -1,1 +1,1 @@
-modifier_javascript_template_file: "{{ playbook_dir }}/roles/web-app-{{ application_id }}/templates/javascript.js.j2"
+modifier_javascript_template_file: "{{ application_id | abs_role_path_by_application_id }}/templates/javascript.js.j2"

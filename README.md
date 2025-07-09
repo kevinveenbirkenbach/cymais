@@ -49,7 +49,7 @@ More informations about the features you will find [here](docs/overview/Features
 
 ### Use it online 🌐 
 
-Give CyMaIS a spin at cymais.cloud – sign up in seconds, click around, and see how easy infra magic can be! 🚀🔧✨
+Give CyMaIS a spin at [CyMaIS.cloud](httpy://cymais.cloud) – sign up in seconds, click around, and see how easy infra magic can be! 🚀🔧✨
 
 ### Install locally 💻
 1. **Install CyMaIS** via [Kevin's Package Manager](https://github.com/kevinveenbirkenbach/package-manager)

@@ -15,7 +15,7 @@ function getExportName(slug) {
 
 // Root: redirect to your documentation
 app.get('/', (req, res) => {
-  res.redirect('{{ domains | get_url('sphinx', web_protocol) }}/roles/web-app-{{ application_id }}/README.html');
+  res.redirect('{{ domains | get_url('sphinx', web_protocol) }}/{{ application_id | rel_role_path_by_application_id}}/README.html');
 });
 
 // GET /:slug.svg
