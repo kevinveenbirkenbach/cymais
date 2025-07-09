@@ -5,7 +5,7 @@
 
 - name: "Include setup for domain '{{ domain }}'"
   include_role: 
-    name: webserver-proxy-domain
+    name: srv-web-proxy-domain
   vars:
     ws_path:              "/ws"
     ws_port:              "{{ ports.localhost.websocket[application_id] }}"

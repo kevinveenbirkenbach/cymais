@@ -1,12 +1,12 @@
 - name: "include role receive certbot certificate"
   include_role: 
-    name: webserver-tls-core
+    name: srv-web-tls-core
   vars:
     domain: "{{domains | get_domain(application_id)}}"
 
 - name: configure {{domains | get_domain(application_id)}}.conf
   template: 
-    src:  "roles/webserver-proxy-core/templates/vhost/basic.conf.j2" 
+    src:  "roles/srv-web-proxy-core/templates/vhost/basic.conf.j2" 
     dest: "{{nginx.directories.http.servers}}{{domains | get_domain(application_id)}}.conf"
   notify: restart nginx
   vars: 

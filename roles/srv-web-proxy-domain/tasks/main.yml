@@ -1,0 +1,19 @@
+- name: "include role for {{domain}} to receive certificates and do the modification routines"
+  include_role:
+    name: srv-web-composer
+    
+- name: "copy nginx domain configuration to {{ configuration_destination }}"
+  template:
+    src:  "{{ vhost_template_src }}"
+    dest: "{{ configuration_destination }}"
+  notify: restart nginx
+
+- name: "set oauth2_proxy_application_id (Needed due to lazzy loading issue)"
+  set_fact:
+    oauth2_proxy_application_id: "{{ application_id }}"
+  when: applications | is_feature_enabled('oauth2',application_id)
+
+- name: "include the web-app-oauth2-proxy role {{domain}}"
+  include_role:
+    name: web-app-oauth2-proxy
+  when: applications | is_feature_enabled('oauth2',application_id)

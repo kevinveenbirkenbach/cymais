@@ -17,9 +17,9 @@
     database_username:  "postgres"
     database_name:      ""                              # Multiple databases
 
-- name: "include role webserver-proxy-domain for {{application_id}}"
+- name: "include role srv-web-proxy-domain for {{application_id}}"
   include_role:
-    name: webserver-proxy-domain
+    name: srv-web-proxy-domain
 
 - name: pull docker repository
   git:

@@ -35,7 +35,7 @@ By default, BigBlueButton is deployed with best-practice hardening, modular secr
 ## System Requirements
 
 - Arch Linux with Docker, Compose, and Nginx roles pre-installed
-- DNS and reverse proxy configuration using `webserver-proxy-core`
+- DNS and reverse proxy configuration using `srv-web-proxy-core`
 - Functional email system for Greenlight SMTP
 
 ## Important Resources

@@ -1,0 +1,3 @@
+dependencies:
+  # - web-app-matomo Don't activate this otherwise the plays take super long
+  - srv-web-core

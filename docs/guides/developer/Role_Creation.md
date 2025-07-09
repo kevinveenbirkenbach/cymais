@@ -91,9 +91,9 @@ Now that you have defined the application settings, domain, and application ID, 
       command: pkgmgr path cymais-my_service
       register: path_cymais_my_service_output
 
-    - name: "include role webserver-proxy-domain for {{ application_id }}"
+    - name: "include role srv-web-proxy-domain for {{ application_id }}"
       include_role:
-        name: webserver-proxy-domain
+        name: srv-web-proxy-domain
       vars:
         domain: "{{ domains | get_domain(application_id) }}"
         http_port: "{{ ports.localhost.http[application_id] }}"

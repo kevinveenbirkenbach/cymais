@@ -1,0 +1,33 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: |
+    Automates Let's Encrypt SSL/TLS certificate renewals for Nginx using Certbot and systemd services with automatic reloads after successful renewals.
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen-Birkenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Archlinux
+      versions:
+        - rolling
+  galaxy_tags:
+    - nginx
+    - certbot
+    - ssl
+    - tls
+    - letsencrypt
+    - https
+    - systemd
+    - automation
+  repository: "https://s.veen.world/cymais"
+  issue_tracker_url: "https://s.veen.world/cymaisissues"
+  documentation: "https://s.veen.world/cymais"
+dependencies:
+  - gen-certbot
+  - srv-web-core
+  - alert-compose
+  - cln-certs

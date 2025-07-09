@@ -24,19 +24,19 @@ For a complete list of role categories and detailed definitions, see:
 
 ## Webserver & HTTP
 
-- **webserver-core**  
+- **srv-web-core**  
   Installs and configures the base Nginx server.
 
-- **webserver-tls-***  
+- **srv-web-tls-***  
   Manages TLS certificates and renewal (formerly “https”).
 
-- **webserver-proxy-***  
+- **srv-web-proxy-***  
   Proxy and vhost orchestration roles (domain setup, OAuth2 proxy, etc.)
 
-- **webserver-injector-***  
+- **srv-web-injector-***  
   HTML response modifiers: CSS, JS, Matomo tracking, iframe notifier.
 
-- **webserver-composer**  
+- **srv-web-composer**  
   Aggregates multiple sub-filters into one include for your vhost.
 
 - **web-service-***  
@@ -111,7 +111,7 @@ For a complete list of role categories and detailed definitions, see:
 ---
 
 > **Tip:** To find a role quickly, search for its prefix:  
-> `core-`, `gen-`, `desk-`, `webserver-`, `web-service-`, `web-app-`,  
+> `core-`, `gen-`, `desk-`, `srv-web-`, `web-service-`, `web-app-`,  
 > `network-`, `service-`, `monitor-`, `alert-`, `maint-`, `cln-`,  
 > `bkp-`, `update-`, `pkgmgr-`, `user-`.
 

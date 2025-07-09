@@ -1,0 +1,7 @@
+- name: "include role srv-web-injector-core for {{domain}}"
+  include_role: 
+    name: srv-web-injector-core
+
+- name: "include role srv-web-tls-core for {{domain}}"
+  include_role: 
+    name: srv-web-tls-core

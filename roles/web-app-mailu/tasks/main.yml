@@ -4,18 +4,18 @@
     name: service-rdbms-central
   when: run_once_docker_mailu is not defined
 
-- name: "Include role webserver-proxy-domain for {{ application_id }}"
+- name: "Include role srv-web-proxy-domain for {{ application_id }}"
   include_role:
-    name: webserver-proxy-domain
+    name: srv-web-proxy-domain
   vars:
     domain: "{{ domains | get_domain(application_id) }}"
     http_port: "{{ ports.localhost.http[application_id] }}"
     nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size 31M;"
   when: run_once_docker_mailu is not defined
 
-- name: "Include the webserver-proxy-tls-deploy role"
+- name: "Include the srv-web-proxy-tls-deploy role"
   include_role:
-    name: webserver-proxy-tls-deploy
+    name: srv-web-proxy-tls-deploy
   when: run_once_docker_mailu is not defined
 
 - name: Flush docker service handlers

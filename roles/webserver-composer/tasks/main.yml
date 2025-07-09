@@ -1,7 +1,0 @@
-- name: "include role webserver-injector-core for {{domain}}"
-  include_role: 
-    name: webserver-injector-core
-
-- name: "include role webserver-tls-core for {{domain}}"
-  include_role: 
-    name: webserver-tls-core
