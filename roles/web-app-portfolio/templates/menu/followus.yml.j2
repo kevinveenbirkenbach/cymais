@@ -55,7 +55,7 @@ followus:
     - name: Friendica
       description: Visit {{ 'our' if service_provider.type == 'legal' else 'my' }} friendica profile
       icon:
-        class: fas fa-network-wired
+        class: fas fa-net-wired
       identifier: "{{service_provider.contact.friendica}}"
       url: "{{ web_protocol }}://{{ service_provider.contact.friendica.split('@')[2] }}/@{{ service_provider.contact.friendica.split('@')[1] }}"
       iframe: {{ applications | is_feature_enabled('portfolio_iframe','friendica') }}

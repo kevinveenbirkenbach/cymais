@@ -26,4 +26,4 @@ galaxy_info:
 dependencies:
   - srv-web-core
   - cln-domains
-  - network-letsencrypt
+  - net-letsencrypt

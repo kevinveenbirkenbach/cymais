@@ -104,18 +104,18 @@
 - name: setup standard wireguard
   when: ('wireguard_server' | application_allowed(group_names, allowed_applications))
   include_role:
-    name: network-wireguard-core
+    name: net-wireguard-core
 
 # vpn setup
 - name: setup wireguard client behind firewall\nat
   when: ('wireguard_behind_firewall' | application_allowed(group_names, allowed_applications))
   include_role:
-    name: network-wireguard-firewalled
+    name: net-wireguard-firewalled
 
 - name: setup wireguard client
   when: ('wireguard_client' | application_allowed(group_names, allowed_applications))
   include_role:
-    name: network-wireguard-plain
+    name: net-wireguard-plain
 
 ## backup setup
 - name: setup replica backup hosts

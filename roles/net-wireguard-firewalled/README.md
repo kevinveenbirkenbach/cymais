@@ -19,7 +19,7 @@ The primary purpose of this role is to enable proper routing and connectivity fo
 
 - **iptables Rule Adaptation:** Modifies iptables to allow forwarding and NAT masquerading for the WireGuard client.
 - **NAT Support:** Configures the external interface for proper masquerading.
-- **Role Integration:** Depends on the [network-wireguard-plain](../network-wireguard-plain/README.md) role to ensure that WireGuard is properly configured before applying firewall rules.
+- **Role Integration:** Depends on the [net-wireguard-plain](../net-wireguard-plain/README.md) role to ensure that WireGuard is properly configured before applying firewall rules.
 
 ## Other Resources
 - https://gist.github.com/insdavm/b1034635ab23b8839bf957aa406b5e39

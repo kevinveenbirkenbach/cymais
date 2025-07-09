@@ -49,7 +49,7 @@ For a complete list of role categories and detailed definitions, see:
 
 ## Network
 
-- **network-***  
+- **net-***  
   Network infrastructure (DNS records, WireGuard, Let’s Encrypt entrypoints).
 
 - **service-***  
@@ -112,7 +112,7 @@ For a complete list of role categories and detailed definitions, see:
 
 > **Tip:** To find a role quickly, search for its prefix:  
 > `core-`, `gen-`, `desk-`, `srv-web-`, `web-service-`, `web-app-`,  
-> `network-`, `service-`, `monitor-`, `alert-`, `maint-`, `cln-`,  
+> `net-`, `service-`, `monitor-`, `alert-`, `maint-`, `cln-`,  
 > `bkp-`, `update-`, `pkgmgr-`, `user-`.
 
 ---

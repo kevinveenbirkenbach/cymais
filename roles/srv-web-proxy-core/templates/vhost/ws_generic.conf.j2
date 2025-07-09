@@ -6,7 +6,7 @@ map $http_upgrade $connection_upgrade {
 server {
   server_name {{ domain }};
 
-  {% include 'roles/network-letsencrypt/templates/ssl_header.j2' %}
+  {% include 'roles/net-letsencrypt/templates/ssl_header.j2' %}
   {% include 'roles/srv-web-injector-core/templates/global.includes.conf.j2' %}
 
   client_max_body_size {{ client_max_body_size | default('100m') }};

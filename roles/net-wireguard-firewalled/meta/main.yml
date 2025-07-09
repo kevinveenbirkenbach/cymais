@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Manages WireGuard on a client system by deploying services and scripts to set MTU on network interfaces and ensure optimal VPN connectivity."
+  description: "Adapts iptables rules to enable proper connectivity for a WireGuard client running behind a NAT or firewall, ensuring that traffic is correctly forwarded and masqueraded."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -15,13 +15,12 @@ galaxy_info:
         - all
   galaxy_tags:
     - wireguard
-    - vpn
-    - client
-    - mtu
-    - systemd
-    - configuration
+    - nat
+    - firewall
+    - iptables
+    - networking
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
 dependencies:
-  - network-wireguard-core
+  - net-wireguard-plain

@@ -64,7 +64,7 @@
 
 - name: Include DNS role to register Gitea domain(s)
   include_role:
-    name: network-dns-records
+    name: net-dns-records
   vars:
     cloudflare_api_token:   "{{ certbot_dns_api_token }}"
     cloudflare_domains:     "{{ [ domains | get_domain(application_id) ] }}"
