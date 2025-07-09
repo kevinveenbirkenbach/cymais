@@ -38,6 +38,9 @@
 * **Continuous Updates** 🔄
   Automatic patching and version upgrades across the stack.
 
+* **Application Ecosystem** 🚀
+  CyMaIS delivers a broad ecosystem of self-hosted web software—covering everything from **collaboration and project management** (wikis, issue trackers, Kanban boards) and **version control platforms** to **real-time communication** (chat, video conferencing) and **continuous delivery** (CI/CD pipelines, container registries). All of these run alongside essential infrastructure services—**databases**, **message queues**, **reverse proxies**, **caching layers**, and more—so you can provision a full-stack environment in one go.
+
 More informations about the features you will find [here](docs/overview/Features.md).
 
 ---
