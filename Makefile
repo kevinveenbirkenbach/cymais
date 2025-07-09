@@ -7,8 +7,8 @@ INCLUDES_OUT      	:= ./tasks/utils/web-app-roles.yml
 INCLUDES_SCRIPT   	:= ./cli/generate_playbook.py
 
 EXTRA_USERS := $(shell \
-	find $(ROLES_DIR) -maxdepth 1 -type d -name 'docker*' -printf '%f\n' \
-	| sed -E 's/^docker[_-]?//' \
+	find $(ROLES_DIR) -maxdepth 1 -type d -name 'web-app*' -printf '%f\n' \
+	| sed -E 's/^web-app[_-]?//' \
 	| grep -E -x '[a-z0-9]+' \
 	| paste -sd, - \
 )
@@ -24,7 +24,7 @@ build:
 	@echo "🔧 Generating users defaults → $(USERS_OUT) from roles in $(ROLES_DIR)…"
 	@echo "🔧 Generating Docker role includes → $(INCLUDES_OUT)…"
 	@mkdir -p $(dir $(INCLUDES_OUT))
-	python3 $(INCLUDES_SCRIPT) $(ROLES_DIR) -o $(INCLUDES_OUT) -p web-app-
+	python3 $(INCLUDES_SCRIPT) $(ROLES_DIR) -o $(INCLUDES_OUT) -p web-app- -p svc-openldap -p svc-rdbms-postgres -p svc-rdbms-mariadb
 	@echo "✅ Docker role includes written to $(INCLUDES_OUT)"
 
 install: build
