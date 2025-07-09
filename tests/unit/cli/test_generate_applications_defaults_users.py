@@ -16,11 +16,12 @@ class TestGenerateDefaultApplicationsUsers(unittest.TestCase):
         # Sample role with users meta
         self.role = self.roles_dir / "web-app-app-with-users"
         (self.role / "vars").mkdir(parents=True)
+        (self.role / "config").mkdir(parents=True)
         (self.role / "meta").mkdir(parents=True)
 
         # Write application_id and configuration
         (self.role / "vars" / "main.yml").write_text("application_id: app_with_users\n")
-        (self.role / "vars" / "configuration.yml").write_text("setting: value\n")
+        (self.role / "config" / "main.yml").write_text("setting: value\n")
 
         # Write users meta
         users_meta = {

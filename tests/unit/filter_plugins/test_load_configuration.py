@@ -59,10 +59,10 @@ class TestLoadConfigurationFilter(unittest.TestCase):
     @patch('load_configuration.open', new_callable=mock_open)
     @patch('load_configuration.yaml.safe_load')
     def test_primary_and_cache(self, mock_yaml, mock_file, mock_exists, *_):
-        mock_exists.side_effect = lambda p: p.endswith('vars/main.yml') or p.endswith('vars/configuration.yml')
+        mock_exists.side_effect = lambda p: p.endswith('vars/main.yml') or p.endswith('config/main.yml')
         mock_yaml.side_effect = [
             {'application_id': self.app},  # main.yml
-            self.nested_cfg              # configuration.yml
+            self.nested_cfg              # config/main.yml
         ]
         # first load
         self.assertTrue(self.f(self.app, 'features.matomo'))
@@ -88,7 +88,7 @@ class TestLoadConfigurationFilter(unittest.TestCase):
     @patch('load_configuration.open', new_callable=mock_open)
     @patch('load_configuration.yaml.safe_load')
     def test_fallback_nested(self, mock_yaml, mock_file, mock_exists, *_):
-        mock_exists.side_effect = lambda p: p.endswith('vars/configuration.yml')
+        mock_exists.side_effect = lambda p: p.endswith('config/main.yml')
         mock_yaml.return_value = self.nested_cfg
         # nested fallback must work
         self.assertTrue(self.f(self.app, 'features.matomo'))
@@ -102,7 +102,7 @@ class TestLoadConfigurationFilter(unittest.TestCase):
     @patch('load_configuration.yaml.safe_load')
     def test_fallback_with_indexed_key(self, mock_yaml, mock_file, mock_exists, *_):
         # Testing with an indexed key like domains.canonical[0]
-        mock_exists.side_effect = lambda p: p.endswith('vars/configuration.yml')
+        mock_exists.side_effect = lambda p: p.endswith('config/main.yml')
         mock_yaml.return_value = {
             'file-server': {
                 'domains': {

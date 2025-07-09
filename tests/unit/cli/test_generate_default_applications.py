@@ -17,10 +17,11 @@ class TestGenerateDefaultApplications(unittest.TestCase):
         # Sample role
         self.sample_role = self.roles_dir / "web-app-testapp"
         (self.sample_role / "vars").mkdir(parents=True)
+        (self.sample_role / "config").mkdir(parents=True)
 
         # Write application_id and configuration
         (self.sample_role / "vars" / "main.yml").write_text("application_id: testapp\n")
-        (self.sample_role / "vars" / "configuration.yml").write_text("foo: bar\nbaz: 123\n")
+        (self.sample_role / "config" / "main.yml").write_text("foo: bar\nbaz: 123\n")
 
         # Output file path
         self.output_file = self.temp_dir / "group_vars" / "all" / "04_applications.yml"

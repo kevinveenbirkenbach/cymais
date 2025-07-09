@@ -10,7 +10,7 @@ class TestOauth2AclMutualExclusion(unittest.TestCase):
         failures = []
 
         for role_path in ROLES_DIR.iterdir():
-            vars_file = role_path / "vars" / "configuration.yml"
+            vars_file = role_path / "config" / "main.yml"
             if not vars_file.exists():
                 continue
 

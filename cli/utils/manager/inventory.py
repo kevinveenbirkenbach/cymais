@@ -17,7 +17,7 @@ class InventoryManager:
         self.vault_pw = vault_pw
         self.overrides = overrides
         self.inventory = YamlHandler.load_yaml(inventory_path)
-        self.schema = YamlHandler.load_yaml(role_path / "meta" / "schema.yml")
+        self.schema = YamlHandler.load_yaml(role_path / "schema" / "main.yml")
         self.app_id = self.load_application_id(role_path)
 
         self.vault_handler = VaultHandler(vault_pw)
@@ -38,7 +38,7 @@ class InventoryManager:
         target = apps.setdefault(self.app_id, {})
 
         # Load the data from vars/main.yml
-        vars_file = self.role_path / "vars" / "configuration.yml"
+        vars_file = self.role_path / "config" / "main.yml"
         data = YamlHandler.load_yaml(vars_file)
 
         # Check if 'central-database' is enabled in the features section of data

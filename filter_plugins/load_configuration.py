@@ -30,10 +30,10 @@ def load_configuration(application_id, key):
                 except Exception:
                     md = {}
                 if md.get('application_id') == application_id:
-                    cf = os.path.join(roles_dir, role, 'vars', 'configuration.yml')
+                    cf = os.path.join(roles_dir, role, "config" , "main.yml")
                     if not os.path.exists(cf):
                         raise AnsibleFilterError(
-                            f"Role '{role}' declares '{application_id}' but missing configuration.yml"
+                            f"Role '{role}' declares '{application_id}' but missing config/main.yml"
                         )
                     config_path = cf
                     break
@@ -41,7 +41,7 @@ def load_configuration(application_id, key):
         # 2) fallback nested
         if config_path is None:
             for role in os.listdir(roles_dir):
-                cf = os.path.join(roles_dir, role, 'vars', 'configuration.yml')
+                cf = os.path.join(roles_dir, role, "config" , "main.yml")
                 if not os.path.exists(cf):
                     continue
                 try:
@@ -55,7 +55,7 @@ def load_configuration(application_id, key):
         # 3) fallback flat
         if config_path is None:
             for role in os.listdir(roles_dir):
-                cf = os.path.join(roles_dir, role, 'vars', 'configuration.yml')
+                cf = os.path.join(roles_dir, role, "config" , "main.yml")
                 if not os.path.exists(cf):
                     continue
                 try:
@@ -74,7 +74,7 @@ def load_configuration(application_id, key):
         try:
             parsed = yaml.safe_load(open(config_path)) or {}
         except Exception as e:
-            raise AnsibleFilterError(f"Error loading configuration.yml at {config_path}: {e}")
+            raise AnsibleFilterError(f"Error loading config/main.yml at {config_path}: {e}")
 
         # detect nested vs flat
         is_nested = isinstance(parsed, dict) and (application_id in parsed)

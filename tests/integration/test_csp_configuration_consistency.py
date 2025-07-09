@@ -37,7 +37,7 @@ class TestCspConfigurationConsistency(unittest.TestCase):
 
     def test_csp_configuration_structure(self):
         """
-        Iterate all roles; for each vars/configuration.yml that defines 'csp',
+        Iterate all roles; for each config/main.yml that defines 'csp',
         assert that:
           - csp is a dict
           - its whitelist/flags/hashes keys only use supported directives
@@ -52,7 +52,7 @@ class TestCspConfigurationConsistency(unittest.TestCase):
             if not role_path.is_dir():
                 continue
 
-            cfg_file = role_path / "vars" / "configuration.yml"
+            cfg_file = role_path / "config" / "main.yml"
             if not cfg_file.exists():
                 continue
 

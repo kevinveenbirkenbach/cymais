@@ -7,7 +7,7 @@ class TestDockerRoleImagesConfiguration(unittest.TestCase):
     def test_images_keys_and_templates(self):
         """
         For each web-app-* role, check that:
-        - roles/web-app-*/vars/configuration.yml contains 'images' as a dict with keys/values
+        - roles/web-app-*/config/main.yml contains 'images' as a dict with keys/values
         - Each image key is referenced as:
             image: "{{ applications[application_id].images.<key> }}"
           in either roles/web-app-*/templates/docker-compose.yml.j2 or env.j2
@@ -21,7 +21,7 @@ class TestDockerRoleImagesConfiguration(unittest.TestCase):
             if not (role_path.is_dir() and role_path.name.startswith("web-app-")):
                 continue
 
-            cfg_file = role_path / "vars" / "configuration.yml"
+            cfg_file = role_path / "config" / "main.yml"
             if not cfg_file.exists():
                 continue  # No configuration to check
 
@@ -35,11 +35,11 @@ class TestDockerRoleImagesConfiguration(unittest.TestCase):
 
             images = config.get("docker",{}).get("images")
             if not images:
-                warnings.append(f"[WARNING] {role_path.name}: No 'docker.images' key in configuration.yml")
+                warnings.append(f"[WARNING] {role_path.name}: No 'docker.images' key in config/main.yml")
                 continue
 
             if not isinstance(images, dict):
-                errors.append(f"{role_path.name}: 'images' must be a dict in configuration.yml")
+                errors.append(f"{role_path.name}: 'images' must be a dict in config/main.yml")
                 continue
 
                 # OPTIONAL: Check if the image is available locally via docker images

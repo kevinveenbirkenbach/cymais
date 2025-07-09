@@ -48,8 +48,8 @@ class TestInventoryManager(unittest.TestCase):
 
     def fake_load_yaml(self, path):
         path = Path(path)
-        # Return schema for meta/schema.yml
-        if path.match("*/meta/schema.yml"):
+        # Return schema for schema/main.yml
+        if path.match("*/schema/main.yml"):
             return {
                 "credentials": {
                     "plain_cred": {"description": "desc", "algorithm": "plain", "validation": {}},
@@ -59,8 +59,8 @@ class TestInventoryManager(unittest.TestCase):
         # Return application_id for vars/main.yml
         if path.match("*/vars/main.yml"):
             return {"application_id": "testapp"}
-        # Return feature flags for vars/configuration.yml
-        if path.match("*/vars/configuration.yml"):
+        # Return feature flags for config/main.yml
+        if path.match("*/config/main.yml"):
             return {"features": {"central_database": True}}
         # Return empty inventory for inventory.yml
         if path.name == "inventory.yml":

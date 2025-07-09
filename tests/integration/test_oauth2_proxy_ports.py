@@ -24,10 +24,10 @@ class TestOAuth2ProxyPorts(unittest.TestCase):
             if not role_path.is_dir():
                 continue
             with self.subTest(role=role_path.name):
-                # Check for configuration.yml
-                config_file = role_path / 'vars' / 'configuration.yml'
+                # Check for config/main.yml
+                config_file = role_path / "config" / "main.yml"
                 if not config_file.exists():
-                    self.skipTest(f"No configuration.yml for role {role_path.name}")
+                    self.skipTest(f"No config/main.yml for role {role_path.name}")
 
                 config = yaml.safe_load(config_file.read_text()) or {}
                 if not config.get('features', {}).get('oauth2', False):

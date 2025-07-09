@@ -5,7 +5,7 @@ import yaml
 class TestDeprecatedVersionKey(unittest.TestCase):
     def test_version_key_deprecation(self):
         """
-        Checks all roles/web-app-*/vars/configuration.yml for deprecated use of 'version'.
+        Checks all roles/web-app-*/config/main.yml for deprecated use of 'version'.
         Warns if 'version' is set but 'images' is missing.
         Prints warnings but does NOT fail the test.
         """
@@ -17,7 +17,7 @@ class TestDeprecatedVersionKey(unittest.TestCase):
             if not (role_path.is_dir() and role_path.name.startswith("web-app-")):
                 continue
 
-            cfg_file = role_path / "vars" / "configuration.yml"
+            cfg_file = role_path / "config" / "main.yml"
             if not cfg_file.exists():
                 continue
 
@@ -32,12 +32,12 @@ class TestDeprecatedVersionKey(unittest.TestCase):
 
             if uses_version:
                 warnings.append(
-                    f"[DEPRECATION WARNING] {role_path.name}/vars/configuration.yml: "
+                    f"[DEPRECATION WARNING] {role_path.name}/config/main.yml: "
                     f"'version' is deprecated. Replace it by docker.versions[version]."
                 )
             if uses_images:
                 warnings.append(
-                    f"[DEPRECATION WARNING] {role_path.name}/vars/configuration.yml: "
+                    f"[DEPRECATION WARNING] {role_path.name}/config/main.yml: "
                     f"'images' is deprecated. Replace it by docker.images[image]."
                 )
 

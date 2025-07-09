@@ -50,19 +50,20 @@ class TestCreateCredentials(unittest.TestCase):
         # Setup temporary files for role-path vars and inventory
         with tempfile.TemporaryDirectory() as tmpdir:
             role_path = os.path.join(tmpdir, 'role')
+            os.makedirs(os.path.join(role_path, 'config'))
+            os.makedirs(os.path.join(role_path, 'schema'))
             os.makedirs(os.path.join(role_path, 'vars'))
-            os.makedirs(os.path.join(role_path, 'meta'))
             # Create vars/main.yml with application_id
             main_vars = {'application_id': 'app_test'}
             with open(os.path.join(role_path, 'vars', 'main.yml'), 'w') as f:
                 yaml.dump(main_vars, f)
-            # Create vars/configuration.yml with features disabled
+            # Create config/main.yml with features disabled
             config = {'features': {'central_database': False}}
-            with open(os.path.join(role_path, 'vars', 'configuration.yml'), 'w') as f:
+            with open(os.path.join(role_path, "config" , "main.yml"), 'w') as f:
                 yaml.dump(config, f)
             # Create schema.yml defining plain credential
             schema = {'credentials': {'api_key': {'description': 'API key', 'algorithm': 'plain', 'validation': {}}}}
-            with open(os.path.join(role_path, 'meta', 'schema.yml'), 'w') as f:
+            with open(os.path.join(role_path, 'schema', 'main.yml'), 'w') as f:
                 yaml.dump(schema, f)
             # Prepare inventory file
             inventory_file = os.path.join(tmpdir, 'inventory.yml')

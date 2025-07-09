@@ -6,7 +6,7 @@ This directory contains variable definition files for the `service-rdbms-mariadb
 
 ## files and their purpose
 
-### 1. `configuration.yml`
+### 1. `config/main.yml`
 
 Contains configuration values that determine which Docker image version to use and what hostname the container will be registered under.
 

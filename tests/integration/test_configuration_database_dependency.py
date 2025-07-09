@@ -5,11 +5,11 @@ import yaml
 class TestConfigurationDatabaseDependency(unittest.TestCase):
     # Define project root and glob pattern for configuration files
     PROJECT_ROOT = Path(__file__).resolve().parents[2]
-    CONFIG_PATTERN = 'roles/*/vars/configuration.yml'
+    CONFIG_PATTERN = 'roles/*/config/main.yml'
 
     def test_central_database_implies_database_service_enabled(self):
         """
-        For each roles/*/vars/configuration.yml:
+        For each roles/*/config/main.yml:
         If features.central_database is true,
         then docker.services.database.enabled must be true.
         """

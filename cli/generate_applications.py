@@ -47,7 +47,7 @@ def main():
     for role_dir in sorted(roles_dir.iterdir()):
         role_name = role_dir.name
         vars_main = role_dir / "vars" / "main.yml"
-        config_file = role_dir / "vars" / "configuration.yml"
+        config_file = role_dir / "config" / "main.yml"
 
         if not vars_main.exists():
             print(f"[!] Skipping {role_name}: vars/main.yml missing")
@@ -68,7 +68,7 @@ def main():
             continue
 
         if not config_file.exists():
-            print(f"[!] Skipping {role_name}: vars/configuration.yml missing")
+            print(f"[!] Skipping {role_name}: config/main.yml missing")
             continue
 
         config_data = load_yaml_file(config_file)

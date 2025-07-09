@@ -21,7 +21,7 @@ def load_run_after(meta_file):
 
 def load_application_id(role_path):
     """Load the application_id from the vars/main.yml of the role."""
-    vars_file = os.path.join(role_path, 'vars', 'main.yml')
+    vars_file = os.path.join(role_path, 'main', 'main.yml')
     if os.path.exists(vars_file):
         with open(vars_file, 'r') as f:
             data = yaml.safe_load(f) or {}

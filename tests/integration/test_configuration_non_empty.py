@@ -33,14 +33,14 @@ def find_none_values(data, prefix=None):
 
 class TestConfigurationNoNone(unittest.TestCase):
     def test_configuration_files_have_no_none_values(self):
-        # Find all configuration.yml files under roles/*/vars
+        # Find all config/main.yml files under roles/*/vars
         pattern = os.path.join(
             os.path.dirname(__file__),
             os.pardir, os.pardir,
-            'roles', '*', 'vars', 'configuration.yml'
+            'roles', '*', "config" , "main.yml"
         )
         files = glob.glob(pattern)
-        self.assertTrue(files, f"No configuration.yml files found with pattern: {pattern}")
+        self.assertTrue(files, f"No config/main.yml files found with pattern: {pattern}")
 
         all_errors = []
         for filepath in files:
