@@ -1,4 +1,3 @@
-# roles/<your-role>/filter_plugins/redirect_filters.py
 from ansible.errors import AnsibleFilterError
 
 class FilterModule(object):
