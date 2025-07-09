@@ -1,31 +1,23 @@
-# PC-TorBrowser Role
+# Torbrowser
+
+## Description
+
+This Ansible role installs and configures the Tor service and the Tor Browser Launcher, providing a privacy-focused web browsing environment on Pacman-based Linux distributions.
 
 ## Overview
-This README document is for the `desk-torbrowser` role, a crucial component of the `cymais` repository. This role is specifically designed for the installation and setup of Tor Browser on personal computers.
 
-## Role Tasks
-The `main.yml` file under the `desk-torbrowser` role encompasses tasks for installing the Tor Browser:
+The `desk-torbrowser` role uses the `community.general.pacman` module to:
 
-1. **Install TorBrowser**:
-   - Utilizes the `community.general.pacman` module to install:
-     - `tor`: The core Tor service which facilitates anonymous communication.
-     - `torbrowser-launcher`: A package for securely and easily launching the Tor Browser.
+1. Install **tor** (the core Tor network service)  
+2. Install **torbrowser-launcher** (the launcher for Tor Browser)  
 
-## Purpose and Usage
-The `desk-torbrowser` role is tailored for users who value privacy and anonymity online. The Tor Browser is a specialized web browser that provides enhanced privacy features, making it an essential tool for secure browsing and accessing the deep web.
+## Features
 
-## Prerequisites
-- **Ansible**: Must be installed on your system to run this role.
-- **Arch Linux-based System**: As the role uses the `pacman` package manager, it's best suited for Arch Linux or similar distributions.
+* Idempotent installation of Tor and Tor Browser Launcher  
+* Ensures the Tor service is available for anonymous network traffic  
+* Simplifies first-time setup of Tor Browser  
 
-## Running the Role
-To use this role:
-1. Clone the `cymais` repository.
-2. Navigate to the `roles/desk-torbrowser` directory.
-3. Run the role using Ansible, ensuring you have the necessary permissions for software installation.
+## Further Resources
 
-## Customization
-While this role primarily focuses on installing Tor and the Tor Browser Launcher, you can customize it to include additional privacy-focused tools or configurations based on your needs.
-
-## Support and Contributions
-For support, feedback, or contributions, such as enhancing the role with more privacy tools or improving the installation process, please open an issue or submit a pull request in the `cymais` repository. Contributions that enhance the privacy and security aspects of this role are highly encouraged.
+* [Tor Project documentation](https://www.torproject.org/)
+* [CyMaIS GitHub repository](https://github.com/kevinveenbirkenbach/cymais)

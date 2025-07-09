@@ -1,38 +1,23 @@
-# Employee
+# utils-desk-office-tools Role
+
+## Description
+
+This Ansible role installs a comprehensive suite of office productivity tools on Pacman-based Linux distributions, including a web browser, email client, e-book manager, and document editor.
 
 ## Overview
-This README document is for the `utils-desk-office-tools` role, a component of the `cymais` repository. This role is designed to install a suite of office-related software on personal computers, providing a comprehensive set of tools for various office tasks.
 
-## Role Tasks
-The `main.yml` file within the `utils-desk-office-tools` role comprises tasks for installing a range of office software:
+The `utils-desk-office-tools` role uses the `community.general.pacman` module to:
 
-1. **Install Office Software**:
-   - The role utilizes the `community.general.pacman` module to install the following software packages:
-     - `chromium`: A free and open-source web browser.
-     - `thunderbird`: A free and open-source email client, news client, RSS, and chat client.
-     - `calibre`: An e-book management software.
-     - `retext`: A simple but powerful editor for Markdown and reStructuredText.
+1. Install **Chromium** (web browser)  
+2. Install **Thunderbird** (email and RSS client)  
+3. Install **Calibre** (e-book management software)  
+4. Install **ReText** (Markdown and reStructuredText editor)  
 
-## Dependencies
-This role depends on:
-- **desk-libreoffice**: Ensures that the LibreOffice suite, a comprehensive office package, is installed.
-- **desk-zoom**: Provides tools necessary for video conferencing, supplementing the office setup.
+## Features
 
-## Purpose and Usage
-The `utils-desk-office-tools` role is ideal for users who require a full-fledged office setup on their personal computers. It encompasses tools for web browsing, email management, e-book organization, and document editing, catering to a wide range of office and productivity needs.
+* Idempotent installation of all specified office packages  
+* Supports any Pacman-based distribution (e.g., Arch Linux)  
+* Easily extendable by adding or removing package names  
 
-## Prerequisites
-- **Ansible**: Must be installed to use this role.
-- **Arch Linux-based System**: As the role uses the `pacman` package manager, it's intended for systems based on Arch Linux or similar distributions.
-
-## Running the Role
-To utilize this role:
-1. Clone the `cymais` repository.
-2. Navigate to the `roles/utils-desk-office-tools` directory.
-3. Run the role using Ansible, ensuring you have the necessary permissions for software installation.
-
-## Customization
-This role can be customized by adding or removing software packages in the `main.yml` file, depending on your specific office and productivity needs.
-
-## Support and Contributions
-For support, feedback, or contributions, such as adding more office tools or enhancing the current setup, please open an issue or submit a pull request in the `cymais` repository. Contributions that improve the office and productivity environment are highly welcomed.
+## Further Resources
+* [CyMaIS GitHub repository](https://github.com/kevinveenbirkenbach/cymais)
