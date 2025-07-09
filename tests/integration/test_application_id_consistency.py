@@ -11,7 +11,7 @@ class TestApplicationIdConsistency(unittest.TestCase):
         failed_roles = []
 
         for role_path in ROLES_DIR.iterdir():
-            if role_path.name in ["docker-container","docker-compose", "service-rdbms-central", "docker-repository-setup"]:
+            if role_path.name in ["docker-container","docker-compose", "svc-rdbms-central", "docker-repository-setup"]:
                 continue
             
             if role_path.is_dir() and role_path.name.startswith("web-app-"):

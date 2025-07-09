@@ -29,6 +29,6 @@ galaxy_info:
   logo:
     class: "fa-solid fa-tasks"
   run_after:
-    - service-rdbms-postgres
+    - svc-rdbms-postgres
     - web-app-matomo
     - web-app-keycloak

@@ -22,5 +22,5 @@ galaxy_info:
     - web-app-matomo
     - web-app-keycloak
     - web-app-mailu
-    - service-openldap
-    - service-rdbms-postgres
+    - svc-openldap
+    - svc-rdbms-postgres

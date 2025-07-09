@@ -1,7 +1,7 @@
 ---
-- name: "include service-rdbms-central"
+- name: "include svc-rdbms-central"
   include_role: 
-    name: service-rdbms-central
+    name: svc-rdbms-central
   when: run_once_docker_matomo is not defined
 
 - name: "include role srv-web-proxy-domain for {{application_id}}"

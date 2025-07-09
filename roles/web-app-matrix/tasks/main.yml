@@ -8,9 +8,9 @@
     bridges: "{{ bridges_configuration | filter_enabled_bridges(applications[application_id].plugins) }}"
   changed_when: false
 
-- name: "include service-rdbms-central"
+- name: "include svc-rdbms-central"
   include_role: 
-    name: service-rdbms-central
+    name: svc-rdbms-central
 
 - name: "include role for {{application_id}} to receive certs & do modification routines"
   include_role:

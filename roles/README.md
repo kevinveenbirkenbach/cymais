@@ -39,7 +39,7 @@ For a complete list of role categories and detailed definitions, see:
 - **srv-web-composer**  
   Aggregates multiple sub-filters into one include for your vhost.
 
-- **web-service-***  
+- **web-svc-***  
   Static‐content servers (assets, HTML, legal pages, file hosting).
 
 - **web-app-***  
@@ -52,7 +52,7 @@ For a complete list of role categories and detailed definitions, see:
 - **net-***  
   Network infrastructure (DNS records, WireGuard, Let’s Encrypt entrypoints).
 
-- **service-***  
+- **svc-***  
   Docker‐deployed services that aren’t “apps” (RDBMS, LDAP, Redis, OpenLDAP).
 
 ---
@@ -111,8 +111,8 @@ For a complete list of role categories and detailed definitions, see:
 ---
 
 > **Tip:** To find a role quickly, search for its prefix:  
-> `core-`, `gen-`, `desk-`, `srv-web-`, `web-service-`, `web-app-`,  
-> `net-`, `service-`, `monitor-`, `alert-`, `maint-`, `cln-`,  
+> `core-`, `gen-`, `desk-`, `srv-web-`, `web-svc-`, `web-app-`,  
+> `net-`, `svc-`, `monitor-`, `alert-`, `maint-`, `cln-`,  
 > `bkp-`, `update-`, `pkgmgr-`, `user-`.
 
 ---

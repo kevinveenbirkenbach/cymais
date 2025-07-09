@@ -24,6 +24,6 @@ galaxy_info:
   issue_tracker_url: https://s.veen.world/cymaisissues
   documentation: https://s.veen.world/cymais
 dependencies:
-  - web-service-legal
-  - web-service-assets
+  - web-svc-legal
+  - web-svc-assets
   - web-app-portfolio

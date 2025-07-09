@@ -13,7 +13,7 @@
 - name: setup postgres
   when: ('postgres' | application_allowed(group_names, allowed_applications))
   include_role:
-    name: service-rdbms-postgres
+    name: svc-rdbms-postgres
 - name: flush handlers after postgres
   meta: flush_handlers
 - name: setup syncope
@@ -31,7 +31,7 @@
 - name: setup ldap
   when: ('ldap' | application_allowed(group_names, allowed_applications))
   include_role:
-    name: service-openldap
+    name: svc-openldap
 - name: flush handlers after ldap
   meta: flush_handlers
 - name: setup None
@@ -55,7 +55,7 @@
 - name: setup mariadb
   when: ('mariadb' | application_allowed(group_names, allowed_applications))
   include_role:
-    name: service-rdbms-mariadb
+    name: svc-rdbms-mariadb
 - name: flush handlers after mariadb
   meta: flush_handlers
 - name: setup simpleicons
@@ -67,7 +67,7 @@
 - name: setup None
   when: ('None' | application_allowed(group_names, allowed_applications))
   include_role:
-    name: service-rdbms-central
+    name: svc-rdbms-central
 - name: flush handlers after None
   meta: flush_handlers
 - name: setup roulette-wheel

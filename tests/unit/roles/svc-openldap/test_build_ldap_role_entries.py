@@ -5,7 +5,7 @@ import importlib.util
 
 # Dynamisch den Filter-Plugin Pfad hinzufügen
 current_dir = os.path.dirname(__file__)
-filter_plugin_path = os.path.abspath(os.path.join(current_dir, "../../../../roles/service-openldap/filter_plugins"))
+filter_plugin_path = os.path.abspath(os.path.join(current_dir, "../../../../roles/svc-openldap/filter_plugins"))
 
 # Modul dynamisch laden
 spec = importlib.util.spec_from_file_location("build_ldap_role_entries", os.path.join(filter_plugin_path, "build_ldap_role_entries.py"))

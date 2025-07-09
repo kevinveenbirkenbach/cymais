@@ -1,7 +1,7 @@
 ---
-- name: "include service-rdbms-central"
+- name: "include svc-rdbms-central"
   include_role: 
-    name: service-rdbms-central
+    name: svc-rdbms-central
 
 - name: Set nginx_docker_reverse_proxy_extra_configuration based on applications[application_id].public_api_activated
   set_fact:

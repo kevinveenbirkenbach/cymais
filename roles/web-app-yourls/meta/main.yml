@@ -25,6 +25,6 @@ galaxy_info:
   logo:
     class: "fa-solid fa-link"
   run_after:
-    - service-rdbms-mariadb
+    - svc-rdbms-mariadb
     - web-app-matomo
     - web-app-keycloak

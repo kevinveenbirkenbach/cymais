@@ -3,9 +3,9 @@
 {% if database_type | bool %}
 
 {% raw %}
-- name: "include service-rdbms-central"
+- name: "include svc-rdbms-central"
   include_role: 
-    name: service-rdbms-central
+    name: svc-rdbms-central
   when: run_once_docker_{% endraw %}{{ application_id }}{% raw %} is not defined
 
 {% endraw %}

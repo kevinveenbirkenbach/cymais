@@ -1,7 +1,7 @@
 ---
-- name: "include service-rdbms-central"
+- name: "include svc-rdbms-central"
   include_role: 
-    name: service-rdbms-central
+    name: svc-rdbms-central
 
 - name: "Include setup for domain '{{ domain }}'"
   include_role: 

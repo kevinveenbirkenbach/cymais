@@ -15,12 +15,12 @@
   include_tasks: "./tasks/utils/web-app-roles.yml"
 
 # Native Webserver Roles
-- name: setup web-service-htmls
+- name: setup web-svc-htmls
   include_role:
-    name: web-service-html
+    name: web-svc-html
   vars:
     domain: "{{primary_domain}}"
-  when: ('web-service-htmls' | application_allowed(group_names, allowed_applications))
+  when: ('web-svc-htmls' | application_allowed(group_names, allowed_applications))
 
 - name: "setup corporate identity"
   include_role:

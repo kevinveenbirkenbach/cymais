@@ -1,7 +1,7 @@
 ---
-- name: "Include service-rdbms-central"
+- name: "Include svc-rdbms-central"
   include_role: 
-    name: service-rdbms-central
+    name: svc-rdbms-central
   
 - name: "Include role srv-web-proxy-domain for {{ application_id }}"
   include_role:

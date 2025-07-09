@@ -1,6 +1,6 @@
 # defaults/
 
-This directory contains default variable definition files for the `service-rdbms-mariadb` Ansible role. It centralizes all configurable values related to MariaDB deployment and can be adjusted without modifying task logic.
+This directory contains default variable definition files for the `svc-rdbms-mariadb` Ansible role. It centralizes all configurable values related to MariaDB deployment and can be adjusted without modifying task logic.
 
 ---
 
@@ -34,7 +34,7 @@ Defines default values for how the MariaDB database should be created.
 
 To customize any of these values without editing role defaults:
 
-1. Create or update a playbook-level vars file (e.g. `group_vars/all/service-rdbms-mariadb.yml`).
+1. Create or update a playbook-level vars file (e.g. `group_vars/all/svc-rdbms-mariadb.yml`).
 2. Set the desired values, for example:
 
    ```yaml

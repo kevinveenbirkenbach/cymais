@@ -21,4 +21,4 @@ galaxy_info:
   run_after:
     - web-app-matomo
     - web-app-keycloak
-    - service-openldap
+    - svc-openldap
