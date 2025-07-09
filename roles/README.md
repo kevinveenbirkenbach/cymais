@@ -72,10 +72,10 @@ For a complete list of role categories and detailed definitions, see:
 
 ## Maintenance & Healing
 
-- **maintenance-***  
+- **maint-***  
   Periodic maintenance tasks (Btrfs balancing, swapfile management).
 
-- **maintenance-docker-***  
+- **maint-docker-***  
   Automated recovery and restarts for Docker Compose workloads.
 
 - **cleanup-***  
@@ -112,7 +112,7 @@ For a complete list of role categories and detailed definitions, see:
 
 > **Tip:** To find a role quickly, search for its prefix:  
 > `core-`, `generic-`, `desk-`, `webserver-`, `web-service-`, `web-app-`,  
-> `network-`, `service-`, `monitor-`, `alert-`, `maintenance-`, `cleanup-`,  
+> `network-`, `service-`, `monitor-`, `alert-`, `maint-`, `cleanup-`,  
 > `backup-`, `update-`, `pkgmgr-`, `user-`.
 
 ---

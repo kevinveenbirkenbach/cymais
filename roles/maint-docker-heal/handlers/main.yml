@@ -1,0 +1,5 @@
+- name: restart maint-docker-heal.cymais.service
+  systemd:
+    name: maint-docker-heal.cymais.service
+    state: restarted
+    daemon_reload: yes

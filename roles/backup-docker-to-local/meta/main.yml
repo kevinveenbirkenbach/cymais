@@ -26,5 +26,5 @@ dependencies:
   - backup-provider
   - alert-compose
   - cleanup-failed-docker-backups
-  - maintenance-lock
+  - maint-lock
   - backup-directory-validator

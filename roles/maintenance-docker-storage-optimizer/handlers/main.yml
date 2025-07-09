@@ -1,5 +1,0 @@
-- name: "reload maintenance-docker-storage-optimizer.cymais.service"
-  systemd:
-    name: maintenance-docker-storage-optimizer.cymais.service
-    state: reloaded
-    daemon_reload: yes

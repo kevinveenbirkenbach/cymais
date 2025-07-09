@@ -148,4 +148,4 @@
 - name: setup swapfile hosts
   when: ('swapfile' | application_allowed(group_names, allowed_applications))
   include_role:
-    name: maintenance-swapfile
+    name: maint-swapfile

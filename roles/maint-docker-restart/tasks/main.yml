@@ -1,0 +1,33 @@
+- block:
+  - name: "create {{restart_docker_folder}}"
+    file:
+      path: "{{restart_docker_folder}}"
+      state: directory
+      mode: 0755
+
+  - name: create {{restart_docker_script}}
+    copy:
+      src: maint-docker-restart.py
+      dest: "{{restart_docker_script}}"
+
+  - name: configure maint-docker-restart.cymais.service
+    template: 
+      src: maint-docker-restart.service.j2
+      dest: /etc/systemd/system/maint-docker-restart.cymais.service
+    notify: "reload maint-docker-restart.cymais.service"
+
+  - name: set service_name to the name of the current role
+    set_fact:
+      service_name: "{{ role_name }}"
+
+  - name: "include role for generic-timer for {{service_name}}"
+    include_role:
+      name: generic-timer
+    vars:
+      on_calendar:  "{{on_calendar_restart_docker}}"
+
+  - name: run the restart_docker_volumes tasks once
+    set_fact:
+      run_once_restart_docker: true
+      
+  when: run_once_restart_docker is not defined

@@ -29,5 +29,5 @@ dependencies:
   - alert-compose
   - cleanup-backups-timer
   - cleanup-failed-docker-backups
-  - maintenance-lock
+  - maint-lock
   - user-root

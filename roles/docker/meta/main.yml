@@ -31,5 +31,5 @@ dependencies:
   - user-administrator
   - mon-bot-docker-container
   - mon-bot-docker-volumes
-  - maintenance-docker-heal
-  - maintenance-docker-restart
+  - maint-docker-heal
+  - maint-docker-restart

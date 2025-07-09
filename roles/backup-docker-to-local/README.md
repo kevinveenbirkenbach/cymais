@@ -11,7 +11,7 @@ Optimized for Archlinux, this role ensures that Docker volume backups are perfor
 - [cleanup-failed-docker-backups](../cleanup-failed-docker-backups/) – Cleans up unsuccessful backup attempts.
 - [generic-timer](../generic-timer/) – Schedules recurring backup tasks.
 - [backup-provider](../backup-provider/) – Manages backup sources.
-- [maintenance-lock](../maintenance-lock/) – Ensures coordinated maintenance operations.
+- [maint-lock](../maint-lock/) – Ensures coordinated maintenance operations.
 
 ## Purpose
 

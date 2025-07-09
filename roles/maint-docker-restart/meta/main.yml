@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Automates the cleanup of old backups by executing a Python script that deletes outdated backup versions when disk usage exceeds a specified threshold."
+  description: "Automates the restart of Docker Compose instances by detecting docker-compose.yml files and executing a restart script, ensuring consistent service availability."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -10,18 +10,20 @@ galaxy_info:
     https://www.veen.world
   min_ansible_version: "2.9"
   platforms:
-    - name: Linux
+    - name: Archlinux
+      versions:
+        - rolling
+    - name: Ubuntu
       versions:
         - all
   galaxy_tags:
-    - backup
-    - cleanup
-    - disk
+    - docker
+    - restart
+    - update
+    - systemd
     - automation
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
-dependencies:  
-  - generic-python-pip
-  - alert-compose
+dependencies:
   - maint-lock

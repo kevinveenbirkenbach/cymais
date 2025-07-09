@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Automated backups to a swappable USB device."
+  description: "Automated recovery for unhealthy or exited Docker Compose containers."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: | 
@@ -14,8 +14,8 @@ galaxy_info:
       versions:
         - rolling
   galaxy_tags:
-    - backup
-    - usb
+    - docker
+    - docker-compose
     - systemd
     - automation
     - archlinux
@@ -23,5 +23,4 @@ galaxy_info:
   issue_tracker_url: https://s.veen.world/cymaisissues
   documentation: https://s.veen.world/cymais
 dependencies:
-  - cleanup-backups-service
   - maint-lock
