@@ -120,12 +120,12 @@
 ## backup setup
 - name: setup replica backup hosts
   when: ('backup_remote_to_local' | application_allowed(group_names, allowed_applications))
-  include_role: backup-remote-to-local
+  include_role: bkp-remote-to-local
 
 - name: setup backup to swappable
   when: ('backup_to_usb' | application_allowed(group_names, allowed_applications))
   include_role:
-    name: backup-data-to-usb
+    name: bkp-data-to-usb
 
 ## driver setup
 - name: driver-intel

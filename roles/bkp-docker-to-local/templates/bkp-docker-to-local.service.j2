@@ -1,0 +1,9 @@
+[Unit]
+Description=backup docker volumes to local folder
+OnFailure=alert-compose.cymais@%n.service cleanup-failed-docker-backups.cymais.service
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/sh -c '/usr/bin/python {{ path_system_lock_script }} {{ system_maintenance_services | join(' ')  }} --ignore {{ system_maintenance_backup_services | reject('equalto', 'bkp-docker-to-local-everything') | join(' ') }} --timeout "{{system_maintenance_lock_timeout_backup_services}}"'
+ExecStart=/bin/sh -c '/usr/bin/python {{backup_docker_to_local_folder}}backup-docker-to-local.py --compose-dir {{path_docker_compose_instances}}'
+ExecStartPost=/bin/sh -c '/bin/systemctl start maint-docker-heal.cymais.service &'

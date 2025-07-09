@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "Cleans up failed Docker backups by configuring a systemd service and timer to execute the cleanup operations periodically."
+  description: "Automates the backup of Docker volumes to a local folder"
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -10,18 +10,21 @@ galaxy_info:
     https://www.veen.world
   min_ansible_version: "2.9"
   platforms:
-    - name: Linux
+    - name: Archlinux
       versions:
-        - all
+        - rolling
   galaxy_tags:
-    - docker
     - backup
-    - cleanup
+    - docker
+    - local
+    - systemd
     - automation
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
 dependencies:
+  - bkp-provider
   - alert-compose
+  - cleanup-failed-docker-backups
   - maint-lock
   - bkp-directory-validator

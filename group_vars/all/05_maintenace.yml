@@ -13,10 +13,10 @@ system_maintenance_lock_timeout_restart_docker:    "{{system_maintenance_lock_ti
 
 ### Defined Services for Backup Tasks
 system_maintenance_backup_services:
-  - "backup-docker-to-local"
-  - "backup-remote-to-local"
-  - "backup-data-to-usb"
-  - "backup-docker-to-local-everything"
+  - "bkp-docker-to-local"
+  - "bkp-remote-to-local"
+  - "bkp-data-to-usb"
+  - "bkp-docker-to-local-everything"
 
 ### Defined Services for System Cleanup
 system_maintenance_cleanup_services:

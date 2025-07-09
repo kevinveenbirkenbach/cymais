@@ -5,7 +5,7 @@
     package_name: cleanup-failed-docker-backups 
   when: run_once_cleanup_failed_docker_backups is not defined
 
-- name: Retrieve backup-docker-to-local path from pkgmgr
+- name: Retrieve bkp-docker-to-local path from pkgmgr
   command: pkgmgr path cleanup-failed-docker-backups
   register: pkgmgr_output
   changed_when: false

@@ -10,7 +10,7 @@ Optimized for backup maintenance, this role:
 - Clones the cleanup-failed-docker-backups repository.
 - Configures a systemd service to run the cleanup script.
 - Integrates with the [generic-timer](../generic-timer/README.md) role to schedule periodic cleanup.
-- Works in conjunction with the backup-directory-validator role for additional verification.
+- Works in conjunction with the bkp-directory-validator role for additional verification.
 
 ## Purpose
 
@@ -21,4 +21,4 @@ The primary purpose of this role is to remove failed Docker backups automaticall
 - **Repository Cloning:** Retrieves the latest cleanup scripts from a Git repository.
 - **Service Configuration:** Sets up a systemd service to run the cleanup tasks.
 - **Timer Integration:** Schedules periodic cleanup through a systemd timer.
-- **Dependency Integration:** Works with backup-directory-validator to enhance backup integrity.
+- **Dependency Integration:** Works with bkp-directory-validator to enhance backup integrity.

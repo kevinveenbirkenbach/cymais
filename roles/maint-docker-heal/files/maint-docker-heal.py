@@ -40,7 +40,7 @@ def main(base_directory):
     
     while blocker_running:
         try: 
-            bash("systemctl is-active --quiet backup-docker-to-local.cymais.service")
+            bash("systemctl is-active --quiet bkp-docker-to-local.cymais.service")
             bash("systemctl is-active --quiet update-docker.cymais.service")
             print("Backup is running.")
             print(f"Trying again in {waiting_time} seconds.")

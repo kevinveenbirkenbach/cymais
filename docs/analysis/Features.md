@@ -15,7 +15,7 @@ Every business is unique, and so is CyMaIS! With a modular architecture, it adap
 With automated updates, system health checks, and security audits, CyMaIS ensures your infrastructure is always up-to-date and running smoothly. Roles such as `mon-bot-docker-container`, `mon-bot-btrfs`, and `mon-bot-webserver` help monitor system integrity.
 
 ## Uncompromised Security 🔒
-Security is a top priority! CyMaIS includes robust security features like full-disk encryption recommendations, 2FA enforcement, encrypted server deployments (`web-app-keycloak`, `service-openldap`), and secure backup solutions (`backup-remote-to-local`, `backup-data-to-usb`).
+Security is a top priority! CyMaIS includes robust security features like full-disk encryption recommendations, 2FA enforcement, encrypted server deployments (`web-app-keycloak`, `service-openldap`), and secure backup solutions (`bkp-remote-to-local`, `bkp-data-to-usb`).
 
 ## User-Friendly with Expert Support 👩‍💻
 No need to be a Linux or Docker expert! CyMaIS simplifies deployment with intuitive role-based automation. Documentation and community support make IT administration accessible to all experience levels.

@@ -1,8 +1,0 @@
-#!/bin/bash
-# Pulls the remote backups from multiple hosts
-hosts="{{ pull_remote_backups | join(' ') }}";
-errors=0
-for host in $hosts; do
-  bash {{ docker_backup_remote_to_local_folder }}backup-remote-to-local.sh $host || ((errors+=1));
-done;
-exit $errors;

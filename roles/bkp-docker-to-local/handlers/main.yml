@@ -1,0 +1,9 @@
+- name: "reload bkp-docker-to-local-everything.cymais.service"
+  systemd:
+    name: bkp-docker-to-local-everything.cymais.service
+    daemon_reload: yes
+
+- name: "reload bkp-docker-to-local.cymais.service"
+  systemd:
+    name: bkp-docker-to-local.cymais.service
+    daemon_reload: yes

@@ -1,1 +1,0 @@
-docker_backup_remote_to_local_folder: "{{path_administrator_scripts}}backup-remote-to-local/"

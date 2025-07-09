@@ -1,0 +1,4 @@
+backup_to_usb_script_path:    "/usr/local/sbin/bkp-data-to-usb.python"
+backup_to_usb_destination:    "{{backup_to_usb_mount}}{{backup_to_usb_destination_subdirectory}}"
+backups_folder_path:          "{{backup_to_usb_destination}}"
+systemctl_mount_service_name: "{{ backup_to_usb_mount | trim('/') | replace('/', '-') }}.mount"

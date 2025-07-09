@@ -1,6 +1,6 @@
-- name: "start backup-docker-to-local-everything.cymais.service"
+- name: "start bkp-docker-to-local-everything.cymais.service"
   systemd:
-    name: backup-docker-to-local-everything.cymais.service
+    name: bkp-docker-to-local-everything.cymais.service
     state: started
   when: mode_backup | bool
 

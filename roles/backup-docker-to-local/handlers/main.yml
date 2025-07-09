@@ -1,9 +1,0 @@
-- name: "reload backup-docker-to-local-everything.cymais.service"
-  systemd:
-    name: backup-docker-to-local-everything.cymais.service
-    daemon_reload: yes
-
-- name: "reload backup-docker-to-local.cymais.service"
-  systemd:
-    name: backup-docker-to-local.cymais.service
-    daemon_reload: yes

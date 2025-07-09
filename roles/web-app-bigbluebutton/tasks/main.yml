@@ -10,7 +10,7 @@
     database_name:      ""                              # Multiple databases
 
 - name:                 "Seed BigBlueButton Database for Backup"
-  include_tasks:        "{{ playbook_dir }}/roles/backup-docker-to-local/tasks/seed-database-to-backup.yml"
+  include_tasks:        "{{ playbook_dir }}/roles/bkp-docker-to-local/tasks/seed-database-to-backup.yml"
   vars:
     database_instance:  "{{ application_id }}"
     database_password:  "{{ applications[application_id].credentials.postgresql_secret }}"

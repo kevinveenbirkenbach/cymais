@@ -85,7 +85,7 @@ For a complete list of role categories and detailed definitions, see:
 
 ## Backup & Restore
 
-- **backup-***  
+- **bkp-***  
   Local and remote backup strategies for files, Docker volumes, databases.
 
 ---
@@ -113,7 +113,7 @@ For a complete list of role categories and detailed definitions, see:
 > **Tip:** To find a role quickly, search for its prefix:  
 > `core-`, `generic-`, `desk-`, `webserver-`, `web-service-`, `web-app-`,  
 > `network-`, `service-`, `monitor-`, `alert-`, `maint-`, `cleanup-`,  
-> `backup-`, `update-`, `pkgmgr-`, `user-`.
+> `bkp-`, `update-`, `pkgmgr-`, `user-`.
 
 ---
 
