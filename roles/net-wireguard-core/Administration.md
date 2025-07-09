@@ -26,7 +26,7 @@
 ```
 
 ## Other Resources
-- https://golb.hplar.ch/2019/01/expose-server-vpn.html
+- https://golb.hplar.ch/2019/01/expose-srv-vpn.html
 - https://wiki.archlinux.org/index.php/WireGuard
 - https://wireguard.how/server/raspbian/
 - https://www.scaleuptech.com/de/blog/was-ist-und-wie-funktioniert-subnetting/

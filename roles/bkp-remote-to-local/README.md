@@ -23,7 +23,7 @@ Backup Remote to Local is a robust solution for retrieving backup data from remo
 ## Other Resources
 
 - **Backup Scheme:**  
-  ![backup scheme](https://blog.veen.world/wp-content/uploads/2020/12/server-backup-768x567.jpg)  
+  ![backup scheme](https://blog.veen.world/wp-content/uploads/2020/12/srv-backup-768x567.jpg)  
   More details can be found in [this blog post](https://blog.veen.world/2020/12/26/how-i-backup-dedicated-root-servers/).
 
 ## Administration & Debugging

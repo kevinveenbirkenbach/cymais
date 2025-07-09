@@ -24,7 +24,7 @@
 
 - name: "setup corporate identity"
   include_role:
-    name: utils-server-corporate-identity
+    name: utils-srv-corporate-identity
   when: ('corporate_identity' | application_allowed(group_names, allowed_applications))
 
 - name: setup redirect hosts
