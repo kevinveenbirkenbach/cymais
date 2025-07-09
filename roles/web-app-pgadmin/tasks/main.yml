@@ -11,5 +11,5 @@
     http_port:  "{{ ports.localhost.http[application_id] }}"
 
 - name: "configure pgadmin servers"
-  include_tasks: config/main.yml
+  include_tasks: configuration.yml
   when: applications[application_id].server_mode | bool
