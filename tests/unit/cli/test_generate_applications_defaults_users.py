@@ -18,6 +18,7 @@ class TestGenerateDefaultApplicationsUsers(unittest.TestCase):
         (self.role / "vars").mkdir(parents=True)
         (self.role / "config").mkdir(parents=True)
         (self.role / "meta").mkdir(parents=True)
+        (self.role / "users").mkdir(parents=True)
 
         # Write application_id and configuration
         (self.role / "vars" / "main.yml").write_text("application_id: app_with_users\n")
@@ -30,7 +31,7 @@ class TestGenerateDefaultApplicationsUsers(unittest.TestCase):
                 'bob': {'uid': 2002, 'gid': 2002}
             }
         }
-        with (self.role / "meta" / "users.yml").open('w', encoding='utf-8') as f:
+        with (self.role / "users" / "main.yml").open('w', encoding='utf-8') as f:
             yaml.dump(users_meta, f)
 
         # Output file path

@@ -80,7 +80,7 @@ def main():
                 sys.exit(1)
             config_data["group_id"] = gid_number
             result["defaults_applications"][application_id] = config_data
-            users_meta_file = role_dir / "meta" / "users.yml"
+            users_meta_file = role_dir / "users" / "main.yml"
             transformed_users = {}
             if users_meta_file.exists():
                 users_meta = load_yaml_file(users_meta_file)

@@ -7,9 +7,10 @@ INCLUDES_OUT      	:= ./tasks/utils/server-roles.yml
 INCLUDES_SCRIPT   	:= ./cli/generate_playbook.py
 
 EXTRA_USERS := $(shell \
-	find $(ROLES_DIR) -maxdepth 1 -type d -name 'web-app*' -printf '%f\n' \
-	| sed -E 's/^web-app[_-]?//' \
+	find $(ROLES_DIR) -maxdepth 1 -type d -name '*' -printf '%f\n' \
+	| sed -E 's/.*-//' \
 	| grep -E -x '[a-z0-9]+' \
+	| sort -u \
 	| paste -sd, - \
 )
 
