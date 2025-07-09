@@ -16,7 +16,7 @@ Follow these guides to install and configure CyMaIS:
 
 ## Managing & Updating CyMaIS 🔄
 - Regularly update services using `update-docker`, `update-pacman`, or `update-apt`.
-- Monitor system health with `monitor-bot-btrfs`, `monitor-bot-webserver`, and `monitor-bot-docker-container`.
+- Monitor system health with `mon-bot-btrfs`, `mon-bot-webserver`, and `mon-bot-docker-container`.
 - Automate system maintenance with `maintenance-lock`, `cleanup-backups-service`, and `maintenance-docker-restart`.
 
 For more details, refer to the specific guides above.

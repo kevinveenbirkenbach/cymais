@@ -1,0 +1,5 @@
+- name: "reload mon-bot-webserver.cymais.service"
+  systemd:
+    name: mon-bot-webserver.cymais.service
+    enabled: yes
+    daemon_reload: yes

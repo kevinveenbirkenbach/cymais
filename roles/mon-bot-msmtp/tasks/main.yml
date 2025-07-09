@@ -1,0 +1,27 @@
+- name: "create {{ health_msmtp_folder }}"
+  file:
+    path: "{{ health_msmtp_folder }}"
+    state: directory
+    mode: 0755
+
+- name: create mon-bot-msmtp.sh
+  template:
+    src:  mon-bot-msmtp.sh.j2
+    dest: "{{ health_msmtp_folder }}mon-bot-msmtp.sh"
+    mode: '0755'
+
+- name: create mon-bot-msmtp.cymais.service
+  template:
+    src: mon-bot-msmtp.service.j2
+    dest: /etc/systemd/system/mon-bot-msmtp.cymais.service
+  notify: reload mon-bot-msmtp.cymais.service
+
+- name: set service_name to the name of the current role
+  set_fact:
+    service_name: "{{ role_name }}"
+
+- name: include role for generic-timer for {{ service_name }}
+  include_role:
+    name: generic-timer
+  vars:
+    on_calendar: "{{ on_calendar_health_msmtp }}"

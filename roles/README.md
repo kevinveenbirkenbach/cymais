@@ -59,7 +59,7 @@ For a complete list of role categories and detailed definitions, see:
 
 ## Monitoring & Alerting
 
-- **monitor-bot-***  
+- **mon-bot-***  
   “Bot”-style health checks with alerts via Telegram, email, etc.
 
 - **monitor-core-***  

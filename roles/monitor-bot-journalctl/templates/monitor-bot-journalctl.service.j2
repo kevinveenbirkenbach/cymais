@@ -1,7 +1,0 @@
-[Unit]
-Description=checking journalctl health
-OnFailure=alert-compose.cymais@%n.service
-
-[Service]
-Type=oneshot
-ExecStart=/bin/bash {{health_journalctl_folder}}monitor-bot-journalctl.sh

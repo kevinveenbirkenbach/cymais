@@ -6,9 +6,9 @@
   loop:
     - core-security
     - core-journalctl
-    - monitor-bot-disc-space
+    - mon-bot-disc-space
     - cleanup-disc-space
-    - monitor-bot-btrfs
+    - mon-bot-btrfs
     - maintenance-btrfs-auto-balancer
 
 - name: "Integrate Docker Role includes"

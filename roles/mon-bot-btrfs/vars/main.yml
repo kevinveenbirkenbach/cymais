@@ -1,0 +1,1 @@
+docker_health_btrfs_folder: "{{path_administrator_scripts}}mon-bot-btrfs/"

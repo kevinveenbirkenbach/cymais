@@ -1,5 +1,0 @@
-- name: "reload monitor-bot-webserver.cymais.service"
-  systemd:
-    name: monitor-bot-webserver.cymais.service
-    enabled: yes
-    daemon_reload: yes

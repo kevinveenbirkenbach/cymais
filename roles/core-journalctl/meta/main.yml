@@ -17,4 +17,4 @@ galaxy_info:
   documentation: "https://github.com/kevinveenbirkenbach/cymais/roles/core-journalctl"
   run_after: []
 dependencies:
-  - monitor-bot-journalctl
+  - mon-bot-journalctl

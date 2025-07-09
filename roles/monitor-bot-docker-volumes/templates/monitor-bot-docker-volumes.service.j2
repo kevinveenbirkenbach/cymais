@@ -1,7 +1,0 @@
-[Unit]
-Description=Checking docker health
-OnFailure=alert-compose.cymais@%n.service
-
-[Service]
-Type=oneshot
-ExecStart=/bin/bash {{ health_docker_volumes_folder }}monitor-bot-docker-volumes.sh "{{ whitelisted_anonymous_docker_volumes | join(' ') }}"

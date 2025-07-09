@@ -12,7 +12,7 @@ CyMaIS covers everything from essential system setups to advanced configurations
 Every business is unique, and so is CyMaIS! With a modular architecture, it adapts to specific requirements, whether for startups, growing businesses, NGOs, or large enterprises.
 
 ## Proactive Monitoring & Maintenance 🔍
-With automated updates, system health checks, and security audits, CyMaIS ensures your infrastructure is always up-to-date and running smoothly. Roles such as `monitor-bot-docker-container`, `monitor-bot-btrfs`, and `monitor-bot-webserver` help monitor system integrity.
+With automated updates, system health checks, and security audits, CyMaIS ensures your infrastructure is always up-to-date and running smoothly. Roles such as `mon-bot-docker-container`, `mon-bot-btrfs`, and `mon-bot-webserver` help monitor system integrity.
 
 ## Uncompromised Security 🔒
 Security is a top priority! CyMaIS includes robust security features like full-disk encryption recommendations, 2FA enforcement, encrypted server deployments (`web-app-keycloak`, `service-openldap`), and secure backup solutions (`backup-remote-to-local`, `backup-data-to-usb`).

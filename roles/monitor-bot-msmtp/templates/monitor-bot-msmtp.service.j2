@@ -1,7 +1,0 @@
-[Unit]
-Description=Check msmtp liveliness
-OnFailure=alert-telegram.cymais@%n.service
-
-[Service]
-Type=oneshot
-ExecStart=/bin/bash {{ health_msmtp_folder }}monitor-bot-msmtp.sh

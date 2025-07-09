@@ -1,0 +1,5 @@
+- name: reload mon-bot-msmtp.cymais.service
+  systemd:
+    name: mon-bot-msmtp.cymais.service
+    enabled: yes
+    daemon_reload: yes

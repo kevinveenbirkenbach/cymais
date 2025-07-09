@@ -1,0 +1,7 @@
+[Unit]
+Description=Checking docker health
+OnFailure=alert-compose.cymais@%n.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash {{health_docker_container_folder}}mon-bot-docker-container.sh

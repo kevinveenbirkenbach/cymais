@@ -20,5 +20,5 @@ galaxy_info:
   issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
   documentation: "https://github.com/kevinveenbirkenbach/cymais/roles/webserver-core"
 dependencies:
-  - monitor-bot-webserver
-  - monitor-bot-csp
+  - mon-bot-webserver
+  - mon-bot-csp

@@ -1,0 +1,36 @@
+- name: "create {{health_docker_container_folder}}"
+  file:
+    path: "{{health_docker_container_folder}}"
+    state: directory
+    mode: 0755
+  when: run_once_health_docker_container is not defined
+
+- name: create mon-bot-docker-container.sh
+  copy:
+    src: mon-bot-docker-container.sh
+    dest: "{{health_docker_container_folder}}mon-bot-docker-container.sh"
+  when: run_once_health_docker_container is not defined
+
+- name: create mon-bot-docker-container.cymais.service
+  template: 
+    src:  mon-bot-docker-container.service.j2
+    dest: /etc/systemd/system/mon-bot-docker-container.cymais.service
+  notify: reload mon-bot-docker-container.cymais.service
+  when: run_once_health_docker_container is not defined
+
+- name: set service_name to the name of the current role
+  set_fact:
+    service_name: "{{ role_name }}"
+  when: run_once_health_docker_container is not defined
+
+- name: "include role for generic-timer for {{service_name}}"
+  include_role:
+    name: generic-timer
+  vars:
+    on_calendar:  "{{on_calendar_health_docker_container}}"
+  when: run_once_health_docker_container is not defined
+
+- name: run the health_docker_container tasks once
+  set_fact:
+    run_once_health_docker_container: true
+  when: run_once_health_docker_container is not defined
