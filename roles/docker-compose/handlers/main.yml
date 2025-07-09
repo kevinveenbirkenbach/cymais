@@ -7,7 +7,17 @@
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600
 
-# default setup for docker compose files
+- name: Validate Docker Compose configuration
+  command:
+    cmd: docker compose -f {{ docker_compose.files.docker_compose }} config --quiet
+    chdir: "{{ docker_compose.directories.instance }}"
+  register: dc_validate
+  changed_when: false
+  failed_when: dc_validate.rc != 0
+  listen:
+    - docker compose up
+    - docker compose restart
+
 - name: docker compose up
   shell: docker-compose -p {{ application_id }} up -d --force-recreate --remove-orphans --build
   args:

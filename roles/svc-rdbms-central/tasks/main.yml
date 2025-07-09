@@ -24,7 +24,7 @@
 
 - name: "Create central database"
   include_role:
-    name: "web-app-{{database_type}}"
+    name: "svc-rdbms-{{database_type}}"
   when: applications | is_feature_enabled('central_database',application_id)
 
 - name: "Add database to backup"

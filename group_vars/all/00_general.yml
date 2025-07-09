@@ -17,6 +17,7 @@ HOST_DECIMAL_MARK:        ","
 deployment_mode:        "single"      # Use single, if you deploy on one server. Use cluster if you setup in cluster mode.
 
 web_protocol:           "https"       # Web protocol type. Use https or http. If you run local you need to change it to http
+web_port:               "{{ 443 if web_protocol == 'https' else 80 }}"  # Default port web applications will listen to
 
 ## Domain
 primary_domain_tld:     "localhost"                                     # Top Level Domain of the server

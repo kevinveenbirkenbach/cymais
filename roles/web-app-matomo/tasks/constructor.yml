@@ -1,0 +1,51 @@
+- name: "include svc-rdbms-central"
+  include_role: 
+    name: svc-rdbms-central
+
+- name: "include role srv-web-proxy-domain for {{application_id}}"
+  include_role:
+    name: srv-web-proxy-domain
+  vars:
+    domain:   "{{ domains | get_domain(application_id) }}"
+    http_port:   "{{ ports.localhost.http[application_id] }}"
+
+- name: flush docker service
+  meta: flush_handlers
+
+# Wait for API
+- name: Exclude global IPs in Matomo
+  uri:
+    url: "{{ matomo_index_php_url }}"
+    method: POST
+    body_format: form-urlencoded
+    body:
+      module: API
+      method: SitesManager.setGlobalExcludedIps
+      excludedIps: "{{ matomo_excluded_ips | join(',') }}"
+      format: json
+      token_auth: "{{ matomo_auth_token }}"
+    return_content: yes
+    status_code: 200
+  register: matomo_exclude
+  until: matomo_exclude.status == 200
+  retries: 5
+  delay: 10
+
+- name: Exclude CSP-CheckerBot user agent in Matomo
+  uri:
+    url: "{{ matomo_index_php_url }}"
+    method: POST
+    body_format: form-urlencoded
+    body:
+      module: API
+      method: SitesManager.setGlobalExcludedUserAgents
+      excludedUserAgents: "CSP-CheckerBot"
+      format: json
+      token_auth: "{{ matomo_auth_token }}"
+    return_content: yes
+    status_code: 200
+
+- name: run the docker matomo tasks once
+  set_fact:
+    run_once_web_app_matomo: true
+  when: run_once_web_app_matomo is not defined
