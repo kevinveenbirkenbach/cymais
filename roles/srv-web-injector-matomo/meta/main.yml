@@ -1,3 +1,24 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birchenbach"
+  description: "Injects Matomo analytics tracking code and noscript image tracker into Nginx-served HTML pages."
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen-Birchenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  galaxy_tags:
+    - nginx
+    - matomo
+    - analytics
+  repository: "https://github.com/kevinveenbirkenbach/cymais"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/srv-web-injector-matomo"
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Any
+      versions: [ all ]
 dependencies:
-  # - web-app-matomo Don't activate this otherwise the plays take super long
   - srv-web-core
+

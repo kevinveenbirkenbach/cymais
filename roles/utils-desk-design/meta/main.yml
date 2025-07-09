@@ -1,2 +1,25 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birchenbach"
+  description: "Installs designer tools such as GIMP, Blender, and Draw.io via AUR on Arch Linux."
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen-Birchenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  galaxy_tags:
+    - gimp
+    - blender
+    - drawio
+    - design
+  repository: "https://github.com/kevinveenbirkenbach/cymais"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/utils-desk-design"
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Archlinux
+      versions: [ all ]
 dependencies:
-- gen-aur-helper
+  - gen-aur-helper
+

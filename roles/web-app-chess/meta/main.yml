@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birchenbach"
-  description: "Deploys Let’s Encrypt certificates into Docker Compose Nginx setups via systemd service and timer."
+  description: "Stub role for deploying a Chess web application via Docker Compose (implementation pending)."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -9,17 +9,14 @@ galaxy_info:
     Consulting & Coaching Solutions
     https://www.veen.world
   galaxy_tags:
-    - nginx
-    - letsencrypt
+    - chess
     - docker
-    - systemd
   repository: "https://github.com/kevinveenbirkenbach/cymais"
   issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
-  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/srv-web-proxy-tls-deploy"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/web-app-chess"
   min_ansible_version: "2.9"
   platforms:
     - name: Any
       versions: [ all ]
-dependencies:
-  - alert-compose
+dependencies: []
 

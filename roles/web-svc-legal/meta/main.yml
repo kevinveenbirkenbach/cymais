@@ -1,2 +1,24 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birchenbach"
+  description: "Deploys a legal imprint (Impressum) page in Nginx from a Jinja2 template."
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen-Birchenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  galaxy_tags:
+    - nginx
+    - legal
+    - imprint
+  repository: "https://github.com/kevinveenbirkenbach/cymais"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/web-svc-legal"
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Any
+      versions: [ all ]
 dependencies:
-- web-svc-html
+  - web-svc-html
+

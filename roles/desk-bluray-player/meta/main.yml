@@ -1,2 +1,24 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birchenbach"
+  description: "Installs VLC, libaacs and libbluray for Blu-ray playback on Arch Linux–based systems."
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen-Birchenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  galaxy_tags:
+    - vlc
+    - bluray
+    - media
+  repository: "https://github.com/kevinveenbirkenbach/cymais"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/desk-bluray-player"
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Archlinux
+      versions: [ all ]
 dependencies:
-- gen-java
+  - gen-java
+
