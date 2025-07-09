@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birchenbach"
-  description: "Stub for a Jenkins CI server deployment via Docker Compose—role is currently deprecated and pending reimplementation."
+  description: "Automates swapfile creation on target systems by cloning and executing a swapfile script."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -9,15 +9,15 @@ galaxy_info:
     Consulting & Coaching Solutions
     https://www.veen.world
   galaxy_tags:
-    - jenkins
-    - ci
-    - stub
+    - swapfile
+    - performance
   repository: "https://github.com/kevinveenbirkenbach/cymais"
   issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
-  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/web-app-jenkins"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/maint-swapfile"
   min_ansible_version: "2.9"
   platforms:
     - name: Any
       versions:
         - all
-dependencies: []
+dependencies:
+  - pkgmgr-install

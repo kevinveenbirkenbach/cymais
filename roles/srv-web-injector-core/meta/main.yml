@@ -1,24 +1,28 @@
 ---
 galaxy_info:
-  author: "Kevin Veen-Birchenbach"
-  description: "Serves static assets via Nginx by copying from a source directory to the Nginx data path."
+  author: "Kevin Veen-Birkenbach"
+  description: "Core role for Nginx HTML injection of Matomo, theming, iFrame and JS snippets based on application feature flags."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
-    Kevin Veen-Birchenbach
+    Kevin Veen-Birkenbach
     Consulting & Coaching Solutions
     https://www.veen.world
   galaxy_tags:
-    - assets
     - nginx
-    - static
+    - injector
+    - matomo
+    - theming
   repository: "https://github.com/kevinveenbirkenbach/cymais"
   issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
-  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/web-svc-assets"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/srv-web-injector-core"
   min_ansible_version: "2.9"
   platforms:
     - name: Any
       versions:
         - all
 dependencies:
-  - web-svc-files
+  - srv-web-injector-matomo
+  - srv-web-injector-css
+  - srv-web-injector-iframe
+  - srv-web-injector-javascript

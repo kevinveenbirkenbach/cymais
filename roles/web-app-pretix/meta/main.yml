@@ -2,7 +2,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: ""
+  description: "Deploys Pretix ticketing system via Docker Compose with basic service orchestration."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: | 

@@ -1,23 +1,26 @@
 ---
 galaxy_info:
-  author: "Kevin Veen-Birchenbach"
-  description: "Stub for a Jenkins CI server deployment via Docker Compose—role is currently deprecated and pending reimplementation."
+  author: "Kevin Veen-Birkenbach"
+  description: "Deploys a Coturn TURN/STUN server via Docker Compose, with automatic domain and port configuration for Nextcloud Talk."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
-    Kevin Veen-Birchenbach
+    Kevin Veen-Birkenbach
     Consulting & Coaching Solutions
     https://www.veen.world
   galaxy_tags:
-    - jenkins
-    - ci
-    - stub
+    - coturn
+    - turn
+    - stun
+    - docker
   repository: "https://github.com/kevinveenbirkenbach/cymais"
   issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
-  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/web-app-jenkins"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/web-app-coturn"
   min_ansible_version: "2.9"
   platforms:
     - name: Any
       versions:
         - all
-dependencies: []
+dependencies:
+  - docker-compose
+  - srv-web-proxy-domain

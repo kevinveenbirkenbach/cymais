@@ -2,7 +2,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: ""
+  description: "Deploys LibreTranslate via Docker Compose with configurable Redis and database backends, and optional Matomo tracking."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: | 

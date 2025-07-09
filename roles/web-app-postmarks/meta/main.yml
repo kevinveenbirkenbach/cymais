@@ -1,23 +1,24 @@
 ---
 galaxy_info:
-  author: "Kevin Veen-Birchenbach"
-  description: "Stub for a Jenkins CI server deployment via Docker Compose—role is currently deprecated and pending reimplementation."
+  author: "Kevin Veen-Birkenbach"
+  description: "Installs and configures the Postmarks mail service client via Docker Compose, ready for use with applications requiring SMTP."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
-    Kevin Veen-Birchenbach
+    Kevin Veen-Birkenbach
     Consulting & Coaching Solutions
     https://www.veen.world
   galaxy_tags:
-    - jenkins
-    - ci
-    - stub
+    - postmarks
+    - mail
+    - smtp
   repository: "https://github.com/kevinveenbirkenbach/cymais"
   issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
-  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/web-app-jenkins"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/web-app-postmarks"
   min_ansible_version: "2.9"
   platforms:
     - name: Any
       versions:
         - all
-dependencies: []
+dependencies:
+  - docker-compose
