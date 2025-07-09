@@ -22,4 +22,4 @@
 
 - name: "flush database, docker and proxy for '{{ application_id }}'" 
   meta: flush_handlers
-  when: docker_compose_flush_handlers is not defined
+  when: docker_compose_flush_handlers | bool

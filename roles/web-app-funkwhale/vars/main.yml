@@ -1,8 +1,8 @@
-application_id:                                 "funkwhale"
-proxy_extra_configuration: "client_max_body_size 512M;"
-database_type:                                  "postgres"
-funkwhale_media_root:                           "/srv/funkwhale/data/"
-funkwhale_static_root:                          "{{funkwhale_media_root}}static"
-celeryd_concurrency:                            1
-funkwhale_music_directory_path:                 "/music"
-funkwhale_docker_api_port:                      5000
+application_id:                   "funkwhale"
+proxy_extra_configuration:        "client_max_body_size 512M;"
+database_type:                    "postgres"
+funkwhale_media_root:             "/srv/funkwhale/data/"
+funkwhale_static_root:            "{{funkwhale_media_root}}static"
+celeryd_concurrency:              1
+funkwhale_music_directory_path:   "/music"
+funkwhale_docker_api_port:        5000
