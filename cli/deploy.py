@@ -7,12 +7,26 @@ import datetime
 import sys
 
 
-def run_ansible_playbook(inventory, playbook, modes, limit=None, allowed_applications=None, password_file=None, verbose=0, skip_tests=False):
+def run_ansible_playbook(inventory, modes, limit=None, allowed_applications=None, password_file=None, verbose=0, skip_tests=False,  skip_validation=False):
     start_time = datetime.datetime.now()
     print(f"\n▶️ Script started at: {start_time.isoformat()}\n")
     
     print("\n🛠️  Building project (make build)...\n")
     subprocess.run(["make", "build"], check=True)
+    
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    playbook = os.path.join(os.path.dirname(script_dir), "playbook.yml")
+
+    if not skip_validation:
+        print("\n🔍 Validating inventory before deployment...\n")
+        try:
+            subprocess.run(
+                [sys.executable, os.path.join(script_dir, "validate_inventory.py"), os.path.dirname(inventory)],
+                check=True
+            )
+        except subprocess.CalledProcessError:
+            print("\n❌ Inventory validation failed. Deployment aborted.\n", file=sys.stderr)
+            sys.exit(1)
 
     if not skip_tests:
         print("\n🧪 Running tests (make test)...\n")
@@ -52,7 +66,6 @@ def run_ansible_playbook(inventory, playbook, modes, limit=None, allowed_applica
 
 
 def main():
-    script_dir = os.path.dirname(os.path.realpath(__file__))
     parser = argparse.ArgumentParser(
         description="Run the central Ansible deployment script to manage infrastructure, updates, and tests."
     )
@@ -120,17 +133,6 @@ def main():
 
     args = parser.parse_args()
 
-    if not args.skip_validation:
-        print("\n🔍 Validating inventory before deployment...\n")
-        try:
-            subprocess.run(
-                [sys.executable, os.path.join(script_dir, "validate_inventory.py"), os.path.dirname(args.inventory)],
-                check=True
-            )
-        except subprocess.CalledProcessError:
-            print("\n❌ Inventory validation failed. Deployment aborted.\n", file=sys.stderr)
-            sys.exit(1)
-
     modes = {
         "mode_reset": args.reset,
         "mode_test": args.test,
@@ -141,17 +143,16 @@ def main():
         "host_type": args.host_type
     }
 
-    playbook_file = os.path.join(os.path.dirname(script_dir), "playbook.yml")
-
     run_ansible_playbook(
         inventory=args.inventory,
-        playbook=playbook_file,
         modes=modes,
         limit=args.limit,
         allowed_applications=args.id,
         password_file=args.password_file,
         verbose=args.verbose,
-        skip_tests=args.skip_tests
+        skip_tests=args.skip_tests,
+        skip_validation=args.skip_validation
+        
     )
 
 if __name__ == "__main__":
