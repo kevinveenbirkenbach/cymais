@@ -27,7 +27,7 @@ plugin_configuration:
   -
     appid: "user_ldap"
     configkey: "s01ldap_backup_port"
-    configvalue: "{{ ports.localhost.ldap.ldap }}" # This is just optimized for local port @todo implement for external ports as well
+    configvalue: "{{ ports.localhost.ldap.openldap }}" # This is just optimized for local port @todo implement for external ports as well
 
   -
     appid: "user_ldap"

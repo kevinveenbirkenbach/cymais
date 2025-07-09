@@ -1,6 +1,6 @@
 server {
     listen {{ports.public.ldaps.ldap}}ssl;
-    proxy_pass 127.0.0.1:{{ports.localhost.ldap.ldap}};
+    proxy_pass 127.0.0.1:{{ports.localhost.ldap.openldap}};
     
     {% include 'roles/net-letsencrypt/templates/ssl_credentials.j2' %}
 }

@@ -16,7 +16,7 @@ ports:
       gitea: 4188
       snipe-it: 4189
     ldap:
-      ldap: 389
+      openldap: 389
     http:
       nextcloud: 8001
       gitea: 8002

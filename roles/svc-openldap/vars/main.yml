@@ -3,7 +3,7 @@ application_id:     "openldap"
 # LDAP Variables
 ldaps_docker_port:  636
 ldap_docker_port:   389
-ldap_server_uri:    "ldap://127.0.0.1:{{ ports.localhost.ldap.ldap }}"
+ldap_server_uri:    "ldap://127.0.0.1:{{ ports.localhost.ldap.openldap }}"
 ldap_hostname:      "{{ applications[application_id].hostname }}"
 ldap_bind_dn:       "{{ ldap.dn.administrator.configuration }}"
 ldap_bind_pw:       "{{ applications[application_id].credentials.administrator_password }}"
