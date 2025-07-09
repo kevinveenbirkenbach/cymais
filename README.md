@@ -3,8 +3,6 @@
 
 [![GitHub Sponsors](https://img.shields.io/badge/Sponsor-GitHub%20Sponsors-blue?logo=github)](https://github.com/sponsors/kevinveenbirkenbach) [![Patreon](https://img.shields.io/badge/Support-Patreon-orange?logo=patreon)](https://www.patreon.com/c/kevinveenbirkenbach) [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20Coffee-Funding-yellow?logo=buymeacoffee)](https://buymeacoffee.com/kevinveenbirkenbach) [![PayPal](https://img.shields.io/badge/Donate-PayPal-blue?logo=paypal)](https://s.veen.world/paypaldonate)
 
-Welcome to **CyMaIS**, a powerful automation framework that simplifies IT infrastructure setup and management. Whether you are an **end-user** looking to access cloud services securely or an **administrator** responsible for deploying and maintaining infrastructure, CyMaIS provides a seamless and secure solution.
-
 ![CyMaIS Logo](assets/img/logo.png)
 
 ## What is CyMaIS? 📌
