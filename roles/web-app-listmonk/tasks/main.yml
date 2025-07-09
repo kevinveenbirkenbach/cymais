@@ -1,29 +1,24 @@
 ---
-- name: "load docker and db for {{application_id}}"
-  include_role: 
-    name: cmp-db-docker
-
-- name: Set nginx_docker_reverse_proxy_extra_configuration based on applications[application_id].public_api_activated
+- name: Set proxy_extra_configuration based on applications[application_id].public_api_activated
   set_fact:
-    nginx_docker_reverse_proxy_extra_configuration: >-
+    proxy_extra_configuration: >-
       {% if not applications[application_id].public_api_activated %}
       {{ lookup('file', '{{ role_path }}/files/deactivate-public-api.conf') }}
       {% else %}
       ""
       {% endif %}
 
-- name: "include role srv-web-proxy-domain for {{application_id}}"
-  include_role:
-    name: srv-web-proxy-domain
-  vars:
-    domain:   "{{ domains | get_domain(application_id) }}"
-    http_port:   "{{ ports.localhost.http[application_id] }}"
+- name: "load docker, db and proxy for {{application_id}}"
+  include_role: 
+    name: cmp-db-docker-proxy
 
 - name: add config.toml
   template: 
     src:  "config.toml.j2" 
     dest: "{{docker_compose.directories.config}}config.toml"
   notify: docker compose up
+
+- meta: flush_handlers
 
 - name: Check if listmonk database is already initialized
   command: docker compose exec -T {{database_host}} psql -U {{database_username}} -d {{database_name}} -c "\dt"

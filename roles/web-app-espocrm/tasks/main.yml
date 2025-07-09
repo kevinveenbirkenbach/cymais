@@ -1,18 +1,7 @@
 ---
-- name: "load docker and db for {{application_id}}"
+- name: "load docker, db and proxy for {{application_id}}"
   include_role: 
-    name: cmp-db-docker
-
-- name: "Include setup for domain '{{ domain }}'"
-  include_role: 
-    name: srv-web-proxy-domain
-  vars:
-    ws_path:              "/ws"
-    ws_port:              "{{ ports.localhost.websocket[application_id] }}"
-    client_max_body_size: "100m"
-    vhost_flavour:        "ws_generic"
-    domain:               "{{ domains | get_domain(application_id) }}"
-    http_port:            "{{ ports.localhost.http[application_id] }}"
+    name: cmp-db-docker-proxy
 
 - name: Set OIDC scopes in EspoCRM config (inside web container)
   ansible.builtin.shell: |

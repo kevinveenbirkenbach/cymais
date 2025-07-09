@@ -3,3 +3,4 @@ database_password:                      "{{ applications[application_id].credent
 database_type:                          "postgres"
 docker_repository_directory :           "{{docker_compose.directories.services}}{{applications[application_id].repository}}/"
 discourse_application_yml_destination:  "{{docker_repository_directory }}containers/{{applications[application_id].container}}.yml"
+docker_compose_flush_handlers:          false

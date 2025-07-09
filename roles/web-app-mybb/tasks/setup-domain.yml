@@ -10,4 +10,4 @@
     dest: "{{nginx.directories.http.servers}}{{domains | get_domain(application_id)}}.conf"
   notify: restart nginx
   vars: 
-    nginx_docker_reverse_proxy_extra_configuration: "sub_filter '{{source_domain}}' '{{domains | get_domain(application_id)}}';"
+    proxy_extra_configuration: "sub_filter '{{source_domain}}' '{{domains | get_domain(application_id)}}';"

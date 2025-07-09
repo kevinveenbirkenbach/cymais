@@ -1,0 +1,15 @@
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: >
+    Extends cmp-db-docker by adding an HTTP reverse proxy via srv-web-proxy-domain.
+  company: |
+    Kevin Veen-Birkenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  galaxy_tags:
+    - docker
+    - database
+    - proxy
+    - compose

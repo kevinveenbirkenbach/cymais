@@ -10,29 +10,9 @@
     state: present
   when: run_once_docker_discourse is not defined
 
-- name: "load docker and db for {{application_id}}"
+- name: "load docker, db and proxy for {{application_id}}"
   include_role: 
-    name: cmp-db-docker
-  when: run_once_docker_discourse is not defined
-
-- name: "include role srv-web-proxy-domain for {{application_id}}"
-  include_role:
-    name: srv-web-proxy-domain
-  vars:
-    domain:   "{{ domains | get_domain(application_id) }}"
-    http_port:   "{{ ports.localhost.http[application_id] }}"
-  when: run_once_docker_discourse is not defined
-
-- name: add docker-compose.yml
-  template: 
-    src:  docker-compose.yml.j2 
-    dest: "{{docker_compose.directories.instance}}docker-compose.yml"
-  notify:
-    - docker compose up
-  when: run_once_docker_discourse is not defined
-
-- name: flush, to recreate discourse docker compose
-  meta: flush_handlers
+    name: cmp-db-docker-proxy
   when: run_once_docker_discourse is not defined
 
 - name: pull docker repository

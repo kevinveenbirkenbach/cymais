@@ -1,36 +1,21 @@
 ---
-
 {% if database_type | bool %}
-
 {% raw %}
-- name: "load docker and db for {{application_id}}"
+# Default: Loading; Docker, Database and Reverse Proxy
+- name: "load docker, db and proxy for '{{application_id}}'"
   include_role: 
-    name: cmp-db-docker
+    name: cmp-db-docker-proxy
   when: run_once_docker_{% endraw %}{{ application_id }}{% raw %} is not defined
-
 {% endraw %}
-
 {% else %}
-
 {% raw %}
-- name: "include docker-compose role"
+- name: "load docker, proxy for '{{application_id}}'"
   include_role: 
-    name: docker-compose
+    name: cmp-db-docker-proxy
   when: run_once_docker_{% endraw %}{{ application_id }}{% raw %} is not defined
 {% endraw %}
-
 {% endif %}
-
 {% raw %}
-
-- name: "include role srv-web-proxy-domain for {{application_id}}"
-  include_role:
-    name: srv-web-proxy-domain
-  vars:
-    domain:   "{{ domains | get_domain(application_id) }}"
-    http_port:   "{{ ports.localhost.http[application_id] }}"
-  when: run_once_docker_{% endraw %}{{ application_id }}{% raw %} is not defined
-
 - name: run the {% endraw %}{{ application_id }}{% raw %} tasks once
   set_fact:
     run_once_docker_{% endraw %}{{ application_id }}{% raw %}: true

@@ -11,16 +11,9 @@
   command: pkgmgr path cymais-sphinx
   register: path_cymais_sphinx_output
 
-- name: "include docker-compose role"
+- name: "include docker and reverse proxy for '{{ application_id }}'"
   include_role: 
-    name: docker-compose
-
-- name: "include role srv-web-proxy-domain for {{application_id}}"
-  include_role:
-    name: srv-web-proxy-domain
-  vars:
-    domain:     "{{ domains | get_domain(application_id) }}"
-    http_port:   "{{ ports.localhost.http[application_id] }}"
+    name: cmp-docker-proxy
 
 # Hack because it wasn't possible to fix an handler bug in pkgmgr install
 - name: „Trigger“ docker compose up

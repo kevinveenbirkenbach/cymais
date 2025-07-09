@@ -1,5 +1,3 @@
 application_id:     "baserow"
 database_password:  "{{ baserow_database_password }}"
 database_type:      "postgres"
-domain:             "{{ domains | get_domain(application_id) }}"
-http_port:          "{{ ports.localhost.http[application_id] }}"

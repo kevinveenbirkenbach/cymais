@@ -1,0 +1,10 @@
+- name: "load docker and db for {{application_id}}"
+  include_role: 
+    name: cmp-db-docker
+
+- name: "include role srv-web-proxy-domain for {{application_id}}"
+  include_role:
+    name: srv-web-proxy-domain
+  vars:
+    domain:   "{{ domains | get_domain(application_id) }}"
+    http_port:   "{{ ports.localhost.http[application_id] }}"

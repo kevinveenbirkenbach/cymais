@@ -10,7 +10,7 @@
   loop_control:
     loop_var: domain
   vars:
-    nginx_docker_reverse_proxy_extra_configuration: "client_max_body_size {{ wordpress_max_upload_size }};"
+    proxy_extra_configuration: "client_max_body_size {{ wordpress_max_upload_size }};"
     http_port: "{{ ports.localhost.http[application_id] }}"
 
 - name: "Transfering upload.ini to {{ docker_compose.directories.instance }}"

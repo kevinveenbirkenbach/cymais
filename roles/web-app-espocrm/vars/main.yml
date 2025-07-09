@@ -1,3 +1,6 @@
-application_id: "espocrm"
-# EspoCRM uses MySQL/MariaDB
-database_type: "mariadb"
+application_id:       "espocrm"
+database_type:        "mariadb"
+ws_path:              "/ws"
+ws_port:              "{{ ports.localhost.websocket[application_id] }}"
+client_max_body_size: "100m"
+vhost_flavour:        "ws_generic"

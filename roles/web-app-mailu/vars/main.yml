@@ -1,14 +1,15 @@
-application_id:           "mailu"
+application_id:             "mailu"
 
 # Database Configuration
-database_password:        "{{applications.mailu.credentials.database_password}}"
-database_type:            "mariadb"
+database_password:          "{{applications.mailu.credentials.database_password}}"
+database_type:              "mariadb"
 
-cert_mount_directory:     "{{docker_compose.directories.volumes}}certs/"
+cert_mount_directory:       "{{docker_compose.directories.volumes}}certs/"
 
 # Use dedicated source for oidc if activated  
 # @see https://github.com/heviat/Mailu-OIDC/tree/2024.06
-docker_source:            "{{ 'ghcr.io/heviat' if applications | is_feature_enabled('oidc',application_id) else 'ghcr.io/mailu' }}"
+docker_source:             "{{ 'ghcr.io/heviat' if applications | is_feature_enabled('oidc',application_id) else 'ghcr.io/mailu' }}"
 
-domain:                   "{{ domains | get_domain(application_id) }}"
-http_port:                "{{ ports.localhost.http[application_id] }}"
+domain:                    "{{ domains | get_domain(application_id) }}"
+http_port:                 "{{ ports.localhost.http[application_id] }}"
+proxy_extra_configuration: "client_max_body_size 31M;"

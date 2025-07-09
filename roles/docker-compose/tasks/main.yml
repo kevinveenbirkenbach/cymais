@@ -7,7 +7,7 @@
 
 # This could lead to problems in docker-compose directories which are based on a git repository
 # @todo Verify that this isn't the case. E.g. in accounting
-- name: "Create all docker-compose directories (including parent directories)"
+- name: "Create all docker-compose directories (including parent directories) for '{{ application_id }}'"
   file:
     path: "{{ item.value }}"
     state: directory
@@ -19,3 +19,7 @@
 
 - include_tasks: "files.yml"
   when: not docker_compose_skipp_file_creation | bool
+
+- name: "flush database, docker and proxy for '{{ application_id }}'" 
+  meta: flush_handlers
+  when: docker_compose_flush_handlers is not defined
