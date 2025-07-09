@@ -1,4 +1,5 @@
-# role drv-epson-multiprinter
+# Driver Epson Multiprinter Driver
+
 ## Other Resources
 - https://bernhardsteindl.at/epson-ecotank-et-3600-unter-arch-linux-einrichten/
 - http://download.ebz.epson.net/dsc/search/01/search/searchModule
