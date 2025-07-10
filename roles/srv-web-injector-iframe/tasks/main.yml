@@ -1,12 +1,12 @@
-- name: Load iFrame handler JS template
+- name: "Load iFrame handler JS template for '{{ application_id }}'"
   set_fact:
     iframe_code: "{{ lookup('template','iframe-handler.js.j2') }}"
 
-- name: Collapse iFrame code into one-liner
+- name: "Collapse iFrame code into one-liner for '{{ application_id }}'"
   set_fact:
     iframe_code_one_liner: "{{ iframe_code | to_one_liner }}"
 
-- name: Append iFrame CSP hash
+- name: "Append iFrame CSP hash for '{{ application_id }}'"
   set_fact:
     applications: "{{ applications | append_csp_hash(application_id, iframe_code_one_liner) }}"
   changed_when: false
