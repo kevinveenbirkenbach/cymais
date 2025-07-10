@@ -70,7 +70,7 @@ def main():
 
     # Determine roles directory relative to this script
     script_dir = Path(__file__).resolve().parent
-    roles_dir = (script_dir.parent / "roles").resolve()
+    roles_dir = (script_dir.parent / "../roles").resolve()
     if not roles_dir.is_dir():
         print(f"Roles directory not found: {roles_dir}", file=sys.stderr)
         sys.exit(1)
