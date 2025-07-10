@@ -28,7 +28,8 @@ class TestCategoryPaths(unittest.TestCase):
 
             # Nested subcategories (keys other than metadata)
             for sub_key in attrs:
-                if sub_key in ('title', 'description', 'icon', 'children'):
+                # Skip metadata keys
+                if sub_key in ('title', 'description', 'icon', 'children', 'invokable'):
                     continue
                 expected.add(f"{top_key}-{sub_key}")
 

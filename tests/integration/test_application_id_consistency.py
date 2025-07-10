@@ -2,6 +2,7 @@ import os
 import yaml
 import unittest
 from pathlib import Path
+from filter_plugins.invokable_paths import get_invokable_paths
 
 ROLES_DIR = Path(__file__).resolve().parent.parent.parent / "roles"
 
@@ -9,7 +10,7 @@ ROLES_DIR = Path(__file__).resolve().parent.parent.parent / "roles"
 class TestApplicationIdConsistency(unittest.TestCase):
     def test_application_id_matches_docker_prefix(self):
         failed_roles = []
-        prefixes = ("web-app-", "web-svc-", "desk-", "util-", "drv-")
+        prefixes = (get_invokable_paths(suffix="-"))
 
         for role_path in ROLES_DIR.iterdir():
             if not role_path.is_dir():
