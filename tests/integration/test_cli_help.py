@@ -34,7 +34,7 @@ class CLIHelpIntegrationTest(unittest.TestCase):
                     segments = rel_dir.split(os.sep) + [cmd_name]
 
                 with self.subTest(command=' '.join(segments)):
-                    cmd = [self.python, self.main_py] + segments + ['--help']
+                    cmd = [self.python, self.main_py] + segments + ['--help', '--no-signal']
                     result = subprocess.run(
                         cmd, capture_output=True, text=True
                     )

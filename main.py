@@ -97,12 +97,12 @@ def play_start_intro():
 
 
 def failure_with_warning_loop(no_signal, sound_enabled):
-    if sound_enabled and not no_signal:
+    if not no_signal:
         Sound.play_finished_failed_sound()
     print(color_text("Warning: command failed. Press Ctrl+C to stop warnings.", Fore.RED))
     try:
         while True:
-            if sound_enabled:
+            if not no_signal:
                 Sound.play_warning_sound()
     except KeyboardInterrupt:
         print(color_text("Warnings stopped by user.", Fore.YELLOW))
@@ -118,7 +118,7 @@ if __name__ == "__main__":
 
     # Segfault handler
     def segv_handler(signum, frame):
-        if sound_enabled and not no_signal:
+        if not no_signal:
             Sound.play_finished_failed_sound()
             try:
                 while True:
@@ -303,7 +303,7 @@ if __name__ == "__main__":
                 failure_with_warning_loop(no_signal, sound_enabled)
                 sys.exit(rc)
             else:
-                if sound_enabled and not no_signal:
+                if not no_signal:
                     Sound.play_finished_successfully_sound()
                 return True
         except Exception as e:

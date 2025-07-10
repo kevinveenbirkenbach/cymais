@@ -1,4 +1,3 @@
-# tests/unit/test_get_domain.py
 import unittest
 import sys
 import os

@@ -5,140 +5,144 @@ import yaml
 import re
 from pathlib import Path
 
+# Ensure imports work when run directly
+script_dir = Path(__file__).resolve().parent
+repo_root = script_dir.parent.parent
+sys.path.insert(0, str(repo_root))
+
+from cli.meta.applications import find_application_ids
 
 def load_yaml_file(path):
     try:
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path, 'r', encoding='utf-8') as f:
             content = f.read()
-            content = re.sub(r'(?m)^([ \t]*[^\s:]+):\s*!vault[\s\S]+?(?=^\S|\Z)', r'\1: "<vaulted>"\n', content)
+            content = re.sub(r'(?m)^([ \t]*[^\s:]+):\s*!vault[\s\S]+?(?=^\S|\Z)', r"\1: \"<vaulted>\"\n", content)
             return yaml.safe_load(content)
     except Exception as e:
         print(f"Warning: Could not parse {path}: {e}", file=sys.stderr)
         return None
 
 
-def recursive_keys(d, prefix=""):
+def recursive_keys(d, prefix=''):
     keys = set()
     if isinstance(d, dict):
         for k, v in d.items():
-            full_key = f"{prefix}.{k}" if prefix else k
-            keys.add(full_key)
-            keys.update(recursive_keys(v, full_key))
+            full = f"{prefix}.{k}" if prefix else k
+            keys.add(full)
+            keys.update(recursive_keys(v, full))
     return keys
 
 
-def compare_application_keys(applications, defaults, source_file):
-    errors = []
-    for app_id, app_conf in applications.items():
+def compare_application_keys(applications, defaults, source):
+    errs = []
+    for app_id, conf in applications.items():
         if app_id not in defaults:
-            errors.append(f"{source_file}: Unknown application '{app_id}' (not in defaults_applications)")
+            errs.append(f"{source}: Unknown application '{app_id}' (not in defaults_applications)")
             continue
-
-        default_conf = defaults.get(app_id, {})
-        app_keys = recursive_keys(app_conf)
-        default_keys = recursive_keys(default_conf)
-
+        default = defaults[app_id]
+        app_keys = recursive_keys(conf)
+        def_keys = recursive_keys(default)
         for key in app_keys:
-            if key.startswith("credentials"):
-                continue  # explicitly ignore credentials
-            if key not in default_keys:
-                errors.append(f"{source_file}: Missing default for {app_id}: {key}")
-    return errors
+            if key.startswith('credentials'):
+                continue
+            if key not in def_keys:
+                errs.append(f"{source}: Missing default for {app_id}: {key}")
+    return errs
 
 
-def compare_user_keys(users, default_users, source_file):
-    errors = []
-    for username, user_conf in users.items():
-        if username not in default_users:
-            print(f"Warning: {source_file}: Unknown user '{username}' (not in default_users)", file=sys.stderr)
+def compare_user_keys(users, default_users, source):
+    errs = []
+    for user, conf in users.items():
+        if user not in default_users:
+            print(f"Warning: {source}: Unknown user '{user}' (not in default_users)", file=sys.stderr)
             continue
+        def_conf = default_users[user]
+        for key in conf:
+            if key in ('password','credentials','mailu_token'):
+                continue
+            if key not in def_conf:
+                errs.append(f"Missing default for user '{user}': key '{key}'")
+    return errs
 
-        default_conf = default_users.get(username, {})
-        for key in user_conf:
-            if key in ("password", "credentials", "mailu_token"):
-                continue  # ignore credentials/password
-            if key not in default_conf:
-                raise Exception(f"{source_file}: Missing default for user '{username}': key '{key}'")
-    return errors
 
-
-def load_inventory_files(inventory_dir):
+def load_inventory_files(inv_dir):
     all_data = {}
-    inventory_path = Path(inventory_dir)
-
-    for path in inventory_path.glob("*.yml"):
-        data = load_yaml_file(path)
+    p = Path(inv_dir)
+    for f in p.glob('*.yml'):
+        data = load_yaml_file(f)
         if isinstance(data, dict):
-            applications = data.get("applications") or data.get("defaults_applications")
-            if applications:
-                all_data[path] = applications
-
-    for vars_folder in inventory_path.glob("*_vars"):
-        if vars_folder.is_dir():
-            for subfile in vars_folder.rglob("*.yml"):
-                data = load_yaml_file(subfile)
+            apps = data.get('applications') or data.get('defaults_applications')
+            if apps:
+                all_data[str(f)] = apps
+    for d in p.glob('*_vars'):
+        if d.is_dir():
+            for f in d.rglob('*.yml'):
+                data = load_yaml_file(f)
                 if isinstance(data, dict):
-                    applications = data.get("applications") or data.get("defaults_applications")
-                    if applications:
-                        all_data[subfile] = applications
-
+                    apps = data.get('applications') or data.get('defaults_applications')
+                    if apps:
+                        all_data[str(f)] = apps
     return all_data
 
 
+def validate_host_keys(app_ids, inv_dir):
+    errs = []
+    f = Path(inv_dir) / 'servers.yml'
+    data = load_yaml_file(f)
+    if isinstance(data, dict):
+        children = data.get('all',{}).get('children',{})
+        for grp in children:
+            if grp not in app_ids:
+                errs.append(f"{f}: Invalid group '{grp}' (not in application_ids)")
+    return errs
+
+
 def find_single_file(pattern):
-    candidates = list(Path("group_vars/all").glob(pattern))
-    if len(candidates) != 1:
-        raise RuntimeError(f"Expected exactly one {pattern} file in group_vars/all, found {len(candidates)}")
-    return candidates[0]
+    c = list(Path('group_vars/all').glob(pattern))
+    if len(c)!=1:
+        raise RuntimeError(f"Expected exactly one {pattern} in group_vars/all, found {len(c)}")
+    return c[0]
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Verify application and user variable consistency with defaults.")
-    parser.add_argument("inventory_dir", help="Path to inventory directory (contains inventory.yml and *_vars/)")
-    args = parser.parse_args()
-
-    defaults_path = find_single_file("*_applications.yml")
-    users_path = find_single_file("*users.yml")
-
-    defaults_data = load_yaml_file(defaults_path)
-    default_users_data = load_yaml_file(users_path)
-
-    defaults = defaults_data.get("defaults_applications", {}) if defaults_data else {}
-    default_users = default_users_data.get("default_users", {}) if default_users_data else {}
-
+    p = argparse.ArgumentParser()
+    p.add_argument('inventory_dir')
+    args = p.parse_args()
+    # defaults
+    dfile = find_single_file('*_applications.yml')
+    ufile = find_single_file('*users.yml')
+    ddata = load_yaml_file(dfile) or {}
+    udata = load_yaml_file(ufile) or {}
+    defaults = ddata.get('defaults_applications',{})
+    default_users = udata.get('default_users',{})
     if not defaults:
-        print(f"Error: No 'defaults_applications' found in {defaults_path}.", file=sys.stderr)
+        print(f"Error: No 'defaults_applications' found in {dfile}", file=sys.stderr)
         sys.exit(1)
     if not default_users:
-        print(f"Error: No 'default_users' found in {users_path}.", file=sys.stderr)
+        print(f"Error: No 'default_users' found in {ufile}", file=sys.stderr)
         sys.exit(1)
-
-    all_errors = []
-
-    inventory_files = load_inventory_files(args.inventory_dir)
-    for source_path, app_data in inventory_files.items():
-        errors = compare_application_keys(app_data, defaults, str(source_path))
-        all_errors.extend(errors)
-
-    # Load all users.yml files from inventory
-    for path in Path(args.inventory_dir).rglob("*.yml"):
-        data = load_yaml_file(path)
-        if isinstance(data, dict) and "users" in data:
-            try:
-                compare_user_keys(data["users"], default_users, str(path))
-            except Exception as e:
+    app_errs = []
+    inv_files = load_inventory_files(args.inventory_dir)
+    for src, apps in inv_files.items():
+        app_errs.extend(compare_application_keys(apps, defaults, src))
+    user_errs = []
+    for fpath in Path(args.inventory_dir).rglob('*.yml'):
+        data = load_yaml_file(fpath)
+        if isinstance(data, dict) and 'users' in data:
+            errs = compare_user_keys(data['users'], default_users, str(fpath))
+            for e in errs:
                 print(e, file=sys.stderr)
-                sys.exit(1)
-
-    if all_errors:
-        print("Validation failed with the following issues:")
-        for err in all_errors:
-            print("-", err)
+            user_errs.extend(errs)
+    host_errs = validate_host_keys(find_application_ids(), args.inventory_dir)
+    app_errs.extend(host_errs)
+    if app_errs or user_errs:
+        if app_errs:
+            print('Validation failed with the following issues:')
+            for e in app_errs:
+                print(f"- {e}")
         sys.exit(1)
-    else:
-        print("Inventory directory is valid against defaults.")
-        sys.exit(0)
+    print('Inventory directory is valid against defaults and hosts.')
+    sys.exit(0)
 
-
-if __name__ == "__main__":
+if __name__=='__main__':
     main()
