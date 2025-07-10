@@ -146,7 +146,7 @@ if __name__ == "__main__":
 
     # Global help
     if not args or args[0] in ('-h', '--help'):
-        print(color_text("CyMaIS CLI", Fore.CYAN + Style.BRIGHT))
+        print(color_text("CyMaIS CLI 🦫🌐🖥️", Fore.CYAN + Style.BRIGHT))
         print()
         print(color_text("Your Gateway to Automated IT Infrastructure Setup", Style.DIM))
         print()
@@ -194,18 +194,21 @@ if __name__ == "__main__":
         ))
         print()
         print(color_text(
-            "CyMaIS is a product of Kevin Veen-Birkenbach (https://cybermaster.space)",
+            "CyMaIS is a product of Kevin Veen-Birkenbach, https://cybermaster.space .\n",
             Style.DIM
         ))
         print(color_text(
-            "Main instance: https://cymais.cloud — test and use productively.",
+            "Test and use productively on https://cymais.cloud .\n",
             Style.DIM
         ))
         print(color_text(
-            "For commercial use, a license agreement with Kevin Veen-Birkenbach is required:",
+            "For commercial use, a license agreement with Kevin Veen-Birkenbach is required. \n",
             Style.DIM
         ))
-        print(color_text("https://s.veen.world/cncl", Style.DIM))
+        print(color_text("License: https://s.veen.world/cncl", Style.DIM))
+        print()
+        print(color_text("🎉🌈 Happy IT Infrastructuring! 🚀🔧✨", Fore.MAGENTA + Style.BRIGHT))
+        print()
         sys.exit(0)
 
     # Directory-specific help
