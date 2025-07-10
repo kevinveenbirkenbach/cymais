@@ -5,15 +5,15 @@
   include_role:
     name: "{{ item }}"
   loop:
-    - utils-gen-administrator
+    - util-gen-administrator
     - drv-non-free
 
-- name: utils-desk-office-tools
+- name: util-desk-office-tools
   when: ("collection_officetools" in group_names)
   include_role:
     name: "{{ item }}"
   loop:
-    - utils-desk-office-tools
+    - util-desk-office-tools
     - desk-jrnl
 
 - name: personal computer for business
@@ -21,10 +21,10 @@
   include_role:
     name: desk-gnucash
 
-- name: utils-desk-design
+- name: util-desk-design
   when: ("collection_designer" in group_names)
   include_role:
-    name: utils-desk-design
+    name: util-desk-design
 
 - name: desk-qbittorrent
   when: ("collection_torrent" in group_names)
@@ -54,7 +54,7 @@
 - name: setup gaming hosts
   when: ("gaming" in group_names)
   include_role:
-    name: utils-desk-game-compose
+    name: util-desk-game-compose
 
 - name: setup entertainment hosts
   when: ("entertainment" in group_names)

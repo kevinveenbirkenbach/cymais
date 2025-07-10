@@ -28,6 +28,3 @@ galaxy_info:
   repository: "https://github.com/kevinveenbirkenbach/cymais"
   issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
   documentation: "https://github.com/kevinveenbirkenbach/cymais/roles/srv-web-7-6-composer"
-dependencies:
-  - srv-web-7-7-inj-compose
-  - srv-web-6-6-tls-core

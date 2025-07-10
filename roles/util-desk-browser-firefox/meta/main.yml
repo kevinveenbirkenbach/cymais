@@ -1,0 +1,23 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birchenbach"
+  description: "Automates Firefox installation and enforces Enterprise Policies (auto-install extensions) on Arch Linux."
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen-Birchenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  galaxy_tags:
+    - firefox
+    - enterprise-policy
+    - browser
+  repository: "https://github.com/kevinveenbirkenbach/cymais"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/util-desk-browser-firefox"
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Archlinux
+      versions: [ rolling ]
+dependencies: []
+
