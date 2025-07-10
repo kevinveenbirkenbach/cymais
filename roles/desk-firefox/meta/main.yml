@@ -14,7 +14,7 @@ galaxy_info:
     - browser
   repository: "https://github.com/kevinveenbirkenbach/cymais"
   issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
-  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/util-desk-browser-firefox"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/desk-firefox"
   min_ansible_version: "2.9"
   platforms:
     - name: Archlinux

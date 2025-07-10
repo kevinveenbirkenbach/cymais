@@ -34,5 +34,5 @@ galaxy_info:
   issue_tracker_url: https://s.veen.world/cymaisissues
   documentation: https://s.veen.world/cymais
 dependencies:
-  - util-desk-browser-chromium
-  - util-desk-browser-firefox
+  - desk-chromium
+  - desk-firefox

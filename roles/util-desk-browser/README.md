@@ -6,7 +6,7 @@ This Ansible role serves as a wrapper to install and configure multiple browsers
 
 ## Overview
 
-The **util-desk-browser** role orchestrates the deployment of two specialized roles: **util-desk-browser-chromium** and **util-desk-browser-firefox**. By executing both roles, it provides a unified solution for browser management, making it easier to maintain a secure and consistent browsing environment across your systems.
+The **util-desk-browser** role orchestrates the deployment of two specialized roles: **desk-chromium** and **desk-firefox**. By executing both roles, it provides a unified solution for browser management, making it easier to maintain a secure and consistent browsing environment across your systems.
 
 ## Purpose
 

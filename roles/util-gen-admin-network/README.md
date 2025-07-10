@@ -8,7 +8,7 @@ Learn more about Linux network tools on the [Arch Wiki - Network Tools](https://
 
 ## Overview
 
-This role enhances the base `util-gen-administrator` role by adding tools specifically for analyzing, debugging, and monitoring network traffic and connectivity.
+This role enhances the base `util-gen-admin` role by adding tools specifically for analyzing, debugging, and monitoring network traffic and connectivity.
 
 ## Purpose
 
