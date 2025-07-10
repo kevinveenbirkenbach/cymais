@@ -1,4 +1,5 @@
 hostname: "central-postgres"
+network:  "central_postgres"
 port: 5432
 docker:
   images:

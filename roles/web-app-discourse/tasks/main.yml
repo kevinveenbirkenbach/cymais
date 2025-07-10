@@ -43,20 +43,29 @@
   meta: flush_handlers
   when: run_once_docker_discourse is not defined
 
-- name: "add {{applications[application_id].container}} to network central_postgres"
-  command:
-    cmd: "docker network connect central_postgres {{applications[application_id].container}}"
-  ignore_errors: true
+- name: "Connect {{ applications[application_id].container }} to network {{ applications.postgres.network }}"
+  command: >
+    docker network connect {{ applications.postgres.network }} {{ applications[application_id].container }}
+  register: network_connect
+  failed_when: >
+    network_connect.rc != 0 and
+    'Error response from daemon: endpoint with name {{ applications[application_id].container }} already exists in network {{ applications.postgres.network }}'
+    not in network_connect.stderr
+  changed_when: network_connect.rc == 0
   when:
-    - applications | is_feature_enabled('central_database',application_id)
+    - applications | is_feature_enabled('central_database', application_id)
     - run_once_docker_discourse is not defined
-  
-- name: "remove central database from {{application_id}}_default"
-  command:
-    cmd: "docker network disconnect {{applications[application_id].network}} {{ database_host }}"
-  ignore_errors: true
+
+- name: "Remove {{ applications[application_id].network }} from {{ database_host }}"
+  command: >
+    docker network disconnect {{ applications[application_id].network }} {{ database_host }}
+  register: network_disconnect
+  failed_when: >
+    network_disconnect.rc != 0 and
+    'is not connected to network {{ applications[application_id].network }}' not in network_disconnect.stderr
+  changed_when: network_disconnect.rc == 0
   when:
-    - applications | is_feature_enabled('central_database',application_id)
+    - applications | is_feature_enabled('central_database', application_id)
     - run_once_docker_discourse is not defined
 
 - name: run the docker_discourse tasks once

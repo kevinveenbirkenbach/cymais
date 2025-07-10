@@ -9,7 +9,6 @@ features:
   portfolio_iframe:   true
   central_database:   true
   oauth2:             true
-hostname:             central-mariadb
 csp:
   flags:
     style-src:

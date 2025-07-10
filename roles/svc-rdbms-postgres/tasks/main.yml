@@ -1,6 +1,6 @@
 - name: Create Docker network for PostgreSQL
   docker_network:
-    name: central_postgres
+    name: "{{ applications[application_id].network }}"
     state: present
     ipam_config:
       - subnet: "{{ networks.local.postgres.subnet }}"
@@ -15,7 +15,7 @@
       POSTGRES_PASSWORD: "{{ applications[application_id].credentials.postgres_password }}"
       POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C" # Necessary for web-app-matrix
     networks:
-      - name: central_postgres
+      - name: "{{ applications[application_id].network }}"
     published_ports:
       - "127.0.0.1:{{ applications[application_id].port }}:5432"
     volumes:
