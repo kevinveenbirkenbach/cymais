@@ -1,2 +1,3 @@
-user_home_directory:  "/home/{{users.client.username}}/"                                          # Home directory of the user
-cloud_directory:      "{{user_home_directory}}Clouds/{{cloud_fqdn}}/{{users.client.username}}/"   # Folder which contains the cloud data
+user_home_directory: /home/{{users.client.username}}/
+cloud_directory: '{{user_home_directory}}Clouds/{{cloud_fqdn}}/{{users.client.username}}/'
+application_id: nextcloud-client

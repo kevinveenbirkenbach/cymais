@@ -1,1 +1,2 @@
-auto_start_directory: "/home/{{users.client.username}}/.config/autostart/" 
+auto_start_directory: /home/{{users.client.username}}/.config/autostart/
+application_id: gnome-caffeine
