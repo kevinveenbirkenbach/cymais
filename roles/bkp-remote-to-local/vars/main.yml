@@ -1,1 +1,2 @@
-docker_backup_remote_to_local_folder: "{{path_administrator_scripts}}bkp-remote-to-local/"
+docker_backup_remote_to_local_folder: '{{path_administrator_scripts}}bkp-remote-to-local/'
+application_id: remote-to-local

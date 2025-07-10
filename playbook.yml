@@ -2,9 +2,9 @@
   hosts: all
   tasks:
   - name: "Load 'constructor' tasks"
-    include_tasks: "tasks/plays/01_constructor.yml"
+    include_tasks: "tasks/stages/01_constructor.yml"
   - name: "Load '{{host_type}}' tasks"
-    include_tasks: "tasks/plays/02_{{host_type}}.yml"
+    include_tasks: "tasks/stages/02_{{host_type}}.yml"
   - name: "Load 'destructor' tasks"
-    include_tasks: "tasks/plays/03_destructor.yml"
+    include_tasks: "tasks/stages/03_destructor.yml"
   become: true

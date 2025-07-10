@@ -1,1 +1,2 @@
-backup_directory_validator_folder: "{{path_administrator_scripts}}directory-validator/"
+backup_directory_validator_folder: '{{path_administrator_scripts}}directory-validator/'
+application_id: directory-validator

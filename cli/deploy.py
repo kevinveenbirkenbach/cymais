@@ -80,7 +80,7 @@ def main():
     )
     parser.add_argument(
         "--host-type",
-        choices=["server", "personal-computer"],
+        choices=["server", "desktop"],
         default="server",
         help="Specify whether the target is a server or a personal computer. Affects role selection and variables."
     )

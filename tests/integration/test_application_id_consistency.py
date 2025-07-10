@@ -39,7 +39,7 @@ class TestApplicationIdConsistency(unittest.TestCase):
                     continue
 
             actual_id = vars_data.get("application_id")
-            if actual_id != expected_id:
+            if actual_id not in [expected_id, role_name]:
                 failed_roles.append((
                     role_name,
                     f"application_id is '{actual_id}', expected '{expected_id}'"

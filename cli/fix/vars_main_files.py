@@ -10,7 +10,7 @@ from pathlib import Path
 
 # Directory containing roles; can be overridden by tests
 MODULE_DIR = Path(__file__).resolve().parent
-ROLES_DIR = (MODULE_DIR.parent / "roles").resolve()
+ROLES_DIR = (MODULE_DIR.parent.parent / "roles").resolve()
 
 def process_role(role_dir: Path, prefix: str, preview: bool, overwrite: bool):
     name = role_dir.name

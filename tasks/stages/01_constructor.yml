@@ -101,7 +101,7 @@
     name: update
   when: mode_update | bool
 
-- name: "Integrate Docker Role includes"
+- name: "Load base roles"
   include_tasks: "./tasks/groups/{{ item }}-roles.yml"
   loop:
     - core
@@ -111,55 +111,8 @@
     - alert
     - mon
     - maint
+    - update
+    - bkp
+    - cln
   loop_control:
     label: "{{ item }}-roles.yml"
-
-- name: setup standard wireguard
-  when: ('wireguard_server' | application_allowed(group_names, allowed_applications))
-  include_role:
-    name: net-wireguard-core
-
-# vpn setup
-- name: setup wireguard client behind firewall\nat
-  when: ('wireguard_behind_firewall' | application_allowed(group_names, allowed_applications))
-  include_role:
-    name: net-wireguard-firewalled
-
-- name: setup wireguard client
-  when: ('wireguard_client' | application_allowed(group_names, allowed_applications))
-  include_role:
-    name: net-wireguard-plain
-
-## backup setup
-- name: setup replica backup hosts
-  when: ('backup_remote_to_local' | application_allowed(group_names, allowed_applications))
-  include_role:
-    name: bkp-remote-to-local
-
-- name: setup backup to swappable
-  when: ('backup_to_usb' | application_allowed(group_names, allowed_applications))
-  include_role:
-    name: bkp-data-to-usb
-
-## driver setup
-- name: drv-intel
-  when: ('intel' | application_allowed(group_names, allowed_applications))
-  include_role:
-    name: drv-intel
-
-- name: setup multiprinter hosts
-  when: ('epson_multiprinter' | application_allowed(group_names, allowed_applications))
-  include_role:
-    name: drv-epson-multiprinter
-
-
-- name: setup hibernate lid switch
-  when: ('drv-lid-switch' | application_allowed(group_names, allowed_applications))
-  include_role:
-    name: drv-lid-switch
-
-## system setup 
-- name: setup swapfile hosts
-  when: ('swapfile' | application_allowed(group_names, allowed_applications))
-  include_role:
-    name: maint-swapfile

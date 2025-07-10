@@ -1,5 +1,5 @@
 ---
-- name: servers host setup
+- name: Setup server base
   when: ("servers" in group_names)
   include_role:
     name: "{{ item }}"
@@ -11,10 +11,10 @@
     - mon-bot-btrfs
     - maint-btrfs-auto-balancer
 
-- name: "Integrate Docker Server Roles"
+- name: "Include server roles"
   include_tasks: "./tasks/groups/{{ item }}-roles.yml"
   loop:
-    - svc
-    - web
+    - web-svc # Services need to run before applications
+    - web-app
   loop_control:
     label: "{{ item }}-roles.yml"

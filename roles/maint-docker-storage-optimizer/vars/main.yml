@@ -1,3 +1,0 @@
-storage_optimizer_directory: '{{path_administrator_scripts}}maint-docker-storage-optimizer/'
-storage_optimizer_script: '{{storage_optimizer_directory}}maint-docker-storage-optimizer.py'
-application_id: docker-storage-optimizer

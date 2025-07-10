@@ -92,7 +92,7 @@ roles:
     title: "Backup & Restore"
     description: "Backup strategies & restore procedures"
     icon: "fas fa-hdd"
-    invokable: false
+    invokable: true
   update:
     title: "Updates & Package Management"
     description: "OS & package updates"
@@ -103,3 +103,8 @@ roles:
     description: "User accounts & access control"
     icon: "fas fa-users"
     invokable: false
+  cln:
+    title: "Cleanup"
+    description: "Roles for cleaning up various system resources—old backups, unused certificates, temporary files, Docker volumes, disk caches, deprecated domains, and more."
+    icon: "fas fa-trash-alt"
+    invokable: true

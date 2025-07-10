@@ -8,7 +8,7 @@ import sys
 def load_optimizer_module():
     module_path = os.path.abspath(os.path.join(
         os.path.dirname(__file__),
-        '..', "..", "..","..",'roles', 'maint-docker-storage-optimizer', 'files', 'maint-docker-storage-optimizer.py'
+        '..', "..", "..","..",'roles', 'cln-docker-storage-optimizer', 'files', 'cln-docker-storage-optimizer.py'
     ))
     spec = importlib.util.spec_from_file_location('storage_optimizer', module_path)
     optimizer = importlib.util.module_from_spec(spec)

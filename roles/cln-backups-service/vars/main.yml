@@ -1,1 +1,2 @@
-cleanup_backups_directory: "{{path_administrator_scripts}}cln-backups/"
+cleanup_backups_directory: '{{path_administrator_scripts}}cln-backups/'
+application_id: backups-service
