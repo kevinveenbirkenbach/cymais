@@ -1,6 +1,5 @@
 ---
 - name: Setup server base
-  when: ("servers" in group_names)
   include_role:
     name: "{{ item }}"
   loop:

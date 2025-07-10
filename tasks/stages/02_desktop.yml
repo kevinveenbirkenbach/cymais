@@ -8,7 +8,6 @@
     label: "{{ item }}-roles.yml"
 
 - name: general host setup
-  when: ("personal_computers" in group_names)
   include_role:
     name: "{{ item }}"
   loop:
