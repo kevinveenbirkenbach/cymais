@@ -1,4 +1,4 @@
-# tests/cli/test_ensure_vars_main.py
+# tests/cli/test_fix/vars_main_files.py
 import os
 import shutil
 import tempfile
@@ -6,7 +6,7 @@ import unittest
 import yaml
 
 # Adjust this import to match the real path in your project
-from cli.ensure_vars_main import run, ROLES_DIR
+from cli.ensure.vars_main_files import run, ROLES_DIR
 
 class TestEnsureVarsMain(unittest.TestCase):
     def setUp(self):
@@ -17,11 +17,11 @@ class TestEnsureVarsMain(unittest.TestCase):
 
         # Monkey-patch the module's ROLES_DIR to point here
         self._orig_roles_dir = ROLES_DIR
-        setattr(__import__("cli.ensure_vars_main", fromlist=["ROLES_DIR"]), "ROLES_DIR", self.roles_dir)
+        setattr(__import__("cli.ensure.vars_main_files", fromlist=["ROLES_DIR"]), "ROLES_DIR", self.roles_dir)
 
     def tearDown(self):
         # restore and cleanup
-        setattr(__import__("cli.ensure_vars_main", fromlist=["ROLES_DIR"]), "ROLES_DIR", self._orig_roles_dir)
+        setattr(__import__("cli.ensure.vars_main_files", fromlist=["ROLES_DIR"]), "ROLES_DIR", self._orig_roles_dir)
         shutil.rmtree(self.tmpdir)
 
     def _make_role(self, name, vars_content=None):

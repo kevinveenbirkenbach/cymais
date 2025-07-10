@@ -7,9 +7,9 @@ import yaml
 from collections import OrderedDict
 
 # Add cli/ to import path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../..", "cli")))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../..", "cli/generate/defaults/")))
 
-import generate_users
+import users
 
 class TestGenerateUsers(unittest.TestCase):
     def test_build_users_auto_increment_and_overrides(self):
@@ -18,24 +18,24 @@ class TestGenerateUsers(unittest.TestCase):
             'bob': {'uid': 2000, 'email': 'bob@custom.com', 'description': 'Custom user'},
             'carol': {}
         }
-        users = generate_users.build_users(
+        build = users.build_users(
             defs=defs,
             primary_domain='example.com',
             start_id=1001,
             become_pwd='pw'
         )
         # alice should get uid/gid 1001
-        self.assertEqual(users['alice']['uid'], 1001)
-        self.assertEqual(users['alice']['gid'], 1001)
-        self.assertEqual(users['alice']['email'], 'alice@example.com')
+        self.assertEqual(build['alice']['uid'], 1001)
+        self.assertEqual(build['alice']['gid'], 1001)
+        self.assertEqual(build['alice']['email'], 'alice@example.com')
         # bob overrides
-        self.assertEqual(users['bob']['uid'], 2000)
-        self.assertEqual(users['bob']['gid'], 2000)
-        self.assertEqual(users['bob']['email'], 'bob@custom.com')
-        self.assertIn('description', users['bob'])
+        self.assertEqual(build['bob']['uid'], 2000)
+        self.assertEqual(build['bob']['gid'], 2000)
+        self.assertEqual(build['bob']['email'], 'bob@custom.com')
+        self.assertIn('description', build['bob'])
         # carol should get next free id = 1002
-        self.assertEqual(users['carol']['uid'], 1002)
-        self.assertEqual(users['carol']['gid'], 1002)
+        self.assertEqual(build['carol']['uid'], 1002)
+        self.assertEqual(build['carol']['gid'], 1002)
 
     def test_build_users_default_lookup_password(self):
         """
@@ -44,14 +44,14 @@ class TestGenerateUsers(unittest.TestCase):
         """
         defs = {'frank': {}}
         lookup_template = '{{ lookup("password", "/dev/null length=42 chars=ascii_letters,digits") }}'
-        users = generate_users.build_users(
+        build = users.build_users(
             defs=defs,
             primary_domain='example.com',
             start_id=1001,
             become_pwd=lookup_template
         )
         self.assertEqual(
-            users['frank']['password'],
+            build['frank']['password'],
             lookup_template,
             "The lookup template string was not correctly applied as the default password"
         )
@@ -63,14 +63,14 @@ class TestGenerateUsers(unittest.TestCase):
         """
         defs = {'eva': {'password': 'custompw'}}
         lookup_template = '{{ lookup("password", "/dev/null length=42 chars=ascii_letters,digits") }}'
-        users = generate_users.build_users(
+        build = users.build_users(
             defs=defs,
             primary_domain='example.com',
             start_id=1001,
             become_pwd=lookup_template
         )
         self.assertEqual(
-            users['eva']['password'],
+            build['eva']['password'],
             'custompw',
             "The override password was not correctly applied"
         )
@@ -82,7 +82,7 @@ class TestGenerateUsers(unittest.TestCase):
             'u2': {'uid': 1001}
         }
         with self.assertRaises(ValueError):
-            generate_users.build_users(defs, 'ex.com', 1001, 'pw')
+            users.build_users(defs, 'ex.com', 1001, 'pw')
 
     def test_build_users_shared_gid_allowed(self):
         # Allow two users to share the same GID when one overrides gid and the other uses that as uid
@@ -90,10 +90,10 @@ class TestGenerateUsers(unittest.TestCase):
             'a': {'uid': 1500},
             'b': {'gid': 1500}
         }
-        users = generate_users.build_users(defs, 'ex.com', 1500, 'pw')
+        build = users.build_users(defs, 'ex.com', 1500, 'pw')
         # Both should have gid 1500
-        self.assertEqual(users['a']['gid'], 1500)
-        self.assertEqual(users['b']['gid'], 1500)
+        self.assertEqual(build['a']['gid'], 1500)
+        self.assertEqual(build['b']['gid'], 1500)
 
     def test_build_users_duplicate_username_email(self):
         defs = {
@@ -102,11 +102,11 @@ class TestGenerateUsers(unittest.TestCase):
         }
         # second user with same username should raise
         with self.assertRaises(ValueError):
-            generate_users.build_users(defs, 'ex.com', 1001, 'pw')
+            users.build_users(defs, 'ex.com', 1001, 'pw')
 
     def test_dictify_converts_ordereddict(self):
-        od = generate_users.OrderedDict([('a', 1), ('b', {'c': 2})])
-        result = generate_users.dictify(OrderedDict(od))
+        od = users.OrderedDict([('a', 1), ('b', {'c': 2})])
+        result = users.dictify(OrderedDict(od))
         self.assertIsInstance(result, dict)
         self.assertEqual(result, {'a': 1, 'b': {'c': 2}})
 
@@ -122,13 +122,13 @@ class TestGenerateUsers(unittest.TestCase):
             # role2 defines same user x with same value
             with open(os.path.join(tmp, 'role2/users/main.yml'), 'w') as f:
                 yaml.safe_dump({'users': {'x': {'email': 'x@a'}}}, f)
-            defs = generate_users.load_user_defs(tmp)
+            defs = users.load_user_defs(tmp)
             self.assertIn('x', defs)
             # now conflict definition
             with open(os.path.join(tmp, 'role2/users/main.yml'), 'w') as f:
                 yaml.safe_dump({'users': {'x': {'email': 'x@b'}}}, f)
             with self.assertRaises(ValueError):
-                generate_users.load_user_defs(tmp)
+                users.load_user_defs(tmp)
         finally:
             shutil.rmtree(tmp)
 

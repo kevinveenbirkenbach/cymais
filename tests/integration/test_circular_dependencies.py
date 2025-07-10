@@ -2,7 +2,7 @@ import os
 import unittest
 
 # import the functions from your CLI script
-from cli.generate_playbook import build_dependency_graph, find_cycle
+from cli.generate.conditional_role_include import build_dependency_graph, find_cycle
 
 class TestCircularDependencies(unittest.TestCase):
     """

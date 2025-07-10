@@ -7,9 +7,9 @@ import shutil
 import yaml
 
 # Adjust path to include cli/ folder
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../..", "cli")))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../..", "cli")))
 
-from generate_playbook import build_dependency_graph, topological_sort, generate_playbook_entries
+from cli.generate.conditional_role_include import build_dependency_graph, topological_sort, gen_condi_role_incl
 
 class TestGeneratePlaybook(unittest.TestCase):
     def setUp(self):
@@ -66,8 +66,8 @@ class TestGeneratePlaybook(unittest.TestCase):
         # The expected order must be a → b → c, d can be anywhere before or after
         self.assertTrue(sorted_roles.index('role-a') < sorted_roles.index('role-b') < sorted_roles.index('role-c'))
 
-    def test_generate_playbook_entries(self):
-        entries = generate_playbook_entries(self.temp_dir)
+    def test_gen_condi_role_incl(self):
+        entries = gen_condi_role_incl(self.temp_dir)
 
         text = ''.join(entries)
         self.assertIn("setup a", text)

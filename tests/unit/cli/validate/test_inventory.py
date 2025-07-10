@@ -7,7 +7,7 @@ import subprocess
 import sys
 import yaml
 
-SCRIPT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../cli/validate_inventory.py"))
+SCRIPT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../cli/validate/inventory.py"))
 
 class TestValidateInventory(unittest.TestCase):
     def setUp(self):

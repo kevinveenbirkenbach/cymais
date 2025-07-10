@@ -10,7 +10,7 @@ dir_path = os.path.abspath(
 sys.path.insert(0, dir_path)
 
 # Import functions and classes to test
-from create_credentials import ask_for_confirmation, main
+from cli.create.credentials import ask_for_confirmation, main
 from utils.handler.vault import VaultHandler, VaultScalar
 import subprocess
 import tempfile
@@ -81,7 +81,7 @@ class TestCreateCredentials(unittest.TestCase):
             with mock.patch('subprocess.run', return_value=completed):
                 # Run main with override for credentials.api_key and force to skip prompt
                 sys.argv = [
-                    'create_credentials.py',
+                    'create/credentials.py',
                     '--role-path', role_path,
                     '--inventory-file', inventory_file,
                     '--vault-password-file', vault_pw_file,

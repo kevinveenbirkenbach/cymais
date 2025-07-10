@@ -21,7 +21,7 @@ def run_ansible_playbook(inventory, modes, limit=None, allowed_applications=None
         print("\n🔍 Validating inventory before deployment...\n")
         try:
             subprocess.run(
-                [sys.executable, os.path.join(script_dir, "validate_inventory.py"), os.path.dirname(inventory)],
+                [sys.executable, os.path.join(script_dir, "validate.inventory.py"), os.path.dirname(inventory)],
                 check=True
             )
         except subprocess.CalledProcessError:

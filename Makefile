@@ -1,9 +1,9 @@
 ROLES_DIR           := ./roles
 APPLICATIONS_OUT    := ./group_vars/all/04_applications.yml
-APPLICATIONS_SCRIPT := ./cli/generate_applications.py
+APPLICATIONS_SCRIPT := ./cli/generate/defaults/applications.py
 USERS_OUT           := ./group_vars/all/03_users.yml
-USERS_SCRIPT        := ./cli/generate_users.py
-INCLUDES_SCRIPT     := ./cli/generate_playbook.py
+USERS_SCRIPT        := ./cli/generate/defaults/users.py
+INCLUDES_SCRIPT     := ./cli/generate/conditional_role_include.py
 
 # Define the prefixes for which we want individual role-include files
 INCLUDE_GROUPS      := "drv-" "svc-" "desk-" "web-" "util-"

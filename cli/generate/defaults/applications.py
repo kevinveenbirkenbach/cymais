@@ -6,7 +6,7 @@ import yaml
 import sys
 from pathlib import Path
 
-plugin_path = Path(__file__).resolve().parent / ".." / "lookup_plugins"
+plugin_path = Path(__file__).resolve().parent / ".." / ".." / ".." /"lookup_plugins"
 sys.path.insert(0, str(plugin_path))
 
 from application_gid import LookupModule

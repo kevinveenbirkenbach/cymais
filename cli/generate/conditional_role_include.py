@@ -156,7 +156,7 @@ def print_dependency_tree(graph):
     for root in roots:
         print_node(root)
 
-def generate_playbook_entries(roles_dir, prefixes=None):
+def gen_condi_role_incl(roles_dir, prefixes=None):
     """
     Generate playbook entries based on the sorted order.
     Raises a ValueError if application_id is missing.
@@ -209,7 +209,7 @@ def main():
         print_dependency_tree(graph)
         sys.exit(0)
 
-    entries = generate_playbook_entries(args.roles_dir, prefixes)
+    entries = gen_condi_role_incl(args.roles_dir, prefixes)
     output = ''.join(entries)
 
     if args.output:
