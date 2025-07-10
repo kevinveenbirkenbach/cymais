@@ -9,7 +9,7 @@ ROLES_DIR = Path(__file__).resolve().parent.parent.parent / "roles"
 class TestApplicationIdConsistency(unittest.TestCase):
     def test_application_id_matches_docker_prefix(self):
         failed_roles = []
-        prefixes = ("web-app-", "web-svc-", "desk-", "util-")
+        prefixes = ("web-app-", "web-svc-", "desk-", "util-", "drv-")
 
         for role_path in ROLES_DIR.iterdir():
             if not role_path.is_dir():

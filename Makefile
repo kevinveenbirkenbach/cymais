@@ -6,7 +6,7 @@ USERS_SCRIPT        := ./cli/generate_users.py
 INCLUDES_SCRIPT     := ./cli/generate_playbook.py
 
 # Define the prefixes for which we want individual role-include files
-INCLUDE_GROUPS      := "web-" "svc-"
+INCLUDE_GROUPS      := "drv-" "svc-" "desk-" "web-" "util-"
 
 # Directory where these include-files will be written
 INCLUDES_OUT_DIR    := ./tasks/groups
