@@ -1,1 +1,2 @@
-heal_docker: "{{path_administrator_scripts}}maint-docker-heal/"
+heal_docker: '{{path_administrator_scripts}}maint-docker-heal/'
+application_id: docker-heal

@@ -1,1 +1,2 @@
-system_btrfs_auto_balancer_folder: "{{path_administrator_scripts}}auto-btrfs-balancer/"
+system_btrfs_auto_balancer_folder: '{{path_administrator_scripts}}auto-btrfs-balancer/'
+application_id: btrfs-auto-balancer

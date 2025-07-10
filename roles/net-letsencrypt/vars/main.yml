@@ -1,8 +1,5 @@
 caa_entries:
-  - tag: issue
-    value: "letsencrypt.org"
-#  - tag: issuewild
-#    value: "letsencrypt.org"
-#  - tag: iodef
-#    value: "mailto:{{ users.administrator.email }}"
-base_sld_domains: "{{ current_play_domains_all | generate_base_sld_domains }}"
+- tag: issue
+  value: letsencrypt.org
+base_sld_domains: '{{ current_play_domains_all | generate_base_sld_domains }}'
+application_id: letsencrypt
