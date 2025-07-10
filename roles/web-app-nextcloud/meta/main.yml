@@ -32,4 +32,3 @@ galaxy_info:
     - web-app-collabora
     - web-app-keycloak
     - web-app-mastodon
-    - svc-rdbms-mariadb

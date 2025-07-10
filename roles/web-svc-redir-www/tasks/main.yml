@@ -3,9 +3,9 @@
   set_fact:
     www_domains: "{{ current_play_domains_all | select('match', '^www\\.') | list }}"
 
-- name: Include web-redirect-domains role for www-to-bare redirects
+- name: Include web-svc-redir-domains role for www-to-bare redirects
   include_role:
-    name: web-redirect-domains
+    name: web-svc-redir-domains
   vars:
     domain_mappings: "{{ www_domains
        | map('regex_replace',

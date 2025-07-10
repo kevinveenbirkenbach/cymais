@@ -24,6 +24,5 @@ galaxy_info:
   logo:
     class: "fa-solid fa-user-lock"
   run_after:
-    - svc-openldap
     - web-app-matomo
     - web-app-keycloak

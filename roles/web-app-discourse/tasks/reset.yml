@@ -1,5 +1,5 @@
 - name: "Load database variables for reset function"
-  include_vars: "{{playbook_dir}}/roles/svc-rdbms-central/vars/main.yml"
+  include_vars: "{{playbook_dir}}/roles/cmp-rdbms-orchestrator/vars/main.yml"
 
 - name: "cleanup central database from {{application_id}}_default network"
   command:

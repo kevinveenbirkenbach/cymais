@@ -14,4 +14,4 @@
 
 - name: "Load central rdbms for {{ application_id }}"
   include_role: 
-    name: svc-rdbms-central
+    name: cmp-rdbms-orchestrator

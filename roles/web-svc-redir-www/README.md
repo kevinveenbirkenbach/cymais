@@ -7,7 +7,7 @@ Automates the creation of Nginx server blocks that redirect all `www.` subdomain
 This role will:
 - **Discover** existing `*.conf` vhosts in your Nginx servers directory  
 - **Filter** domains with or without your `primary_domain`  
-- **Generate** redirect rules via the `web-redirect-domains` role  
+- **Generate** redirect rules via the `web-svc-redir-domains` role  
 - **Optionally** include a wildcard redirect template (experimental) ⭐️  
 - **Clean up** leftover configs when running in cleanup mode 🧹  
 

@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birchenbach"
-  description: "Serves static assets via Nginx by copying from a source directory to the Nginx data path."
+  description: "Configures Nginx to perform 301 redirects based on a list of source→target domain mappings."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -9,16 +9,16 @@ galaxy_info:
     Consulting & Coaching Solutions
     https://www.veen.world
   galaxy_tags:
-    - assets
     - nginx
-    - static
+    - redirect
+    - domains
   repository: "https://github.com/kevinveenbirkenbach/cymais"
   issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
-  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/web-svc-assets"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/web-svc-redir-domains"
   min_ansible_version: "2.9"
   platforms:
     - name: Any
-      versions:
-        - all
+      versions: [ all ]
 dependencies:
-  - web-svc-files
+  - srv-web-7-6-https
+

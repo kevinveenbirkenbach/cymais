@@ -12,29 +12,14 @@
     - maint-btrfs-auto-balancer
 
 - name: "Integrate Docker Role includes"
-  include_tasks: "./tasks/utils/server-roles.yml"
-
-# Native Webserver Roles
-- name: setup web-svc-htmls
-  include_role:
-    name: web-svc-html
-  vars:
-    domain: "{{primary_domain}}"
-  when: ('web-svc-htmls' | application_allowed(group_names, allowed_applications))
+  include_tasks: "./tasks/groups/{{ item }}-roles.yml"
+  loop:
+    - svc
+    - web
+  loop_control:
+    label: "{{ item }}-roles.yml"
 
 - name: "setup corporate identity"
   include_role:
     name: util-srv-corporate-identity
   when: ('corporate_identity' | application_allowed(group_names, allowed_applications))
-
-- name: setup redirect hosts
-  when: ('redirect' | application_allowed(group_names, allowed_applications))
-  include_role:
-    name: web-redirect-domains
-  vars:
-    domain_mappings: "{{ current_play_domain_mappings_redirect}}"
-
-- name: setup www redirect 
-  when: ('www_redirect' | application_allowed(group_names, allowed_applications))
-  include_role:
-    name: web-redirect-www

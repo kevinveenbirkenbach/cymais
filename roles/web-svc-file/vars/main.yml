@@ -1,2 +1,2 @@
-application_id: "file-server"
+application_id: "file"
 domain:         "{{ domains | get_domain(application_id) }}"

@@ -9,32 +9,43 @@ ROLES_DIR = Path(__file__).resolve().parent.parent.parent / "roles"
 class TestApplicationIdConsistency(unittest.TestCase):
     def test_application_id_matches_docker_prefix(self):
         failed_roles = []
+        prefixes = ("web-app-", "web-svc-")
 
         for role_path in ROLES_DIR.iterdir():
-            if role_path.name in ["docker-container","docker-compose", "svc-rdbms-central", "docker-repository-setup"]:
+            if not role_path.is_dir():
                 continue
-            
-            if role_path.is_dir() and role_path.name.startswith("web-app-"):
-                expected_id = role_path.name.replace("web-app-", "", 1)
-                vars_file = role_path / "vars" / "main.yml"
 
-                if not vars_file.exists():
-                    failed_roles.append((role_path.name, "vars/main.yml missing"))
+            role_name = role_path.name
+            # check if the role name starts with one of our prefixes
+            matching = [p for p in prefixes if role_name.startswith(p)]
+            if not matching:
+                continue
+
+            prefix = matching[0]
+            # expected_id is just the remainder after the prefix
+            expected_id = role_name[len(prefix):]
+
+            vars_file = role_path / "vars" / "main.yml"
+            if not vars_file.exists():
+                failed_roles.append((role_name, "vars/main.yml missing"))
+                continue
+
+            with open(vars_file, "r") as f:
+                try:
+                    vars_data = yaml.safe_load(f) or {}
+                except yaml.YAMLError as e:
+                    failed_roles.append((role_name, f"YAML error: {e}"))
                     continue
 
-                with open(vars_file, "r") as f:
-                    try:
-                        vars_data = yaml.safe_load(f) or {}
-                    except yaml.YAMLError as e:
-                        failed_roles.append((role_path.name, f"YAML error: {e}"))
-                        continue
-
-                actual_id = vars_data.get("application_id")
-                if actual_id != expected_id:
-                    failed_roles.append((role_path.name, f"application_id is '{actual_id}', expected '{expected_id}'"))
+            actual_id = vars_data.get("application_id")
+            if actual_id != expected_id:
+                failed_roles.append((
+                    role_name,
+                    f"application_id is '{actual_id}', expected '{expected_id}'"
+                ))
 
         if failed_roles:
-            msg = "\n".join([f"{role}: {reason}" for role, reason in failed_roles])
+            msg = "\n".join(f"{r}: {reason}" for r, reason in failed_roles)
             self.fail(f"The following roles have mismatching or missing application_id:\n{msg}")
 
 

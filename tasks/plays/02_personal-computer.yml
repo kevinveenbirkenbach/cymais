@@ -69,7 +69,7 @@
 - name: setup nextcloud-client
   when: ("nextcloud_client" in group_names)
   include_role:
-    name: desk-nextcloud
+    name: desk-nextcloud-client
 
 - name: setup docker
   when: ("docker_client" in group_names)

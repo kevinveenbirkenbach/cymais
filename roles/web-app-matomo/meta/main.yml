@@ -18,5 +18,3 @@ galaxy_info:
   documentation: "https://s.veen.world/cymais"
   logo:
     class: "fa-solid fa-chart-line"
-  run_after:
-    - "svc-rdbms-postgres"
