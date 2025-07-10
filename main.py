@@ -9,7 +9,20 @@ import signal
 from datetime import datetime
 import pty
 
+# Color support
+try:
+    from colorama import init as colorama_init, Fore, Back, Style
+    colorama_init(autoreset=True)
+except ImportError:
+    class Dummy:
+        def __getattr__(self, name): return ''
+    Fore = Back = Style = Dummy()
+
 from cli.sounds import Sound  # ensure Sound imported
+
+
+def color_text(text, color):
+    return f"{color}{text}{Style.RESET_ALL}"
 
 
 def format_command_help(name, description, indent=2, col_width=36, width=80):
@@ -86,13 +99,13 @@ def play_start_intro():
 def failure_with_warning_loop(no_signal, sound_enabled):
     if sound_enabled and not no_signal:
         Sound.play_finished_failed_sound()
-    print("Warning: command failed. Press Ctrl+C to stop warnings.")
+    print(color_text("Warning: command failed. Press Ctrl+C to stop warnings.", Fore.RED))
     try:
         while True:
             if sound_enabled:
                 Sound.play_warning_sound()
     except KeyboardInterrupt:
-        print("Warnings stopped by user.")
+        print(color_text("Warnings stopped by user.", Fore.YELLOW))
 
 
 if __name__ == "__main__":
@@ -112,7 +125,7 @@ if __name__ == "__main__":
                     Sound.play_warning_sound()
             except KeyboardInterrupt:
                 pass
-        print("Segmentation fault detected. Exiting.")
+        print(color_text("Segmentation fault detected. Exiting.", Fore.RED))
         sys.exit(1)
     signal.signal(signal.SIGSEGV, segv_handler)
 
@@ -133,48 +146,84 @@ if __name__ == "__main__":
 
     # Global help
     if not args or args[0] in ('-h', '--help'):
-        print("CyMaIS CLI – proxy to tools in ./cli/")
-        print("\nUsage: cymais [--sound] [--no-signal] [--log] [--git-clean] [--infinite] <command> [options]")
-        print("\nOptions:")
-        print("  --sound           Play startup melody and warning sounds")
-        print("  --no-signal       Suppress success/failure signals")
-        print("  --log             Log all proxied command output to logfile.log")
-        print("  --git-clean       Remove all Git-ignored files before running")
-        print("  --infinite        Run the proxied command in an infinite loop")
-        print("  -h, --help        Show this help message and exit")
+        print(color_text("CyMaIS CLI", Fore.CYAN + Style.BRIGHT))
         print()
-        print("Available commands:")
+        print(color_text("Your Gateway to Automated IT Infrastructure Setup", Style.DIM))
+        print()
+        print(color_text(
+            "Usage: cymais [--sound] [--no-signal] [--log] [--git-clean] [--infinite] <command> [options]",
+            Fore.GREEN
+        ))
+        print()
+        # Use bright style for headings
+        print(color_text("Options:", Style.BRIGHT))
+        print(color_text("  --sound           Play startup melody and warning sounds", Fore.YELLOW))
+        print(color_text("  --no-signal       Suppress success/failure signals", Fore.YELLOW))
+        print(color_text("  --log             Log all proxied command output to logfile.log", Fore.YELLOW))
+        print(color_text("  --git-clean       Remove all Git-ignored files before running", Fore.YELLOW))
+        print(color_text("  --infinite        Run the proxied command in an infinite loop", Fore.YELLOW))
+        print(color_text("  -h, --help        Show this help message and exit", Fore.YELLOW))
+        print()
+        print(color_text("Available commands:", Style.BRIGHT))
         print()
 
         current_folder = None
         for folder, cmd in available:
             if folder != current_folder:
                 if folder:
-                    print(f"{folder}/\n")
+                    print(color_text(f"{folder}/", Fore.MAGENTA))
+                    print()
                 current_folder = folder
             desc = extract_description_via_help(
                 os.path.join(cli_dir, *(folder.split('/') if folder else []), f"{cmd}.py")
             )
-            print(format_command_help(cmd, desc, indent=2),"\n")
-            
+            print(color_text(format_command_help(cmd, desc, indent=2), ''), "\n")
+
         print()
-        print("🔗  You can chain subcommands by specifying nested directories,")
-        print("    e.g. `cymais generate defaults applications` →")
-        print("    corresponds to `cli/generate/defaults/applications.py`.")
+        print(color_text(
+            "🔗  You can chain subcommands by specifying nested directories,",
+            Fore.CYAN
+        ))
+        print(color_text(
+            "    e.g. `cymais generate defaults applications` →",
+            Fore.CYAN
+        ))
+        print(color_text(
+            "    corresponds to `cli/generate/defaults/applications.py`.",
+            Fore.CYAN
+        ))
+        print()
+        print(color_text(
+            "CyMaIS is a product of Kevin Veen-Birkenbach (https://cybermaster.space)",
+            Style.DIM
+        ))
+        print(color_text(
+            "Main instance: https://cymais.cloud — test and use productively.",
+            Style.DIM
+        ))
+        print(color_text(
+            "For commercial use, a license agreement with Kevin Veen-Birkenbach is required:",
+            Style.DIM
+        ))
+        print(color_text("https://s.veen.world/cncl", Style.DIM))
         sys.exit(0)
 
-    # Directory-specific help: `cymais foo --help` shows commands in cli/foo/
+    # Directory-specific help
     if len(args) > 1 and args[-1] in ('-h', '--help'):
         dir_parts = args[:-1]
         candidate_dir = os.path.join(cli_dir, *dir_parts)
         if os.path.isdir(candidate_dir):
-            print(f"Overview of commands in: {'/'.join(dir_parts)}\n")
+            print(color_text(
+                f"Overview of commands in: {'/'.join(dir_parts)}",
+                Fore.CYAN + Style.BRIGHT
+            ))
+            print()
             for folder, cmd in available:
                 if folder == "/".join(dir_parts):
                     desc = extract_description_via_help(
                         os.path.join(candidate_dir, f"{cmd}.py")
                     )
-                    print(format_command_help(cmd, desc, indent=2))
+                    print(color_text(format_command_help(cmd, desc, indent=2), ''))
             sys.exit(0)
 
     # Per-command help
@@ -186,7 +235,7 @@ if __name__ == "__main__":
             subprocess.run([sys.executable, "-m", module, args[n]])
             sys.exit(0)
 
-    # Resolve script path by longest matching prefix
+    # Resolve script path
     script_path = None
     cli_args = []
     module = None
@@ -200,7 +249,7 @@ if __name__ == "__main__":
             break
 
     if not module:
-        print(f"Error: command '{' '.join(args)}' not found.")
+        print(color_text(f"Error: command '{' '.join(args)}' not found.", Fore.RED))
         sys.exit(1)
 
     log_file = None
@@ -210,7 +259,7 @@ if __name__ == "__main__":
         timestamp = datetime.now().strftime('%Y%m%dT%H%M%S')
         log_file_path = os.path.join(log_dir, f'{timestamp}.log')
         log_file = open(log_file_path, 'a', encoding='utf-8')
-        print(f"Tip: Log file created at {log_file_path}")
+        print(color_text(f"Tip: Log file created at {log_file_path}", Fore.GREEN))
 
     full_cmd = [sys.executable, "-m", module] + cli_args
 
@@ -255,15 +304,15 @@ if __name__ == "__main__":
                     Sound.play_finished_successfully_sound()
                 return True
         except Exception as e:
-            print(f"Exception running command: {e}")
+            print(color_text(f"Exception running command: {e}", Fore.RED))
             failure_with_warning_loop(no_signal, sound_enabled)
             sys.exit(1)
 
     if infinite:
-        print("Starting infinite execution mode...")
+        print(color_text("Starting infinite execution mode...", Fore.CYAN))
         count = 1
         while True:
-            print(f"Run #{count}")
+            print(color_text(f"Run #{count}", Style.BRIGHT))
             run_once()
             count += 1
     else:
