@@ -1,7 +1,8 @@
 gamer_default_games:
-  - 0ad
-  - warzone2100
-  - supertuxkart
-  - gnuchess
-  - sauerbraten
-  - mari0
+- 0ad
+- warzone2100
+- supertuxkart
+- gnuchess
+- sauerbraten
+- mari0
+application_id: desk-game-os
