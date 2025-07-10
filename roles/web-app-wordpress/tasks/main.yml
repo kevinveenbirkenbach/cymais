@@ -3,9 +3,9 @@
   include_role: 
     name: cmp-db-docker
   
-- name: "Include role srv-web-proxy-domain for {{ application_id }}"
+- name: "Include role srv-proxy-6-6-domain for {{ application_id }}"
   include_role:
-    name: srv-web-proxy-domain
+    name: srv-proxy-6-6-domain
   loop: "{{ applications[application_id].domains.canonical }}"
   loop_control:
     loop_var: domain

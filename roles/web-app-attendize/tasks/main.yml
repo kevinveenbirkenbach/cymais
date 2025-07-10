@@ -5,7 +5,7 @@
 
 - name: "include role for {{application_id}} to receive certs & do modification routines"
   include_role:
-    name: srv-web-composer
+    name: srv-web-7-6-composer
   vars:
     domain: "{{ item }}"
     http_port:   "{{ ports.localhost.http[application_id] }}"
@@ -15,7 +15,7 @@
     
 - name: configure {{domains | get_domain(application_id)}}.conf
   template: 
-    src: roles/srv-web-proxy-core/templates/vhost/basic.conf.j2 
+    src: roles/srv-proxy-7-4-core/templates/vhost/basic.conf.j2 
     dest: "{{nginx.directories.http.servers}}{{domains | get_domain(application_id)}}.conf"
   notify: restart nginx
 

@@ -5,7 +5,7 @@
 
 - name: "Include setup for domain '{{ domain }}'"
   include_role: 
-    name: srv-web-proxy-domain
+    name: srv-proxy-6-6-domain
   loop: "{{ domains.mastodon }}"
   loop_control:
     loop_var: domain

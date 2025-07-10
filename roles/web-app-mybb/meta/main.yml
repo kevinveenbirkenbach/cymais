@@ -24,4 +24,4 @@ galaxy_info:
     - web-app-keycloak
     - web-app-mailu
 dependencies:
-  - srv-web-proxy-core
+  - srv-proxy-7-4-core

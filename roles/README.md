@@ -24,19 +24,19 @@ For a complete list of role categories and detailed definitions, see:
 
 ## Webserver & HTTP
 
-- **srv-web-core**  
+- **srv-web-7-4-core**  
   Installs and configures the base Nginx server.
 
-- **srv-web-tls-***  
-  Manages TLS certificates and renewal (formerly “https”; e.g. `srv-web-tls-deploy`, `srv-web-tls-renew`).
+- **srv-web-6-6-tls-***  
+  Manages TLS certificates and renewal (formerly “https”; e.g. `srv-web-6-6-tls-deploy`, `srv-web-6-6-tls-renew`).
 
 - **srv-web-proxy-***  
   Proxy and vhost orchestration roles (domain setup, OAuth2 proxy, etc.)
 
-- **srv-web-injector-***  
+- **srv-web-7-7-inj-***  
   HTML response modifiers: CSS, JS, Matomo tracking, iframe notifier.
 
-- **srv-web-composer**  
+- **srv-web-7-6-composer**  
   Aggregates multiple sub-filters into one include for your vhost.
 
 - **web-svc-***  

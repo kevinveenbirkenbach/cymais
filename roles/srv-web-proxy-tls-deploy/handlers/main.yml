@@ -1,7 +1,0 @@
----
-- name: "restart srv-web-proxy-tls-deploy.cymais.service"
-  systemd:
-    name:           srv-web-proxy-tls-deploy.{{application_id}}.cymais.service
-    state:          restarted
-    enabled:        yes
-    daemon_reload:  yes

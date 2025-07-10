@@ -20,5 +20,5 @@ galaxy_info:
     - name: Any
       versions: [ all ]
 dependencies:
-  - srv-web-https
+  - srv-web-7-6-https
 

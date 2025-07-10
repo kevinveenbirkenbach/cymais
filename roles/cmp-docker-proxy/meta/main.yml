@@ -1,7 +1,7 @@
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
   description: >
-    Combines the docker-compose role with srv-web-proxy-domain to
+    Combines the docker-compose role with srv-proxy-6-6-domain to
     deploy applications behind a reverse proxy.
   company: |
     Kevin Veen-Birkenbach

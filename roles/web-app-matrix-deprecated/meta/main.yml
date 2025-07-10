@@ -24,4 +24,4 @@ galaxy_info:
   logo:
     class: "fa-solid fa-satellite-dish"
 dependencies: 
-- srv-web-proxy-core
+- srv-proxy-7-4-core

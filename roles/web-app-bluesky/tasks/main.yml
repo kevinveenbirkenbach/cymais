@@ -2,9 +2,9 @@
   include_role: 
     name: docker-compose
 
-- name: "include role srv-web-proxy-domain for {{application_id}}"
+- name: "include role srv-proxy-6-6-domain for {{application_id}}"
   include_role:
-    name: srv-web-proxy-domain
+    name: srv-proxy-6-6-domain
   vars:
     domain: "{{ item.domain }}"
     http_port: "{{ item.http_port }}"

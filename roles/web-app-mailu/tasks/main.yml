@@ -4,9 +4,9 @@
     name: cmp-db-docker-proxy
   when: run_once_docker_mailu is not defined
 
-- name: "Include the srv-web-proxy-tls-deploy role"
+- name: "Include the srv-proxy-6-6-tls-deploy role"
   include_role:
-    name: srv-web-proxy-tls-deploy
+    name: srv-proxy-6-6-tls-deploy
   when: run_once_docker_mailu is not defined
 
 - name: Flush docker service handlers

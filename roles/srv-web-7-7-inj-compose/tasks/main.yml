@@ -1,0 +1,19 @@
+- name: "Activate Global CSS for {{domain}}"
+  include_role:
+    name: srv-web-7-7-inj-css
+  when: applications | is_feature_enabled('css',application_id)
+
+- name: "Activate Global Matomo Tracking for {{domain}}"
+  include_role:
+    name: srv-web-7-7-inj-matomo
+  when: applications | is_feature_enabled('matomo',application_id)
+
+- name: "Activate Portfolio iFrame Notifier for {{ domain }}"
+  include_role:
+    name: srv-web-7-7-inj-iframe
+  when: applications | is_feature_enabled('portfolio_iframe', application_id)
+
+- name: "Activate Javascript for {{ domain }}"
+  include_role:
+    name: srv-web-7-7-inj-javascript
+  when: applications | is_feature_enabled('javascript', application_id)

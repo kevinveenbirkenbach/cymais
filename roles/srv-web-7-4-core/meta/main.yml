@@ -1,0 +1,24 @@
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: "Installs and configures Nginx HTTP and stream modules with performance-tuned defaults."
+  company: |
+    Kevin Veen-Birkenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  min_ansible_version: "2.9"
+  galaxy_tags:
+    - nginx
+    - http
+    - stream
+    - caching
+    - compression
+    - security
+    - performance
+  repository: "https://github.com/kevinveenbirkenbach/cymais"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/roles/srv-web-7-4-core"
+dependencies:
+  - mon-bot-webserver
+  - mon-bot-csp

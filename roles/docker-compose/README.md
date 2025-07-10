@@ -20,7 +20,7 @@ To offer a centralized, extensible system for managing containerized application
 - **Reset Logic:** Cleans previous Compose project files and data when `mode_reset` is enabled.
 - **Handlers for Runtime Control:** Automatically builds, sets up, or restarts containers based on handlers.
 - **Template-ready Service Files:** Predefined service base and health check templates.
-- **Integration Support:** Compatible with `srv-web-proxy-core` and other CyMaIS service roles.
+- **Integration Support:** Compatible with `srv-proxy-7-4-core` and other CyMaIS service roles.
 
 ## Administration Tips
 

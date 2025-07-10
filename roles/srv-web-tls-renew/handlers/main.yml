@@ -1,6 +1,0 @@
-- name: "reload certbot service"
-  systemd:
-    name: srv-web-tls-renew.cymais.service
-    state: reloaded
-    enabled: yes
-    daemon_reload: yes

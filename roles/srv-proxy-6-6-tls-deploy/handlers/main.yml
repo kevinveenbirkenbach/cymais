@@ -1,0 +1,7 @@
+---
+- name: "restart srv-proxy-6-6-tls-deploy.cymais.service"
+  systemd:
+    name:           srv-proxy-6-6-tls-deploy.{{application_id}}.cymais.service
+    state:          restarted
+    enabled:        yes
+    daemon_reload:  yes

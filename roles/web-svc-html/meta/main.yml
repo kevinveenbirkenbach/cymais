@@ -29,5 +29,5 @@ galaxy_info:
   run_after:
     - web-app-matomo
 dependencies:
-  - srv-web-https
+  - srv-web-7-6-https
   - gen-git

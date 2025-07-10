@@ -25,11 +25,11 @@ categories:
   srv:
     web:
       core:
-        title: "srv-web-core"
+        title: "srv-web-7-4-core"
         description: "Install & configure base Nginx server"
         icon: "fas fa-server"
       tls:
-        title: "srv-web-tls-*"
+        title: "srv-web-6-6-tls-*"
         description: "Deploy & renew TLS certificates"
         icon: "fas fa-lock"
       proxy:
@@ -38,27 +38,27 @@ categories:
         icon: "fas fa-project-diagram"
       injector:
         core:
-          title: "srv-web-injector-compose"
+          title: "srv-web-7-7-inj-compose"
           description: "Inject core HTML modifiers"
           icon: "fas fa-code"
         css:
-          title: "srv-web-injector-css"
+          title: "srv-web-7-7-inj-css"
           description: "Inject CSS into responses"
           icon: "fas fa-paint-brush"
         iframe:
-          title: "srv-web-injector-iframe"
+          title: "srv-web-7-7-inj-iframe"
           description: "Inject iframe notifier"
           icon: "fas fa-window-maximize"
         javascript:
-          title: "srv-web-injector-javascript"
+          title: "srv-web-7-7-inj-javascript"
           description: "Inject JS into responses"
           icon: "fas fa-code"
         matomo:
-          title: "srv-web-injector-matomo"
+          title: "srv-web-7-7-inj-matomo"
           description: "Inject Matomo tracking code"
           icon: "fas fa-chart-pie"
       composer:
-        title: "srv-web-composer"
+        title: "srv-web-7-6-composer"
         description: "Compose multiple filters into one include"
         icon: "fas fa-layer-group"
 
