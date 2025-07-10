@@ -8,6 +8,10 @@ import sys
 import yaml
 from pathlib import Path
 
+# Directory containing roles; can be overridden by tests
+MODULE_DIR = Path(__file__).resolve().parent
+ROLES_DIR = (MODULE_DIR.parent / "roles").resolve()
+
 def process_role(role_dir: Path, prefix: str, preview: bool, overwrite: bool):
     name = role_dir.name
     if not name.startswith(prefix):
@@ -50,6 +54,15 @@ def process_role(role_dir: Path, prefix: str, preview: bool, overwrite: bool):
             print(f"Created {vars_file} with application_id: {expected_id}")
 
 
+def run(prefix: str, preview: bool = False, overwrite: bool = False):
+    """
+    Ensure vars/main.yml for roles under ROLES_DIR with the given prefix has correct application_id.
+    """
+    for role in sorted(Path(ROLES_DIR).iterdir()):
+        if role.is_dir():
+            process_role(role, prefix, preview, overwrite)
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Ensure vars/main.yml for roles with a given prefix has correct application_id"
@@ -68,16 +81,9 @@ def main():
     )
     args = parser.parse_args()
 
-    # Determine roles directory relative to this script
-    script_dir = Path(__file__).resolve().parent
-    roles_dir = (script_dir.parent / "../roles").resolve()
-    if not roles_dir.is_dir():
-        print(f"Roles directory not found: {roles_dir}", file=sys.stderr)
-        sys.exit(1)
+    # Run processing
+    run(prefix=args.prefix, preview=args.preview, overwrite=args.overwrite)
 
-    for role in sorted(roles_dir.iterdir()):
-        if role.is_dir():
-            process_role(role, args.prefix, args.preview, args.overwrite)
 
 if __name__ == "__main__":
     main()
