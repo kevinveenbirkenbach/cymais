@@ -18,7 +18,7 @@ categories:
       description: "Setup & utilities for desktop apps"
       icon: "fas fa-desktop"
     utils:
-      title: "utils-desk-*"
+      title: "util-desk-*"
       description: "Utility roles for desktop tools & development"
       icon: "fas fa-tools"
 

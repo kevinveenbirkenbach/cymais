@@ -8,7 +8,7 @@ class FilterModule(object):
         return {'get_url': self.get_url}
 
     def get_url(self, domains, application_id, protocol):
-        # 1) module_utils-Verzeichnis in den Pfad aufnehmen
+        # 1) module_util-Verzeichnis in den Pfad aufnehmen
         plugin_dir   = os.path.dirname(__file__)
         project_root = os.path.dirname(plugin_dir)
         module_utils = os.path.join(project_root, 'module_utils')

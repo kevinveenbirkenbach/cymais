@@ -5,7 +5,7 @@ from ansible.errors import AnsibleFilterError
 
 class FilterModule(object):
     def filters(self):
-        # module_utils-Verzeichnis ermitteln und zum Import-Pfad hinzufügen
+        # module_util-Verzeichnis ermitteln und zum Import-Pfad hinzufügen
         plugin_dir      = os.path.dirname(__file__)
         project_root    = os.path.dirname(plugin_dir)
         module_utils    = os.path.join(project_root, 'module_utils')
