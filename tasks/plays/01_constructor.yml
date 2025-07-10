@@ -101,6 +101,19 @@
     name: update
   when: mode_update | bool
 
+- name: "Integrate Docker Role includes"
+  include_tasks: "./tasks/groups/{{ item }}-roles.yml"
+  loop:
+    - core
+    - drv
+    - gen
+    - net
+    - alert
+    - mon
+    - maint
+  loop_control:
+    label: "{{ item }}-roles.yml"
+
 - name: setup standard wireguard
   when: ('wireguard_server' | application_allowed(group_names, allowed_applications))
   include_role:

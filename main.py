@@ -49,7 +49,6 @@ def list_cli_commands(cli_dir):
 
 def extract_description_via_help(cli_script_path):
     try:
-        # derive module name from script path
         script_dir = os.path.dirname(os.path.realpath(__file__))
         cli_dir = os.path.join(script_dir, "cli")
         rel = os.path.relpath(cli_script_path, cli_dir)
@@ -84,26 +83,29 @@ def play_start_intro():
     Sound.play_cymais_intro_sound()
 
 
-def failure_with_warning_loop():
-    Sound.play_finished_failed_sound()
-    print("Warning: command failed. Press Ctrl+C to stop sound warnings.")
+def failure_with_warning_loop(no_signal, sound_enabled):
+    if sound_enabled and not no_signal:
+        Sound.play_finished_failed_sound()
+    print("Warning: command failed. Press Ctrl+C to stop warnings.")
     try:
         while True:
-            Sound.play_warning_sound()
+            if sound_enabled:
+                Sound.play_warning_sound()
     except KeyboardInterrupt:
         print("Warnings stopped by user.")
 
 
 if __name__ == "__main__":
-    # Early parse special flags
-    no_sound = '--no-sound' in sys.argv and (sys.argv.remove('--no-sound') or True)
+    # Parse flags
+    sound_enabled = '--sound' in sys.argv and (sys.argv.remove('--sound') or True)
+    no_signal = '--no-signal' in sys.argv and (sys.argv.remove('--no-signal') or True)
     log_enabled = '--log' in sys.argv and (sys.argv.remove('--log') or True)
     git_clean = '--git-clean' in sys.argv and (sys.argv.remove('--git-clean') or True)
     infinite = '--infinite' in sys.argv and (sys.argv.remove('--infinite') or True)
 
     # Segfault handler
     def segv_handler(signum, frame):
-        if not no_sound:
+        if sound_enabled and not no_signal:
             Sound.play_finished_failed_sound()
             try:
                 while True:
@@ -114,8 +116,8 @@ if __name__ == "__main__":
         sys.exit(1)
     signal.signal(signal.SIGSEGV, segv_handler)
 
-    # Play intro sounds asynchronously
-    if not no_sound:
+    # Play intro melody if requested
+    if sound_enabled:
         threading.Thread(target=play_start_intro, daemon=True).start()
 
     script_dir = os.path.dirname(os.path.realpath(__file__))
@@ -132,33 +134,53 @@ if __name__ == "__main__":
     # Global help
     if not args or args[0] in ('-h', '--help'):
         print("CyMaIS CLI – proxy to tools in ./cli/")
-        print("Usage: cymais [--no-sound] [--log] [--git-clean] [--infinite] <command> [options]")
-        print("Options:")
-        print("  --no-sound        Suppress all sounds during execution")
+        print("\nUsage: cymais [--sound] [--no-signal] [--log] [--git-clean] [--infinite] <command> [options]")
+        print("\nOptions:")
+        print("  --sound           Play startup melody and warning sounds")
+        print("  --no-signal       Suppress success/failure signals")
         print("  --log             Log all proxied command output to logfile.log")
         print("  --git-clean       Remove all Git-ignored files before running")
         print("  --infinite        Run the proxied command in an infinite loop")
         print("  -h, --help        Show this help message and exit")
+        print()
         print("Available commands:")
+        print()
 
         current_folder = None
         for folder, cmd in available:
             if folder != current_folder:
                 if folder:
-                    print(f"{folder}/")
+                    print(f"{folder}/\n")
                 current_folder = folder
             desc = extract_description_via_help(
                 os.path.join(cli_dir, *(folder.split('/') if folder else []), f"{cmd}.py")
             )
-            # Slight indent for subcommands
-            print(format_command_help(cmd, desc, indent=2))
+            print(format_command_help(cmd, desc, indent=2),"\n")
+            
+        print()
+        print("🔗  You can chain subcommands by specifying nested directories,")
+        print("    e.g. `cymais generate defaults applications` →")
+        print("    corresponds to `cli/generate/defaults/applications.py`.")
         sys.exit(0)
+
+    # Directory-specific help: `cymais foo --help` shows commands in cli/foo/
+    if len(args) > 1 and args[-1] in ('-h', '--help'):
+        dir_parts = args[:-1]
+        candidate_dir = os.path.join(cli_dir, *dir_parts)
+        if os.path.isdir(candidate_dir):
+            print(f"Overview of commands in: {'/'.join(dir_parts)}\n")
+            for folder, cmd in available:
+                if folder == "/".join(dir_parts):
+                    desc = extract_description_via_help(
+                        os.path.join(candidate_dir, f"{cmd}.py")
+                    )
+                    print(format_command_help(cmd, desc, indent=2))
+            sys.exit(0)
 
     # Per-command help
     for n in range(len(args), 0, -1):
         candidate = os.path.join(cli_dir, *args[:n]) + ".py"
         if os.path.isfile(candidate) and len(args) > n and args[n] in ('-h', '--help'):
-            # derive module
             rel = os.path.relpath(candidate, cli_dir)
             module = "cli." + rel[:-3].replace(os.sep, ".")
             subprocess.run([sys.executable, "-m", module, args[n]])
@@ -188,7 +210,7 @@ if __name__ == "__main__":
         timestamp = datetime.now().strftime('%Y%m%dT%H%M%S')
         log_file_path = os.path.join(log_dir, f'{timestamp}.log')
         log_file = open(log_file_path, 'a', encoding='utf-8')
-        print(f"📖 Tip: Log file created at {log_file_path}")
+        print(f"Tip: Log file created at {log_file_path}")
 
     full_cmd = [sys.executable, "-m", module] + cli_args
 
@@ -226,23 +248,22 @@ if __name__ == "__main__":
                 log_file.close()
 
             if rc != 0:
-                print(f"Command '{os.path.basename(script_path)}' failed with exit code {rc}.")
-                failure_with_warning_loop()
+                failure_with_warning_loop(no_signal, sound_enabled)
                 sys.exit(rc)
             else:
-                if not no_sound:
+                if sound_enabled and not no_signal:
                     Sound.play_finished_successfully_sound()
                 return True
         except Exception as e:
             print(f"Exception running command: {e}")
-            failure_with_warning_loop()
+            failure_with_warning_loop(no_signal, sound_enabled)
             sys.exit(1)
 
     if infinite:
-        print("♾️ Starting infinite execution mode...")
+        print("Starting infinite execution mode...")
         count = 1
         while True:
-            print(f"🔄 Execution #{count}")
+            print(f"Run #{count}")
             run_once()
             count += 1
     else:

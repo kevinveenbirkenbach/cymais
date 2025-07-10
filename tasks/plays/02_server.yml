@@ -18,8 +18,3 @@
     - web
   loop_control:
     label: "{{ item }}-roles.yml"
-
-- name: "setup corporate identity"
-  include_role:
-    name: util-srv-corporate-identity
-  when: ('corporate_identity' | application_allowed(group_names, allowed_applications))
