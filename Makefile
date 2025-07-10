@@ -5,8 +5,7 @@ USERS_OUT           := ./group_vars/all/03_users.yml
 USERS_SCRIPT        := ./cli/generate/defaults/users.py
 INCLUDES_SCRIPT     := ./cli/generate/conditional_role_include.py
 
-# Define the prefixes for which we want individual role-include files
-INCLUDE_GROUPS      := "drv-" "svc-" "desk-" "web-" "util-"
+INCLUDE_GROUPS := $(shell python3 main.py meta invokable_paths -s "-" | tr '\n' ' ')
 
 # Directory where these include-files will be written
 INCLUDES_OUT_DIR    := ./tasks/groups

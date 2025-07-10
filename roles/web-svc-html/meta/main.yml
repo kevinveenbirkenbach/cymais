@@ -26,8 +26,9 @@ galaxy_info:
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
-  run_after:
-    - web-app-matomo
+#  This propably leads to problems at a point, @todo solve it
+#  run_after:
+#    - web-app-matomo
 dependencies:
   - srv-web-7-6-https
   - gen-git

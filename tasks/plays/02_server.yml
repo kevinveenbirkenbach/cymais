@@ -11,7 +11,7 @@
     - mon-bot-btrfs
     - maint-btrfs-auto-balancer
 
-- name: "Integrate Docker Role includes"
+- name: "Integrate Docker Server Roles"
   include_tasks: "./tasks/groups/{{ item }}-roles.yml"
   loop:
     - svc

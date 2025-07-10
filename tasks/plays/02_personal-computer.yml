@@ -1,5 +1,13 @@
 ---
 ## pc applications
+- name: "setup docker role includes for desktop pc"
+  include_tasks: "./tasks/groups/{{ item }}-roles.yml"
+  loop:
+    - util-desk
+    - desk
+  loop_control:
+    label: "{{ item }}-roles.yml"
+
 - name: general host setup
   when: ("personal_computers" in group_names)
   include_role:
