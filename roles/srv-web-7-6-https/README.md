@@ -17,7 +17,7 @@ When you apply **srv-web-7-6-https**, it will:
 
 1. **Include** the `srv-web-7-4-core` role to install and configure Nginx.  
 2. **Clean up** any stale vHost files under `cln-domains`.  
-3. **Deploy** the Let’s Encrypt challenge-and-redirect snippet from `net-letsencrypt`.  
+3. **Deploy** the Let’s Encrypt challenge-and-redirect snippet from `srv-web-7-7-letsencrypt`.  
 4. **Reload** Nginx automatically when any template changes.
 
 All tasks are idempotent—once your certificates are in place and your configuration is set, Ansible will skip unchanged steps on subsequent runs.

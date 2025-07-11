@@ -5,7 +5,7 @@ server {
     {% set http_port = ports.localhost.http.synapse %}
 
     server_name {{domains.matrix.synapse}};
-    {% include 'roles/net-letsencrypt/templates/ssl_header.j2' %}
+    {% include 'roles/srv-web-7-7-letsencrypt/templates/ssl_header.j2' %}
     
     # For the federation port
     listen 8448 ssl default_server;

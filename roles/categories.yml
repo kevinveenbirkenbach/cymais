@@ -82,7 +82,7 @@ roles:
     title: "Alerting"
     description: "Notification handlers for system events"
     icon: "fas fa-bell"
-    invokable: true
+    invokable: false
   maint:
     title: "Maintenance & Healing"
     description: "Periodic maintenance & auto-recovery"

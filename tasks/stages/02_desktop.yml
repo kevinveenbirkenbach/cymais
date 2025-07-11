@@ -2,7 +2,7 @@
 - name: "setup docker role includes for desktop pc"
   include_tasks: "./tasks/groups/{{ item }}-roles.yml"
   loop:
-    - util-srv  # Services need to run before applications
+    - desk
     - util-desk
   loop_control:
     label: "{{ item }}-roles.yml"
