@@ -23,9 +23,9 @@
     dest: "/etc/systemd/system/srv-proxy-6-6-tls-deploy.{{application_id}}.cymais.service"
   notify: restart srv-proxy-6-6-tls-deploy.cymais.service
 
-- name: "include role for gen-timer for {{service_name}}"
+- name: "include role for sys-timer for {{service_name}}"
   include_role:
-    name: gen-timer
+    name: sys-timer
   vars:
     on_calendar:  "{{on_calendar_deploy_certificates}}"
     service_name: "srv-proxy-6-6-tls-deploy.{{application_id}}"

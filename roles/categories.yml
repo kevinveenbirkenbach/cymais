@@ -1,13 +1,40 @@
 roles:
-  core:
-    title: "Core & System"
-    description: "Fundamental system configuration"
-    icon: "fas fa-cogs"
-    invokable: true
+  sys:
+    title: "System"
+    alm:
+      title: "Alerting"
+      description: "Notification handlers for system events"
+      icon: "fas fa-bell"
+      invokable: false
+    cln:
+      title: "Cleanup"
+      description: "Roles for cleaning up various system resources—old backups, unused certificates, temporary files, Docker volumes, disk caches, deprecated domains, and more."
+      icon: "fas fa-trash-alt"
+      invokable: false
+    hlth:
+      title: "Monitoring"
+      description: "Roles for system monitoring and health checks—encompassing bot-style automated checks and core low-level monitors for logs, containers, disk usage, and more."
+      icon: "fas fa-chart-area"
+      invokable: false
+    bkp:
+      title: "Backup & Restore"
+      description: "Backup strategies & restore procedures"
+      icon: "fas fa-hdd"
+      invokable: false
+  update:
+    title: "Updates & Package Management"
+    description: "OS & package updates"
+    icon: "fas fa-sync"
+    invokable: false
   drv:
     title: "Drivers"
     description: "Roles for installing and configuring hardware drivers—covering printers, graphics, input devices, and other peripheral support."
     icon: "fas fa-microchip"
+    invokable: true
+  core:
+    title: "Core & System"
+    description: "Fundamental system configuration"
+    icon: "fas fa-cogs"
     invokable: true
   gen:
     title: "Generic"
@@ -73,38 +100,8 @@ roles:
     description: "Docker infrastructure services (DBMS, LDAP, Redis, etc.)"
     icon: "fas fa-database"
     invokable: true
-  mon:
-    title: "Monitoring"
-    description: "Roles for system monitoring and health checks—encompassing bot-style automated checks and core low-level monitors for logs, containers, disk usage, and more."
-    icon: "fas fa-chart-area"
-    invokable: true
-  alert:
-    title: "Alerting"
-    description: "Notification handlers for system events"
-    icon: "fas fa-bell"
-    invokable: false
-  maint:
-    title: "Maintenance & Healing"
-    description: "Periodic maintenance & auto-recovery"
-    icon: "fas fa-tools"
-    invokable: true
-  bkp:
-    title: "Backup & Restore"
-    description: "Backup strategies & restore procedures"
-    icon: "fas fa-hdd"
-    invokable: true
-  update:
-    title: "Updates & Package Management"
-    description: "OS & package updates"
-    icon: "fas fa-sync"
-    invokable: true
   user:
     title: "Users & Access"
     description: "User accounts & access control"
     icon: "fas fa-users"
     invokable: false
-  cln:
-    title: "Cleanup"
-    description: "Roles for cleaning up various system resources—old backups, unused certificates, temporary files, Docker volumes, disk caches, deprecated domains, and more."
-    icon: "fas fa-trash-alt"
-    invokable: true

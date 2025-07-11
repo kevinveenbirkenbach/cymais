@@ -1,0 +1,16 @@
+- name: Copy backup script to the scripts directory
+  copy:
+    src: svc-sys-bkp-data-to-usb.python
+    dest: "{{ backup_to_usb_script_path }}"
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Copy systemd service to systemd directory
+  template:
+    src: svc-sys-bkp-data-to-usb.service.j2
+    dest: /etc/systemd/system/svc-sys-bkp-data-to-usb.cymais.service
+    owner: root
+    group: root
+    mode: '0644'
+  notify: reload svc-sys-bkp-data-to-usb.cymais.service

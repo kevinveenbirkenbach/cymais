@@ -1,4 +1,0 @@
-- name: "reload maint-btrfs-auto-balancer.cymais.service"
-  systemd:
-    name: maint-btrfs-auto-balancer.cymais.service
-    daemon_reload: yes

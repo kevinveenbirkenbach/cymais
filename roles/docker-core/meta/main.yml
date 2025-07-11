@@ -27,9 +27,9 @@ galaxy_info:
   documentation: "https://s.veen.world/cymais/docker"
 
 dependencies:
-  - bkp-docker-to-local
+  - sys-bkp-docker-to-local
   - user-administrator
-  - mon-bot-docker-container
-  - mon-bot-docker-volumes
-  - maint-docker-heal
-  - maint-docker-restart
+  - sys-hlth-docker-container
+  - sys-hlth-docker-volumes
+  - sys-rpr-docker-soft
+  - sys-rpr-docker-hard

@@ -13,23 +13,23 @@ system_maintenance_lock_timeout_restart_docker:    "{{system_maintenance_lock_ti
 
 ### Defined Services for Backup Tasks
 system_maintenance_backup_services:
-  - "bkp-docker-to-local"
-  - "bkp-remote-to-local"
-  - "bkp-data-to-usb"
-  - "bkp-docker-to-local-everything"
+  - "sys-bkp-docker-to-local"
+  - "svc-sys-bkp-rmt-2-loc"
+  - "svc-sys-bkp-data-to-usb"
+  - "sys-bkp-docker-to-local-everything"
 
 ### Defined Services for System Cleanup
 system_maintenance_cleanup_services:
-  - "cln-backups"
-  - "cln-disc-space"
-  - "cln-failed-docker-backups"
+  - "sys-cln-backups"
+  - "sys-cln-disc-space"
+  - "sys-cln-faild-bkps"
 
 ### Services that Manipulate the System
 system_maintenance_manipulation_services:
-  - "maint-docker-heal"
+  - "sys-rpr-docker-soft"
   - "update-docker"
-  - "cln-docker-storage-optimizer"
-  - "maint-docker-restart"
+  - "sys-opt-ssd-hdd"
+  - "sys-rpr-docker-hard"
   
 ## Total System Maintenance Services
 system_maintenance_services: "{{ system_maintenance_backup_services + system_maintenance_cleanup_services + system_maintenance_manipulation_services }}"

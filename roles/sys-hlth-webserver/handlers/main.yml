@@ -1,0 +1,5 @@
+- name: "reload sys-hlth-webserver.cymais.service"
+  systemd:
+    name: sys-hlth-webserver.cymais.service
+    enabled: yes
+    daemon_reload: yes

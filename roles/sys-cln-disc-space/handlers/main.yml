@@ -1,0 +1,5 @@
+- name: "reload sys-cln-disc-space.cymais.service"
+  systemd:
+    name: sys-cln-disc-space.cymais.service
+    enabled: yes
+    daemon_reload: yes

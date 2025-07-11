@@ -1,0 +1,2 @@
+storage_optimizer_directory: '{{path_administrator_scripts}}sys-opt-ssd-hdd/'
+storage_optimizer_script: '{{storage_optimizer_directory}}sys-opt-ssd-hdd.py'

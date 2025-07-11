@@ -1,0 +1,8 @@
+[Unit]
+Description=Notifier for %i
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl start sys-alm-telegram.cymais@%i.service sys-alm-email.cymais@%i.service
+User=root
+Group=systemd-journal

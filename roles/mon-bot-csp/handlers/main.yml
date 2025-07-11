@@ -1,5 +1,0 @@
-- name: "reload mon-bot-csp.cymais.service"
-  systemd:
-    name: mon-bot-csp.cymais.service
-    enabled: yes
-    daemon_reload: yes

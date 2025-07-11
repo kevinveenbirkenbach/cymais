@@ -1,0 +1,2 @@
+docker_backup_remote_to_local_folder: '{{path_administrator_scripts}}svc-sys-bkp-rmt-2-loc/'
+application_id: svc-sys-bkp-rmt-2-loc

@@ -1,4 +1,0 @@
-- name: "restart alert-email service"
-  systemd:
-    name: alert-email.cymais.service
-    daemon_reload: yes

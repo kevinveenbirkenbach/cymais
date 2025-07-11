@@ -15,7 +15,7 @@ For a complete list of role categories and detailed definitions, see:
   Fundamental system configuration (SSH, journald, sudo, etc.)
 
 - **gen-***  
-  Generic helpers and language/tool installers (e.g. `gen-git`, `gen-locales`, `gen-timer`)
+  Generic helpers and language/tool installers (e.g. `gen-git`, `gen-locales`, `sys-timer`)
 
 - **desk-***  
   Desktop environment and application roles (e.g. `desk-gnome`, `desk-browser`, `desk-libreoffice`)
@@ -59,13 +59,13 @@ For a complete list of role categories and detailed definitions, see:
 
 ## Monitoring & Alerting
 
-- **mon-bot-***  
+- **sys-hlth-***  
   “Bot”-style health checks (Btrfs, disk‐space, Docker, journalctl, CSP crawler, webserver) with alerts.
 
 - **monitor-core-***  
   Low-level system monitors (journalctl, Docker containers, disk space, etc.)
 
-- **alert-***  
+- **sys-alm-***  
   Notification handlers for failures (core, email, Telegram).
 
 ---
@@ -78,14 +78,14 @@ For a complete list of role categories and detailed definitions, see:
 - **maint-docker-***  
   Automated recovery and restarts for Docker Compose workloads.
 
-- **cln-***  
+- **sys-cln-***  
   Housekeeping tasks (old backups, expired certs, log rotation).
 
 ---
 
 ## Backup & Restore
 
-- **bkp-***  
+- **sys-bkp-***  
   Local and remote backup strategies for files, Docker volumes, databases.
 
 ---
@@ -112,8 +112,8 @@ For a complete list of role categories and detailed definitions, see:
 
 > **Tip:** To find a role quickly, search for its prefix:  
 > `core-`, `gen-`, `desk-`, `srv-web-`, `web-svc-`, `web-app-`,  
-> `net-`, `svc-`, `mon-bot-`, `monitor-core-`, `alert-`,  
-> `maint-`, `maint-docker-`, `cln-`, `bkp-`, `update-`,  
+> `net-`, `svc-`, `sys-hlth-`, `monitor-core-`, `sys-alm-`,  
+> `maint-`, `maint-docker-`, `sys-cln-`, `sys-bkp-`, `update-`,  
 > `pkgmgr-`, `user-`.
 
 ---

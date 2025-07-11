@@ -1,0 +1,5 @@
+- name: "reload sys-hlth-docker-volumes.cymais.service"
+  systemd:
+    name: sys-hlth-docker-volumes.cymais.service
+    enabled: yes
+    daemon_reload: yes

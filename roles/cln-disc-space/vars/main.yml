@@ -1,2 +1,0 @@
-cleanup_disc_space_folder: '{{path_administrator_scripts}}cln-disc-space/'
-application_id: disc-space

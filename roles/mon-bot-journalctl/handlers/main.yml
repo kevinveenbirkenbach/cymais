@@ -1,5 +1,0 @@
-- name: "reload mon-bot-journalctl.cymais.service"
-  systemd:
-    name: mon-bot-journalctl.cymais.service
-    enabled: yes
-    daemon_reload: yes

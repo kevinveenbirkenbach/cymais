@@ -29,5 +29,5 @@ galaxy_info:
 dependencies:
   - gen-certbot
   - srv-web-7-4-core
-  - alert-compose
-  - cln-certs
+  - sys-alm-compose
+  - sys-cln-certs

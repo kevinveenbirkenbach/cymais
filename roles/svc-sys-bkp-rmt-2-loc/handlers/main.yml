@@ -1,0 +1,4 @@
+- name: "reload svc-sys-bkp-rmt-2-loc service"
+  systemd:
+    name: svc-sys-bkp-rmt-2-loc.cymais.service
+    daemon_reload: yes

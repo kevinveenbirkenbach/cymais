@@ -9,4 +9,4 @@ galaxy_info:
         - all
 dependencies:
   - gen-aur-helper
-  - alert-compose
+  - sys-alm-compose

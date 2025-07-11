@@ -1,2 +1,0 @@
-health_docker_volumes_folder: '{{path_administrator_scripts}}mon-bot-docker-volumes/'
-application_id: bot-docker-volumes

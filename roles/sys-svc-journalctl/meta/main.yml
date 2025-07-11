@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: "Configure and manage systemd-journald settings"
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen-Birkenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  galaxy_tags:
+    - system
+    - logging
+    - journald
+  repository: "https://github.com/kevinveenbirkenbach/cymais"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/roles/sys-svc-journalctl"
+  run_after: []
+dependencies:
+  - sys-hlth-journalctl

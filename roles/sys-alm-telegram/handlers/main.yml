@@ -1,0 +1,4 @@
+- name: "restart sys-alm-telegram service"
+  systemd:
+    name: sys-alm-telegram.cymais.service
+    daemon_reload: yes

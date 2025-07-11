@@ -21,7 +21,7 @@
 
 - name: "Transfering msmtprc to {{ host_msmtp_conf }}"
   template:
-    src: "{{ playbook_dir }}/roles/gen-msmtp/templates/msmtprc.conf.j2"
+    src: "{{ playbook_dir }}/roles/sys-svc-msmtp/templates/msmtprc.conf.j2"
     dest: "{{ host_msmtp_conf }}"
   notify: docker compose up
 

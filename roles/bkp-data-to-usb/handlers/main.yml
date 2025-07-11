@@ -1,5 +1,0 @@
-- name: "reload bkp-data-to-usb.cymais.service"
-  systemd:
-    name: bkp-data-to-usb.cymais.service
-    state: reloaded
-    daemon_reload: yes

@@ -1,3 +1,0 @@
-health_csp_crawler_folder: '{{ path_administrator_scripts }}mon-bot-csp/'
-health_csp_crawler_script: '{{ health_csp_crawler_folder }}mon-bot-csp.py'
-application_id: bot-csp

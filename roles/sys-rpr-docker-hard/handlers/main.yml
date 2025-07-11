@@ -1,0 +1,5 @@
+- name: "reload sys-rpr-docker-hard.cymais.service"
+  systemd:
+    name: sys-rpr-docker-hard.cymais.service
+    enabled: yes
+    daemon_reload: yes

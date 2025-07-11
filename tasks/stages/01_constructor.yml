@@ -98,7 +98,7 @@
 
 - name: update device
   include_role:
-    name: update
+    name: update-compose
   when: mode_update | bool
 
 - name: "Load base roles"
@@ -108,11 +108,8 @@
     - drv
     - gen
     - net
-    - alert
     - mon
     - maint
     - update
-    - bkp
-    - cln
   loop_control:
     label: "{{ item }}-roles.yml"

@@ -1,0 +1,8 @@
+[Unit]
+Description=Optimize storage paths
+OnFailure=sys-alm-compose.cymais@%n.service
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/sh -c '/usr/bin/python {{ path_system_lock_script }} {{ system_maintenance_services | join(' ')  }} --ignore sys-opt-ssd-hdd svc-sys-bkp-rmt-2-loc --timeout "{{system_maintenance_lock_timeout_storage_optimizer}}"'
+ExecStart=/bin/sh -c '/usr/bin/python {{storage_optimizer_script}} --rapid-storage-path {{path_rapid_storage}} --mass-storage-path {{path_mass_storage}}'

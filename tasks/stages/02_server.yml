@@ -3,12 +3,12 @@
   include_role:
     name: "{{ item }}"
   loop:
-    - core-security
-    - core-journalctl
-    - mon-bot-disc-space
-    - cln-disc-space
-    - mon-bot-btrfs
-    - maint-btrfs-auto-balancer
+    - sys-svc-sshd
+    - sys-svc-journalctl
+    - sys-hlth-disc-space
+    - sys-cln-disc-space
+    - sys-hlth-btrfs
+    - sys-rpr-btrfs-blnc
 
 - name: "Include server roles"
   include_tasks: "./tasks/groups/{{ item }}-roles.yml"

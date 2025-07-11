@@ -1,0 +1,28 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: "Automates the cleanup of old backups by executing a Python script that deletes outdated backup versions when disk usage exceeds a specified threshold."
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen-Birkenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Linux
+      versions:
+        - all
+  galaxy_tags:
+    - backup
+    - cleanup
+    - disk
+    - automation
+  repository: "https://s.veen.world/cymais"
+  issue_tracker_url: "https://s.veen.world/cymaisissues"
+  documentation: "https://s.veen.world/cymais"
+dependencies:  
+  - gen-python-pip
+  - sys-alm-compose
+  - sys-lock
+  - sys-rst-daemon

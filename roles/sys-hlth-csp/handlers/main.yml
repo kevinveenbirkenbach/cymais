@@ -1,0 +1,5 @@
+- name: "reload sys-hlth-csp.cymais.service"
+  systemd:
+    name: sys-hlth-csp.cymais.service
+    enabled: yes
+    daemon_reload: yes

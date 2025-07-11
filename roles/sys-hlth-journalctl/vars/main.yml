@@ -1,0 +1,2 @@
+health_journalctl_folder: '{{path_administrator_scripts}}sys-hlth-journalctl/'
+

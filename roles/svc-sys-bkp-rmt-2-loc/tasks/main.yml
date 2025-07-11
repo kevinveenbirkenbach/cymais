@@ -1,0 +1,34 @@
+- name: "create {{docker_backup_remote_to_local_folder}}"
+  file:
+    path: "{{docker_backup_remote_to_local_folder}}"
+    state: directory
+    mode: 0755
+
+- name: create svc-sys-bkp-rmt-2-loc.sh
+  copy:
+    src: svc-sys-bkp-rmt-2-loc.sh
+    dest: "{{docker_backup_remote_to_local_folder}}svc-sys-bkp-rmt-2-loc.sh"
+    mode: 0755
+
+- name: create svc-sys-bkp-rmt-2-loc.cymais.service
+  template: 
+    src:  svc-sys-bkp-rmt-2-loc.service.j2 
+    dest: /etc/systemd/system/svc-sys-bkp-rmt-2-loc.cymais.service
+  notify: reload svc-sys-bkp-rmt-2-loc service
+
+- name: create backups-remote-to-local.sh
+  template: 
+    src: backups-remote-to-local.sh.j2 
+    dest: "{{docker_backup_remote_to_local_folder}}backups-remote-to-local.sh"
+    mode: 0755
+
+- name: "set 'service_name' to '{{ role_name }}'"
+  set_fact:
+    service_name: "{{ role_name }}"
+
+- name: "include role for sys-timer for {{service_name}}"
+  include_role:
+    name: sys-timer
+  vars:
+    on_calendar:  "{{on_calendar_backup_remote_to_local}}"
+

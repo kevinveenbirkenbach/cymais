@@ -10,7 +10,7 @@ Targeting user environments on Arch Linux (e.g., Manjaro), this role sets up the
 
 ## Purpose
 
-The purpose of this role is to automate the configuration of cloud-integrated user directories by ensuring that common folders like `Downloads`, `Music`, and `Workspaces` are transparently redirected into a centralized cloud structure. This makes it easier to maintain bkp-friendly, cloud-ready setups for homelab and professional workflows.
+The purpose of this role is to automate the configuration of cloud-integrated user directories by ensuring that common folders like `Downloads`, `Music`, and `Workspaces` are transparently redirected into a centralized cloud structure. This makes it easier to maintain sys-bkp-friendly, cloud-ready setups for homelab and professional workflows.
 
 ## Features
 

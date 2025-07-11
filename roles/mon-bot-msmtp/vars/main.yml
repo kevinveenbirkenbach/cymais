@@ -1,2 +1,0 @@
-health_msmtp_folder: '{{ path_administrator_scripts }}mon-bot-msmtp/'
-application_id: bot-msmtp

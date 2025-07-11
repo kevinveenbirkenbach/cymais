@@ -1,0 +1,26 @@
+- name: "create {{cleanup_disc_space_folder}}"
+  file:
+    path: "{{cleanup_disc_space_folder}}"
+    state: directory
+    mode: 0755
+
+- name: create sys-cln-disc-space.sh
+  template:
+    src: sys-cln-disc-space.sh.j2
+    dest: "{{cleanup_disc_space_folder}}sys-cln-disc-space.sh"
+
+- name: create sys-cln-disc-space.cymais.service
+  template: 
+    src: sys-cln-disc-space.service.j2
+    dest: /etc/systemd/system/sys-cln-disc-space.cymais.service
+  notify: reload sys-cln-disc-space.cymais.service
+
+- name: "set 'service_name' to '{{ role_name }}'"
+  set_fact:
+    service_name: "{{ role_name }}"
+
+- name: "include role for sys-timer for {{service_name}}"
+  include_role:
+    name: sys-timer
+  vars:
+    on_calendar:  "{{on_calendar_cleanup_disc_space}}"

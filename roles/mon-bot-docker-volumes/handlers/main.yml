@@ -1,5 +1,0 @@
-- name: "reload mon-bot-docker-volumes.cymais.service"
-  systemd:
-    name: mon-bot-docker-volumes.cymais.service
-    enabled: yes
-    daemon_reload: yes

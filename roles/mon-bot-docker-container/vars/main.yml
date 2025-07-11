@@ -1,2 +1,0 @@
-health_docker_container_folder: '{{path_administrator_scripts}}mon-bot-docker-container/'
-application_id: bot-docker-container

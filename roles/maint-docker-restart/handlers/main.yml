@@ -1,5 +1,0 @@
-- name: "reload maint-docker-restart.cymais.service"
-  systemd:
-    name: maint-docker-restart.cymais.service
-    enabled: yes
-    daemon_reload: yes

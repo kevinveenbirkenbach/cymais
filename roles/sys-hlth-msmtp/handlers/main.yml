@@ -1,0 +1,5 @@
+- name: reload sys-hlth-msmtp.cymais.service
+  systemd:
+    name: sys-hlth-msmtp.cymais.service
+    enabled: yes
+    daemon_reload: yes

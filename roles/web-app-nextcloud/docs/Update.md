@@ -43,8 +43,8 @@ and disable any non-functioning apps.
 ```bash
 cd {{path_docker_compose_instances}}nextcloud &&
 docker-compose down &&
-docker-compose exec -i database mysql -u nextcloud -pPASSWORT nextcloud < "/Backups/$(sha256sum /etc/machine-id | head -c 64)/bkp-docker-to-local/latest/nextcloud_database/sql/backup.sql" &&
-cd {{path_administrator_scripts}}bkp-docker-to-local &&
+docker-compose exec -i database mysql -u nextcloud -pPASSWORT nextcloud < "/Backups/$(sha256sum /etc/machine-id | head -c 64)/sys-bkp-docker-to-local/latest/nextcloud_database/sql/backup.sql" &&
+cd {{path_administrator_scripts}}sys-bkp-docker-to-local &&
 bash ./recover-web-app-from-local.sh "nextcloud_data" "$(sha256sum /etc/machine-id | head -c 64)"
 ```
 

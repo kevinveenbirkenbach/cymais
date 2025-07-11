@@ -1,0 +1,5 @@
+- name: "reload sys-cln-backups.cymais.service"
+  systemd:
+    name: sys-cln-backups.cymais.service
+    enabled: yes
+    daemon_reload: yes

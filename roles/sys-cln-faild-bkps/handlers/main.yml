@@ -1,0 +1,5 @@
+- name: "Reload sys-cln-faild-bkps.cymais.service"
+  systemd:
+    name: sys-cln-faild-bkps.cymais.service
+    enabled: yes
+    daemon_reload: yes

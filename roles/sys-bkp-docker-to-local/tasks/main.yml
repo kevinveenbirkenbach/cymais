@@ -1,0 +1,56 @@
+- name: "pkgmgr install"
+  include_role:
+    name: pkgmgr-install
+  vars:
+    package_name: "{{ bkp_docker_to_local_pkg }}"
+  when: run_once_bkp_docker_to_local is not defined
+
+- name: "Retrieve {{ bkp_docker_to_local_pkg }} path from pkgmgr"
+  command: "pkgmgr path {{ bkp_docker_to_local_pkg }}"
+  register: pkgmgr_output
+  changed_when: false
+  when: run_once_bkp_docker_to_local is not defined
+
+- name: Set fact for backup_docker_to_local_folder
+  set_fact:
+    backup_docker_to_local_folder: "{{ pkgmgr_output.stdout }}/"
+  changed_when: false
+  when: run_once_bkp_docker_to_local is not defined
+
+- name: "reset (if enabled)"
+  include_tasks: reset.yml 
+  when: mode_reset | bool and run_once_bkp_docker_to_local is not defined
+
+- name: configure sys-bkp-docker-to-local-everything.cymais.service
+  template: 
+    src: sys-bkp-docker-to-local-everything.service.j2
+    dest: /etc/systemd/system/sys-bkp-docker-to-local-everything.cymais.service
+  notify: reload sys-bkp-docker-to-local-everything.cymais.service
+  when: run_once_bkp_docker_to_local is not defined
+
+- name: configure sys-bkp-docker-to-local.cymais.service
+  template: 
+    src: sys-bkp-docker-to-local.service.j2
+    dest: /etc/systemd/system/sys-bkp-docker-to-local.cymais.service
+  notify: reload sys-bkp-docker-to-local.cymais.service
+  when: run_once_bkp_docker_to_local is not defined
+
+- name: "set 'service_name' to '{{ role_name }}'"
+  set_fact:
+    service_name: "{{ role_name }}"
+  when: run_once_bkp_docker_to_local is not defined
+
+- name: "include role for sys-timer for {{service_name}}"
+  include_role:
+    name: sys-timer
+  vars:
+    on_calendar:  "{{on_calendar_backup_docker_to_local}}"
+  when: run_once_bkp_docker_to_local is not defined
+
+- name: "include seed-database-to-backup.yml"
+  include_tasks: seed-database-to-backup.yml
+
+- name: run the backup_docker_to_local tasks once
+  set_fact:
+    run_once_bkp_docker_to_local: true
+  when: run_once_bkp_docker_to_local is not defined

@@ -1,0 +1,5 @@
+- name: "reload sys-hlth-journalctl.cymais.service"
+  systemd:
+    name: sys-hlth-journalctl.cymais.service
+    enabled: yes
+    daemon_reload: yes

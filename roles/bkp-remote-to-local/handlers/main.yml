@@ -1,4 +1,0 @@
-- name: "reload bkp-remote-to-local service"
-  systemd:
-    name: bkp-remote-to-local.cymais.service
-    daemon_reload: yes

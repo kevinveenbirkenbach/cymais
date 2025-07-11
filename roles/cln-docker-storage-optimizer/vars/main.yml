@@ -1,3 +1,0 @@
-storage_optimizer_directory: '{{path_administrator_scripts}}cln-docker-storage-optimizer/'
-storage_optimizer_script: '{{storage_optimizer_directory}}cln-docker-storage-optimizer.py'
-application_id: docker-storage-optimizer

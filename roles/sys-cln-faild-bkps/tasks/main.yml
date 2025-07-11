@@ -1,0 +1,42 @@
+- name: "pkgmgr install"
+  include_role:
+    name: pkgmgr-install
+  vars:
+    package_name: "{{ cln_failed_docker_backups_pkg }}"
+  when: run_once_cln_failed_docker_backups is not defined
+
+- name: "Retrieve {{ cln_failed_docker_backups_pkg }} path from pkgmgr"
+  command: "pkgmgr path {{ cln_failed_docker_backups_pkg }}"
+  register: pkgmgr_output
+  changed_when: false
+  when: run_once_cln_failed_docker_backups is not defined
+
+- name: Set fact for backup_docker_to_local_cleanup_script
+  set_fact:
+    backup_docker_to_local_cleanup_script: "{{ pkgmgr_output.stdout.rstrip('/') ~ '/sys-cln-all.sh' }}"
+  changed_when: false
+  when: run_once_cln_failed_docker_backups is not defined
+
+- name: configure sys-cln-faild-bkps.cymais.service
+  template:
+    src: sys-cln-faild-bkps.service.j2
+    dest: /etc/systemd/system/sys-cln-faild-bkps.cymais.service
+  notify: Reload sys-cln-faild-bkps.cymais.service
+  when: run_once_cln_failed_docker_backups is not defined
+
+- name: "set 'service_name' to '{{ role_name }}'"
+  set_fact:
+    service_name: "{{ role_name }}"
+  when: run_once_cln_failed_docker_backups is not defined
+
+- name: "include role for sys-timer for {{service_name}}"
+  include_role:
+    name: sys-timer
+  vars:
+    on_calendar:  "{{on_calendar_cleanup_failed_docker}}"
+  when: run_once_cln_failed_docker_backups is not defined
+
+- name: run the cleanup_failed_docker_backups tasks once
+  set_fact:
+    run_once_cln_failed_docker_backups: true
+  when: run_once_cln_failed_docker_backups is not defined
