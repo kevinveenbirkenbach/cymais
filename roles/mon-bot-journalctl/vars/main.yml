@@ -1,1 +1,2 @@
-health_journalctl_folder: "{{path_administrator_scripts}}mon-bot-journalctl/"
+health_journalctl_folder: '{{path_administrator_scripts}}mon-bot-journalctl/'
+application_id: bot-journalctl

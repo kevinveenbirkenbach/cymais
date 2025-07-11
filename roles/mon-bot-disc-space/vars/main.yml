@@ -1,1 +1,2 @@
-health_disc_space_folder: "{{path_administrator_scripts}}mon-bot-disc-space/"
+health_disc_space_folder: '{{path_administrator_scripts}}mon-bot-disc-space/'
+application_id: bot-disc-space

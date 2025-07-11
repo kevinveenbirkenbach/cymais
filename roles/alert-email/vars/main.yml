@@ -1,1 +1,2 @@
-systemd_notifier_email_folder: "{{path_administrator_scripts}}alert-email/"
+systemd_notifier_email_folder: '{{path_administrator_scripts}}alert-email/'
+application_id: email

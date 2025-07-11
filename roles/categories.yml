@@ -3,7 +3,7 @@ roles:
     title: "Core & System"
     description: "Fundamental system configuration"
     icon: "fas fa-cogs"
-    invokable: false
+    invokable: true
   drv:
     title: "Drivers"
     description: "Roles for installing and configuring hardware drivers—covering printers, graphics, input devices, and other peripheral support."
@@ -13,7 +13,7 @@ roles:
     title: "Generic"
     description: "Helper roles & installers (git, locales, timer, etc.)"
     icon: "fas fa-wrench"
-    invokable: false
+    invokable: true
   desk:
     title: "Desktop"
     description: "Desktop environment roles & apps (GNOME, browser, LibreOffice, etc.)"
@@ -77,12 +77,12 @@ roles:
     title: "Monitoring"
     description: "Roles for system monitoring and health checks—encompassing bot-style automated checks and core low-level monitors for logs, containers, disk usage, and more."
     icon: "fas fa-chart-area"
-    invokable: false
+    invokable: true
   alert:
     title: "Alerting"
     description: "Notification handlers for system events"
     icon: "fas fa-bell"
-    invokable: false
+    invokable: true
   maint:
     title: "Maintenance & Healing"
     description: "Periodic maintenance & auto-recovery"
