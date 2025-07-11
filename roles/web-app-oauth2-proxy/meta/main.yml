@@ -21,6 +21,3 @@ galaxy_info:
     - name: Any
       versions:
         - all
-dependencies:
-  - docker-compose
-  - srv-proxy-6-6-domain

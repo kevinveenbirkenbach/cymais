@@ -23,5 +23,4 @@ galaxy_info:
     class: "fa-solid fa-dice"
   run_after:
     - web-app-matomo
-dependencies:
-  - docker-compose
+

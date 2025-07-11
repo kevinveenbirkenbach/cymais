@@ -3,7 +3,7 @@ APPLICATIONS_OUT    := ./group_vars/all/04_applications.yml
 APPLICATIONS_SCRIPT := ./cli/generate/defaults/applications.py
 USERS_OUT           := ./group_vars/all/03_users.yml
 USERS_SCRIPT        := ./cli/generate/defaults/users.py
-INCLUDES_SCRIPT     := ./cli/generate/conditional_role_include.py
+INCLUDES_SCRIPT     := ./cli/generate/role_include.py
 
 INCLUDE_GROUPS := $(shell python3 main.py meta invokable_paths -s "-" --no-signal | tr '\n' ' ')
 
