@@ -1,6 +1,6 @@
-- name: "Load destruction roles"
-  include_tasks: "./tasks/groups/{{ item }}-roles.yml"
-  loop:
-    - cln
-  loop_control:
-    label: "{{ item }}-roles.yml"
+#- name: "Load destruction roles"
+#  include_tasks: "./tasks/groups/{{ item }}-roles.yml"
+#  loop:
+#    - cln
+#  loop_control:
+#    label: "{{ item }}-roles.yml"
