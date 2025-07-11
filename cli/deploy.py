@@ -7,7 +7,16 @@ import datetime
 import sys
 
 
-def run_ansible_playbook(inventory, modes, limit=None, allowed_applications=None, password_file=None, verbose=0, skip_tests=False,  skip_validation=False):
+def run_ansible_playbook(
+    inventory,
+    modes,
+    limit=None,
+    allowed_applications=None,
+    password_file=None,
+    verbose=0,
+    skip_tests=False,
+    skip_validation=False
+):
     start_time = datetime.datetime.now()
     print(f"\n▶️ Script started at: {start_time.isoformat()}\n")
     
@@ -17,32 +26,40 @@ def run_ansible_playbook(inventory, modes, limit=None, allowed_applications=None
     script_dir = os.path.dirname(os.path.realpath(__file__))
     playbook = os.path.join(os.path.dirname(script_dir), "playbook.yml")
 
+    # Inventory validation step
     if not skip_validation:
         print("\n🔍 Validating inventory before deployment...\n")
         try:
             subprocess.run(
-                [sys.executable, os.path.join(script_dir, "validate.inventory.py"), os.path.dirname(inventory)],
+                [sys.executable,
+                 os.path.join(script_dir, "validate.inventory.py"),
+                 os.path.dirname(inventory)
+                ],
                 check=True
             )
         except subprocess.CalledProcessError:
-            print("\n❌ Inventory validation failed. Deployment aborted.\n", file=sys.stderr)
+            print(
+                "\n❌ Inventory validation failed. Deployment aborted.\n",
+                file=sys.stderr
+            )
             sys.exit(1)
+    else:
+        print("\n⚠️ Skipping inventory validation as requested.\n")
 
     if not skip_tests:
         print("\n🧪 Running tests (make test)...\n")
         subprocess.run(["make", "test"], check=True)
 
+    # Build ansible-playbook command
     cmd = ["ansible-playbook", "-i", inventory, playbook]
 
     if limit:
         cmd.extend(["--limit", limit])
 
-    # Pass application IDs parameter as extra var if provided
     if allowed_applications:
         joined = ",".join(allowed_applications)
         cmd.extend(["-e", f"allowed_applications={joined}"])
 
-    # Pass other mode flags
     for key, value in modes.items():
         val = str(value).lower() if isinstance(value, bool) else str(value)
         cmd.extend(["-e", f"{key}={val}"])
@@ -75,55 +92,56 @@ def main():
         help="Path to the inventory file (INI or YAML) containing hosts and variables."
     )
     parser.add_argument(
-        "--limit",
+        "-l", "--limit",
         help="Restrict execution to a specific host or host group from the inventory."
     )
     parser.add_argument(
-        "--host-type",
+        "-T", "--host-type",
         choices=["server", "desktop"],
         default="server",
         help="Specify whether the target is a server or a personal computer. Affects role selection and variables."
     )
     parser.add_argument(
-        "--reset", action="store_true",
+        "-r", "--reset", action="store_true",
         help="Reset all CyMaIS files and configurations, and run the entire playbook (not just individual roles)."
     )
     parser.add_argument(
-        "--test", action="store_true",
+        "-t", "--test", action="store_true",
         help="Run test routines instead of production tasks. Useful for local testing and CI pipelines."
     )
     parser.add_argument(
-        "--update", action="store_true",
+        "-u", "--update", action="store_true",
         help="Enable the update procedure to bring software and roles up to date."
     )
     parser.add_argument(
-        "--backup", action="store_true",
+        "-b", "--backup", action="store_true",
         help="Perform a full backup of critical data and configurations before the update process."
     )
     parser.add_argument(
-        "--cleanup", action="store_true",
+        "-c", "--cleanup", action="store_true",
         help="Clean up unused files and outdated configurations after all tasks are complete."
     )
     parser.add_argument(
-        "--debug", action="store_true",
+        "-d", "--debug", action="store_true",
         help="Enable detailed debug output for Ansible and this script."
     )
     parser.add_argument(
-        "--password-file",
+        "-p", "--password-file",
         help="Path to the file containing the Vault password. If not provided, prompts for the password interactively."
     )
     parser.add_argument(
-        "--skip-tests", action="store_true",
+        "-s", "--skip-tests", action="store_true",
         help="Skip running 'make test' even if tests are normally enabled."
     )
     parser.add_argument(
-        "--skip-validation", action="store_true",
+        "-V", "--skip-validation", action="store_true",
         help="Skip inventory validation before deployment."
     )
     parser.add_argument(
-        "--id", 
+        "-i", "--id", 
         nargs="+",
         default=[],
+        dest="id",
         help="List of application_id's for partial deploy. If not set, all application IDs defined in the inventory will be executed."
     )
     parser.add_argument(
@@ -152,8 +170,8 @@ def main():
         verbose=args.verbose,
         skip_tests=args.skip_tests,
         skip_validation=args.skip_validation
-        
     )
+
 
 if __name__ == "__main__":
     main()

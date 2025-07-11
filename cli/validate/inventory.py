@@ -87,11 +87,17 @@ def load_inventory_files(inv_dir):
 
 def validate_host_keys(app_ids, inv_dir):
     errs = []
-    f = Path(inv_dir) / 'servers.yml'
-    data = load_yaml_file(f)
-    if isinstance(data, dict):
-        children = data.get('all',{}).get('children',{})
-        for grp in children:
+    p = Path(inv_dir)
+    # Scan all top-level YAMLs for 'all.children'
+    for f in p.glob('*.yml'):
+        data = load_yaml_file(f)
+        if not isinstance(data, dict):
+            continue
+        all_node = data.get('all', {})
+        children = all_node.get('children')
+        if not isinstance(children, dict):
+            continue
+        for grp in children.keys():
             if grp not in app_ids:
                 errs.append(f"{f}: Invalid group '{grp}' (not in application_ids)")
     return errs
