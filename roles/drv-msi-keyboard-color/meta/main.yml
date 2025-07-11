@@ -8,5 +8,5 @@ galaxy_info:
       versions:
         - all
 dependencies:
-  - gen-aur-helper
+  - sys-pgm-aur
   - sys-alm-compose

@@ -14,8 +14,8 @@ For a complete list of role categories and detailed definitions, see:
 - **core-***  
   Fundamental system configuration (SSH, journald, sudo, etc.)
 
-- **gen-***  
-  Generic helpers and language/tool installers (e.g. `gen-git`, `gen-locales`, `sys-timer`)
+- **dev-***  
+  Generic helpers and language/tool installers (e.g. `dev-git`, `dev-locales`, `sys-timer`)
 
 - **desk-***  
   Desktop environment and application roles (e.g. `desk-gnome`, `desk-browser`, `desk-libreoffice`)
@@ -111,7 +111,7 @@ For a complete list of role categories and detailed definitions, see:
 ---
 
 > **Tip:** To find a role quickly, search for its prefix:  
-> `core-`, `gen-`, `desk-`, `srv-web-`, `web-svc-`, `web-app-`,  
+> `core-`, `dev-`, `desk-`, `srv-web-`, `web-svc-`, `web-app-`,  
 > `net-`, `svc-`, `sys-hlth-`, `monitor-core-`, `sys-alm-`,  
 > `maint-`, `maint-docker-`, `sys-cln-`, `sys-bkp-`, `update-`,  
 > `pkgmgr-`, `user-`.

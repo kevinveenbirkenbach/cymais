@@ -27,4 +27,4 @@ galaxy_info:
   documentation: "https://s.veen.world/cymais"
 dependencies:
   - srv-web-7-6-https
-  - gen-git
+  - dev-git

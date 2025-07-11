@@ -13,7 +13,6 @@ galaxy_info:
       versions:
         - rolling
   galaxy_tags:
-    - pkgmgr
     - package
     - update
     - archlinux

@@ -1,4 +1,7 @@
 roles:
+  dev:
+    title:  "Software Development Utilties"
+    invokable: false
   sys:
     title: "System"
     invokable: false

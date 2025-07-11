@@ -1,8 +1,7 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: |
-    Configures an Nginx server to host static HTML websites with HTTPS support, automatic SSL certificate retrieval via Let's Encrypt, and secure default settings.
+  description: "Installs the python-pip package to provide the Python package manager, ensuring that Python packages can be installed reliably on the target system."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -15,20 +14,13 @@ galaxy_info:
       versions:
         - rolling
   galaxy_tags:
-    - nginx
-    - https
-    - static
-    - html
-    - letsencrypt
-    - ssl
-    - homepage
+    - python
+    - pip
+    - package
+    - installation
     - automation
   repository: "https://s.veen.world/cymais"
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
-#  This propably leads to problems at a point, @todo solve it
-#  run_after:
-#    - web-app-matomo
 dependencies:
-  - srv-web-7-6-https
-  - dev-git
+  - dev-gcc

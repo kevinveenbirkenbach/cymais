@@ -25,7 +25,7 @@ galaxy_info:
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
 dependencies:
-  - gen-git
+  - dev-git
   - sys-alm-compose
   - sys-cln-bkps-timer
   - sys-cln-faild-bkps

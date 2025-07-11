@@ -33,6 +33,6 @@ galaxy_info:
   issue_tracker_url: https://github.com/kevinveenbirkenbach/package-manager/issues
   documentation: https://github.com/kevinveenbirkenbach/package-manager
 dependencies:
-  - gen-git
-  - gen-make
-  - gen-python-yaml
+  - dev-git
+  - dev-make
+  - dev-python-yaml

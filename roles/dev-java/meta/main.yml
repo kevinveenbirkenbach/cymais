@@ -1,24 +1,23 @@
 ---
 galaxy_info:
-  author: "Kevin Veen-Birchenbach"
-  description: "Installs Epson multifunction printer drivers and scanning utilities (escpr, imagescan) via Pacman and AUR on Arch Linux."
+  author: "Kevin Veen-Birkenbach"
+  description: "Installs OpenJDK 11 (`jdk11-openjdk`) on Pacman-based systems to provide a Java runtime and development environment."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
-    Kevin Veen-Birchenbach
+    Kevin Veen-Birkenbach
     Consulting & Coaching Solutions
     https://www.veen.world
   galaxy_tags:
-    - epson
-    - printer
-    - scanner
+    - java
+    - jdk11
+    - openjdk
   repository: "https://github.com/kevinveenbirkenbach/cymais"
   issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
-  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/drv-epson-multiprinter"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/dev-java"
   min_ansible_version: "2.9"
   platforms:
     - name: Archlinux
-      versions: [ all ]
-dependencies:
-  - sys-pgm-aur
-
+      versions:
+        - all
+dependencies: []

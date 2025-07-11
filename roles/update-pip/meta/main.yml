@@ -24,4 +24,4 @@ galaxy_info:
     - update
     - maintenance
 dependencies:
-  - gen-python-pip
+  - dev-python-pip

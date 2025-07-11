@@ -22,7 +22,7 @@ galaxy_info:
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
 dependencies:  
-  - gen-python-pip
+  - dev-python-pip
   - sys-alm-compose
   - sys-lock
   - sys-rst-daemon
