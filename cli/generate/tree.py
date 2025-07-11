@@ -2,7 +2,7 @@
 import os
 import argparse
 import json
-from typing import List, Dict, Any
+from typing import Dict, Any
 
 from cli.generate.graph import build_mappings, output_graph
 
@@ -21,21 +21,12 @@ def main():
     default_roles_dir = os.path.abspath(os.path.join(script_dir, '..', '..', 'roles'))
 
     parser = argparse.ArgumentParser(
-        description="Generate mappings-based graphs for each role and write tree.json"
+        description="Generate all graphs for each role and write meta/tree.json"
     )
     parser.add_argument(
         '-d', '--role_dir',
         default=default_roles_dir,
         help=f"Path to roles directory (default: {default_roles_dir})"
-    )
-    parser.add_argument(
-        '-m', '--mapping',
-        nargs='+',
-        default=[
-            'run_after:to', 'run_after:from',
-            'dependencies:to', 'dependencies:from'
-        ],
-        help="Mapping entries as type:direction (default all 4 combos)"
     )
     parser.add_argument(
         '-D', '--depth',
@@ -61,17 +52,8 @@ def main():
     )
     args = parser.parse_args()
 
-    # parse mappings
-    mappings: List[Dict[str, str]] = []
-    for entry in args.mapping:
-        if ':' not in entry:
-            parser.error(f"Invalid mapping '{entry}', must be type:direction")
-        dep_type, direction = entry.split(':', 1)
-        mappings.append({dep_type: direction})
-
     if args.verbose:
         print(f"Roles directory: {args.role_dir}")
-        print(f"Mappings: {mappings}")
         print(f"Max depth: {args.depth}")
         print(f"Output format: {args.output}")
         print(f"Preview mode: {args.preview}")
@@ -80,15 +62,12 @@ def main():
         if args.verbose:
             print(f"Processing role: {role_name}")
 
-        # Build graphs for each mapping
-        graphs = build_mappings(
+        graphs: Dict[str, Any] = build_mappings(
             start_role=role_name,
-            mappings=mappings,
             roles_dir=args.role_dir,
             max_depth=args.depth
         )
 
-        # Prepare output file or previews
         if args.preview:
             for key, data in graphs.items():
                 if args.verbose:
@@ -97,13 +76,10 @@ def main():
         else:
             tree_file = os.path.join(role_path, 'meta', 'tree.json')
             os.makedirs(os.path.dirname(tree_file), exist_ok=True)
-            # write combined JSON
             with open(tree_file, 'w') as f:
                 json.dump(graphs, f, indent=2)
-            if args.verbose:
-                print(f"Wrote {tree_file}")
-            else:
-                print(f"Wrote {tree_file}")
+            print(f"Wrote {tree_file}")
+
 
 if __name__ == '__main__':
     main()

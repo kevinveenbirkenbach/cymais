@@ -3,8 +3,14 @@ import os
 import argparse
 import yaml
 import json
-from collections import deque
+import re
 from typing import List, Dict, Any, Set
+
+
+JINJA_PATTERN = re.compile(r'{{.*}}')
+ALL_DEP_TYPES = ['run_after', 'dependencies', 'include_tasks', 'import_tasks', 'include_role', 'import_role']
+ALL_DIRECTIONS = ['to', 'from']
+ALL_KEYS = [f"{dep}_{dir}" for dep in ALL_DEP_TYPES for dir in ALL_DIRECTIONS]
 
 
 def find_role_meta(roles_dir: str, role: str) -> str:
@@ -14,10 +20,14 @@ def find_role_meta(roles_dir: str, role: str) -> str:
     return path
 
 
+def find_role_tasks(roles_dir: str, role: str) -> str:
+    path = os.path.join(roles_dir, role, 'tasks', 'main.yml')
+    if not os.path.isfile(path):
+        raise FileNotFoundError(f"Tasks not found for role: {role}")
+    return path
+
+
 def load_meta(path: str) -> Dict[str, Any]:
-    """
-    Load meta/main.yml → return galaxy_info + run_after + dependencies
-    """
     with open(path, 'r') as f:
         data = yaml.safe_load(f) or {}
 
@@ -28,6 +38,24 @@ def load_meta(path: str) -> Dict[str, Any]:
         'dependencies': data.get('dependencies', []) or []
     }
 
+
+def load_tasks(path: str, dep_type: str) -> List[str]:
+    with open(path, 'r') as f:
+        data = yaml.safe_load(f) or []
+
+    included_roles = []
+
+    for task in data:
+        if dep_type in task:
+            entry = task[dep_type]
+            if isinstance(entry, dict):
+                entry = entry.get('name', '')
+            if entry and not JINJA_PATTERN.search(entry):
+                included_roles.append(entry)
+
+    return included_roles
+
+
 def build_single_graph(
     start_role: str,
     dep_type: str,
@@ -35,71 +63,73 @@ def build_single_graph(
     roles_dir: str,
     max_depth: int
 ) -> Dict[str, Any]:
-    """
-    Build one graph for one dependency type and direction:
-      - 'to': follow edges source→target
-      - 'from': reverse edges (find roles listing this role)
-      - max_depth > 0: limit hops to max_depth
-      - max_depth ≤ 0: stop when you’d revisit a node already on the path
-    """
     nodes: Dict[str, Dict[str, Any]] = {}
     links: List[Dict[str, str]] = []
 
     def traverse(role: str, depth: int, path: Set[str]):
-        # Register node once
         if role not in nodes:
             meta = load_meta(find_role_meta(roles_dir, role))
             node = {'id': role}
             node.update(meta['galaxy_info'])
             node['doc_url'] = f"https://docs.cymais.cloud/roles/{role}/README.html"
-            node['source_url'] = (
-                f"https://github.com/kevinveenbirkenbach/cymais/tree/master/roles/{role}"
-            )
+            node['source_url'] = f"https://github.com/kevinveenbirkenbach/cymais/tree/master/roles/{role}"
             nodes[role] = node
 
-        # Depth guard
         if max_depth > 0 and depth >= max_depth:
             return
 
-        # Determine neighbors according to direction
+        neighbors = []
+        if dep_type in ['run_after', 'dependencies']:
+            meta = load_meta(find_role_meta(roles_dir, role))
+            neighbors = meta.get(dep_type, [])
+        else:
+            try:
+                neighbors = load_tasks(find_role_tasks(roles_dir, role), dep_type)
+            except FileNotFoundError:
+                neighbors = []
+
         if direction == 'to':
-            neighbors = load_meta(find_role_meta(roles_dir, role)).get(dep_type, [])
             for tgt in neighbors:
                 links.append({'source': role, 'target': tgt, 'type': dep_type})
-                # General cycle check
                 if tgt in path:
                     continue
                 traverse(tgt, depth + 1, path | {tgt})
 
         else:  # direction == 'from'
-            # Find all roles that list this role in their dep_type
             for other in os.listdir(roles_dir):
                 try:
-                    meta_o = load_meta(find_role_meta(roles_dir, other))
+                    other_neighbors = []
+                    if dep_type in ['run_after', 'dependencies']:
+                        meta_o = load_meta(find_role_meta(roles_dir, other))
+                        other_neighbors = meta_o.get(dep_type, [])
+                    else:
+                        other_neighbors = load_tasks(find_role_tasks(roles_dir, other), dep_type)
+
+                    if role in other_neighbors:
+                        links.append({'source': other, 'target': role, 'type': dep_type})
+                        if other in path:
+                            continue
+                        traverse(other, depth + 1, path | {other})
+
                 except FileNotFoundError:
                     continue
-                if role in meta_o.get(dep_type, []):
-                    links.append({'source': other, 'target': role, 'type': dep_type})
-                    if other in path:
-                        continue
-                    traverse(other, depth + 1, path | {other})
 
-    # Kick off recursion
     traverse(start_role, depth=0, path={start_role})
     return {'nodes': list(nodes.values()), 'links': links}
 
+
 def build_mappings(
     start_role: str,
-    mappings: List[Dict[str, str]],
     roles_dir: str,
     max_depth: int
 ) -> Dict[str, Any]:
     result: Dict[str, Any] = {}
-    for mapping in mappings:
-        for dep_type, direction in mapping.items():
-            key = f"{dep_type}_{direction}"
-            result[key] = build_single_graph(
-                start_role, dep_type, direction, roles_dir, max_depth)
+    for key in ALL_KEYS:
+        dep_type, direction = key.rsplit('_', 1)
+        try:
+            result[key] = build_single_graph(start_role, dep_type, direction, roles_dir, max_depth)
+        except Exception:
+            result[key] = {'nodes': [], 'links': []}
     return result
 
 
@@ -124,64 +154,20 @@ def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     default_roles_dir = os.path.abspath(os.path.join(script_dir, '..', '..', 'roles'))
 
-    parser = argparse.ArgumentParser(
-        description="Generate graphs based on dependency mappings"
-    )
-    parser.add_argument(
-        '-r', '--role', 
-        required=True,
-        help="Starting role name"
-    )
-    parser.add_argument(
-        '-m', '--mapping',
-        nargs='+',
-        default=[
-            'run_after:to',
-            'run_after:from',
-            'dependencies:to',
-            'dependencies:from'
-        ],
-        help="Mapping entries as type:direction (default all 4 combos)"
-    )
-    parser.add_argument(
-        '-D', '--depth',
-        type=int,
-        default=0,
-        help="Max recursion depth (>0) or <=0 to stop on cycle"
-    )
-    parser.add_argument(
-        '-o', '--output',
-        choices=['yaml', 'json', 'console'],
-        default='console',
-        help="Output format"
-    )
-    parser.add_argument(
-        '--roles-dir',
-        default=default_roles_dir,
-        help="Roles directory"
-    )
+    parser = argparse.ArgumentParser(description="Generate dependency graphs")
+    parser.add_argument('-r', '--role', required=True, help="Starting role name")
+    parser.add_argument('-D', '--depth', type=int, default=0, help="Max recursion depth")
+    parser.add_argument('-o', '--output', choices=['yaml', 'json', 'console'], default='console')
+    parser.add_argument('--roles-dir', default=default_roles_dir, help="Roles directory")
+
     args = parser.parse_args()
 
-    mappings: List[Dict[str, str]] = []
-    for entry in args.mapping:
-        if ':' not in entry:
-            parser.error(f"Invalid mapping '{entry}', must be type:direction")
-        dep_type, direction = entry.split(':', 1)
-        if dep_type not in ('run_after', 'dependencies'):
-            parser.error(f"Unknown dependency type '{dep_type}'")
-        if direction not in ('to', 'from'):
-            parser.error(f"Unknown direction '{direction}'")
-        mappings.append({dep_type: direction})
+    graphs = build_mappings(args.role, args.roles_dir, args.depth)
 
-    graphs = build_mappings(
-        start_role=args.role,
-        mappings=mappings,
-        roles_dir=args.roles_dir,
-        max_depth=args.depth
-    )
-
-    for key, graph_data in graphs.items():
+    for key in ALL_KEYS:
+        graph_data = graphs.get(key, {'nodes': [], 'links': []})
         output_graph(graph_data, args.output, args.role, key)
+
 
 if __name__ == '__main__':
     main()
