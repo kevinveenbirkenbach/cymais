@@ -1,6 +1,7 @@
 roles:
   sys:
     title: "System"
+    invokable: false
     alm:
       title: "Alerting"
       description: "Notification handlers for system events"
@@ -31,11 +32,11 @@ roles:
     description: "Roles for installing and configuring hardware drivers—covering printers, graphics, input devices, and other peripheral support."
     icon: "fas fa-microchip"
     invokable: true
-  core:
-    title: "Core & System"
-    description: "Fundamental system configuration"
-    icon: "fas fa-cogs"
-    invokable: true
+#  core:
+#    title: "Core & System"
+#    description: "Fundamental system configuration"
+#    icon: "fas fa-cogs"
+#    invokable: true
   gen:
     title: "Generic"
     description: "Helper roles & installers (git, locales, timer, etc.)"

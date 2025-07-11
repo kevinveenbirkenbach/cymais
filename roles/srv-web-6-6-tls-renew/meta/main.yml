@@ -27,7 +27,7 @@ galaxy_info:
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
 dependencies:
-  - gen-certbot
+  - srv-web-7-7-certbot
   - srv-web-7-4-core
   - sys-alm-compose
   - sys-cln-certs

@@ -104,12 +104,8 @@
 - name: "Load base roles"
   include_tasks: "./tasks/groups/{{ item }}-roles.yml"
   loop:
-    - core
     - drv
     - gen
     - net
-    - mon
-    - maint
-    - update
   loop_control:
     label: "{{ item }}-roles.yml"
