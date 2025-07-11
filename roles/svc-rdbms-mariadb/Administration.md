@@ -2,5 +2,5 @@
 
 ## Execute SQL commands
 ```bash
-docker exec -it {{applications.mariadb.hostname }} mariadb -u root -p
+docker exec -it {{applications['rdbms-mariadb'].hostname }} mariadb -u root -p
 ```

@@ -1,5 +1,5 @@
 # The following env file will just be used from the dedicated mariadb container
-# and not the {{applications.mariadb.hostname }}-database
+# and not the {{applications['rdbms-mariadb'].hostname }}-database
 - name: "Create {{database_env}}"
   template: 
     src: "env/{{database_type}}.env.j2"

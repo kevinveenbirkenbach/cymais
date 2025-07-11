@@ -185,11 +185,11 @@ if __name__ == "__main__":
             Fore.CYAN
         ))
         print(color_text(
-            "    e.g. `cymais generate defaults applications` →",
+            "    e.g. `cymais generate defaults users` →",
             Fore.CYAN
         ))
         print(color_text(
-            "    corresponds to `cli/generate/defaults/applications.py`.",
+            "    corresponds to `cli/generate/defaults/users.py`.",
             Fore.CYAN
         ))
         print()
