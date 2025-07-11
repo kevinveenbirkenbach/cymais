@@ -15,9 +15,9 @@ class TestLoadConfigurationFilter(unittest.TestCase):
     def setUp(self):
         _cfg_cache.clear()
         self.f = FilterModule().filters()['load_configuration']
-        self.app = 'html-server'
+        self.app = 'html'
         self.nested_cfg = {
-            'html-server': {
+            'html': {
                 'features': {'matomo': True},
                 'domains': {'canonical': ['html.example.com']}
             }
@@ -76,8 +76,8 @@ class TestLoadConfigurationFilter(unittest.TestCase):
     @patch('load_configuration.os.listdir', return_value=['r1'])
     @patch('load_configuration.os.path.isdir', return_value=True)
     @patch('load_configuration.os.path.exists', return_value=True)
-    @patch('load_configuration.open', mock_open(read_data="html-server: {}"))
-    @patch('load_configuration.yaml.safe_load', return_value={'html-server': {}})
+    @patch('load_configuration.open', mock_open(read_data="html: {}"))
+    @patch('load_configuration.yaml.safe_load', return_value={'html': {}})
     def test_key_not_found_after_load(self, *_):
         with self.assertRaises(AnsibleFilterError):
             self.f(self.app, 'does.not.exist')
@@ -104,14 +104,14 @@ class TestLoadConfigurationFilter(unittest.TestCase):
         # Testing with an indexed key like domains.canonical[0]
         mock_exists.side_effect = lambda p: p.endswith('config/main.yml')
         mock_yaml.return_value = {
-            'file-server': {
+            'file': {
                 'domains': {
                     'canonical': ['files.example.com', 'extra.example.com']
                 }
             }
         }
         # should get the first element of the canonical domains list
-        self.assertEqual(self.f('file-server', 'domains.canonical[0]'),
+        self.assertEqual(self.f('file', 'domains.canonical[0]'),
                          'files.example.com')
 
 if __name__ == '__main__':

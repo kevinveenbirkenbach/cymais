@@ -30,4 +30,4 @@ defaults_service_provider:
   legal:
     editorial_responsible:  "Johannes Gutenberg"
     source_code:            "https://github.com/kevinveenbirkenbach/cymais"
-    imprint:                "{{web_protocol}}://{{ domains | get_domain('html-server') }}/imprint.html"
+    imprint:                "{{web_protocol}}://{{ domains | get_domain('html') }}/imprint.html"

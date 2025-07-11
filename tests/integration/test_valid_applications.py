@@ -13,12 +13,14 @@ class TestValidApplicationUsage(unittest.TestCase):
     """
     Integration test to ensure that only valid application IDs
     are used in all .yml, .yaml, .yml.j2, .yaml.j2, and .py files.
-    Methods like applications.items() can be whitelisted and ignored.
+    Methods like applications.items() and calls to get_domain() can
+    be whitelisted or validated against valid IDs.
     """
-    # regex patterns to capture applications['name'], applications.get('name'), and applications.name
+    # regex patterns to capture applications['name'], applications.get('name'), applications.name, and get_domain('name')
     APPLICATION_SUBSCRIPT_RE = re.compile(r"applications\[['\"](?P<name>[^'\"]+)['\"]\]")
     APPLICATION_GET_RE      = re.compile(r"applications\.get\(\s*['\"](?P<name>[^'\"]+)['\"]")
     APPLICATION_ATTR_RE     = re.compile(r"applications\.(?P<name>[A-Za-z_]\w*)")
+    APPLICATION_DOMAIN_RE   = re.compile(r"get_domain\(\s*['\"](?P<name>[^'\"]+)['\"]\s*\)")
 
     # methods and exceptions that should not be validated as application IDs
     WHITELIST = {'items', 'yml', 'get'}
@@ -47,6 +49,7 @@ class TestValidApplicationUsage(unittest.TestCase):
                     self.APPLICATION_SUBSCRIPT_RE,
                     self.APPLICATION_GET_RE,
                     self.APPLICATION_ATTR_RE,
+                    self.APPLICATION_DOMAIN_RE,
                 ):
                     for match in pattern.finditer(content):
                         name = match.group('name')

@@ -17,7 +17,7 @@ galaxy_info:
   galaxy_tags:
     - nginx
     - https
-    - file-server
+    - file
     - static-files
     - ssl
     - letsencrypt
