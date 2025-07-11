@@ -4,13 +4,15 @@ import argparse
 import yaml
 import json
 from collections import deque
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Set
+
 
 def find_role_meta(roles_dir: str, role: str) -> str:
     path = os.path.join(roles_dir, role, 'meta', 'main.yml')
     if not os.path.isfile(path):
         raise FileNotFoundError(f"Metadata not found for role: {role}")
     return path
+
 
 def load_meta(path: str) -> Dict[str, Any]:
     """
@@ -26,69 +28,85 @@ def load_meta(path: str) -> Dict[str, Any]:
         'dependencies': data.get('dependencies', []) or []
     }
 
-def build_single_graph(start_role: str, recurse_on: str, roles_dir: str) -> Dict[str, Any]:
+def build_single_graph(
+    start_role: str,
+    dep_type: str,
+    direction: str,
+    roles_dir: str,
+    max_depth: int
+) -> Dict[str, Any]:
     """
-    Build one graph for exactly one dependency type:
-      - includes all links for context
-      - recurses only on `recurse_on`
+    Build one graph for one dependency type and direction:
+      - 'to': follow edges source→target
+      - 'from': reverse edges (find roles listing this role)
+      - max_depth > 0: limit hops to max_depth
+      - max_depth ≤ 0: stop when you’d revisit a node already on the path
     """
     nodes: Dict[str, Dict[str, Any]] = {}
     links: List[Dict[str, str]] = []
-    visited = set()
-    queue = deque([start_role])
 
-    while queue:
-        role = queue.popleft()
-        if role in visited:
-            continue
-        visited.add(role)
-
-        try:
+    def traverse(role: str, depth: int, path: Set[str]):
+        # Register node once
+        if role not in nodes:
             meta = load_meta(find_role_meta(roles_dir, role))
-        except FileNotFoundError:
-            continue
+            node = {'id': role}
+            node.update(meta['galaxy_info'])
+            node['doc_url'] = f"https://docs.cymais.cloud/roles/{role}/README.html"
+            node['source_url'] = (
+                f"https://github.com/kevinveenbirkenbach/cymais/tree/master/roles/{role}"
+            )
+            nodes[role] = node
 
-        # register node
-        node = {'id': role}
-        node.update(meta['galaxy_info'])
-        node['doc_url']    = f"https://docs.cymais.cloud/roles/{role}/README.html"
-        node['source_url'] = f"https://github.com/kevinveenbirkenbach/cymais/tree/master/roles/{role}"
-        nodes[role] = node
+        # Depth guard
+        if max_depth > 0 and depth >= max_depth:
+            return
 
-        # emit all links
-        for lt in ('run_after', 'dependencies'):
-            for tgt in meta[lt]:
-                links.append({'source': role, 'target': tgt, 'type': lt})
+        # Determine neighbors according to direction
+        if direction == 'to':
+            neighbors = load_meta(find_role_meta(roles_dir, role)).get(dep_type, [])
+            for tgt in neighbors:
+                links.append({'source': role, 'target': tgt, 'type': dep_type})
+                # General cycle check
+                if tgt in path:
+                    continue
+                traverse(tgt, depth + 1, path | {tgt})
 
-        # recurse only on chosen type
-        for tgt in meta[recurse_on]:
-            if tgt not in visited:
-                queue.append(tgt)
+        else:  # direction == 'from'
+            # Find all roles that list this role in their dep_type
+            for other in os.listdir(roles_dir):
+                try:
+                    meta_o = load_meta(find_role_meta(roles_dir, other))
+                except FileNotFoundError:
+                    continue
+                if role in meta_o.get(dep_type, []):
+                    links.append({'source': other, 'target': role, 'type': dep_type})
+                    if other in path:
+                        continue
+                    traverse(other, depth + 1, path | {other})
 
+    # Kick off recursion
+    traverse(start_role, depth=0, path={start_role})
     return {'nodes': list(nodes.values()), 'links': links}
 
-def build_graphs(start_role: str, types: List[str], roles_dir: str) -> Dict[str, Any]:
-    """
-    If multiple types: return { type1: graph1, type2: graph2, ... }
-    If single type: return that single graph dict
-    """
-    if len(types) == 1:
-        return build_single_graph(start_role, types[0], roles_dir)
-    combined = {}
-    for t in types:
-        combined[t] = build_single_graph(start_role, t, roles_dir)
-    return combined
+def build_mappings(
+    start_role: str,
+    mappings: List[Dict[str, str]],
+    roles_dir: str,
+    max_depth: int
+) -> Dict[str, Any]:
+    result: Dict[str, Any] = {}
+    for mapping in mappings:
+        for dep_type, direction in mapping.items():
+            key = f"{dep_type}_{direction}"
+            result[key] = build_single_graph(
+                start_role, dep_type, direction, roles_dir, max_depth)
+    return result
 
-def output_graph(graph_data: Any, fmt: str, start: str, types: List[str]):
-    """
-    Write to file or print to console. If multiple types, join them in filename.
-    """
-    if len(types) == 1:
-        base = f"{start}_{types[0]}"
-    else:
-        base = f"{start}_{'_'.join(types)}"
 
+def output_graph(graph_data: Any, fmt: str, start: str, key: str):
+    base = f"{start}_{key}"
     if fmt == 'console':
+        print(f"--- {base} ---")
         print(yaml.safe_dump(graph_data, sort_keys=False))
     elif fmt in ('yaml', 'json'):
         path = f"{base}.{fmt}"
@@ -97,47 +115,73 @@ def output_graph(graph_data: Any, fmt: str, start: str, types: List[str]):
                 yaml.safe_dump(graph_data, f, sort_keys=False)
             else:
                 json.dump(graph_data, f, indent=2)
-        print(f"Wrote {fmt.upper()} to {path}")
+        print(f"Wrote {path}")
     else:
         raise ValueError(f"Unknown format: {fmt}")
+
 
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     default_roles_dir = os.path.abspath(os.path.join(script_dir, '..', '..', 'roles'))
 
     parser = argparse.ArgumentParser(
-        description="Generate dependency graphs from Ansible roles' meta/main.yml"
+        description="Generate graphs based on dependency mappings"
     )
     parser.add_argument(
-        '-r', '--role', required=True,
-        help="Starting role name (directory under roles/)"
+        '-r', '--role', 
+        required=True,
+        help="Starting role name"
     )
     parser.add_argument(
-        '-t', '--type',
-        choices=['run_after', 'dependencies'],
-        default=['run_after'],
+        '-m', '--mapping',
         nargs='+',
-        help="Dependency type(s) to recurse on; can specify multiple"
+        default=[
+            'run_after:to',
+            'run_after:from',
+            'dependencies:to',
+            'dependencies:from'
+        ],
+        help="Mapping entries as type:direction (default all 4 combos)"
+    )
+    parser.add_argument(
+        '-D', '--depth',
+        type=int,
+        default=0,
+        help="Max recursion depth (>0) or <=0 to stop on cycle"
     )
     parser.add_argument(
         '-o', '--output',
         choices=['yaml', 'json', 'console'],
-        default='yaml',
-        help="Output as files (yaml/json) or print to console"
+        default='console',
+        help="Output format"
     )
     parser.add_argument(
         '--roles-dir',
         default=default_roles_dir,
-        help=f"Path to the roles directory (default: {default_roles_dir})"
+        help="Roles directory"
     )
     args = parser.parse_args()
 
-    graph_data = build_graphs(
+    mappings: List[Dict[str, str]] = []
+    for entry in args.mapping:
+        if ':' not in entry:
+            parser.error(f"Invalid mapping '{entry}', must be type:direction")
+        dep_type, direction = entry.split(':', 1)
+        if dep_type not in ('run_after', 'dependencies'):
+            parser.error(f"Unknown dependency type '{dep_type}'")
+        if direction not in ('to', 'from'):
+            parser.error(f"Unknown direction '{direction}'")
+        mappings.append({dep_type: direction})
+
+    graphs = build_mappings(
         start_role=args.role,
-        types=args.type,
-        roles_dir=args.roles_dir
+        mappings=mappings,
+        roles_dir=args.roles_dir,
+        max_depth=args.depth
     )
-    output_graph(graph_data, args.output, args.role, args.type)
+
+    for key, graph_data in graphs.items():
+        output_graph(graph_data, args.output, args.role, key)
 
 if __name__ == '__main__':
     main()

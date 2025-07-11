@@ -21,6 +21,10 @@ EXTRA_USERS := $(shell \
 
 .PHONY: build install test
 
+tree:
+	@echo Generating Tree
+	python3 main.py generate tree -L 1
+
 build:
 	@echo "🔧 Generating users defaults → $(USERS_OUT)…"
 	python3 $(USERS_SCRIPT) \

@@ -3,3 +3,4 @@ site.retry
 venv
 *.log
 *.bak
+*tree.json
