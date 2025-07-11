@@ -4,3 +4,4 @@ venv
 *.log
 *.bak
 *tree.json
+roles/list.json

@@ -5,14 +5,12 @@ from ansible.errors import AnsibleFilterError
 
 class FilterModule(object):
     def filters(self):
-        # module_util-Verzeichnis ermitteln und zum Import-Pfad hinzufügen
         plugin_dir      = os.path.dirname(__file__)
         project_root    = os.path.dirname(plugin_dir)
         module_utils    = os.path.join(project_root, 'module_utils')
         if module_utils not in sys.path:
             sys.path.append(module_utils)
 
-        # jetzt kannst Du domain_utils importieren
         try:
             from domain_utils import get_domain
         except ImportError as e:
