@@ -3,7 +3,7 @@ import tempfile
 import shutil
 import os
 import yaml
-from cli.generate import graph
+from cli.build import graph
 
 
 class TestGraphLogic(unittest.TestCase):

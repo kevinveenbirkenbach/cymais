@@ -7,7 +7,7 @@ import yaml
 from collections import OrderedDict
 
 # Add cli/ to import path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../..", "cli/generate/defaults/")))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../..", "cli/build/defaults/")))
 
 import users
 

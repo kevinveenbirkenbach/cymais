@@ -1,9 +1,9 @@
 ROLES_DIR           := ./roles
 APPLICATIONS_OUT    := ./group_vars/all/04_applications.yml
-APPLICATIONS_SCRIPT := ./cli/generate/defaults/applications.py
+APPLICATIONS_SCRIPT := ./cli/build/defaults/applications.py
 USERS_OUT           := ./group_vars/all/03_users.yml
-USERS_SCRIPT        := ./cli/generate/defaults/users.py
-INCLUDES_SCRIPT     := ./cli/generate/role_include.py
+USERS_SCRIPT        := ./cli/build/defaults/users.py
+INCLUDES_SCRIPT     := ./cli/build/role_include.py
 
 INCLUDE_GROUPS := $(shell python3 main.py meta invokable_paths -s "-" --no-signal | tr '\n' ' ')
 
@@ -27,7 +27,7 @@ clean:
 
 tree:
 	@echo Generating Tree
-	python3 main.py generate tree -D 2 --no-signal
+	python3 main.py build tree -D 2 --no-signal
 
 build:
 	@echo "🔧 Generating users defaults → $(USERS_OUT)…"

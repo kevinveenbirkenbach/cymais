@@ -4,7 +4,7 @@ import argparse
 import json
 from typing import Dict, Any
 
-from cli.generate.graph import build_mappings, output_graph
+from cli.build.graph import build_mappings, output_graph
 
 
 def find_roles(roles_dir: str):

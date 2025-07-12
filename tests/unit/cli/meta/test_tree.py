@@ -3,7 +3,7 @@ import tempfile
 import shutil
 import os
 import json
-from cli.generate import tree
+from cli.build import tree
 
 
 class TestTreeMain(unittest.TestCase):
