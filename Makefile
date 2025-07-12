@@ -21,6 +21,10 @@ EXTRA_USERS := $(shell \
 
 .PHONY: build install test
 
+clean:
+	@echo "Removing not tracked git files"
+	git clean -fdx
+
 tree:
 	@echo Generating Tree
 	python3 main.py generate tree -L 1
