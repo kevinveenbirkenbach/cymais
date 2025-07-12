@@ -32,7 +32,7 @@ def run_ansible_playbook(
         try:
             subprocess.run(
                 [sys.executable,
-                 os.path.join(script_dir, "validate.inventory.py"),
+                 os.path.join(script_dir, "validate/inventory.py"),
                  os.path.dirname(inventory)
                 ],
                 check=True
