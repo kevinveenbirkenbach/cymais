@@ -104,9 +104,9 @@
 - name: "Load base roles"
   include_tasks: "./tasks/groups/{{ item }}-roles.yml"
   loop:
-    - drv
-    - gen
-    - net
-    - svc-db
+    - drv       # 1. Load driver roles
+    - gen       # 2. Load generic roles
+    - net       # 3. Load network roles
+    - svc-db    # 4. Load database roles
   loop_control:
     label: "{{ item }}-roles.yml"

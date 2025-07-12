@@ -95,6 +95,10 @@ roles:
       description: "Deployable web applications (GitLab, Nextcloud, Mastodon, etc.)"
       icon: "fas fa-docker"
       invokable: true
+    opt:
+      title: "Webserver Optimation"
+      description: "Tools which help to optimize webservers"
+      invokable: true
   net:
     title: "Network"
     description: "Network setup (DNS, Let's Encrypt HTTP, WireGuard, etc.)"

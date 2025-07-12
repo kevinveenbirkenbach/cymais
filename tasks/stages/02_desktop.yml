@@ -2,8 +2,8 @@
 - name: "setup docker role includes for desktop pc"
   include_tasks: "./tasks/groups/{{ item }}-roles.yml"
   loop:
-    - desk
-    - util-desk
+    - desk        # 1. Load generic desktop roles
+    - util-desk   # 2. Load utility desktop roles 
   loop_control:
     label: "{{ item }}-roles.yml"
 
