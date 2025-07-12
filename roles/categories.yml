@@ -4,6 +4,7 @@ roles:
     invokable: false
   sys:
     title: "System"
+    description: "System near components. Will be automaticly called if necessary from other roles."
     invokable: false
     alm:
       title: "Alerting"
@@ -104,6 +105,12 @@ roles:
     description: "Docker infrastructure services (DBMS, LDAP, Redis, etc.)"
     icon: "fas fa-database"
     invokable: true
+    opt:
+      title: "Service Optimation"
+      description: "Optimation Services to improve your system"
+      icon: "fas fa-database"
+      invokable: true
+
   user:
     title: "Users & Access"
     description: "User accounts & access control"

@@ -27,7 +27,7 @@ clean:
 
 tree:
 	@echo Generating Tree
-	python3 main.py generate tree -L 1
+	python3 main.py generate tree -D 2 --no-signal
 
 build:
 	@echo "🔧 Generating users defaults → $(USERS_OUT)…"

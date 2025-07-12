@@ -1,5 +1,0 @@
-- name: "reload sys-opt-ssd-hdd.cymais.service"
-  systemd:
-    name: sys-opt-ssd-hdd.cymais.service
-    state: reloaded
-    daemon_reload: yes

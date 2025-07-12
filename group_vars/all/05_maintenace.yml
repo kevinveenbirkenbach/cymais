@@ -28,7 +28,7 @@ system_maintenance_cleanup_services:
 system_maintenance_manipulation_services:
   - "sys-rpr-docker-soft"
   - "update-docker"
-  - "sys-opt-ssd-hdd"
+  - "svc-opt-ssd-hdd"
   - "sys-rpr-docker-hard"
   
 ## Total System Maintenance Services

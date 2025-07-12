@@ -1,0 +1,3 @@
+storage_optimizer_directory: '{{path_administrator_scripts}}svc-opt-ssd-hdd/'
+storage_optimizer_script: '{{storage_optimizer_directory}}svc-opt-ssd-hdd.py'
+application_id: svc-opt-ssd-hdd
