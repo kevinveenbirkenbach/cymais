@@ -1,6 +1,6 @@
 # vars/
 
-This directory contains variable definition files for the `svc-rdbms-mariadb` Ansible role. It centralizes all configurable values related to MariaDB deployment and can be adjusted without modifying task logic.
+This directory contains variable definition files for the `svc-mariadb` Ansible role. It centralizes all configurable values related to MariaDB deployment and can be adjusted without modifying task logic.
 
 ---
 

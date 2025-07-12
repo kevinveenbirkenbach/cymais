@@ -43,13 +43,13 @@
   meta: flush_handlers
   when: run_once_docker_discourse is not defined
 
-- name: "Connect {{ applications[application_id].container }} to network {{ applications['rdbms-postgres'].network }}"
+- name: "Connect {{ applications[application_id].container }} to network {{ applications['postgres'].network }}"
   command: >
-    docker network connect {{ applications['rdbms-postgres'].network }} {{ applications[application_id].container }}
+    docker network connect {{ applications['postgres'].network }} {{ applications[application_id].container }}
   register: network_connect
   failed_when: >
     network_connect.rc != 0 and
-    'Error response from daemon: endpoint with name {{ applications[application_id].container }} already exists in network {{ applications['rdbms-postgres'].network }}'
+    'Error response from daemon: endpoint with name {{ applications[application_id].container }} already exists in network {{ applications['postgres'].network }}'
     not in network_connect.stderr
   changed_when: network_connect.rc == 0
   when:

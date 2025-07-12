@@ -133,7 +133,7 @@ def update_discourse(directory):
         update_procedure("docker stop {{applications.discourse.container}}")
         update_procedure("docker rm {{applications.discourse.container}}")
         try:
-            update_procedure("docker network connect {{applications.discourse.network}} {{ applications['rdbms-postgres'].hostname }}")
+            update_procedure("docker network connect {{applications.discourse.network}} {{ applications['postgres'].hostname }}")
         except subprocess.CalledProcessError as e:
             error_message = e.output.decode()
             if "already exists" in error_message or "is already connected" in error_message:
