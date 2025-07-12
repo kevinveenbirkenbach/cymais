@@ -107,5 +107,6 @@
     - drv
     - gen
     - net
+    - svc-db
   loop_control:
     label: "{{ item }}-roles.yml"

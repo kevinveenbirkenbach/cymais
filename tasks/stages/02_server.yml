@@ -13,6 +13,7 @@
 - name: "Include server roles"
   include_tasks: "./tasks/groups/{{ item }}-roles.yml"
   loop:
+    - svc-db
     - util-srv
     - web-svc # Services need to run before applications
     - web-app

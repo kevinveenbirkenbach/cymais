@@ -102,9 +102,13 @@ roles:
     invokable: true
   svc:
     title: "Services"
-    description: "Docker infrastructure services (DBMS, LDAP, Redis, etc.)"
-    icon: "fas fa-database"
-    invokable: true
+    description: "Infrastructure services like databases"
+    invokable: false
+    db:  
+      title: "Databases"
+      description: "Database applications (DBMS, LDAP, Redis, etc.)"
+      icon: "fas fa-database"
+      invokable: true
     opt:
       title: "Service Optimation"
       description: "Optimation Services to improve your system"
