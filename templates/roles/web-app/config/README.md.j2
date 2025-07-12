@@ -1,0 +1,11 @@
+# Config
+
+The domains defined here can be customized by the system administrator. By default, they’re loaded from `../../group_vars/all/04_applications.yml`, but you can override them per application in your repository:
+
+```yaml
+applications:
+  {{ application_id }}:
+    variable_a: "test string"  # Replaces the default value
+    variable_b: {}             # Merges with the existing content
+    variable_c: []             # Replaces the default value (use caution with domains)
+```
