@@ -4,4 +4,6 @@ features:
   portfolio_iframe:   true
 domains:
   canonical:
+    - "file.{{ primary_domain }}"
+  alias:
     - "files.{{ primary_domain }}"

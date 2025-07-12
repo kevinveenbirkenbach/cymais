@@ -48,7 +48,7 @@
       # The following mapping is necessary to define the exceptions for domains which are created, but which aren't used
       redirect_domain_mappings: "{{
         []  | 
-        add_redirect_if_group('asset',    domains | get_domain('asset'), domains | get_domain('file'),  group_names) | 
+        add_redirect_if_group('web-svc-asset',    domains | get_domain('web-svc-asset'), domains | get_domain('web-svc-file'),  group_names) | 
         merge_mapping(redirect_domain_mappings| default([]), 'source')
         }}"
 

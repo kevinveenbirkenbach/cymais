@@ -1,4 +1,2 @@
-application_id:       "html"
+application_id:       "web-svc-html"
 domain:               "{{domains | get_domain(application_id)}}"
-features:
-  portfolio_iframe:   true  # Necessary for imprint loading

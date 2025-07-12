@@ -18,25 +18,25 @@ class TestApplicationsIfGroupAndDeps(unittest.TestCase):
     def setUp(self):
         self.filter = FilterModule().applications_if_group_and_deps
         self.sample_apps = {
-            'html': {},
-            'legal': {},
-            'file': {},
-            'asset': {},
-            'portfolio': {},
-            'corporate-identity': {},
+            'web-svc-html': {},
+            'web-svc-legal': {},
+            'web-svc-file': {},
+            'web-svc-asset': {},
+            'web-app-portfolio': {},
+            'util-srv-corporate-identity': {},
         }
 
     def test_direct_group(self):
-        result = self.filter(self.sample_apps, ['html'])
-        self.assertIn('html', result)
-        self.assertNotIn('legal', result)
+        result = self.filter(self.sample_apps, ['web-svc-html'])
+        self.assertIn('web-svc-html', result)
+        self.assertNotIn('web-svc-legal', result)
 
     def test_recursive_deps(self):
-        # html -> depends on none, but corporate-identity pulls in web-svc-legal -> web-svc-html -> legal
+        # html -> depends on none, but util-srv-corporate-identity pulls in web-svc-legal -> web-svc-html -> legal
         result = self.filter(self.sample_apps, ['util-srv-corporate-identity'])
-        self.assertIn('corporate-identity', result)
-        self.assertIn('legal', result)  # via web-svc-legal
-        self.assertIn('html', result)   # via web-svc-legal -> html
+        self.assertIn('util-srv-corporate-identity', result)
+        self.assertIn('web-svc-legal', result)  # via web-svc-legal
+        self.assertIn('web-svc-html', result)   # via web-svc-legal -> html
 
     def test_real_vars_files(self):
         # load real vars to get application_id

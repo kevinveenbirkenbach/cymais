@@ -1,4 +1,4 @@
-application_id:             "portfolio"
+application_id:             "web-app-portfolio"
 docker_repository_address:  "https://github.com/kevinveenbirkenbach/portfolio"
 config_inventory_path:      "{{ inventory_dir }}/files/{{ inventory_hostname }}/docker/portfolio/config.yaml.j2"
 docker_repository:          true

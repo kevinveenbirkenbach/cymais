@@ -1,2 +1,2 @@
-application_id: "file"
+application_id: "web-svc-file"
 domain:         "{{ domains | get_domain(application_id) }}"

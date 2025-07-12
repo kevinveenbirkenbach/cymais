@@ -2,4 +2,4 @@ retroarch_packages:
 - retroarch
 - retroarch-assets-xmb
 - retroarch-assets-ozone
-application_id: retroarch
+application_id: desk-retroarch
