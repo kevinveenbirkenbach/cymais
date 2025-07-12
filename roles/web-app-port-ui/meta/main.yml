@@ -23,4 +23,4 @@ galaxy_info:
   issue_tracker_url: "https://github.com/kevinveenbirkenbach/portfolio/issues"
   documentation: "https://github.com/kevinveenbirkenbach/portfolio#readme"
   logo:
-    class: "fa-solid fa-briefcase"
+    class: "fa fa-th-large"
