@@ -20,7 +20,8 @@ class TestDependencyApplicationId(unittest.TestCase):
             vars_file = os.path.join(role_path, 'vars', 'main.yml')
             if not os.path.isfile(vars_file):
                 return None
-            data = yaml.safe_load(open(vars_file, encoding='utf-8')) or {}
+            with open(vars_file, encoding='utf-8') as f:
+                data = yaml.safe_load(f) or {}
             return data.get('application_id')
 
         # Iterate all roles
@@ -33,7 +34,9 @@ class TestDependencyApplicationId(unittest.TestCase):
             if not os.path.isfile(meta_file):
                 continue
 
-            meta = yaml.safe_load(open(meta_file, encoding='utf-8')) or {}
+            with open(meta_file, encoding='utf-8') as f:
+                meta = yaml.safe_load(f) or {}
+
             deps = meta.get('dependencies', [])
             if not isinstance(deps, list):
                 continue

@@ -13,7 +13,7 @@ import argparse
 import yaml
 
 
-def get_role_folder(application_id, roles_path):
+def get_role(application_id, roles_path):
     """
     Find the role directory under `roles_path` whose vars/main.yml contains the specified application_id.
 
@@ -62,7 +62,7 @@ def main():
     args = parser.parse_args()
 
     try:
-        folder = get_role_folder(args.application_id, args.roles_path)
+        folder = get_role(args.application_id, args.roles_path)
         print(folder)
         sys.exit(0)
     except RuntimeError as err:

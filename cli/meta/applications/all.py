@@ -1,46 +1,37 @@
 #!/usr/bin/env python3
+# cli/meta/applications/all.py
+
 import argparse
-import glob
-import os
 import sys
 
+# Import the Ansible filter implementation
 try:
-    import yaml
+    from filter_plugins.get_all_application_ids import get_all_application_ids
 except ImportError:
-    sys.stderr.write("PyYAML is required. Install with `pip install pyyaml`.\n")
+    sys.stderr.write("Filter plugin `get_all_application_ids` not found. Ensure `filter_plugins/get_all_application_ids.py` is in your PYTHONPATH.\n")
     sys.exit(1)
 
 
 def find_application_ids():
     """
-    Searches all files matching roles/*/vars/main.yml for the key 'application_id'
-    and returns a list of all found IDs.
+    Legacy function retained for reference.
+    Delegates to the `get_all_application_ids` filter plugin.
     """
-    pattern = os.path.join('roles', '*', 'vars', 'main.yml')
-    app_ids = []
-
-    for filepath in glob.glob(pattern):
-        try:
-            with open(filepath, 'r', encoding='utf-8') as f:
-                data = yaml.safe_load(f)
-        except Exception as e:
-            sys.stderr.write(f"Error reading {filepath}: {e}\n")
-            continue
-
-        if isinstance(data, dict) and 'application_id' in data:
-            app_ids.append(data['application_id'])
-
-    return sorted(set(app_ids))
+    return get_all_application_ids()
 
 
 def main():
     parser = argparse.ArgumentParser(
         description='Output a list of all application_id values defined in roles/*/vars/main.yml'
     )
-    # No arguments other than --help
     parser.parse_args()
 
-    ids = find_application_ids()
+    try:
+        ids = find_application_ids()
+    except Exception as e:
+        sys.stderr.write(f"Error retrieving application IDs: {e}\n")
+        sys.exit(1)
+
     for app_id in ids:
         print(app_id)
 

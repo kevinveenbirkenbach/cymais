@@ -38,15 +38,15 @@ ports:
       matomo: 8018
       listmonk: 8019
       discourse: 8020
-      synapse: 8021
-      element: 8022
+      matrix_synapse: 8021
+      matrix_element: 8022
       openproject: 8023
       gitlab: 8024
       akaunting: 8025
       moodle: 8026
       taiga: 8027
       friendica: 8028
-      portfolio: 8029
+      web-app-port-ui: 8029
       bluesky_api: 8030
       bluesky_web: 8031
       keycloak: 8032

@@ -5,7 +5,7 @@ import unittest
 import yaml
 
 from ansible.errors import AnsibleFilterError
-from filter_plugins.get_role_folder import get_role_folder
+from filter_plugins.get_role import get_role
 
 class TestGetRoleFolder(unittest.TestCase):
     def setUp(self):
@@ -35,20 +35,20 @@ class TestGetRoleFolder(unittest.TestCase):
 
     def test_find_existing_role(self):
         # Should find role1 for application_id 'app-123'
-        result = get_role_folder('app-123', roles_path=self.roles_dir)
+        result = get_role('app-123', roles_path=self.roles_dir)
         self.assertEqual(result, 'role1')
 
     def test_no_match_raises(self):
         # No role has application_id 'nonexistent'
         with self.assertRaises(AnsibleFilterError) as cm:
-            get_role_folder('nonexistent', roles_path=self.roles_dir)
+            get_role('nonexistent', roles_path=self.roles_dir)
         self.assertIn("No role found with application_id 'nonexistent'", str(cm.exception))
 
     def test_missing_roles_path(self):
         # Path does not exist
         invalid_path = os.path.join(self.tempdir, 'invalid')
         with self.assertRaises(AnsibleFilterError) as cm:
-            get_role_folder('any', roles_path=invalid_path)
+            get_role('any', roles_path=invalid_path)
         self.assertIn(f"Roles path not found: {invalid_path}", str(cm.exception))
 
     def test_invalid_yaml_raises(self):
@@ -59,7 +59,7 @@ class TestGetRoleFolder(unittest.TestCase):
             f.write("::: invalid yaml :::")
 
         with self.assertRaises(AnsibleFilterError) as cm:
-            get_role_folder('app-123', roles_path=self.roles_dir)
+            get_role('app-123', roles_path=self.roles_dir)
         self.assertIn('Failed to load', str(cm.exception))
 
 if __name__ == '__main__':

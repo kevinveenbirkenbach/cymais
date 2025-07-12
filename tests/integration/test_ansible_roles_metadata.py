@@ -9,10 +9,15 @@ class TestAnsibleRolesMetadata(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        if not os.path.isdir(cls.ROLES_DIR):
-            raise unittest.SkipTest(f"Roles directory not found at {cls.ROLES_DIR}")
-        cls.roles = [d for d in os.listdir(cls.ROLES_DIR)
-                     if os.path.isdir(os.path.join(cls.ROLES_DIR, d))]
+        all_dirs = os.listdir(cls.ROLES_DIR)
+        cls.roles = [
+            d for d in all_dirs
+            if (
+                os.path.isdir(os.path.join(cls.ROLES_DIR, d))
+                and d != '__pycache__'
+            )
+        ]
+
 
     def test_each_role_has_valid_meta(self):
         """

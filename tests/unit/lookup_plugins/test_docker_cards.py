@@ -1,3 +1,5 @@
+# tests/unit/lookup_plugins/test_docker_cards.py
+
 import os
 import sys
 import tempfile
@@ -9,14 +11,22 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../../roles/web-a
 
 from docker_cards import LookupModule
 
+
 class TestDockerCardsLookup(unittest.TestCase):
     def setUp(self):
         # Create a temporary directory to simulate the roles directory.
         self.test_roles_dir = tempfile.mkdtemp(prefix="test_roles_")
-        # Create a sample role "web-app-port-ui".
+
+        # Create a sample role "web-app-port-ui" under that directory.
         self.role_name = "web-app-port-ui"
         self.role_dir = os.path.join(self.test_roles_dir, self.role_name)
         os.makedirs(os.path.join(self.role_dir, "meta"))
+        os.makedirs(os.path.join(self.role_dir, "vars"))
+
+        # Create vars/main.yml so get_application_id() can find the application_id.
+        vars_main = os.path.join(self.role_dir, "vars", "main.yml")
+        with open(vars_main, "w", encoding="utf-8") as f:
+            f.write("application_id: portfolio\n")
 
         # Create a sample README.md with a H1 line for the title.
         readme_path = os.path.join(self.role_dir, "README.md")
@@ -54,11 +64,11 @@ galaxy_info:
             "group_names": ["portfolio"]
         }
         result = lookup_module.run([self.test_roles_dir], variables=fake_variables)
-        
+
         # The result is a list containing one list of card dictionaries.
         self.assertIsInstance(result, list)
         self.assertEqual(len(result), 1)
-        
+
         cards = result[0]
         self.assertIsInstance(cards, list)
         # Since "portfolio" is in group_names, one card should be present.
@@ -80,21 +90,22 @@ galaxy_info:
             "applications": {
                 "portfolio": {
                     "features": {
-                        "iframe": True
+                        "portfolio_iframe": True
                     }
                 }
             },
             "group_names": []  # Not including "portfolio"
         }
         result = lookup_module.run([self.test_roles_dir], variables=fake_variables)
-        
+
         # Since the application_id is not in group_names, no card should be added.
         self.assertIsInstance(result, list)
         self.assertEqual(len(result), 1)
-        
+
         cards = result[0]
         self.assertIsInstance(cards, list)
         self.assertEqual(len(cards), 0)
+
 
 if __name__ == "__main__":
     unittest.main()

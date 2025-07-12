@@ -17,7 +17,7 @@
       - SYNAPSE_SERVER_NAME={{domains.matrix.synapse}}
       - SYNAPSE_REPORT_STATS=no
     ports:
-      - "127.0.0.1:{{ports.localhost.http.synapse}}:{{ container_port }}"
+      - "127.0.0.1:{{ports.localhost.http.matrix_synapse}}:{{ container_port }}"
 {% include 'roles/docker-container/templates/healthcheck/curl.yml.j2' %}
 {% if bridges | length > 0 %}
 {% for item in bridges %}
@@ -36,7 +36,7 @@
     volumes:
       - ./element-config.json:/app/config.json
     ports:
-      - "127.0.0.1:{{ports.localhost.http.element}}:{{ container_port }}"
+      - "127.0.0.1:{{ports.localhost.http.matrix_element}}:{{ container_port }}"
 {% include 'roles/docker-container/templates/healthcheck/wget.yml.j2' %}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 

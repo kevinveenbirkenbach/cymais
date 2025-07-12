@@ -1,5 +1,5 @@
 '''
-Ansible filter plugin: get_role_folder
+Ansible filter plugin: get_role
 
 This filter inspects each role under the given roles directory, loads its vars/main.yml,
 and returns the role folder name whose application_id matches the provided value.
@@ -10,7 +10,7 @@ import os
 import yaml
 
 
-def get_role_folder(application_id, roles_path='roles'):
+def get_role(application_id, roles_path='roles'):
     """
     Find the role directory under `roles_path` whose vars/main.yml contains the given application_id.
 
@@ -40,9 +40,9 @@ def get_role_folder(application_id, roles_path='roles'):
 
 class FilterModule(object):
     """
-    Register the get_role_folder filter
+    Register the get_role filter
     """
     def filters(self):
         return {
-            'get_role_folder': get_role_folder,
+            'get_role': get_role,
         }

@@ -17,7 +17,7 @@
     name: srv-web-7-6-composer
   vars:
     domain:     "{{domains.matrix.synapse}}"
-    http_port:  "{{ports.localhost.http.synapse}}"
+    http_port:  "{{ports.localhost.http.matrix_synapse}}"
 
 - name: create {{well_known_directory}}
   file:
@@ -36,7 +36,7 @@
     dest: "{{nginx.directories.http.servers}}{{domains.matrix.synapse}}.conf"
   vars:
     domain:     "{{domains.matrix.synapse}}" # Didn't work in the past. May it works now. This does not seem to work @todo Check how to solve without declaring set_fact, seems a bug at templates
-    http_port:  "{{ports.localhost.http.synapse}}"
+    http_port:  "{{ports.localhost.http.matrix_synapse}}"
   notify: restart nginx
         
 - name: "include role srv-proxy-6-6-domain for {{application_id}}"
@@ -44,7 +44,7 @@
     name: srv-proxy-6-6-domain
   vars:        
     domain:     "{{domains.matrix.element}}"
-    http_port:  "{{ports.localhost.http.element}}"
+    http_port:  "{{ports.localhost.http.matrix_element}}"
 
 - name: include create-and-seed-database.yml for multiple bridges
   include_tasks: create-and-seed-database.yml

@@ -16,13 +16,13 @@ class LookupModule(LookupBase):
         This lookup iterates over all roles whose folder name starts with 'web-app-'
         and generates a list of dictionaries (cards). For each role, it:
 
-          - Extracts the application_id (everything after "web-app-")
+          - Reads application_id from the role's vars/main.yml
           - Reads the title from the role's README.md (the first H1 line)
           - Retrieves the description from galaxy_info.description in meta/main.yml
           - Retrieves the icon class from galaxy_info.logo.class
           - Retrieves the tags from galaxy_info.galaxy_tags
-          - Builds the URL using the 'domains' variable (e.g. domains | get_domain(application_id))
-          - Sets the iframe flag from applications[application_id].features.iframe
+          - Builds the URL using the 'domains' variable
+          - Sets the iframe flag from applications[application_id].features.portfolio_iframe
 
         Only cards whose application_id is included in the variable group_names are returned.
         """
@@ -40,11 +40,22 @@ class LookupModule(LookupBase):
             role_basename = os.path.basename(role_dir)
 
             # Skip roles not starting with "web-app-"
-            if not role_basename.startswith("web-app-"):
+            if not role_basename.startswith("web-app-"):  # Ensure prefix
                 continue
 
-            # Extract application_id from role name
-            application_id = role_basename[len("web-app-"):]
+            # Load application_id from role's vars/main.yml
+            vars_path = os.path.join(role_dir, "vars", "main.yml")
+            try:
+                if not os.path.isfile(vars_path):
+                    raise AnsibleError(f"Vars file not found for role '{role_basename}': {vars_path}")
+                with open(vars_path, "r", encoding="utf-8") as vf:
+                    vars_content = vf.read()
+                vars_data = yaml.safe_load(vars_content) or {}
+                application_id = vars_data.get("application_id")
+                if not application_id:
+                    raise AnsibleError(f"Key 'application_id' not found in {vars_path}")
+            except Exception as e:
+                raise AnsibleError(f"Error getting application_id for role '{role_basename}': {e}")
 
             # Skip roles not listed in group_names
             if application_id not in group_names:
@@ -65,25 +76,24 @@ class LookupModule(LookupBase):
                 title_match = re.search(r'^#\s+(.*)$', readme_content, re.MULTILINE)
                 title = title_match.group(1).strip() if title_match else application_id
             except Exception as e:
-                raise AnsibleError("Error reading '{}': {}".format(readme_path, str(e)))
+                raise AnsibleError(f"Error reading '{readme_path}': {e}")
 
             # Extract metadata from meta/main.yml
             try:
                 with open(meta_path, "r", encoding="utf-8") as f:
-                    meta_data = yaml.safe_load(f)
+                    meta_data = yaml.safe_load(f) or {}
 
                 galaxy_info = meta_data.get("galaxy_info", {})
-                
                 # If display is set to False ignore it
                 if not galaxy_info.get("display", True):
                     continue
-                
+
                 description = galaxy_info.get("description", "")
                 logo = galaxy_info.get("logo", {})
                 icon_class = logo.get("class", "fa-solid fa-cube")
                 tags = galaxy_info.get("galaxy_tags", [])
             except Exception as e:
-                raise AnsibleError("Error reading '{}': {}".format(meta_path, str(e)))
+                raise AnsibleError(f"Error reading '{meta_path}': {e}")
 
             # Retrieve domains and applications from the variables
             domains = variables.get("domains", {})
@@ -94,7 +104,7 @@ class LookupModule(LookupBase):
                 domain_url = domain_url[0]
             elif isinstance(domain_url, dict):
                 domain_url = next(iter(domain_url.values()))
-                
+
             # Construct the URL using the domain_url if available.
             url = "https://" + domain_url if domain_url else ""
 
@@ -107,7 +117,7 @@ class LookupModule(LookupBase):
                 "title": title,
                 "text": description,
                 "url": url,
-                "link_text": "Explore {}".format(title),
+                "link_text": f"Explore {title}",
                 "iframe": iframe,
                 "tags": tags,
             }
