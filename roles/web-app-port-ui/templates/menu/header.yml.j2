@@ -6,9 +6,13 @@
       icon:
         class: fa-solid fa-expand-arrows-alt
       onclick: "toggleFullscreen()"
-
     - name: Tab
       description: Open the currently embedded iframe URL in a fresh browser tab
       icon:
         class: fa-solid fa-up-right-from-square
       onclick: openIframeInNewTab()
+    - name: Reload
+      description: Reload the application
+      icon:
+        class: fa-solid fa-rotate-right
+      url:   "{{ domains | get_domain('web-app-port-ui') }}"
