@@ -6,7 +6,7 @@ services:
 {% endif %}
 {# Load Redis #}
 {% if applications[application_id].docker.services.redis.enabled | default(false) | bool %}
-{% include 'roles/web-app-redis/templates/service.yml.j2' %}
+{% include 'roles/svc-db-redis/templates/service.yml.j2' %}
 {% endif %}
 {# Load OAuth2 Proxy #}
 {% if applications | is_feature_enabled('oauth2',application_id) %}

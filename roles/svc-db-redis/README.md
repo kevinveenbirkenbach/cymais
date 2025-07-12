@@ -1,4 +1,4 @@
-# Role: web-app-redis
+# Role: svc-db-redis
 
 ## Description
 
