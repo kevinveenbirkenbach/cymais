@@ -1,20 +1,18 @@
 # The following env file will just be used from the dedicated mariadb container
-# and not the {{applications['mariadb'].hostname }}-database
-- name: "Create {{database_env}}"
+# and not the {{applications['svc-db-mariadb'].hostname }}
+- name: "For '{{ application_id }}': Create {{database_env}}"
   template: 
     src: "env/{{database_type}}.env.j2"
     dest: "{{database_env}}"
   notify: docker compose up
   when: not applications | is_feature_enabled('central_database',application_id)
 
-- name: "Create central database"
+- name: "For '{{ application_id }}': Create central database"
+  # I don't know why this includes leads to that the application_id in vars/main.yml of the database role isn't used
+  # This is the behaviour which I want, but I'm still wondering why ;)
   include_role:
-    name: "svc-{{database_type}}"
+    name: "svc-db-{{database_type}}"
   when: applications | is_feature_enabled('central_database',application_id)
 
-#- name: "Create central database"
-#  include_tasks: "{{ playbook_dir }}/roles/svc-{{database_type}}/tasks/main.yml"
-#  when: applications | is_feature_enabled('central_database',application_id)
-
-- name: "Add database to backup"
+- name: "For '{{ application_id }}': Add Entry for Backup Procedure"
   include_tasks: "{{ playbook_dir }}/roles/sys-bkp-docker-to-local/tasks/seed-database-to-backup.yml"

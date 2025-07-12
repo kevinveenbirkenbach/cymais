@@ -10,7 +10,7 @@
 
 - name: Create Docker network for Collabora
   docker_network:
-    name: central_mariadb
+    name: svc-db-mariadb
     state: present
     ipam_config:
       - subnet: "{{ networks.local.collabora.subnet }}"

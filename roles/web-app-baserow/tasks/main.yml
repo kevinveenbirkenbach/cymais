@@ -1,4 +1,4 @@
 ---
-- name: "load docker, db and proxy for {{application_id}}"
+- name: "For '{{ application_id }}': load docker, db and proxy"
   include_role: 
     name: cmp-db-docker-proxy

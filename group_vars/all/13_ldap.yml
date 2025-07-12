@@ -6,7 +6,7 @@
 # Helper Variables:
 # Keep in mind to mapp this variables if there is ever the possibility for the user to define them in the inventory
 _ldap_dn_base:            "dc={{primary_domain_sld}},dc={{primary_domain_tld}}"
-_ldap_server_port:        "{% if applications.openldap.network.docker | bool %}{{ ports.localhost.ldap.openldap }}{% else %}{{ ports.localhost.ldaps.ldap }}{% endif %}"
+_ldap_server_port:        "{% if applications['svc-db-openldap'].network.docker | bool %}{{ ports.localhost.ldap[application_id] }}{% else %}{{ ports.localhost.ldaps[application_id] }}{% endif %}"
 _ldap_user_id:            "uid"
 _ldap_filters_users_all:  "(|(objectclass=inetOrgPerson))"
 
@@ -25,7 +25,7 @@ ldap:
       # The DN used to authenticate for regular directory operations under
       # the data tree (adding users, modifying attributes, creating OUs, etc.).
       # Typically: “cn=admin,dc=example,dc=com”
-      data: "cn={{ applications.openldap.users.administrator.username }},{{ _ldap_dn_base }}"
+      data: "cn={{ applications['svc-db-openldap'].users.administrator.username }},{{ _ldap_dn_base }}"
 
       # -------------------------------------------------------------------------
       # Config-Tree Administrator Bind DN
@@ -33,7 +33,7 @@ ldap:
       # need to load or modify schema, overlays, modules, or other server-
       # level settings.  
       # Typically: “cn=admin,cn=config”
-      configuration: "cn={{ applications.openldap.users.administrator.username }},cn=config"
+      configuration: "cn={{ applications['svc-db-openldap'].users.administrator.username }},cn=config"
 
     ou:
       # -------------------------------------------------------------------------
@@ -55,14 +55,14 @@ ldap:
     #   for ordinary user/group operations, and vice versa.
 
   # Password to access dn.bind
-  bind_credential:      "{{ applications.openldap.credentials.administrator_database_password }}"
+  bind_credential:      "{{ applications['svc-db-openldap'].credentials.administrator_database_password }}"
   server:
-    domain:             "{{applications.openldap.hostname if applications.openldap.network.docker | bool else domains.openldap}}" # Mapping for public or locale access
+    domain:             "{{applications['svc-db-openldap'].hostname if applications['svc-db-openldap'].network.docker | bool else domains['svc-db-openldap']}}" # Mapping for public or locale access
     port:               "{{_ldap_server_port}}"
-    uri:                "{% if applications.openldap.network.docker | bool %}ldap://{{ applications.openldap.hostname }}{% else %}ldaps://{{ domains.openldap }}{% endif %}:{{ _ldap_server_port }}"
+    uri:                "{% if applications['svc-db-openldap'].network.docker | bool %}ldap://{{ applications['svc-db-openldap'].hostname }}{% else %}ldaps://{{ domains['svc-db-openldap'] }}{% endif %}:{{ _ldap_server_port }}"
     security:           "" #TLS, SSL - Leave empty for none
   network:
-    local:              "{{applications.openldap.network.docker}}" # Uses the application configuration to define if local network should be available or not
+    local:              "{{applications['svc-db-openldap'].network.docker}}" # Uses the application configuration to define if local network should be available or not
   user:
     objects:
       structural:

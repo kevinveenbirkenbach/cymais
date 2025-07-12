@@ -17,7 +17,7 @@
     database_username:  "postgres"
     database_name:      ""                              # Multiple databases
 
-- name: "include role srv-proxy-6-6-domain for {{application_id}}"
+- name: "include role srv-proxy-6-6-domain"
   include_role:
     name: srv-proxy-6-6-domain
 

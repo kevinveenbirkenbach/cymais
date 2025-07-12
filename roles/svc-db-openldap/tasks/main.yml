@@ -19,17 +19,17 @@
 
 - name: create docker network for LDAP, so that other applications can access it
   docker_network:
-    name: central_ldap
+    name: "{{ applications[application_id].network.name }}"
     state: present
     ipam_config:
-      - subnet: "{{ networks.local.central_ldap.subnet }}"
+      - subnet: "{{ networks.local['svc-db-openldap'].subnet }}"
 
 - meta: flush_handlers
 
 - name: "Wait for LDAP to be available"
   wait_for:
     host: "127.0.0.1"
-    port: "{{ ports.localhost.ldap.openldap }}"
+    port: "{{ ports.localhost.ldap['svc-db-openldap'] }}"
     delay: 5
     timeout: 120
     state: started

@@ -1,9 +1,9 @@
 ---
-- name: "load docker and db for {{application_id}}"
+- name: "For '{{ application_id }}': load docker and db"
   include_role: 
     name: cmp-db-docker
 
-- name: "include role for {{application_id}} to receive certs & do modification routines"
+- name: "For '{{ application_id }}': include role to receive certs & do modification routines"
   include_role:
     name: srv-web-7-6-composer
   vars:
@@ -13,13 +13,13 @@
     - "{{ domains | get_domain('mailu') }}"
     - "{{ domain }}"
     
-- name: configure {{domains | get_domain(application_id)}}.conf
+- name: "For '{{ application_id }}': configure {{domains | get_domain(application_id)}}.conf"
   template: 
     src: roles/srv-proxy-7-4-core/templates/vhost/basic.conf.j2 
     dest: "{{nginx.directories.http.servers}}{{domains | get_domain(application_id)}}.conf"
   notify: restart nginx
 
-- name: "include tasks update-repository-with-files.yml"
+- name: "For '{{ application_id }}': include tasks update-repository-with-files.yml"
   include_tasks: utils/update-repository-with-files.yml
   vars:
     detached_files: 

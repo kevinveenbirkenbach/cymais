@@ -1,8 +1,8 @@
-- name: "include docker-compose role"
+- name: "For '{{ application_id }}': include docker-compose role"
   include_role: 
     name: docker-compose
 
-- name: "include role srv-proxy-6-6-domain for {{application_id}}"
+- name: "For '{{ application_id }}': include role srv-proxy-6-6-domain"
   include_role:
     name: srv-proxy-6-6-domain
   vars:

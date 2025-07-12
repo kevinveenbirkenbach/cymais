@@ -3,7 +3,7 @@
     name: "{{ applications[application_id].network }}"
     state: present
     ipam_config:
-      - subnet: "{{ networks.local.postgres.subnet }}"
+      - subnet: "{{ networks.local['svc-db-postgres'].subnet }}"
   when: run_once_docker_postgres is not defined
 
 - name: Install PostgreSQL
@@ -19,7 +19,7 @@
     published_ports:
       - "127.0.0.1:{{ applications[application_id].port }}:5432"
     volumes:
-      - central_postgres_database:/var/lib/postgresql/data
+      - postgres_database:/var/lib/postgresql/data
     restart_policy: "{{ docker_restart_policy }}"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]

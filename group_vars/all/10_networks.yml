@@ -30,7 +30,7 @@ defaults_networks:
       subnet: 192.168.101.144/28
     keycloak:
       subnet: 192.168.101.160/28
-    openldap:
+    svc-db-openldap:
       subnet: 192.168.101.176/28
     listmonk:
       subnet: 192.168.101.192/28
@@ -96,9 +96,9 @@ defaults_networks:
     # /24 Networks / 254 Usable Clients
     bigbluebutton:
       subnet: 10.7.7.0/24 # This variable does not have an impact. It's just there for documentation reasons, because this network is used in bbb
-    postgres:
+    svc-db-postgres:
       subnet: 192.168.200.0/24
-    mariadb:
+    svc-db-mariadb:
       subnet: 192.168.201.0/24
-    central_ldap:
+    svc-db-openldap:
       subnet: 192.168.202.0/24

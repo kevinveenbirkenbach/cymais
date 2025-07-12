@@ -1,6 +1,6 @@
-hostname: "central-postgres"
-network:  "central_postgres"
-port: 5432
+hostname: "svc-db-postgres"
+network:  "svc-db-postgres"
+port:     5432
 docker:
   images:
     # Postgis is necessary for mobilizon

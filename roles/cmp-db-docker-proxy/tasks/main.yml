@@ -1,8 +1,8 @@
-- name: "load docker and db for {{application_id}}"
+- name: "For '{{ application_id }}': load docker and db"
   include_role: 
     name: cmp-db-docker
 
-- name: "include role srv-proxy-6-6-domain for {{application_id}}"
+- name: "For '{{ application_id }}': include role srv-proxy-6-6-domain"
   include_role:
     name: srv-proxy-6-6-domain
   vars:

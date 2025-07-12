@@ -1,0 +1,4 @@
+version:  "latest"
+hostname: "svc-db-mariadb"
+network:  "svc-db-mariadb"
+port:     5432

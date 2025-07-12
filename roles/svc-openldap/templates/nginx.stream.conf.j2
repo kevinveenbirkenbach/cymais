@@ -1,6 +1,0 @@
-server {
-    listen {{ports.public.ldaps.ldap}}ssl;
-    proxy_pass 127.0.0.1:{{ports.localhost.ldap.openldap}};
-    
-    {% include 'roles/srv-web-7-7-letsencrypt/templates/ssl_credentials.j2' %}
-}

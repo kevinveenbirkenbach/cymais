@@ -1,5 +1,5 @@
 ---
-- name: "load docker, db and proxy for {{application_id}}"
+- name: "For '{{ application_id }}': load docker, db and proxy"
   include_role: 
     name: cmp-db-docker-proxy
 
@@ -9,7 +9,7 @@
     detached_files: 
       - "docker-compose.yml"
 
-- name: "create {{docker_compose.files.env}}"
+- name: "For '{{ application_id }}': create {{docker_compose.files.env}}"
   template: 
     src:  "env.j2" 
     dest: "{{docker_compose.files.env}}"
