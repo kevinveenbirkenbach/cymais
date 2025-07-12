@@ -72,7 +72,7 @@
             recursive=True
           )) |
           generate_all_domains(
-            ('redir-www' in group_names)
+            ('web-opt-rdr-www' in group_names)
           )
         }}
 
