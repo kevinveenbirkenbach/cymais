@@ -179,7 +179,7 @@ class TestCspFilters(unittest.TestCase):
         # Ensure feature enabled and domain set
         self.apps['app1']['features']['portfolio_iframe'] = True
         # simulate a subdomain for the application
-        self.domains['portfolio'] = ['domain-example.com']
+        self.domains['web-app-port-ui'] = ['domain-example.com']
         
         header = self.filter.build_csp_header(self.apps, 'app1', self.domains, web_protocol='https')
         # Expect '*.domain-example.com' in the frame-ancestors directive
