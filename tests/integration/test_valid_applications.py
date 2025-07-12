@@ -2,7 +2,7 @@ import os
 import sys
 import re
 import unittest
-from cli.meta.applications import find_application_ids
+from cli.meta.applications.all import find_application_ids
 
 # ensure project root is on PYTHONPATH so we can import the CLI code
 # project root is two levels up from this file (tests/integration -> project root)
@@ -52,6 +52,18 @@ class TestValidApplicationUsage(unittest.TestCase):
                     self.APPLICATION_DOMAIN_RE,
                 ):
                     for match in pattern.finditer(content):
+                        name = match.group('name')
+                    for match in pattern.finditer(content):
+                        # Determine the full line containing this match
+                        start = match.start()
+                        line_start = content.rfind('\n', 0, start) + 1
+                        line_end = content.find('\n', start)
+                        line = content[line_start:line_end if line_end != -1 else None]
+
+                        # Skip any import or from-import lines
+                        if line.strip().startswith(('import ', 'from ')):
+                            continue
+
                         name = match.group('name')
                         # skip whitelisted methods/exceptions
                         if name in self.WHITELIST:

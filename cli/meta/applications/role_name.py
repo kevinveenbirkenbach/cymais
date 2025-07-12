@@ -6,8 +6,6 @@ This script determines the appropriate Ansible role folder based on the provided
 by inspecting each role's vars/main.yml within the roles directory. By default, it assumes the
 roles directory is located at the project root, relative to this script's location.
 
-Example:
-  ./get_role_folder_cli.py --application-id my-app-id
 """
 import os
 import sys
@@ -55,7 +53,7 @@ def main():
         '-r', '--roles-path',
         default=os.path.join(
             os.path.dirname(os.path.realpath(__file__)),
-            os.pardir, os.pardir,
+            os.pardir, os.pardir, os.pardir,
             'roles'
         ),
         help='Path to the roles directory (default: roles/ at project root)'

@@ -10,7 +10,7 @@ script_dir = Path(__file__).resolve().parent
 repo_root = script_dir.parent.parent
 sys.path.insert(0, str(repo_root))
 
-from cli.meta.applications import find_application_ids
+from cli.meta.applications.all import find_application_ids
 
 def load_yaml_file(path):
     try:

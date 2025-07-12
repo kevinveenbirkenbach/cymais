@@ -2,7 +2,7 @@ import os
 import sys
 import re
 import unittest
-from cli.meta.applications import find_application_ids
+from cli.meta.applications.all import find_application_ids
 
 # ensure project root is on PYTHONPATH so we can import your CLI code
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir))
