@@ -1,8 +1,8 @@
 database_instance:  "{{ applications[ 'svc-db-' ~ database_type ].hostname if applications | is_feature_enabled('central_database',database_application_id) else database_application_id }}"
 database_host:      "{{ applications[ 'svc-db-' ~ database_type ].hostname if applications | is_feature_enabled('central_database',database_application_id) else 'database' }}"
-database_name:      "{{ applications[ database_application_id ].database.name | default( database_application_id ) }}"      # The overwritte configuration is needed by bigbluebutton
-database_username:  "{{ applications[ database_application_id ].database.username | default( database_application_id )}}"   # The overwritte configuration is needed by bigbluebutton
-database_password:  "{{ applications[ database_application_id ].credentials.database_password }}"
+database_name:      "{{ applications | get_app_conf(database_application_id, 'database.name', False) | default( database_application_id ) }}"      # The overwritte configuration is needed by bigbluebutton
+database_username:  "{{ applications | get_app_conf(database_application_id, 'database.username', False) | default( database_application_id )}}"   # The overwritte configuration is needed by bigbluebutton
+database_password:  "{{ applications | get_app_conf(database_application_id, 'credentials.database_password', true) }}"
 database_port:      "{{ applications[ 'svc-db-' ~ database_type ].port }}"
 database_env:       "{{docker_compose.directories.env}}{{database_type}}.env"
 database_url_jdbc:  "jdbc:{{ database_type if database_type == 'mariadb' else 'postgresql' }}://{{ database_host }}:{{ database_port }}/{{ database_name }}"

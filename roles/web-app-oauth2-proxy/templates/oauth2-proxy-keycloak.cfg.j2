@@ -1,7 +1,7 @@
 http_address            =   "0.0.0.0:4180"
-cookie_secret           =   "{{ applications[oauth2_proxy_application_id].credentials.oauth2_proxy_cookie_secret }}"
+cookie_secret           =   "{{ applications | get_app_conf(oauth2_proxy_application_id, 'credentials.oauth2_proxy_cookie_secret', True) }}"
 cookie_secure           =   "true"                                                                                                                                                  # True is necessary to force the cookie set via https
-upstreams               =   "http://{{ applications[oauth2_proxy_application_id].oauth2_proxy.application }}:{{ applications[oauth2_proxy_application_id].oauth2_proxy.port }}"
+upstreams               =   "http://{{ applications | get_app_conf(oauth2_proxy_application_id, 'oauth2_proxy.application', True) }}:{{ applications | get_app_conf(oauth2_proxy_application_id, 'oauth2_proxy.application', True) }}"
 cookie_domains          =   ["{{ domains | get_domain(oauth2_proxy_application_id) }}", "{{ domains | get_domain('keycloak') }}"]                                                   # Required so cookie can be read on all subdomains.
 whitelist_domains       =   [".{{ primary_domain }}"]                                                                                                                               # Required to allow redirection back to original requested target.
 
@@ -13,11 +13,11 @@ oidc_issuer_url         =   "{{ oidc.client.issuer_url }}"
 provider                =   "oidc"
 provider_display_name   =   "{{ oidc.button_text }}"
 
-{% if applications[oauth2_proxy_application_id].oauth2_proxy.allowed_groups is defined %}
+{% if applications | get_app_conf(oauth2_proxy_application_id, 'oauth2_proxy.allowed_groups', True) is defined %}
 {# role based restrictions #}
 scope                   =   "openid email profile {{ oidc.claims.groups }}"
 oidc_groups_claim       =   "{{ oidc.claims.groups }}"
-allowed_groups          =   {{ applications[oauth2_proxy_application_id].oauth2_proxy.allowed_groups | tojson }}
+allowed_groups          =   {{ applications | get_app_conf(oauth2_proxy_application_id, 'oauth2_proxy.allowed_groups', True) | tojson }}
 email_domains           =   ["*"]
 {% else %}
 email_domains           =   "{{ primary_domain }}"

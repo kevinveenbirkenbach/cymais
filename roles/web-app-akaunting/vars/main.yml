@@ -1,4 +1,4 @@
 application_id:             "akaunting"
 database_type:              "mariadb"
-database_password:          "{{ applications[application_id]].credentials.database_password }}"
+database_password:          "applications | get_app_conf(application_id, 'credentials.database_password', True)"
 docker_repository_address:  "https://github.com/akaunting/docker.git"
