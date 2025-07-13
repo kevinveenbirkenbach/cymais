@@ -5,12 +5,20 @@ networks:
   {{ applications[ 'svc-db-' ~ database_type ].network }}:
     external: true
 {% endif %}
-{% if applications | get_app_conf(application_id, 'features.ldap', False) and applications['svc-db-openldap'].network.docker | bool %}
+{% if 
+  applications | get_app_conf(application_id, 'features.ldap', False) and 
+  applications | get_app_conf(application_id, 'network.docker', False)
+  %}
   svc-db-openldap:
     external: true
 {% endif %}
   default:
-{% if application_id in networks.local and networks.local[application_id].subnet is defined %}
+{% if
+  application_id in networks.local and 
+  networks.local[application_id].subnet is defined and
+  application_id != 'svc-db-openldap'
+%}
+    name: {{ application_id }}
     driver: bridge
     ipam:
       driver: default
