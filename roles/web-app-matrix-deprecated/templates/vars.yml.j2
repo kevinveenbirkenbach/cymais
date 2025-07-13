@@ -18,7 +18,7 @@ matrix_homeserver_implementation: synapse
 
 # A secret used as a base, for generating various other secrets.
 # You can put any string here, but generating a strong one is preferred (e.g. `pwgen -s 64 1`).
-matrix_homeserver_generic_secret_key: "{{applications[application_id].credentials.generic_secret_key}}"
+matrix_homeserver_generic_secret_key: "{{applications | get_app_conf(application_id, 'credentials.generic_secret_key', True)}}"
 
 # By default, the playbook manages its own Traefik (https://doc.traefik.io/traefik/) reverse-proxy server.
 # It will retrieve SSL certificates for you on-demand and forward requests to all other components.

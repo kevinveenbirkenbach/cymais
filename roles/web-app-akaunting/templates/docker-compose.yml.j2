@@ -3,7 +3,7 @@
 
 {% include 'roles/docker-container/templates/base.yml.j2' %}
 
-    image: "{{ applications[application_id].images[application_id] }}"
+    image: "{{ applications | get_app_conf(application_id, 'images.' ~ application_id, True) }}"
     build:
       context: .
     ports:

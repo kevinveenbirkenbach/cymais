@@ -43,7 +43,7 @@
 
 - name: Setup Nextcloud Plugins
   include_tasks: plugin.yml
-  loop: "{{applications[application_id].plugins | dict2items }}"
+  loop: "{{applications | get_app_conf(application_id, 'plugins', True) | dict2items }}"
   loop_control:
     loop_var: plugin_item
   vars:

@@ -35,4 +35,4 @@
 
 - name: Setup LDAP
   include_tasks: ldap.yml
-  when: applications[application_id].features.ldap | bool
+  when: applications | get_app_conf(application_id, 'features.ldap', True) | bool

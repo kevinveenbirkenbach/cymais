@@ -1,10 +1,10 @@
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
 
   application:
-    image: "{{ applications[application_id].images.openldap }}"
-    container_name: {{ applications[application_id].hostname }}
+    image: "{{ applications | get_app_conf(application_id, 'images.openldap', True) }}"
+    container_name: {{ applications | get_app_conf(application_id, 'hostname', True) }}
 {% include 'roles/docker-container/templates/base.yml.j2' %}
-{% if applications[application_id].network.public | bool or applications[application_id].network.local | bool %}
+{% if applications | get_app_conf(application_id, 'network.public', True) | bool or applications | get_app_conf(application_id, 'network.local', True) | bool %}
     ports:
       - 127.0.0.1:{{ports.localhost.ldap['svc-db-openldap']}}:{{ldap_docker_port}}
 {% endif %}

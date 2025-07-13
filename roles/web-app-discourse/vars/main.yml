@@ -1,6 +1,6 @@
 application_id:                         "discourse"
-database_password:                      "{{ applications[application_id].credentials.database_password }}"
+database_password:                      "{{ applications | get_app_conf(application_id, 'credentials.database_password', True) }}"
 database_type:                          "postgres"
-docker_repository_directory :           "{{docker_compose.directories.services}}{{applications[application_id].repository}}/"
-discourse_application_yml_destination:  "{{docker_repository_directory }}containers/{{applications[application_id].container}}.yml"
+docker_repository_directory :           "{{docker_compose.directories.services}}{{applications | get_app_conf(application_id, 'repository', True)}}/"
+discourse_application_yml_destination:  "{{docker_repository_directory }}containers/{{applications | get_app_conf(application_id, 'container', True)}}.yml"
 docker_compose_flush_handlers:          false

@@ -5,7 +5,7 @@
     name: docker-compose
   vars:
     database_instance:  "{{ application_id }}"
-    database_password:  "{{ applications[application_id].credentials.postgresql_secret }}"
+    database_password:  "{{ applications | get_app_conf(application_id, 'credentials.postgresql_secret', True) }}"
     database_username:  "postgres"
     database_name:      ""                              # Multiple databases
 
@@ -13,7 +13,7 @@
   include_tasks:        "{{ playbook_dir }}/roles/sys-bkp-docker-to-local/tasks/seed-database-to-backup.yml"
   vars:
     database_instance:  "{{ application_id }}"
-    database_password:  "{{ applications[application_id].credentials.postgresql_secret }}"
+    database_password:  "{{ applications | get_app_conf(application_id, 'credentials.postgresql_secret', True) }}"
     database_username:  "postgres"
     database_name:      ""                              # Multiple databases
 

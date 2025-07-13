@@ -3,7 +3,7 @@
   pds:
 {% set container_port = 3000 %}
 {% set container_healthcheck = 'xrpc/_health' %}
-    image: "{{ applications[application_id].images.pds }}"
+    image: "{{ applications | get_app_conf(application_id, 'images.pds', True) }}"
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
         - pds_data:/opt/pds

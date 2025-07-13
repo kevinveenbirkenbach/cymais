@@ -11,7 +11,7 @@
 - name: Generate DKIM key
   command: >
     docker compose exec -T antispam
-    rspamadm dkim_keygen -s dkim -d {{ applications[application_id].domain }} -k {{ mailu_dkim_key_path }}
+    rspamadm dkim_keygen -s dkim -d {{ applications | get_app_conf(application_id, 'domain', True) }} -k {{ mailu_dkim_key_path }}
   register: dkim_keygen_output
   when: dkim_key_file_stat.rc != 0
   args:

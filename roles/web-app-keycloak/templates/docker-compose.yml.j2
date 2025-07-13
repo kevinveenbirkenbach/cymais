@@ -1,9 +1,9 @@
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
 
   application:
-    image: "{{ applications[application_id].images.keycloak }}"
+    image: "{{ applications | get_app_conf(application_id, 'images.keycloak', True) }}"
     container_name: {{container_name}}
-    command: start {% if applications[application_id].import_realm | bool %}--import-realm{% endif %}
+    command: start {% if applications | get_app_conf(application_id, 'import_realm', True) | bool %}--import-realm{% endif %}
     {% include 'roles/docker-container/templates/base.yml.j2' %}
     ports:
       - "{{ keycloak_server_host }}:8080"

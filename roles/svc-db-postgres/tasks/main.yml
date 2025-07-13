@@ -1,6 +1,6 @@
 - name: Create Docker network for PostgreSQL
   docker_network:
-    name: "{{ applications[application_id].network }}"
+    name: "{{ applications | get_app_conf(application_id, 'network', True) }}"
     state: present
     ipam_config:
       - subnet: "{{ networks.local['svc-db-postgres'].subnet }}"
@@ -8,16 +8,16 @@
 
 - name: Install PostgreSQL
   docker_container:
-    name: "{{ applications[application_id].hostname }}"
+    name: "{{ applications | get_app_conf(application_id, 'hostname', True) }}"
     image: "{{ applications | get_docker_image(application_id) }}"
     detach: yes
     env:
-      POSTGRES_PASSWORD: "{{ applications[application_id].credentials.postgres_password }}"
+      POSTGRES_PASSWORD: "{{ applications | get_app_conf(application_id, 'credentials.postgres_password', True) }}"
       POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C" # Necessary for web-app-matrix
     networks:
-      - name: "{{ applications[application_id].network }}"
+      - name: "{{ applications | get_app_conf(application_id, 'network', True) }}"
     published_ports:
-      - "127.0.0.1:{{ applications[application_id].port }}:5432"
+      - "127.0.0.1:{{ applications | get_app_conf(application_id, 'port', True) }}:5432"
     volumes:
       - "{{ applications['svc-db-postgres'].volume }}:/var/lib/postgresql/data"
     restart_policy: "{{ docker_restart_policy }}"
@@ -31,7 +31,7 @@
   when: run_once_docker_postgres is not defined
 
 - name: Wait for Postgres inside the container
-  shell: "docker exec {{ applications[application_id].hostname }} pg_isready -U postgres"
+  shell: "docker exec {{ applications | get_app_conf(application_id, 'hostname', True) }} pg_isready -U postgres"
   register: pg_ready
   until: pg_ready.rc == 0
   retries: 30

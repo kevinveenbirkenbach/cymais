@@ -1,8 +1,8 @@
 ---
-- name: Set proxy_extra_configuration based on applications[application_id].public_api_activated
+- name: Set proxy_extra_configuration based on applications | get_app_conf(application_id, 'public_api_activated', True)
   set_fact:
     proxy_extra_configuration: >-
-      {% if not applications[application_id].public_api_activated %}
+      {% if not applications | get_app_conf(application_id, 'public_api_activated', True) %}
       {{ lookup('file', '{{ role_path }}/files/deactivate-public-api.conf') }}
       {% else %}
       ""
@@ -50,7 +50,7 @@
       -d {{ database_name }} << 'EOSQL'
     UPDATE users
     SET email = '{{ users.administrator.email }}',
-        password_login = {{ 'false' if applications[application_id].features.oidc else 'true' }}
+        password_login = {{ 'false' if applications | get_app_conf(application_id, 'features.oidc', True) else 'true' }}
     WHERE username = 'administrator';
     EOSQL
   args:

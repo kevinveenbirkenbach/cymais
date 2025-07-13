@@ -1,6 +1,6 @@
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
   application:
-    image: "{{ applications[application_id].images.joomla }}"
+    image: "{{ applications | get_app_conf(application_id, 'images.joomla', True) }}"
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - data:/var/www/html

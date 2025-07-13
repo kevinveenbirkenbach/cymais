@@ -9,17 +9,17 @@
     src:  "nginx.stream.conf.j2" 
     dest: "{{nginx.directories.streams}}{{domains | get_domain(application_id)}}.conf"
   notify: restart nginx
-  when: applications[application_id].network.public | bool
+  when: applications | get_app_conf(application_id, 'network.public', True) | bool
 
 - name: Remove {{domains | get_domain(application_id)}}.conf if LDAP is not exposed to internet
   file:
     path: "{{ nginx.directories.streams }}{{ domains | get_domain(application_id) }}.conf"
     state: absent
-  when: not applications[application_id].network.public | bool
+  when: not applications | get_app_conf(application_id, 'network.public', True) | bool
 
 - name: create docker network for LDAP, so that other applications can access it
   docker_network:
-    name: "{{ applications[application_id].network.name }}"
+    name: "{{ applications | get_app_conf(application_id, 'network', True).name }}"
     state: present
     ipam_config:
       - subnet: "{{ networks.local['svc-db-openldap'].subnet }}"
@@ -36,7 +36,7 @@
 
 - name: "Reset LDAP admin passwords"
   include_tasks: reset_admin_passwords.yml
-  when: applications[application_id].network.local
+  when: applications | get_app_conf(application_id, 'network.local', True)
 
 - name: "create directory {{ldif_host_path}}{{item}}"
   file:

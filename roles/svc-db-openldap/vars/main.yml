@@ -4,9 +4,9 @@ application_id:     "svc-db-openldap"
 ldaps_docker_port:  636
 ldap_docker_port:   389
 ldap_server_uri:    "ldap://127.0.0.1:{{ ports.localhost.ldap['svc-db-openldap'] }}"
-ldap_hostname:      "{{ applications[application_id].hostname }}"
+ldap_hostname:      "{{ applications | get_app_conf(application_id, 'hostname', True) }}"
 ldap_bind_dn:       "{{ ldap.dn.administrator.configuration }}"
-ldap_bind_pw:       "{{ applications[application_id].credentials.administrator_password }}"
+ldap_bind_pw:       "{{ applications | get_app_conf(application_id, 'credentials.administrator_password', True) }}"
 
 # LDIF Variables
 ldif_host_path:     "{{docker_compose.directories.volumes}}ldif/"

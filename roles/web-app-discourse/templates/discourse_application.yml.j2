@@ -178,4 +178,4 @@ run:
 
 docker_args:
   - --network={{application_id}}_default
-  - --name={{applications[application_id].container}}
+  - --name={{applications | get_app_conf(application_id, 'container', True)}}

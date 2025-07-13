@@ -1,6 +1,6 @@
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
   application:
-    image: "{{ applications[application_id].images[application_id] }}"
+    image: "{{ applications | get_app_conf(application_id, 'images.' ~ application_id, True) }}"
     volumes:
       - uploads:/var/lib/mobilizon/uploads
       - {{ mobilizon_host_conf_exs_file }}:/etc/mobilizon/config.exs:ro

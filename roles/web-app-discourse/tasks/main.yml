@@ -43,26 +43,26 @@
   meta: flush_handlers
   when: run_once_docker_discourse is not defined
 
-- name: "Connect {{ applications[application_id].container }} to network {{ applications['svc-db-postgres'].network }}"
+- name: "Connect {{ applications | get_app_conf(application_id, 'container', True) }} to network {{ applications['svc-db-postgres'].network }}"
   command: >
-    docker network connect {{ applications['svc-db-postgres'].network }} {{ applications[application_id].container }}
+    docker network connect {{ applications['svc-db-postgres'].network }} {{ applications | get_app_conf(application_id, 'container', True) }}
   register: network_connect
   failed_when: >
     network_connect.rc != 0 and
-    'Error response from daemon: endpoint with name {{ applications[application_id].container }} already exists in network {{ applications["svc-db-postgres"].network }}'
+    'Error response from daemon: endpoint with name {{ applications | get_app_conf(application_id, 'container', True) }} already exists in network {{ applications["svc-db-postgres"].network }}'
     not in network_connect.stderr
   changed_when: network_connect.rc == 0
   when:
     - applications | is_feature_enabled('central_database', application_id)
     - run_once_docker_discourse is not defined
 
-- name: "Remove {{ applications[application_id].network }} from {{ database_host }}"
+- name: "Remove {{ applications | get_app_conf(application_id, 'network', True) }} from {{ database_host }}"
   command: >
-    docker network disconnect {{ applications[application_id].network }} {{ database_host }}
+    docker network disconnect {{ applications | get_app_conf(application_id, 'network', True) }} {{ database_host }}
   register: network_disconnect
   failed_when: >
     network_disconnect.rc != 0 and
-    'is not connected to network {{ applications[application_id].network }}' not in network_disconnect.stderr
+    'is not connected to network {{ applications | get_app_conf(application_id, 'network', True) }}' not in network_disconnect.stderr
   changed_when: network_disconnect.rc == 0
   when:
     - applications | is_feature_enabled('central_database', application_id)

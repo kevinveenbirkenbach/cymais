@@ -4,7 +4,7 @@ container_name:                   "{{application_id}}_application"
 import_directory_host:            "{{docker_compose.directories.volumes}}import/"           # Directory in which keycloack import files are placed on the host
 import_directory_docker:          "/opt/keycloak/data/import/"                              # Directory in which keycloack import files are placed in the running docker container
 keycloak_realm:                   "{{ primary_domain}}"                                     # This is the name of the default realm which is used by the applications
-keycloak_administrator:           "{{ applications[application_id].users.administrator }}"  # Master Administrator
+keycloak_administrator:           "{{ applications | get_app_conf(application_id, 'users.administrator', True) }}"  # Master Administrator
 keycloak_administrator_username:  "{{ keycloak_administrator.username}}"                    # Master Administrator Username
 keycloak_administrator_password:  "{{ keycloak_administrator.password}}"                    # Master Administrator Password
 keycloak_kcadm_path:              "docker exec -i {{ container_name }} /opt/keycloak/bin/kcadm.sh"

@@ -2,7 +2,7 @@
 
   application:
 {% set container_port = 9000 %}
-    image: chocobozzz/peertube:production-{{ applications[application_id].version }}
+    image: chocobozzz/peertube:production-{{ applications | get_app_conf(application_id, 'version', True) }}
     container_name: {{ container_name }}
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     ports:

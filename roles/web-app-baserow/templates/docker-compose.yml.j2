@@ -2,7 +2,7 @@
 
   application:
 {% include 'roles/docker-container/templates/base.yml.j2' %}
-    image: "{{ applications[application_id].images.baserow }}"
+    image: "{{ applications | get_app_conf(application_id, 'images.baserow', True) }}"
     container_name: baserow-application
     volumes:
       - data:/baserow/data

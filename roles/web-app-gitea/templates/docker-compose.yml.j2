@@ -2,7 +2,7 @@
 
   application:
 {% include 'roles/docker-container/templates/base.yml.j2' %}
-    image: "{{ applications[application_id].images.gitea }}"
+    image: "{{ applications | get_app_conf(application_id, 'images.gitea', True) }}"
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:{{ container_port }}"
       - "{{ports.public.ssh[application_id]}}:22"

@@ -3,7 +3,7 @@ homeserver:
     # The address that this appservice can use to connect to the homeserver.
     address: http://synapse:8008
     # The domain of the homeserver (also known as server_name, used for MXIDs, etc).
-    domain: {{applications[application_id].server_name}}
+    domain: {{applications | get_app_conf(application_id, 'server_name', True)}}
     
     # What software is the homeserver running?
     # Standard Matrix homeservers like Synapse, Dendrite and Conduit should just use "standard" here.
@@ -42,7 +42,7 @@ appservice:
         #           https://github.com/mattn/go-sqlite3#connection-string
         #   Postgres: Connection string. For example, postgres://user:password@host/database?sslmode=disable
         #             To connect via Unix socket, use something like postgres:///dbname?host=/var/run/postgresql
-        uri: postgres://mautrix_whatsapp_bridge:{{applications[application_id].credentials.mautrix_whatsapp_bridge_database_password}}@{{database_host}}/mautrix_whatsapp_bridge?sslmode=disable
+        uri: postgres://mautrix_whatsapp_bridge:{{applications | get_app_conf(application_id, 'credentials.mautrix_whatsapp_bridge_database_password', True)}}@{{database_host}}/mautrix_whatsapp_bridge?sslmode=disable
         # Maximum number of connections. Mostly relevant for Postgres.
         max_open_conns: 20
         max_idle_conns: 2
@@ -236,7 +236,7 @@ bridge:
     force_active_delivery_receipts: false
     # Servers to always allow double puppeting from
     double_puppet_server_map:
-        {{applications[application_id].server_name}}: https://{{domains.matrix.synapse}}
+        {{applications | get_app_conf(application_id, 'server_name', True)}}: https://{{domains.matrix.synapse}}
     # Allow using double puppeting from any server with a valid client .well-known file.
     double_puppet_allow_discovery: false
     # Shared secrets for https://github.com/devture/matrix-synapse-shared-secret-auth
@@ -245,7 +245,7 @@ bridge:
     # instead of users having to find an access token and run `login-matrix`
     # manually.
     login_shared_secret_map:
-        {{applications[application_id].server_name}}: {{applications[application_id].credentials.registration_shared_secret}}
+        {{applications | get_app_conf(application_id, 'server_name', True)}}: {{applications | get_app_conf(application_id, 'credentials.registration_shared_secret', True)}}
     # Whether to explicitly set the avatar and room name for private chat portal rooms.
     # If set to `default`, this will be enabled in encrypted rooms and disabled in unencrypted rooms.
     # If set to `always`, all DM rooms will have explicit names and avatars set.
@@ -434,8 +434,8 @@ bridge:
     #     mxid - Specific user
     permissions:
         "*": relay
-        "{{applications[application_id].server_name}}": user
-        "@{{applications[application_id].users.administrator.username}}:{{applications[application_id].server_name}}": admin
+        "{{applications | get_app_conf(application_id, 'server_name', True)}}": user
+        "@{{applications | get_app_conf(application_id, 'users.administrator.username', True)}}:{{applications | get_app_conf(application_id, 'server_name', True)}}": admin
     
     # Settings for relay mode
     relay:

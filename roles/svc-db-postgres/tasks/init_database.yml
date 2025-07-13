@@ -13,7 +13,7 @@
     name: "{{ database_name }}"
     state: present
     login_user: postgres
-    login_password: "{{ applications[application_id].credentials.postgres_password }}"
+    login_password: "{{ applications | get_app_conf(application_id, 'credentials.postgres_password', True) }}"
     login_host: 127.0.0.1
     login_port: "{{ database_port }}"
 
@@ -25,7 +25,7 @@
     db:             "{{ database_name }}"
     state:          present
     login_user:     postgres
-    login_password: "{{ applications[application_id].credentials.postgres_password }}"
+    login_password: "{{ applications | get_app_conf(application_id, 'credentials.postgres_password', True) }}"
     login_host:     127.0.0.1
     login_port:     "{{ database_port }}"
 
@@ -34,7 +34,7 @@
   postgresql_query:
     db: postgres
     login_user: postgres
-    login_password: "{{ applications[application_id].credentials.postgres_password }}"
+    login_password: "{{ applications | get_app_conf(application_id, 'credentials.postgres_password', True) }}"
     login_host: 127.0.0.1
     login_port: "{{ database_port }}"
     query: |
@@ -52,7 +52,7 @@
     schema: public
     state:  present
     login_user:     postgres
-    login_password: "{{ applications[application_id].credentials.postgres_password }}"
+    login_password: "{{ applications | get_app_conf(application_id, 'credentials.postgres_password', True) }}"
     login_host:     127.0.0.1
     login_port:     "{{ database_port }}"
 
@@ -65,7 +65,7 @@
     privs: ALL
     state: present
     login_user:     postgres
-    login_password: "{{ applications[application_id].credentials.postgres_password }}"
+    login_password: "{{ applications | get_app_conf(application_id, 'credentials.postgres_password', True) }}"
     login_host:     127.0.0.1
     login_port:     "{{ database_port }}"
 
@@ -74,7 +74,7 @@
   postgresql_query:
     db: "{{ database_name }}"
     login_user: postgres
-    login_password: "{{ applications[application_id].credentials.postgres_password }}"
+    login_password: "{{ applications | get_app_conf(application_id, 'credentials.postgres_password', True) }}"
     login_host: 127.0.0.1
     login_port: "{{ database_port }}"
     query: |
@@ -90,7 +90,7 @@
     ext:        "{{ item }}"
     state:      present
     login_user:     postgres
-    login_password: "{{ applications[application_id].credentials.postgres_password }}"
+    login_password: "{{ applications | get_app_conf(application_id, 'credentials.postgres_password', True) }}"
     login_host:     127.0.0.1
     login_port:     "{{ database_port }}"
   loop:

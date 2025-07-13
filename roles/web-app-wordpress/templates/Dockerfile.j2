@@ -1,4 +1,4 @@
-FROM wordpress:{{applications[application_id].version}}
+FROM wordpress:{{applications | get_app_conf(application_id, 'version', True)}}
 
 # Install msmtp and update system
 RUN apt-get update && \

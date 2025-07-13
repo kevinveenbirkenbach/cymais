@@ -7,7 +7,7 @@
   template:
     src:  "taiga/{{item}}.py.j2"
     dest: "{{ docker_compose.directories.config }}taiga-{{item}}.py"
-  when:   applications[application_id].features.oidc and applications[application_id].oidc.flavor == 'taigaio'
+  when:   applications | get_app_conf(application_id, 'features.oidc', True) and applications | get_app_conf(application_id, 'oidc.flavor', True) == 'taigaio'
   notify: docker compose up
   loop:   "{{ settings_files }}"
 

@@ -2,7 +2,7 @@
   application:
 {% set container_port = 80 %}
 {% include 'roles/docker-container/templates/base.yml.j2' %}
-    image: "{{ applications[application_id].images['matomo'] }}"
+    image: "{{ applications | get_app_conf(application_id, 'docker.services.matomo.image']', True) }}"
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:{{ container_port }}"
     volumes:

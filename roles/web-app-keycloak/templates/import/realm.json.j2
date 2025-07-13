@@ -890,8 +890,8 @@
         "organization",
         "offline_access",
         "microprofile-jwt",
-        "{{ applications[application_id].scopes.rbac_roles }}",
-        "{{ applications[application_id].scopes.nextcloud }}"
+        "{{ applications | get_app_conf(application_id, 'scopes.rbac_roles', True) }}",
+        "{{ applications | get_app_conf(application_id, 'scopes.nextcloud', True) }}"
 
       ]
     }
@@ -1197,7 +1197,7 @@
     },
     {
       "id": "15dd4961-5b4f-4635-a3f1-a21e1fa7bf3a",
-      "name": "{{ applications[application_id].scopes.nextcloud }}",
+      "name": "{{ applications | get_app_conf(application_id, 'scopes.nextcloud', True) }}",
       "description": "Optimized mappers for nextcloud oidc_login with ldap.",
       "protocol": "openid-connect",
       "attributes": {
@@ -1249,7 +1249,7 @@
     },
     {
       "id": "59917c48-a7ef-464a-a8b0-ea24316db18e",
-      "name": "{{ applications[application_id].scopes.rbac_roles }}",
+      "name": "{{ applications | get_app_conf(application_id, 'scopes.rbac_roles', True) }}",
       "description": "RBAC Groups",
       "protocol": "openid-connect",
       "attributes": {
@@ -1675,8 +1675,8 @@
     "phone",
     "microprofile-jwt",
     "organization",
-    "{{ applications[application_id].scopes.rbac_roles }}",
-    "{{ applications[application_id].scopes.nextcloud }}"
+    "{{ applications | get_app_conf(application_id, 'scopes.rbac_roles', True) }}",
+    "{{ applications | get_app_conf(application_id, 'scopes.nextcloud', True) }}"
   ],
   "browserSecurityHeaders": {
     "contentSecurityPolicyReportOnly": "",
@@ -1994,7 +1994,7 @@
                   "false"
                 ],
                 "groups.path": [
-                  "{{ applications[application_id].rbac_groups }}"
+                  "{{ applications | get_app_conf(application_id, 'rbac_groups', True) }}"
                 ]
               }
             },
@@ -2920,8 +2920,8 @@
         "action": "register",
         "useRecaptchaNet": "false",
         "recaptcha.v3": "true",
-        "secret.key": "{{ applications[application_id].credentials.recaptcha.secret_key }}",
-        "site.key": "{{ applications[application_id].credentials.recaptcha.website_key }}"
+        "secret.key": "{{ applications | get_app_conf(application_id, 'credentials.recaptcha.secret_key', True) }}",
+        "site.key": "{{ applications | get_app_conf(application_id, 'credentials.recaptcha.website_key', True) }}"
       }
     },
 {%- endif %}

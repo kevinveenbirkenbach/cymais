@@ -1,7 +1,7 @@
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
 
   web:
-    image: "{{ applications[application_id].images.gitlab }}"
+    image: "{{ applications | get_app_conf(application_id, 'images.gitlab', True) }}"
     hostname: '{{domains | get_domain(application_id)}}'
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     ports:

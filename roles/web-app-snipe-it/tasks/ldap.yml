@@ -17,7 +17,7 @@
     docker-compose exec -T \
       -u www-data \
       -e XDG_CONFIG_HOME=/tmp \
-      -e APP_KEY='{{ applications[application_id].credentials.app_key }}' \
+      -e APP_KEY='{{ applications | get_app_conf(application_id, 'credentials.app_key', True) }}' \
       application \
       sh -c 'echo "SHELL sees APP_KEY=$APP_KEY"'
   args:
@@ -27,7 +27,7 @@
   shell: |
     docker-compose exec -T -u www-data \
     -e XDG_CONFIG_HOME=/tmp \
-    -e APP_KEY="{{ applications[application_id].credentials.app_key }}" \
+    -e APP_KEY="{{ applications | get_app_conf(application_id, 'credentials.app_key', True) }}" \
     application \
     php artisan tinker --execute="echo 'CONFIG app.key: ' . config('app.key') . PHP_EOL;"
   args:
@@ -36,7 +36,7 @@
 - name: "Set all LDAP settings via Laravel Setting model (inside container as www-data)"
   shell: |
     docker-compose exec -T \
-    -e APP_KEY='{{ applications[application_id].credentials.app_key }}' \ 
+    -e APP_KEY='{{ applications | get_app_conf(application_id, 'credentials.app_key', True) }}' \ 
     -e XDG_CONFIG_HOME=/tmp \ 
     -u www-data application \ 
     sh -c 'php artisan tinker << "EOF"
@@ -75,7 +75,7 @@
   shell: |
     docker-compose exec -T \
       -u www-data \
-      -e APP_KEY="{{ applications[application_id].credentials.app_key }}" \
+      -e APP_KEY="{{ applications | get_app_conf(application_id, 'credentials.app_key', True) }}" \
       -e XDG_CONFIG_HOME=/tmp \
       application \
       php artisan tinker --execute="

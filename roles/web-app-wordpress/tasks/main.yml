@@ -6,7 +6,7 @@
 - name: "Include role srv-proxy-6-6-domain for {{ application_id }}"
   include_role:
     name: srv-proxy-6-6-domain
-  loop: "{{ applications[application_id].domains.canonical }}"
+  loop: "{{ applications | get_app_conf(application_id, 'domain', True)s.canonical }}"
   loop_control:
     loop_var: domain
   vars:
@@ -33,7 +33,7 @@
   block:
     - name: "Iterate through WordPress plugins"
       include_tasks: plugin.yml
-      loop: "{{ applications[application_id].plugins | dict2items }}"
+      loop: "{{ applications | get_app_conf(application_id, 'plugins', True) | dict2items }}"
       loop_control:
         label: "{{ item.key }}"
       vars:

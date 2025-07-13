@@ -53,7 +53,7 @@
   
   typesense:
 {% include 'roles/docker-container/templates/base.yml.j2' %}
-    image: "{{ applications[application_id].docker.images.typesense }}"
+    image: "{{ applications | get_app_conf(application_id, 'docker.images.typesense', True) }}"
     volumes:
       - ./typesense/data:/data
     command: --data-dir /data --enable-cors

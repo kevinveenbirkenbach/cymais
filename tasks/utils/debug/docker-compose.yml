@@ -17,7 +17,7 @@
         missing_keys: "{{ missing_keys + ['applications.{}.docker.services.redis.enabled'.format(application_id)] }}"
       when: applications[application_id].docker.services.redis is not defined
 
-    - name: Check if applications[application_id].images[application_id] exists
+    - name: Check if applications | get_app_conf(application_id, 'images.' ~ application_id, True) exists
       set_fact:
         missing_keys: "{{ missing_keys + ['applications.{}.images.{}'.format(application_id, application_id)] }}"
       when: applications[application_id].images is not defined or applications[application_id].images.get(application_id) is not defined

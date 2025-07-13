@@ -21,8 +21,8 @@ openproject_rails_settings:
 openproject_filters:
   administrators: >-
     {{ '(memberOf=cn=openproject-admins,' ~ ldap.dn.ou.roles ~ ')' 
-       if applications[application_id].ldap.filters.administrators else '' }}
+       if applications | get_app_conf(application_id, 'ldap.filters.administrators', True) else '' }}
 
   users: >-
     {{ '(memberOf=cn=openproject-users,' ~ ldap.dn.ou.roles ~ ')' 
-       if applications[application_id].ldap.filters.users else '' }}
+       if applications | get_app_conf(application_id, 'ldap.filters.users', True) else '' }}

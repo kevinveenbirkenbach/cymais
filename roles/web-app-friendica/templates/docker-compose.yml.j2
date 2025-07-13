@@ -1,6 +1,6 @@
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
   application:
-    image: "{{ applications[application_id].images.friendica }}"
+    image: "{{ applications | get_app_conf(application_id, 'images.friendica', True) }}"
     {% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - html:{{ friendica_application_base }}

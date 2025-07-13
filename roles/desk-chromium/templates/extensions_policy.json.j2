@@ -1,14 +1,14 @@
 {
   "ExtensionInstallForcelist": [
-    {% for plugin in applications[application_id].chromium.plugins -%}
+    {% for plugin in applications | get_app_conf(application_id, 'chromium.plugins', True) -%}
     "{{ plugin.id }};{{ plugin.update_url }}"{% if not loop.last %},{% endif %}
     {% endfor %}
   ],
   "ExtensionSettings": {
     "*": {
-      "installation_mode": "{{ applications[application_id].default_installation_mode }}"
+      "installation_mode": "{{ applications | get_app_conf(application_id, 'default_installation_mode', True) }}"
     }
-    {% for plugin in applications[application_id].chromium.plugins -%},
+    {% for plugin in applications | get_app_conf(application_id, 'chromium.plugins', True) -%},
     "{{ plugin.id }}": {
       "installation_mode": "{{ plugin.installation_mode }}",
       "update_url": "{{ plugin.update_url }}",
@@ -16,5 +16,5 @@
     }
     {% endfor %}
   },
-  "PasswordManagerEnabled": {{ applications[application_id].password_manager_enabled }}
+  "PasswordManagerEnabled": {{ applications | get_app_conf(application_id, 'password_manager_enabled', True) }}
 }

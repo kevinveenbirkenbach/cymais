@@ -3,7 +3,7 @@ homeserver:
     # The address that this appservice can use to connect to the homeserver.
     address: http://synapse:8008
     # The domain of the homeserver (also known as server_name, used for MXIDs, etc).
-    domain: {{applications[application_id].server_name}}
+    domain: {{applications | get_app_conf(application_id, 'server_name', True)}}
     # Whether or not to verify the SSL certificate of the homeserver.
     # Only applies if address starts with https://
     verify_ssl: true
@@ -42,7 +42,7 @@ appservice:
     # Format examples:
     #   SQLite:   sqlite:filename.db
     #   Postgres: postgres://username:password@hostname/dbname
-    database: postgres://mautrix_instagram_bridge:{{applications[application_id].credentials.mautrix_instagram_bridge_database_password}}@{{database_host}}/mautrix_instagram_bridge
+    database: postgres://mautrix_instagram_bridge:{{applications | get_app_conf(application_id, 'credentials.mautrix_instagram_bridge_database_password', True)}}@{{database_host}}/mautrix_instagram_bridge
     # Additional arguments for asyncpg.create_pool() or sqlite3.connect()
     # https://magicstack.github.io/asyncpg/current/api/index.html#asyncpg.pool.create_pool
     # https://docs.python.org/3/library/sqlite3.html#sqlite3.connect
@@ -134,7 +134,7 @@ bridge:
     double_puppet_allow_discovery: false
     # Servers to allow double puppeting from, even if double_puppet_allow_discovery is false.
     double_puppet_server_map:
-        {{applications[application_id].server_name}}: https://{{domains.matrix.synapse}}
+        {{applications | get_app_conf(application_id, 'server_name', True)}}: https://{{domains.matrix.synapse}}
     # Shared secret for https://github.com/devture/matrix-synapse-shared-secret-auth
     #
     # If set, custom puppets will be enabled automatically for local users
@@ -143,7 +143,7 @@ bridge:
     # If using this for other servers than the bridge's server,
     # you must also set the URL in the double_puppet_server_map.
     login_shared_secret_map:
-        {{applications[application_id].server_name}}: {{applications[application_id].credentials.registration_shared_secret}}
+        {{applications | get_app_conf(application_id, 'server_name', True)}}: {{applications | get_app_conf(application_id, 'credentials.registration_shared_secret', True)}}
     # Whether or not created rooms should have federation enabled.
     # If false, created portal rooms will never be federated.
     federate_rooms: true
@@ -359,8 +359,8 @@ bridge:
     #     mxid - Specific user
     permissions:
         "*": relay
-        "{{applications[application_id].server_name}}": user
-        "@{{applications[application_id].users.administrator.username}}:{{applications[application_id].server_name}}": admin
+        "{{applications | get_app_conf(application_id, 'server_name', True)}}": user
+        "@{{applications | get_app_conf(application_id, 'users.administrator.username', True)}}:{{applications | get_app_conf(application_id, 'server_name', True)}}": admin
 
     relay:
         # Whether relay mode should be allowed. If allowed, `!ig set-relay` can be used to turn any

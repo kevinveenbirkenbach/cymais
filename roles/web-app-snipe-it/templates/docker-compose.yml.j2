@@ -2,7 +2,7 @@
 
   application:
 {% set container_port = 80 %}
-    image: grokability/snipe-it:{{applications[application_id].version}}
+    image: grokability/snipe-it:{{applications | get_app_conf(application_id, 'version', True)}}
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - data:/var/lib/snipeit

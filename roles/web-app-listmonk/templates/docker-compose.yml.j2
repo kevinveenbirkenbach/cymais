@@ -2,7 +2,7 @@
   application:
 {% set container_healthcheck = 'health' %}
 {% include 'roles/docker-container/templates/base.yml.j2' %}
-    image: "{{ applications[application_id].images.listmonk }}"
+    image: "{{ applications | get_app_conf(application_id, 'images.listmonk', True) }}"
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:{{ container_port }}"
     volumes:

@@ -3,7 +3,7 @@
   web:
 {% set container_port = 3000 %}
 {% set container_healthcheck = 'health' %}
-    image: "{{ applications[application_id].images[application_id] }}"
+    image: "{{ applications | get_app_conf(application_id, 'images.' ~ application_id, True) }}"
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p {{ container_port }}"
 {% include 'roles/docker-container/templates/healthcheck/wget.yml.j2' %}
@@ -17,7 +17,7 @@
   streaming:
 {% set container_port = 4000 %}
 {% set container_healthcheck = 'api/v1/streaming/health' %}
-    image: "{{ applications[application_id].images.streaming }}"
+    image: "{{ applications | get_app_conf(application_id, 'images.streaming', True) }}"
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     command: node ./streaming
 {% include 'roles/docker-container/templates/healthcheck/wget.yml.j2' %}
@@ -27,7 +27,7 @@
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 
   sidekiq:
-    image: "{{ applications[application_id].images.mastodon }}"
+    image: "{{ applications | get_app_conf(application_id, 'images.mastodon', True) }}"
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     command: bundle exec sidekiq
 {% include 'roles/docker-container/templates/depends_on/dmbs_excl.yml.j2' %}
