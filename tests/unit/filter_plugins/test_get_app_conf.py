@@ -104,7 +104,14 @@ class TestGetAppConf(unittest.TestCase):
             get_app_conf(self.applications, "unknown", "features.foo", strict=True)
         with self.assertRaises(AppConfigKeyError):
             get_app_conf(self.applications, "unknown", "features.foo", strict=False)
-
+            
+    def test_return_dict_strict_true(self):
+        """Test that retrieving a dict value (strict) returns the dict itself."""
+        result = get_app_conf(self.applications, "myapp", "docker.images", strict=True)
+        expected = {
+            "myapp": "repo/myapp"
+        }
+        self.assertEqual(result, expected)
 
 if __name__ == '__main__':
     unittest.main()
