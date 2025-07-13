@@ -12,7 +12,7 @@
     group: 33
     force: yes
   notify: docker compose up
-  when: applications | is_feature_enabled('ldap',application_id)
+  when: applications | get_app_conf(application_id, 'features.ldap', False)
 
 - name: Build friendica_addons based on features
   set_fact:

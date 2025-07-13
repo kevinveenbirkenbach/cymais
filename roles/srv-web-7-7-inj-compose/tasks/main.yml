@@ -1,19 +1,19 @@
 - name: "Activate Global CSS for {{domain}}"
   include_role:
     name: srv-web-7-7-inj-css
-  when: applications | is_feature_enabled('css',application_id)
+  when: applications | get_app_conf(application_id, 'features.css', False)
 
 - name: "Activate Global Matomo Tracking for {{domain}}"
   include_role:
     name: srv-web-7-7-inj-matomo
-  when: applications | is_feature_enabled('matomo',application_id)
+  when: applications | get_app_conf(application_id, 'features.matomo', False)
 
 - name: "Activate Portfolio iFrame Notifier for {{ domain }}"
   include_role:
     name: srv-web-7-7-inj-iframe
-  when: applications | is_feature_enabled('port-ui-desktop', application_id)
+  when: applications | get_app_conf(application_id, 'features.port-ui-desktop', False)
 
 - name: "Activate Javascript for {{ domain }}"
   include_role:
     name: srv-web-7-7-inj-javascript
-  when: applications | is_feature_enabled('javascript', application_id)
+  when: applications | get_app_conf(application_id, 'features.javascript', False)

@@ -53,7 +53,7 @@
     not in network_connect.stderr
   changed_when: network_connect.rc == 0
   when:
-    - applications | is_feature_enabled('central_database', application_id)
+    - applications | get_app_conf(application_id, 'features.central_database', False)
     - run_once_docker_discourse is not defined
 
 - name: "Remove {{ applications | get_app_conf(application_id, 'network', True) }} from {{ database_host }}"
@@ -65,7 +65,7 @@
     'is not connected to network {{ applications | get_app_conf(application_id, 'network', True) }}' not in network_disconnect.stderr
   changed_when: network_disconnect.rc == 0
   when:
-    - applications | is_feature_enabled('central_database', application_id)
+    - applications | get_app_conf(application_id, 'features.central_database', False)
     - run_once_docker_discourse is not defined
 
 - name: run the docker_discourse tasks once

@@ -29,8 +29,8 @@
 - name: "set oauth2_proxy_application_id (Needed due to lazzy loading issue)"
   set_fact:
     oauth2_proxy_application_id: "{{ application_id }}"
-  when: applications | is_feature_enabled('oauth2',application_id)
+  when: applications | get_app_conf(application_id, 'features.oauth2', False)
 
 - name: "include the web-app-oauth2-proxy role {{domain}}"
   include_tasks: "{{ playbook_dir }}/roles/web-app-oauth2-proxy/tasks/main.yml"
-  when: applications | is_feature_enabled('oauth2',application_id)
+  when: applications | get_app_conf(application_id, 'features.oauth2', False)

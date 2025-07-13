@@ -46,7 +46,7 @@
   until: gitea_ready.status == 200
   retries: 20
   delay: 5
-  when: applications | is_feature_enabled('oidc', application_id) or applications | is_feature_enabled('ldap', application_id)
+  when: applications | get_app_conf(application_id, 'features.oidc', False) or applications | get_app_conf(application_id, 'features.ldap', False)
 
 - name: Execute Setup Routines
   include_tasks: setup.yml

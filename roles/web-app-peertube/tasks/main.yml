@@ -13,8 +13,8 @@
 
 - name: "Install and activate auth-openid-connect plugin if OIDC is enabled"
   include_tasks: enable-oidc.yml
-  when: applications | is_feature_enabled('oidc',application_id)
+  when: applications | get_app_conf(application_id, 'features.oidc', False)
 
 - name: "Deinstall and disable auth-openid-connect plugin if OIDC is enabled"
   include_tasks: disable-oidc.yml
-  when: applications | is_feature_enabled('oidc',application_id)
+  when: applications | get_app_conf(application_id, 'features.oidc', False)

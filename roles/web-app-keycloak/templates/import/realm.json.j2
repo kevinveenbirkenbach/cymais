@@ -2820,7 +2820,7 @@
           "autheticatorFlow": false,
           "userSetupAllowed": false
         },
-{%- if applications | is_feature_enabled('recaptcha', application_id) %}
+{%- if applications | get_app_conf(application_id, 'features.recaptcha', False) %}
         {
           "authenticatorConfig": "Google reCaptcha",
           "authenticator": "registration-recaptcha-action",
@@ -2912,7 +2912,7 @@
     }
   ],
   "authenticatorConfig": [
-{%- if applications | is_feature_enabled('recaptcha',application_id) %}
+{%- if applications | get_app_conf(application_id, 'features.recaptcha', False) %}
     {
       "id": "c6dcf381-7e39-4f7f-8d1f-631faec31b56",
       "alias": "Google reCaptcha",

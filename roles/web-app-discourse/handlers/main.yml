@@ -13,7 +13,7 @@
     result.rc != 0 and
     'already exists in network' not in result.stderr
   register: result
-  when: applications | is_feature_enabled('central_database', application_id)
+  when: applications | get_app_conf(application_id, 'features.central_database', False)
   listen: recreate discourse
 
 - name: rebuild discourse

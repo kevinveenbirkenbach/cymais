@@ -6,4 +6,4 @@
 
 - name: "Configure Snipe-IT LDAP settings"
   import_tasks: ldap.yml
-  when: applications | is_feature_enabled('ldap',application_id)
+  when: applications | get_app_conf(application_id, 'features.ldap', False)

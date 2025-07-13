@@ -15,7 +15,7 @@
 
 - name: "Configure OIDC login for Moodle if enabled"
   include_tasks: oidc.yml
-  when: applications | is_feature_enabled('oidc',application_id)
+  when: applications | get_app_conf(application_id, 'features.oidc', False)
 
 - name: Run Moodle system check
   command: >

@@ -2,7 +2,7 @@ server
 {
   server_name {{domain}};
 
-  {% if applications | is_feature_enabled('oauth2',application_id) %}
+  {% if applications | get_app_conf(application_id, 'features.oauth2', False) %}
     {% include 'roles/web-app-oauth2-proxy/templates/endpoint.conf.j2'%}
   {% endif %}
 
@@ -15,7 +15,7 @@ server
 
   {% include 'roles/srv-web-7-7-letsencrypt/templates/ssl_header.j2' %}
 
-  {% if applications | is_feature_enabled('oauth2', application_id) %}
+  {% if applications | get_app_conf(application_id, 'features.oauth2', False) %}
     {% set acl = applications | get_app_conf(application_id, 'oauth2_proxy.acl', True) | default({}) %}
 
     {% if acl.blacklist is defined %}

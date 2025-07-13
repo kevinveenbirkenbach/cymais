@@ -27,7 +27,7 @@
   set_fact:
     portfolio_cards: "{{ portfolio_cards | add_simpleicon_source(domains, web_protocol) }}"
   when:
-    - (applications | is_feature_enabled('simpleicons',application_id))
+    - (applications | get_app_conf(application_id, 'features.simpleicons', False))
     - run_once_docker_portfolio is not defined
 
 - name: Group docker cards

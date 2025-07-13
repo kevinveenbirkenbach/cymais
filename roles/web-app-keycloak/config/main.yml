@@ -28,3 +28,8 @@ docker:
   services:
     database:
       enabled: true
+
+credentials:
+  recaptcha:
+    website_key:    "YOUR_RECAPTCHA_WEBSITE_KEY" # Required if you enabled recaptcha:
+    secret_key:     "YOUR_RECAPTCHA_SECRET_KEY" # Required if you enabled recaptcha:

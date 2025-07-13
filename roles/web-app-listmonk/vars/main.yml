@@ -18,7 +18,7 @@ listmonk_settings:
          "provider_url": oidc.client.issuer_url,
          "client_secret": oidc.client.secret
       } | to_json }}
-    when: applications | is_feature_enabled('oidc',application_id)
+    when: applications | get_app_conf(application_id, 'features.oidc', False)
 
   # hCaptcha toggles and credentials
   - key: "security.enable_captcha"

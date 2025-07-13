@@ -1,10 +1,11 @@
 {# This template needs to be included in docker-compose.yml #}
 networks:
-{% if applications | is_feature_enabled('central_database',application_id) and database_type is defined %}
+{% if applications | get_app_conf(application_id, 'features.central_database', False) and database_type is defined %}
+
   {{ applications[ 'svc-db-' ~ database_type ].network }}:
     external: true
 {% endif %}
-{% if applications | is_feature_enabled('ldap',application_id) and applications['svc-db-openldap'].network.docker | bool %}
+{% if applications | get_app_conf(application_id, 'features.ldap', False) and applications['svc-db-openldap'].network.docker | bool %}
   svc-db-openldap:
     external: true
 {% endif %}

@@ -1,5 +1,5 @@
 {# This needs to be included in docker-compose.yml which just contain a database volume #}
-{% if not applications | is_feature_enabled('central_database',application_id) %}
+{% if not applications | get_app_conf(application_id, 'features.central_database', False)%}
 volumes:
   database:
 {% endif %}

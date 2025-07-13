@@ -1,6 +1,6 @@
 FROM bitnami/moodle:{{ applications | get_app_conf(application_id, 'version', True) }}
 
-{% if applications | is_feature_enabled('oidc', application_id) %}
+{% if applications | get_app_conf(application_id, 'features.oidc', False) %}
 RUN install_packages unzip curl jq \
  && VERSION=$(curl -s https://api.github.com/repos/microsoft/moodle-auth_oidc/tags \
       | jq -r '.[].name' \

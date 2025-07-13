@@ -1,4 +1,5 @@
 from get_app_conf import get_app_conf
+
 def is_feature_enabled(applications: dict, feature: str, application_id: str) -> bool:
     """
     Wrapper for compatibility: Return True if applications[application_id].features[feature] is truthy.

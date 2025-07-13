@@ -2,10 +2,10 @@
 sub_filter_once off;
 sub_filter_types text/html;
 
-{% set modifier_css_enabled     = applications | is_feature_enabled('css',application_id) %}
-{% set modifier_matomo_enabled  = applications | is_feature_enabled('matomo',application_id) %}
-{% set modifier_iframe_enabled  = applications | is_feature_enabled('port-ui-desktop',application_id) %}
-{% set modifier_javascript_enabled  = applications | is_feature_enabled('javascript',application_id) %}
+{% set modifier_css_enabled     = applications | get_app_conf(application_id, 'features.css', False) %}
+{% set modifier_matomo_enabled  = applications | get_app_conf(application_id, 'features.matomo', False) %}
+{% set modifier_iframe_enabled  = applications | get_app_conf(application_id, 'features.port-ui-desktop', False) %}
+{% set modifier_javascript_enabled  = applications | get_app_conf(application_id, 'features.javascript', False) %}
 
 {% if modifier_iframe_enabled or modifier_css_enabled or modifier_matomo_enabled or modifier_javascript_enabled %}
 sub_filter '</head>' ' 

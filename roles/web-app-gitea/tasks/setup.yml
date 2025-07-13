@@ -1,7 +1,7 @@
 - name: Execute OIDC Setup Routine
   include_tasks: setup/oidc.yml
-  when: applications | is_feature_enabled('oidc', application_id)
+  when: applications | get_app_conf(application_id, 'features.oidc', False)
 
 - name: Execute LDAP Setup Routine
   include_tasks: setup/ldap.yml
-  when: applications | is_feature_enabled('ldap', application_id)
+  when: applications | get_app_conf(application_id, 'features.ldap', False)

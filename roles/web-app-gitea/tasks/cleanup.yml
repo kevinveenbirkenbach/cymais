@@ -1,7 +1,7 @@
 - name: Execute OIDC Cleanup Routine
   include_tasks: cleanup/oidc.yml
-  when: not (applications | is_feature_enabled('oidc', application_id))
+  when: not (applications | get_app_conf(application_id, 'features.oidc', False))
 
 - name: Execute LDAP Cleanup Routine
   include_tasks: cleanup/ldap.yml
-  when: not (applications | is_feature_enabled('ldap', application_id))
+  when: not (applications | get_app_conf(application_id, 'features.ldap', False))

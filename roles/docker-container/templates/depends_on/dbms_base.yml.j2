@@ -1,4 +1,4 @@
-{% if not applications | is_feature_enabled('central_database',application_id) %}
+{% if not applications | get_app_conf(application_id, 'features.central_database', False)%}
       {{ database_host }}:
         condition: service_healthy
 {% endif %}
