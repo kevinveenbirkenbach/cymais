@@ -5,15 +5,17 @@ import os
 sys.path.insert(
     0,
     os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "../../../")
+        os.path.join(os.path.dirname(__file__), "../../")
     ),
 )
 
-from filter_plugins.configuration_filters import (
-    is_feature_enabled,
-)
+from filter_plugins.get_app_conf import AppConfigKeyError, get_app_conf
 
-from filter_plugins.get_app_conf import AppConfigKeyError
+def is_feature_enabled(applications: dict, feature: str, application_id: str) -> bool:
+    """
+    Wrapper for compatibility: Return True if applications[application_id].features[feature] is truthy.
+    """
+    return bool(get_app_conf(applications, application_id, f"features.{feature}", strict=False))
 
 
 class TestConfigurationFilters(unittest.TestCase):
