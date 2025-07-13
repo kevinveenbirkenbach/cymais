@@ -1,3 +1,5 @@
+# tests/integration/test_get_app_conf_paths.py
+
 import os
 import re
 import unittest
@@ -56,6 +58,7 @@ class TestGetAppConfPaths(unittest.TestCase):
             if 'tests' in Path(dirpath).parts:
                 continue
             for fname in files:
+                # ignore .py and .sh files
                 if fname.endswith(('.py', '.sh')):
                     continue
                 file_path = Path(dirpath) / fname
@@ -96,14 +99,25 @@ class TestGetAppConfPaths(unittest.TestCase):
         for dotted, occs in self.variable_paths.items():
             with self.subTest(path=dotted):
                 found = False
-                # credentials.*: check preloaded schemas
+                # credentials.*: zuerst in defaults_applications prüfen, dann im Schema
                 if dotted.startswith('credentials.'):
-                    key = dotted.split('.',1)[1]
+                    key = dotted.split('.', 1)[1]
+                    # 1) defaults_applications[app_id].credentials
+                    for aid, cfg in self.defaults_app.items():
+                        creds = cfg.get('credentials', {})
+                        if isinstance(creds, dict) and key in creds:
+                            found = True
+                            break
+                    if found:
+                        continue
+                    # 2) role_schema.credentials
                     for aid, schema in self.role_schemas.items():
                         creds = schema.get('credentials', {})
                         if isinstance(creds, dict) and key in creds:
-                            found = True; break
-                    if found: continue
+                            found = True
+                            break
+                    if found:
+                        continue
                 # images.*: any images dict
                 if dotted.startswith('images.'):
                     if any(isinstance(cfg.get('images'), dict) for cfg in self.defaults_app.values()):
@@ -121,7 +135,8 @@ class TestGetAppConfPaths(unittest.TestCase):
                 for aid, cfg in self.defaults_app.items():
                     try:
                         self.assertNested(cfg, dotted, aid)
-                        found = True; break
+                        found = True
+                        break
                     except AssertionError:
                         pass
                 if not found:
@@ -138,12 +153,17 @@ class TestGetAppConfPaths(unittest.TestCase):
             pass
         # users.* fallback
         if dotted.startswith('users.'):
-            sub = dotted.split('.',1)[1]
+            sub = dotted.split('.', 1)[1]
             if sub in self.defaults_users:
                 return
-        # credentials.* fallback
+        # credentials.* fallback: defaults_applications, dann Schema
         if dotted.startswith('credentials.'):
-            key = dotted.split('.',1)[1]
+            key = dotted.split('.', 1)[1]
+            # 1) defaults_applications[app_id].credentials
+            creds_cfg = cfg.get('credentials', {})
+            if isinstance(creds_cfg, dict) and key in creds_cfg:
+                return
+            # 2) schema
             schema = self.role_schemas.get(app_id, {})
             creds = schema.get('credentials', {})
             self.assertIn(key, creds, f"Credential '{key}' missing for app '{app_id}'")
