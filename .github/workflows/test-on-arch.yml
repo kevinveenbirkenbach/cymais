@@ -1,0 +1,26 @@
+name: Build & Test on Arch Linux
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Arch Linux
+        uses: kiriuslen/archlinux-setup-action@v1
+
+      - name: Install dependencies
+        run: |
+          sudo pacman -Sy --noconfirm base-devel git python python-pip docker make
+          # Add weitere Dependencies falls nötig
+
+      - name: Build
+        run: make build
+
+      - name: Test
+        run: make test
