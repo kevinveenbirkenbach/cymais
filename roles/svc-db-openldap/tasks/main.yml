@@ -19,7 +19,7 @@
 
 - name: create docker network for LDAP, so that other applications can access it
   docker_network:
-    name: "{{ applications | get_app_conf(application_id, 'network', True).name }}"
+    name: "{{ applications | get_app_conf(application_id, 'network.name', True) }}"
     state: present
     ipam_config:
       - subnet: "{{ networks.local['svc-db-openldap'].subnet }}"
