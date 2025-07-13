@@ -1,6 +1,9 @@
 ports:
   # Ports which are exposed to localhost
   localhost:
+    database:
+      svc-db-postgres:  5432
+      svc-db-mariadb:   3306
     # https://developer.mozilla.org/de/docs/Web/API/WebSockets_API
     websocket:
       mastodon: 4001

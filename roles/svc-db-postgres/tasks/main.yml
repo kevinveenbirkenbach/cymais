@@ -17,7 +17,7 @@
     networks:
       - name: "{{ applications | get_app_conf(application_id, 'network', True) }}"
     published_ports:
-      - "127.0.0.1:{{ applications | get_app_conf(application_id, 'port', True) }}:5432"
+      - "127.0.0.1:{{ database_port }}:5432"
     volumes:
       - "{{ applications['svc-db-postgres'].volume }}:/var/lib/postgresql/data"
     restart_policy: "{{ docker_restart_policy }}"

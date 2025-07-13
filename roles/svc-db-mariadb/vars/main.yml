@@ -1,1 +1,3 @@
-application_id: svc-db-mariadb
+application_id:   svc-db-mariadb
+mariadb_hostname: "{{ applications | get_app_conf(application_id, 'hostname', True) }}"
+mariadb_root_pwd: "{{ applications['svc-db-mariadb'].credentials.root_password }}"
