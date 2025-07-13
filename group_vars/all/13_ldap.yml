@@ -6,7 +6,7 @@
 # Helper Variables:
 # Keep in mind to mapp this variables if there is ever the possibility for the user to define them in the inventory
 _ldap_dn_base:            "dc={{primary_domain_sld}},dc={{primary_domain_tld}}"
-_ldap_server_port:        "{% if applications['svc-db-openldap'].network.docker | bool %}{{ ports.localhost.ldap[application_id] }}{% else %}{{ ports.localhost.ldaps[application_id] }}{% endif %}"
+_ldap_server_port:        "{% if applications['svc-db-openldap'].network.docker | bool %}{{ ports.localhost.ldap['svc-db-openldap'] }}{% else %}{{ ports.localhost.ldaps['svc-db-openldap'] }}{% endif %}"
 _ldap_user_id:            "uid"
 _ldap_filters_users_all:  "(|(objectclass=inetOrgPerson))"
 
