@@ -9,8 +9,8 @@
     domain: "{{ item.domain }}"
     http_port: "{{ item.http_port }}"
   loop:
-    - { domain: "{{domains.[application_id].api", http_port: "{{ports.localhost.http.bluesky_api}}" }
-    - { domain: "{{domains.[application_id].web}}", http_port: "{{ports.localhost.http.bluesky_web}}" }
+    - { domain: "{{domains[application_id].api", http_port: "{{ports.localhost.http.bluesky_api}}" }
+    - { domain: "{{domains[application_id].web}}", http_port: "{{ports.localhost.http.bluesky_web}}" }
 
 # The following lines should be removed when the following issue is closed:
 # https://github.com/bluesky-social/pds/issues/52

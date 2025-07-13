@@ -54,7 +54,7 @@
       retries: 3
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 {% endfor %}
-{% if applications | get_app_conf(application_id, 'plugins', True).chatgpt | bool %}
+{% if applications | get_app_conf(application_id, 'plugins.chatgpt', True) | bool %}
   matrix-chatgpt-bot:
     restart: {{docker_restart_policy}}
     container_name: matrix-chatgpt
@@ -98,7 +98,7 @@
 
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   synapse_data:
-{% if applications | get_app_conf(application_id, 'plugins', True).chatgpt | bool %}
+{% if applications | get_app_conf(application_id, 'plugins.chatgpt', True) | bool %}
     chatgpt_data:
 {% endif %}
 
