@@ -11,16 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Arch Linux
-        uses: kiriuslen/archlinux-setup-action@v1
-
-      - name: Install dependencies
-        run: |
-          sudo pacman -Sy --noconfirm base-devel git python python-pip docker make
-          # Add weitere Dependencies falls nötig
-
-      - name: Build
-        run: make build
-
-      - name: Test
-        run: make test
+      - name: Build & Test in Arch Linux Container
+        uses: addnab/docker-run-action@v3
+        with:
+          image: archlinux:latest
+          options: -v ${{ github.workspace }}:/workspace -w /workspace
+          run: |
+            pacman -Sy --noconfirm base-devel git python python-pip docker make
+            make build
+            make test
