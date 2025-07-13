@@ -7,7 +7,7 @@ networks:
 {% endif %}
 {% if 
   applications | get_app_conf(application_id, 'features.ldap', False) and 
-  applications | get_app_conf(application_id, 'network.docker', False)
+  applications | get_app_conf('svc-db-openldap', 'network.docker', False)
   %}
   svc-db-openldap:
     external: true
