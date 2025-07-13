@@ -23,6 +23,5 @@ def get_docker_compose(path_docker_compose_instances: str, application_id: str) 
 class FilterModule(object):
     def filters(self):
         return {
-            'is_feature_enabled':   is_feature_enabled,
             'get_docker_compose':   get_docker_compose,
         }
