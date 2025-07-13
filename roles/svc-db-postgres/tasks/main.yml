@@ -9,7 +9,7 @@
 - name: Install PostgreSQL
   docker_container:
     name: "{{ applications | get_app_conf(application_id, 'hostname', True) }}"
-    image: "{{ applications | get_docker_image(application_id) }}"
+    image: "{{ applications | get_app_conf(application_id, 'docker.services.postgres.image', True) }}:{{ applications | get_app_conf(application_id, 'docker.services.postgres.version', True) }}"
     detach: yes
     env:
       POSTGRES_PASSWORD: "{{ applications | get_app_conf(application_id, 'credentials.postgres_password', True) }}"

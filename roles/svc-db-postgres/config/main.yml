@@ -3,10 +3,10 @@ network:  "<< defaults_applications[svc-db-postgres].hostname >>"
 port:     5432
 volume:   "<< defaults_applications[svc-db-postgres].hostname >>"
 docker:
-  images:
-    # Postgis is necessary for mobilizon
-    postgres: postgis/postgis
-  versions:  
-    # Please set an version in your inventory file! 
-    # Rolling release isn't recommended
-    postgres: "latest"
+  services:
+    postgres:
+      # Postgis is necessary for mobilizon
+      image: postgis/postgis
+      # Please set an version in your inventory file! 
+      # Rolling release isn't recommended
+      version: "latest"
