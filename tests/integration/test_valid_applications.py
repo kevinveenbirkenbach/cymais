@@ -5,7 +5,6 @@ import unittest
 from cli.meta.applications.all import find_application_ids
 
 # ensure project root is on PYTHONPATH so we can import the CLI code
-# project root is two levels up from this file (tests/integration -> project root)
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir))
 sys.path.insert(0, ROOT)
 
@@ -22,8 +21,9 @@ class TestValidApplicationUsage(unittest.TestCase):
     APPLICATION_ATTR_RE     = re.compile(r"applications\.(?P<name>[A-Za-z_]\w*)")
     APPLICATION_DOMAIN_RE   = re.compile(r"get_domain\(\s*['\"](?P<name>[^'\"]+)['\"]\s*\)")
 
-    # methods and exceptions that should not be validated as application IDs
-    WHITELIST = {'items', 'yml', 'get'}
+    # default methods and exceptions that should not be validated as application IDs
+    DEFAULT_WHITELIST = {'items', 'yml', 'get'}
+    PYTHON_EXTRA_WHITELIST = {'keys'}
 
     def test_application_references_use_valid_ids(self):
         valid_apps = find_application_ids()
@@ -45,14 +45,18 @@ class TestValidApplicationUsage(unittest.TestCase):
                     # skip files that cannot be opened
                     continue
 
+                # Whitelist je nach Dateityp erweitern
+                if filename.endswith('.py'):
+                    whitelist = self.DEFAULT_WHITELIST | self.PYTHON_EXTRA_WHITELIST
+                else:
+                    whitelist = self.DEFAULT_WHITELIST
+
                 for pattern in (
                     self.APPLICATION_SUBSCRIPT_RE,
                     self.APPLICATION_GET_RE,
                     self.APPLICATION_ATTR_RE,
                     self.APPLICATION_DOMAIN_RE,
                 ):
-                    for match in pattern.finditer(content):
-                        name = match.group('name')
                     for match in pattern.finditer(content):
                         # Determine the full line containing this match
                         start = match.start()
@@ -66,7 +70,7 @@ class TestValidApplicationUsage(unittest.TestCase):
 
                         name = match.group('name')
                         # skip whitelisted methods/exceptions
-                        if name in self.WHITELIST:
+                        if name in whitelist:
                             continue
                         # each found reference must be in valid_apps
                         self.assertIn(

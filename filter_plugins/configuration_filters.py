@@ -1,9 +1,9 @@
+from get_app_conf import get_app_conf
 def is_feature_enabled(applications: dict, feature: str, application_id: str) -> bool:
     """
-    Return True if applications[application_id].features[feature] is truthy.
+    Wrapper for compatibility: Return True if applications[application_id].features[feature] is truthy.
     """
-    app = applications.get(application_id, {})
-    return bool(app.get('features', {}).get(feature, False))
+    return bool(get_app_conf(applications, application_id, f"features.{feature}", strict=False))
 
 def get_docker_compose(path_docker_compose_instances: str, application_id: str) -> dict:
     """
