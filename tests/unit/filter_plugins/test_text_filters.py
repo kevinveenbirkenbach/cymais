@@ -47,8 +47,8 @@ Line three"""
         self.assertEqual(to_one_liner(s), expected)
 
     def test_preserve_templating_expressions(self):
-        s = 'var tracker = "//{{ domains | get_domain(\'matomo\') }}/matomo.js"; // loader'
-        expected = 'var tracker = "//{{ domains | get_domain(\'matomo\') }}/matomo.js";'
+        s = 'var tracker = "//{{ domains | get_domain(\'web-app-matomo\') }}/matomo.js"; // loader'
+        expected = 'var tracker = "//{{ domains | get_domain(\'web-app-matomo\') }}/matomo.js";'
         self.assertEqual(to_one_liner(s), expected)
 
     def test_mixed_string_and_comment(self):

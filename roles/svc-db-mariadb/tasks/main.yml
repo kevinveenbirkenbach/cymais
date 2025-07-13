@@ -17,7 +17,7 @@
     networks:
       - name: "{{ applications['svc-db-mariadb'].network }}"
     volumes:
-      - mariadb_database:/var/lib/mysql
+      - "{{ applications['svc-db-mariadb'].volume }}:/var/lib/mysql"
     published_ports:
       - "127.0.0.1:{{database_port}}:3306" # can be that this will be removed if all applications use sockets
     command: "--transaction-isolation=READ-COMMITTED --binlog-format=ROW" #for nextcloud
@@ -36,7 +36,7 @@
     state: present
   when: run_once_docker_mariadb is not defined
 
-- name: Wait until the MariaDB container is healthy
+- name: "Wait until the MariaDB container (hostname {{ applications['svc-db-mariadb'].hostname }}) is healthy"
   community.docker.docker_container_info:
     name: "{{ applications['svc-db-mariadb'].hostname }}"
   register: db_info

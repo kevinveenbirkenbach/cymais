@@ -1,4 +1,5 @@
 version:  "latest"
 hostname: "svc-db-mariadb"
-network:  "svc-db-mariadb"
+network:  "<< defaults_applications[svc-db-mariadb].hostname >>"
 port:     5432
+volume:   "<< defaults_applications[svc-db-mariadb].hostname >>_data"

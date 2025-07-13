@@ -35,7 +35,7 @@ ports:
       attendize: 8015
       pgadmin: 8016
       baserow: 8017
-      matomo: 8018
+      web-app-matomo: 8018
       listmonk: 8019
       discourse: 8020
       matrix_synapse: 8021

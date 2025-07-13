@@ -36,7 +36,7 @@ defaults_networks:
       subnet: 192.168.101.192/28
     # Free:
     #  subnet: 192.168.101.208/28
-    matomo:
+    web-app-matomo:
       subnet: 192.168.101.224/28
     mastodon:
       subnet: 192.168.101.240/28

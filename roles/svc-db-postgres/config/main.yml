@@ -1,6 +1,7 @@
 hostname: "svc-db-postgres"
-network:  "svc-db-postgres"
+network:  "<< defaults_applications[svc-db-postgres].hostname >>"
 port:     5432
+volume:   "<< defaults_applications[svc-db-postgres].hostname >>"
 docker:
   images:
     # Postgis is necessary for mobilizon

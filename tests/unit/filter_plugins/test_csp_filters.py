@@ -49,7 +49,7 @@ class TestCspFilters(unittest.TestCase):
             'app2': {}
         }
         self.domains = {
-            'matomo': ['matomo.example.org']
+            'web-app-matomo': ['matomo.example.org']
         }
 
     def test_get_csp_whitelist_list(self):

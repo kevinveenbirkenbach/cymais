@@ -1,7 +1,11 @@
 images:
   matomo:             "matomo:latest"
 features:
-  matomo:             true
+  # If you want to use Matomo on the Matomo page, you 
+  # have to set it here manual to true. 
+  # It's deactivated, because the proxy setup for Matomo
+  # itself wouldn't be possible 
+  matomo:             false 
   css:                false
   portfolio_iframe:   true
   central_database:   true
@@ -24,9 +28,13 @@ csp:
 domains:
   aliases:
     - "analytics.{{ primary_domain }}"
+  canonical:
+    - "matomo.{{ primary_domain }}"
 excluded_ips: "{{ networks.internet.values() | list }}"
 
 docker:
   services:
     database:
       enabled: true
+    redis:
+      enabled: false

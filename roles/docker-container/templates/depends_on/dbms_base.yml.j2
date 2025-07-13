@@ -2,7 +2,7 @@
       {{ database_host }}:
         condition: service_healthy
 {% endif %}
-{% if applications[application_id].docker.services.redis.enabled | default(false) | bool %}
+{% if applications | is_docker_service_enabled(application_id, 'redis') %}
       redis:
         condition: service_healthy
 {% endif %}

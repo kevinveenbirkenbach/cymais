@@ -4,7 +4,7 @@ networks:
   {{ applications[ 'svc-db-' ~ database_type ].network }}:
     external: true
 {% endif %}
-{% if applications[application_id].get('features', {}).get('ldap', false) and applications['svc-db-openldap'].network.docker | bool %}
+{% if applications | is_feature_enabled('ldap',application_id) and applications['svc-db-openldap'].network.docker | bool %}
   svc-db-openldap:
     external: true
 {% endif %}

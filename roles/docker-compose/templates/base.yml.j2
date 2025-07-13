@@ -1,11 +1,11 @@
 {# Base template for all docker-compose.yml.j2 #}
 services:
 {# Load Database #}
-{% if applications[application_id].docker.services.database.enabled | default(false) | bool %}
+{% if applications | is_docker_service_enabled(application_id, 'database') %}
 {% include 'roles/cmp-rdbms/templates/services/main.yml.j2' %}
 {% endif %}
 {# Load Redis #}
-{% if applications[application_id].docker.services.redis.enabled | default(false) | bool %}
+{% if applications | is_docker_service_enabled(application_id, 'redis') %}
 {% include 'roles/svc-db-redis/templates/service.yml.j2' %}
 {% endif %}
 {# Load OAuth2 Proxy #}

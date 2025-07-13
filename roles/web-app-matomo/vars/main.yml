@@ -1,9 +1,9 @@
 ---
-application_id:       "matomo"
+application_id:       "web-app-matomo"
 database_type:        "mariadb"
-matomo_excluded_ips:  "{{ applications.matomo.excluded_ips }}"
-matomo_index_php_url: "{{ domains | get_url('matomo', web_protocol) }}/index.php"
-matomo_auth_token:    "{{ applications.matomo.credentials.auth_token }}"
+matomo_excluded_ips:  "{{ applications[application_id].excluded_ips }}"
+matomo_index_php_url: "{{ domains | get_url(application_id, web_protocol) }}/index.php"
+matomo_auth_token:    "{{ applications[application_id].credentials.auth_token }}"
 
 
 # I don't know if this is still necessary

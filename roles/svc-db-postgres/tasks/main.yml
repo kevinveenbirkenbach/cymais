@@ -19,7 +19,7 @@
     published_ports:
       - "127.0.0.1:{{ applications[application_id].port }}:5432"
     volumes:
-      - postgres_database:/var/lib/postgresql/data
+      - "{{ applications['svc-db-postgres'].volume }}:/var/lib/postgresql/data"
     restart_policy: "{{ docker_restart_policy }}"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]

@@ -30,12 +30,12 @@
     - name: Check if ports.localhost.oauth2_proxy[application_id] exists
       set_fact:
         missing_keys: "{{ missing_keys + ['ports.localhost.oauth2_proxy.{}'.format(application_id)] }}"
-      when: ports.localhost.oauth2_proxy.get(application_id, None) is not defined
+      when: ports.localhost.oauth2_proxy get(application_id, None) is not defined
 
     - name: Check if ports.localhost.http[application_id] exists
       set_fact:
         missing_keys: "{{ missing_keys + ['ports.localhost.http.{}'.format(application_id)] }}"
-      when: ports.localhost.http.get(application_id, None) is not defined
+      when: ports.localhost.http get(application_id, None) is not defined
 
     - name: Check if networks.local[application_id].subnet exists (optional)
       set_fact:
