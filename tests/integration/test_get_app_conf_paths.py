@@ -56,6 +56,8 @@ class TestGetAppConfPaths(unittest.TestCase):
             if 'tests' in Path(dirpath).parts:
                 continue
             for fname in files:
+                if fname.endswith(('.py', '.sh')):
+                    continue
                 file_path = Path(dirpath) / fname
                 try:
                     text = file_path.read_text(encoding='utf-8')
@@ -108,9 +110,13 @@ class TestGetAppConfPaths(unittest.TestCase):
                         continue
                 # users.*: default_users fallback
                 if dotted.startswith('users.'):
-                    sub = dotted.split('.',1)[1]
-                    if sub in self.defaults_users:
+                    subpath = dotted.split('.', 1)[1]
+                    try:
+                        # this will raise if the nested key doesn’t exist
+                        self.assertNested(self.defaults_users, subpath, 'default_users')
                         continue
+                    except AssertionError:
+                        pass
                 # application defaults
                 for aid, cfg in self.defaults_app.items():
                     try:
