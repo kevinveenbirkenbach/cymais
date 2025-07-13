@@ -48,7 +48,7 @@
     docker exec -i {{ applications | get_app_conf(application_id, 'hostname', True) }} ldapadd -x -D "{{ldap.dn.administrator.data}}" -w "{{ldap.bind_credential}}" -c -f "{{ldif_docker_path}}data/{{ item | basename | regex_replace('\.j2$', '') }}"
   register: ldapadd_result
   changed_when: "'adding new entry' in ldapadd_result.stdout"
-  failed_when: ldapadd_result.rc not in [0, 20, 68]
+  failed_when: ldapadd_result.rc not in [0, 20, 68, 65]
   listen:
     - "Import data LDIF files"
     - "Import all LDIF files"
