@@ -5,7 +5,7 @@ images:
 features:
   matomo:             true
   css:                false # Needs to be reactivated
-  portfolio_iframe:   true
+  port-ui-desktop:   true
   central_database:   true
   oidc:               true
 csp:

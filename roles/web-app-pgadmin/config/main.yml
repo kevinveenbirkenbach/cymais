@@ -7,7 +7,7 @@ oauth2_proxy:
 features:
   matomo:                 true
   css:                    true
-  portfolio_iframe:       true
+  port-ui-desktop:       true
   central_database:       true
   oauth2:                 true
 csp:

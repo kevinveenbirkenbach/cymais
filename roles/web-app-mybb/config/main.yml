@@ -3,7 +3,7 @@ version:              "latest"
 features:
   matomo:             true
   css:                true
-  portfolio_iframe:   true
+  port-ui-desktop:   true
   central_database:   true
 
 docker:

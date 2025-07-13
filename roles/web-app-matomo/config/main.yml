@@ -7,7 +7,7 @@ features:
   # itself wouldn't be possible 
   matomo:             false 
   css:                false
-  portfolio_iframe:   true
+  port-ui-desktop:   true
   central_database:   true
   oauth2:             false
 csp:

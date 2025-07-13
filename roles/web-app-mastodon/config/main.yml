@@ -6,7 +6,7 @@ setup:                false                                           # Set true
 features:
   matomo:             true
   css:                true
-  portfolio_iframe:   true
+  port-ui-desktop:   true
   oidc:               true
   central_database:   true
 domains:

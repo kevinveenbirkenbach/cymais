@@ -4,7 +4,7 @@ sub_filter_types text/html;
 
 {% set modifier_css_enabled     = applications | is_feature_enabled('css',application_id) %}
 {% set modifier_matomo_enabled  = applications | is_feature_enabled('matomo',application_id) %}
-{% set modifier_iframe_enabled  = applications | is_feature_enabled('portfolio_iframe',application_id) %}
+{% set modifier_iframe_enabled  = applications | is_feature_enabled('port-ui-desktop',application_id) %}
 {% set modifier_javascript_enabled  = applications | is_feature_enabled('javascript',application_id) %}
 
 {% if modifier_iframe_enabled or modifier_css_enabled or modifier_matomo_enabled or modifier_javascript_enabled %}

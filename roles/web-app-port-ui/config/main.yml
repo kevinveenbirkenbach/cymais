@@ -1,7 +1,7 @@
 features:
   matomo:           true
   css:              true
-  portfolio_iframe: false
+  port-ui-desktop: false
   simpleicons:      true  # Activate Brand Icons for your groups
   javascript:       true  # Necessary for URL sync
 csp:

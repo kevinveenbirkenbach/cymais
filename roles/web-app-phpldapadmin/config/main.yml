@@ -5,6 +5,6 @@ oauth2_proxy:
 features:
   matomo:             true
   css:                true
-  portfolio_iframe:   true
+  port-ui-desktop:   true
   ldap:               true
   oauth2:             true

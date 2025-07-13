@@ -5,7 +5,7 @@ version:                    "latest"                              # Docker Image
 features:
   matomo:                   true
   css:                      false
-  portfolio_iframe:         true
+  port-ui-desktop:         true
   central_database:         true
   oidc:                     true
 domains:

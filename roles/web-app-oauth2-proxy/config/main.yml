@@ -4,4 +4,4 @@ allowed_roles:      "admin"                     # Restrict it default to admin r
 features:
   matomo: true
   css: true
-  portfolio_iframe: false
+  port-ui-desktop: false

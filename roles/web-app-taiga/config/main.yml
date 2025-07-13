@@ -9,7 +9,7 @@ flavor:               'taigaio' # Potential flavors: robrotheram, taigaio
 features:
   matomo:             true
   css:                false
-  portfolio_iframe:   true
+  port-ui-desktop:   true
   oidc:               false
   central_database:   true
 docker:

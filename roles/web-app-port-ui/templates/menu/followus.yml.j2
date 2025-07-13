@@ -12,7 +12,7 @@ followus:
         class: fa-brands fa-mastodon
       url: "{{ web_protocol }}://{{ service_provider.contact.mastodon.split('@')[2] }}/@{{ service_provider.contact.mastodon.split('@')[1] }}"
       identifier: "{{service_provider.contact.mastodon}}"
-      iframe: {{ applications | is_feature_enabled('portfolio_iframe','mastodon') }}
+      iframe: {{ applications | is_feature_enabled('port-ui-desktop','mastodon') }}
 {% endif %}
 {% if service_provider.contact.bluesky is defined and service_provider.contact.bluesky != "" %}
     - name: Bluesky
@@ -31,7 +31,7 @@ followus:
           class: fa-solid fa-camera
       identifier: "{{service_provider.contact.pixelfed}}"
       url: "{{ web_protocol }}://{{ service_provider.contact.pixelfed.split('@')[2] }}/@{{ service_provider.contact.pixelfed.split('@')[1] }}"
-      iframe: {{ applications | is_feature_enabled('portfolio_iframe','pixelfed') }}
+      iframe: {{ applications | is_feature_enabled('port-ui-desktop','pixelfed') }}
 {% endif %}
 {% if service_provider.contact.peertube  is defined and service_provider.contact.peertube  != "" %}
     - name: Peertube
@@ -40,7 +40,7 @@ followus:
         class: fa-solid fa-video
       identifier: "{{service_provider.contact.peertube}}"
       url: "{{ web_protocol }}://{{ service_provider.contact.peertube.split('@')[2] }}/@{{ service_provider.contact.peertube.split('@')[1] }}"
-      iframe: {{ applications | is_feature_enabled('portfolio_iframe','peertube') }}
+      iframe: {{ applications | is_feature_enabled('port-ui-desktop','peertube') }}
 {% endif %}
 {% if service_provider.contact.wordpress is defined and service_provider.contact.wordpress != "" %}
     - name: Wordpress
@@ -49,7 +49,7 @@ followus:
         class: fa-solid fa-blog
       identifier: "{{service_provider.contact.wordpress}}"
       url: "{{ web_protocol }}://{{ service_provider.contact.wordpress.split('@')[2] }}/@{{ service_provider.contact.wordpress.split('@')[1] }}"
-      iframe: {{ applications | is_feature_enabled('portfolio_iframe','wordpress') }}
+      iframe: {{ applications | is_feature_enabled('port-ui-desktop','wordpress') }}
 {% endif %}
 {% if service_provider.contact.friendica is defined and service_provider.contact.friendica != "" %}
     - name: Friendica
@@ -58,5 +58,5 @@ followus:
         class: fas fa-net-wired
       identifier: "{{service_provider.contact.friendica}}"
       url: "{{ web_protocol }}://{{ service_provider.contact.friendica.split('@')[2] }}/@{{ service_provider.contact.friendica.split('@')[1] }}"
-      iframe: {{ applications | is_feature_enabled('portfolio_iframe','friendica') }}
+      iframe: {{ applications | is_feature_enabled('port-ui-desktop','friendica') }}
 {% endif %}

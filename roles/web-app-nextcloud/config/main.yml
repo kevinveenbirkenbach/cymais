@@ -27,7 +27,7 @@ oidc:
 features:
   matomo:                       true
   css:                          false
-  portfolio_iframe:             true
+  port-ui-desktop:             true
   ldap:                         true
   oidc:                         true
   central_database:             true

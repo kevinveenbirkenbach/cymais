@@ -9,7 +9,7 @@ configuration:
 features:
   matomo:                         true
   css:                            false
-  portfolio_iframe:               true
+  port-ui-desktop:               true
   central_database:               true
   ldap:                           true
   oauth2:                         true

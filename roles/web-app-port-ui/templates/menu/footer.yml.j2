@@ -10,7 +10,7 @@
       icon:
         class: fas fa-book
       url: https://{{domains | get_domain('sphinx')}}
-      iframe: {{ applications | is_feature_enabled('portfolio_iframe','sphinx') }}
+      iframe: {{ applications | is_feature_enabled('port-ui-desktop','sphinx') }}
 
 {% endif %}
 
@@ -21,7 +21,7 @@
       icon:
         class: "fas fa-chalkboard-teacher"
       url: https://{{domains | get_domain('presentation')}}
-      iframe: {{ applications | is_feature_enabled('portfolio_iframe','presentation') }}
+      iframe: {{ applications | is_feature_enabled('port-ui-desktop','presentation') }}
 
 {% endif %}
     - name: Solutions
