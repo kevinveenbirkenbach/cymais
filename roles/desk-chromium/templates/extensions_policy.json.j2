@@ -1,6 +1,6 @@
 {
   "ExtensionInstallForcelist": [
-    {% for plugin in applications | get_app_conf(application_id, 'chromium.plugins', True) -%}
+    {% for plugin in applications | get_app_conf(application_id, 'plugins', True) -%}
     "{{ plugin.id }};{{ plugin.update_url }}"{% if not loop.last %},{% endif %}
     {% endfor %}
   ],
@@ -8,7 +8,7 @@
     "*": {
       "installation_mode": "{{ applications | get_app_conf(application_id, 'default_installation_mode', True) }}"
     }
-    {% for plugin in applications | get_app_conf(application_id, 'chromium.plugins', True) -%},
+    {% for plugin in applications | get_app_conf(application_id, 'plugins', True) -%},
     "{{ plugin.id }}": {
       "installation_mode": "{{ plugin.installation_mode }}",
       "update_url": "{{ plugin.update_url }}",
