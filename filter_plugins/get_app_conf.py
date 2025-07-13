@@ -12,7 +12,7 @@ class AppConfigKeyError(AnsibleFilterError, ValueError):
 
 def get_app_conf(applications, application_id, config_path, strict=True):
     def access(obj, key, path_trace):
-        m = re.match(r"^([a-zA-Z0-9_]+)(?:\[(\d+)\])?$", key)
+        m = re.match(r"^([a-zA-Z0-9_-]+)(?:\[(\d+)\])?$", key)
         if not m:
             raise AppConfigKeyError(
                 f"Invalid key format in config_path: '{key}'\n"
