@@ -30,8 +30,8 @@ defaults_networks:
       subnet: 192.168.101.144/28
     keycloak:
       subnet: 192.168.101.160/28
-    svc-db-openldap:
-      subnet: 192.168.101.176/28
+    #svc-db-openldap:
+    #  subnet: 192.168.101.176/28
     listmonk:
       subnet: 192.168.101.192/28
     # Free:
