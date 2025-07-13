@@ -9,3 +9,10 @@ images:
 webinterface:     "lam"                               # The webinterface which should be used. Possible: lam and phpldapadmin
 features:
   ldap:           true
+import:           
+# Here it's possible to define what can be imported. 
+# It doesn't make sense to let  the import run everytime because its very time consuming
+  credentials:    true 
+  schemas:        true 
+  entries:        true 
+  users:          true

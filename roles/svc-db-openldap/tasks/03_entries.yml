@@ -1,0 +1,56 @@
+###############################################################################
+# 1) Create the LDAP entry if it does not yet exist
+###############################################################################
+- name: Ensure LDAP users exist
+  community.general.ldap_entry:
+    dn:           "{{ ldap.user.attributes.id }}={{ item.key }},{{ ldap.dn.ou.users }}"
+    server_uri:   "{{ ldap_server_uri }}"
+    bind_dn:      "{{ ldap.dn.administrator.data }}"
+    bind_pw:      "{{ ldap.bind_credential }}"
+    objectClass:  "{{ ldap.user.objects.structural }}"
+    attributes:
+      uid:           "{{ item.value.username }}"
+      sn:            "{{ item.value.sn  | default(item.key) }}"
+      cn:            "{{ item.value.cn  | default(item.key) }}"
+      userPassword:  "{SSHA}{{ item.value.password }}"
+      loginShell:    /bin/bash
+      homeDirectory: "/home/{{ item.key }}"
+      uidNumber:     "{{ item.value.uid | int }}"
+      gidNumber:     "{{ item.value.gid | int }}"
+    state: present            # ↳ creates but never updates
+  async: 60
+  poll: 0
+  loop: "{{ users | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+
+###############################################################################
+# 2) Keep the objectClass list AND the mail attribute up-to-date
+###############################################################################
+- name: Ensure required objectClass values and mail address are present
+  community.general.ldap_attrs:
+    dn: "{{ ldap.user.attributes.id }}={{ item.key }},{{ ldap.dn.ou.users }}"
+    server_uri: "{{ ldap_server_uri }}"
+    bind_dn: "{{ ldap.dn.administrator.data }}"
+    bind_pw: "{{ ldap.bind_credential }}"
+    attributes:
+      objectClass: "{{ ldap.user.objects.structural }}"
+      mail:        "{{ item.value.email }}"
+    state: exact
+  async: 60
+  poll: 0
+  loop: "{{ users | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+
+- name: "Ensure container for application roles exists"
+  community.general.ldap_entry:
+    dn: "{{ ldap.dn.ou.roles }}"
+    server_uri: "{{ ldap_server_uri }}"
+    bind_dn:  "{{ ldap.dn.administrator.data }}"
+    bind_pw:  "{{ ldap.bind_credential }}"
+    objectClass: organizationalUnit
+    attributes:
+      ou: roles
+      description: Container for application access profiles
+    state: present
