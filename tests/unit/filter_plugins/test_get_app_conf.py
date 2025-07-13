@@ -112,6 +112,48 @@ class TestGetAppConf(unittest.TestCase):
             "myapp": "repo/myapp"
         }
         self.assertEqual(result, expected)
+        
+    def test_default_used_non_strict(self):
+        """non-strict + default: bei fehlendem Key liefert default."""
+        result = get_app_conf(self.applications, "myapp", "features.baz", strict=False, default="mydefault")
+        self.assertEqual(result, "mydefault")
+
+    def test_default_none_non_strict(self):
+        """non-strict + default=None: bei fehlendem Key liefert False."""
+        result = get_app_conf(self.applications, "myapp", "features.baz", strict=False, default=None)
+        self.assertFalse(result)
+
+    def test_default_ignored_when_present(self):
+        """default wird ignoriert, wenn der Pfad existiert."""
+        result = get_app_conf(self.applications, "myapp", "features.foo", strict=False, default="should_not_be_used")
+        self.assertTrue(result)
+
+    def test_access_primitive_strict_false(self):
+        """non-strict: Zugriff auf tieferes Feld in primitive → default."""
+        # features.foo ist bool, .bar existiert nicht → default
+        result = get_app_conf(self.applications, "myapp", "features.foo.bar", strict=False, default="defval")
+        self.assertEqual(result, "defval")
+
+    def test_access_primitive_strict_true(self):
+        """strict: Zugriff auf tieferes Feld in primitive → Exception."""
+        with self.assertRaises(AnsibleFilterError):
+            get_app_conf(self.applications, "myapp", "features.foo.bar", strict=True)
+
+    def test_invalid_key_format_strict(self):
+        """strict: ungültiges Key-Format (z.B. index nicht numerisch) → Error."""
+        with self.assertRaises(AppConfigKeyError):
+            get_app_conf(self.applications, "myapp", "features.foo[abc]", strict=True)
+
+    def test_invalid_key_format_non_strict(self):
+        """non-strict: ungültiges Key-Format → immer noch Error (Format-Check ist immer strict)."""
+        with self.assertRaises(AppConfigKeyError):
+            get_app_conf(self.applications, "myapp", "features.foo[abc]", strict=False)
+
+    def test_list_indexing_negative_with_default(self):
+        """non-strict + default bei Listen-Index-Out-Of-Range."""
+        apps = {"app": {"foo": [{"bar": "x"}]}}
+        result = get_app_conf(apps, "app", "foo[1].bar", strict=False, default="fallback")
+        self.assertEqual(result, "fallback")
 
 if __name__ == '__main__':
     unittest.main()

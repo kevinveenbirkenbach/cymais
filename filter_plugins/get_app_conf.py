@@ -10,7 +10,7 @@ class AppConfigKeyError(AnsibleFilterError, ValueError):
     """
     pass
 
-def get_app_conf(applications, application_id, config_path, strict=True):
+def get_app_conf(applications, application_id, config_path, strict=True, default=None):
     def access(obj, key, path_trace):
         m = re.match(r"^([a-zA-Z0-9_-]+)(?:\[(\d+)\])?$", key)
         if not m:
@@ -31,7 +31,7 @@ def get_app_conf(applications, application_id, config_path, strict=True):
                         f"application_id: {application_id}\n"
                         f"config_path: {config_path}"
                     )
-                return False
+                return default if default is not None else False
             obj = obj[k]
         else:
             if strict:
@@ -42,7 +42,7 @@ def get_app_conf(applications, application_id, config_path, strict=True):
                     f"application_id: {application_id}\n"
                     f"config_path: {config_path}"
                 )
-            return False
+            return default if default is not None else False
         if idx is not None:
             if not isinstance(obj, list):
                 if strict:
@@ -53,7 +53,7 @@ def get_app_conf(applications, application_id, config_path, strict=True):
                         f"application_id: {application_id}\n"
                         f"config_path: {config_path}"
                     )
-                return False
+                return default if default is not None else False
             i = int(idx)
             if i >= len(obj):
                 if strict:
@@ -64,7 +64,7 @@ def get_app_conf(applications, application_id, config_path, strict=True):
                         f"application_id: {application_id}\n"
                         f"config_path: {config_path}"
                     )
-                return False
+                return default if default is not None else False
             obj = obj[i]
         return obj
 
@@ -83,7 +83,7 @@ def get_app_conf(applications, application_id, config_path, strict=True):
         path_trace.append(part)
         obj = access(obj, part, path_trace)
         if obj is False and not strict:
-            return False
+            return default if default is not None else False
     return obj
 
 class FilterModule(object):
