@@ -1,54 +1,52 @@
 FROM archlinux:latest
 
-# 1) Update system and install build tools + Go for AUR package builds
+# 1) Update system and install build/runtime deps
 RUN pacman -Syu --noconfirm \
       base-devel \
       git \
-      sudo \
       python \
       python-pip \
+      python-setuptools \
+      alsa-lib \
       go \
     && pacman -Scc --noconfirm
 
-# 2) Create a non-root user for building AUR packages
-RUN useradd -m builder
+# 2) Stub out systemctl & yay so post-install hooks and AUR calls never fail
+RUN printf '#!/bin/sh\nexit 0\n' > /usr/bin/systemctl \
+    && chmod +x /usr/bin/systemctl \
+    && printf '#!/bin/sh\nexit 0\n' > /usr/bin/yay \
+    && chmod +x /usr/bin/yay
 
-# 3) Clone & build yay as the unprivileged 'builder' user
-USER builder
-WORKDIR /home/builder
-RUN git clone https://aur.archlinux.org/yay.git \
- && cd yay \
- && makepkg --noconfirm --skippgpcheck
+# 3) Build & install python-simpleaudio from AUR manually (as non-root)
+RUN useradd -m builder \
+ && su builder -c "git clone https://aur.archlinux.org/python-simpleaudio.git /home/builder/psa && \
+                    cd /home/builder/psa && \
+                    makepkg --noconfirm --skippgpcheck" \
+ && pacman -U --noconfirm /home/builder/psa/*.pkg.tar.zst \
+ && rm -rf /home/builder/psa
 
-# 4) Switch back to root to install the built yay package system-wide
-USER root
-RUN pacman -U --noconfirm /home/builder/yay/yay-*.pkg.tar.zst \
- && rm -rf /home/builder/yay
+# 4) Clone Kevin’s Package Manager and create its venv
+ENV PKGMGR_REPO=/opt/package-manager \
+    PKGMGR_VENV=/root/.venvs/pkgmgr
 
-# 5) Define where our pkgmgr virtualenv and repo will live
-ENV PKGMGR_VENV=/root/.venvs/pkgmgr
-ENV PKGMGR_REPO=/opt/package-manager
-
-# 6) Clone the package-manager sources
-RUN git clone https://github.com/kevinveenbirkenbach/package-manager.git $PKGMGR_REPO
-
-# 7) Create the venv and install its Python requirements there
-RUN python -m venv $PKGMGR_VENV \
+RUN git clone https://github.com/kevinveenbirkenbach/package-manager.git $PKGMGR_REPO \
+ && python -m venv $PKGMGR_VENV \
  && $PKGMGR_VENV/bin/pip install --upgrade pip \
- && $PKGMGR_VENV/bin/pip install --no-cache-dir -r $PKGMGR_REPO/requirements.txt
-
-# 8) Write a tiny wrapper so `pkgmgr` always runs inside that venv
-RUN printf '#!/bin/sh\n'                                > /usr/local/bin/pkgmgr \
- && printf '. %s/bin/activate\n' "$PKGMGR_VENV"       >> /usr/local/bin/pkgmgr \
- && printf 'exec python %s/main.py "$@"\n' "$PKGMGR_REPO" >> /usr/local/bin/pkgmgr \
+ # install pkgmgr’s own deps + the ansible Python library so cymais import yaml & ansible.plugins.lookup work
+ && $PKGMGR_VENV/bin/pip install --no-cache-dir -r $PKGMGR_REPO/requirements.txt ansible \
+ # drop a thin wrapper so `pkgmgr` always runs inside that venv
+ && printf '#!/bin/sh\n. %s/bin/activate\nexec python %s/main.py "$@"\n' \
+           "$PKGMGR_VENV" "$PKGMGR_REPO" > /usr/local/bin/pkgmgr \
  && chmod +x /usr/local/bin/pkgmgr
 
-# 9) Ensure the venv’s bin is first on PATH
-ENV PATH="$PKGMGR_VENV/bin:${PATH}"
+# 5) Ensure pkgmgr venv bin and user-local bin are on PATH
+ENV PATH="$PKGMGR_VENV/bin:/root/.local/bin:${PATH}"
 
-# 10) Use pkgmgr (inside the venv) to install CyMaIS, allowing AUR dependencies via yay
+# 6) Install CyMaIS (using HTTPS cloning mode)
 RUN pkgmgr install cymais --clone-mode https
 
-# 11) Expose the cymais CLI as the container’s entrypoint
+# 7) Symlink the cymais CLI into /usr/local/bin so ENTRYPOINT works
+RUN ln -s /root/.local/bin/cymais /usr/local/bin/cymais
+
 ENTRYPOINT ["cymais"]
 CMD ["--help"]
