@@ -1,0 +1,50 @@
+- name: Assert all required application_id-based variables are defined
+  vars:
+    missing_keys: []
+  block:
+    - name: Check if applications[application_id] exists
+      set_fact:
+        missing_keys: "{{ missing_keys + ['applications'] }}"
+      when: applications.get(application_id, None) is not defined
+
+    - name: Check if applications[application_id].docker.services.database.enabled exists
+      set_fact:
+        missing_keys: "{{ missing_keys + ['applications.{}.docker.services.database.enabled'.format(application_id)] }}"
+      when: applications[application_id].docker.services.database is not defined
+
+    - name: Check if applications[application_id].docker.services.redis.enabled exists
+      set_fact:
+        missing_keys: "{{ missing_keys + ['applications.{}.docker.services.redis.enabled'.format(application_id)] }}"
+      when: applications[application_id].docker.services.redis is not defined
+
+    - name: Check if applications[application_id].images[application_id] exists
+      set_fact:
+        missing_keys: "{{ missing_keys + ['applications.{}.images.{}'.format(application_id, application_id)] }}"
+      when: applications[application_id].images is not defined or applications[application_id].images.get(application_id) is not defined
+
+    - name: Check if applications[application_id].features exists
+      set_fact:
+        missing_keys: "{{ missing_keys + ['applications.{}.features'.format(application_id)] }}"
+      when: applications[application_id].features is not defined
+
+    - name: Check if ports.localhost.oauth2_proxy[application_id] exists
+      set_fact:
+        missing_keys: "{{ missing_keys + ['ports.localhost.oauth2_proxy.{}'.format(application_id)] }}"
+      when: ports.localhost.oauth2_proxy.get(application_id, None) is not defined
+
+    - name: Check if ports.localhost.http[application_id] exists
+      set_fact:
+        missing_keys: "{{ missing_keys + ['ports.localhost.http.{}'.format(application_id)] }}"
+      when: ports.localhost.http.get(application_id, None) is not defined
+
+    - name: Check if networks.local[application_id].subnet exists (optional)
+      set_fact:
+        missing_keys: "{{ missing_keys + ['networks.local.{}.subnet'.format(application_id)] }}"
+      when: networks.local.get(application_id, None) is not defined or networks.local[application_id].get('subnet', None) is not defined
+
+    - name: Fail if any required keys are missing
+      debug:
+        msg: |
+          The following variables/keys for application_id {{ application_id }} are not defined or not accessible:
+          {{ missing_keys | join('\n- ') }}
+          Please define them in your group_vars, host_vars, or inventory.
