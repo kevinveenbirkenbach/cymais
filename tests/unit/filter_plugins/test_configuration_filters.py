@@ -1,5 +1,3 @@
-# tests/unit/test_configuration_filters.py
-
 import unittest
 import sys
 import os
@@ -14,6 +12,8 @@ sys.path.insert(
 from filter_plugins.configuration_filters import (
     is_feature_enabled,
 )
+
+from filter_plugins.get_app_conf import AppConfigKeyError
 
 
 class TestConfigurationFilters(unittest.TestCase):
@@ -38,7 +38,8 @@ class TestConfigurationFilters(unittest.TestCase):
         self.assertFalse(is_feature_enabled(self.applications, 'nonexistent', 'app1'))
 
     def test_is_feature_enabled_false_missing_app(self):
-        self.assertFalse(is_feature_enabled(self.applications, 'oauth2', 'unknown_app'))
+         with self.assertRaises(Exception):
+            is_feature_enabled(self.applications, 'oauth2', 'unknown_app')
 
 if __name__ == '__main__':
     unittest.main()

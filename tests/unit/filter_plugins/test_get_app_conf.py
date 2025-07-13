@@ -4,7 +4,7 @@ import os
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../filter_plugins')))
 
-from get_app_conf import get_app_conf
+from get_app_conf import get_app_conf, AppConfigKeyError
 from ansible.errors import AnsibleFilterError
 
 class TestGetAppConf(unittest.TestCase):
@@ -99,11 +99,12 @@ class TestGetAppConf(unittest.TestCase):
             get_app_conf(apps, "app", "foo[1].bar", strict=True)
 
     def test_application_id_not_found(self):
-        """Test with unknown application_id: should raise error in strict mode."""
-        with self.assertRaises(AnsibleFilterError):
+        """Test with unknown application_id: should always raise error now."""
+        with self.assertRaises(AppConfigKeyError):
             get_app_conf(self.applications, "unknown", "features.foo", strict=True)
-        # Non-strict: returns False
-        self.assertFalse(get_app_conf(self.applications, "unknown", "features.foo", strict=False))
+        with self.assertRaises(AppConfigKeyError):
+            get_app_conf(self.applications, "unknown", "features.foo", strict=False)
+
 
 if __name__ == '__main__':
     unittest.main()

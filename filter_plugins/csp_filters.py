@@ -124,7 +124,7 @@ class FilterModule(object):
 
                 # Enable loading via ancestors
                 if (
-                    self.is_feature_enabled(applications, 'portfolio_iframe', application_id)
+                    self.is_feature_enabled(applications, 'port-ui-desktop', application_id)
                     and directive == 'frame-ancestors'
                 ):
                     domain = domains.get('web-app-port-ui')[0]

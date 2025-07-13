@@ -72,14 +72,12 @@ def get_app_conf(applications, application_id, config_path, strict=True):
     try:
         obj = applications[application_id]
     except KeyError:
-        if strict:
-            raise AppConfigKeyError(
-                f"Application ID '{application_id}' not found in applications dict.\n"
-                f"path_trace: {path_trace}\n"
-                f"applications keys: {list(applications.keys())}\n"
-                f"config_path: {config_path}"
-            )
-        return False
+        raise AppConfigKeyError(
+            f"Application ID '{application_id}' not found in applications dict.\n"
+            f"path_trace: {path_trace}\n"
+            f"applications keys: {list(applications.keys())}\n"
+            f"config_path: {config_path}"
+        )
 
     for part in config_path.split("."):
         path_trace.append(part)

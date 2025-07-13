@@ -57,7 +57,7 @@ galaxy_info:
             "applications": {
                 "portfolio": {
                     "features": {
-                        "portfolio_iframe": True
+                        "port-ui-desktop": True
                     }
                 }
             },
@@ -90,7 +90,7 @@ galaxy_info:
             "applications": {
                 "portfolio": {
                     "features": {
-                        "portfolio_iframe": True
+                        "port-ui-desktop": True
                     }
                 }
             },

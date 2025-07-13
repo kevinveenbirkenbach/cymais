@@ -174,10 +174,10 @@ class TestCspFilters(unittest.TestCase):
     def test_build_csp_header_frame_ancestors(self):
         """
         frame-ancestors should include the wildcarded SLD+TLD when
-        'portfolio_iframe' is enabled, and omit it when disabled.
+        'port-ui-desktop' is enabled, and omit it when disabled.
         """
         # Ensure feature enabled and domain set
-        self.apps['app1']['features']['portfolio_iframe'] = True
+        self.apps['app1']['features']['port-ui-desktop'] = True
         # simulate a subdomain for the application
         self.domains['web-app-port-ui'] = ['domain-example.com']
         
@@ -189,7 +189,7 @@ class TestCspFilters(unittest.TestCase):
         )
 
         # Now disable the feature and rebuild
-        self.apps['app1']['features']['portfolio_iframe'] = False
+        self.apps['app1']['features']['port-ui-desktop'] = False
         header_no = self.filter.build_csp_header(self.apps, 'app1', self.domains, web_protocol='https')
         # Should no longer contain the wildcarded sld.tld
         self.assertNotIn("*.domain-example.com", header_no)
