@@ -11,12 +11,11 @@ networks:
   %}
   svc-db-openldap:
     external: true
-{% endif %}
+{% else %}
   default:
 {% if
   application_id in networks.local and 
-  networks.local[application_id].subnet is defined and
-  application_id != 'svc-db-openldap'
+  networks.local[application_id].subnet is defined
 %}
     name: {{ application_id }}
     driver: bridge
@@ -24,5 +23,6 @@ networks:
       driver: default
       config:
         - subnet: {{networks.local[application_id].subnet}}
+{% endif %}
 {% endif %}
 {{ "\n" }}
