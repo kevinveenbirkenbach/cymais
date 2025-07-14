@@ -1,4 +1,4 @@
-# System Swapfile Role
+# System Swapfile
 
 ## Description
 

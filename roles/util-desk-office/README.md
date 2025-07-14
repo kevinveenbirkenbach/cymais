@@ -1,4 +1,4 @@
-# util-desk-office-tools Role
+# Office Tools
 
 ## Description
 
@@ -6,7 +6,7 @@ This Ansible role installs a comprehensive suite of office productivity tools on
 
 ## Overview
 
-The `util-desk-office-tools` role uses the `community.general.pacman` module to:
+The `util-desk-office` role uses the `community.general.pacman` module to:
 
 1. Install **Chromium** (web browser)  
 2. Install **Thunderbird** (email and RSS client)  

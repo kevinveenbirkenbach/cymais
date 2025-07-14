@@ -17,7 +17,7 @@ galaxy_info:
     - editor
   repository: "https://github.com/kevinveenbirkenbach/cymais"
   issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
-  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/util-desk-office-tools"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/util-desk-office"
   min_ansible_version: "2.9"
   platforms:
     - name: Archlinux

@@ -21,7 +21,7 @@ def main():
     machine_id = subprocess.run(["sha256sum", "/etc/machine-id"], capture_output=True, text=True).stdout.strip()[:64]
     print(f"machine id: {machine_id}")
     
-    versions_path = os.path.join(backup_to_usb_destination_path, f"{machine_id}/svc-sys-bkp-data-to-usb/")
+    versions_path = os.path.join(backup_to_usb_destination_path, f"{machine_id}/svc-bkp-2-usb/")
     print(f"versions path: {versions_path}")
     
     if not os.path.isdir(versions_path):
