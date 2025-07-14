@@ -9,10 +9,12 @@ images:
 webinterface:     "lam"                               # The webinterface which should be used. Possible: lam and phpldapadmin
 features:
   ldap:           true
-import:           
-# Here it's possible to define what can be imported. 
+provisioning:           
+# Here it's possible to define what should be imported and updated.
 # It doesn't make sense to let  the import run everytime because its very time consuming
-  credentials:    true 
-  schemas:        true 
-  entries:        true 
-  users:          true
+  configuration:  true # E.g. MemberOf and Hashed Password Configuration
+  credentials:    true # Administrator Password
+  schemas:        true # E.g. Nextcloud, Openssl
+  users:          true # E.g. User, group and role entries
+  groups:         true # Roles and Groups import
+  update:         true # User Class updates

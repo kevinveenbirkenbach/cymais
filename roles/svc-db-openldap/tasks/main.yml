@@ -36,7 +36,9 @@
 
 - name: "Reset LDAP Credentials"
   include_tasks: 01_credentials.yml
-  when: applications | get_app_conf(application_id, 'network.local', True)
+  when:
+    - applications | get_app_conf(application_id, 'network.local', True)
+    - applications | get_app_conf(application_id, 'provisioning.credentials', True)
 
 - name: "create directory {{ldif_host_path}}{{item}}"
   file:
@@ -51,6 +53,7 @@
     - configuration
   loop_control:
     loop_var: folder
+  when: applications | get_app_conf(application_id, 'provisioning.configuration', True)
 
 - name: flush LDIF handlers
   meta: flush_handlers
@@ -63,16 +66,20 @@
 
 - name: "Include Schemas (if enabled)"
   include_tasks: 02_schemas.yml
+  when: applications | get_app_conf(application_id, 'provisioning.schemas', True)
 
 - name: "Import LDAP Entries (if enabled)"
-  include_tasks: 03_entries.yml
+  include_tasks: 03_users.yml
+  when: applications | get_app_conf(application_id, 'provisioning.users', True)
 
 - name: "Import LDIF Data (if enabled)"
   include_tasks: ldifs_creation.yml
   loop:
-    - data
+    - groups
   loop_control:
     loop_var: folder
+  when: applications | get_app_conf(application_id, 'provisioning.groups', True)
 
 - name: "Add Objects to all users"
-  include_tasks: 04_user_updates.yml
+  include_tasks: 04_update.yml
+  when: applications | get_app_conf(application_id, 'provisioning.update', True)
