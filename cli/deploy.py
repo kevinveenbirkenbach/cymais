@@ -6,7 +6,6 @@ import os
 import datetime
 import sys
 
-
 def run_ansible_playbook(
     inventory,
     modes,
@@ -81,6 +80,24 @@ def run_ansible_playbook(
     duration = end_time - start_time
     print(f"⏱️ Total execution time: {duration}\n")
 
+def validate_application_ids(inventory, app_ids):
+    """
+    Abort the script if any application IDs are invalid, with detailed reasons.
+    """
+    from utils.valid_deploy_id import ValidDeployId
+    validator = ValidDeployId()
+    invalid = validator.validate(inventory, app_ids)
+    if invalid:
+        print("\n❌ Detected invalid application_id(s):\n")
+        for app_id, status in invalid.items():
+            reasons = []
+            if not status['in_roles']:
+                reasons.append("not defined in roles (cymais)")
+            if not status['in_inventory']:
+                reasons.append("not found in inventory file")
+            print(f"  - {app_id}: " + ", ".join(reasons))
+        sys.exit(1)
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -150,6 +167,7 @@ def main():
     )
 
     args = parser.parse_args()
+    validate_application_ids(args.inventory, args.id)
 
     modes = {
         "mode_reset": args.reset,
