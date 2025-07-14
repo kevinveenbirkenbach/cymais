@@ -11,7 +11,8 @@ networks:
   %}
   svc-db-openldap:
     external: true
-{% else %}
+{% endif %}
+{% if application_id != 'svc-db-openldap' %}
   default:
 {% if
   application_id in networks.local and 
