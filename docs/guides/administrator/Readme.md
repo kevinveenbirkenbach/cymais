@@ -10,7 +10,7 @@ Follow these guides to install and configure CyMaIS:
 
 ## Key Responsibilities 🔧
 - **User Management** - Configure LDAP, Keycloak, and user permissions.
-- **Security & Backups** - Set up `sys-bkp-remote-to-local`, `svc-bkp-2-usb`, and `core-security` roles.
+- **Security & Backups** - Set up `sys-bkp-remote-to-local`, `svc-bkp-loc-2-usb`, and `core-security` roles.
 - **Application Hosting** - Deploy services like `Nextcloud`, `Matrix`, `Gitea`, and more.
 - **Networking & VPN** - Configure `WireGuard`, `OpenVPN`, and `Nginx Reverse Proxy`.
 

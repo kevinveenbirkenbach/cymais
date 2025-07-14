@@ -1,6 +1,6 @@
 - name: Copy backup script to the scripts directory
   copy:
-    src: svc-bkp-2-usb.python
+    src: svc-bkp-loc-2-usb.python
     dest: "{{ backup_to_usb_script_path }}"
     owner: root
     group: root
@@ -8,9 +8,9 @@
 
 - name: Copy systemd service to systemd directory
   template:
-    src: svc-bkp-2-usb.service.j2
-    dest: /etc/systemd/system/svc-bkp-2-usb.cymais.service
+    src: svc-bkp-loc-2-usb.service.j2
+    dest: /etc/systemd/system/svc-bkp-loc-2-usb.cymais.service
     owner: root
     group: root
     mode: '0644'
-  notify: reload svc-bkp-2-usb.cymais.service
+  notify: reload svc-bkp-loc-2-usb.cymais.service

@@ -3,6 +3,6 @@
 hosts="{{ pull_remote_backups | join(' ') }}";
 errors=0
 for host in $hosts; do
-  bash {{ docker_backup_remote_to_local_folder }}svc-sys-bkp-rmt-2-loc.sh $host || ((errors+=1));
+  bash {{ docker_backup_remote_to_local_folder }}svc-bkp-rmt-2-loc.sh $host || ((errors+=1));
 done;
 exit $errors;

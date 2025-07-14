@@ -13,10 +13,10 @@ system_maintenance_lock_timeout_restart_docker:    "{{system_maintenance_lock_ti
 
 ### Defined Services for Backup Tasks
 system_maintenance_backup_services:
-  - "sys-bkp-docker-to-local"
-  - "svc-sys-bkp-rmt-2-loc"
-  - "svc-bkp-2-usb"
-  - "sys-bkp-docker-to-local-everything"
+  - "sys-bkp-docker-2-loc"
+  - "svc-bkp-rmt-2-loc"
+  - "svc-bkp-loc-2-usb"
+  - "sys-bkp-docker-2-loc-everything"
 
 ### Defined Services for System Cleanup
 system_maintenance_cleanup_services:

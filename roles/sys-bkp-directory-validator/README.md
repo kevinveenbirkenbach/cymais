@@ -2,7 +2,7 @@
 
 ## Description
 
-This Ansible role installs the [directory-validator](https://github.com/kevinveenbirkenbach/directory-validator.git). It is used by the sys-bkp-docker-to-local and sys-cln-faild-bkps roles to verify whether backups have been successfully created.
+This Ansible role installs the [directory-validator](https://github.com/kevinveenbirkenbach/directory-validator.git). It is used by the sys-bkp-docker-2-loc and sys-cln-faild-bkps roles to verify whether backups have been successfully created.
 
 ## Overview
 

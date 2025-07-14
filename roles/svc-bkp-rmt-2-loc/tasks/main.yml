@@ -4,17 +4,17 @@
     state: directory
     mode: 0755
 
-- name: create svc-sys-bkp-rmt-2-loc.sh
+- name: create svc-bkp-rmt-2-loc.sh
   copy:
-    src: svc-sys-bkp-rmt-2-loc.sh
-    dest: "{{docker_backup_remote_to_local_folder}}svc-sys-bkp-rmt-2-loc.sh"
+    src: svc-bkp-rmt-2-loc.sh
+    dest: "{{docker_backup_remote_to_local_folder}}svc-bkp-rmt-2-loc.sh"
     mode: 0755
 
-- name: create svc-sys-bkp-rmt-2-loc.cymais.service
+- name: create svc-bkp-rmt-2-loc.cymais.service
   template: 
-    src:  svc-sys-bkp-rmt-2-loc.service.j2 
-    dest: /etc/systemd/system/svc-sys-bkp-rmt-2-loc.cymais.service
-  notify: reload svc-sys-bkp-rmt-2-loc service
+    src:  svc-bkp-rmt-2-loc.service.j2 
+    dest: /etc/systemd/system/svc-bkp-rmt-2-loc.cymais.service
+  notify: reload svc-bkp-rmt-2-loc service
 
 - name: create backups-remote-to-local.sh
   template: 

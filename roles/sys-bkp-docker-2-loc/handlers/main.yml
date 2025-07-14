@@ -1,0 +1,9 @@
+- name: "reload sys-bkp-docker-2-loc-everything.cymais.service"
+  systemd:
+    name: sys-bkp-docker-2-loc-everything.cymais.service
+    daemon_reload: yes
+
+- name: "reload sys-bkp-docker-2-loc.cymais.service"
+  systemd:
+    name: sys-bkp-docker-2-loc.cymais.service
+    daemon_reload: yes

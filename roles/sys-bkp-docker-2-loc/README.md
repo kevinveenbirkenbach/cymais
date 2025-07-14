@@ -2,7 +2,7 @@
 
 ## Description
 
-This Ansible role automates the process of backing up Docker volumes to a local folder. It pulls the [sys-bkp-docker-to-local repository](https://github.com/kevinveenbirkenbach/sys-bkp-docker-to-local.git), installs required software, configures systemd services for both standard and "everything" backup modes, and seeds backup database entries as needed.
+This Ansible role automates the process of backing up Docker volumes to a local folder. It pulls the [sys-bkp-docker-2-loc repository](https://github.com/kevinveenbirkenbach/sys-bkp-docker-2-loc.git), installs required software, configures systemd services for both standard and "everything" backup modes, and seeds backup database entries as needed.
 
 ## Overview
 
@@ -20,7 +20,7 @@ Backup Docker Volumes to Local is a comprehensive solution that leverages rsync 
 ## Features
 
 - **Required Software Installation:** Installs necessary packages (e.g., lsof, python-pandas) via pacman.
-- **Git Repository Pull:** Automatically pulls the latest version of the [sys-bkp-docker-to-local repository](https://github.com/kevinveenbirkenbach/sys-bkp-docker-to-local.git).
+- **Git Repository Pull:** Automatically pulls the latest version of the [sys-bkp-docker-2-loc repository](https://github.com/kevinveenbirkenbach/sys-bkp-docker-2-loc.git).
 - **Systemd Service Configuration:** Deploys and reloads two systemd service templates to manage backup tasks.
 - **Database Seeding:** Includes tasks to seed and manage a backup database (`databases.csv`) for tracking backup details.
 - **Dependency Integration:** Works in conjunction with the dependent roles listed above to verify and manage backups.
