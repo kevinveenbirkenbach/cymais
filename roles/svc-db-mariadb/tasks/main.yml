@@ -1,29 +1,29 @@
 - name: Create Docker network for MariaDB
   docker_network:
-    name: "{{ applications['svc-db-mariadb'].network }}"
+    name: "{{ mariadb_network_name }}"
     state: present
     ipam_config:
-      - subnet: "{{ networks.local['svc-db-mariadb'].subnet }}"
+      - subnet: "{{ mariadb_subnet }}"
   when: run_once_docker_mariadb is not defined
 
 - name: install MariaDB
   docker_container:
     name: "{{ mariadb_hostname }}"
-    image: "mariadb:{{applications['svc-db-mariadb'].version}}"
+    image: "{{ mariadb_image }}:{{ mariadb_version}}"
     detach: yes
     env:
-      MARIADB_ROOT_PASSWORD:  "{{mariadb_root_pwd}}"
+      MARIADB_ROOT_PASSWORD:  "{{ mariadb_root_pwd }}"
       MARIADB_AUTO_UPGRADE:   "1"
     networks:
-      - name: "{{ applications['svc-db-mariadb'].network }}"
+      - name: "{{ mariadb_network_name }}"
     volumes:
-      - "{{ applications['svc-db-mariadb'].volume }}:/var/lib/mysql"
+      - "{{ mariadb_volume }}:/var/lib/mysql"
     published_ports:
-      - "127.0.0.1:{{database_port}}:3306" # can be that this will be removed if all applications use sockets
+      - "127.0.0.1:{{ mariadb_port }}:3306" # can be that this will be removed if all applications use sockets
     command: "--transaction-isolation=READ-COMMITTED --binlog-format=ROW" #for nextcloud
-    restart_policy: "{{docker_restart_policy}}"
+    restart_policy: "{{ docker_restart_policy }}"
     healthcheck:
-      test: "/usr/bin/mariadb --user=root --password={{mariadb_root_pwd}} --execute \"SHOW DATABASES;\""
+      test: "/usr/bin/mariadb --user=root --password={{ mariadb_root_pwd }} --execute \"SHOW DATABASES;\""
       interval: 3s
       timeout: 1s
       retries: 5
@@ -51,36 +51,9 @@
     - setup_mariadb_container_result.changed
     - run_once_docker_mariadb is not defined
 
-- name: "Create database: {{ database_name }}"
-  mysql_db:
-    name:           "{{ database_name }}"
-    state:          present
-    login_user:     root
-    login_password: "{{ mariadb_root_pwd }}"
-    login_host:     127.0.0.1
-    login_port:     "{{ database_port }}"
-    encoding:       "{{ database_encoding }}"
-    collation:      "{{ database_collation }}"
-
-- name: "Create database user: {{ database_username }}"
-  mysql_user:
-    name:     "{{database_username}}"
-    password: "{{database_password}}"
-    host: "%"
-    priv: '{{database_name}}.*:ALL'
-    state: present
-    login_user: root
-    login_password: "{{mariadb_root_pwd}}"
-    login_host: 127.0.0.1
-    login_port: "{{database_port}}"
-
-# Deactivated due to https://chatgpt.com/share/683ba14b-0e74-800f-9ad1-a8979bc77093
-# @todo Remove if this works fine in the future. 
-#- name: Grant database privileges
-#  ansible.builtin.shell:
-#    cmd: "docker exec {{mariadb_hostname }} mariadb -u root -p{{ mariadb_root_pwd }} -e \"GRANT ALL PRIVILEGES ON `{{database_name}}`.* TO '{{database_username}}'@'%';\""
-#  args:
-#    executable: /bin/bash
+- name: "Initialize database for '{{ database_name }}'"
+  include_tasks: init.yml
+  when: "{{ mariadb_init }}"
 
 - name: run the docker_mariadb tasks once
   set_fact:

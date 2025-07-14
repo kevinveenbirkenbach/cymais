@@ -1,0 +1,30 @@
+- name: "Create database: {{ database_name }}"
+  mysql_db:
+    name:           "{{ database_name }}"
+    state:          present
+    login_user:     root
+    login_password: "{{ mariadb_root_pwd }}"
+    login_host:     127.0.0.1
+    login_port:     "{{ database_port }}"
+    encoding:       "{{ database_encoding }}"
+    collation:      "{{ database_collation }}"
+
+- name: "Create database user: {{ database_username }}"
+  mysql_user:
+    name:     "{{database_username}}"
+    password: "{{database_password}}"
+    host: "%"
+    priv: '{{database_name}}.*:ALL'
+    state: present
+    login_user: root
+    login_password: "{{mariadb_root_pwd}}"
+    login_host: 127.0.0.1
+    login_port: "{{database_port}}"
+
+# Deactivated due to https://chatgpt.com/share/683ba14b-0e74-800f-9ad1-a8979bc77093
+# @todo Remove if this works fine in the future. 
+#- name: Grant database privileges
+#  ansible.builtin.shell:
+#    cmd: "docker exec {{mariadb_hostname }} mariadb -u root -p{{ mariadb_root_pwd }} -e \"GRANT ALL PRIVILEGES ON `{{database_name}}`.* TO '{{database_username}}'@'%';\""
+#  args:
+#    executable: /bin/bash
