@@ -1,6 +1,5 @@
 hostname: "svc-db-postgres"
 network:  "<< defaults_applications[svc-db-postgres].hostname >>"
-volume:   "<< defaults_applications[svc-db-postgres].hostname >>"
 docker:
   services:
     postgres:
@@ -9,3 +8,4 @@ docker:
       # Please set an version in your inventory file! 
       # Rolling release isn't recommended
       version: "latest"
+      volume:  "<< defaults_applications[svc-db-postgres].hostname >>_data"

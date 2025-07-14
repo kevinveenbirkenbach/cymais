@@ -1,25 +1,25 @@
 - name: Create Docker network for PostgreSQL
   docker_network:
-    name: "{{ applications | get_app_conf(application_id, 'network', True) }}"
+    name: "{{ postgres_network_name }}"
     state: present
     ipam_config:
-      - subnet: "{{ networks.local['svc-db-postgres'].subnet }}"
+      - subnet: "{{ postgres_subnet }}"
   when: run_once_docker_postgres is not defined
 
 - name: Install PostgreSQL
   docker_container:
-    name: "{{ applications | get_app_conf(application_id, 'hostname', True) }}"
-    image: "{{ applications | get_app_conf(application_id, 'docker.services.postgres.image', True) }}:{{ applications | get_app_conf(application_id, 'docker.services.postgres.version', True) }}"
+    name: "{{ postgres_hostname }}"
+    image: "{{ postgres_image }}:{{ postgres_version }}"
     detach: yes
     env:
-      POSTGRES_PASSWORD: "{{ applications | get_app_conf(application_id, 'credentials.postgres_password', True) }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
       POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C" # Necessary for web-app-matrix
     networks:
-      - name: "{{ applications | get_app_conf(application_id, 'network', True) }}"
+      - name: "{{ postgres_network_name }}"
     published_ports:
-      - "127.0.0.1:{{ database_port }}:5432"
+      - "127.0.0.1:{{ postgres_port }}:5432"
     volumes:
-      - "{{ applications['svc-db-postgres'].volume }}:/var/lib/postgresql/data"
+      - "{{ postgres_volume }}:/var/lib/postgresql/data"
     restart_policy: "{{ docker_restart_policy }}"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
@@ -31,7 +31,7 @@
   when: run_once_docker_postgres is not defined
 
 - name: Wait for Postgres inside the container
-  shell: "docker exec {{ applications | get_app_conf(application_id, 'hostname', True) }} pg_isready -U postgres"
+  shell: "docker exec {{ postgres_hostname }} pg_isready -U postgres"
   register: pg_ready
   until: pg_ready.rc == 0
   retries: 30
@@ -47,12 +47,9 @@
     state: present
   when: run_once_docker_postgres is not defined
 
-- name: Load database initialization tasks dynamically
-  include_tasks: init_database.yml
-  when:
-    - database_username is defined
-    - database_password is defined
-    - database_name is defined
+- name: "Initialize database for '{{ database_name }}'"
+  include_tasks: init.yml
+  when: "{{ postgres_init }}"
 
 - name: Run the docker_postgres tasks once
   set_fact:
