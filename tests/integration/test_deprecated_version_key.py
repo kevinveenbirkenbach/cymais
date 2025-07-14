@@ -33,12 +33,12 @@ class TestDeprecatedVersionKey(unittest.TestCase):
             if uses_version:
                 warnings.append(
                     f"[DEPRECATION WARNING] {role_path.name}/config/main.yml: "
-                    f"'version' is deprecated. Replace it by docker.versions[version]."
+                    f"'version' is deprecated. Replace it by docker.services[service].version."
                 )
             if uses_images:
                 warnings.append(
                     f"[DEPRECATION WARNING] {role_path.name}/config/main.yml: "
-                    f"'images' is deprecated. Replace it by docker.images[image]."
+                    f"'images' is deprecated. Replace it by docker.services[service].image."
                 )
 
         if warnings:

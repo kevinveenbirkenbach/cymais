@@ -3,14 +3,11 @@ import yaml
 from pathlib import Path
 import re
 
-class TestDockerRoleImagesConfiguration(unittest.TestCase):
-    def test_images_keys_and_templates(self):
+class TestDockerRoleServicesConfiguration(unittest.TestCase):
+    def test_services_keys_and_templates(self):
         """
         For each web-app-* role, check that:
-        - roles/web-app-*/config/main.yml contains 'images' as a dict with keys/values
-        - Each image key is referenced as:
-            image: "{{ applications[application_id].images.<key> }}"
-          in either roles/web-app-*/templates/docker-compose.yml.j2 or env.j2
+        - roles/web-app-*/config/main.yml contains 'services' as a dict with keys/values
         """
         repo_root = Path(__file__).resolve().parent.parent.parent
         roles_dir = repo_root / "roles"
@@ -33,13 +30,13 @@ class TestDockerRoleImagesConfiguration(unittest.TestCase):
                 errors.append(f"{role_path.name}: YAML parse error: {e}")
                 continue
 
-            images = config.get("docker",{}).get("images")
-            if not images:
-                warnings.append(f"[WARNING] {role_path.name}: No 'docker.images' key in config/main.yml")
+            services = config.get("docker",{}).get("services",{})
+            if not services:
+                warnings.append(f"[WARNING] {role_path.name}: No 'docker.services' key in config/main.yml")
                 continue
 
-            if not isinstance(images, dict):
-                errors.append(f"{role_path.name}: 'images' must be a dict in config/main.yml")
+            if not isinstance(services, dict):
+                errors.append(f"{role_path.name}: 'services' must be a dict in config/main.yml")
                 continue
 
                 # OPTIONAL: Check if the image is available locally via docker images
@@ -55,9 +52,9 @@ class TestDockerRoleImagesConfiguration(unittest.TestCase):
                 #     except Exception as e:
                 #         errors.append(f"{role_path.name}: Error running 'docker images' (optional): {e}")
         if warnings:
-            print("\nWarnings in docker role images configuration:\n" + "\n".join(warnings))
+            print("\nWarnings in docker role services configuration:\n" + "\n".join(warnings))
         if errors:
-            self.fail("Errors in docker role images configuration:\n" + "\n".join(errors))
+            self.fail("Errors in docker role services configuration:\n" + "\n".join(errors))
 
 if __name__ == "__main__":
     unittest.main()
