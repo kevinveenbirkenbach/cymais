@@ -1,2 +1,3 @@
-application_id: {{ application_id }} # ID of the application, should be the name of the role folder
-database_type:  0                    # Database type [postgres, mariadb]
+application_id:                 {{ application_id }} # ID of the application, should be the name of the role folder
+database_type:                  0                    # Database type [postgres, mariadb]
+docker_compose_flush_handlers:  true                 # When this is set to true an auto-flush after the docker-compose.yml, and env deploy is triggered, otherwise you have todo it manual.
