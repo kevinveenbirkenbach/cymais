@@ -21,9 +21,9 @@
 
   command: >
     ldapsm
-      -s {{ ldap_server_uri }}
-      -D '{{ ldap_bind_dn }}'
-      -W '{{ ldap_bind_pw }}'
+      -s {{ openldap_server_uri }}
+      -D '{{ openldap_bind_dn }}'
+      -W '{{ openldap_bind_pw }}'
       -n {{ schema_name }}
       {% for at in attribute_defs %}
       -a "{{ at }}"

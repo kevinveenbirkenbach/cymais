@@ -4,8 +4,12 @@ network:
   local:          True                                # Activates local network. Necessary for LDIF import routines
   docker:         True                                # Activates docker network to allow other docker containers to connect
   public:         False                               # Set to true in inventory file if you want to expose the LDAP port to the internet
-images:
-  openldap:       "bitnami/openldap:latest"
+docker: 
+  services:
+    openldap:     
+      image:      "bitnami/openldap"
+      version:    "latest"
+      container:  "<< defaults_applications[svc-db-openldap].hostname >>"
 webinterface:     "lam"                               # The webinterface which should be used. Possible: lam and phpldapadmin
 features:
   ldap:           true

@@ -1,20 +1,20 @@
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
 
   application:
-    image: "{{ applications | get_app_conf(application_id, 'images.openldap', True) }}"
-    container_name: {{ applications | get_app_conf(application_id, 'hostname', True) }}
+    image: "{{ openldap_image }}:{{ openldap_version }}"
+    container_name: "{{ openldap_container }}"
 {% include 'roles/docker-container/templates/base.yml.j2' %}
-{% if applications | get_app_conf(application_id, 'network.public', True) | bool or applications | get_app_conf(application_id, 'network.local', True) | bool %}
+{% if openldap_network_expose_local %}
     ports:
-      - 127.0.0.1:{{ports.localhost.ldap['svc-db-openldap']}}:{{ldap_docker_port}}
+      - 127.0.0.1:{{ports.localhost.ldap['svc-db-openldap']}}:{{openldap_docker_port_open}}
 {% endif %}
     volumes:
       - 'data:/bitnami/openldap'
-      - '{{ldif_host_path}}:{{ldif_docker_path}}:ro'
+      - '{{openldap_ldif_host_path}}:{{openldap_ldif_docker_path}}:ro'
     healthcheck:
       test: >
         bash -c '
-        ldapsearch -x -H ldap://localhost:{{ ldap_docker_port }} \
+        ldapsearch -x -H ldap://localhost:{{ openldap_docker_port_open }} \
           -D "{{ ldap.dn.administrator.data }}" -w "{{ ldap.bind_credential }}" -b "{{ ldap.dn.root }}" > /dev/null \
         && ldapsearch -Y EXTERNAL -H ldapi:/// \
           -b cn=config "(&(objectClass=olcOverlayConfig)(olcOverlay=memberof))" \
@@ -24,5 +24,6 @@
 
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   data:
+    name: "{{ openldap_volume }}"
 
 {% include 'roles/docker-compose/templates/networks.yml.j2' %}
