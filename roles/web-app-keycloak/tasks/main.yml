@@ -3,16 +3,16 @@
   include_role: 
     name: cmp-db-docker-proxy
 
-- name: "create directory {{import_directory_host}}"
+- name: "create directory {{keycloak_host_import_directory}}"
   file:
-    path: "{{import_directory_host}}"
+    path: "{{keycloak_host_import_directory}}"
     state: directory
     mode: 0755
 
-- name: "Copy import files to {{ import_directory_host }}"
+- name: "Copy import files to {{ keycloak_host_import_directory }}"
   template:
     src: "{{ item }}"
-    dest: "{{ import_directory_host }}/{{ item | basename | regex_replace('\\.j2$', '') }}"
+    dest: "{{ keycloak_host_import_directory }}/{{ item | basename | regex_replace('\\.j2$', '') }}"
     mode: '770'
   loop: "{{ lookup('fileglob', '{{ role_path }}/templates/import/*.j2', wantlist=True) }}"
   notify: docker compose up

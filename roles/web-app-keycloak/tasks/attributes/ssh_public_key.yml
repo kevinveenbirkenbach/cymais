@@ -72,11 +72,11 @@
 - name: Render user-profile JSON for SSH key
   template:
     src:  import/user-profile.json.j2
-    dest: "{{ import_directory_host }}/user-profile.json"
+    dest: "{{ keycloak_host_import_directory }}/user-profile.json"
     mode: '0644'
   notify: docker compose up
 
 - name: Apply SSH Public Key to user-profile via kcadm
   shell: |
     docker exec -i {{ container_name }} \
-      /opt/keycloak/bin/kcadm.sh update realms/{{ keycloak_realm }} -f {{ import_directory_docker }}user-profile.json
+      /opt/keycloak/bin/kcadm.sh update realms/{{ keycloak_realm }} -f {{ keycloak_docker_import_directory }}user-profile.json

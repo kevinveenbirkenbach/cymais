@@ -1,10 +1,8 @@
-images: 
-  keycloak:           "quay.io/keycloak/keycloak:latest"
 import_realm:         True                                # If True realm will be imported. If false skip.
 features:
   matomo:             true
   css:                false
-  port-ui-desktop:   true
+  port-ui-desktop:    true
   ldap:               true
   central_database:   true
   recaptcha:          true
@@ -26,6 +24,9 @@ scopes:
 rbac_groups:  "/rbac"
 docker:
   services:
+    keycloak:
+      image:    "quay.io/keycloak/keycloak"
+      version:  "latest"
     database:
       enabled: true
 
