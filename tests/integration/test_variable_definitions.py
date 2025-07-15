@@ -122,7 +122,7 @@ class TestVariableDefinitions(unittest.TestCase):
                             # skip builtins and whitelisted names
                             if var in ('lookup', 'role_name', 'domains', 'item', 'host_type',
                                        'inventory_hostname', 'role_path', 'playbook_dir',
-                                       'ansible_become_password', 'inventory_dir'):
+                                       'ansible_become_password', 'inventory_dir', 'ansible_memtotal_mb'):
                                 continue
                             # skip defaults_var fallback
                             if var not in self.defined and \
