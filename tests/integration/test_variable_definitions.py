@@ -21,8 +21,9 @@ class TestVariableDefinitions(unittest.TestCase):
 
         # Regex patterns
         self.simple_var_pattern = re.compile(r"{{\s*([a-zA-Z_]\w*)\s*(?:\|[^}]*)?}}")
-        self.jinja_set_def = re.compile(r'{%\s*set\s+([a-zA-Z_]\w*)\s*=')
-        self.jinja_for_def = re.compile(r'{%\s*for\s+([a-zA-Z_]\w*)(?:\s*,\s*([a-zA-Z_]\w*))?\s+in')
+        # new: allow an optional '-' after the '{%'
+        self.jinja_set_def = re.compile(r'{%\s*-?\s*set\s+([a-zA-Z_]\w*)\s*=')
+        self.jinja_for_def = re.compile(r'{%\s*-?\s*for\s+([a-zA-Z_]\w*)(?:\s*,\s*([a-zA-Z_]\w*))?\s+in')
         self.ansible_set_fact = re.compile(r'^(?:\s*[-]\s*)?set_fact\s*:\s*$')
         self.ansible_vars_block = re.compile(r'^(?:\s*[-]\s*)?vars\s*:\s*$')
         self.ansible_loop_var = re.compile(r'^\s*loop_var\s*:\s*([a-zA-Z_]\w*)')
