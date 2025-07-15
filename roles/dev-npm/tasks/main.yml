@@ -7,6 +7,6 @@
   command: npm ci
   args:
     chdir: "{{ npm_project_folder }}"
-  when: npm_project_folder is defined
+  when: npm_project_folder != ""
   register: npm_output
   changed_when: "'added' in npm_output.stdout or 'updated' in npm_output.stdout"
