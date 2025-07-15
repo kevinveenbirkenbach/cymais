@@ -5,8 +5,8 @@
 
 - name: Link homefolders to cloud
   ansible.builtin.file:
-    src: "{{cloud_directory}}{{item}}"
-    dest: "{{user_home_directory}}{{item}}"
+    src: "{{nextcloud_cloud_directory}}{{item}}"
+    dest: "{{nextcloud_user_home_directory}}{{item}}"
     owner: "{{users.client.username}}"
     group: "{{users.client.username}}"
     state: link
@@ -27,8 +27,8 @@
 
 - name: Link dump folder
   ansible.builtin.file:
-    src: "{{cloud_directory}}InstantUpload"
-    dest: "{{user_home_directory}}Dump"
+    src: "{{nextcloud_cloud_directory}}InstantUpload"
+    dest: "{{nextcloud_user_home_directory}}Dump"
     owner: "{{users.client.username}}"
     group: "{{users.client.username}}"
     state: link
