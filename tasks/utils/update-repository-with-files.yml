@@ -3,7 +3,7 @@
 # @todo Refactor\Remove 
 # @deprecated
 - name: "Merge detached_files with applications['oauth2-proxy'].configuration_file"
-  ansible.builtin.set_fact:
+  set_fact:
     merged_detached_files: "{{ detached_files + [applications['oauth2-proxy'].configuration_file] }}"
   when: applications[application_id].get('features', {}).get('oauth2', False) | bool
 
