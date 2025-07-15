@@ -5,5 +5,5 @@
     package_name: swap-forge
 
 - name: Execute create swapfile script
-  ansible.builtin.shell: swap-forge "{{swapfile_size}}"
+  shell: swap-forge "{{swapfile_size}}"
   become: true

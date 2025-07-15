@@ -1,1 +1,1 @@
-swapfile_size: 4GB
+swapfile_size:  "{{ ansible_memtotal_mb | int }}M"
