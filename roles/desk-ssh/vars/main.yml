@@ -1,1 +1,2 @@
-application_id: desk-ssh
+application_id:       desk-ssh
+desk_ssh_repository:  "{{ applications | get_app_conf(application_id, 'repository') }}"

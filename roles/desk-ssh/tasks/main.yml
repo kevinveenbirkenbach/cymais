@@ -1,6 +1,6 @@
-- name: pull ssh repository from {{ssh_configuration_repository}}
+- name: pull ssh repository from {{desk_ssh_repository}}
   git:
-    repo: "{{ssh_configuration_repository}}"
+    repo: "{{desk_ssh_repository}}"
     dest: "$HOME/.ssh"
     update: yes
   register: git_result
