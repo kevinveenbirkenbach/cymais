@@ -1,1 +1,3 @@
-flavor: "fresh" # Libre Office flavor, fresh for new, still for stable
+flavor:     "fresh" # Libre Office flavor, fresh for new, still for stable
+languages:  
+  - "{{ HOST_LL_CC | lower | replace('_', '-') }}" # Use system default
