@@ -1,0 +1,2 @@
+telegram_bot_token: ''  # The token of your telegram bot
+telegram_chat_id: ''    # The id of your telegram chat 
