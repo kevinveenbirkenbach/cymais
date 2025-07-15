@@ -1,30 +1,30 @@
-# Docker 🐳
+# Backup to USB
 
 ## Description
 
-This Ansible role installs and manages Docker on Arch Linux systems. It ensures that Docker and Docker Compose are available, configured, and ready to run containerized workloads, while enabling seamless integration with system roles and administrative tasks.
-Checkout the [administration reference](./Administration.md) for volume cleanup, container resets, and Docker network recovery.
+This Ansible role automates backups to a removable USB device on Arch Linux systems. It ensures that a custom Python backup script is deployed, the necessary systemd units are configured, and backups are triggered whenever the specified USB mount point becomes available.
 
 ## Overview
 
-Tailored for Arch Linux, this role handles the installation of Docker and Docker Compose using the system’s package manager. It sets up a secure environment for managing Compose instances and ensures the Docker service is properly enabled and restarted. In addition, the role flags its state so that dependent roles can execute conditionally.
+Designed for Arch Linux, this role validates configuration variables (`mount`, `target`, `source`), installs the backup script, generates a systemd service, and sets up a corresponding mount unit. When the USB device is mounted, the service runs the script to synchronize files from the source directory to the USB target, preserving previous snapshots via hard links.
 
 ## Purpose
 
-The purpose of this role is to automate the provisioning of Docker environments in a consistent and maintainable way. It reduces manual setup steps and enables clean integration with other infrastructure roles, making it ideal for production or homelab deployments.
+The purpose of this role is to provide a reliable, idempotent solution for local backups to a swappable USB drive. By automating the entire workflow—from variable checks and script deployment to service orchestration and snapshot management—it reduces manual intervention and integrates seamlessly with other CyMaIS roles for comprehensive system automation.
 
 ## Features
 
-- **Installs Docker & Docker Compose:** Uses `pacman` to install necessary packages.
-- **Service Management:** Automatically enables and restarts the Docker service.
-- **Secure Directory Creation:** Creates a secure location for Docker Compose instance files.
-- **Run-once Setup Logic:** Ensures idempotent execution by controlling task flow with internal flags.
-- **System Role Integration:** Sets internal state (`docker_enabled`) for use by other CyMaIS roles.
+* **Configuration Validation:** Fails early if any of `backup_to_usb_mount`, `backup_to_usb_target`, or `backup_to_usb_source` is empty.
+* **Script Deployment:** Copies the `svc-bkp-loc-2-usb.py` backup script to the target path with correct ownership and permissions.
+* **Systemd Integration:** Generates and installs a systemd mount unit for the USB device and a oneshot service that triggers backup upon mount.
+* **Snapshot Backups:** Uses `rsync --link-dest` to create incremental snapshots and preserve previous versions without duplicating unchanged files.
+* **Idempotent Runs:** Ensures tasks only run when needed and leverages Ansible’s `assert` and state management for consistent behavior.
+* **Service Reload Handlers:** Automatically reloads the systemd service when template changes occur.
 
-## Credits 📝
+## Credits
 
-Developed and maintained by **Kevin Veen-Birkenbach**.  
-Learn more at [www.veen.world](https://www.veen.world)
+Developed and maintained by **Kevin Veen-Birkenbach**.
+Visit [veen.world](https://www.veen.world) for more information.
 
-Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
+Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)
 License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)

@@ -1,6 +1,10 @@
-backup_to_usb_script_path: /usr/local/sbin/svc-bkp-loc-2-usb.python
-backup_to_usb_destination: '{{backup_to_usb_mount}}{{backup_to_usb_destination_subdirectory}}'
-backups_folder_path: '{{backup_to_usb_destination}}'
-systemctl_mount_service_name: '{{ backup_to_usb_mount | trim(''/'') | replace(''/'',
-  ''-'') }}.mount'
-application_id: svc-bkp-loc-2-usb
+application_id:                 "svc-bkp-loc-2-usb"
+
+backup_to_usb_script_path:      "/usr/local/sbin/svc-bkp-loc-2-usb.py"
+backup_to_usb_destination:      '{{ backup_to_usb_mount}}{{ backup_to_usb_targed }}'
+backups_folder_path:            '{{ backup_to_usb_destination }}'
+systemctl_mount_service_name:   '{{ backup_to_usb_mount | trim(''/'') | replace(''/'',''-'') }}.mount'
+
+backup_to_usb_mount:            "{{ applications | get_app_conf(application_id, 'mount') }}"
+backup_to_usb_targed:           "{{ applications | get_app_conf(application_id, 'target') }}"
+backup_to_usb_source:           "{{ applications | get_app_conf(application_id, 'source') }}"

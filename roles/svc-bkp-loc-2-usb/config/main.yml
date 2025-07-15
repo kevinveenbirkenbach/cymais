@@ -1,0 +1,3 @@
+mount:  "" # Place where the USB Drive will be mounted to 
+target: "" # Target directory to which the backups will be copied
+source: "" # Source from which the backups will be copied
