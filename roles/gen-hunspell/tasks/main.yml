@@ -7,4 +7,4 @@
   community.general.pacman:
     name: "hunspell-{{ item }}"
     state: present
-  loop: "{{hunspell_languages}}"
+  loop: "{{ hunspell_languages }}"
