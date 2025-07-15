@@ -10,18 +10,21 @@ class TestVariableDefinitions(unittest.TestCase):
         self.project_root = os.path.abspath(
             os.path.join(os.path.dirname(__file__), '../../')
         )
-        # Gather all definition files: include any .yml under vars/ and defaults/, plus group_vars/all
-        self.var_files = (
-            glob(os.path.join(self.project_root, 'roles/*/vars/*.yml')) +
-            glob(os.path.join(self.project_root, 'roles/*/defaults/*.yml')) +
-            glob(os.path.join(self.project_root, 'group_vars/all/*.yml'))
-        )
+        # Gather all definition files recursively under vars/ and defaults/, plus group_vars/all
+        self.var_files = []
+        patterns = [
+            os.path.join(self.project_root, 'roles', '*', 'vars', '**', '*.yml'),
+            os.path.join(self.project_root, 'roles', '*', 'defaults', '**', '*.yml'),
+            os.path.join(self.project_root, 'group_vars', 'all', '*.yml'),
+        ]
+        for pat in patterns:
+            self.var_files.extend(glob(pat, recursive=True))
+
         # Valid file extensions to scan for definitions and usages
         self.scan_extensions = {'.yml', '.j2'}
 
         # Regex patterns
         self.simple_var_pattern = re.compile(r"{{\s*([a-zA-Z_]\w*)\s*(?:\|[^}]*)?}}")
-        # new: allow an optional '-' after the '{%'
         self.jinja_set_def = re.compile(r'{%\s*-?\s*set\s+([a-zA-Z_]\w*)\s*=')
         self.jinja_for_def = re.compile(r'{%\s*-?\s*for\s+([a-zA-Z_]\w*)(?:\s*,\s*([a-zA-Z_]\w*))?\s+in')
         self.ansible_set_fact = re.compile(r'^(?:\s*[-]\s*)?set_fact\s*:\s*$')
@@ -86,7 +89,7 @@ class TestVariableDefinitions(unittest.TestCase):
                         m_loop = self.ansible_loop_var.match(stripped)
                         if m_loop:
                             self.defined.add(m_loop.group(1))
-                        
+
                         # register
                         m_reg = re.match(r'^\s*register\s*:\s*([a-zA-Z_]\w*)', stripped)
                         if m_reg:
@@ -120,8 +123,8 @@ class TestVariableDefinitions(unittest.TestCase):
                                 continue
                             # skip defaults_var fallback
                             if var not in self.defined and \
-                               f"defaults_{var}" not in self.defined and \
-                               f"default_{var}" not in self.defined:
+                               f"default_{var}" not in self.defined and \
+                               f"defaults_{var}" not in self.defined:
                                 undefined_uses.append(
                                     f"{path}:{lineno}: '{{{{ {var} }}}}' used but not defined"
                                 )
