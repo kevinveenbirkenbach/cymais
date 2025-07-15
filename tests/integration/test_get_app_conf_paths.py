@@ -67,6 +67,20 @@ class TestGetAppConfPaths(unittest.TestCase):
                 except Exception:
                     continue
                 for m in cls.pattern.finditer(text):
+                    # Determine the start and end of the current line
+                    start = text.rfind('\n', 0, m.start()) + 1
+                    end = text.find('\n', start)
+                    line = text[start:end] if end != -1 else text[start:]
+
+                    # 1) Skip lines that are entirely commented out
+                    if line.lstrip().startswith('#'):
+                        continue
+
+                    # 2) Skip calls preceded by an inline comment
+                    idx_call = line.find('get_app_conf')
+                    idx_hash = line.find('#')
+                    if 0 <= idx_hash < idx_call:
+                        continue
                     lineno   = text.count('\n', 0, m.start()) + 1
                     app_arg  = m.group(1).strip()
                     path_arg = m.group(2).strip()
