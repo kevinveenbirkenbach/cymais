@@ -86,6 +86,11 @@ class TestVariableDefinitions(unittest.TestCase):
                         m_loop = self.ansible_loop_var.match(stripped)
                         if m_loop:
                             self.defined.add(m_loop.group(1))
+                        
+                        # register
+                        m_reg = re.match(r'^\s*register\s*:\s*([a-zA-Z_]\w*)', stripped)
+                        if m_reg:
+                            self.defined.add(m_reg.group(1))
                         # jinja set
                         for m in self.jinja_set_def.finditer(line):
                             self.defined.add(m.group(1))
