@@ -2,7 +2,7 @@
 
 ## Description
 
-This Ansible role installs and updates packages using `pkgmgr` on Arch Linux systems. It provides a unified interface for package installation and update management, ensuring consistent deployment across environments.
+This Ansible role installs [Kevin's Package Manager](https://github.com/kevinveenbirkenbach/package-manager) and updates packages using `pkgmgr` on Arch Linux systems. It provides a unified interface for package installation and update management, ensuring consistent deployment across environments.
 
 ## Overview
 
@@ -25,18 +25,6 @@ The purpose of this role is to automate the installation and update process for 
 |-----------------|-----------------------------------------------------------------|---------|
 | `package_name`   | Name of the package to install/update                          | (required) |
 | `package_notify` | Handler to notify on package installation/update              | "" |
-| `pkgmgr_become`  | Execute all tasks with elevated privileges (become: true/false) | true |
-
-## Example Usage
-
-```yaml
-- name: Install cymais-presentation
-  include_role:
-    name: pkgmgr-install
-  vars:
-    package_name: cymais-presentation
-    package_notify: docker compose project build and setup
-```
 
 ## Credits 📝
 
