@@ -1,2 +1,2 @@
 update_docker_script: '{{path_administrator_scripts}}update-docker.py'
-application_id: docker
+application_id: update-docker

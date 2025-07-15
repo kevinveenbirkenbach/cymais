@@ -2,17 +2,21 @@
   systemd:
     name: sys-bkp-docker-2-loc-everything.cymais.service
     state: started
-  when: mode_backup | bool
+  when: 
+    - run_once_update_docker is not defined
+    - mode_backup | bool
 
 - name: create {{update_docker_script}}
   template:
     src: update-docker.py.j2
     dest: "{{update_docker_script}}"
+  when: run_once_update_docker is not defined
 
 - name: configure update-docker.cymais.service
   template: 
     src: update-docker.service.j2
     dest: /etc/systemd/system/update-docker.cymais.service
+  when: run_once_update_docker is not defined
 
 - name: "restart update-docker.cymais.service"
   systemd:
@@ -20,3 +24,9 @@
     state: restarted
     enabled: yes
     daemon_reload: yes
+  when: run_once_update_docker is not defined
+
+- name: run the update docker tasks once
+  set_fact:
+    run_once_update_docker: true
+  when: run_once_update_docker is not defined

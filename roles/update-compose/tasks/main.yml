@@ -3,49 +3,76 @@
   stat:
     path: "{{ path_docker_compose_instances }}"
   register: docker_compose_directory_stat
+  when:
+    - run_once_update is not defined
 
 - name: "Update with pacman"
   include_role:
     name: update-pacman
-  when: ansible_distribution == 'Archlinux'
+  when:
+    - run_once_update is not defined
+    - ansible_distribution == 'Archlinux'
   
 - name: "Update with apt"
   include_role:
     name: update-apt
-  when: ansible_distribution == "Debian"
+  when:
+    - run_once_update is not defined
+    - ansible_distribution == "Debian"
 
 - name: "Update Docker Images"
   include_role:
     name: update-docker
-  when: docker_compose_directory_stat.stat.exists
+  when:
+    - run_once_update is not defined
+    - docker_compose_directory_stat.stat.exists
 
 - name: "Check if yay is installed"
   command: which yay
   register: yay_installed
   changed_when: false
   failed_when: false
+  when:
+    - run_once_update is not defined
 
 - name: "Update with yay"
   include_role:
     name: update-yay
-  when: yay_installed.rc == 0
+  when:
+    - run_once_update is not defined
+    - yay_installed.rc == 0
+
 
 - name: "Check if pip is installed"
   command: which pip
   register: pip_installed
   changed_when: false
   failed_when: false
+  when:
+    - run_once_update is not defined
 
 - name: "Update with pip"
   include_role:
     name: update-pip
-    
+  when:
+    - run_once_update is not defined
+
+
 - name: "Check if pkgmgr command is available"
   command: "which pkgmgr"
   register: pkgmgr_available
   failed_when: false
+  when:
+    - run_once_update is not defined
 
 - name: "Update all repositories using pkgmgr"
   include_role:
     name: update-pkgmgr
-  when: pkgmgr_available.rc == 0
+  when: 
+    - pkgmgr_available.rc == 0
+    - run_once_update is not defined
+
+- name: run the update tasks once
+  set_fact:
+    run_once_update: true
+  when: run_once_update is not defined
