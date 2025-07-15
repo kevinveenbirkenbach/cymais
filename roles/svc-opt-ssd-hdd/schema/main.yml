@@ -1,0 +1,11 @@
+credentials:
+  postgres_password:
+    description: "Password for the PostgreSQL superuser 'postgres'"
+    algorithm: "bcrypt"
+    validation: "^\\$2[aby]\\$.{56}$"
+
+path_rapid_storage:
+  description: "Mount path of the servers SSD"
+
+path_mass_storage:
+  description: "Mount path of the servers HDD"
