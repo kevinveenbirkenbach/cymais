@@ -4,7 +4,6 @@ application_id:                 "svc-db-openldap"
 openldap_docker_port_secure:    636
 openldap_docker_port_open:      389
 openldap_server_uri:            "ldap://127.0.0.1:{{ ports.localhost.ldap[application_id] }}"
-openldap_hostname:              "{{ applications | get_app_conf(application_id, 'hostname', True) }}"
 openldap_bind_dn:               "{{ ldap.dn.administrator.configuration }}"
 openldap_bind_pw:               "{{ applications | get_app_conf(application_id, 'credentials.administrator_password', True) }}"
 
