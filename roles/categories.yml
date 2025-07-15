@@ -30,7 +30,7 @@ roles:
     title: "Updates & Package Management"
     description: "OS & package updates"
     icon: "fas fa-sync"
-    invokable: false
+    invokable: true
   drv:
     title: "Drivers"
     description: "Roles for installing and configuring hardware drivers—covering printers, graphics, input devices, and other peripheral support."
