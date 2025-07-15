@@ -1,8 +1,7 @@
-version:              "bookworm"
 features:
   matomo:             true
   css:                false
-  port-ui-desktop:   true
+  port-ui-desktop:    true
   central_database:   true
   oidc:               true
 csp:
@@ -31,3 +30,10 @@ docker:
       enabled: true
     database: 
       enabled: true
+    peertube: 
+      name:             "peertube"
+      version:          "production-bookworm"
+      image:            "chocobozzz/peertube"
+      no_stop_required: true
+  volumes:
+    data: peertube_data

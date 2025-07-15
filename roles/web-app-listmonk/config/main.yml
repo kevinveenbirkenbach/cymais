@@ -1,11 +1,8 @@
-images:
-  listmonk:                 "listmonk/listmonk:latest"
-public_api_activated:       False                                 # Security hole. Can be used for spaming
-version:                    "latest"                              # Docker Image version
+public_api_activated:       False                                 # Security hole. Can be used for spaming                          # Docker Image version
 features:
   matomo:                   true
   css:                      false
-  port-ui-desktop:         true
+  port-ui-desktop:          true
   central_database:         true
   oidc:                     true
 domains:
@@ -15,3 +12,9 @@ docker:
   services:
     database:
       enabled: true
+    listmonk:
+      image:            listmonk/listmonk
+      version:          latest
+      no_stop_required: true
+      name:             listmonk
+      port:             9000

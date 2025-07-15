@@ -1,4 +1,3 @@
-version:              "13"    # Update when available. Sadly no rolling release implemented
 oauth2_proxy:  
   application:        "proxy"
   port:               "80"
@@ -32,3 +31,19 @@ docker:
   services:
     database:
       enabled: true
+    web:
+      name:     openproject-web
+      image:    openproject/community
+      version:  "13"    # Update when available. Sadly no rolling release implemented
+      no_stop_required: true
+    seeder:
+      name:     openproject-seeder
+    cron:
+      name:     openproject-cron
+    worker:
+      name:     openproject-worker
+    proxy:
+      name:     openproject-proxy
+    
+  volumes:
+    data: "openproject_data"

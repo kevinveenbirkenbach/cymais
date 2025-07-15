@@ -1,8 +1,11 @@
 ---
-application_id:                                  "mybb"
+application_id:                                 "web-app-mybb"
 docker_compose_instance_confd_directory:        "{{docker_compose.directories.instance}}conf.d/"
 docker_compose_instance_confd_defaultconf_file: "{{docker_compose_instance_confd_directory}}default.conf"
 target_mount_conf_d_directory:                  "{{nginx.directories.http.servers}}"
 source_domain:                                  "mybb.{{primary_domain}}"
-database_password:                              "{{mybb_database_password}}"
 database_type:                                  "mariadb"
+mybb_version:                                   "{{ applications | get_app_conf(application_id, 'docker.services.mybb.version', True) }}"
+mybb_image:                                     "{{ applications | get_app_conf(application_id, 'docker.services.mybb.image', True) }}"
+mybb_name:                                      "{{ applications | get_app_conf(application_id, 'docker.services.mybb.name', True) }}"
+mybb_volume:                                    "{{ applications | get_app_conf(application_id, 'docker.services.volumes.data', True) }}"

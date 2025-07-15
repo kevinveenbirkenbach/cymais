@@ -1,3 +1,6 @@
-application_id:     "mediawiki"
-database_password:  "{{mediawiki_database_password}}"
+application_id:     "web-app-mediawiki"
 database_type:      "mariadb"
+mediawiki_version:   "{{ applications | get_app_conf(application_id, 'docker.services.mediawiki.version', True) }}"
+mediawiki_image:     "{{ applications | get_app_conf(application_id, 'docker.services.mediawiki.image', True) }}"
+mediawiki_name:      "{{ applications | get_app_conf(application_id, 'docker.services.mediawiki.name', True) }}"
+mediawiki_volume:    "{{ applications | get_app_conf(application_id, 'docker.services.volumes.data', True) }}"

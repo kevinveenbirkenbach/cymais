@@ -1,10 +1,8 @@
-network:    "discourse_default"     # Name of the docker network
-container:  "discourse_application" # Name of the container application
 repository: "discourse_repository"  # Name of the repository folder                 
 features:
   matomo:             true
   css:                true
-  port-ui-desktop:   true
+  port-ui-desktop:    true
   oidc:               true
   central_database:   true
   ldap:               false         # @todo implement and activate
@@ -26,3 +24,12 @@ docker:
       enabled: true
     redis:
       enabled: true
+    # This container is propably wrong name. 
+    # Chance is high that the name is discourse_application.
+    # @todo check this out and repair it if necessary
+    discourse:
+      name:             "discourse"
+      no_stop_required: true
+  volumes: 
+    data:   discourse_data
+  network:  discourse

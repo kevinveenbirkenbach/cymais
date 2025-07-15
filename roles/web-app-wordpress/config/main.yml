@@ -1,7 +1,7 @@
 title:                "Blog"                                      # Wordpress titel
 plugins:
   wp-discourse:
-    enabled:          "{{ 'discourse' in group_names | lower }}"
+    enabled:          "{{ 'web-app-discourse' in group_names | lower }}"
   daggerhart-openid-connect-generic:
     enabled:          true
   activitypub:
@@ -12,7 +12,6 @@ features:
   port-ui-desktop:   true
   oidc:               true
   central_database:   true
-version:              latest
 csp:
   flags:
     style-src:
@@ -42,7 +41,14 @@ domains:
 docker:
   services:
     database:
-      enabled: true
+      enabled:          true
+    wordpress:
+      version:          latest 
+      image:            wordpress
+      name:             wordpress 
+      no_stop_required: true
+  volumes: 
+    data:               wordpress_data
 rbac:
   roles:
     subscriber:

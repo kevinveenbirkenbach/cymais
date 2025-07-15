@@ -8,11 +8,11 @@ defaults_networks:
     # This should be sufficient for the most cases
 
     # /28 Networks, 14 Usable Ip Addresses
-    akaunting:
+    web-app-akaunting:
       subnet: 192.168.101.0/28
     attendize:
       subnet: 192.168.101.16/28
-    baserow:
+    web-app-baserow:
       subnet: 192.168.101.32/28
     mobilizon:
       subnet: 192.168.101.48/28
@@ -22,25 +22,25 @@ defaults_networks:
       subnet: 192.168.101.80/28
     funkwhale:
       subnet: 192.168.101.96/28
-    gitea:
+    web-app-gitea:
       subnet: 192.168.101.112/28
     gitlab:
       subnet: 192.168.101.128/28
-    joomla:
+    web-app-joomla:
       subnet: 192.168.101.144/28
     keycloak:
       subnet: 192.168.101.160/28
-    #svc-db-openldap:
-    #  subnet: 192.168.101.176/28
-    listmonk:
+    web-app-wordpress:
+      subnet: 192.168.101.176/28
+    web-app-listmonk:
       subnet: 192.168.101.192/28
     # Free:
     #  subnet: 192.168.101.208/28
     web-app-matomo:
       subnet: 192.168.101.224/28
-    mastodon:
+    web-app-mastodon:
       subnet: 192.168.101.240/28
-    matrix:
+    web-app-matrix:
       subnet: 192.168.102.0/28
     mailu:
       # Use one of the last container ips for dns resolving so that it isn't used
@@ -48,17 +48,17 @@ defaults_networks:
       subnet: 192.168.102.16/28
     moodle:
       subnet: 192.168.102.32/28
-    mybb:
+    web-app-mybb:
       subnet: 192.168.102.48/28
-    nextcloud:
+    web-app-nextcloud:
       subnet: 192.168.102.64/28
-    openproject:
+    web-app-openproject:
       subnet: 192.168.102.80/28
-    peertube:
+    web-app-peertube:
       subnet: 192.168.102.96/28
     phpmyadmin:
       subnet: 192.168.102.112/28
-    pixelfed:
+    web-app-pixelfed:
       subnet: 192.168.102.128/28
     pgadmin:
       subnet: 192.168.102.144/28
@@ -68,7 +68,7 @@ defaults_networks:
       subnet: 192.168.102.176/28
     yourls:
       subnet: 192.168.102.192/28
-    discourse:
+    web-app-discourse:
       subnet: 192.168.102.208/28
     sphinx:
       subnet: 192.168.102.224/28

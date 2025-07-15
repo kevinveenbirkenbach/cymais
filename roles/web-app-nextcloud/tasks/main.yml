@@ -32,7 +32,7 @@
 - name: create internal nextcloud nginx configuration
   template: 
     src:  "nginx/docker.conf.j2" 
-    dest: "{{docker_compose.directories.volumes}}nginx.conf"
+    dest: "{{ docker_compose.directories.volumes }}nginx.conf"
   notify: restart nextcloud nginx service
 
 - name: Setup config.php 
@@ -43,7 +43,7 @@
 
 - name: Setup Nextcloud Plugins
   include_tasks: 02_plugin.yml
-  loop: "{{applications | get_app_conf(application_id, 'plugins', True) | dict2items }}"
+  loop: "{{ applications | get_app_conf(application_id, 'plugins', True) | dict2items }}"
   loop_control:
     loop_var: plugin_item
   vars:
@@ -55,7 +55,7 @@
 
 - name: Add missing database indices in Nextcloud
   command: >
-    {{nextcloud_docker_exec_occ}} db:add-missing-indices
+    {{ nextcloud_docker_exec_occ }} db:add-missing-indices
   register: db_indices_result
   changed_when: >
     'Adding additional' in db_indices_result.stdout or 
@@ -65,8 +65,8 @@
 
 - name: Ensure Nextcloud administrator is in the 'admin' group
   command: >
-    docker exec -u {{ nextcloud_docker_user }} {{ applications.nextcloud.container.application }}
-    php occ group:adduser admin {{ applications.nextcloud.users.administrator.username }}
+    docker exec -u {{ nextcloud_docker_user }} {{ nextcloud_name }}
+    php occ group:adduser admin {{ nextcloud_administrator_username }}
   register: add_admin_to_group
   changed_when: "'Added user' in add_admin_to_group.stdout"
   failed_when: add_admin_to_group.rc != 0 and "'is already a member of' not in add_admin_to_group.stderr"

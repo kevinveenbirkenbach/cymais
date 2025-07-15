@@ -1,12 +1,9 @@
-images:
-  mastodon:           "ghcr.io/mastodon/mastodon:latest"
-  streaming:          "ghcr.io/mastodon/mastodon-streaming:latest"
 single_user_mode:     false                                           # Set true for initial setup
-setup:                false                                           # Set true in inventory file to execute the setup and initializing procedures                         
+setup:                false                                           # Set true in inventory file to execute the setup and initializing procedures, don't know if this is still necessary @todo test it                        
 features:
   matomo:             true
   css:                true
-  port-ui-desktop:   true
+  port-ui-desktop:    true
   oidc:               true
   central_database:   true
 domains:
@@ -22,3 +19,13 @@ docker:
       enabled: true
     database: 
       enabled: true
+    mastodon: 
+      image:            "ghcr.io/mastodon/mastodon"
+      version:          latest
+      no_stop_required: true
+      name:             "mastodon"
+    streaming: 
+      image:            "ghcr.io/mastodon/mastodon-streaming"
+      version:          latest
+  volumes:
+    data:               "mastodon_data"

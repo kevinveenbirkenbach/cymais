@@ -3,7 +3,8 @@
   web:
 {% set container_port = 3000 %}
 {% set container_healthcheck = 'health' %}
-    image: "{{ applications | get_app_conf(application_id, 'images.' ~ application_id, True) }}"
+    container_name: {{ mastodon_name }}
+    image: "{{ mastodon_image }}:{{ mastodon_version }}"
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p {{ container_port }}"
 {% include 'roles/docker-container/templates/healthcheck/wget.yml.j2' %}
@@ -17,7 +18,8 @@
   streaming:
 {% set container_port = 4000 %}
 {% set container_healthcheck = 'api/v1/streaming/health' %}
-    image: "{{ applications | get_app_conf(application_id, 'images.streaming', True) }}"
+    container_name: {{ mastodon_streaming_name }}
+    image: "{{ mastodon_streaming_image }}:{{ mastodon_streaming_version }}"
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     command: node ./streaming
 {% include 'roles/docker-container/templates/healthcheck/wget.yml.j2' %}
@@ -27,7 +29,8 @@
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 
   sidekiq:
-    image: "{{ applications | get_app_conf(application_id, 'images.mastodon', True) }}"
+    container_name: {{ mastodon_sidekiq_name }}
+    image: "{{ mastodon_image }}:{{ mastodon_version }}"
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     command: bundle exec sidekiq
 {% include 'roles/docker-container/templates/depends_on/dmbs_excl.yml.j2' %}
@@ -40,5 +43,5 @@
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   redis:
   data:
-
+    name: "{{ mastodon_volume }}"
 {% include 'roles/docker-compose/templates/networks.yml.j2' %}

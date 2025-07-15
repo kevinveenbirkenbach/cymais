@@ -11,3 +11,5 @@ docker:
       enabled: true
     database: 
       enabled: true
+credentials:
+  initial_root_password: "{{ users.administrator.password }}"

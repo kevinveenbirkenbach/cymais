@@ -17,7 +17,7 @@ x-op-app: &app
   proxy:
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     image: {{custom_openproject_image}}
-    container_name: openproject-proxy
+    container_name: {{ openproject_proxy_name }}
     command: "./docker/prod/proxy"
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
@@ -33,7 +33,7 @@ x-op-app: &app
     <<: *app
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     command: "./docker/prod/web"
-    container_name: openproject-web
+    container_name: {{ openproject_web_name }}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 {% include 'roles/docker-container/templates/depends_on/dmbs_incl.yml.j2' %}
       cache:
@@ -51,7 +51,7 @@ x-op-app: &app
     <<: *app
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     command: "./docker/prod/worker"
-    container_name: openproject-worker
+    container_name: {{ openproject_worker_name }}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 {% include 'roles/docker-container/templates/depends_on/dmbs_incl.yml.j2' %}
       cache:
@@ -67,7 +67,7 @@ x-op-app: &app
     <<: *app
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     command: "./docker/prod/cron"
-    container_name: openproject-cron
+    container_name: {{ openproject_cron_name }}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 {% include 'roles/docker-container/templates/depends_on/dmbs_incl.yml.j2' %}
       cache:
@@ -81,7 +81,7 @@ x-op-app: &app
   seeder:
     <<: *app
     command: "./docker/prod/seeder"
-    container_name: openproject-seeder
+    container_name: {{ openproject_seeder_name }}
     env_file:
       - "{{docker_compose.files.env}}"
     logging:
@@ -94,5 +94,6 @@ x-op-app: &app
 
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   data:
+    name: {{ openproject_volume }}
 
 {% include 'roles/docker-compose/templates/networks.yml.j2' %}

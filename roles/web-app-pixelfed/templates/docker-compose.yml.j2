@@ -1,7 +1,8 @@
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
 
   application:
-    image: "{{ applications | get_app_conf(application_id, 'images.pixelfed', True) }}"
+    image: "{{ pixelfed_image }}:{{ pixelfed_version }}"
+    container_name: {{ pixelfed_name }}
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - "data:/var/www/storage"
@@ -11,7 +12,8 @@
 {% include 'roles/docker-container/templates/depends_on/dmbs_excl.yml.j2' %}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
   worker:
-    image: "{{ applications | get_app_conf(application_id, 'images.pixelfed', True) }}"
+    container_name: {{ pixelfed_worker_name }}
+    image: "{{ pixelfed_image }}:{{ pixelfed_version }}"
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - "data:/var/www/storage"
@@ -30,5 +32,6 @@
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   redis:
   data:
+    name: {{ pixelfed_volume }}
 
 {% include 'roles/docker-compose/templates/networks.yml.j2' %}

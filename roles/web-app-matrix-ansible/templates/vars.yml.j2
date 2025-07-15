@@ -8,7 +8,7 @@
 # because you can't change the Domain after deployment.
 #
 # Example value: example.com
-matrix_domain: "{{domains.matrix.synapse}}"
+matrix_domain: "{{domains[application_id].synapse}}"
 
 # The Matrix homeserver software to install.
 # See:

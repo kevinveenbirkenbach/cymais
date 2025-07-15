@@ -2,12 +2,12 @@
   application:
 
 {% include 'roles/docker-container/templates/base.yml.j2' %}
-
-    image: "{{ applications | get_app_conf(application_id, 'images.' ~ application_id, True) }}"
+    container_name: {{ akaunting_name }}
+    image: "{{ akaunting_image }}:{{ akaunting_version }}"
     build:
       context: .
     ports:
-      - 127.0.0.1:{{ports.localhost.http[application_id]}}:80
+      - 127.0.0.1:{{ ports.localhost.http[application_id] }}:80
     volumes:
       - data:/var/www/html
     environment:
@@ -17,5 +17,7 @@
 
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   data:
+    name: {{ akaunting_volume }}
+
 
 {% include 'roles/docker-compose/templates/networks.yml.j2' %}

@@ -12,14 +12,14 @@
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
-      - "{{networks.internet.ip4}}:25:25"
-      - "{{networks.internet.ip4}}:465:465"
-      - "{{networks.internet.ip4}}:587:587"
-      - "{{networks.internet.ip4}}:110:110"
-      - "{{networks.internet.ip4}}:995:995"
-      - "{{networks.internet.ip4}}:143:143"
-      - "{{networks.internet.ip4}}:993:993"
-      - "{{networks.internet.ip4}}:4190:4190"
+      - "{{ networks.internet.ip4 }}:25:25"
+      - "{{ networks.internet.ip4 }}:465:465"
+      - "{{ networks.internet.ip4 }}:587:587"
+      - "{{ networks.internet.ip4 }}:110:110"
+      - "{{ networks.internet.ip4 }}:995:995"
+      - "{{ networks.internet.ip4 }}:143:143"
+      - "{{ networks.internet.ip4 }}:993:993"
+      - "{{ networks.internet.ip4 }}:4190:4190"
     volumes:
       - "{{docker_compose.directories.volumes}}overrides/nginx:/overrides:ro"
       - "{{cert_mount_directory}}:/certs:ro"

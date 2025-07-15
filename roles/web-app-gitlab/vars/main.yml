@@ -1,2 +1,3 @@
-application_id:     "gitlab"
-database_type:      "postgres"
+application_id:               "gitlab"
+database_type:                "postgres"
+gitlab_initial_root_password: "{{ applications | get_app_conf(application_id, 'credentials.initial_root_password') }}"

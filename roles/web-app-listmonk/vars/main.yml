@@ -1,6 +1,10 @@
-application_id: "listmonk"
+application_id: "web-app-listmonk"
 database_type:  "postgres"
-container_port: "9000"
+
+container_port:   "{{ applications | get_app_conf(application_id, 'docker.services.listmonk.port', True) }}"
+listmonk_version: "{{ applications | get_app_conf(application_id, 'docker.services.listmonk.version', True) }}"
+listmonk_image:   "{{ applications | get_app_conf(application_id, 'docker.services.listmonk.image', True) }}"
+listmonk_name:    "{{ applications | get_app_conf(application_id, 'docker.services.listmonk.name', True) }}"
 
 listmonk_settings:
   - key: "app.root_url"

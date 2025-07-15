@@ -8,7 +8,7 @@ export DOCKER_CLIENT_TIMEOUT=600 &&
 docker-compose down
 ```
 
-Afterwards, update the ***applications.nextcloud.version*** variable to the next version and run this repository with this Ansible role.
+Afterwards, update the ***applications.docker.services.*.version*** variable to the next version and run this repository with this Ansible role.
 
 > **Note:**  
 > It is only possible to update from one to the next major version at a time.  
@@ -25,7 +25,7 @@ docker-compose exec -it application top
 
 If Nextcloud remains in maintenance mode after the update, try the following:
 ```bash
-docker exec -it -u www-data nextcloud-application/var/www/html/occ maintenance:mode --on
+docker exec -it -u www-data nextcloud-application /var/www/html/occ maintenance:mode --on
 docker exec -it -u www-data nextcloud-application /var/www/html/occ upgrade
 docker exec -it -u www-data nextcloud-application /var/www/html/occ maintenance:mode --off
 ```

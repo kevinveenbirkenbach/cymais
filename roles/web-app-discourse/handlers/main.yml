@@ -1,7 +1,7 @@
 ---
 - name: "stop and remove discourse container if it exist"
   docker_container:
-    name: "{{applications | get_app_conf(application_id, 'container', True)}}"
+    name: "{{ discourse_name }}"
     state: absent
   register: container_action
   failed_when: container_action.failed and 'No such container' not in container_action.msg
@@ -17,7 +17,7 @@
   listen: recreate discourse
 
 - name: rebuild discourse
-  shell: ./launcher rebuild {{applications | get_app_conf(application_id, 'container', True)}}
+  shell: ./launcher rebuild {{ discourse_name }}
   args:
     executable: /bin/bash  
     chdir: "{{docker_repository_directory }}"

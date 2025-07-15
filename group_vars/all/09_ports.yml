@@ -6,46 +6,46 @@ ports:
       svc-db-mariadb:   3306
     # https://developer.mozilla.org/de/docs/Web/API/WebSockets_API
     websocket:
-      mastodon: 4001
+      web-app-mastodon: 4001
       espocrm: 4002
     oauth2_proxy:
       phpmyadmin: 4181
       lam: 4182
-      openproject: 4183
+      web-app-openproject: 4183
       yourls: 4184
       pgadmin: 4185
       phpldapadmin: 4186
       fusiondirectory: 4187
-      gitea: 4188
+      web-app-gitea: 4188
       snipe-it: 4189
     ldap:
       svc-db-openldap: 389
     http:
-      nextcloud: 8001
-      gitea: 8002
-      wordpress: 8003
-      mediawiki: 8004
-      mybb: 8005
+      web-app-nextcloud: 8001
+      web-app-gitea: 8002
+      web-app-wordpress: 8003
+      web-app-mediawiki: 8004
+      web-app-mybb: 8005
       yourls: 8006
       mailu: 8007
-      elk: 8008
-      mastodon: 8009
-      pixelfed: 8010
-      peertube: 8011
+      web-app-elk: 8008
+      web-app-mastodon: 8009
+      web-app-pixelfed: 8010
+      web-app-peertube: 8011
       funkwhale: 8012
       roulette-wheel: 8013
-      joomla: 8014
+      web-app-joomla: 8014
       attendize: 8015
       pgadmin: 8016
-      baserow: 8017
+      web-app-baserow: 8017
       web-app-matomo: 8018
-      listmonk: 8019
-      discourse: 8020
-      matrix_synapse: 8021
-      matrix_element: 8022
-      openproject: 8023
+      web-app-listmonk: 8019
+      web-app-discourse: 8020
+      web-app-matrix_synapse: 8021
+      web-app-matrix_element: 8022
+      web-app-openproject: 8023
       gitlab: 8024
-      akaunting: 8025
+      web-app-akaunting: 8025
       moodle: 8026
       taiga: 8027
       friendica: 8028
@@ -73,11 +73,13 @@ ports:
   public:
     # The following ports should be changed to 22 on the subdomain via stream mapping
     ssh:
-      gitea: 2201
+      web-app-gitea: 2201
       gitlab: 2202
     ldaps:
       svc-db-openldap: 636
     stun:
       bigbluebutton: 3478    # Not sure if it's right placed here or if it should be moved to localhost section
+      web-app-nextcloud:     3479
     turn:
       bigbluebutton: 5349    # Not sure if it's right placed here or if it should be moved to localhost section
+      web-app-nextcloud:     5350    # Not used yet

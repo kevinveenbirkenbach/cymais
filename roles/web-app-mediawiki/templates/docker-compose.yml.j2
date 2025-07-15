@@ -1,12 +1,10 @@
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
   application:
-    # Seems like image tag got lost. @todo Check and implement if necessary
-      log_driver: journald
-      restart: "{{docker_restart_policy}}"
-      depends_on:
-        - database
+{% include 'roles/docker-container/templates/base.yml.j2' %}
+      container_name: "{{ mediawiki_name }}"
+      image: "{{ mediawiki_image }}:{{ mediawiki_version }}"
       volumes:
-        - "mediawiki-data:/var/www/html/"
+        - "data:/var/www/html/"
       ports:
         - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
@@ -14,5 +12,5 @@
 
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   data:
-
+    name: {{ mediawiki_volume }}
 {% include 'roles/docker-compose/templates/networks.yml.j2' %}

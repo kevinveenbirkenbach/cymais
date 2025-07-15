@@ -3,6 +3,5 @@ application_id:                 mobilizon
 database_type:                  "postgres"
 database_gis_enabled:           true
 
-mobilizon_oidc_callback_url:    "{{ domains | get_url(application_id, web_protocol) }}/auth/openid_connect/callback"
-container_port:  4000
+container_port:                 4000
 mobilizon_host_conf_exs_file:   "{{docker_compose.directories.config}}config.exs"

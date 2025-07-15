@@ -1,24 +1,8 @@
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
-  application:
-{% include 'roles/docker-container/templates/base.yml.j2' %}
-    image: "gitea/gitea:{{applications.gitea.version}}"
-    ports:
-      - "127.0.0.1:{{ports.localhost.http[application_id]}}:{{ container_port }}"
-      - "{{ports.public.ssh[application_id]}}:22"
-    volumes:
-      - data:/data
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
-{% include 'roles/docker-container/templates/healthcheck/curl.yml.j2' %}
-
-{% include 'roles/docker-container/templates/networks.yml.j2' %}
-{% include 'roles/docker-container/templates/depends_on/dmbs_excl.yml.j2' %}
-
-{% include 'roles/docker-compose/templates/volumes.yml.j2' %}
-  data:
-
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+  
   coturn:
+{% include 'roles/docker-container/templates/base.yml.j2' %}
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
     image: coturn/coturn
     restart: always
     network_mode: "host"  # Nutzt die Host-IP für externe Erreichbarkeit (optional)
@@ -58,6 +42,8 @@
       --denied-peer-ip=203.0.113.0-203.0.113.255
       --denied-peer-ip=240.0.0.0-255.255.255.255
 
-volumes:
-  nextcloud:
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+
+{% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   coturn-config:
+

@@ -10,34 +10,53 @@ csp:
       - "data:"
 domains:
   canonical:
-    - "cloud.{{ primary_domain }}"
+    nextcloud:  "cloud.{{ primary_domain }}"
+    # talk:       "talk.{{ primary_domain }}" @todo needs to be activated
 docker:
   services:
     redis:
       enabled: true
     database: 
       enabled: true
+    nextcloud:
+      name:    "nextcloud"
+      image:  "nextcloud"
+      version: "latest-fpm-alpine"
+      no_stop_required: true
+    proxy: 
+      name:     "nextcloud-proxy"
+      image:    "nginx"
+      version:  "alpine"
+    cron:
+      name:     "nextcloud-cron"
+    talk:
+      name:     "nextcloud-talk"
+      image:    "nextcloud/aio-talk"
+      version:  "latest"
+      enabled:  false # Not enabled yet, because just implemented during refactoring and not tested yet. if tested activate
+    # Its in a own role. @todo remove it if it gets implemented via the other role
+    #collabora:
+    #  name:     "nextcloud-collabora"
+    #  image:    "nextcloud-collabora"
+    #  version:  "latest"
 oidc:
-  enabled:                    "{{ applications.nextcloud.features.oidc | default(true) }}"      # Activate OIDC for Nextcloud
+  enabled:  "{{ applications | get_app_conf(application_id, 'features.oidc')"   # Activate OIDC for Nextcloud
   # floavor decides which OICD plugin should be used. 
   # Available options: oidc_login, sociallogin
   # @see https://apps.nextcloud.com/apps/oidc_login
   # @see https://apps.nextcloud.com/apps/sociallogin
-  flavor:                     "oidc_login"                                      # Keeping on sociallogin because the other option is not implemented yet                                             
+  flavor:                       "oidc_login"                                    # Keeping on sociallogin because the other option is not implemented yet                                             
 features:
   matomo:                       true
   css:                          false
-  port-ui-desktop:             true
+  port-ui-desktop:              true
   ldap:                         true
   oidc:                         true
   central_database:             true
 default_quota:                 '1000000000'                                     # Quota to assign if no quota is specified in the OIDC response (bytes)
 legacy_login_mask:   
   enabled:                      False                                           # If true, then legacy  login mask is shown. Otherwise just SSO
-container:
-  application:                  "nextcloud-application"                         # Nextcloud application container name
-  proxy:                        "nextcloud-web"                                 # Nextcloud Proxy Container Name
-  collabora:                    "nextcloud-collabora"                                                   
+                           
 performance:
   php:
     memory_limit:               "{{ ((ansible_memtotal_mb | int) / 30)|int }}M" # Dynamic set memory limit
@@ -146,16 +165,16 @@ plugins:
     enabled: true
   integration_mastodon:
     # Nextcloud Integration Mastodon: connects Nextcloud with the Mastodon social network (https://apps.nextcloud.com/apps/integration_mastodon)
-    enabled: "{{ 'mastodon' in group_names | lower }}"
+    enabled: "{{ 'web-app-mastodon' in group_names | lower }}"
   integration_openai:
     # Nextcloud Integration OpenAI: brings OpenAI functionalities into Nextcloud (https://apps.nextcloud.com/apps/integration_openai)
     enabled: false
   integration_openproject:
     # Nextcloud Integration OpenProject: integrates project management features from OpenProject (https://apps.nextcloud.com/apps/integration_openproject)
-    enabled: "{{ 'openproject' in group_names | lower }}"
+    enabled: "{{ 'web-app-openproject' in group_names | lower }}"
   integration_peertube:
     # Nextcloud Integration PeerTube: connects to PeerTube for video sharing (https://apps.nextcloud.com/apps/integration_peertube)
-    enabled: "{{ 'peertube' in group_names | lower }}"
+    enabled: "{{ 'web-app-peertube' in group_names | lower }}"
   #keeweb 
   #  # Nextcloud KeeWeb: integrates the KeeWeb password manager within Nextcloud (https://apps.nextcloud.com/apps/keeweb)
   #  # This isn't maintained anymore. The alternatives don't support keepass files
@@ -216,13 +235,13 @@ plugins:
   #  enabled: false
   twofactor_nextcloud_notification:
     # Nextcloud two-factor notification: sends notifications for two-factor authentication events (https://apps.nextcloud.com/apps/twofactor_nextcloud_notification)
-    enabled: "{{ not applications.nextcloud.features.oidc | default(true) }}" # Deactivate 2FA if oidc is active
+    enabled: "{{ not applications | get_app_conf('web-app-nextcloud', 'features.oidc', False, True) }}" # Deactivate 2FA if oidc is active
   twofactor_totp:
     # Nextcloud two-factor TOTP: provides time-based one-time password authentication (https://apps.nextcloud.com/apps/twofactor_totp)
-    enabled: "{{ not applications.nextcloud.features.oidc | default(true) }}" # Deactivate 2FA if oidc is active
+    enabled: "{{ not applications | get_app_conf('web-app-nextcloud', 'features.oidc', False, True) }}" # Deactivate 2FA if oidc is active
   user_ldap:
     # Nextcloud user LDAP: integrates LDAP for user management and authentication (https://apps.nextcloud.com/apps/user_ldap)
-    enabled: "{{ applications.nextcloud.features.ldap | default(true) }}"
+    enabled: "{{ applications | get_app_conf('web-app-nextcloud', 'features.ldap', False, True) }}"
     user_directory:
       enabled:  true # Enables the LDAP User Directory Search
   user_oidc:

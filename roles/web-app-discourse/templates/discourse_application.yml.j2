@@ -90,7 +90,7 @@ env:
 ## The Docker container is stateless; all data is stored in /shared
 volumes:
   - volume:
-      host: discourse_data
+      host: {{ discourse_volume }}
       guest: /shared
   - volume:
       host: /var/discourse/shared/standalone/log/var-log
@@ -178,4 +178,4 @@ run:
 
 docker_args:
   - --network={{application_id}}_default
-  - --name={{applications | get_app_conf(application_id, 'container', True)}}
+  - --name={{ discourse_name }}

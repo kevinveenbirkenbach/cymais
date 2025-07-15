@@ -1,3 +1,2 @@
-application_id:     "joomla"
-database_password:  "{{joomla_database_password}}"
+application_id:     "web-app-joomla"
 database_type:      "postgres"

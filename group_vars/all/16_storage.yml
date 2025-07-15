@@ -1,6 +1,3 @@
-## Enable Storage Optimizer for Docker Volumes
-enable_system_storage_optimizer:  true
-
 backups_folder_path:              "/Backups/"   # Path to the backups folder
 
 # Storage Space-Related Configurations          

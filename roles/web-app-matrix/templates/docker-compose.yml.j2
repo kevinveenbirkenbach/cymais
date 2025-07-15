@@ -1,23 +1,23 @@
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
   synapse:
 {% set container_port = 8008 %}
-    image: "{{ applications | get_app_conf(application_id, 'images.synapse', True) }}"
-    container_name: matrix-synapse
+    image: "{{ matrix_synapse_image }}:{{ matrix_synapse_version }}"
+    container_name: {{ matrix_synapse_name }}
     restart: {{docker_restart_policy}}
     logging:
       driver: journald
     volumes:
       - synapse_data:/data
       - ./homeserver.yaml:/data/homeserver.yaml:ro
-      - ./{{domains.matrix.synapse}}.log.config:/data/{{domains.matrix.synapse}}.log.config:ro
+      - ./{{domains[application_id].synapse}}.log.config:/data/{{domains[application_id].synapse}}.log.config:ro
 {% for item in bridges %}
       - {{docker_compose.directories.instance}}mautrix/{{item.bridge_name}}/registration.yaml:{{registration_file_folder}}{{item.bridge_name}}.registration.yaml:ro
 {% endfor %}
     environment:
-      - SYNAPSE_SERVER_NAME={{domains.matrix.synapse}}
+      - SYNAPSE_SERVER_NAME={{domains[application_id].synapse}}
       - SYNAPSE_REPORT_STATS=no
     ports:
-      - "127.0.0.1:{{ports.localhost.http.matrix_synapse}}:{{ container_port }}"
+      - "127.0.0.1:{{ports.localhost.http['web-app-matrix_synapse']}}:{{ container_port }}"
 {% include 'roles/docker-container/templates/healthcheck/curl.yml.j2' %}
 {% if bridges | length > 0 %}
 {% for item in bridges %}
@@ -30,13 +30,13 @@
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
   element:
 {% set container_port = 80 %}
-    image: "{{ applications | get_app_conf(application_id, 'images.element', True) }}"
-    container_name: matrix-element
+    image: "{{ matrix_element_image }}:{{ matrix_element_version }}"
+    container_name: {{ matrix_element_name }}
     restart: {{docker_restart_policy}}
     volumes:
       - ./element-config.json:/app/config.json
     ports:
-      - "127.0.0.1:{{ports.localhost.http.matrix_element}}:{{ container_port }}"
+      - "127.0.0.1:{{ports.localhost.http['web-app-matrix_element']}}:{{ container_port }}"
 {% include 'roles/docker-container/templates/healthcheck/wget.yml.j2' %}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 
@@ -81,7 +81,7 @@
       KEYV_URL: ''
       KEYV_BOT_ENCRYPTION: 'false'
       KEYV_BOT_STORAGE: 'true'
-      MATRIX_HOMESERVER_URL: 'https://{{domains.matrix.synapse}}'
+      MATRIX_HOMESERVER_URL: '{{ web_protocol }}://{{ domains[application_id].synapse }}'
       MATRIX_BOT_USERNAME: '@chatgptbot:{{applications | get_app_conf(application_id, 'server_name', True)}}'
       MATRIX_ACCESS_TOKEN: '{{ applications | get_app_conf(application_id, 'credentials.chatgpt_bridge_access_token', True) | default('') }}'
       MATRIX_BOT_PASSWORD: '{{applications | get_app_conf(application_id, 'credentials.chatgpt_bridge_user_password', True)}}'
@@ -98,8 +98,9 @@
 
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   synapse_data:
+    name: {{ matrix_synapse_data }}
 {% if applications | get_app_conf(application_id, 'plugins.chatgpt', True) | bool %}
-    chatgpt_data:
+  chatgpt_data:
 {% endif %}
 
 {% include 'roles/docker-compose/templates/networks.yml.j2' %}

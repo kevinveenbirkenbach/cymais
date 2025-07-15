@@ -2,7 +2,8 @@
 
   application:
 {% include 'roles/docker-container/templates/base.yml.j2' %}
-    image: "{{ applications | get_app_conf(application_id, 'images.gitea', True) }}"
+    image: "{{ gitea_image }}:{{ gitea_version }}"
+    name:  "{{ gitea_name }}"
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:{{ container_port }}"
       - "{{ports.public.ssh[application_id]}}:22"
@@ -16,5 +17,6 @@
 
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   data:
+    name: {{ gitea_volume }}
 
 {% include 'roles/docker-compose/templates/networks.yml.j2' %}

@@ -1,8 +1,8 @@
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
 
   application:
-    image: "nextcloud:{{applications.nextcloud.version}}-fpm-alpine"
-    container_name: {{applications.nextcloud.container.application}}
+    image: "{{ nextcloud_image }}:{{ nextcloud_version }}"
+    container_name: {{ nextcloud_name }}
     volumes:
       - data:{{nextcloud_docker_work_directory}}
       - {{nextcloud_host_config_additives_directory}}:{{nextcloud_docker_config_additives_directory}}:ro
@@ -16,31 +16,25 @@
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
         ipv4_address: 192.168.102.69
 
-  # @Todo activate
-  #nc-talk:
-  #  image: nextcloud/aio-talk:latest
-  #  container_name: talk_hpb
-  #  hostname: hpb_yt
-  #  restart: unless-stopped
-  #  init: true
-  #  ports:
-  #    - 3478:3478/tcp #TURN TCP
-  #    - 3478:3478/udp #TURN UDP
-  #    - 8181:8081/tcp #Signaling
-  #  environment:
-  #    - NC_DOMAIN=cloud.yourdomain.tld
-  #    - TALK_HOST=signaling.yourdomain.tld
-  #    - TURN_SECRET=${TURN_SECRET}
-  #    - SIGNALING_SECRET=${SIGNALING_SECRET}
-  #    - TZ=Europe/Berlin
-  #    - TALK_PORT=3478
-  #    - INTERNAL_SECRET=${INTERNAL_SECRET}
-  #  networks:
-  #    - nxnetwork_yt
+{% if nextcloud_talk_enabled %}
+  talk:
+    {% include 'roles/docker-container/templates/base.yml.j2' %}
+    image: "{{ nextcloud_talk_image }}:{{ nextcloud_talk_version }}"
+    container_name: {{ nextcloud_talk_name }}
+    hostname: hpb_yt
+    init: true
+    ports:
+      - {{ networks.internet.ip4 }}:{{ nextcloud_talk_stun_port }}:3478/tcp #TURN TCP
+      - {{ networks.internet.ip4 }}:{{ nextcloud_talk_stun_port }}:3478/udp #TURN UDP
+      - {{ networks.internet.ip4 }}:8181:8081/tcp                           #Signaling @todo needs to be optimized
+    networks:
+      default:
+        ipv4_address: 192.168.102.68
+{% endif %}
 
-  web:
-    image: nginx:alpine
-    container_name: {{applications.nextcloud.container.proxy}}
+  proxy:
+    image: "{{ nextcloud_proxy_image }}:{{ nextcloud_proxy_version }}"
+    container_name: "{{ nextcloud_proxy_name }}"
     logging:
       driver: journald
     restart: {{docker_restart_policy}}
@@ -57,8 +51,8 @@
         ipv4_address: 192.168.102.67
 
   cron:
-    container_name: nextcloud-cron
-    image: "nextcloud:{{applications.nextcloud.version}}-fpm-alpine"
+    container_name: "{{ nextcloud_cron_name }}"
+    image: "{{ nextcloud_image }}:{{ nextcloud_version }}"
     restart: {{docker_restart_policy}}
     logging:
       driver: journald

@@ -4,7 +4,8 @@
       driver: journald
       options:
         tag: "mybb_application"
-    image: mybb/mybb:{{applications.mybb.version}}
+    image: {{ mybb_image }}:{{ mybb_version }}
+    container_name: {{ mybb_name }}
     restart: {{docker_restart_policy}}
     volumes:
       - data:/var/www/html
@@ -27,5 +28,6 @@
 
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   data:
+    name: {{ mybb_volume }}
 
 {% include 'roles/docker-compose/templates/networks.yml.j2' %}

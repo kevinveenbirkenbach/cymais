@@ -1,7 +1,4 @@
 titel:                "Pictures on {{primary_domain}}"
-#version:              "latest"
-images:
-  pixelfed:           "zknt/pixelfed:latest"
 features:
   matomo:             true
   css:                false # Needs to be reactivated
@@ -29,3 +26,12 @@ docker:
       enabled: true
     database: 
       enabled: true
+    pixelfed:
+      image:           "zknt/pixelfed"
+      version:          "latest"
+      name:             "pixelfed"
+      no_stop_required: true
+    worker: 
+      name:             "pixelfed_worker"
+  volumes:
+    data:               "pixelfed_data"

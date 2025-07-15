@@ -130,8 +130,8 @@ def update_discourse(directory):
     os.chdir(docker_repository_directory )
     if git_pull():
         print("Start Discourse update procedure.")
-        update_procedure("docker stop {{applications.discourse.container}}")
-        update_procedure("docker rm {{applications.discourse.container}}")
+        update_procedure("docker stop {{applications.discourse.docker.service.discourse.name}}")
+        update_procedure("docker rm {{applications.discourse.docker.service.discourse.name}}")
         try:
             update_procedure("docker network connect {{applications.discourse.network}} {{ applications['bpostgres'].hostname }}")
         except subprocess.CalledProcessError as e:
@@ -140,7 +140,7 @@ def update_discourse(directory):
                 print("Network connection already exists. Skipping...")
             else:
                 raise
-        update_procedure("./launcher rebuild {{applications.discourse.container}}")
+        update_procedure("./launcher rebuild {{applications.discourse.docker.service.discourse.name}}")
     else:
         print("Discourse update skipped. No changes in git repository.")
 

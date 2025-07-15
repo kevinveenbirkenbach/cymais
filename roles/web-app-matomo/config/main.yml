@@ -33,8 +33,13 @@ excluded_ips: "{{ networks.internet.values() | list }}"
 docker:
   services:
     matomo:
-      image:  "matomo:latest"
+      image:            "matomo"
+      version:          "latest"
+      name:             "matomo"
+      no_stop_required: true
     database:
       enabled: true
     redis:
       enabled: false
+  volumes: 
+    data: matomo_data 

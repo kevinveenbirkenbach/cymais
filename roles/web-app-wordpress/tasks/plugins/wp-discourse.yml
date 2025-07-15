@@ -5,14 +5,14 @@
 
 - name: Wait for Discourse API
   wait_for:
-    host: "{{ domains | get_domain('discourse') }}"
+    host: "{{ domains | get_domain('web-app-discourse') }}"
     port: 80
     delay: 5
     timeout: 600
 
 - name: Add /var/www/discourse to Git safe.directory
   command: >
-    docker exec {{ applications.discourse.container }} \
+    docker exec {{ applications['web-app-discourse'].docker.service.discourse.name }} \
       git config --global --add safe.directory /var/www/discourse
   args:
     chdir: "{{ docker_compose.directories.instance }}"
@@ -20,7 +20,7 @@
 
 - name: Revoke old WP Discourse API keys via Rails
   command: >
-    docker exec {{ applications.discourse.container }} bash -lc "\
+    docker exec {{ applications['web-app-discourse'].docker.service.discourse.name }} bash -lc "\
       cd /var/www/discourse && \
       script/rails runner \"\
         ApiKey.where(\
@@ -36,7 +36,7 @@
 
 - name: Generate new WP Discourse API key via Rake task
   command: >
-    docker exec {{ applications.discourse.container }} bash -lc "\
+    docker exec {{ applications['web-app-discourse'].docker.service.discourse.name }} bash -lc "\
       cd /var/www/discourse && \
       bin/rake api_key:create_master['WP Discourse Integration']\
     "

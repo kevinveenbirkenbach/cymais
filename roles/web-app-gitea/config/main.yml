@@ -1,6 +1,4 @@
-title:                            "CyMaIS Code Hub"
-images:
-  gitea:                          "gitea/gitea:latest"
+title:                            "CyMaIS Code Hub" # @todo load automatic based on service_porvider infos
 configuration:
   repository:
     enable_push_create_user:      True      # Allow users to push local repositories to Gitea and have them automatically created for a user.
@@ -9,14 +7,14 @@ configuration:
 features:
   matomo:                         true
   css:                            false
-  port-ui-desktop:               true
+  port-ui-desktop:                true
   central_database:               true
   ldap:                           true
   oauth2:                         true
-  oidc:                           false # Deactivated because users aren't auto-created. 
+  oidc:                           false     # Deactivated because users aren't auto-created. 
 oauth2_proxy:
   application:                    "application"
-  port:                           "3000"
+  port:                           "<< defaults_applications[web-app-gitea].docker.services.gitea.port >>"
   acl:
     blacklist:
       - "/user/login"
@@ -41,3 +39,11 @@ docker:
   services:
     database:
       enabled: true
+    gitea:                          
+      image:            "gitea/gitea"
+      version:          "latest"
+      no_stop_required: true
+      port:             3000
+      name:             "gitea"
+  volumes:
+    data:             "gitea_data"

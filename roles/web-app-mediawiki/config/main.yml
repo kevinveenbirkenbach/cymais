@@ -1,3 +1,12 @@
 domains:
   canonical:
     - "wiki.{{ primary_domain }}"
+docker:
+  services:
+    mediawiki: 
+      image:    mediawiki
+      version:  latest
+      no_stop_required: true
+      name:     mediawiki
+    volumes:
+      data:     mediawiki_data

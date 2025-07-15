@@ -55,7 +55,19 @@ certbot_cert_path:                        "/etc/letsencrypt/live" # Path contain
 docker_restart_policy:                    "unless-stopped"
 
 # helper
-_applications_nextcloud_oidc_flavor:      "{{ applications.nextcloud.oidc.flavor | default('oidc_login' if applications.nextcloud.features.ldap | default(true) else 'sociallogin') }}"
+_applications_nextcloud_oidc_flavor: >-
+  {{
+    applications
+      | get_app_conf(
+          'web-app-nextcloud',
+          'oidc.flavor',
+          False,
+          'oidc_login'
+          if applications
+            | get_app_conf('web-app-nextcloud','features.ldap',False)
+          else 'sociallogin'
+        )
+  }}
 
 # default value if not set via CLI (-e) or in playbook vars
 allowed_applications: []

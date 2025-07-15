@@ -1,12 +1,16 @@
 
-version:              "latest"
 features:
   matomo:             true
   css:                true
   port-ui-desktop:   true
   central_database:   true
-
 docker:
   services:
     database:
       enabled: true
+    mybb:
+      image:    "mybb/mybb"
+      version:  "latest"
+      name:     "mybb"
+  volumes:
+    data:       "mybb_data"

@@ -1,12 +1,11 @@
-images:
-  akaunting:      "docker.io/akaunting/akaunting:latest"
-company_name:       "{{primary_domain}}"
-company_email:      "{{ users.administrator.email }}"
+company:
+  name:             "Akaunting on {{ primary_domain | upper }}" # @todo load automatic based on service_provider infos, this will fail
+  email:            "{{ users.administrator.email }}" # @todo load automatic based on service_provider infos, this will fail
 setup_admin_email:  "{{ users.administrator.email }}"
 features:
   matomo:           true
   css:              true
-  port-ui-desktop: true
+  port-ui-desktop:  true
   central_database: true
 domains:
   canonical:
@@ -15,5 +14,12 @@ docker:
   services:
     database:
       enabled: true
+    akaunting:
+      no_stop_required: true
+      image: docker.io/akaunting/akaunting 
+      version: latest
+      name: akaunting
+  volumes: 
+    data: akaunting_data
 credentials: {}
 

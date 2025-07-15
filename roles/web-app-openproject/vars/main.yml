@@ -1,7 +1,15 @@
-application_id:               "openproject"
+application_id:               "web-app-openproject"
 docker_repository_address:    "https://github.com/opf/openproject-deploy"
 database_type:                "postgres"
 docker_repository:            true
+openproject_version:          "{{ applications | get_app_conf(application_id, 'docker.services.web.version', True) }}"
+openproject_image:            "{{ applications | get_app_conf(application_id, 'docker.services.web.image', True) }}"
+openproject_volume:           "{{ applications | get_app_conf(application_id, 'docker.services.volumes.data', True) }}"
+openproject_web_name:         "{{ applications | get_app_conf(application_id, 'docker.services.web.name', True) }}"
+openproject_seeder_name:      "{{ applications | get_app_conf(application_id, 'docker.services.seeder.name', True) }}"
+openproject_cron_name:        "{{ applications | get_app_conf(application_id, 'docker.services.cron.name', True) }}"
+openproject_proxy_name:       "{{ applications | get_app_conf(application_id, 'docker.services.proxy.name', True) }}"
+openproject_worker_name:      "{{ applications | get_app_conf(application_id, 'docker.services.worker.name', True) }}"
       
 openproject_plugins_folder:  "{{docker_compose.directories.volumes}}plugins/"
 

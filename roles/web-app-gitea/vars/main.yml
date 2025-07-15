@@ -1,6 +1,5 @@
-application_id:     "gitea"
-container_port:   3000
-database_type:      "mariadb"
+application_id:       "web-app-gitea"
+database_type:        "mariadb"
 gitea_ldap_auth_args:
   - '--name "LDAP ({{ primary_domain }})"'
   - '--host "{{ ldap.server.domain }}"'
@@ -16,3 +15,9 @@ gitea_ldap_auth_args:
   - '--email-attribute "{{ ldap.user.attributes.mail }}"'
   - '--public-ssh-key-attribute "{{ ldap.user.attributes.ssh_public_key }}"'
   - '--synchronize-users'
+gitea_version:   "{{ applications | get_app_conf(application_id, 'docker.services.gitea.version', True) }}"
+gitea_image:     "{{ applications | get_app_conf(application_id, 'docker.services.gitea.image', True) }}"
+gitea_name:      "{{ applications | get_app_conf(application_id, 'docker.services.gitea.name', True) }}"
+gitea_volume:    "{{ applications | get_app_conf(application_id, 'docker.volumes.data', True) }}"
+
+container_port:  "{{ applications | get_app_conf(application_id, 'docker.services.gitea.port', True) }}"

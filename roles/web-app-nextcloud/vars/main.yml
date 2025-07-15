@@ -1,39 +1,62 @@
 ---
 # General
-application_id:                                     "nextcloud"                                                   # Application identifier
-container_port:                                   80
+application_id:                                 "web-app-nextcloud"                                           # Application identifier
+container_port:                                 80
 
 # Database
-database_password:                                  "{{applications.nextcloud.credentials.database_password}}"    # Database password
-database_type:                                      "mariadb"                                                     # Database flavor
+database_password:                              "{{ applications | get_app_conf(application_id, 'credentials.database_password', True)}}"
+database_type:                                  "mariadb"                                                     # Database flavor
 
 # Networking
-domain:                                             "{{ domains | get_domain(application_id) }}"                                 # Public domain at which Nextcloud will be accessable
-http_port:                                          "{{ ports.localhost.http[application_id] }}"                  # Port at which nextcloud is reachable in the local network
+domain:                                         "{{ domains | get_domain(application_id) }}"                  # Public domain at which Nextcloud will be accessable
+http_port:                                      "{{ ports.localhost.http[application_id] }}"                  # Port at which nextcloud is reachable in the local network
+
+nextcloud_administrator_username:               "{{ applications | get_app_conf(application_id, 'users.administrator.username', True) }}"
 
 # Control Node
-nextcloud_control_node_plugin_vars_directory:       "{{role_path}}/vars/plugins/"                                 # Folder in which the files for the plugin configuration are stored
-nextcloud_control_node_plugin_tasks_directory:      "{{role_path}}/tasks/plugins/"                                # Folder which contains the files for extra plugin configuration tasks
+nextcloud_control_node_plugin_vars_directory:   "{{role_path}}/vars/plugins/"                                 # Folder in which the files for the plugin configuration are stored
+nextcloud_control_node_plugin_tasks_directory:  "{{role_path}}/tasks/plugins/"                                # Folder which contains the files for extra plugin configuration tasks
 
 # Host 
 
 ## Host Paths
-nextcloud_host_config_additives_directory:          "{{docker_compose.directories.volumes}}cymais/"               # This folder is the path to which the additive configurations will be copied
-nextcloud_host_include_instructions_file:           "{{docker_compose.directories.volumes}}includes.php"          # Path to the instruction file on the host. Responsible for loading the additional configurations
+nextcloud_host_config_additives_directory:      "{{docker_compose.directories.volumes}}cymais/"               # This folder is the path to which the additive configurations will be copied
+nextcloud_host_include_instructions_file:       "{{docker_compose.directories.volumes}}includes.php"          # Path to the instruction file on the host. Responsible for loading the additional configurations
+
+nextcloud_domains:                              "{{ domains[application_id].nextcloud }}"
 
 # Docker
 
+nextcloud_version:                              "{{ applications | get_app_conf(application_id, 'docker.services.nextcloud.version', True) }}"
+nextcloud_image:                                "{{ applications | get_app_conf(application_id, 'docker.services.nextcloud.image', True) }}"
+nextcloud_name:                                 "{{ applications | get_app_conf(application_id, 'docker.services.nextcloud.name', True) }}"
+
+nextcloud_proxy_name:                           "{{ applications | get_app_conf(application_id, 'docker.services.proxy.name', True) }}"
+nextcloud_proxy_image:                          "{{ applications | get_app_conf(application_id, 'docker.services.proxy.image', True) }}"
+nextcloud_proxy_version:                        "{{ applications | get_app_conf(application_id, 'docker.services.proxy.version', True) }}"
+
+nextcloud_cron_name:                            "{{ applications | get_app_conf(application_id, 'docker.services.cron.name', True) }}"
+
+nextcloud_talk_name:                            "{{ applications | get_app_conf(application_id, 'docker.services.talk.name', True) }}"
+nextcloud_talk_image:                           "{{ applications | get_app_conf(application_id, 'docker.services.talk.image', True) }}"
+nextcloud_talk_version:                         "{{ applications | get_app_conf(application_id, 'docker.services.talk.version', True) }}"
+nextcloud_talk_enabled:                         "{{ applications | get_app_conf(application_id, 'docker.services.talk.enabled', True) }}"
+nextcloud_talk_stun_port:                       "{{ ports.public.stun[application_id] }}"
+# nextcloud_talk_domain:                          "{{ domains[application_id].talk }}"
+
+#nextcloud_collabora_name:                      "{{ applications | get_app_conf(application_id, 'docker.services.collabora.name', True) }}"                            
+
 ## User Configuration
-nextcloud_docker_user_id:                           82                                                            # UID of the www-data user
-nextcloud_docker_user:                              "www-data"                                                    # Name of the www-data user (Set here to easy change it in the future)
+nextcloud_docker_user_id:                       82                                                            # UID of the www-data user
+nextcloud_docker_user:                          "www-data"                                                    # Name of the www-data user (Set here to easy change it in the future)
 
 ## Internal Paths
-nextcloud_docker_work_directory:                    "/var/www/html/"                                              # Name of the workdir in which the application is stored
-nextcloud_docker_config_directory:                  "{{nextcloud_docker_work_directory}}config/"                  # Folder in which the Nextcloud configurations are stored     
-nextcloud_docker_config_file:                       "{{nextcloud_docker_config_directory}}config.php"             # Path to the Nextcloud configuration file
-nextcloud_docker_config_additives_directory:        "{{nextcloud_docker_config_directory}}cymais/"                # Path to the folder which contains additional configurations
-nextcloud_docker_include_instructions_file:         "/tmp/includes.php"                                           # Path to the temporary file which will be included to the config.php to load the additional configurations
+nextcloud_docker_work_directory:                "/var/www/html/"                                              # Name of the workdir in which the application is stored
+nextcloud_docker_config_directory:              "{{nextcloud_docker_work_directory}}config/"                  # Folder in which the Nextcloud configurations are stored     
+nextcloud_docker_config_file:                   "{{nextcloud_docker_config_directory}}config.php"             # Path to the Nextcloud configuration file
+nextcloud_docker_config_additives_directory:    "{{nextcloud_docker_config_directory}}cymais/"                # Path to the folder which contains additional configurations
+nextcloud_docker_include_instructions_file:     "/tmp/includes.php"                                           # Path to the temporary file which will be included to the config.php to load the additional configurations
 
 ## Execution
-nextcloud_docker_exec:                              "docker exec -u {{ nextcloud_docker_user }} {{ applications.nextcloud.container.application }}" # General execute composition
-nextcloud_docker_exec_occ:                          "{{nextcloud_docker_exec}} {{ nextcloud_docker_work_directory }}occ"                            # Execute docker occ command
+nextcloud_docker_exec:                          "docker exec -u {{ nextcloud_docker_user }} {{ nextcloud_name }}" # General execute composition
+nextcloud_docker_exec_occ:                      "{{nextcloud_docker_exec}} {{ nextcloud_docker_work_directory }}occ"                            # Execute docker occ command

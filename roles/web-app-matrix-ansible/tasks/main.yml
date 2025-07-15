@@ -3,8 +3,8 @@
   include_role: 
     name: srv-proxy-6-6-domain
   loop:
-    - "{{domains.matrix.element}}"
-    - "{{domains.matrix.synapse}}"
+    - "{{ domains[application_id].element }}"
+    - "{{ domains[application_id].synapse }}"
   loop_control:
     loop_var: domain
 
@@ -80,7 +80,7 @@
   become: false
 
 - name: play matrix-web-app-ansible-deploy
-  local_action: "command ansible-playbook -i {{hosts_path}} {{local_repository_directory}}/setup.yml -vvv --tags={{applications.matrix.playbook_tags}}"
+  local_action: "command ansible-playbook -i {{hosts_path}} {{local_repository_directory}}/setup.yml -vvv --tags={{ applications | get_app_conf(application_id, 'playbook_tags')}}"
   become: false
 
 
@@ -129,13 +129,13 @@
 #- name: add log.config
 #  template: 
 #    src:  "log.config.j2" 
-#    dest: "{{docker_compose.directories.instance}}{{domains.matrix.synapse}}.log.config"
+#    dest: "{{docker_compose.directories.instance}}{{domains[application_id].synapse}}.log.config"
 #  notify: recreate matrix
 #
 ## https://github.com/matrix-org/synapse/issues/6303
 #- name: set correct folder permissions
 #  command:
-#    cmd: "docker run --rm --mount type=volume,src=matrix_synapse_data,dst=/data -e SYNAPSE_SERVER_NAME={{domains.matrix.synapse}} -e SYNAPSE_REPORT_STATS=no --entrypoint /bin/sh matrixdotorg/synapse:latest -c 'chown -vR 991:991 /data'"
+#    cmd: "docker run --rm --mount type=volume,src=matrix_synapse_data,dst=/data -e SYNAPSE_SERVER_NAME={{domains[application_id].synapse}} -e SYNAPSE_REPORT_STATS=no --entrypoint /bin/sh matrixdotorg/synapse:latest -c 'chown -vR 991:991 /data'"
 #
 #- name: add docker-compose.yml
 #  template: 
