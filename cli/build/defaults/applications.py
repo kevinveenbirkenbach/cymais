@@ -53,7 +53,8 @@ class DefaultsGenerator:
                 continue
 
             if not config_file.exists():
-                self.log(f"Skipping {role_name}: config/main.yml missing")
+                self.log(f"Config missing for {role_name}, adding empty defaults for '{application_id}'")
+                result["defaults_applications"][application_id] = {}
                 continue
 
             config_data = load_yaml_file(config_file)

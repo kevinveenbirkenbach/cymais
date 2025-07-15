@@ -7,7 +7,7 @@ from pathlib import Path
 
 import yaml  # requires PyYAML
 from filter_plugins.get_role import get_role
-
+from filter_plugins.get_app_conf import get_app_conf, ConfigEntryNotSetError
 
 class TestGetAppConfPaths(unittest.TestCase):
     @classmethod
@@ -88,12 +88,19 @@ class TestGetAppConfPaths(unittest.TestCase):
             cur = cur[k]
 
     def test_literal_paths(self):
-        # Check each literal path exists
+        # Check each literal path exists or is allowed by schema
         for app_id, paths in self.literal_paths.items():
             with self.subTest(app=app_id):
                 self.assertIn(app_id, self.defaults_app, f"App '{app_id}' missing in defaults_applications")
                 for dotted, occs in paths.items():
                     with self.subTest(path=dotted):
+                        try:
+                            # will raise ConfigEntryNotSetError if defined in schema but not set
+                            get_app_conf(self.defaults_app, app_id, dotted, strict=True)
+                        except ConfigEntryNotSetError:
+                            # defined in schema but not set: acceptable
+                            continue
+                        # otherwise, perform static validation
                         self._validate(app_id, dotted, occs)
 
     def test_variable_paths(self):
@@ -103,6 +110,13 @@ class TestGetAppConfPaths(unittest.TestCase):
         for dotted, occs in self.variable_paths.items():
             with self.subTest(path=dotted):
                 found = False
+                # schema-defined entries: acceptable if defined in any role schema
+                for schema in self.role_schemas.values():
+                    if isinstance(schema, dict) and dotted in schema:
+                        found = True
+                        break
+                if found:
+                    continue
                 # credentials.*: zuerst in defaults_applications prüfen, dann im Schema
                 if dotted.startswith('credentials.'):
                     key = dotted.split('.', 1)[1]

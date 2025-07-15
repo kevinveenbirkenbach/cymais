@@ -18,20 +18,6 @@ vendor_and_product_id: ""
 
 The `vendor_and_product_id` variable is required and should be set to the vendor and product ID of the MSI laptop.
 
-## Dependencies
-
-- `sys-pgm-aur`
-
-## Example Playbook
-
-```yaml
-- hosts: all
-  roles:
-    - keyboard-color
-  vars:
-    vendor_and_product_id: "your_vendor_and_product_id"
-```
-
 ## Author
 
 This role was created by [Kevin Veen-Birkenbach](https://github.com/kevinveenbirkenbach).
