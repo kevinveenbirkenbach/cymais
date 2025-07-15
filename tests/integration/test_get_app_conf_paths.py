@@ -67,8 +67,12 @@ class TestGetAppConfPaths(unittest.TestCase):
                 except Exception:
                     continue
                 for m in cls.pattern.finditer(text):
-                    lineno = text.count('\n', 0, m.start()) + 1
-                    app_arg, path_arg = m.group(1).strip(), m.group(2).strip()
+                    lineno   = text.count('\n', 0, m.start()) + 1
+                    app_arg  = m.group(1).strip()
+                    path_arg = m.group(2).strip()
+                    # ignore any templated Jinja2 raw-blocks
+                    if '{%' in path_arg:
+                        continue
                     if (app_arg.startswith("'") and app_arg.endswith("'")) or (app_arg.startswith('"') and app_arg.endswith('"')):
                         app_id = app_arg.strip("'\"")
                         cls.literal_paths.setdefault(app_id, {}).setdefault(path_arg, []).append((file_path, lineno))
