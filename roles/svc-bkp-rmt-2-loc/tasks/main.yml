@@ -16,10 +16,10 @@
     dest: /etc/systemd/system/svc-bkp-rmt-2-loc.cymais.service
   notify: reload svc-bkp-rmt-2-loc service
 
-- name: create backups-remote-to-local.sh
+- name: create sys-bkp-rmt-2-loc-multi-provider.sh
   template: 
-    src: backups-remote-to-local.sh.j2 
-    dest: "{{docker_backup_remote_to_local_folder}}backups-remote-to-local.sh"
+    src: sys-bkp-rmt-2-loc-multi-provider.sh.j2 
+    dest: "{{docker_backup_remote_to_local_folder}}sys-bkp-rmt-2-loc-multi-provider.sh"
     mode: 0755
 
 - name: "set 'service_name' to '{{ role_name }}'"
