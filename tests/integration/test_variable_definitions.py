@@ -65,7 +65,7 @@ class TestVariableDefinitions(unittest.TestCase):
                             set_fact_indent = indent
                             continue
                         if in_set_fact:
-                            if indent > set_fact_indent:
+                            if indent > set_fact_indent and stripped.strip():
                                 m = self.mapping_key.match(stripped)
                                 if m:
                                     self.defined.add(m.group(1))
@@ -78,6 +78,9 @@ class TestVariableDefinitions(unittest.TestCase):
                             vars_block_indent = indent
                             continue
                         if in_vars_block:
+                            # skip blank lines within vars block
+                            if not stripped.strip():
+                                continue
                             if indent > vars_block_indent:
                                 m = self.mapping_key.match(stripped)
                                 if m:
