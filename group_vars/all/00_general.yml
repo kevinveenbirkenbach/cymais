@@ -5,7 +5,7 @@ HOST_TIMEZONE:            "UTC"
 
 # https://en.wikipedia.org/wiki/ISO_639
 HOST_LL:                  "en"          # Some applications are case sensitive
-HOST_LL_CC:               "{{HOST_LL}}_{{HOST_LL | upper }}"
+HOST_LL_CC:               "{{HOST_LL}}_GB"
 
 HOST_DATE_FORMAT:         "YYYY-MM-DD"
 HOST_TIME_FORMAT:         "HH:mm"
@@ -17,7 +17,7 @@ HOST_DECIMAL_MARK:        ","
 deployment_mode:        "single"      # Use single, if you deploy on one server. Use cluster if you setup in cluster mode.
 
 web_protocol:           "https"       # Web protocol type. Use https or http. If you run local you need to change it to http
-web_port:               "{{ 443 if web_protocol == 'https' else 80 }}"  # Default port web applications will listen to
+WEB_PORT:               "{{ 443 if web_protocol == 'https' else 80 }}"  # Default port web applications will listen to
 
 ## Domain
 primary_domain_tld:     "localhost"                                     # Top Level Domain of the server
@@ -45,7 +45,7 @@ dns_provider:                             cloudflare              # The DNS Prov
 certbot_acme_challenge_method:            "cloudflare"
 certbot_credentials_dir:                  /etc/certbot
 certbot_credentials_file:                 "{{ certbot_credentials_dir }}/{{ certbot_acme_challenge_method }}.ini"
-# certbot_dns_api_token                                           # Define in inventory file
+certbot_dns_api_token:                    ""                      # Define in inventory file
 certbot_dns_propagation_wait_seconds:     40                      # How long should the script wait for DNS propagation before continuing
 certbot_flavor:                           san                     # Possible options: san (recommended, with a dns flavor like cloudflare, or hetzner), wildcard(doesn't function with www redirect), deicated
 certbot_webroot_path:                     "/var/lib/letsencrypt/" # Path used by Certbot to serve HTTP-01 ACME challenges

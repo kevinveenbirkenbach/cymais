@@ -1,4 +1,11 @@
 ---
+
+- name: "Validate certbot_dns_api_token"
+  fail:
+    msg: >
+      The variable "certbot_dns_api_token" must be defined and cannot be empty!
+  when: (certbot_dns_api_token | default('') | trim) == ''
+
 - name: "Ensure all CAA records are present"
   community.general.cloudflare_dns:
     api_token: "{{ certbot_dns_api_token }}"

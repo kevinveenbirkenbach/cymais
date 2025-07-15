@@ -36,6 +36,6 @@ mailu_dns_srv_records:
     priority: 20
     weight: 1
   autodiscover:
-    port: 443
+    port: "{{ WEB_PORT }}"
     priority: 20
     weight: 1
