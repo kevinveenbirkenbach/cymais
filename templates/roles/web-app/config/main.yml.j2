@@ -1,17 +1,21 @@
-{% raw %}
 credentials: {}
 docker:
-  images: {}                # @todo Move under services
-  versions: {}              # @todo Move under services
   services:
     redis:
-      enabled:      false   # Enable Redis 
+      enabled:          false   # Enable Redis 
     database:
-      enabled:      false   # Enable the database 
+      enabled:          false   # Enable the database
+    {{ application_id }}:  
+      no_stop_required: true
+      image:            ""
+      version:          "latest"
+      name:             "web-app-{{ application_id }}"
+    volumes:
+      data:             "web-app-{{ application_id }}_data"
 features:
   matomo:           true    # Enable Matomo Tracking
   css:              true    # Enable Global CSS Styling
-  port-ui-desktop: true    # Enable loading of app in iframe
+  port-ui-desktop:  true    # Enable loading of app in iframe
   ldap:             false   # Enable LDAP Network
   central_database: false   # Enable Central Database Network
   recaptcha:        false   # Enable ReCaptcha
@@ -25,5 +29,3 @@ domains:
   aliases:          []      # Alias redirections to the first element of the canonical domains
 rbac:
   roles: {}
-
-{% endraw %}

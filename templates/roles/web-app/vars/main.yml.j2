@@ -1,3 +1,10 @@
 application_id:                 {{ application_id }} # ID of the application, should be the name of the role folder
 database_type:                  0                    # Database type [postgres, mariadb]
 docker_compose_flush_handlers:  true                 # When this is set to true an auto-flush after the docker-compose.yml, and env deploy is triggered, otherwise you have todo it manual.
+
+# The following variable mapping is optional, but imt makes it easier to read the code. 
+# I recommend, to use this mappings, but you can skipp it and access the config entries direct via get_app_conf
+{{ application_id | get_cymais_dir }}_version:   "{% raw %}{{ applications | get_app_conf(application_id, 'docker.services.{% endraw %}{{ application_id | get_cymais_dir }}{% raw %}.version',        True) }}"{% endraw %}
+{{ application_id | get_cymais_dir }}_image:     "{% raw %}{{ applications | get_app_conf(application_id, 'docker.services.{% endraw %}{{ application_id | get_cymais_dir }}{% raw %}.image',          True) }}"{% endraw %}
+{{ application_id | get_cymais_dir }}_name:      "{% raw %}{{ applications | get_app_conf(application_id, 'docker.services.{% endraw %}{{ application_id | get_cymais_dir }}{% raw %}.name',           True) }}"{% endraw %}
+{{ application_id | get_cymais_dir }}_volume:    "{% raw %}{{ applications | get_app_conf(application_id, 'docker.services.{% endraw %}{{ application_id | get_cymais_dir }}{% raw %}.volumes.data',   True) }}"{% endraw %}
