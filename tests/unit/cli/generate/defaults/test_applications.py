@@ -9,6 +9,8 @@ import subprocess
 
 class TestGenerateDefaultApplications(unittest.TestCase):
     def setUp(self):
+        # Path to the generator script under test
+        self.script_path = Path(__file__).resolve().parents[5] / "cli" / "build" / "defaults" / "applications.py"
         # Create temp role structure
         self.temp_dir = Path(tempfile.mkdtemp())
         self.roles_dir = self.temp_dir / "roles"
