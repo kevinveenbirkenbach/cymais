@@ -9,6 +9,7 @@ RUN pacman -Syu --noconfirm \
       python-setuptools \
       alsa-lib \
       go \
+      rsync \
     && pacman -Scc --noconfirm
 
 # 2) Stub out systemctl & yay so post-install hooks and AUR calls never fail
@@ -51,9 +52,7 @@ RUN pkgmgr install cymais --clone-mode https
 # 8) Override installed CyMaIS with local source and clean ignored files
 RUN CMAIS_PATH=$(pkgmgr path cymais) && \
     rm -rf "$CMAIS_PATH"/* && \
-    cp -R /opt/cymais-src/* "$CMAIS_PATH"/ && \
-    cd "$CMAIS_PATH" && \
-    make clean
+    rsync -a --delete --exclude='.git' /opt/cymais-src/ "$CMAIS_PATH"/
 
 # 9) Symlink the cymais script into /usr/local/bin so ENTRYPOINT works
 RUN CMAIS_PATH=$(pkgmgr path cymais) && \
