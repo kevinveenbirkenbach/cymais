@@ -29,7 +29,7 @@ tree:
 	@echo Generating Tree
 	python3 main.py build tree -D 2 --no-signal
 
-build:
+build: clean
 	@echo "🔧 Generating users defaults → $(USERS_OUT)…"
 	python3 $(USERS_SCRIPT) \
 	  --roles-dir $(ROLES_DIR) \
@@ -56,7 +56,7 @@ build:
 install: build
 	@echo "⚙️  Install complete."
 
-test:
+test: build
 	@echo "🧪 Running Python tests…"
 	python -m unittest discover -s tests
 	@echo "📑 Checking Ansible syntax…"

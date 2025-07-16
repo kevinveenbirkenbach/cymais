@@ -60,5 +60,10 @@ RUN CMAIS_PATH=$(pkgmgr path cymais) && \
     ln -sf "$CMAIS_PATH"/main.py /usr/local/bin/cymais && \
     chmod +x /usr/local/bin/cymais
 
+# 10) Run integration tests
+RUN CMAIS_PATH=$(pkgmgr path cymais) && \
+    cd "$CMAIS_PATH" && \
+    make test
+
 ENTRYPOINT ["cymais"]
 CMD ["--help"]
