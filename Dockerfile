@@ -60,6 +60,7 @@ RUN CMAIS_PATH=$(pkgmgr path cymais) && \
     chmod +x /usr/local/bin/cymais
 
 # 10) Run integration tests
+# This needed to be deactivated becaus it doesn't work with gitthub workflow
 #RUN CMAIS_PATH=$(pkgmgr path cymais) && \
 #    cd "$CMAIS_PATH" && \
 #    make test

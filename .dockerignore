@@ -5,4 +5,5 @@ venv
 *.bak
 *tree.json
 roles/list.json
+*.pyc
 .git

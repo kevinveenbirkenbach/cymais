@@ -52,12 +52,11 @@ class TestGetRoleFolder(unittest.TestCase):
         self.assertIn(f"Roles path not found: {invalid_path}", str(cm.exception))
 
     def test_invalid_yaml_raises(self):
-        # Create a role with invalid YAML
-        bad_role_path = os.path.join(self.roles_dir, 'badrole', 'vars')
-        os.makedirs(bad_role_path)
+        # Create a role with invalid YAML that matches the target application_id
+        bad_role_path = os.path.join(self.roles_dir, 'role1', 'vars')
         with open(os.path.join(bad_role_path, 'main.yml'), 'w') as f:
-            f.write("::: invalid yaml :::")
-
+            f.write("::: invalid yaml :::")  # corrupt existing main.yml
+    
         with self.assertRaises(AnsibleFilterError) as cm:
             get_role('app-123', roles_path=self.roles_dir)
         self.assertIn('Failed to load', str(cm.exception))
