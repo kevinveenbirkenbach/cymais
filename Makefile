@@ -61,8 +61,11 @@ build: clean dockerignore
 install: build
 	@echo "⚙️  Install complete."
 
-test: build
+partial-test:
 	@echo "🧪 Running Python tests…"
 	python -m unittest discover -s tests
 	@echo "📑 Checking Ansible syntax…"
 	ansible-playbook playbook.yml --syntax-check
+
+test: build partial-test
+	@echo "Full test with build terminated."

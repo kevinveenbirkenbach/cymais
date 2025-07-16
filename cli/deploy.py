@@ -14,14 +14,18 @@ def run_ansible_playbook(
     password_file=None,
     verbose=0,
     skip_tests=False,
-    skip_validation=False
+    skip_validation=False,
+    skip_build=False,   # <-- new parameter
 ):
     start_time = datetime.datetime.now()
     print(f"\n▶️ Script started at: {start_time.isoformat()}\n")
-    
-    print("\n🛠️  Building project (make build)...\n")
-    subprocess.run(["make", "build"], check=True)
-    
+
+    if not skip_build:
+        print("\n🛠️  Building project (make build)...\n")
+        subprocess.run(["make", "build"], check=True)
+    else:
+        print("\n⚠️ Skipping build as requested.\n")
+
     script_dir = os.path.dirname(os.path.realpath(__file__))
     playbook = os.path.join(os.path.dirname(script_dir), "playbook.yml")
 
@@ -155,6 +159,10 @@ def main():
         help="Skip inventory validation before deployment."
     )
     parser.add_argument(
+        "-B", "--skip-build", action="store_true",
+        help="Skip running 'make build' before deployment."
+    )
+    parser.add_argument(
         "-i", "--id", 
         nargs="+",
         default=[],
@@ -187,7 +195,8 @@ def main():
         password_file=args.password_file,
         verbose=args.verbose,
         skip_tests=args.skip_tests,
-        skip_validation=args.skip_validation
+        skip_validation=args.skip_validation,
+        skip_build=args.skip_build      # Pass the new param
     )
 
 
