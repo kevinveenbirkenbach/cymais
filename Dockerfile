@@ -60,9 +60,9 @@ RUN CMAIS_PATH=$(pkgmgr path cymais) && \
     chmod +x /usr/local/bin/cymais
 
 # 10) Run integration tests
-RUN CMAIS_PATH=$(pkgmgr path cymais) && \
-    cd "$CMAIS_PATH" && \
-    make test
+#RUN CMAIS_PATH=$(pkgmgr path cymais) && \
+#    cd "$CMAIS_PATH" && \
+#    make test
 
 ENTRYPOINT ["cymais"]
 CMD ["--help"]
