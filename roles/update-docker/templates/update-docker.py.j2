@@ -125,22 +125,22 @@ def update_discourse(directory):
     """
     Updates Discourse by running the rebuild command on the launcher script.
     """
-    docker_repository_directory   = os.path.join(directory, "services", "{{applications.discourse.repository}}")
+    docker_repository_directory   = os.path.join(directory, "services", "{{ applications | get_app_conf('web-app-discourse','repository') }}")
     print(f"Using path {docker_repository_directory } to pull discourse repository.")
     os.chdir(docker_repository_directory )
     if git_pull():
         print("Start Discourse update procedure.")
-        update_procedure("docker stop {{applications.discourse.docker.service.discourse.name}}")
-        update_procedure("docker rm {{applications.discourse.docker.service.discourse.name}}")
+        update_procedure("docker stop {{ applications | get_app_conf('web-app-discourse','docker.services.discourse.name') }}")
+        update_procedure("docker rm {{ applications | get_app_conf('web-app-discourse','docker.services.discourse.name') }}")
         try:
-            update_procedure("docker network connect {{applications.discourse.network}} {{ applications['bpostgres'].hostname }}")
+            update_procedure("docker network connect {{ applications | get_app_conf('web-app-discourse','docker.network') }} {{ applications | get_app_conf('svc-db-postgres', 'docker.network') }}")
         except subprocess.CalledProcessError as e:
             error_message = e.output.decode()
             if "already exists" in error_message or "is already connected" in error_message:
                 print("Network connection already exists. Skipping...")
             else:
                 raise
-        update_procedure("./launcher rebuild {{applications.discourse.docker.service.discourse.name}}")
+        update_procedure("./launcher rebuild {{ applications | get_app_conf('web-app-discourse','docker.services.discourse.name') }}")
     else:
         print("Discourse update skipped. No changes in git repository.")
 

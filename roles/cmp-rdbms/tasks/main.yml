@@ -1,5 +1,5 @@
 # The following env file will just be used from the dedicated mariadb container
-# and not the {{applications['svc-db-mariadb'].hostname }}
+# and not the central one
 - name: "For '{{ application_id }}': Create {{database_env}}"
   template: 
     src: "env/{{database_type}}.env.j2"

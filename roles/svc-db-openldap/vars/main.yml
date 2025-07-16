@@ -15,9 +15,9 @@ openldap_ldif_types:
   - data
   - schema                      # Don't know if this is still needed, it's now setup via tasks
 
-openldap_container:             "{{ applications | get_app_conf(application_id, 'docker.services.openldap.container', True) }}"
+openldap_name:                  "{{ applications | get_app_conf(application_id, 'docker.services.openldap.name', True) }}"
 openldap_image:                 "{{ applications | get_app_conf(application_id, 'docker.services.openldap.image', True) }}"
 openldap_version:               "{{ applications | get_app_conf(application_id, 'docker.services.openldap.version', True) }}"
-openldap_volume:                "{{ application_id }}_data"
+openldap_volume:                "{{ applications | get_app_conf(application_id, 'docker.volumes.data', True) }}"
 
 openldap_network_expose_local:  "{{ applications | get_app_conf(application_id, 'network.public', True) | bool or applications | get_app_conf(application_id, 'network.local', True) | bool }}"

@@ -7,4 +7,4 @@ docker_compose_flush_handlers:  true                 # When this is set to true 
 {{ application_id | get_cymais_dir }}_version:   "{% raw %}{{ applications | get_app_conf(application_id, 'docker.services.{% endraw %}{{ application_id | get_cymais_dir }}{% raw %}.version',        True) }}"{% endraw %}
 {{ application_id | get_cymais_dir }}_image:     "{% raw %}{{ applications | get_app_conf(application_id, 'docker.services.{% endraw %}{{ application_id | get_cymais_dir }}{% raw %}.image',          True) }}"{% endraw %}
 {{ application_id | get_cymais_dir }}_name:      "{% raw %}{{ applications | get_app_conf(application_id, 'docker.services.{% endraw %}{{ application_id | get_cymais_dir }}{% raw %}.name',           True) }}"{% endraw %}
-{{ application_id | get_cymais_dir }}_volume:    "{% raw %}{{ applications | get_app_conf(application_id, 'docker.services.volumes.data',   True) }}"{% endraw %}
+{{ application_id | get_cymais_dir }}_volume:    "{% raw %}{{ applications | get_app_conf(application_id, 'docker.volumes.data',   True) }}"{% endraw %}

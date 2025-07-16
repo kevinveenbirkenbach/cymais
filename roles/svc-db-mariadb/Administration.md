@@ -2,5 +2,6 @@
 
 ## Execute SQL commands
 ```bash
-docker exec -it {{applications['mariadb'].hostname }} mariadb -u root -p
+# Assume the container name is mariadb
+docker exec -it mariadb mariadb -u root -p
 ```

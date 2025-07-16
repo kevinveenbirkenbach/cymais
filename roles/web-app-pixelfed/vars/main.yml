@@ -5,4 +5,4 @@ pixelfed_version:           "{{ applications | get_app_conf(application_id, 'doc
 pixelfed_image:             "{{ applications | get_app_conf(application_id, 'docker.services.pixelfed.image', True) }}"
 pixelfed_name:              "{{ applications | get_app_conf(application_id, 'docker.services.pixelfed.name', True) }}"
 pixelfed_worker_name:       "{{ applications | get_app_conf(application_id, 'docker.services.worker.name', True) }}"
-pixelfed_volume:            "{{ applications | get_app_conf(application_id, 'docker.services.volumes.data', True) }}"
+pixelfed_volume:            "{{ applications | get_app_conf(application_id, 'docker.volumes.data', True) }}"

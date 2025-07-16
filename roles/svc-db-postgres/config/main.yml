@@ -1,11 +1,14 @@
-hostname: "svc-db-postgres"
-network:  "<< defaults_applications[svc-db-postgres].hostname >>"
 docker:
   services:
     postgres:
       # Postgis is necessary for mobilizon
-      image: postgis/postgis
+      image:    postgis/postgis
+      name:     postgres
       # Please set an version in your inventory file! 
       # Rolling release isn't recommended
-      version: "latest"
-      volume:  "<< defaults_applications[svc-db-postgres].hostname >>_data"
+      version:  "latest"
+      backup:
+        datase_routine: true
+  volumes:
+    data:     "postgres_data"
+  network:    "postgres"

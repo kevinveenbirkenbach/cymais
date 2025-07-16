@@ -8,7 +8,7 @@
 
 - name: Install PostgreSQL
   docker_container:
-    name: "{{ postgres_hostname }}"
+    name: "{{ postgres_name }}"
     image: "{{ postgres_image }}:{{ postgres_version }}"
     detach: yes
     env:
@@ -31,7 +31,7 @@
   when: run_once_docker_postgres is not defined
 
 - name: Wait for Postgres inside the container
-  shell: "docker exec {{ postgres_hostname }} pg_isready -U postgres"
+  shell: "docker exec {{ postgres_name }} pg_isready -U postgres"
   register: pg_ready
   until: pg_ready.rc == 0
   retries: 30

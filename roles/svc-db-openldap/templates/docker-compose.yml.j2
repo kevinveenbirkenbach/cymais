@@ -2,7 +2,7 @@
 
   application:
     image: "{{ openldap_image }}:{{ openldap_version }}"
-    container_name: "{{ openldap_container }}"
+    container_name: "{{ openldap_name }}"
 {% include 'roles/docker-container/templates/base.yml.j2' %}
 {% if openldap_network_expose_local %}
     ports:

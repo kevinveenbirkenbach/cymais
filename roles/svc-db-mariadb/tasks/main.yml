@@ -8,7 +8,7 @@
 
 - name: install MariaDB
   docker_container:
-    name: "{{ mariadb_hostname }}"
+    name: "{{ mariadb_name }}"
     image: "{{ mariadb_image }}:{{ mariadb_version}}"
     detach: yes
     env:
@@ -36,9 +36,9 @@
     state: present
   when: run_once_docker_mariadb is not defined
 
-- name: "Wait until the MariaDB container with hostname '{{ mariadb_hostname }}' is healthy"
+- name: "Wait until the MariaDB container with hostname '{{ mariadb_name }}' is healthy"
   community.docker.docker_container_info:
-    name: "{{ mariadb_hostname }}"
+    name: "{{ mariadb_name }}"
   register: db_info
   until:
   - db_info.containers is defined

@@ -2,7 +2,7 @@
 networks:
 {% if applications | get_app_conf(application_id, 'features.central_database', False) and database_type is defined %}
 
-  {{ applications[ 'svc-db-' ~ database_type ].network }}:
+  {{ applications | get_app_conf('svc-db-' ~ database_type, 'docker.network') }}:
     external: true
 {% endif %}
 {% if 

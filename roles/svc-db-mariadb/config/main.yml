@@ -1,8 +1,11 @@
-hostname: "svc-db-mariadb"
-network:  "<< defaults_applications[svc-db-mariadb].hostname >>"
-docker: 
+docker:
   services:
-    mariadb: 
-      version:  "latest"
-      image:    "mariadb"
-      volume:   "<< defaults_applications[svc-db-mariadb].hostname >>_data"
+    mariadb:
+      version:          "latest"
+      image:            "mariadb"
+      name:             "mariadb"
+      backup:
+        datase_routine: true
+  network:              "mariadb"
+  volumes:
+    data:               "mariadb_data"

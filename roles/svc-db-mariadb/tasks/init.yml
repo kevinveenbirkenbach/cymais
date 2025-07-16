@@ -25,6 +25,6 @@
 # @todo Remove if this works fine in the future. 
 #- name: Grant database privileges
 #  ansible.builtin.shell:
-#    cmd: "docker exec {{mariadb_hostname }} mariadb -u root -p{{ mariadb_root_pwd }} -e \"GRANT ALL PRIVILEGES ON `{{database_name}}`.* TO '{{database_username}}'@'%';\""
+#    cmd: "docker exec {{mariadb_name }} mariadb -u root -p{{ mariadb_root_pwd }} -e \"GRANT ALL PRIVILEGES ON `{{database_name}}`.* TO '{{database_username}}'@'%';\""
 #  args:
 #    executable: /bin/bash

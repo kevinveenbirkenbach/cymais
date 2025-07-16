@@ -131,6 +131,27 @@ class TestGetAppConfPaths(unittest.TestCase):
                         break
                 if found:
                     continue
+
+                # Wildcard‑prefix: if the path ends with '.', treat it as a prefix
+                # and check for nested dicts in defaults_applications
+                if dotted.endswith('.'):
+                    prefix = dotted.rstrip('.')
+                    parts = prefix.split('.')
+                    for cfg in self.defaults_app.values():
+                        cur = cfg
+                        ok = True
+                        for p in parts:
+                            if isinstance(cur, dict) and p in cur:
+                                cur = cur[p]
+                            else:
+                                ok = False
+                                break
+                        if ok:
+                            found = True
+                            break
+                    if found:
+                        continue            
+
                 # credentials.*: zuerst in defaults_applications prüfen, dann im Schema
                 if dotted.startswith('credentials.'):
                     key = dotted.split('.', 1)[1]

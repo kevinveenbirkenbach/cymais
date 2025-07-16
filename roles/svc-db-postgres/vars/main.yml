@@ -1,6 +1,6 @@
 application_id:         svc-db-postgres
-postgres_volume:        "{{ applications | get_app_conf(application_id, 'docker.services.postgres.volume', True) }}"
-postgres_hostname:      "{{ applications | get_app_conf(application_id, 'hostname', True) }}"
+postgres_volume:        "{{ applications | get_app_conf(application_id, 'docker.volumes.data', True) }}"
+postgres_name:          "{{ applications | get_app_conf(application_id, 'docker.services.postgres.name', True) }}"
 postgres_image:         "{{ applications | get_app_conf(application_id, 'docker.services.postgres.image', True) }}"
 postgres_subnet:        "{{ networks.local['svc-db-postgres'].subnet }}"
 postgres_network_name:  "{{ applications | get_app_conf(application_id, 'network', True) }}"
