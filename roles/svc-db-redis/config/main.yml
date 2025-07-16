@@ -1,0 +1,7 @@
+docker:
+  services:
+    redis: 
+      image:      redis
+      version:    alpine
+      backup:
+        enabled:  false

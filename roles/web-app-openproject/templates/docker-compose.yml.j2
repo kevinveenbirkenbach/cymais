@@ -10,8 +10,8 @@ x-op-app: &app
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
 
   cache:
-    image: memcached
-    container_name: openproject-memcached
+    image: "{{ openproject_cache_image}}:{{openproject_cache_version }}"
+    container_name: {{ openproject_cache_name }}
 {% include 'roles/docker-container/templates/base.yml.j2' %}
 
   proxy:

@@ -42,7 +42,8 @@ docker:
     gitea:                          
       image:            "gitea/gitea"
       version:          "latest"
-      no_stop_required: true
+      backup:
+        no_stop_required: true
       port:             3000
       name:             "gitea"
   volumes:

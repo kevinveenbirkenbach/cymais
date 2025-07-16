@@ -10,9 +10,10 @@ docker:
     database:
       enabled:          true
     baserow:  
-      no_stop_required: true
-      image:            "baserow/baserow"
-      version:          "latest"
-      name:             "baserow"
+      backup:
+        no_stop_required: true
+      image:              "baserow/baserow"
+      version:            "latest"
+      name:               "baserow"
     volumes:
-      data:             "baserow_data"
+      data:               "baserow_data"

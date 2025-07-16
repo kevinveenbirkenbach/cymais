@@ -30,7 +30,8 @@ docker:
       image:           "zknt/pixelfed"
       version:          "latest"
       name:             "pixelfed"
-      no_stop_required: true
+      backup:
+        no_stop_required: true
     worker: 
       name:             "pixelfed_worker"
   volumes:

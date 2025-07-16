@@ -1,0 +1,7 @@
+docker:
+  services:
+    memcached: 
+      image:   memcached
+      version: latest
+      backup:
+        enabled: false

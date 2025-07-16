@@ -10,6 +10,22 @@ openproject_seeder_name:      "{{ applications | get_app_conf(application_id, 'd
 openproject_cron_name:        "{{ applications | get_app_conf(application_id, 'docker.services.cron.name', True) }}"
 openproject_proxy_name:       "{{ applications | get_app_conf(application_id, 'docker.services.proxy.name', True) }}"
 openproject_worker_name:      "{{ applications | get_app_conf(application_id, 'docker.services.worker.name', True) }}"
+
+openproject_cache_name:       "{{ applications | get_app_conf(application_id, 'docker.services.cache.name', True) }}"
+openproject_cache_image: >-
+  {{ applications
+     | get_app_conf(application_id, 'docker.services.cache.image')
+     or applications
+       | get_app_conf('svc-db-memcached', 'docker.services.memcached.image')
+  }}
+
+openproject_cache_version: >-
+  {{ applications
+     | get_app_conf(application_id, 'docker.services.cache.version')
+     or applications
+       | get_app_conf('svc-db-memcached', 'docker.services.memcached.version')
+  }}
+
       
 openproject_plugins_folder:  "{{docker_compose.directories.volumes}}plugins/"
 

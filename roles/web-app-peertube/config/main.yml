@@ -34,6 +34,7 @@ docker:
       name:             "peertube"
       version:          "production-bookworm"
       image:            "chocobozzz/peertube"
-      no_stop_required: true
+      backup:
+        no_stop_required: true
   volumes:
     data: peertube_data

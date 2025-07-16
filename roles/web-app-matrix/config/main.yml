@@ -6,7 +6,8 @@ docker:
       version:          latest 
       image:            matrixdotorg/synapse
       name:             matrix-synapse
-      no_stop_required: true
+      backup:
+        no_stop_required: true
     element: 
       version:        latest 
       image:          vectorim/element-web

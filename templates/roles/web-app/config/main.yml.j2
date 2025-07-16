@@ -6,7 +6,8 @@ docker:
     database:
       enabled:          false   # Enable the database
     {{ application_id }}:  
-      no_stop_required: true
+      backup:
+        no_stop_required: true
       image:            ""
       version:          "latest"
       name:             "web-app-{{ application_id }}"

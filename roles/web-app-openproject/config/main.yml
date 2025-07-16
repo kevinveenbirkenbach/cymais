@@ -13,7 +13,7 @@ ldap:
 features:
   matomo:             true
   css:                false   # Temporary deactivated. Needs to be optimized for production use.
-  port-ui-desktop:   true
+  port-ui-desktop:    true
   ldap:               true
   central_database:   true
   oauth2:             true
@@ -34,8 +34,9 @@ docker:
     web:
       name:     openproject-web
       image:    openproject/community
-      version:  "13"    # Update when available. Sadly no rolling release implemented
-      no_stop_required: true
+      version:  "13"    # Update when available. No rolling release implemented
+      backup:
+        no_stop_required: true
     seeder:
       name:     openproject-seeder
     cron:
@@ -44,6 +45,10 @@ docker:
       name:     openproject-worker
     proxy:
       name:     openproject-proxy
+    cache:
+      name:     openproject-cache
+      image:    "" # If need a specific memcached image you have to define it here, otherwise the version from svc-db-memcached will be used
+      version:  "" # If need a specific memcached version you have to define it here, otherwise the version from svc-db-memcached will be used
     
   volumes:
     data: "openproject_data"

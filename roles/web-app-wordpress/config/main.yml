@@ -46,7 +46,8 @@ docker:
       version:          latest 
       image:            wordpress
       name:             wordpress 
-      no_stop_required: true
+      backup:
+        no_stop_required: true
   volumes: 
     data:               wordpress_data
 rbac:

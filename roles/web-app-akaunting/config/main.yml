@@ -15,10 +15,11 @@ docker:
     database:
       enabled: true
     akaunting:
-      no_stop_required: true
-      image: docker.io/akaunting/akaunting 
+      backup:
+        no_stop_required: true
+      image:   docker.io/akaunting/akaunting 
       version: latest
-      name: akaunting
+      name:    akaunting
   volumes: 
     data: akaunting_data
 credentials: {}

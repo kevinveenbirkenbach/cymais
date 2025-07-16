@@ -6,7 +6,8 @@ docker:
     mediawiki: 
       image:    mediawiki
       version:  latest
-      no_stop_required: true
+      backup:
+        no_stop_required: true
       name:     mediawiki
     volumes:
       data:     mediawiki_data

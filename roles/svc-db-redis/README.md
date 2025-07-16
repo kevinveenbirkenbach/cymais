@@ -1,4 +1,4 @@
-# Role: svc-db-redis
+# Redis
 
 ## Description
 

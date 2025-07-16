@@ -15,6 +15,7 @@ docker:
     listmonk:
       image:            listmonk/listmonk
       version:          latest
-      no_stop_required: true
+      backup:
+        no_stop_required: true
       name:             listmonk
       port:             9000

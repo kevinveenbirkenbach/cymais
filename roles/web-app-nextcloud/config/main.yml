@@ -22,7 +22,8 @@ docker:
       name:    "nextcloud"
       image:  "nextcloud"
       version: "latest-fpm-alpine"
-      no_stop_required: true
+      backup:
+        no_stop_required: true
     proxy: 
       name:     "nextcloud-proxy"
       image:    "nginx"

@@ -22,7 +22,8 @@ docker:
     mastodon: 
       image:            "ghcr.io/mastodon/mastodon"
       version:          latest
-      no_stop_required: true
+      backup:
+        no_stop_required: true
       name:             "mastodon"
     streaming: 
       image:            "ghcr.io/mastodon/mastodon-streaming"

@@ -29,7 +29,9 @@ docker:
     # @todo check this out and repair it if necessary
     discourse:
       name:             "discourse"
-      no_stop_required: true
+      image:            "local_discourse/discourse_application" # Necessary to define this for the docker 2 loc backup
+      backup:
+        no_stop_required: true
   volumes: 
     data:   discourse_data
   network:  discourse

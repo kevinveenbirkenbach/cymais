@@ -36,7 +36,8 @@ docker:
       image:            "matomo"
       version:          "latest"
       name:             "matomo"
-      no_stop_required: true
+      backup:
+        no_stop_required: true
     database:
       enabled: true
     redis:
