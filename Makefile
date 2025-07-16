@@ -29,7 +29,12 @@ tree:
 	@echo Generating Tree
 	python3 main.py build tree -D 2 --no-signal
 
-build: clean
+dockerignore:
+	@echo Create dockerignore
+	cat .gitignore > .dockerignore
+	echo ".git" >> .dockerignore 
+
+build: clean dockerignore
 	@echo "🔧 Generating users defaults → $(USERS_OUT)…"
 	python3 $(USERS_SCRIPT) \
 	  --roles-dir $(ROLES_DIR) \

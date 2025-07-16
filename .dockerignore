@@ -1,0 +1,8 @@
+site.retry
+*__pycache__
+venv
+*.log
+*.bak
+*tree.json
+roles/list.json
+.git
