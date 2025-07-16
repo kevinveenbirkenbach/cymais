@@ -5,7 +5,7 @@ docker:
       image:            "mariadb"
       name:             "mariadb"
       backup:
-        datase_routine: true
+        database_routine: true
   network:              "mariadb"
   volumes:
     data:               "mariadb_data"

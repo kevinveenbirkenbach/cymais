@@ -8,7 +8,7 @@ docker:
       # Rolling release isn't recommended
       version:  "latest"
       backup:
-        datase_routine: true
+        database_routine: true
   volumes:
     data:     "postgres_data"
   network:    "postgres"

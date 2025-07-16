@@ -4,4 +4,4 @@ docker:
       image:   memcached
       version: latest
       backup:
-        enabled: false
+        disabled: true

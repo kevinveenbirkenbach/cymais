@@ -19,15 +19,17 @@ docker:
     database: 
       enabled: true
     nextcloud:
-      name:    "nextcloud"
-      image:  "nextcloud"
-      version: "latest-fpm-alpine"
+      name:     "nextcloud"
+      image:    "nextcloud"
+      version:  "latest-fpm-alpine"
       backup:
         no_stop_required: true
     proxy: 
       name:     "nextcloud-proxy"
       image:    "nginx"
       version:  "alpine"
+      backup:
+        no_stop_required: true
     cron:
       name:     "nextcloud-cron"
     talk:

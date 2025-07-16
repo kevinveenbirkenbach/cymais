@@ -20,17 +20,17 @@ bkp_docker_to_local_disabled: >-
 # CLI argument strings (only set if list not empty)
 bkp_docker_to_local_database_routine_cli: >-
   {% if bkp_docker_to_local_database_routine | length > 0 -%}
-    --database-containers="{{ bkp_docker_to_local_database_routine | join(' ') }}"
+    --database-containers {{ bkp_docker_to_local_database_routine | join(' ') }}
   {%- endif %}
 
 bkp_docker_to_local_no_stop_required_cli: >-
   {% if bkp_docker_to_local_no_stop_required | length > 0 -%}
-    --images-no-stop-required="{{ bkp_docker_to_local_no_stop_required | join(' ') }}"
+    --images-no-stop-required {{ bkp_docker_to_local_no_stop_required | join(' ') }}
   {%- endif %}
 
 bkp_docker_to_local_disabled_cli: >-
   {% if bkp_docker_to_local_disabled | length > 0 -%}
-    --images-no-backup-required="{{ bkp_docker_to_local_disabled | join(' ') }}"
+    --images-no-backup-required {{ bkp_docker_to_local_disabled | join(' ') }}
   {%- endif %}
 
 # List of CLI args for convenience (e.g. for looping or joining)
@@ -43,4 +43,3 @@ bkp_docker_to_local_exec: >-
   /usr/bin/python {{ backup_docker_to_local_folder }}backup-docker-to-local.py
   --compose-dir {{ path_docker_compose_instances }}
   {{ bkp_docker_to_local_cli_args_list | select('string') | join(' ') }}
-  | trim

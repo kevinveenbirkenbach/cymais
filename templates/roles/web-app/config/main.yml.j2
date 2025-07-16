@@ -7,7 +7,9 @@ docker:
       enabled:          false   # Enable the database
     {{ application_id }}:  
       backup:
-        no_stop_required: true
+        no_stop_required: true  # The images that don't need to stop
+        disabled:         true  # Disables the image
+        database_routine: true  # Instead of copying a database routine will be triggered for this container
       image:            ""
       version:          "latest"
       name:             "web-app-{{ application_id }}"

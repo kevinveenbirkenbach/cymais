@@ -4,4 +4,4 @@ docker:
       image:      redis
       version:    alpine
       backup:
-        enabled:  false
+        disabled: true
