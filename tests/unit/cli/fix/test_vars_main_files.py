@@ -49,7 +49,8 @@ class TestEnsureVarsMain(unittest.TestCase):
         vm = os.path.join(role, "vars", "main.yml")
         self.assertTrue(os.path.exists(vm))
 
-        data = yaml.safe_load(open(vm))
+        with open(vm) as f:
+            data = yaml.safe_load(f)
         # Expect application_id: 'foobar'
         self.assertEqual(data.get("application_id"), "foobar")
 
@@ -61,7 +62,8 @@ class TestEnsureVarsMain(unittest.TestCase):
         run(prefix="desk-", preview=False, overwrite=True)
 
         path = os.path.join(role, "vars", "main.yml")
-        data = yaml.safe_load(open(path))
+        with open(path) as f:
+            data = yaml.safe_load(f)
 
         # application_id must be corrected...
         self.assertEqual(data.get("application_id"), "baz")

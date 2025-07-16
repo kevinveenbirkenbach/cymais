@@ -1,3 +1,7 @@
+# The .gitignore is the single point of truth for files which should be ignored.
+# Add patterns, files and folders to the .gitignore and execute 'make build'
+# NEVER TOUCH THE .dockerignore, BECAUSE IT ANYHOW WILL BE OVERWRITTEN
+
 site.retry
 *__pycache__
 venv

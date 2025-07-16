@@ -88,7 +88,8 @@ class TestCreateDockerRoleCLI(unittest.TestCase):
         data['ports']['localhost']['http']['app2'] = 8001
         dump_yaml_with_comments(data, self.ports_file)
         # Check comment and new entry
-        text = open(self.ports_file).read()
+        with open(self.ports_file) as f:
+            text = f.read()
         self.assertIn('# existing port', text)
         self.assertIn('app2: 8001', text)
 
@@ -128,7 +129,8 @@ class TestCreateDockerRoleCLI(unittest.TestCase):
             f.write('Line1\n')
         builtins.input = lambda _: '3'
         render_templates(src, dst, {})
-        content = open(out_file).read().splitlines()
+        with open(out_file) as f:
+            content = f.read().splitlines()
         self.assertIn('Line1', content)
         self.assertIn('Line2', content)
         builtins.input = original_input
