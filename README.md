@@ -1,16 +1,20 @@
 # IT-Infrastructure Automation Framework 🚀
 
-[![GitHub Sponsors](https://img.shields.io/badge/Sponsor-GitHub%20Sponsors-blue?logo=github)](https://github.com/sponsors/kevinveenbirkenbach) [![Patreon](https://img.shields.io/badge/Support-Patreon-orange?logo=patreon)](https://www.patreon.com/c/kevinveenbirkenbach) [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20Coffee-Funding-yellow?logo=buymeacoffee)](https://buymeacoffee.com/kevinveenbirkenbach) [![PayPal](https://img.shields.io/badge/Donate-PayPal-blue?logo=paypal)](https://s.veen.world/paypaldonate) [![Build Status](https://github.com/kevinveenbirkenbach/cymais/actions/workflows/test-container.yml/badge.svg?branch=master)](https://github.com/kevinveenbirkenbach/cymais/actions/workflows/test-container.yml?query=branch%3Amaster) [![CyMaIS.Cloud](https://img.shields.io/badge/CyMaIS-%2ECloud-000000?labelColor=004B8D&style=flat&borderRadius=8)](https://cymais.cloud)
-
-
-
----
+**🔐 One login. ♾️ Infinite application** - ***🤖 Automate the Provisioning of All Your 🌐 Servers and 🖥️ Workstations with a Single Open‑Source Script!***
 
 ![CyMaIS Logo](assets/img/logo.png)
+---
 
 ## What is CyMaIS? 📌
 
 **CyMaIS** is an **automated, modular infrastructure framework** built on **Docker**, **Linux**, and **Ansible**, equally suited for cloud services, local server management, and desktop workstations. At its core lies a **web-based desktop with single sign-on**—backed by an **LDAP directory** and **OIDC**—granting **seamless access** to an almost limitless portfolio of self-hosted applications. It fully supports **ActivityPub applications** and is **Fediverse-compatible**, while integrated **monitoring**, **alerting**, **cleanup**, **self-healing**, **automated updates**, and **backup solutions** provide everything an organization needs to run at scale.
+
+| 📚 | 🔗 |
+|---|---|
+| 🌐 Try It Live | [![CyMaIS.Cloud](https://img.shields.io/badge/CyMaIS-%2ECloud-000000?labelColor=004B8D&style=flat&borderRadius=8)](https://cymais.cloud) |
+| 🔧 Request Your Setup       | [![CyberMaster.Space](https://img.shields.io/badge/CyberMaster-%2ESpace-000000?labelColor=004B8D&style=flat&borderRadius=8)](https://cybermaster.space) |
+| 📖 About This Project  | [![GitHub Sponsors](https://img.shields.io/badge/Sponsor-GitHub%20Sponsors-blue?logo=github)](https://github.com/sponsors/kevinveenbirkenbach) [![Build Status](https://github.com/kevinveenbirkenbach/cymais/actions/workflows/test-container.yml/badge.svg?branch=master)](https://github.com/kevinveenbirkenbach/cymais/actions/workflows/test-container.yml?query=branch%3Amaster) [![View Source](https://img.shields.io/badge/View_Source-Repository-000000?logo=github&labelColor=004B8D&style=flat&borderRadius=8)](https://github.com/kevinveenbirkenbach/cymais) |
+| ☕️ Support Us               |  [![Patreon](https://img.shields.io/badge/Support-Patreon-orange?logo=patreon)](https://www.patreon.com/c/kevinveenbirkenbach) [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20Coffee-Funding-yellow?logo=buymeacoffee)](https://buymeacoffee.com/kevinveenbirkenbach) [![PayPal](https://img.shields.io/badge/Donate-PayPal-blue?logo=paypal)](https://s.veen.world/paypaldonate) [![Sponsor CyMaIS](https://img.shields.io/badge/Donate–CyMaIS-000000?style=flat&labelColor=004B8D&logo=github-sponsors&logoColor=white&borderRadius=8)](https://github.com/sponsors/kevinveenbirkenbach) |
 
 ---
 
