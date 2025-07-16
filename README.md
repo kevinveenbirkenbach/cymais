@@ -55,7 +55,7 @@ More informations about the features you will find [here](docs/overview/Features
 
 ### Use it online 🌐 
 
-Give CyMaIS a spin at [CyMaIS.cloud](httpy://cymais.cloud) – sign up in seconds, click around, and see how easy infra magic can be! 🚀🔧✨
+Try [![CyMaIS.Cloud](https://img.shields.io/badge/CyMaIS-%2ECloud-000000?labelColor=004B8D&style=flat&borderRadius=8)](https://cymais.cloud) – sign up in seconds, explore the platform, and discover what our solution can do for you! 🚀🔧✨
 
 ### Install locally 💻
 1. **Install CyMaIS** via [Kevin's Package Manager](https://github.com/kevinveenbirkenbach/package-manager)
