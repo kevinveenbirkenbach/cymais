@@ -54,6 +54,9 @@ certbot_cert_path:                        "/etc/letsencrypt/live" # Path contain
 ## Docker Role Specific Parameters
 docker_restart_policy:                    "unless-stopped"
 
+# default value if not set via CLI (-e) or in playbook vars
+allowed_applications: []
+
 # helper
 _applications_nextcloud_oidc_flavor: >-
   {{
@@ -68,6 +71,3 @@ _applications_nextcloud_oidc_flavor: >-
           else 'sociallogin'
         )
   }}
-
-# default value if not set via CLI (-e) or in playbook vars
-allowed_applications: []
