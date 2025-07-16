@@ -1,6 +1,8 @@
 # IT-Infrastructure Automation Framework 🚀
 
-**🔐 One login. ♾️ Infinite application** - ***🤖 Automate the Provisioning of All Your 🌐 Servers and 🖥️ Workstations with a Single Open‑Source Script!***
+**🔐 One login. ♾️ Infinite application** 
+
+*🤖 Automate the Provisioning of All Your 🌐 Servers and 🖥️ Workstations with a Single Open‑Source Script!*
 
 ![CyMaIS Logo](assets/img/logo.png)
 ---
