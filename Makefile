@@ -22,8 +22,8 @@ EXTRA_USERS := $(shell \
 .PHONY: build install test
 
 clean:
-	@echo "Removing not tracked git files"
-	git clean -fdx
+	@echo "Removing ignored git files"
+	git clean -fdX
 
 tree:
 	@echo Generating Tree

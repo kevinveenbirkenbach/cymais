@@ -1,6 +1,8 @@
 # IT-Infrastructure Automation Framework 🚀
 
-[![GitHub Sponsors](https://img.shields.io/badge/Sponsor-GitHub%20Sponsors-blue?logo=github)](https://github.com/sponsors/kevinveenbirkenbach) [![Patreon](https://img.shields.io/badge/Support-Patreon-orange?logo=patreon)](https://www.patreon.com/c/kevinveenbirkenbach) [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20Coffee-Funding-yellow?logo=buymeacoffee)](https://buymeacoffee.com/kevinveenbirkenbach) [![PayPal](https://img.shields.io/badge/Donate-PayPal-blue?logo=paypal)](https://s.veen.world/paypaldonate)
+[![GitHub Sponsors](https://img.shields.io/badge/Sponsor-GitHub%20Sponsors-blue?logo=github)](https://github.com/sponsors/kevinveenbirkenbach) [![Patreon](https://img.shields.io/badge/Support-Patreon-orange?logo=patreon)](https://www.patreon.com/c/kevinveenbirkenbach) [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20Coffee-Funding-yellow?logo=buymeacoffee)](https://buymeacoffee.com/kevinveenbirkenbach) [![PayPal](https://img.shields.io/badge/Donate-PayPal-blue?logo=paypal)](https://s.veen.world/paypaldonate) [![Build Status](https://github.com/kevinveenbirkenbach/cymais/actions/workflows/test-container.yml/badge.svg?branch=master)](https://github.com/kevinveenbirkenbach/cymais/actions/workflows/test-container.yml?query=branch%3Amaster) [![CyMaIS.Cloud](https://img.shields.io/badge/CyMaIS-%2ECloud-000000?labelColor=004B8D&style=flat&borderRadius=8)](https://cymais.cloud)
+
+
 
 ---
 
@@ -61,6 +63,20 @@ Give CyMaIS a spin at [CyMaIS.cloud](httpy://cymais.cloud) – sign up in second
    ```sh
    cymais --help
    ```
+---
+
+### Setup with Docker🚢
+
+Get CyMaIS up and running inside Docker in just a few steps. For detailed build options and troubleshooting, see the [Docker Guide](docs/Docker.md).
+
+```bash
+# 1. Build the Docker image: the Docker image:
+docker build -t cymais:latest .
+
+# 2. Run the CLI interactively:
+docker run --rm -it cymais:latest cymais --help
+```
+
 ---
 
 ## License ⚖️

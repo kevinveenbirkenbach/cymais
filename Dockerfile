@@ -42,11 +42,23 @@ RUN git clone https://github.com/kevinveenbirkenbach/package-manager.git $PKGMGR
 # 5) Ensure pkgmgr venv bin and user-local bin are on PATH
 ENV PATH="$PKGMGR_VENV/bin:/root/.local/bin:${PATH}"
 
-# 6) Install CyMaIS (using HTTPS cloning mode)
+# 6) Copy local CyMaIS source into the image for override
+COPY . /opt/cymais-src
+
+# 7) Install CyMaIS via pkgmgr (clone-mode https)
 RUN pkgmgr install cymais --clone-mode https
 
-# 7) Symlink the cymais CLI into /usr/local/bin so ENTRYPOINT works
-RUN ln -s /root/.local/bin/cymais /usr/local/bin/cymais
+# 8) Override installed CyMaIS with local source and clean ignored files
+RUN CMAIS_PATH=$(pkgmgr path cymais) && \
+    rm -rf "$CMAIS_PATH"/* && \
+    cp -R /opt/cymais-src/* "$CMAIS_PATH"/ && \
+    cd "$CMAIS_PATH" && \
+    make clean
+
+# 9) Symlink the cymais script into /usr/local/bin so ENTRYPOINT works
+RUN CMAIS_PATH=$(pkgmgr path cymais) && \
+    ln -sf "$CMAIS_PATH"/main.py /usr/local/bin/cymais && \
+    chmod +x /usr/local/bin/cymais
 
 ENTRYPOINT ["cymais"]
 CMD ["--help"]

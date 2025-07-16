@@ -18,7 +18,24 @@ except ImportError:
         def __getattr__(self, name): return ''
     Fore = Back = Style = Dummy()
 
-from cli.sounds import Sound  # ensure Sound imported
+_IN_DOCKER = os.path.exists('/.dockerenv')
+
+if _IN_DOCKER:
+    class Quiet:
+        @staticmethod
+        def play_start_sound():               pass
+        @staticmethod
+        def play_cymais_intro_sound():       pass
+        @staticmethod
+        def play_finished_successfully_sound(): pass
+        @staticmethod
+        def play_finished_failed_sound():     pass
+        @staticmethod
+        def play_warning_sound():             pass
+
+    Sound = Quiet
+else:
+    from utils.sounds import Sound
 
 
 def color_text(text, color):

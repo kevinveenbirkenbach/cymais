@@ -1,0 +1,31 @@
+name: Build & Test Container
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: |
+          docker build -t cymais:latest .
+
+      - name: Clean build artifacts
+        run: |
+          docker run --rm cymais:latest cymais make clean
+
+      - name: Generate project outputs
+        run: |
+          docker run --rm cymais:latest cymais make build
+
+      - name: Run tests
+        run: |
+          docker run --rm cymais:latest cymais make test
