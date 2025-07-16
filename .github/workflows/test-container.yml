@@ -20,12 +20,12 @@ jobs:
 
       - name: Clean build artifacts
         run: |
-          docker run --rm cymais:latest cymais make clean
+          docker run --rm cymais:latest make clean
 
       - name: Generate project outputs
         run: |
-          docker run --rm cymais:latest cymais make build
+          docker run --rm cymais:latest make build
 
       - name: Run tests
         run: |
-          docker run --rm cymais:latest cymais make test
+          docker run --rm cymais:latest make test
