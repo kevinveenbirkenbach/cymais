@@ -22,7 +22,7 @@ class TestValidApplicationUsage(unittest.TestCase):
     APPLICATION_DOMAIN_RE   = re.compile(r"get_domain\(\s*['\"](?P<name>[^'\"]+)['\"]\s*\)")
 
     # default methods and exceptions that should not be validated as application IDs
-    DEFAULT_WHITELIST = {'items', 'yml', 'get'}
+    DEFAULT_WHITELIST = {'items', 'yml', 'get', 'values'}
     PYTHON_EXTRA_WHITELIST = {'keys'}
 
     def test_application_references_use_valid_ids(self):
