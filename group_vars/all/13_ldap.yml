@@ -7,10 +7,10 @@
 # Keep in mind to mapp this variables if there is ever the possibility for the user to define them in the inventory
 _ldap_dn_base:                  "dc={{primary_domain_sld}},dc={{primary_domain_tld}}"
 _ldap_docker_network_enabled:   "{{ applications | get_app_conf('svc-db-openldap', 'network.docker') }}"
-_ldap_protocol:                 "{{ 'ldap' if _docker_network_enabled else 'ldaps' }}"
+_ldap_protocol:                 "{{ 'ldap' if _ldap_docker_network_enabled else 'ldaps' }}"
 _ldap_server_port:              "{{ ports.localhost[_ldap_protocol]['svc-db-openldap'] }}"
 _ldap_name:                     "{{ applications | get_app_conf('svc-db-openldap', 'docker.services.openldap.name') }}"
-_ldap_domain:                   "domains | get_domain('svc-db-openldap')"
+_ldap_domain:                   "{{ domains | get_domain('svc-db-openldap') }}"
 _ldap_user_id:                  "uid"
 _ldap_filters_users_all:        "(|(objectclass=inetOrgPerson))"
 
@@ -61,12 +61,12 @@ ldap:
   # Password to access dn.bind
   bind_credential:      "{{ applications | get_app_conf('svc-db-openldap', 'credentials.administrator_database_password') }}"
   server:
-    domain:             "{{ _ldap_name if _docker_network_enabled else _ldap_domain }}" # Mapping for public or locale access
+    domain:             "{{ _ldap_name if _ldap_docker_network_enabled else _ldap_domain }}" # Mapping for public or locale access
     port:               "{{ _ldap_server_port }}"
-    uri:                "{{ _ldap_protocol }}://{{ _ldap_name if _docker_network_enabled else _ldap_domain }}:{{ _ldap_server_port }}"
+    uri:                "{{ _ldap_protocol }}://{{ _ldap_name if _ldap_docker_network_enabled else _ldap_domain }}:{{ _ldap_server_port }}"
     security:           "" #TLS, SSL - Leave empty for none
   network:
-    local:              "{{ _docker_network_enabled }}" # Uses the application configuration to define if local network should be available or not
+    local:              "{{ _ldap_docker_network_enabled }}" # Uses the application configuration to define if local network should be available or not
   user:
     objects:
       structural:
