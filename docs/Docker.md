@@ -72,7 +72,7 @@ Once built, you can run CyMaIS as usual:
 docker run --rm -it \
   -v "$(pwd)":/opt/cymais \
   -w /opt/cymais \
-  cymais:latest cymais --help
+  cymais:latest --help
 ```
 
 Mount any host directory into `/opt/cymais/logs` to persist logs across runs.
@@ -105,7 +105,7 @@ CMAIS_PATH=$(pkgmgr path cymais)
 docker run --rm -it \
   -v "${CMAIS_PATH}:/root/Repositories/github.com/kevinveenbirkenbach/cymais" \
   -w "/root/Repositories/github.com/kevinveenbirkenbach/cymais" \
-  cymais:latest cymais make build
+  cymais:latest make build
 ```
 
 Or, to test the CLI help interactively:
