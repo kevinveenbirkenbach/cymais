@@ -4,7 +4,7 @@ FROM {{ moodle_image }}:{{ moodle_version }}
 RUN install_packages unzip curl jq \
  && VERSION=$(curl -s https://api.github.com/repos/microsoft/moodle-auth_oidc/tags \
       | jq -r '.[].name' \
-      | grep v{{ applications | get_app_conf(application_id, 'version', True) }} \
+      | grep v{{ moodle_version }} \
       | sort -Vr \
       | head -n1) \
  && echo "Using version $VERSION" \
