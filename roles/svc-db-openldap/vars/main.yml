@@ -19,5 +19,6 @@ openldap_name:                  "{{ applications | get_app_conf(application_id, 
 openldap_image:                 "{{ applications | get_app_conf(application_id, 'docker.services.openldap.image', True) }}"
 openldap_version:               "{{ applications | get_app_conf(application_id, 'docker.services.openldap.version', True) }}"
 openldap_volume:                "{{ applications | get_app_conf(application_id, 'docker.volumes.data', True) }}"
+openldap_network:                "{{ applications | get_app_conf(application_id, 'docker.network', True) }}"
 
 openldap_network_expose_local:  "{{ applications | get_app_conf(application_id, 'network.public', True) | bool or applications | get_app_conf(application_id, 'network.local', True) | bool }}"

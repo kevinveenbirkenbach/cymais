@@ -1,10 +1,10 @@
 # Helper variables
 _database_id:           "svc-db-{{ database_type }}"
-_database_central_name: "applications | get_app_conf( _database_id, 'docker.services.' ~ database_type ~ '.name')"
+_database_central_name: "{{ applications | get_app_conf( _database_id, 'docker.services.' ~ database_type ~ '.name') }}"
 _database_central_user: "{{ database_type }}"
 
 # Definition
-database_name:      "{{ applications | get_app_conf(database_application_id, 'database.name', false, _database_central_name ) }}"                                 # The overwritte configuration is needed by bigbluebutton
+database_name:      "{{ applications | get_app_conf( database_application_id, 'database.name', false, _database_central_name ) }}"                                 # The overwritte configuration is needed by bigbluebutton
 database_instance:  "{{ _database_central_name if applications | get_app_conf(database_application_id, 'features.central_database', False) else database_name }}" # This could lead to bugs at dedicated database @todo cleanup
 database_host:      "{{ _database_central_name if applications | get_app_conf(database_application_id, 'features.central_database', False) else 'database' }}"    # This could lead to bugs at dedicated database @todo cleanup
 database_username:  "{{ applications | get_app_conf(database_application_id, 'database.username', false, _database_central_user )}}"                              # The overwritte configuration is needed by bigbluebutton

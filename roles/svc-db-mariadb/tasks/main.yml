@@ -41,9 +41,8 @@
     name: "{{ mariadb_name }}"
   register: db_info
   until:
-  - db_info.containers is defined
-  - db_info.containers | length > 0
-  - db_info.containers[0].State.Health.Status == "healthy"
+  - db_info.container is defined
+  - db_info.container.State.Health.Status == "healthy"
   retries: 30
   delay: 5
   when:

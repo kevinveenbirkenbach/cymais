@@ -1,6 +1,6 @@
 application_id:             "web-app-akaunting"
 database_type:              "mariadb"
-database_password:          "applications | get_app_conf(application_id, 'credentials.database_password', True)"
+database_password:          "{{ applications | get_app_conf(application_id, 'credentials.database_password', True) }}"
 docker_repository_address:  "https://github.com/akaunting/docker.git"
 akaunting_version:          "{{ applications | get_app_conf(application_id, 'docker.services.akaunting.version', True) }}"
 akaunting_image:            "{{ applications | get_app_conf(application_id, 'docker.services.akaunting.image', True) }}"

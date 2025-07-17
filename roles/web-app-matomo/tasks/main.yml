@@ -3,3 +3,7 @@
   include_tasks: constructor.yml 
   when: run_once_web_app_matomo is not defined
 
+- name: run the docker matomo tasks once
+  set_fact:
+    run_once_web_app_matomo: true
+  when: run_once_web_app_matomo is not defined

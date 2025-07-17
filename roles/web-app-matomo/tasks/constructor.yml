@@ -37,8 +37,3 @@
       token_auth: "{{ matomo_auth_token }}"
     return_content: yes
     status_code: 200
-
-- name: run the docker matomo tasks once
-  set_fact:
-    run_once_web_app_matomo: true
-  when: run_once_web_app_matomo is not defined
