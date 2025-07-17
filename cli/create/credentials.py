@@ -4,9 +4,9 @@ import sys
 from pathlib import Path
 import yaml
 from typing import Dict, Any
-from utils.manager.inventory import InventoryManager
-from utils.handler.vault   import VaultHandler, VaultScalar
-from utils.handler.yaml    import YamlHandler
+from module_utils.manager.inventory import InventoryManager
+from module_utils.handler.vault   import VaultHandler, VaultScalar
+from module_utils.handler.yaml    import YamlHandler
 from yaml.dumper import SafeDumper
 
 

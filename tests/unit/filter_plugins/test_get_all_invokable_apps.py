@@ -34,10 +34,10 @@ class TestGetAllInvokableApps(unittest.TestCase):
                     "invokable": True
                 },
                 "util": {
-                    "title": "Utils",
+                    "title": "module_utils",
                     "invokable": False,
                     "desk": {
-                        "title": "Desktop Utils",
+                        "title": "Desktop module_utils",
                         "invokable": True
                     }
                 }

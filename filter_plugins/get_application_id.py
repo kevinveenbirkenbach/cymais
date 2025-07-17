@@ -1,5 +1,3 @@
-# filter_plugins/get_application_id.py
-
 import os
 import re
 import yaml

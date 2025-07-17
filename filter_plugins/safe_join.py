@@ -1,4 +1,3 @@
-# file: filter_plugins/safe_join.py
 """
 Ansible filter plugin that joins a base string and a tail path safely.
 If the base is falsy (None, empty, etc.), returns an empty string.

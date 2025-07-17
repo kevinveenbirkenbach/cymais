@@ -1,4 +1,4 @@
-def get_docker_compose(path_docker_compose_instances: str, application_id: str) -> dict:
+def get_docker_paths(path_docker_compose_instances: str, application_id: str) -> dict:
     """
     Build the docker_compose dict based on
     path_docker_compose_instances and application_id.
@@ -23,5 +23,5 @@ def get_docker_compose(path_docker_compose_instances: str, application_id: str) 
 class FilterModule(object):
     def filters(self):
         return {
-            'get_docker_compose':   get_docker_compose,
+            'get_docker_paths':   get_docker_paths,
         }

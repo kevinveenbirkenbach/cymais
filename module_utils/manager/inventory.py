@@ -3,8 +3,8 @@ import hashlib
 import bcrypt
 from pathlib import Path
 from typing import Dict
-from utils.handler.yaml import YamlHandler
-from utils.handler.vault import VaultHandler, VaultScalar
+from module_utils.handler.yaml import YamlHandler
+from module_utils.handler.vault import VaultHandler, VaultScalar
 import string
 import sys
 import base64

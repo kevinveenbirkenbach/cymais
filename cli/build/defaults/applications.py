@@ -5,7 +5,7 @@ import sys
 import time
 from pathlib import Path
 
-# Ensure project root on PYTHONPATH so utils is importable
+# Ensure project root on PYTHONPATH so module_utils is importable
 repo_root = Path(__file__).resolve().parent.parent.parent.parent
 sys.path.insert(0, str(repo_root))
 
@@ -13,7 +13,7 @@ sys.path.insert(0, str(repo_root))
 plugin_path = repo_root / "lookup_plugins"
 sys.path.insert(0, str(plugin_path))
 
-from utils.dict_renderer import DictRenderer
+from module_utils.dict_renderer import DictRenderer
 from application_gid import LookupModule
 
 def load_yaml_file(path: Path) -> dict:

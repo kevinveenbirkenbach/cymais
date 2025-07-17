@@ -35,7 +35,7 @@ if _IN_DOCKER:
 
     Sound = Quiet
 else:
-    from utils.sounds import Sound
+    from module_utils.sounds import Sound
 
 
 def color_text(text, color):

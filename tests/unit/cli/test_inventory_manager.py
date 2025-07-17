@@ -14,9 +14,9 @@ sys.path.insert(
     ),
 )
 
-from utils.handler.yaml import YamlHandler
-from utils.handler.vault import VaultHandler, VaultScalar
-from utils.manager.inventory import InventoryManager
+from module_utils.handler.yaml import YamlHandler
+from module_utils.handler.vault import VaultHandler, VaultScalar
+from module_utils.manager.inventory import InventoryManager
 
 
 class TestInventoryManager(unittest.TestCase):

@@ -1,17 +1,17 @@
 # Helper variables
-_database_id:                 "svc-db-{{ database_type }}"
-_database_central_name:       "{{ applications | get_app_conf( _database_id, 'docker.services.' ~ database_type ~ '.name') }}"
-_database_consumer_public_id: "{{ database_application_id | get_public_id }}"
-_database_central_enabled:    "{{ applications | get_app_conf(database_application_id, 'features.central_database', False) }}"
+_database_id:                     "svc-db-{{ database_type }}"
+_database_central_name:           "{{ applications | get_app_conf( _database_id, 'docker.services.' ~ database_type ~ '.name') }}"
+_database_consumer_entity_name:   "{{ database_application_id | get_entity_name }}"
+_database_central_enabled:        "{{ applications | get_app_conf(database_application_id, 'features.central_database', False) }}"
 
 # Definition
-database_name:      "{{ applications | get_app_conf( database_application_id, 'database.name', false, _database_consumer_public_id ) }}"                      # The overwritte configuration is needed by bigbluebutton
+database_name:      "{{ applications | get_app_conf( database_application_id, 'database.name', false, _database_consumer_entity_name ) }}"                      # The overwritte configuration is needed by bigbluebutton
 database_instance:  "{{ _database_central_name if _database_central_enabled else database_name }}"                                                            # This could lead to bugs at dedicated database @todo cleanup
 database_host:      "{{ _database_central_name if _database_central_enabled else 'database' }}"                                                               # This could lead to bugs at dedicated database @todo cleanup
-database_username:  "{{ applications | get_app_conf(database_application_id, 'database.username', false, _database_consumer_public_id)}}"                     # The overwritte configuration is needed by bigbluebutton
+database_username:  "{{ applications | get_app_conf(database_application_id, 'database.username', false, _database_consumer_entity_name)}}"                     # The overwritte configuration is needed by bigbluebutton
 database_password:  "{{ applications | get_app_conf(database_application_id, 'credentials.database_password', true) }}"
 database_port:      "{{ ports.localhost.database[ _database_id ] }}"
 database_env:       "{{docker_compose.directories.env}}{{database_type}}.env"
 database_url_jdbc:  "jdbc:{{ database_type if database_type == 'mariadb' else 'postgresql' }}://{{ database_host }}:{{ database_port }}/{{ database_name }}"
 database_url_full:  "{{database_type}}://{{database_username}}:{{database_password}}@{{database_host}}:{{database_port}}/{{ database_name }}"
-database_volume:    "{{ _database_consumer_public_id ~ '_' if not _database_central_enabled }}{{ database_host }}"
+database_volume:    "{{ _database_consumer_entity_name ~ '_' if not _database_central_enabled }}{{ database_host }}"

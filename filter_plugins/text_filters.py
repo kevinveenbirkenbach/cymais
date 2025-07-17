@@ -1,5 +1,3 @@
-# filter_plugins/text_filters.py
-
 from ansible.errors import AnsibleFilterError
 import re
 

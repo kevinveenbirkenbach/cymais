@@ -88,7 +88,7 @@ def validate_application_ids(inventory, app_ids):
     """
     Abort the script if any application IDs are invalid, with detailed reasons.
     """
-    from utils.valid_deploy_id import ValidDeployId
+    from module_utils.valid_deploy_id import ValidDeployId
     validator = ValidDeployId()
     invalid = validator.validate(inventory, app_ids)
     if invalid:

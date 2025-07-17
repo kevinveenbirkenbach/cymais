@@ -1,9 +1,9 @@
-# File: tests/unit/utils/test_valid_deploy_id.py
+# File: tests/unit/module_utils/test_valid_deploy_id.py
 import os
 import tempfile
 import unittest
 import yaml
-from utils.valid_deploy_id import ValidDeployId
+from module_utils.valid_deploy_id import ValidDeployId
 
 class TestValidDeployId(unittest.TestCase):
     def setUp(self):

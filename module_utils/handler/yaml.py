@@ -1,7 +1,7 @@
 import yaml
 from yaml.loader import SafeLoader
 from typing import Any, Dict
-from utils.handler.vault import VaultScalar
+from module_utils.handler.vault import VaultScalar
 
 class YamlHandler:
     @staticmethod

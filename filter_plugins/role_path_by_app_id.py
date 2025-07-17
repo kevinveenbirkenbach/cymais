@@ -1,5 +1,3 @@
-# filter_plugins/role_path_by_app_id.py
-
 import os
 import glob
 import yaml
