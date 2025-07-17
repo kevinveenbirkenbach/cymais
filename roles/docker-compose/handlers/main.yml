@@ -19,7 +19,7 @@
     - docker compose restart
 
 - name: docker compose up
-  shell: docker-compose -p {{ application_id }} up -d --force-recreate --remove-orphans --build
+  shell: docker-compose -p {{ application_id | get_entity_name }} up -d --force-recreate --remove-orphans --build
   args:
     chdir: "{{ docker_compose.directories.instance }}"
     executable: /bin/bash

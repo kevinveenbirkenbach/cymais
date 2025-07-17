@@ -16,15 +16,6 @@
     client_max_body_size: "80m"
     vhost_flavour:        "ws_generic"
 
-- name: flush docker service
-  meta: flush_handlers
+- name: "start setup procedures for mastodon"
+  include_tasks: 01_setup.yml
   when: mastodon_setup |bool 
-
-- name: setup routine for mastodon
-  command:
-    cmd: "docker-compose run --rm web bundle exec rails db:migrate"
-    chdir: "{{docker_compose.directories.instance}}"
-  when: mastodon_setup |bool 
-
-- name: "include create-administrator.yml for mastodon"
-  include_tasks: create-administrator.yml

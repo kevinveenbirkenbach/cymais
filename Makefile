@@ -25,9 +25,16 @@ clean:
 	@echo "Removing ignored git files"
 	git clean -fdX
 
+list:
+	@echo Generating the roles list
+	python3 main.py build roles_list
+
 tree:
 	@echo Generating Tree
 	python3 main.py build tree -D 2 --no-signal
+
+mig: list tree
+	@echo Creating meta data for meta infinity graph
 
 dockerignore:
 	@echo Create dockerignore
@@ -61,7 +68,7 @@ build: clean dockerignore
 install: build
 	@echo "⚙️  Install complete."
 
-partial-test:
+messy-test:
 	@echo "🧪 Running Python tests…"
 	PYTHONPATH=. python -m unittest discover -s tests
 	@echo "📑 Checking Ansible syntax…"
