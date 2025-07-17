@@ -28,5 +28,6 @@ docker:
     streaming: 
       image:            "ghcr.io/mastodon/mastodon-streaming"
       version:          latest
+      name:             "mastodon-streaming"
   volumes:
     data:               "mastodon_data"

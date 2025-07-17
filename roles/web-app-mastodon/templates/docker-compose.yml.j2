@@ -24,7 +24,7 @@
     command: node ./streaming
 {% include 'roles/docker-container/templates/healthcheck/wget.yml.j2' %}
     ports:
-      - "127.0.0.1:{{ports.localhost.websocket[application_id]}}:{{ container_port }}"
+      - "127.0.0.1:{{ ports.localhost.websocket[application_id] }}:{{ container_port }}"
 {% include 'roles/docker-container/templates/depends_on/dmbs_excl.yml.j2' %}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 
@@ -37,7 +37,10 @@
     volumes:
       - data:/mastodon/public/system
     healthcheck:
-      test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 6' || false"]
+      test: ["CMD-SHELL", "pgrep -f sidekiq || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
