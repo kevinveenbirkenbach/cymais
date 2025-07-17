@@ -78,5 +78,5 @@
 
 - name: Apply SSH Public Key to user-profile via kcadm
   shell: |
-    docker exec -i {{ container_name }} \
+    docker exec -i {{ keycloak_container }} \
       /opt/keycloak/bin/kcadm.sh update realms/{{ keycloak_realm }} -f {{ keycloak_docker_import_directory }}user-profile.json

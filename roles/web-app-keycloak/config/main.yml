@@ -27,6 +27,7 @@ docker:
     keycloak:
       image:    "quay.io/keycloak/keycloak"
       version:  "latest"
+      name:     "keycloak"
     database:
       enabled: true
 
