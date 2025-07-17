@@ -6,7 +6,10 @@ matomo_index_php_url: "{{ domains | get_url(application_id, web_protocol) }}/ind
 matomo_auth_token:    "{{ applications | get_app_conf(application_id, 'credentials.auth_token', True) }}"
 matomo_version:       "{{ applications | get_app_conf(application_id, 'docker.services.matomo.version', True) }}"
 matomo_image:         "{{ applications | get_app_conf(application_id, 'docker.services.matomo.image', True) }}"
+matomo_name:          "{{ applications | get_app_conf(application_id, 'docker.services.matomo.name', True) }}"
 matomo_data:          "{{ applications | get_app_conf(application_id, 'docker.volumes.data', True) }}"
+matomo_backup_file:   "{{ docker_compose.directories.instance }}/config.ini.php.bak"
+matomo_config:        "/var/www/html/config/config.ini.php"
 
 # I don't know if this is still necessary
 domain:               "{{ domains | get_domain(application_id) }}"

@@ -1,5 +1,6 @@
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
   application:
+    container_name:  {{ matomo_name }}
 {% set container_port = 80 %}
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     image: "{{ matomo_image }}:{{ matomo_version }}"

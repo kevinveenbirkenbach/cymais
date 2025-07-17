@@ -2,6 +2,9 @@
   include_role: 
     name: cmp-db-docker-proxy
 
+- name: "Update database credentials"
+  include_tasks: database.yml
+
 - name: flush docker service
   meta: flush_handlers
 
