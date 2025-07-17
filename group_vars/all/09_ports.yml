@@ -52,7 +52,7 @@ ports:
       web-app-port-ui: 8029
       bluesky_api: 8030
       bluesky_web: 8031
-      keycloak: 8032
+      web-app-keycloak: 8032
       lam: 8033
       phpmyadmin: 8034
       snipe-it: 8035
