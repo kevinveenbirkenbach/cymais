@@ -10,7 +10,7 @@
   meta: flush_handlers
 
 - name: Wait until the Moodle container is healthy
-  shell: docker inspect --format '{% raw %}{{.State.Health.Status}}{% endraw %}' {{ container_name }}
+  shell: docker inspect --format '{% raw %}{{.State.Health.Status}}{% endraw %}' {{ moodle_container }}
   register: health_check
   until: health_check.stdout.strip() == "healthy"
   retries: 120
@@ -25,7 +25,7 @@
 
 - name: Run Moodle system check
   command: >
-    docker exec --user {{ bitnami_user }} {{ container_name }}
+    docker exec --user {{ bitnami_user }} {{ moodle_container }}
     php /opt/bitnami/moodle/admin/cli/checks.php
   register: moodle_checks
   changed_when: false

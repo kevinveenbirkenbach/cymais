@@ -7,13 +7,13 @@
       - "{{ bitnami_data_dir }}"
   block:
     - name: Ensure ownership is correct
-      command: "docker exec --user root {{ container_name }} chown -R {{ bitnami_user_group }} {{ item }}"
+      command: "docker exec --user root {{ moodle_container }} chown -R {{ bitnami_user_group }} {{ item }}"
       loop: "{{ moodle_dirs }}"
 
     - name: Set directory permissions (770)
-      command: "docker exec --user root {{ container_name }} find {{ item }} -type d -exec chmod 770 {} \\;"
+      command: "docker exec --user root {{ moodle_container }} find {{ item }} -type d -exec chmod 770 {} \\;"
       loop: "{{ moodle_dirs }}"
 
     - name: Set file permissions (660)
-      command: "docker exec --user root {{ container_name }} find {{ item }} -type f -exec chmod 660 {} \\;"
+      command: "docker exec --user root {{ moodle_container }} find {{ item }} -type f -exec chmod 660 {} \\;"
       loop: "{{ moodle_dirs }}"

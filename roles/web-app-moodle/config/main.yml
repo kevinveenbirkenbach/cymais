@@ -35,4 +35,6 @@ docker:
   volumes:
     data: 
       name:           moodle_data
+    code:
+      name:           moodle_code
   
