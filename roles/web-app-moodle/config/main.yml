@@ -2,7 +2,7 @@ site_titel:           "Academy on {{primary_domain}}"
 features:
   matomo:             true
   css:                false
-  port-ui-desktop:   true
+  port-ui-desktop:    true
   central_database:   true
   oidc:               true
 csp:
@@ -33,8 +33,6 @@ docker:
       image:          bitnami/moodle
       name:           moodle
   volumes:
-    data: 
-      name:           moodle_data
-    code:
-      name:           moodle_code
+    data:             moodle_data
+    code:             moodle_code
   

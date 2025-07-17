@@ -2,7 +2,7 @@
 
   moodle:
 {% set container_port = 8080 %}
-    moodle_container: {{ moodle_container }}
+    container_name: {{ moodle_container }}
     build:
       context: .
       dockerfile: Dockerfile
