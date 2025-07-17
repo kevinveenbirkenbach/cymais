@@ -80,7 +80,7 @@ defaults_networks:
       subnet: 192.168.103.32/28
     presentation:
       subnet: 192.168.103.48/28
-    espocrm:
+    web-app-espocrm:
       subnet: 192.168.103.64/28
     syncope:
       subnet: 192.168.103.80/28

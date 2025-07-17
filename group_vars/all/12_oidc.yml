@@ -12,7 +12,7 @@ _oidc_client_realm:         "{{ oidc.client.realm if oidc.client is defined and 
 _oidc_url:                  "{{ 
                                 (oidc.url 
                                   if (oidc is defined and oidc.url is defined) 
-                                  else web_protocol ~ '://' ~ (domains | get_domain('keycloak'))
+                                  else web_protocol ~ '://' ~ (domains | get_domain('web-app-keycloak'))
                                 ) 
                             }}"
 _oidc_client_issuer_url:    "{{ _oidc_url }}/realms/{{_oidc_client_realm}}"

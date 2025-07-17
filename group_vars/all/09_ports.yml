@@ -7,7 +7,7 @@ ports:
     # https://developer.mozilla.org/de/docs/Web/API/WebSockets_API
     websocket:
       web-app-mastodon: 4001
-      espocrm: 4002
+      web-app-espocrm: 4002
     oauth2_proxy:
       phpmyadmin: 4181
       lam: 4182
@@ -60,7 +60,7 @@ ports:
       phpldapadmin: 8037
       fusiondirectory: 8038
       presentation: 8039
-      espocrm: 8040
+      web-app-espocrm: 8040
       syncope: 8041
       collabora: 8042
       mobilizon: 8043
