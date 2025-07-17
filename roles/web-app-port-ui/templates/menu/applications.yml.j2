@@ -33,13 +33,13 @@ applications:
                 icon:
                   class: fa-solid fa-shield-halved
                 url: https://{{domains | get_domain('web-app-keycloak')}}/admin
-                iframe: {{ applications | get_domain( 'web-app-keycloak', 'features.port-ui-desktop', False) }}
+                iframe: {{ applications | get_app_conf( 'web-app-keycloak', 'features.port-ui-desktop', False) }}
               - name: Profile
                 description: Update your personal admin settings
                 icon:
                   class: fa-solid fa-user-gear
                 url: https://{{ domains | get_domain('web-app-keycloak') }}/realms/{{oidc.client.id}}/account
-                iframe: {{ applications | get_domain( 'web-app-keycloak', 'features.port-ui-desktop', False) }}
+                iframe: {{ applications | get_app_conf( 'web-app-keycloak', 'features.port-ui-desktop', False) }}
               - name: Logout
                 description: End your admin session securely
                 icon:
