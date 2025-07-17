@@ -10,7 +10,7 @@
     domain: "{{ item }}"
     http_port:   "{{ ports.localhost.http[application_id] }}"
   loop:
-    - "{{ domains | get_domain('mailu') }}"
+    - "{{ domains | get_domain('web-app-mailu') }}"
     - "{{ domain }}"
     
 - name: "For '{{ application_id }}': configure {{domains | get_domain(application_id)}}.conf"

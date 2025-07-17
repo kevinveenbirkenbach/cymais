@@ -13,10 +13,6 @@
         state: directory
         mode: "0755"
 
-    - name: Copy config.php from container to host
-      command: >
-        docker cp {{ moodle_container }}:{{ moodle_config }} {{ moodle_backup_file }}
-
 - name: Check if config.php exists
   command: docker exec --user root {{ moodle_container }} test -f {{ moodle_config }}
   register: config_file_exists

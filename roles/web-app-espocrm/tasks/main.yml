@@ -3,6 +3,13 @@
   include_role: 
     name: cmp-db-docker-proxy
 
+- name: Update database credentials
+  include_tasks: database.yml
+
+- name: Flush handlers to make DB available before password reset
+  meta: flush_handlers
+  when: docker_compose_flush_handlers | bool
+
 - name: Set OIDC scopes in EspoCRM config (inside web container)
   ansible.builtin.shell: |
     docker compose exec -T web php -r '

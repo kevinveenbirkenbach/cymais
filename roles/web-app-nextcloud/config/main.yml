@@ -10,9 +10,12 @@ csp:
       - "data:"
 domains:
   canonical:
-    nextcloud:  "cloud.{{ primary_domain }}"
+    - "cloud.{{ primary_domain }}"
+    # nextcloud:  "cloud.{{ primary_domain }}"
     # talk:       "talk.{{ primary_domain }}" @todo needs to be activated
 docker:
+  volumes:
+    data: nextcloud_data
   services:
     redis:
       enabled: true
@@ -21,7 +24,7 @@ docker:
     nextcloud:
       name:     "nextcloud"
       image:    "nextcloud"
-      version:  "latest-fpm-alpine"
+      version:  "production-fpm-alpine"
       backup:
         no_stop_required: true
     proxy: 

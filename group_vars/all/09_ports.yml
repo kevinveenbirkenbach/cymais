@@ -27,7 +27,7 @@ ports:
       web-app-mediawiki: 8004
       web-app-mybb: 8005
       yourls: 8006
-      mailu: 8007
+      web-app-mailu: 8007
       web-app-elk: 8008
       web-app-mastodon: 8009
       web-app-pixelfed: 8010

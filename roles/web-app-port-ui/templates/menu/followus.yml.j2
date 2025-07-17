@@ -3,7 +3,7 @@ followus:
   description: Follow us to stay up to recieve the newest CyMaIS updates 
   icon:
     class: fas fa-newspaper
-{% if ["mastodon", "bluesky"] | any_in(group_names) %}
+{% if ["web-app-mastodon", "web-app-bluesky"] | any_in(group_names) %}
   children:
 {% if service_provider.contact.mastodon is defined and service_provider.contact.mastodon != "" %}
     - name: Mastodon

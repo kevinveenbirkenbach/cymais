@@ -2,7 +2,7 @@
   include_role: 
     name: cmp-db-docker-proxy
 
-- name: "Update database credentials"
+- name: "Patch Matomo config.ini.php with updated DB credentials"
   include_tasks: database.yml
 
 - name: flush docker service

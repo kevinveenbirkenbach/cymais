@@ -13,9 +13,9 @@
       - database:/var/lib/mysql
     healthcheck:
       test: [ "CMD", "sh", "-c", "/usr/bin/mariadb --user=$$MYSQL_USER --password=$$MYSQL_PASSWORD --execute 'SHOW DATABASES;'" ]
-      interval: 3s
-      timeout: 1s
-      retries: 5
+      interval: 10s
+      timeout: 5s
+      retries: 18
     networks:
       - default
 {% endif %}

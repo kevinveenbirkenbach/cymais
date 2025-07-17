@@ -42,7 +42,7 @@ defaults_networks:
       subnet: 192.168.101.240/28
     web-app-matrix:
       subnet: 192.168.102.0/28
-    mailu:
+    web-app-mailu:
       # Use one of the last container ips for dns resolving so that it isn't used
       dns: 192.168.102.29
       subnet: 192.168.102.16/28

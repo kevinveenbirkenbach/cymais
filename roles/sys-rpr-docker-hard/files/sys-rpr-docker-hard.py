@@ -43,7 +43,7 @@ if __name__ == "__main__":
             
             if os.path.isfile(docker_compose_file):
                 print(f"Found docker-compose.yml in {dir_path}.")
-                if dir_name == "mailu":
+                if dir_name == "web-app-mailu":
                     print(f"Directory {dir_name} detected. Performing hard restart...")
                     hard_restart_docker_services(dir_path)
                 else:

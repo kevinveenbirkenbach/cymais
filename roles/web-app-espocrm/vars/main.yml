@@ -9,3 +9,4 @@ espocrm_version:                "{{ applications | get_app_conf(application_id, 
 espocrm_image:                  "{{ applications | get_app_conf(application_id, 'docker.services.espocrm.image', True) }}"
 espocrm_name:                   "{{ applications | get_app_conf(application_id, 'docker.services.espocrm.name', True) }}"
 espocrm_volume:                 "{{ applications | get_app_conf(application_id, 'docker.volumes.data', True) }}"
+espocrm_config_file:            "/var/www/html/data/config-internal.php"

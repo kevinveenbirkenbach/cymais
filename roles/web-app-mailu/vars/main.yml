@@ -1,7 +1,7 @@
-application_id:             "mailu"
+application_id:             "web-app-mailu"
 
 # Database Configuration
-database_password:          "{{applications.mailu.credentials.database_password}}"
+database_password:          "{{ applications | get_app_conf(application_id, ' credentials.database_password') }}"
 database_type:              "mariadb"
 
 cert_mount_directory:       "{{docker_compose.directories.volumes}}certs/"
@@ -13,3 +13,13 @@ docker_source:             "{{ 'ghcr.io/heviat' if applications | get_app_conf(a
 domain:                    "{{ domains | get_domain(application_id) }}"
 http_port:                 "{{ ports.localhost.http[application_id] }}"
 proxy_extra_configuration: "client_max_body_size 31M;"
+mailu_version:             "{{ applications | get_app_conf(application_id, 'docker.services.mailu.version', True) }}"
+mailu_name:                "{{ applications | get_app_conf(application_id, 'docker.services.mailu.name', True) }}"
+mailu_smtp_queue:          "mailu_smtp_queue"
+mailu_admin_data:          "mailu_admin_data"
+mailu_webdav_data:         "mailu_webdav_data"
+mailu_webmail_data:        "mailu_webmail_data"
+mailu_filter:              "mailu_filter"
+mailu_dkim:                "mailu_dkim"
+mailu_dovecot_mail:        "mailu_dovecot_mail"
+mailu_redis:               "mailu_redis"

@@ -19,7 +19,7 @@
     mailu_compose_dir:        "{{ docker_compose.directories.instance }}"
     mailu_domain:             "{{ primary_domain }}"
     mailu_api_base_url:       "http://127.0.0.1:8080/api/v1"
-    mailu_global_api_token:   "{{ applications.mailu.credentials.api_token }}"
+    mailu_global_api_token:   "{{ applications | get_app_conf(application_id, 'credentials.api_token') }}"
     mailu_action: >-
       {{
         (

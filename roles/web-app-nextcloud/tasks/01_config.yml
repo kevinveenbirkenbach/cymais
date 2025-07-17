@@ -3,16 +3,27 @@
     - name: Add dynamic config merging from Jinja template
       template:
         src: include.php.j2
-        dest: "{{nextcloud_host_include_instructions_file}}"
+        dest: "{{ nextcloud_host_include_instructions_file }}"
       notify: docker compose restart
+
+    - name: Flush handlers so Nextcloud container is restarted and ready
+      meta: flush_handlers
+
+    - name: "Wait until Nextcloud is reachable on port {{ports.localhost.http[application_id]}}"
+      wait_for:
+        host: 127.0.0.1
+        port: "{{ports.localhost.http[application_id]}}"
+        timeout: 120
+        delay: 2
+        state: started
 
     - name: Copy include instructions to the container
       command: >
-        docker cp {{ nextcloud_host_include_instructions_file }} {{ nextcloud_name }}:{{nextcloud_docker_include_instructions_file}}
+        docker cp {{ nextcloud_host_include_instructions_file }} {{ nextcloud_container }}:{{ nextcloud_docker_include_instructions_file }}
 
     - name: Append generated config to config.php only if not present
       command: >
-        docker exec -u {{nextcloud_docker_user}} {{ nextcloud_name }} sh -c "
+        docker exec -u {{ nextcloud_docker_user }} {{ nextcloud_container }} sh -c "
           grep -q '{{ nextcloud_docker_config_additives_directory }}' {{ nextcloud_docker_config_file }} || 
-          cat {{nextcloud_docker_include_instructions_file}} >> {{ nextcloud_docker_config_file }}"
+          cat {{ nextcloud_docker_include_instructions_file }} >> {{ nextcloud_docker_config_file }}"
       notify: docker compose restart

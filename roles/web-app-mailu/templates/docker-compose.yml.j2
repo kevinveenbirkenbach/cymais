@@ -2,13 +2,15 @@
 
   # Core services
   resolver:
-    image: {{docker_source}}/unbound:{{applications.mailu.version}}
+    image: {{docker_source}}/unbound:{{ mailu_version }}
+    container_name: {{mailu_name}}_resolver
 {% include 'roles/docker-container/templates/base.yml.j2' %}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
-        ipv4_address: {{networks.local.mailu.dns}}
+        ipv4_address: {{networks.local['web-app-mailu'].dns}}
 
   front:
-    image: {{docker_source}}/nginx:{{applications.mailu.version}}
+    container_name: {{mailu_name}}_front
+    image: {{docker_source}}/nginx:{{ mailu_version }}
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:80"
@@ -30,10 +32,11 @@
       webmail:
       radicale:
     dns:
-      - {{networks.local.mailu.dns}}
+      - {{networks.local['web-app-mailu'].dns}}
       
   admin:
-    image: {{docker_source}}/admin:{{applications.mailu.version}}
+    container_name: {{mailu_name}}_admin
+    image: {{docker_source}}/admin:{{ mailu_version }}
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - "admin_data:/data"
@@ -44,11 +47,12 @@
       front:
         condition: service_started
     dns:
-      - {{networks.local.mailu.dns}}
+      - {{networks.local['web-app-mailu'].dns}}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 
   imap:
-    image: {{docker_source}}/dovecot:{{applications.mailu.version}}
+    container_name: {{mailu_name}}_imap
+    image: {{docker_source}}/dovecot:{{ mailu_version }}
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - "dovecot_mail:/mail"
@@ -57,11 +61,12 @@
       - front
       - resolver
     dns:
-      - {{networks.local.mailu.dns}}
+      - {{networks.local['web-app-mailu'].dns}}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 
   smtp:
-    image: {{docker_source}}/postfix:{{applications.mailu.version}}
+    container_name: {{mailu_name}}_smtp
+    image: {{docker_source}}/postfix:{{ mailu_version }}
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - "{{docker_compose.directories.volumes}}overrides:/overrides:ro"
@@ -70,22 +75,24 @@
       - front
       - resolver
     dns:
-      - {{networks.local.mailu.dns}}
+      - {{networks.local['web-app-mailu'].dns}}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 
   oletools:
-    image: {{docker_source}}/oletools:{{applications.mailu.version}}
+    container_name: {{mailu_name}}_oletools
+    image: {{docker_source}}/oletools:{{ mailu_version }}
     hostname: oletools
     restart: {{docker_restart_policy}}
     depends_on:
       - resolver
     dns:
-      - {{networks.local.mailu.dns}}
+      - {{networks.local['web-app-mailu'].dns}}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
       noinet:
 
   antispam:
-    image: {{docker_source}}/rspamd:{{applications.mailu.version}}
+    container_name: {{mailu_name}}_antispam
+    image: {{docker_source}}/rspamd:{{ mailu_version }}
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - "filter:/var/lib/rspamd"
@@ -97,13 +104,14 @@
       - antivirus
       - resolver
     dns:
-      - {{networks.local.mailu.dns}}
+      - {{networks.local['web-app-mailu'].dns}}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
       noinet:  
 
 
   # Optional services
   antivirus:
+    container_name: {{mailu_name}}_antivirus
     image: clamav/clamav-debian:latest
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
@@ -111,23 +119,25 @@
     depends_on:
       - resolver
     dns:
-      - {{networks.local.mailu.dns}}
+      - {{networks.local['web-app-mailu'].dns}}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 
   webdav:
-    image: {{docker_source}}/radicale:{{applications.mailu.version}}
+    container_name: {{mailu_name}}_webdav
+    image: {{docker_source}}/radicale:{{ mailu_version }}
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - "webdav_data:/data"
     depends_on:
       - resolver
     dns:
-      - {{networks.local.mailu.dns}}
+      - {{networks.local['web-app-mailu'].dns}}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
       radicale:
 
   fetchmail:
-    image: {{docker_source}}/fetchmail:{{applications.mailu.version}}
+    container_name: {{mailu_name}}_fetchmail
+    image: {{docker_source}}/fetchmail:{{ mailu_version }}
     volumes:
       - "admin_data:/data"
 {% include 'roles/docker-container/templates/base.yml.j2' %}
@@ -137,11 +147,12 @@
       - imap
       - resolver
     dns:
-      - {{networks.local.mailu.dns}}
+      - {{networks.local['web-app-mailu'].dns}}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 
   webmail:
-    image: {{docker_source}}/webmail:{{applications.mailu.version}}
+    container_name: {{mailu_name}}_webmail
+    image: {{docker_source}}/webmail:{{ mailu_version }}
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - "webmail_data:/data"
@@ -151,19 +162,27 @@
       - front
       - resolver
     dns:
-      - {{networks.local.mailu.dns}}
+      - {{networks.local['web-app-mailu'].dns}}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
       webmail:
 
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   smtp_queue:
+    name: {{ mailu_smtp_queue }}
   admin_data:
+    name: {{ mailu_admin_data }}
   webdav_data:
+    name: {{ mailu_webdav_data }}
   webmail_data:
+    name: {{ mailu_webmail_data }}
   filter:
+    name: {{ mailu_filter }}
   dkim:
+    name: {{ mailu_dkim }}
   dovecot_mail:
+    name: {{ mailu_dovecot_mail }}
   redis:
+    name: {{ mailu_redis }}
 
 {% include 'roles/docker-compose/templates/networks.yml.j2' %}
   radicale:

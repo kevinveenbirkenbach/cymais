@@ -1,4 +1,3 @@
-version:                  "2024.06"                         # Docker Image Version
 oidc:
   email_by_username:      true                              # If true, then the mail is set by the username. If wrong then the OIDC user email is used
   enable_user_creation:   true                              # Users will be created if not existing
@@ -31,3 +30,6 @@ docker:
       enabled: true
     database: 
       enabled: true
+    mailu:
+      version:  "2024.06" # Docker Image Version
+      name:     mailu

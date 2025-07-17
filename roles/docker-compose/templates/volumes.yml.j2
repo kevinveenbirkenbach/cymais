@@ -2,5 +2,6 @@
 volumes:
 {% if not applications | get_app_conf(application_id, 'features.central_database', False)%}
   database:
+    name: {{ database_volume }}
 {% endif %}
 {{ "\n" }}

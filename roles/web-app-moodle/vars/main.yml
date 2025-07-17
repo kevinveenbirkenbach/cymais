@@ -10,7 +10,6 @@ bitnami_user_group:             "{{ bitnami_user }}:{{ bitnami_user }}"
 
 docker_compose_flush_handlers:  false # Wait for env update
 
-moodle_backup_file:             "{{ docker_compose.directories.instance }}/config.ini.php.bak"
 moodle_config:                  "/bitnami/moodle/config.php"
 moodle_version:                 "{{ applications | get_app_conf(application_id, 'docker.services.moodle.version', True) }}"
 moodle_image:                   "{{ applications | get_app_conf(application_id, 'docker.services.moodle.image', True) }}"

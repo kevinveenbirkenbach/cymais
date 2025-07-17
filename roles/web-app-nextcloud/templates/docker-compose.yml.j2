@@ -2,7 +2,7 @@
 
   application:
     image: "{{ nextcloud_image }}:{{ nextcloud_version }}"
-    container_name: {{ nextcloud_name }}
+    container_name: {{ nextcloud_container }}
     volumes:
       - data:{{nextcloud_docker_work_directory}}
       - {{nextcloud_host_config_additives_directory}}:{{nextcloud_docker_config_additives_directory}}:ro
@@ -70,6 +70,7 @@
 
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   data:
+    name: {{ nextcloud_volume }}
   redis:
 
 {% include 'roles/docker-compose/templates/networks.yml.j2' %}

@@ -24,9 +24,9 @@
     restart_policy: "{{ docker_restart_policy }}"
     healthcheck:
       test: "/usr/bin/mariadb --user=root --password={{ mariadb_root_pwd }} --execute \"SHOW DATABASES;\""
-      interval: 3s
-      timeout: 1s
-      retries: 5
+      interval: 10s
+      timeout: 5s
+      retries: 18
   when: run_once_docker_mariadb is not defined
   register: setup_mariadb_container_result
 
