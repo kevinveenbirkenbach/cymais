@@ -46,7 +46,7 @@ ports:
       web-app-openproject: 8023
       gitlab: 8024
       web-app-akaunting: 8025
-      moodle: 8026
+      web-app-moodle: 8026
       taiga: 8027
       friendica: 8028
       web-app-port-ui: 8029

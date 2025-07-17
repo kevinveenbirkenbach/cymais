@@ -1,0 +1,47 @@
+- name: Check if config.php exists
+  command: docker exec --user root {{ moodle_name }} test -f {{ moodle_config }}
+  register: config_file_exists
+  changed_when: false
+  failed_when: false
+
+- name: Backup config.php to host
+  when: config_file_exists.rc == 0
+  block:
+    - name: Create backup directory on host
+      ansible.builtin.file:
+        path: "/opt/docker/moodle/_backup"
+        state: directory
+        mode: "0755"
+
+    - name: Copy config.php from container to host
+      command: >
+        docker cp {{ moodle_name }}:{{ moodle_config }} /opt/docker/moodle/_backup/config.php.bak
+
+- name: Check if config.php exists
+  command: docker exec --user root {{ moodle_name }} test -f {{ moodle_config }}
+  register: config_file_exists
+  changed_when: false
+  failed_when: false
+
+- name: Patch Moodle config.php with updated DB credentials
+  when: config_file_exists.rc == 0
+  block:
+    - name: Update DB host
+      command: >
+        docker exec --user root {{ moodle_name }}
+        sed -i "s/^\$CFG->dbhost *= *.*/\$CFG->dbhost = '{{ database_host }}';/" {{ moodle_config }}
+
+    - name: Update DB name
+      command: >
+        docker exec --user root {{ moodle_name }}
+        sed -i "s/^\$CFG->dbname *= *.*/\$CFG->dbname = '{{ database_name }}';/" {{ moodle_config }}
+
+    - name: Update DB user
+      command: >
+        docker exec --user root {{ moodle_name }}
+        sed -i "s/^\$CFG->dbuser *= *.*/\$CFG->dbuser = '{{ database_username }}';/" {{ moodle_config }}
+
+    - name: Update DB password
+      command: >
+        docker exec --user root {{ moodle_name }}
+        sed -i "s/^\$CFG->dbpass *= *.*/\$CFG->dbpass = '{{ database_password }}';/" {{ moodle_config }}

@@ -46,7 +46,7 @@ defaults_networks:
       # Use one of the last container ips for dns resolving so that it isn't used
       dns: 192.168.102.29
       subnet: 192.168.102.16/28
-    moodle:
+    web-app-moodle:
       subnet: 192.168.102.32/28
     web-app-mybb:
       subnet: 192.168.102.48/28

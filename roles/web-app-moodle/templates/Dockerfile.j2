@@ -1,4 +1,4 @@
-FROM bitnami/moodle:{{ applications | get_app_conf(application_id, 'version', True) }}
+FROM {{ moodle_image }}:{{ moodle_version }}
 
 {% if applications | get_app_conf(application_id, 'features.oidc', False) %}
 RUN install_packages unzip curl jq \

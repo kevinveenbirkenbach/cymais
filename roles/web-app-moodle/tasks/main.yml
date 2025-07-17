@@ -3,6 +3,12 @@
   include_role: 
     name: cmp-db-docker-proxy
 
+- name: "Update database credentials"
+  include_tasks: database.yml 
+
+- name: flush docker service
+  meta: flush_handlers
+
 - name: Wait until the Moodle container is healthy
   shell: docker inspect --format '{% raw %}{{.State.Health.Status}}{% endraw %}' {{ container_name }}
   register: health_check

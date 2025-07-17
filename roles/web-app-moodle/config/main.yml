@@ -1,5 +1,4 @@
 site_titel:           "Academy on {{primary_domain}}"
-version:              "4.5"                                 # Latest LTS - Necessary for OIDC
 features:
   matomo:             true
   css:                false
@@ -28,4 +27,12 @@ domains:
 docker:
   services:
     database:
-      enabled: true
+      enabled:        true
+    moodle:
+      version:        "4.5" # Latest LTS - Necessary for OIDC
+      image:          bitnami/moodle
+      name:           moodle
+  volumes:
+    data: 
+      name:           moodle_data
+  

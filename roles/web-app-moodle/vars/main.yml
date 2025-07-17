@@ -1,11 +1,18 @@
 ---
-application_id:                 "moodle"
+application_id:                 "web-app-moodle"
 database_type:                  "mariadb"
-container_name:                 "{{ application_id }}"
 bitnami_code_link:              "/bitnami/moodle"
 bitnami_code_dir:               "/opt{{bitnami_code_link}}"
 bitnami_data_dir:               "/bitnami/moodledata"
 bitnami_oidc_plugin_dir:        "{{ bitnami_code_dir }}/auth/oidc"
 bitnami_user:                   "daemon"  
 bitnami_user_group:             "{{ bitnami_user }}:{{ bitnami_user }}"
-docker_compose_flush_handlers:  true
+
+docker_compose_flush_handlers:  false # Wait for env update
+
+moodle_config:                  "/bitnami/moodle/config.php"
+moodle_version:                 "{{ applications | get_app_conf(application_id, 'docker.services.moodle.version', True) }}"
+moodle_image:                   "{{ applications | get_app_conf(application_id, 'docker.services.moodle.image', True) }}"
+moodle_name:                    "{{ applications | get_app_conf(application_id, 'docker.services.moodle.name', True) }}"
+moodle_volume:                  "{{ applications | get_app_conf(application_id, 'docker.volumes.data', True) }}"
+moodle_code:                    "{{ applications | get_app_conf(application_id, 'docker.volumes.code', True) }}"

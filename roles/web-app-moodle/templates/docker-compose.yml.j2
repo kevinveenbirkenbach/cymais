@@ -19,7 +19,9 @@
 
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   code:
+    name: {{ moodle_volume_code }}
   data:
+    name: {{ moodle_volume_data }}
 
 {% include 'roles/docker-compose/templates/networks.yml.j2' %}
   
