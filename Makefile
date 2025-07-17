@@ -63,7 +63,7 @@ install: build
 
 partial-test:
 	@echo "🧪 Running Python tests…"
-	python -m unittest discover -s tests
+	PYTHONPATH=. python -m unittest discover -s tests
 	@echo "📑 Checking Ansible syntax…"
 	ansible-playbook playbook.yml --syntax-check
 

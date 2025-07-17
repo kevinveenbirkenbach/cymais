@@ -1,9 +1,15 @@
-def get_docker_paths(path_docker_compose_instances: str, application_id: str) -> dict:
+import sys, os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from module_utils.entity_name_utils import get_entity_name
+
+def get_docker_paths(application_id: str, path_docker_compose_instances: str) -> dict:
     """
     Build the docker_compose dict based on
     path_docker_compose_instances and application_id.
+    Uses get_entity_name to extract the entity name from application_id.
     """
-    base = f"{path_docker_compose_instances}{application_id}/"
+    entity = get_entity_name(application_id)
+    base = f"{path_docker_compose_instances}{entity}/"
 
     return {
         'directories': {
@@ -23,5 +29,5 @@ def get_docker_paths(path_docker_compose_instances: str, application_id: str) ->
 class FilterModule(object):
     def filters(self):
         return {
-            'get_docker_paths':   get_docker_paths,
+            'get_docker_paths': get_docker_paths,
         }

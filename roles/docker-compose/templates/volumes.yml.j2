@@ -1,6 +1,6 @@
 {# This template needs to be included in docker-compose.yml which contain a database and additional volumes #}
 volumes:
-{% if not applications | get_app_conf(application_id, 'features.central_database', False)%}
+{% if not applications | get_app_conf(application_id, 'features.central_database', False) and applications | get_app_conf(application_id, 'docker.services.database.enabled', False) %}
   database:
     name: {{ database_volume }}
 {% endif %}

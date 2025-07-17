@@ -6,8 +6,8 @@ _database_central_enabled:        "{{ applications | get_app_conf(database_appli
 
 # Definition
 database_name:      "{{ applications | get_app_conf( database_application_id, 'database.name', false, _database_consumer_entity_name ) }}"                      # The overwritte configuration is needed by bigbluebutton
-database_instance:  "{{ _database_central_name if _database_central_enabled else database_name }}"                                                            # This could lead to bugs at dedicated database @todo cleanup
-database_host:      "{{ _database_central_name if _database_central_enabled else 'database' }}"                                                               # This could lead to bugs at dedicated database @todo cleanup
+database_instance:  "{{ _database_central_name if _database_central_enabled else database_name }}"                                                              # This could lead to bugs at dedicated database @todo cleanup
+database_host:      "{{ _database_central_name if _database_central_enabled else 'database' }}"                                                                 # This could lead to bugs at dedicated database @todo cleanup
 database_username:  "{{ applications | get_app_conf(database_application_id, 'database.username', false, _database_consumer_entity_name)}}"                     # The overwritte configuration is needed by bigbluebutton
 database_password:  "{{ applications | get_app_conf(database_application_id, 'credentials.database_password', true) }}"
 database_port:      "{{ ports.localhost.database[ _database_id ] }}"
