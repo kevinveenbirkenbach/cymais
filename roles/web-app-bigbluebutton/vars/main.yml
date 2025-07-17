@@ -1,15 +1,22 @@
-application_id:               "bigbluebutton"
-bbb_repository_directory:     "{{ docker_compose.directories.services }}"
-docker_compose_file_origine:  "{{ docker_compose.directories.services }}docker-compose.yml"
-docker_compose_file_final:    "{{ docker_compose.directories.instance }}docker-compose.yml"
+application_id:                           "web-app-bigbluebutton"
+bbb_repository_directory:                 "{{ docker_compose.directories.services }}"
+docker_compose_file_origine:              "{{ docker_compose.directories.services }}docker-compose.yml"
+docker_compose_file_final:                "{{ docker_compose.directories.instance }}docker-compose.yml"
 
 # Database configuration
-database_type:                "postgres"
-database_password:            "{{ applications.bigbluebutton.credentials.postgresql_secret }}"
+database_type:                            "postgres"
+database_password:                        "{{ applications | get_app_conf(application_id, 'credentials.postgresql_secret') }}"
 
-domain:                       "{{ domains | get_domain(application_id) }}"
-http_port:                    "{{ ports.localhost.http[application_id] }}"
-bbb_env_file_link:            "{{ docker_compose.directories.instance }}.env"    
-bbb_env_file_origine:         "{{ bbb_repository_directory }}.env"
+domain:                                   "{{ domains | get_domain(application_id) }}"
+http_port:                                "{{ ports.localhost.http[application_id] }}"
+bbb_env_file_link:                        "{{ docker_compose.directories.instance }}.env"    
+bbb_env_file_origine:                     "{{ bbb_repository_directory }}.env"
 
-docker_compose_skipp_file_creation: true # Skipp creation of docker-compose.yml file
+docker_compose_skipp_file_creation: true  # Skipp creation of docker-compose.yml file
+
+# Setup 
+bigbluebutton_setup:                      "{{ applications | get_app_conf(application_id, 'setup') }}"
+
+# Credentials 
+bigbluebutton_shared_secret:              "{{ applications | get_app_conf(application_id, 'credentials.shared_secret') }}"
+bigbluebutton_api_suffix:                 "{{ applications | get_app_conf(application_id, 'api_suffix') }}"

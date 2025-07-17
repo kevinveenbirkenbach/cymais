@@ -59,7 +59,7 @@
 
 - name: Wait for BigBlueButton
   wait_for:
-    host: "{{ domains | get_domain('bigbluebutton') }}"
+    host: "{{ domains | get_domain('web-app-bigbluebutton') }}"
     port: 80
     delay: 5
     timeout: 600
@@ -68,11 +68,11 @@
   command:
     cmd: docker compose exec greenlight bundle exec rake admin:create
     chdir: "{{ docker_compose.directories.instance }}"
-  when: applications.bigbluebutton.setup | bool
+  when: bigbluebutton_setup
   ignore_errors: true
   register: admin_creation_result
 
 - name: print admin user data
   debug:
     msg: "{{ admin_creation_result.stdout }}"
-  when: applications.bigbluebutton.setup | bool
+  when: bigbluebutton_setup

@@ -1,6 +1,16 @@
-application_id:                 {{ application_id }} # ID of the application, should be the name of the role folder
-database_type:                  0                    # Database type [postgres, mariadb]
-docker_compose_flush_handlers:  true                 # When this is set to true an auto-flush after the docker-compose.yml, and env deploy is triggered, otherwise you have todo it manual.
+# This file is just used for internal configurations by the developer.
+# All configuration possibilities are available in the config/main.yml file. 
+
+# General 
+application_id:                         {{ application_id }} # ID of the application, should be the name of the role folder
+
+# Database
+database_type:                          0                    # Database type [postgres, mariadb]
+
+# Docker
+docker_compose_flush_handlers:          true                 # When this is set to true an auto-flush after the docker-compose.yml, and env deploy is triggered, otherwise you have todo it manual.
+docker_compose_skipp_file_creation:     false                # Skipp creation of docker-compose.yml file
+
 
 # The following variable mapping is optional, but imt makes it easier to read the code. 
 # I recommend, to use this mappings, but you can skipp it and access the config entries direct via get_app_conf

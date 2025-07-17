@@ -76,7 +76,7 @@ plugins:
     enabled: true
   bbb:
     # Nextcloud BigBlueButton integration: enables video conferencing using BigBlueButton (https://apps.nextcloud.com/apps/bbb)
-    enabled: "{{ 'bigbluebutton' in group_names | lower }}"
+    enabled: "{{ 'web-app-bigbluebutton' in group_names | lower }}"
   #- bookmarks 
   #  # Nextcloud Bookmarks: manage and share your bookmarks easily (https://apps.nextcloud.com/apps/bookmarks)
   #  enabled: false

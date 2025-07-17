@@ -94,7 +94,7 @@ defaults_networks:
       subnet: 192.168.103.144/28
     
     # /24 Networks / 254 Usable Clients
-    bigbluebutton:
+    web-app-bigbluebutton:
       subnet: 10.7.7.0/24 # This variable does not have an impact. It's just there for documentation reasons, because this network is used in bbb
     svc-db-postgres:
       subnet: 192.168.200.0/24
