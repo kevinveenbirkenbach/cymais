@@ -9,7 +9,7 @@ ports:
       web-app-mastodon: 4001
       web-app-espocrm: 4002
     oauth2_proxy:
-      phpmyadmin: 4181
+      web-app-phpmyadmin: 4181
       lam: 4182
       web-app-openproject: 4183
       yourls: 4184
@@ -54,7 +54,7 @@ ports:
       bluesky_web: 8031
       web-app-keycloak: 8032
       lam: 8033
-      phpmyadmin: 8034
+      web-app-phpmyadmin: 8034
       snipe-it: 8035
       sphinx: 8036
       phpldapadmin: 8037
