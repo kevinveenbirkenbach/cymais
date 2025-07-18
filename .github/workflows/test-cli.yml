@@ -1,4 +1,4 @@
-name: Build & Test Container
+name: Build & Test CyMaIS CLI in Docker Container
 
 on:
   push:
