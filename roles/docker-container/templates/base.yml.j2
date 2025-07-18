@@ -1,8 +1,10 @@
 {# Base for docker services #}
 
     restart: {{docker_restart_policy}}
+{% if application_id | has_env  %}
     env_file:
       - "{{docker_compose.files.env}}"
+{% endif %}
     logging:
       driver: journald
 
