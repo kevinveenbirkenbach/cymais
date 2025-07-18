@@ -8,6 +8,8 @@ import threading
 import signal
 from datetime import datetime
 import pty
+from module_utils.sounds import Sound
+import time
 
 # Color support
 try:
@@ -17,25 +19,6 @@ except ImportError:
     class Dummy:
         def __getattr__(self, name): return ''
     Fore = Back = Style = Dummy()
-
-_IN_DOCKER = os.path.exists('/.dockerenv')
-
-if _IN_DOCKER:
-    class Quiet:
-        @staticmethod
-        def play_start_sound():               pass
-        @staticmethod
-        def play_cymais_intro_sound():       pass
-        @staticmethod
-        def play_finished_successfully_sound(): pass
-        @staticmethod
-        def play_finished_failed_sound():     pass
-        @staticmethod
-        def play_warning_sound():             pass
-
-    Sound = Quiet
-else:
-    from module_utils.sounds import Sound
 
 
 def color_text(text, color):
@@ -113,16 +96,27 @@ def play_start_intro():
     Sound.play_cymais_intro_sound()
 
 
-def failure_with_warning_loop(no_signal, sound_enabled):
+import time
+
+def failure_with_warning_loop(no_signal, sound_enabled, alarm_timeout=60):
+    """
+    On failure: Plays warning sound in a loop.
+    Aborts after alarm_timeout seconds and exits with code 1.
+    """
     if not no_signal:
         Sound.play_finished_failed_sound()
     print(color_text("Warning: command failed. Press Ctrl+C to stop warnings.", Fore.RED))
+    start = time.monotonic()
     try:
         while True:
             if not no_signal:
                 Sound.play_warning_sound()
+            if time.monotonic() - start > alarm_timeout:
+                print(color_text(f"Alarm aborted after {alarm_timeout} seconds.", Fore.RED))
+                sys.exit(1)
     except KeyboardInterrupt:
         print(color_text("Warnings stopped by user.", Fore.YELLOW))
+
 
 
 if __name__ == "__main__":
@@ -132,7 +126,16 @@ if __name__ == "__main__":
     log_enabled = '--log' in sys.argv and (sys.argv.remove('--log') or True)
     git_clean = '--git-clean' in sys.argv and (sys.argv.remove('--git-clean') or True)
     infinite = '--infinite' in sys.argv and (sys.argv.remove('--infinite') or True)
-
+    alarm_timeout = 60
+    if '--alarm-timeout' in sys.argv:
+        i = sys.argv.index('--alarm-timeout')
+        try:
+            alarm_timeout = int(sys.argv[i+1])
+            del sys.argv[i:i+2]
+        except Exception:
+            print(color_text("Invalid --alarm-timeout value!", Fore.RED))
+            sys.exit(1)
+            
     # Segfault handler
     def segv_handler(signum, frame):
         if not no_signal:
@@ -317,7 +320,7 @@ if __name__ == "__main__":
                 log_file.close()
 
             if rc != 0:
-                failure_with_warning_loop(no_signal, sound_enabled)
+                failure_with_warning_loop(no_signal, sound_enabled, alarm_timeout)
                 sys.exit(rc)
             else:
                 if not no_signal:
@@ -325,7 +328,7 @@ if __name__ == "__main__":
                 return True
         except Exception as e:
             print(color_text(f"Exception running command: {e}", Fore.RED))
-            failure_with_warning_loop(no_signal, sound_enabled)
+            failure_with_warning_loop(no_signal, sound_enabled, alarm_timeout)
             sys.exit(1)
 
     if infinite:

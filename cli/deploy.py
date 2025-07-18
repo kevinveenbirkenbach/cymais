@@ -16,11 +16,12 @@ def run_ansible_playbook(
     skip_tests=False,
     skip_validation=False,
     skip_build=False,
+    cleanup=False
 ):
     start_time = datetime.datetime.now()
     print(f"\n▶️ Script started at: {start_time.isoformat()}\n")
 
-    if not skip_build:
+    if cleanup:
         print("\n🧹 Cleaning up project (make clean)...\n")
         subprocess.run(["make", "clean"], check=True)
     else:
@@ -202,7 +203,8 @@ def main():
         verbose=args.verbose,
         skip_tests=args.skip_tests,
         skip_validation=args.skip_validation,
-        skip_build=args.skip_build      # Pass the new param
+        skip_build=args.skip_build,
+        cleanup=args.cleanup
     )
 
 
