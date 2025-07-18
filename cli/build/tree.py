@@ -46,6 +46,12 @@ def main():
         help="Preview graphs to console instead of writing files"
     )
     parser.add_argument(
+        '-s', '--shadow-folder',
+        type=str,
+        default=None,
+        help="If set, writes tree.json to this shadow folder instead of the role's actual meta/ folder"
+    )
+    parser.add_argument(
         '-v', '--verbose',
         action='store_true',
         help="Enable verbose logging"
@@ -57,6 +63,7 @@ def main():
         print(f"Max depth: {args.depth}")
         print(f"Output format: {args.output}")
         print(f"Preview mode: {args.preview}")
+        print(f"Shadow folder: {args.shadow_folder}")
 
     for role_name, role_path in find_roles(args.role_dir):
         if args.verbose:
@@ -74,7 +81,13 @@ def main():
                     print(f"Previewing graph '{key}' for role '{role_name}'")
                 output_graph(data, 'console', role_name, key)
         else:
-            tree_file = os.path.join(role_path, 'meta', 'tree.json')
+            # Decide on output folder
+            if args.shadow_folder:
+                tree_file = os.path.join(
+                    args.shadow_folder, role_name, 'meta', 'tree.json'
+                )
+            else:
+                tree_file = os.path.join(role_path, 'meta', 'tree.json')
             os.makedirs(os.path.dirname(tree_file), exist_ok=True)
             with open(tree_file, 'w') as f:
                 json.dump(graphs, f, indent=2)
