@@ -1,7 +1,7 @@
 application_id:               "web-app-openproject"
 docker_repository_address:    "https://github.com/opf/openproject-deploy"
 database_type:                "postgres"
-docker_repository:            true
+docker_pull_git_repository:            true
 openproject_version:          "{{ applications | get_app_conf(application_id, 'docker.services.web.version', True) }}"
 openproject_image:            "{{ applications | get_app_conf(application_id, 'docker.services.web.image', True) }}"
 openproject_volume:           "{{ applications | get_app_conf(application_id, 'docker.volumes.data', True) }}"

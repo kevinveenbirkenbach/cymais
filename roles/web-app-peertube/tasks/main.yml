@@ -5,7 +5,7 @@
   
 - name: "include create-domains.yml for peertube"
   include_tasks: create-domains.yml
-  loop: "{{ domains.peertube }}"
+  loop: "{{ domains['web-app-peertube'] }}"
   loop_control:
     loop_var: domain
   vars:

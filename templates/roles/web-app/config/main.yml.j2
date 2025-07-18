@@ -5,16 +5,16 @@ docker:
       enabled:          false   # Enable Redis 
     database:
       enabled:          false   # Enable the database
-    {{ application_id }}:  
+    {{ application_id | get_entity_name }}:  
       backup:
         no_stop_required: true  # The images that don't need to stop
         disabled:         true  # Disables the image
         database_routine: true  # Instead of copying a database routine will be triggered for this container
-      image:            ""
-      version:          "latest"
-      name:             "web-app-{{ application_id }}"
+      image:            ""                                            # The docker image of the software you want to use
+      version:          "latest"                                      # The docker version of the software you want to use
+      container:        "{{ application_id | get_entity_name }}"      # The container name
     volumes:
-      data:             "web-app-{{ application_id }}_data"
+      data:             "{{ application_id | get_entity_name }}_data"
 features:
   matomo:           true    # Enable Matomo Tracking
   css:              true    # Enable Global CSS Styling
@@ -23,10 +23,22 @@ features:
   central_database: false   # Enable Central Database Network
   recaptcha:        false   # Enable ReCaptcha
   oauth2:           false   # Enable the OAuth2-Proy
-  javascript:       false   # Enables the custom JS in the javascript.js.j2 file   
-csp:                        
-  whitelist:        {}      # URL's which should be whitelisted           
-  flags:            {}      # Flags which should be set 
+  javascript:       false   # Enables the custom JS in the javascript.js.j2 file    
+csp:
+  whitelist:                # URL's which should be whitelisted           
+    script-src-elem:  []
+    style-src:        []
+    font-src:         []
+    connect-src:      []
+    frame-src:        []
+  flags:                    # Flags which should be set
+    style-src:
+      unsafe-inline:  false
+    script-src:
+      unsafe-inline:  false
+    script-src-elem:
+      unsafe-inline:  false
+domains:
 domains:
   canonical:        {}      # Urls under which the domain should be directly accessible
   aliases:          []      # Alias redirections to the first element of the canonical domains

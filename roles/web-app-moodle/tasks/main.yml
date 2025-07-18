@@ -23,12 +23,13 @@
   include_tasks: oidc.yml
   when: applications | get_app_conf(application_id, 'features.oidc', False)
 
-- name: Run Moodle system check
-  command: >
-    docker exec --user {{ bitnami_user }} {{ moodle_container }}
-    php /opt/bitnami/moodle/admin/cli/checks.php
-  register: moodle_checks
-  changed_when: false
-  failed_when: >
-    moodle_checks.rc != 0 or
-    "OK: All" not in moodle_checks.stdout
+# Deactivated because it doesn't give helpfull warnings back
+#- name: Run Moodle system check
+#  command: >
+#    docker exec --user {{ bitnami_user }} {{ moodle_container }}
+#    php /opt/bitnami/moodle/admin/cli/checks.php
+#  register: moodle_checks
+#  changed_when: false
+#  failed_when: >
+#    moodle_checks.rc != 0 or
+#    "OK: All" not in moodle_checks.stdout

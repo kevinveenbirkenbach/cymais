@@ -1,0 +1,21 @@
+
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
+  {{ application_id | get_entity_name }}:
+{% set container_port = 80 %}
+    {% include 'roles/docker-container/templates/base.yml.j2' %}
+    image: "{{ mig_image }}"
+    container_name: "{{ mig_container }}"
+    ports:
+      - 127.0.0.1:{{ports.localhost.http[application_id]}}:{{ container_port }}
+    build:
+      context:    "{{docker_repository_path}}"
+      dockerfile: Dockerfile
+    volumes:
+      - "{{ mig_roles_meta_volume }}:/usr/share/nginx/html/roles:ro"
+      - "{{ docker_repository_path }}:/usr/share/nginx/html"
+{% include 'roles/docker-container/templates/networks.yml.j2' %}
+{% include 'roles/docker-container/templates/healthcheck/curl.yml.j2' %}
+
+{% include 'roles/docker-compose/templates/networks.yml.j2' %}
+
+

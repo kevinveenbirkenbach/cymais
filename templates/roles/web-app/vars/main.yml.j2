@@ -2,19 +2,25 @@
 # All configuration possibilities are available in the config/main.yml file. 
 
 # General 
-application_id:                         {{ application_id }} # ID of the application, should be the name of the role folder
+application_id:                         {{ application_id }}    # ID of the application, should be the name of the role folder
 
 # Database
-database_type:                          0                    # Database type [postgres, mariadb]
+database_type:                          0                       # Database type [postgres, mariadb]
 
 # Docker
-docker_compose_flush_handlers:          true                 # When this is set to true an auto-flush after the docker-compose.yml, and env deploy is triggered, otherwise you have todo it manual.
-docker_compose_skipp_file_creation:     false                # Skipp creation of docker-compose.yml file
+# Checkout roles/docker-compose/defaults/main.yml for all configuration options
 
+docker_compose_flush_handlers:          true                    # When this is set to true an auto-flush after the docker-compose.yml, and env deploy is triggered, otherwise you have todo it manual.
+docker_compose_skipp_file_creation:     false                   # Skipp creation of docker-compose.yml file
 
-# The following variable mapping is optional, but imt makes it easier to read the code. 
-# I recommend, to use this mappings, but you can skipp it and access the config entries direct via get_app_conf
-{{ application_id | get_cymais_dir }}_version:   "{% raw %}{{ applications | get_app_conf(application_id, 'docker.services.{% endraw %}{{ application_id | get_cymais_dir }}{% raw %}.version',        True) }}"{% endraw %}
-{{ application_id | get_cymais_dir }}_image:     "{% raw %}{{ applications | get_app_conf(application_id, 'docker.services.{% endraw %}{{ application_id | get_cymais_dir }}{% raw %}.image',          True) }}"{% endraw %}
-{{ application_id | get_cymais_dir }}_name:      "{% raw %}{{ applications | get_app_conf(application_id, 'docker.services.{% endraw %}{{ application_id | get_cymais_dir }}{% raw %}.name',           True) }}"{% endraw %}
-{{ application_id | get_cymais_dir }}_volume:    "{% raw %}{{ applications | get_app_conf(application_id, 'docker.volumes.data',   True) }}"{% endraw %}
+docker_pull_git_repository:                      true                    # This will automaticly pull a repository from the 'docker_repository_address'
+docker_repository_address:              ""                      # The address of a repository which should be pulled
+
+{# The following variable mapping is optional, but it makes it easier to read the code.#}
+{# I recommend, to use this mappings, but you can skipp it and access the config entries direct via 'get_app_conf' #}
+
+# This variables had been autocreated. For a detailled explanation checkout the config/main.yml file 
+{{ application_id | get_entity_name }}_version:   "{% raw %}{{ applications | get_app_conf(application_id, 'docker.services.{% endraw %}{{ application_id | get_entity_name }}{% raw %}.version') }}"{% endraw %}
+{{ application_id | get_entity_name }}_image:     "{% raw %}{{ applications | get_app_conf(application_id, 'docker.services.{% endraw %}{{ application_id | get_entity_name }}{% raw %}.image') }}"{% endraw %}
+{{ application_id | get_entity_name }}_container: "{% raw %}{{ applications | get_app_conf(application_id, 'docker.services.{% endraw %}{{ application_id | get_entity_name }}{% raw %}.name') }}"{% endraw %}
+{{ application_id | get_entity_name }}_volume:    "{% raw %}{{ applications | get_app_conf(application_id, 'docker.volumes.data') }}"{% endraw %}

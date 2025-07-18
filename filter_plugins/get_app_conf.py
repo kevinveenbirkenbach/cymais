@@ -3,6 +3,12 @@ import re
 import yaml
 from ansible.errors import AnsibleFilterError
 
+from ansible.errors import AnsibleUndefinedVariable
+try:
+    from ansible.utils.unsafe_proxy import AnsibleUndefined
+except ImportError:
+    class AnsibleUndefined: pass
+
 class AppConfigKeyError(AnsibleFilterError, ValueError):
     """
     Raised when a required application config key is missing (strict mode).
@@ -49,6 +55,16 @@ def get_app_conf(applications, application_id, config_path, strict=True, default
                 f"config_path: {config_path}"
             )
         k, idx = m.group(1), m.group(2)
+
+        if (hasattr(obj, '__class__') and obj.__class__.__name__ == 'AnsibleUndefined') \
+            or isinstance(obj, AnsibleUndefinedVariable):
+            if not strict:
+                return default if default is not None else False
+            raise AppConfigKeyError(
+                f"Key '{k}' is undefined at '{'.'.join(path_trace)}'\n"
+                f"application_id: {application_id}\n"
+                f"config_path: {config_path}"
+            )
 
         # Access dict key
         if isinstance(obj, dict):

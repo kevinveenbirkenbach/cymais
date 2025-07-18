@@ -2,8 +2,8 @@ ports:
   # Ports which are exposed to localhost
   localhost:
     database:
-      svc-db-postgres:  5432
-      svc-db-mariadb:   3306
+      svc-db-postgres: 5432
+      svc-db-mariadb: 3306
     # https://developer.mozilla.org/de/docs/Web/API/WebSockets_API
     websocket:
       web-app-mastodon: 4001
@@ -21,6 +21,7 @@ ports:
     ldap:
       svc-db-openldap: 389
     http:
+      # Ports which are exposed to the World Wide Web
       web-app-nextcloud: 8001
       web-app-gitea: 8002
       web-app-wordpress: 8003
@@ -65,11 +66,10 @@ ports:
       collabora: 8042
       mobilizon: 8043
       simpleicons: 8044
-      libretranslate: 8055
-      pretix:         8056
+      libretranslate: 8045
+      pretix: 8046
+      web-app-mig: 8047
       web-app-bigbluebutton: 48087    # This port is predefined by bbb. @todo Try to change this to a 8XXX port
-  # Ports which are exposed to the World Wide Web
-
   public:
     # The following ports should be changed to 22 on the subdomain via stream mapping
     ssh:
@@ -79,7 +79,7 @@ ports:
       svc-db-openldap: 636
     stun:
       web-app-bigbluebutton: 3478    # Not sure if it's right placed here or if it should be moved to localhost section
-      web-app-nextcloud:     3479
+      web-app-nextcloud: 3479
     turn:
       web-app-bigbluebutton: 5349    # Not sure if it's right placed here or if it should be moved to localhost section
-      web-app-nextcloud:     5350    # Not used yet
+      web-app-nextcloud: 5350        # Not used yet

@@ -1,0 +1,10 @@
+- name: "pkgmgr install cymais"
+  include_role:
+    name: pkgmgr-install
+  vars:
+    package_name: cymais
+
+- name: Get cymais base path
+  command: pkgmgr path cymais
+  register: cymais_path_cmd
+  changed_when: false

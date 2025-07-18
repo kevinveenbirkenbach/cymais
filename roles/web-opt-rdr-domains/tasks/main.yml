@@ -1,4 +1,6 @@
 ---
+# run_once_web_opt_rdr_domains: deactivated
+
 - name: "Include domains redirects"
   include_tasks: redirect-domain.yml
   vars:

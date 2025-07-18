@@ -16,7 +16,3 @@ docker_compose_skipp_file_creation: true  # Skipp creation of docker-compose.yml
 
 # Setup 
 bigbluebutton_setup:                      "{{ applications | get_app_conf(application_id, 'setup') }}"
-
-# Credentials 
-bigbluebutton_shared_secret:              "{{ applications | get_app_conf(application_id, 'credentials.shared_secret') }}"
-bigbluebutton_api_suffix:                 "{{ applications | get_app_conf(application_id, 'api_suffix') }}"

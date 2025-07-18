@@ -14,4 +14,4 @@ galaxy_info:
     - autostart
     - archlinux
 dependencies:
-  - sys-pgm-aur
+  - dev-yay

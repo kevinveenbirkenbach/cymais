@@ -1,3 +1,5 @@
+# run_once_cmp_db_docker_proxy: deactivated
+
 - name: "For '{{ application_id }}': load docker and db"
   include_role: 
     name: cmp-db-docker

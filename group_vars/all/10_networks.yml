@@ -92,10 +92,14 @@ defaults_networks:
       subnet: 192.168.103.128/28
     pretix:
       subnet: 192.168.103.144/28
-    
+    web-app-mig:
+      subnet: 192.168.103.160/28
+
     # /24 Networks / 254 Usable Clients
     web-app-bigbluebutton:
-      subnet: 10.7.7.0/24 # This variable does not have an impact. It's just there for documentation reasons, because this network is used in bbb
+      # This network variable isn't used.
+      # It's registered here to make transparent which network bbb is using and to avoid conflicts.
+      subnet: 10.7.7.0/24
     svc-db-postgres:
       subnet: 192.168.200.0/24
     svc-db-mariadb:

@@ -34,6 +34,9 @@
   loop_control:
     label: "{{ item.key }}"
 
+- name: flush handlers to ensure that friendica is up before friendica addon configuration
+  meta: flush_handlers
+
 - name: Ensure Friendica addons are in sync
   command: >
     docker compose exec --user www-data

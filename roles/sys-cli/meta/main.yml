@@ -1,0 +1,24 @@
+
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: >
+    This role installs and provides the CyMaIS CLI, enabling you to manage your entire CyMaIS environment from the command line. After deployment, the `cymais` command is available.
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: | 
+    Kevin Veen-Birkenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  galaxy_tags:
+    - cymais
+    - cli
+    - management
+    - automation
+  repository: "https://github.com/kevinveenbirkenbach/cymais"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/"
+  logo:
+    class: "fa-solid fa-terminal"
+  run_after: []
+dependencies:
+  - dev-yay

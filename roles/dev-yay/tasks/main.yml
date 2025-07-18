@@ -1,9 +1,8 @@
 - name: install yay
   community.general.pacman:
-    name: 
-      - yay
-      - patch
+    name:
       - base-devel
+      - patch
     state: present
 
 - name: Create the `aur_builder` user
@@ -20,3 +19,21 @@
     line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
     create: yes
     validate: 'visudo -cf %s'
+
+- name: Clone yay from AUR
+  become: yes
+  become_user: aur_builder
+  git:
+    repo: https://aur.archlinux.org/yay.git
+    dest: /home/aur_builder/yay
+    clone: yes
+    update: yes
+
+- name: Build and install yay
+  become: yes
+  become_user: aur_builder
+  shell: |
+    cd /home/aur_builder/yay
+    makepkg -si --noconfirm
+  args:
+    creates: /usr/bin/yay

@@ -5,19 +5,19 @@
 - name: "load docker, db and proxy for '{{application_id}}'"
   include_role: 
     name: cmp-db-docker-proxy
-  when: run_once_docker_{% endraw %}{{ application_id }}{% raw %} is not defined
+  when: run_once_docker_{% endraw %}{{ application_id | replace("_", "-") }}{% raw %} is not defined
 {% endraw %}
 {% else %}
 {% raw %}
 - name: "load docker, proxy for '{{application_id}}'"
   include_role: 
     name: cmp-db-docker-proxy
-  when: run_once_docker_{% endraw %}{{ application_id }}{% raw %} is not defined
+  when: run_once_docker_{% endraw %}{{ application_id | replace("_", "-") }}{% raw %} is not defined
 {% endraw %}
 {% endif %}
 {% raw %}
-- name: run the {% endraw %}{{ application_id }}{% raw %} tasks once
+- name: run the {% endraw %}{{ application_id | replace("_", "-") }}{% raw %} tasks once
   set_fact:
-    run_once_docker_{% endraw %}{{ application_id }}{% raw %}: true
-  when: run_once_docker_{% endraw %}{{ application_id }}{% raw %} is not defined
+    run_once_docker_{% endraw %}{{ application_id | replace("_", "-") }}{% raw %}: true
+  when: run_once_docker_{% endraw %}{{ application_id | replace("_", "-") }}{% raw %} is not defined
 {% endraw %}

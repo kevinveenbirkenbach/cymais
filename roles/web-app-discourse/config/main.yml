@@ -1,4 +1,4 @@
-repository: "discourse_repository"  # Name of the repository folder                 
+repository:           "discourse_repository"  # Name of the repository folder                 
 features:
   matomo:             true
   css:                true
@@ -24,12 +24,9 @@ docker:
       enabled: true
     redis:
       enabled: true
-    # This container is propably wrong name. 
-    # Chance is high that the name is discourse_application.
-    # @todo check this out and repair it if necessary
     discourse:
       name:             "discourse"
-      image:            "local_discourse/discourse_application" # Necessary to define this for the docker 2 loc backup
+      image:            "local_discourse/<< defaults_applications[web-app-discourse].docker.services.discourse.name >>" # Necessary to define this for the docker 2 loc backup
       backup:
         no_stop_required: true
   volumes: 

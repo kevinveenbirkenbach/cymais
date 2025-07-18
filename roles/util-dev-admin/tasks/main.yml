@@ -1,8 +1,7 @@
 - name: install administration tools
-  community.general.pacman:
+  pacman:
     name:
       - base-devel
-      - yay
       - cmake
       - fdupes
       - p7zip

@@ -14,10 +14,12 @@
     mode: '0755'
   with_dict: "{{ docker_compose.directories }}"
 
-- include_tasks: "repository.yml"
-  when: docker_repository | bool
+- name: "Include routines to set up a git repository based installaion for '{{application_id}}'."
+  include_tasks: "repository.yml"
+  when: docker_pull_git_repository | bool
 
-- include_tasks: "files.yml"
+- name: "Include routines file management routines for '{{application_id}}'."
+  include_tasks: "files.yml"
   when: not docker_compose_skipp_file_creation | bool
 
 - name: "flush database, docker and proxy for '{{ application_id }}'" 

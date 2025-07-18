@@ -1,0 +1,37 @@
+docker:
+  services:
+    redis:
+      enabled:        false   # No redis needed
+    database:
+      enabled:        false   # No database needed
+features:
+  matomo:             true  # activate tracking
+  css:                true  # use custom cymais stile 
+  port-ui-desktop:    true  # Enable in port-ui
+csp:
+  whitelist:
+    script-src-elem:
+      - https://cdn.jsdelivr.net
+      - https://kit.fontawesome.com
+      - https://code.jquery.com/
+      - https://unpkg.com/
+    style-src:
+      - https://cdn.jsdelivr.net
+      - https://cdnjs.cloudflare.com
+    font-src:
+      - https://cdnjs.cloudflare.com
+      - https://ka-f.fontawesome.com
+      - https://cdn.jsdelivr.net
+    connect-src:
+      - https://ka-f.fontawesome.com
+    #frame-src:
+    #  - "{{ web_protocol }}://*.{{primary_domain}}"
+  flags:
+    style-src:
+      unsafe-inline: true
+domains:
+  canonical:
+    - "mig.{{ primary_domain }}"
+  aliases:
+    - "meta-infinite-graph.{{ primary_domain }}"
+build_data:           true  # Enables the building of the meta data which the graph requiers

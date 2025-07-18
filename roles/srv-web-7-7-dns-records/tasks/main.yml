@@ -1,3 +1,5 @@
+# run_once_srv_web_7_7_dns_records: deactivated
+
 - name: Create or update Cloudflare A-record for {{ item }}
   community.general.cloudflare_dns:
     api_token: "{{ cloudflare_api_token }}"

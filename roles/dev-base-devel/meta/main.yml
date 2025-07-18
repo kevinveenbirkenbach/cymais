@@ -1,0 +1,24 @@
+---
+galaxy_info:
+  author: "Kevin Veen-Birkenbach"
+  description: >
+    This role installs the base-devel package group, providing all core development tools needed for building software on Arch Linux systems.
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: | 
+    Kevin Veen-Birkenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  galaxy_tags:
+    - archlinux
+    - development
+    - base-devel
+    - build
+    - tools
+  repository: "https://github.com/kevinveenbirkenbach/cymais"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
+  documentation: "https://wiki.archlinux.org/title/Development_packages"
+  logo:
+    class: "fas fa-tools"
+  run_after: []
+dependencies: []

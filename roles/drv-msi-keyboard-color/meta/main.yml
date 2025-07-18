@@ -8,5 +8,5 @@ galaxy_info:
       versions:
         - all
 dependencies:
-  - sys-pgm-aur
+  - dev-yay
   - sys-alm-compose

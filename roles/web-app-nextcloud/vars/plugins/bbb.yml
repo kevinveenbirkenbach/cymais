@@ -1,7 +1,7 @@
 plugin_configuration:
   - appid:        "bbb"
     configkey:    "api.secret"
-    configvalue:  "{{ bigbluebutton_shared_secret }}"
+    configvalue:  "{{ applications | get_app_conf('web-app-bigbluebutton', 'credentials.shared_secret', False,'') }}"
   - appid:        "bbb"
     configkey:    "api.url"
-    configvalue:  "{{ domains | get_url('web-app-bigbluebutton', web_protocol) }}{{ bigbluebutton_api_suffix }}"
+    configvalue:  "{{ domains | get_url('web-app-bigbluebutton', web_protocol) }}{{ applications | get_app_conf('web-app-bigbluebutton', 'api_suffix', False,'') }}"

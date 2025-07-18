@@ -10,7 +10,7 @@ taiga_image_frontend: >-
   {{ 'robrotheram/taiga-front-openid' if applications | get_app_conf(application_id, 'features.oidc', True) and applications | get_app_conf(application_id, 'oidc.flavor', True) == 'robrotheram'
      else 'taigaio/taiga-front' }}
 taiga_frontend_conf_path:   "{{docker_compose.directories.config}}conf.json"
-docker_repository:          true
+docker_pull_git_repository:          true
 settings_files:
 - urls
 - local

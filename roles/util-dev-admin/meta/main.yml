@@ -26,3 +26,4 @@ dependencies:
   - desk-git
   - dev-make
   - dev-gcc
+  - dev-yay
