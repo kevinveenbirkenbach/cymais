@@ -41,7 +41,7 @@ dockerignore:
 	cat .gitignore > .dockerignore
 	echo ".git" >> .dockerignore 
 
-build: clean dockerignore
+messy-build: dockerignore
 	@echo "🔧 Generating users defaults → $(USERS_OUT)…"
 	python3 $(USERS_SCRIPT) \
 	  --roles-dir $(ROLES_DIR) \
@@ -65,14 +65,17 @@ build: clean dockerignore
 	  echo "  ✅ $$out"; \
 	)
 
-install: build
-	@echo "⚙️  Install complete."
-
-messy-test:
+messy-test: 
 	@echo "🧪 Running Python tests…"
 	PYTHONPATH=. python -m unittest discover -s tests
 	@echo "📑 Checking Ansible syntax…"
 	ansible-playbook playbook.yml --syntax-check
 
-test: build partial-test
-	@echo "Full test with build terminated."
+install: build
+	@echo "⚙️  Install complete."
+
+build: clean messy-build
+	@echo "Full build with cleanup before was executed."
+
+test: build messy-test
+	@echo "Full test with build before was executed."

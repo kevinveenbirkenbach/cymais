@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 import argparse
-import os
 import shutil
-import sys
 import ipaddress
 import difflib
 from jinja2 import Environment, FileSystemLoader
 from ruamel.yaml import YAML
+
+import sys, os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from module_utils.entity_name_utils import get_entity_name
 
 # Paths to the group-vars files
 PORTS_FILE = './group_vars/all/09_ports.yml'
@@ -65,6 +67,7 @@ def prompt_conflict(dst_file):
 def render_templates(src_dir, dst_dir, context):
     env = Environment(loader=FileSystemLoader(src_dir), keep_trailing_newline=True, autoescape=False)
     env.filters['bool'] = lambda x: bool(x)
+    env.filters['get_entity_name'] = get_entity_name
 
     for root, _, files in os.walk(src_dir):
         rel = os.path.relpath(root, src_dir)

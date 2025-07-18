@@ -15,14 +15,20 @@ def run_ansible_playbook(
     verbose=0,
     skip_tests=False,
     skip_validation=False,
-    skip_build=False,   # <-- new parameter
+    skip_build=False,
 ):
     start_time = datetime.datetime.now()
     print(f"\n▶️ Script started at: {start_time.isoformat()}\n")
 
     if not skip_build:
-        print("\n🛠️  Building project (make build)...\n")
-        subprocess.run(["make", "build"], check=True)
+        print("\n🧹 Cleaning up project (make clean)...\n")
+        subprocess.run(["make", "clean"], check=True)
+    else:
+        print("\n⚠️ Skipping build as requested.\n")
+
+    if not skip_build:
+        print("\n🛠️  Building project (make messy-build)...\n")
+        subprocess.run(["make", "messy-build"], check=True)
     else:
         print("\n⚠️ Skipping build as requested.\n")
 
@@ -50,8 +56,8 @@ def run_ansible_playbook(
         print("\n⚠️ Skipping inventory validation as requested.\n")
 
     if not skip_tests:
-        print("\n🧪 Running tests (make test)...\n")
-        subprocess.run(["make", "test"], check=True)
+        print("\n🧪 Running tests (make messy-test)...\n")
+        subprocess.run(["make", "messy-test"], check=True)
 
     # Build ansible-playbook command
     cmd = ["ansible-playbook", "-i", inventory, playbook]
@@ -140,7 +146,7 @@ def main():
     )
     parser.add_argument(
         "-c", "--cleanup", action="store_true",
-        help="Clean up unused files and outdated configurations after all tasks are complete."
+        help="Clean up unused files and outdated configurations after all tasks are complete. Also cleans up the repository before the deployment procedure."
     )
     parser.add_argument(
         "-d", "--debug", action="store_true",
