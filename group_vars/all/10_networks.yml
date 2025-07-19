@@ -18,7 +18,7 @@ defaults_networks:
       subnet: 192.168.101.48/28
     bluesky:
       subnet: 192.168.101.64/28
-    friendica:
+    web-app-friendica:
       subnet: 192.168.101.80/28
     funkwhale:
       subnet: 192.168.101.96/28

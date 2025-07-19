@@ -1,0 +1,9 @@
+- name: "create {{ friendica_host_ldap_config }}"
+  template: 
+    src:  "ldapauth.config.php.j2" 
+    dest: "{{ friendica_host_ldap_config }}"
+    mode: '644'
+    owner: root
+    group: 33
+    force: yes
+  notify: docker compose up

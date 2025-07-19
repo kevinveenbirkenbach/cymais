@@ -1,0 +1,34 @@
+- name: flush handlers to ensure that friendica is up before friendica addon configuration
+  meta: flush_handlers
+- name: Check if Friendica local.config.php exists
+  command: docker exec --user {{ friendica_user }} {{ friendica_container }} test -f {{ friendica_config_file }}
+  register: friendica_config_exists
+  changed_when: false
+  failed_when: false
+
+- name: Patch Friendica local.config.php with updated DB credentials
+  when: friendica_config_exists.rc == 0
+  block:
+    - name: Update DB host
+      command: >
+        docker exec --user {{ friendica_user }} {{ friendica_container }}
+        sed -i "s/'hostname' => .*/'hostname' => '{{ database_host }}:{{ database_port }}',/" {{ friendica_config_file }}
+      notify: docker compose up
+
+    - name: Update DB name
+      command: >
+        docker exec --user {{ friendica_user }} {{ friendica_container }}
+        sed -i "s/'database' => .*/'database' => '{{ database_name }}',/" {{ friendica_config_file }}
+      notify: docker compose up
+
+    - name: Update DB user
+      command: >
+        docker exec --user {{ friendica_user }} {{ friendica_container }}
+        sed -i "s/'username' => .*/'username' => '{{ database_username }}',/" {{ friendica_config_file }}
+      notify: docker compose up
+
+    - name: Update DB password
+      command: >
+        docker exec --user {{ friendica_user }} {{ friendica_container }}
+        sed -i "s/'password' => .*/'password' => '{{ database_password }}',/" {{ friendica_config_file }}
+      notify: docker compose up

@@ -49,7 +49,7 @@ ports:
       web-app-akaunting: 8025
       web-app-moodle: 8026
       taiga: 8027
-      friendica: 8028
+      web-app-friendica: 8028
       web-app-port-ui: 8029
       bluesky_api: 8030
       bluesky_web: 8031
