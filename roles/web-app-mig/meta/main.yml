@@ -19,7 +19,7 @@ galaxy_info:
   issue_tracker_url: "https://github.com/kevinveenbirkenbach/meta-infinite-graph/issues"
   documentation: "https://github.com/kevinveenbirkenbach/meta-infinite-graph/"
   logo:
-    class: ""
+    class: "fa-solid fa-infinity"
   run_after: []
 dependencies:
   - sys-cli
