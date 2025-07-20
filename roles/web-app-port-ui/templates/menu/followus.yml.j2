@@ -58,5 +58,5 @@ followus:
         class: fas fa-net-wired
       identifier: "{{service_provider.contact.friendica}}"
       url: "{{ web_protocol }}://{{ service_provider.contact.friendica.split('@')[2] }}/@{{ service_provider.contact.friendica.split('@')[1] }}"
-      iframe: {{ applications | get_app_conf('friendica','features.port-ui-desktop',True) }}
+      iframe: {{ applications | get_app_conf('web-app-friendica','features.port-ui-desktop',True) }}
 {% endif %}
