@@ -9,14 +9,14 @@
   listen: setup bigbluebutton
 
 - name: Copy docker-compose.yml from origin to final location
-  ansible.builtin.copy:
+  copy:
     src:  "{{ docker_compose_file_origine }}"
     dest: "{{ docker_compose_file_final }}"
     remote_src: yes
   listen: setup bigbluebutton
 
 - name: Replace bind mounts by named volume mounts
-  ansible.builtin.replace:
+  replace:
     path: "{{ docker_compose_file_final }}"
     regexp: "{{ item.regexp }}"
     replace: "{{ item.replace }}"

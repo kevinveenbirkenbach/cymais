@@ -17,12 +17,15 @@
   with_dict: "{{ docker_compose.directories }}"
 
 - name: "Include routines to set up a git repository based installaion for '{{application_id}}'."
-  include_tasks: "repository.yml"
+  include_tasks: "01_repository.yml"
   when: docker_pull_git_repository | bool
 
 - name: "Include routines file management routines for '{{application_id}}'."
-  include_tasks: "files.yml"
+  include_tasks: "02_files.yml"
   when: not docker_compose_skipp_file_creation | bool
+
+- name: "Ensure that {{ docker_compose.directories.instance }} is up"
+  include_tasks: "03_ensure_up.yml"
 
 - name: "flush database, docker and proxy for '{{ application_id }}'" 
   meta: flush_handlers
