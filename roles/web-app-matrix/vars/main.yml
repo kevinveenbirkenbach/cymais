@@ -10,3 +10,4 @@ matrix_synapse_data:      "{{ applications | get_app_conf(application_id, 'docke
 matrix_element_version:   "{{ applications | get_app_conf(application_id, 'docker.services.element.version', True) }}"
 matrix_element_image:     "{{ applications | get_app_conf(application_id, 'docker.services.element.image', True) }}"
 matrix_element_name:      "{{ applications | get_app_conf(application_id, 'docker.services.element.name', True) }}"
+matrix_project:           "{{application_id | get_entity_name }}"

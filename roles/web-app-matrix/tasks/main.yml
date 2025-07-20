@@ -57,7 +57,7 @@
 # The following taks are necessary because a clean setup is necessary
 - name: shut down docker compose project 
   command:
-    cmd: docker-compose -p "{{application_id}}" down
+    cmd: docker-compose -p "{{ matrix_project }}" down
     chdir: "{{ docker_compose.directories.instance }}"
 
 - name: "cleanup project folder"
@@ -112,13 +112,13 @@
 # @todo This should be moved to update-docker
 - name: docker compose pull
   command:
-    cmd: docker-compose -p "{{application_id}}" pull
+    cmd: docker-compose -p "{{ matrix_project }}" pull
     chdir: "{{docker_compose.directories.instance}}"
   when: mode_update | bool
 
 - name: docker compose up
   command:
-    cmd: "docker-compose -p {{application_id}} up -d --remove-orphans"
+    cmd: "docker-compose -p {{ matrix_project }} up -d --remove-orphans"
     chdir: "{{docker_compose.directories.instance}}"
   environment:
     COMPOSE_HTTP_TIMEOUT:   600
