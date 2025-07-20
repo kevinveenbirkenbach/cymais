@@ -4,4 +4,4 @@ yourls_user:      "{{ applications | get_app_conf(application_id, 'users.adminis
 yourls_password:  "{{ applications | get_app_conf(application_id, 'credentials.administrator_password', True) }}"
 yourls_version:   "{{ applications | get_app_conf(application_id, 'docker.services.yourls.version', True) }}"
 yourls_image:     "{{ applications | get_app_conf(application_id, 'docker.services.yourls.image', True) }}"
-yourls_name:      "{{ applications | get_app_conf(application_id, 'docker.services.yourls.name', True) }}"
+yourls_container:      "{{ applications | get_app_conf(application_id, 'docker.services.yourls.name', True) }}"

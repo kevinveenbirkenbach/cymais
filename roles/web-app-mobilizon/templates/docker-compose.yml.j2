@@ -1,7 +1,7 @@
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
   application:
     image: "{{ mobilizon_image }}{{ ':' ~ mobilizon_version if mobilizon_version }}"
-    container_name: "{{ mobilizon_image }}"
+    container_name: "{{ mobilizon_container }}"
     volumes:
       - uploads:/var/lib/mobilizon/uploads
       - {{ mobilizon_host_conf_exs_file }}:/etc/mobilizon/config.exs:ro

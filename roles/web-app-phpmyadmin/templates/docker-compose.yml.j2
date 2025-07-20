@@ -3,7 +3,7 @@
   application:
 {% set container_port = 80 %}
     image: "{{ phpmyadmin_image }}:{{ phpmyadmin_version }}"
-    container_name: "{{ phpmyadmin_name }}"
+    container_name: "{{ phpmyadmin_container }}"
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:{{ container_port }}"
