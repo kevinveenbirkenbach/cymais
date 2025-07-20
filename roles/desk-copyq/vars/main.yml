@@ -1,1 +1,2 @@
-application_id: desk-copyq
+application_id:       desk-copyq
+copyq_server_enabled: "{{ applications | get_app_conf(application_id, 'server_enabled') }}"

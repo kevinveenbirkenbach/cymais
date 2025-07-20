@@ -1,4 +1,4 @@
-# CopyQ Role for Ansible
+# CopyQ
 
 ## Overview
 This role installs the CopyQ clipboard manager on Pacman-based systems (e.g. Arch Linux) and ensures it is started automatically for the current user.
@@ -7,20 +7,6 @@ This role installs the CopyQ clipboard manager on Pacman-based systems (e.g. Arc
 - Ansible 2.9 or higher
 - Pacman package manager (Arch Linux or derivative)
 - X11/Wayland desktop environment (for GUI)
-
-## Role Variables
-No additional role variables are required.
-
-## Dependencies
-No external dependencies.
-
-## Example Playbook
-
-```yaml
-- hosts: all
-  roles:
-    - desk-copyq
-```
 
 ## Further Resources
 

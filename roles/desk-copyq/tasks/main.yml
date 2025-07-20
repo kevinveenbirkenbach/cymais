@@ -1,7 +1,6 @@
 - name: Install CopyQ clipboard manager
   community.general.pacman:
-    name:
-      - copyq
+    name: copyq
     state: present
 
 - name: Ensure autostart directory exists
@@ -25,3 +24,7 @@
       Comment=Advanced clipboard manager with searchable and editable history
     mode: '0644'
   become: false
+
+- name: Include CopyQ server systemd‑user service setup
+  import_tasks: server.yml
+  when: copyq_server_enabled | bool
