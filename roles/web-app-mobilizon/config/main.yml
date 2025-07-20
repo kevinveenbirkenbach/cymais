@@ -1,6 +1,4 @@
 titel:              "Mobilizon on {{ primary_domain | upper }}"
-images:
-  mobilizon:        "docker.io/framasoft/mobilizon"
 features:
   central_database: true
   oidc:             true
@@ -21,3 +19,7 @@ docker:
   services:
     database:
       enabled: true
+    mobilizon:
+      image:    "docker.io/framasoft/mobilizon"
+      name:     "mobilizon"
+      version:  ""

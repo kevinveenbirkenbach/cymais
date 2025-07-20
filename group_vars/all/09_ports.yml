@@ -64,7 +64,7 @@ ports:
       web-app-espocrm: 8040
       syncope: 8041
       collabora: 8042
-      mobilizon: 8043
+      web-app-mobilizon: 8043
       simpleicons: 8044
       libretranslate: 8045
       pretix: 8046
