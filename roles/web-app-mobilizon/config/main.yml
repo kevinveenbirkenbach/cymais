@@ -5,6 +5,7 @@ features:
   central_database: true
   oidc:             true
   matomo:           true
+  port-ui-desktop:  true
 csp:
   flags:
     script-src-elem:
