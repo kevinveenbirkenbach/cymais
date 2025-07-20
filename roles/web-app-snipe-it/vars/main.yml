@@ -1,6 +1,14 @@
+# General 
 application_id:     "web-app-snipe-it"
+
+# Database
 database_password:  "{{ applications | get_app_conf(application_id, 'credentials.database_password', True) }}"
 database_type:      "mariadb"
+
+# Docker
+docker_compose_flush_handlers:          true
+
+# Snipe-IT specific
 snipe_it_url:       "{{ domains | get_url(application_id, web_protocol) }}"
 snipe_it_version:   "{{ applications | get_app_conf(application_id, 'docker.services.snipe-it.version', True) }}"
 snipe_it_image:     "{{ applications | get_app_conf(application_id, 'docker.services.snipe-it.image', True) }}"

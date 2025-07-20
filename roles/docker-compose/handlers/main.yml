@@ -13,7 +13,7 @@
 - name: Build docker 
   command:
     cmd:   docker compose build
-    chdir: "{{docker_repository_path}}"
+    chdir: "{{ docker_compose.directories.instance }}"
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600
@@ -21,7 +21,6 @@
     - docker compose build
     - docker compose up     # This is just here because I didn't took the time to refactor
                             # @todo go over all docker compose up implementations and check where it makes sense to user docker compose build and where docker compose up
-  when: application_id != 'web-app-bigbluebutton' # @todo solve this on a different way, just a fast hack
 
 - name: docker compose up
   shell: docker-compose -p {{ application_id | get_entity_name }} up -d --force-recreate --remove-orphans

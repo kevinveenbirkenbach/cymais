@@ -1,34 +1,12 @@
 ---
-# Docker Central Database Role can't be used here
-- name: "include docker-compose role"
-  include_role: 
-    name: docker-compose
-  vars:
-    database_instance:  "{{ application_id }}"
-    database_password:  "{{ applications | get_app_conf(application_id, 'credentials.postgresql_secret', True) }}"
-    database_username:  "postgres"
-    database_name:      ""                              # Multiple databases
-
-- name:                 "Seed BigBlueButton Database for Backup"
-  include_tasks:        "{{ playbook_dir }}/roles/sys-bkp-docker-2-loc/tasks/seed-database-to-backup.yml"
-  vars:
-    database_instance:  "{{ application_id }}"
-    database_password:  "{{ applications | get_app_conf(application_id, 'credentials.postgresql_secret', True) }}"
-    database_username:  "postgres"
-    database_name:      ""                              # Multiple databases
-
-- name: "include role srv-proxy-6-6-domain"
+- name: "For '{{ application_id }}': include docker-compose role"
   include_role:
-    name: srv-proxy-6-6-domain
-
-- name: pull docker repository
-  git:
-    repo: "https://github.com/bigbluebutton/docker.git"
-    dest: "{{ bbb_repository_directory }}"
-    update: yes
-    recursive: yes
-    version: main
-  notify: setup bigbluebutton
+    name: cmp-docker-proxy
+  vars:
+    database_instance:  "{{ application_id }}"
+    database_password:  "{{ applications | get_app_conf(application_id, 'credentials.postgresql_secret', True) }}"
+    database_username:  "postgres"
+    database_name:      ""                              # Multiple databases
 
 - name: configure websocket_upgrade.conf
   copy: 
@@ -36,31 +14,26 @@
     dest: "{{nginx.directories.http.maps}}websocket_upgrade.conf"
   notify: restart nginx
 
-- name: "Remove directory {{ docker_compose.directories.env }}"
-  file:
-    path: "{{ docker_compose.directories.env }}"
-    state: absent
+- name: "Set BBB Facts"
+  set_fact:
+    bbb_env_file_link:            "{{ docker_repository_path }}.env"
+    bbb_env_file_origine:         "{{ docker_compose.files.env }}"
+    docker_compose_file_origine:  "{{ docker_repository_path }}docker-compose.yml"
+    docker_compose_file_final:    "{{ docker_compose.directories.instance }}docker-compose.yml"
 
 - name: deploy .env
   template: 
     src:  env.j2
     dest: "{{ bbb_env_file_origine }}"
-  notify: setup bigbluebutton
 
 - name: Create symbolic link from .env file to target location
   file:
     src:    "{{ bbb_env_file_origine }}"
     dest:   "{{ bbb_env_file_link }}"
     state:  link
-  notify: setup bigbluebutton
 
-- name:           "Check if any container is running in {{ docker_compose.directories.instance }}"
-  command:        docker compose ps -q --filter status=running
-  args:
-    chdir:        "{{ docker_compose.directories.instance }}"
-  register:       docker_ps
-  changed_when:   (docker_ps.stdout | trim) == ""
-  notify:         setup bigbluebutton
+- name: "Setup docker-compose.yml file"
+  include_tasks: "docker-compose.yml"
 
 - name: flush docker service
   meta: flush_handlers
@@ -76,6 +49,6 @@
   command:
     cmd: docker compose exec greenlight bundle exec rake admin:create
     chdir: "{{ docker_compose.directories.instance }}"
-  when: bigbluebutton_setup
+  when: bbb_setup
   ignore_errors: true
   register: admin_creation_result
