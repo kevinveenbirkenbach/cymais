@@ -1,4 +1,9 @@
 from ansible.errors import AnsibleFilterError
+import sys
+import os
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from module_utils.entity_name_utils import get_entity_name
 
 class FilterModule(object):
     def filters(self):
@@ -13,19 +18,20 @@ class FilterModule(object):
         seen_domains = {}
 
         for app_id, cfg in apps.items():
-            if not isinstance(cfg, dict):
-                raise AnsibleFilterError(
-                f"Invalid configuration for application '{app_id}': "
-                f"expected a dict, got {cfg!r}"
-            )
-            
-            domains_cfg = cfg.get('domains')
-            if not domains_cfg or 'canonical' not in domains_cfg:
-                self._add_default_domain(app_id, primary_domain, seen_domains, result)
-                continue
+            if app_id.startswith(("web-","svc-")):
+                if not isinstance(cfg, dict):
+                    raise AnsibleFilterError(
+                    f"Invalid configuration for application '{app_id}': "
+                    f"expected a dict, got {cfg!r}"
+                )
+                
+                domains_cfg = cfg.get('domains')
+                if not domains_cfg or 'canonical' not in domains_cfg:
+                    self._add_default_domain(app_id, primary_domain, seen_domains, result)
+                    continue
 
-            canonical_domains = domains_cfg['canonical']
-            self._process_canonical_domains(app_id, canonical_domains, seen_domains, result)
+                canonical_domains = domains_cfg['canonical']
+                self._process_canonical_domains(app_id, canonical_domains, seen_domains, result)
 
         return result
 
@@ -34,7 +40,8 @@ class FilterModule(object):
         Add the default domain for an application if no canonical domains are defined.
         Ensures the domain is unique across applications.
         """
-        default_domain = f"{app_id}.{primary_domain}"
+        entity_name = get_entity_name(app_id)
+        default_domain = f"{entity_name}.{primary_domain}"
         if default_domain in seen_domains:
             raise AnsibleFilterError(
                 f"Domain '{default_domain}' is already configured for "
