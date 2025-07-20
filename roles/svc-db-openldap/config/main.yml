@@ -11,8 +11,6 @@ docker:
   network:        "openldap"
   volumes:
     data:         "openldap_data"
-
-webinterface:     "lam"                               # The webinterface which should be used. Possible: lam and phpldapadmin
 features:
   ldap:           true
 provisioning:           

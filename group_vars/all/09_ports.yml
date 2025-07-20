@@ -10,7 +10,7 @@ ports:
       web-app-espocrm: 4002
     oauth2_proxy:
       web-app-phpmyadmin: 4181
-      lam: 4182
+      web-app-lam: 4182
       web-app-openproject: 4183
       yourls: 4184
       pgadmin: 4185
@@ -54,7 +54,7 @@ ports:
       bluesky_api: 8030
       bluesky_web: 8031
       web-app-keycloak: 8032
-      lam: 8033
+      web-app-lam: 8033
       web-app-phpmyadmin: 8034
       snipe-it: 8035
       sphinx: 8036
