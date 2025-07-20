@@ -3,13 +3,17 @@ import re
 import unittest
 from collections import defaultdict
 
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
+PROJECT_ROOT = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '../../')
+)
 ROLES_DIR = os.path.join(PROJECT_ROOT, 'roles')
 ROOT_TASKS_DIR = os.path.join(PROJECT_ROOT, 'tasks')
+
 
 def is_under_root_tasks(fpath):
     abs_path = os.path.abspath(fpath)
     return abs_path.startswith(os.path.abspath(ROOT_TASKS_DIR) + os.sep)
+
 
 def find_role_includes(roles_dir):
     """
@@ -36,43 +40,50 @@ def find_role_includes(roles_dir):
                         role_name = match.group(1)
                         yield fpath, idx + 1, role_name
 
+
 def check_run_once_tag(content, role_name):
     """
     Checks for run_once_{role_name} or # run_once_{role_name}: deactivated in content.
     """
+    key = role_name.replace('-', '_')
     pattern = (
-        rf'(run_once_{role_name.replace("-", "_")})'
-        rf'|(#\s*run_once_{role_name.replace("-", "_")}: deactivated)'
+        rf'(run_once_{key})'
+        rf'|(#\s*run_once_{key}: deactivated)'
     )
     return re.search(pattern, content, re.IGNORECASE)
+
 
 class TestRunOnceTag(unittest.TestCase):
     def test_all_roles_have_run_once_tag(self):
         role_to_locations = defaultdict(list)
-        role_to_first_missing = {}
 
         # Collect all places where roles are included/imported
         for fpath, line, role_name in find_role_includes(ROLES_DIR):
-            key = role_name.replace("-", "_")
+            key = role_name.replace('-', '_')
             role_to_locations[key].append((fpath, line, role_name))
 
-        # Now check only ONCE per role if the tag exists somewhere (the first location), and record missing
         errors = {}
         for key, usages in role_to_locations.items():
-            # Just pick the first usage for checking
-            fpath, line, role_name = usages[0]
+            # Only check the role's own tasks/main.yml instead of the includer file
+            _, line, role_name = usages[0]
+            role_tasks = os.path.join(
+                ROLES_DIR, role_name, 'tasks', 'main.yml'
+            )
             try:
-                with open(fpath, 'r', encoding='utf-8') as f:
+                with open(role_tasks, 'r', encoding='utf-8') as f:
                     content = f.read()
-            except Exception:
-                continue
+            except FileNotFoundError:
+                # Fallback to the includer file if tasks/main.yml doesn't exist
+                includer_file = usages[0][0]
+                with open(includer_file, 'r', encoding='utf-8') as f:
+                    content = f.read()
+
             if not check_run_once_tag(content, role_name):
                 error_msg = (
                     f'Role "{role_name}" is imported/included but no "run_once_{key}" tag or deactivation comment found.\n'
-                    f'First found at: {fpath}, line {line}\n'
-                    f'  → Add a line "run_once_{key}" to this file to prevent double execution.\n'
-                    f'  → To deliberately disable this warning for this role, add:\n'
-                    f'      # run_once_{key}: deactivated\n'
+                    f'First usage at includer: {usages[0][0]}, line {line}\n'
+                    f'  → Ensure "run_once_{key}" is defined in {role_tasks} or deactivate with comment.\n'
+                    f'  → For example, add "# run_once_{key}: deactivated" at the top of {role_tasks} to suppress this warning.\n'
                     f'All occurrences:\n' +
                     ''.join([f'  - {fp}, line {ln}\n' for fp, ln, _ in usages])
                 )
@@ -80,10 +91,11 @@ class TestRunOnceTag(unittest.TestCase):
 
         if errors:
             msg = (
-                "Some included/imported roles in 'roles/' are missing a run_once tag or deactivation comment:\n\n"
+                "Some included/imported roles are missing a run_once tag or deactivation comment:\n\n"
                 + "\n".join(errors.values())
             )
             self.fail(msg)
+
 
 if __name__ == '__main__':
     unittest.main()
