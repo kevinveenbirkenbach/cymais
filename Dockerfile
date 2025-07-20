@@ -19,12 +19,12 @@ RUN printf '#!/bin/sh\nexit 0\n' > /usr/bin/systemctl \
     && chmod +x /usr/bin/yay
 
 # 3) Build & install python-simpleaudio from AUR manually (as non-root)
-RUN useradd -m builder \
- && su builder -c "git clone https://aur.archlinux.org/python-simpleaudio.git /home/builder/psa && \
-                    cd /home/builder/psa && \
+RUN useradd -m aur_builder \
+ && su aur_builder -c "git clone https://aur.archlinux.org/python-simpleaudio.git /home/aur_builder/psa && \
+                    cd /home/aur_builder/psa && \
                     makepkg --noconfirm --skippgpcheck" \
- && pacman -U --noconfirm /home/builder/psa/*.pkg.tar.zst \
- && rm -rf /home/builder/psa
+ && pacman -U --noconfirm /home/aur_builder/psa/*.pkg.tar.zst \
+ && rm -rf /home/aur_builder/psa
 
 # 4) Clone Kevin’s Package Manager and create its venv
 ENV PKGMGR_REPO=/opt/package-manager \
