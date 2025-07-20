@@ -3,6 +3,8 @@ images:
 oauth2_proxy:
   application:                  application
   port:                         80
+  allowed_groups:
+    - "web-app-lam-administrator"
 features:
   matomo:                       true
   css:                          true

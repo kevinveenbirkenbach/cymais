@@ -4,6 +4,8 @@ master_password_required: True                              # Master password is
 oauth2_proxy:
   application:            "application"
   port:                   "80"
+  allowed_groups:
+    - "web-app-pgadmin-administrator"
 features:
   matomo:                 true
   css:                    true
