@@ -1,4 +1,4 @@
-# run_once_srv_web_7_7_inj_compose: deactivated
+# run_once_srv_web_7_6_composer: deactivated
 
 - name: "include role srv-web-7-7-inj-compose for {{domain}}"
   include_role: 

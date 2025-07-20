@@ -15,30 +15,59 @@ def is_under_root_tasks(fpath):
     return abs_path.startswith(os.path.abspath(ROOT_TASKS_DIR) + os.sep)
 
 
+import os
+import re
+
 def find_role_includes(roles_dir):
     """
-    Yields (filepath, line_number, role_name) for each import_role/include_role usage in roles/,
-    but ignores anything under the root-level tasks/ dir.
+    Scan all YAML files under `roles_dir`, skipping any under a top-level `tasks/` directory,
+    and yield (filepath, line_number, role_name) for each literal import_role/include_role
+    usage. Dynamic includes using Jinja variables (e.g. {{ ... }}) are ignored.
     """
     for dirpath, _, filenames in os.walk(roles_dir):
         for fname in filenames:
             if not fname.endswith(('.yml', '.yaml')):
                 continue
+
             fpath = os.path.join(dirpath, fname)
-            if is_under_root_tasks(fpath):
-                continue  # Skip root-level tasks dir completely
+            # Skip any files under the root-level tasks/ directory
+            if os.path.abspath(fpath).startswith(
+                os.path.abspath(os.path.join(roles_dir, '..', 'tasks')) + os.sep
+            ):
+                continue
+
             try:
                 with open(fpath, 'r', encoding='utf-8') as f:
                     lines = f.readlines()
-            except Exception:
-                continue  # Ignore unreadable files
+            except (IOError, OSError):
+                continue
+
             for idx, line in enumerate(lines):
-                if 'import_role' in line or 'include_role' in line:
-                    block = line + ''.join(lines[idx+1:idx+5])
-                    match = re.search(r'name:\s*[\'"]?([\w\-]+)[\'"]?', block)
-                    if match:
-                        role_name = match.group(1)
-                        yield fpath, idx + 1, role_name
+                if 'import_role' not in line and 'include_role' not in line:
+                    continue
+
+                base_indent = len(line) - len(line.lstrip())
+                # Look ahead up to 5 lines for the associated `name:` entry
+                for nxt in lines[idx+1 : idx+6]:
+                    indent = len(nxt) - len(nxt.lstrip())
+                    # Only consider more-indented lines (the block under import/include)
+                    if indent <= base_indent:
+                        continue
+                    m = re.match(r'\s*name:\s*[\'"]?([A-Za-z0-9_\-]+)[\'"]?', nxt)
+                    if not m:
+                        continue
+
+                    role_name = m.group(1)
+                    # Ignore the generic "user" role include
+                    if role_name == 'user':
+                        break
+
+                    # Skip any dynamic includes using Jinja syntax
+                    if '{{' in nxt or '}}' in nxt:
+                        break
+
+                    yield fpath, idx + 1, role_name
+                    break
 
 
 def check_run_once_tag(content, role_name):

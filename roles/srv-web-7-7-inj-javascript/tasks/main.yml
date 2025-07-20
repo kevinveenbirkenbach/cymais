@@ -1,3 +1,4 @@
+# run_once_srv_web_7_7_inj_javascript: deactivated
 - name: "Load JavaScript code for '{{ application_id }}'"
   set_fact:
     javascript_code: "{{ lookup('template', modifier_javascript_template_file) }}"

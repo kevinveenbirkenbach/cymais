@@ -1,4 +1,4 @@
-# Load this role via srv-web-7-7-inj-compose for consistency
+# run_once_srv_web_7_7_inj_matomo: deactivated
 
 - name: "Relevant variables for role: {{ role_path | basename }}"
   debug:

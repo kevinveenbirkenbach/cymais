@@ -2,7 +2,7 @@
   shell: |
     source ~/.venvs/pkgmgr/bin/activate
     pkgmgr update pkgmgr
-  when: run_once_pkgmgr_update is not defined
+  when: run_once_pkgmgr_install is not defined
 
 - name: update {{ package_name }}
   shell: |
@@ -15,5 +15,5 @@
 
 - name: mark pkgmgr update as done
   set_fact:
-    run_once_pkgmgr_update: true
-  when: run_once_pkgmgr_update is not defined
+    run_once_pkgmgr_install: true
+  when: run_once_pkgmgr_install is not defined

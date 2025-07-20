@@ -1,3 +1,5 @@
+# run_once_srv_web_6_6_tls_core: deactivated
+
 - name: "Include flavor '{{ certbot_flavor }}' for '{{ domain }}'"
   include_tasks: "{{ role_path }}/tasks/flavors/{{ certbot_flavor }}.yml"
 

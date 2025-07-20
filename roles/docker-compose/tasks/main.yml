@@ -1,3 +1,5 @@
+# run_once_docker_compose: deactivate
+
 - name: "Load variables from {{ docker_compose_variable_file }} for whole play"
   include_vars: "{{ docker_compose_variable_file }}"
 

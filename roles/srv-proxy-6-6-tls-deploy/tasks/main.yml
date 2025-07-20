@@ -5,11 +5,6 @@
   when: run_once_nginx_docker_cert_deploy is not defined
   notify: restart srv-proxy-6-6-tls-deploy.cymais.service
 
-- name: run the nginx_docker_cert_deploy tasks once
-  set_fact:
-    run_once_backup_directory_validator: true
-  when: run_once_nginx_docker_cert_deploy is not defined
-
 - name: "create {{cert_mount_directory}}"
   file:
     path:     "{{cert_mount_directory}}"
@@ -30,3 +25,8 @@
     on_calendar:  "{{on_calendar_deploy_certificates}}"
     service_name: "srv-proxy-6-6-tls-deploy.{{application_id}}"
     persistent:   "true"
+
+- name: run the run_once_srv_proxy_6_6_tls_deploy tasks once
+  set_fact:
+    run_once_backup_directory_validator: true
+  when: run_once_nginx_docker_cert_deploy is not defined

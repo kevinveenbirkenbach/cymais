@@ -1,5 +1,7 @@
+# run_once_cmp_docker_proxy: deactivated
+
 - name: "For '{{ application_id }}': include docker-compose role"
-  include_role: 
+  include_role:
     name: docker-compose
 
 - name: "For '{{ application_id }}': include role srv-proxy-6-6-domain"

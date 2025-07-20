@@ -4,7 +4,7 @@
     state: present
     ipam_config:
       - subnet: "{{ postgres_subnet }}"
-  when: run_once_docker_postgres is not defined
+  when: run_once_svc_db_postgres is not defined
 
 - name: Install PostgreSQL
   docker_container:
@@ -28,7 +28,7 @@
       retries: 5
       start_period: 30s
   register: setup_postgres_container_result
-  when: run_once_docker_postgres is not defined
+  when: run_once_svc_db_postgres is not defined
 
 - name: Wait for Postgres inside the container
   shell: "docker exec {{ postgres_name }} pg_isready -U postgres"
@@ -39,13 +39,13 @@
   when:
     - setup_postgres_container_result is defined
     - setup_postgres_container_result.changed
-    - run_once_docker_postgres is not defined
+    - run_once_svc_db_postgres is not defined
 
 - name: install python-psycopg2
   pacman: 
     name: python-psycopg2
     state: present
-  when: run_once_docker_postgres is not defined
+  when: run_once_svc_db_postgres is not defined
 
 - name: "Initialize database for '{{ database_name }}'"
   include_tasks: init.yml
@@ -53,5 +53,5 @@
 
 - name: Run the docker_postgres tasks once
   set_fact:
-    run_once_docker_postgres: true
-  when: run_once_docker_postgres is not defined
+    run_once_svc_db_postgres: true
+  when: run_once_svc_db_postgres is not defined

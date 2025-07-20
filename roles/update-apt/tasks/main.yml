@@ -3,3 +3,9 @@
     update_cache: yes
     upgrade: dist
     force_apt_get: yes
+  when: run_once_update_apt
+
+- name: run the {{ role_name }} logic just once
+  set_fact:
+    run_once_update_apt: true
+  when: run_once_update_apt is not defined
