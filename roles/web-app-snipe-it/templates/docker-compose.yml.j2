@@ -1,8 +1,11 @@
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
 
+# Container Configuration
+
   application:
 {% set container_port = 80 %}
-    image: grokability/snipe-it:{{applications | get_app_conf(application_id, 'version', True)}}
+    image: "{{ snipe_it_image }}:{{ snipe_it_version }}"
+    container_name: "{{ snipe_it_container }}"
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     volumes:
       - data:/var/lib/snipeit
@@ -11,8 +14,12 @@
 {% include 'roles/docker-container/templates/depends_on/dmbs_excl.yml.j2' %}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 {% include 'roles/docker-container/templates/healthcheck/tcp.yml.j2' %}
+
+# Compose Configuration
+
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   redis:
   data:
+    name: "{{ snipe_it_volume }}"
 
 {% include 'roles/docker-compose/templates/networks.yml.j2' %}

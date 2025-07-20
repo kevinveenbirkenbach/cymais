@@ -15,30 +15,30 @@
 - name: "Debug: show APP_KEY in container shell"
   shell: |
     docker-compose exec -T \
-      -u www-data \
+      -u {{ snipe_it_user }} \
       -e XDG_CONFIG_HOME=/tmp \
       -e APP_KEY='{{ applications | get_app_conf(application_id, 'credentials.app_key', True) }}' \
       application \
       sh -c 'echo "SHELL sees APP_KEY=$APP_KEY"'
   args:
-    chdir: "/opt/docker/snipe-it/"
+    chdir: "{{ docker_compose.directories.instance }}"
 
 - name: "Debug: show APP_KEY in container shell"
   shell: |
-    docker-compose exec -T -u www-data \
+    docker-compose exec -T -u {{ snipe_it_user }} \
     -e XDG_CONFIG_HOME=/tmp \
     -e APP_KEY="{{ applications | get_app_conf(application_id, 'credentials.app_key', True) }}" \
     application \
     php artisan tinker --execute="echo 'CONFIG app.key: ' . config('app.key') . PHP_EOL;"
   args:
-    chdir: "/opt/docker/snipe-it/"
+    chdir: "{{ docker_compose.directories.instance }}"
 
-- name: "Set all LDAP settings via Laravel Setting model (inside container as www-data)"
+- name: "Set all LDAP settings via Laravel Setting model (inside container as {{ snipe_it_user }})"
   shell: |
     docker-compose exec -T \
     -e APP_KEY='{{ applications | get_app_conf(application_id, 'credentials.app_key', True) }}' \ 
     -e XDG_CONFIG_HOME=/tmp \ 
-    -u www-data application \ 
+    -u {{ snipe_it_user }} application \ 
     sh -c 'php artisan tinker << "EOF"
     $s = \App\Models\Setting::getSettings();
     $s->ldap_enabled             = 1;
@@ -74,7 +74,7 @@
 - name: Encrypt & save LDAP bind password via Crypt + DB façade
   shell: |
     docker-compose exec -T \
-      -u www-data \
+      -u {{ snipe_it_user }} \
       -e APP_KEY="{{ applications | get_app_conf(application_id, 'credentials.app_key', True) }}" \
       -e XDG_CONFIG_HOME=/tmp \
       application \
@@ -93,14 +93,14 @@
         echo 'Stored: ' . \$encrypted . PHP_EOL;
       "
   args:
-    chdir: "/opt/docker/snipe-it/"
+    chdir: "{{ docker_compose.directories.instance }}"
   register: ldap_encrypt
   failed_when: ldap_encrypt.rc != 0
 
-- name: "Clear Laravel config & cache (inside container as www-data)"
+- name: "Clear Laravel config & cache (inside container as {{ snipe_it_user }})"
   shell: |
-    docker-compose exec -T -u www-data application php artisan config:clear
-    docker-compose exec -T -u www-data application php artisan cache:clear
+    docker-compose exec -T -u {{ snipe_it_user }} application php artisan config:clear
+    docker-compose exec -T -u {{ snipe_it_user }} application php artisan cache:clear
   args:
     chdir: "{{ docker_compose.directories.instance }}"
   notify: docker compose up 

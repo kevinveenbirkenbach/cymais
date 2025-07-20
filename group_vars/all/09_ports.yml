@@ -17,7 +17,7 @@ ports:
       phpldapadmin: 4186
       fusiondirectory: 4187
       web-app-gitea: 4188
-      snipe-it: 4189
+      web-app-snipe-it: 4189
     ldap:
       svc-db-openldap: 389
     http:
@@ -56,7 +56,7 @@ ports:
       web-app-keycloak: 8032
       web-app-lam: 8033
       web-app-phpmyadmin: 8034
-      snipe-it: 8035
+      web-app-snipe-it: 8035
       sphinx: 8036
       phpldapadmin: 8037
       fusiondirectory: 8038

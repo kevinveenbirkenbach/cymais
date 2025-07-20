@@ -1,8 +1,7 @@
-version:              "latest"
 features:
   matomo:             true
   css:                false
-  port-ui-desktop:   true
+  port-ui-desktop:    true
   central_database:   true
   ldap:               true
   oauth2:             true
@@ -33,3 +32,10 @@ docker:
       enabled: true
     database: 
       enabled: true
+    snipe-it:
+      version:  "latest"
+      name:     "snipe-it"
+      image:    "grokability/snipe-it"
+  volumes:
+    data:       "snipe-it_data"
+    

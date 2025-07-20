@@ -62,7 +62,7 @@ defaults_networks:
       subnet: 192.168.102.128/28
     pgadmin:
       subnet: 192.168.102.144/28
-    snipe-it:
+    web-app-snipe-it:
       subnet: 192.168.102.160/28
     taiga:
       subnet: 192.168.102.176/28
