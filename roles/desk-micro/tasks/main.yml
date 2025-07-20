@@ -1,0 +1,6 @@
+---
+- name: install micro
+  community.general.pacman:
+    name:
+      - micro
+    state: present

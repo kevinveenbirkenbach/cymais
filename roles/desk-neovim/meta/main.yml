@@ -1,0 +1,25 @@
+---
+galaxy_info:
+  author: "Kevin Veen‑Birchenbach"
+  description: "Installs neovim CLI text editor on Pacman‑based systems."
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen‑Birchenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  galaxy_tags:
+    - neovim
+    - editor
+    - cli
+  repository: "https://github.com/kevinveenbirkenbach/cymais"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/desk-neovim"
+  logo:
+    class: "fab fa-vim"
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Archlinux
+      versions:
+        - all
+dependencies: []
