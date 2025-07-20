@@ -12,7 +12,7 @@ ports:
       web-app-phpmyadmin: 4181
       web-app-lam: 4182
       web-app-openproject: 4183
-      yourls: 4184
+      web-app-yourls: 4184
       pgadmin: 4185
       phpldapadmin: 4186
       fusiondirectory: 4187
@@ -27,7 +27,7 @@ ports:
       web-app-wordpress: 8003
       web-app-mediawiki: 8004
       web-app-mybb: 8005
-      yourls: 8006
+      web-app-yourls: 8006
       web-app-mailu: 8007
       web-app-elk: 8008
       web-app-mastodon: 8009

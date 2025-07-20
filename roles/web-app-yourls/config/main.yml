@@ -1,16 +1,15 @@
-version:              "latest"
 oauth2_proxy:  
   application:        "application"
   port:               "80"
   allowed_groups:
-    - "yourls-administrator"
+    - "web-app-yourls-administrator"
   acl:
     blacklist:
       - "/admin/"     # Protects the admin area
 features:
   matomo:             true
   css:                true
-  port-ui-desktop:   true
+  port-ui-desktop:    true
   central_database:   true
   oauth2:             true
 domains:
@@ -22,3 +21,7 @@ docker:
   services:
     database:
       enabled: true
+    yourls: 
+      version:    "latest"
+      name:       "yourls" 
+      image:      "yourls"

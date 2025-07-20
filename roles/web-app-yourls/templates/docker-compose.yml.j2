@@ -3,7 +3,8 @@
   application:
 {% set container_port = 80 %}
 {% set container_healthcheck = 'http://127.0.0.1/admin/' %}
-    image: yourls:{{applications.yourls.version}}
+    image: "{{ yourls_image }}:{{ yourls_version }}"
+    container_name: "{{ yourls_container }}"
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:{{ container_port }}"
