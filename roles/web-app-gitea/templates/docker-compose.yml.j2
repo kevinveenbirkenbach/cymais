@@ -3,7 +3,7 @@
   application:
 {% include 'roles/docker-container/templates/base.yml.j2' %}
     image: "{{ gitea_image }}:{{ gitea_version }}"
-    name:  "{{ gitea_name }}"
+    container_name:  "{{ gitea_container }}"
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:{{ container_port }}"
       - "{{ports.public.ssh[application_id]}}:22"

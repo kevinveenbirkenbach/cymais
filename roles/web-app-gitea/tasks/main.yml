@@ -10,10 +10,12 @@
     delay: 5
     timeout: 300
 
+- name: Patch Gitea database settings in app.ini
+  include_tasks: 01_database.yml
+
 - name: "Run DB migrations inside Gitea container"
   shell: |
-    docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \
-      exec -T --user git application \
+    docker exec -i --user {{ gitea_user }} {{ gitea_container }} \
       /app/gitea/gitea migrate
   args:
     chdir: "{{ docker_compose.directories.instance }}"
@@ -22,14 +24,13 @@
 
 - name: "Create initial admin user"
   shell: |
-    docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \
-      exec -T --user git application \
+    docker exec -i --user {{ gitea_user }} {{ gitea_container }} \
       /app/gitea/gitea admin user create \
         --admin \
         --username "{{ users.administrator.username }}" \
         --password "{{ users.administrator.password }}" \
         --email    "{{ users.administrator.email }}" \
-        -c /data/gitea/conf/app.ini
+        -c {{ gitea_config }}
   args:
     chdir: "{{ docker_compose.directories.instance }}"
   register: create_admin
@@ -49,10 +50,10 @@
   when: applications | get_app_conf(application_id, 'features.oidc', False) or applications | get_app_conf(application_id, 'features.ldap', False)
 
 - name: Execute Setup Routines
-  include_tasks: setup.yml
+  include_tasks: 02_setup.yml
 
 - name: Execute Cleanup Routines
-  include_tasks: cleanup.yml 
+  include_tasks: 03_cleanup.yml 
   when: mode_cleanup
 
 - name: Include DNS role to register Gitea domain(s)

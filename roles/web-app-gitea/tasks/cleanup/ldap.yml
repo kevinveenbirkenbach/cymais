@@ -1,7 +1,6 @@
 - name: "Lookup existing LDAP auth source ID"
   shell: |
-    docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \
-      exec -T --user git application \
+    docker exec -i --user {{ gitea_user }} {{ gitea_container }} \
       gitea admin auth list \
       | awk -v name="LDAP ({{ primary_domain }})" '$0 ~ name {print $1; exit}'
   args:
@@ -12,8 +11,7 @@
 
 - name: "Delete existing LDAP auth source if present"
   shell: |
-    docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \
-      exec -T --user git application \
+    docker exec -i --user {{ gitea_user }} {{ gitea_container }} \
       gitea admin auth delete --id {{ ldap_source_id_raw.stdout }}
   args:
     chdir: "{{ docker_compose.directories.instance }}"

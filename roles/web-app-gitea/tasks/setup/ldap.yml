@@ -1,7 +1,6 @@
 - name: "Add LDAP Authentication Source"
   shell: |
-    docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \
-      exec -T --user git application \
+    docker exec -i --user {{ gitea_user }} {{ gitea_container }} \
       gitea admin auth add-ldap \
       {{ gitea_ldap_auth_args | join(' ') }}
   args:
@@ -11,8 +10,7 @@
 
 - name: "Lookup existing LDAP auth source ID"
   shell: |
-    docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \
-      exec -T --user git application \
+    docker exec -i --user {{ gitea_user }} {{ gitea_container }} \
       gitea admin auth list \
       | tail -n +2 \
       | grep -F "LDAP ({{ primary_domain }})" \
@@ -31,8 +29,7 @@
 
 - name: "Update LDAP Authentication Source"
   shell: |
-    docker-compose -f "{{ docker_compose.directories.instance }}/docker-compose.yml" \
-      exec -T --user git application \
+    docker exec -i --user {{ gitea_user }} {{ gitea_container }} \
       gitea admin auth update-ldap \
       --id {{ ldap_source_id }} \
       {{ gitea_ldap_auth_args | join(' ') }}
