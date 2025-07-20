@@ -6,23 +6,23 @@ import shutil
 import unittest
 from unittest.mock import patch
 
-# Import the script as a module (assumes the script is named tree.py)
+# Absolute path to the tree.py script
 SCRIPT_PATH = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "../../../../cli/build/tree.py")
 )
 
 class TestTreeShadowFolder(unittest.TestCase):
     def setUp(self):
-        # Create temp roles dir and a dummy role
+        # Create a temporary roles directory and a dummy role
         self.roles_dir = tempfile.mkdtemp()
         self.role_name = "dummyrole"
         self.role_path = os.path.join(self.roles_dir, self.role_name)
         os.makedirs(os.path.join(self.role_path, "meta"))
 
-        # Prepare shadow dir
+        # Create a temporary shadow folder
         self.shadow_dir = tempfile.mkdtemp()
 
-        # Patch sys.argv for the script
+        # Patch sys.argv so the script picks up our dirs
         self.orig_argv = sys.argv[:]
         sys.argv = [
             SCRIPT_PATH,
@@ -31,7 +31,15 @@ class TestTreeShadowFolder(unittest.TestCase):
             "-o", "json"
         ]
 
+        # Ensure project root is on sys.path so `import cli.build.tree` works
+        project_root = os.path.abspath(
+            os.path.join(os.path.dirname(__file__), "../../../../")
+        )
+        if project_root not in sys.path:
+            sys.path.insert(0, project_root)
+
     def tearDown(self):
+        # Restore original argv and clean up
         sys.argv = self.orig_argv
         shutil.rmtree(self.roles_dir)
         shutil.rmtree(self.shadow_dir)
@@ -39,28 +47,35 @@ class TestTreeShadowFolder(unittest.TestCase):
     @patch("cli.build.tree.build_mappings")
     @patch("cli.build.tree.output_graph")
     def test_tree_json_written_to_shadow_folder(self, mock_output_graph, mock_build_mappings):
-        # Prepare dummy graph
+        # Prepare the dummy graph that build_mappings should return
         dummy_graph = {"dummy": {"test": 42}}
         mock_build_mappings.return_value = dummy_graph
 
-        # Run the script (as __main__)
-        import runpy
-        runpy.run_path(SCRIPT_PATH, run_name="__main__")
+        # Import the script module by name (so our @patch applies) and call main()
+        import importlib
+        tree_mod = importlib.import_module("cli.build.tree")
+        tree_mod.main()
 
-        # Check file in shadow folder
+        # Verify that tree.json was written into the shadow folder
         expected_tree_path = os.path.join(
             self.shadow_dir, self.role_name, "meta", "tree.json"
         )
-        self.assertTrue(os.path.isfile(expected_tree_path), "tree.json not found in shadow folder")
+        self.assertTrue(
+            os.path.isfile(expected_tree_path),
+            f"tree.json not found at {expected_tree_path}"
+        )
 
-        # Check contents
-        with open(expected_tree_path) as f:
+        # Verify contents match our dummy_graph
+        with open(expected_tree_path, 'r') as f:
             data = json.load(f)
         self.assertEqual(data, dummy_graph, "tree.json content mismatch")
 
-        # Ensure nothing was written to original meta/
+        # Ensure that no tree.json was written to the real meta/ folder
         original_tree_path = os.path.join(self.role_path, "meta", "tree.json")
-        self.assertFalse(os.path.isfile(original_tree_path), "tree.json should NOT be in role's meta/")
+        self.assertFalse(
+            os.path.exists(original_tree_path),
+            "tree.json should NOT be written to the real meta/ folder"
+        )
 
 if __name__ == "__main__":
     unittest.main()
