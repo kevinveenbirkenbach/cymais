@@ -2,6 +2,7 @@ import os
 import re
 import yaml
 from ansible.errors import AnsibleFilterError
+from collections.abc import Mapping
 
 from ansible.errors import AnsibleUndefinedVariable
 try:
@@ -62,12 +63,15 @@ def get_app_conf(applications, application_id, config_path, strict=True, default
                 return default if default is not None else False
             raise AppConfigKeyError(
                 f"Key '{k}' is undefined at '{'.'.join(path_trace)}'\n"
+                f"  actual type: {type(obj).__name__}\n"
+                f"  repr(obj): {obj!r}\n"
+                f"  repr(applications): {applications!r}\n"
                 f"application_id: {application_id}\n"
                 f"config_path: {config_path}"
             )
 
         # Access dict key
-        if isinstance(obj, dict):
+        if isinstance(obj, Mapping):
             if k not in obj:
                 # Non-strict mode: always return default on missing key
                 if not strict:

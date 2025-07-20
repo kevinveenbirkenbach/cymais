@@ -16,7 +16,7 @@
 
   - name: Merge application definitions
     set_fact:
-      applications: "{{ defaults_applications | combine(applications | default({}, true), recursive=True) }}"
+      applications: "{{ defaults_applications | merge_with_defaults(applications | default({}, true)) }}"
 
   - name: Merge current play applications
     set_fact:

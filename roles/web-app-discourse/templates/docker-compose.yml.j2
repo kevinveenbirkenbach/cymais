@@ -4,5 +4,5 @@
   redis:
 
 {% include 'roles/docker-compose/templates/networks.yml.j2' %}
-  discourse_default:
+  {{ discourse_network }}:
     external: true

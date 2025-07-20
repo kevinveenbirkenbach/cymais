@@ -13,6 +13,12 @@ class FilterModule(object):
         seen_domains = {}
 
         for app_id, cfg in apps.items():
+            if not isinstance(cfg, dict):
+                raise AnsibleFilterError(
+                f"Invalid configuration for application '{app_id}': "
+                f"expected a dict, got {cfg!r}"
+            )
+            
             domains_cfg = cfg.get('domains')
             if not domains_cfg or 'canonical' not in domains_cfg:
                 self._add_default_domain(app_id, primary_domain, seen_domains, result)

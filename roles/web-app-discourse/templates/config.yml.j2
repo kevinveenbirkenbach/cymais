@@ -74,7 +74,7 @@ env:
   DISCOURSE_DB_NAME:     {{ database_name }}
 
   # Redis Configuration
-  DISCOURSE_REDIS_HOST: {{application_id}}-redis
+  DISCOURSE_REDIS_HOST: {{ discourse_redis_host }}
 
   ## If you added the Lets Encrypt template, uncomment below to get a free SSL certificate
   #LETSENCRYPT_ACCOUNT_EMAIL: administrator@veen.world
@@ -103,18 +103,11 @@ hooks:
     - exec:
         cd: $home/plugins
         cmd:
-          - git clone --depth=1 https://github.com/discourse/docker_manager.git
-          - git clone --depth=1 https://github.com/discourse/discourse-activity-pub.git
-          - git clone --depth=1 https://github.com/discourse/discourse-calendar.git
-          - git clone --depth=1 https://github.com/discourse/discourse-akismet.git
-          - git clone --depth=1 https://github.com/discourse/discourse-cakeday.git
-          - git clone --depth=1 https://github.com/discourse/discourse-solved.git
-          - git clone --depth=1 https://github.com/discourse/discourse-voting.git
-          - git clone --depth=1 https://github.com/discourse/discourse-oauth2-basic.git
-
-{% if applications | get_app_conf(application_id, 'features.oidc', False) %}
-          - git clone --depth=1 https://github.com/discourse/discourse-openid-connect.git
+{% for plugin_name, plugin_config in discourse_plugins.items() %}
+{% if plugin_config.enabled %}
+          - git clone --depth=1 https://github.com/discourse/{{ plugin_name }}.git
 {% endif %}
+{% endfor %}     
 
 {% if applications | get_app_conf(application_id, 'features.ldap', False) %}
           - git clone --depth=1 https://github.com/jonmbake/discourse-ldap-auth.git
@@ -177,5 +170,5 @@ run:
   - exec: echo "End of custom commands"
 
 docker_args:
-  - --network={{application_id}}_default
+  - --network={{ discourse_network }}
   - --name={{ discourse_container }}

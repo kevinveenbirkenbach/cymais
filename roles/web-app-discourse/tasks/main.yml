@@ -35,9 +35,10 @@
     template: 
       src: config.yml.j2
       dest: "{{ discourse_application_yml_destination }}"
+      mode: '0640'
     notify: recreate discourse
 
-  - name: "Verify that {{ discourse_container }} is running"
+  - name: "Verify that '{{ discourse_container }}' is running"
     command:      docker compose ps --filter status=running --format '{{"{{"}}.Name{{"}}"}}' | grep -x {{ discourse_container }}
     register:     docker_ps
     changed_when: docker_ps.rc == 1
@@ -62,13 +63,17 @@
     when:
       - applications | get_app_conf(application_id, 'features.central_database', False)
 
+  - name: Set error string for network not connected
+    set_fact:
+      docker_discourse_not_connected: 'is not connected to network {{ discourse_network }}'
+
   - name: "Remove {{ discourse_network }} from {{ database_host }}"
     command: >
       docker network disconnect {{ discourse_network }} {{ database_host }}
     register: network_disconnect
     failed_when: >
       network_disconnect.rc != 0 and
-      'is not connected to network {{ discourse_network }}' not in network_disconnect.stderr
+      docker_discourse_not_connected not in network_disconnect.stderr
     changed_when: network_disconnect.rc == 0
     when:
       - applications | get_app_conf(application_id, 'features.central_database', False)

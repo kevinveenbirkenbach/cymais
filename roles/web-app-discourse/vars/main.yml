@@ -6,10 +6,12 @@ database_type:                          "postgres"
 
 # Discourse
 discourse_container:                    "{{ applications | get_app_conf(application_id, 'docker.services.discourse.name') }}"
-discourse_application_yml_destination:  "{{ docker_repository_directory }}containers/{{ discourse_container }}.yml"
 discourse_network:                      "{{ applications | get_app_conf(application_id, 'docker.network') }}"
 discourse_volume:                       "{{ applications | get_app_conf(application_id, 'docker.volumes.data') }}"
+discourse_plugins:                      "{{ applications | get_app_conf(application_id, 'plugins') }}"
 discourse_pg_network:                   "{{ applications | get_app_conf('svc-db-postgres', 'docker.network' ) }}"
+discourse_application_yml_destination:  "{{ docker_repository_directory }}containers/{{ discourse_container }}.yml"
+discourse_redis_host:                   "{{ application_id |get_entity_name }}-redis"
 
 # General Docker Configuration
 docker_repository_directory :           "{{ docker_compose.directories.services}}{{applications | get_app_conf( application_id, 'repository') }}/"
