@@ -16,7 +16,7 @@ import json
 
 def build_group_inventory(apps, host):
     """
-    Builds a group-based Ansible inventory: each app is a group containing the host.
+    Build an Ansible inventory in which each application is a group containing the given host.
     """
     groups = {app: {"hosts": [host]} for app in apps}
     inventory = {
@@ -30,7 +30,7 @@ def build_group_inventory(apps, host):
 
 def build_hostvar_inventory(apps, host):
     """
-    Alternative: Builds an inventory where all invokables are set as hostvars (as a list).
+    Alternative: Build an inventory where all invokable apps are set as a host variable (as a list).
     """
     return {
         "all": {
@@ -80,6 +80,12 @@ def main():
         '-o', '--output',
         help='Write output to file instead of stdout'
     )
+    parser.add_argument(
+        '-i', '--ignore',
+        action='append',
+        default=[],
+        help='Application ID(s) to ignore (can be specified multiple times or comma-separated)'
+    )
     args = parser.parse_args()
 
     try:
@@ -91,13 +97,21 @@ def main():
         sys.stderr.write(f"Error: {e}\n")
         sys.exit(1)
 
-    # Select inventory style
+    # Combine all ignore arguments into a flat set
+    ignore_ids = set()
+    for entry in args.ignore:
+        ignore_ids.update(i.strip() for i in entry.split(',') if i.strip())
+
+    if ignore_ids:
+        apps = [app for app in apps if app not in ignore_ids]
+
+    # Build the requested inventory style
     if args.inventory_style == 'group':
         inventory = build_group_inventory(apps, args.host)
     else:
         inventory = build_hostvar_inventory(apps, args.host)
 
-    # Output in chosen format
+    # Output in the chosen format
     if args.format == 'json':
         output = json.dumps(inventory, indent=2)
     else:
