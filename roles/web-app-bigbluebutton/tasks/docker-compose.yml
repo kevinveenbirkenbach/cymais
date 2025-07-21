@@ -6,107 +6,14 @@
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600
 
-- name: Copy docker-compose.yml from origin to final location
+- name: Slurp docker-compose.yml from remote host
+  slurp:
+    src: "{{ docker_compose_file_origine }}"
+  register: compose_slurp
+
+- name: Transform docker-compose.yml with compose_mods
   copy:
-    src:  "{{ docker_compose_file_origine }}"
+    content: "{{ compose_slurp.content | b64decode | compose_mods(docker_repository_path, docker_compose.files.env) }}"
     dest: "{{ docker_compose_file_final }}"
-    remote_src: yes
-
-- name: Replace bind mounts by named volume mounts
-  replace:
-    path: "{{ docker_compose_file_final }}"
-    regexp: "{{ item.regexp }}"
-    replace: "{{ item.replace }}"
-  loop:
-    - { regexp: '\./data/postgres:/var/lib/postgresql/data', replace: 'database:/var/lib/postgresql/data' }
-    - { regexp: '\./data/bigbluebutton:/var/bigbluebutton', replace: 'bigbluebutton:/var/bigbluebutton' }
-    - { regexp: '\./data/freeswitch-meetings:/var/freeswitch/meetings', replace: 'freeswitch:/var/freeswitch/meetings' }
-    - { regexp: '\./data/greenlight:/usr/src/app/storage', replace: 'greenlight:/usr/src/app/storage' }
-    - { regexp: '\./data/mediasoup:/var/mediasoup', replace: 'mediasoup:/var/mediasoup' }
-
-- name: add volume to redis
-  lineinfile:
-    path: "{{ docker_compose_file_final }}"
-    insertafter: "^\\s*redis:"
-    line: "    volumes:\n      - redis:/data"
-    firstmatch: yes
-
-- name: add volume to coturn
-  lineinfile:
-    path: "{{ docker_compose_file_final }}"
-    insertafter: "- ./mod/coturn/turnserver.conf:/etc/coturn/turnserver.conf"
-    line: "      - coturn:/var/lib/coturn"
-
-# Implemented due to etherpad health bug.
-# @todo Remove when health check is working fine
-# @see https://chatgpt.com/c/67a0fc7e-5104-800f-bb6b-3731e2f83b7b
-#- name: "Update docker-compose.yml for Etherpad health check"
-#  lineinfile: 
-#    line: "    healthcheck:\n      test: [\"CMD\", \"curl\", \"-f\", \"http://127.0.0.1:9001\"]\n      interval: 30s\n      timeout: 10s\n      retries: 5\n      start_period: 10s"
-#    path: "{{docker_compose_file_final}}"
-#    insertafter: "etherpad:"
-#  listen: setup bigbluebutton
-
-- name: Add volumes block after services in docker compose
-  blockinfile:
-    path: "{{ docker_compose_file_final }}"
-    block: |
-      volumes:
-        database:
-        greenlight:
-        redis:
-        coturn:
-        freeswitch:
-        bigbluebutton:
-        mediasoup:
-    marker: "# {mark} ANSIBLE MANAGED BLOCK FOR VOLUMES"
-    insertbefore: "^services:"
-
-- name: Replace all './' with '/services/' in docker-compose.yml
-  ansible.builtin.replace:
-    path:     "{{ docker_compose_file_final }}"
-    regexp:   '\./'
-    replace:  '{{ docker_repository_path }}/'
-
-- name: Prefix build context with docker_repository_path
-  ansible.builtin.replace:
-    path: "{{ docker_compose_file_final }}"
-    regexp: '(^\s*context:\s*)mod/(.*)'
-    replace: '\1{{ docker_repository_path }}/mod/\2'
-
-- name: "Update healthcheck for bbb-graphql-server"
-  # This is neccessary because the healthcheck doesn't listen to the correct port
-  lineinfile: 
-    line: "    healthcheck:\n      test: [\"CMD\", \"curl\", \"-f\", \"http://localhost:8085/healthz\"]\n      interval: 30s\n      timeout: 10s\n      retries: 5\n      start_period: 10s"
-    path: "{{docker_compose_file_final}}"
-    insertafter: "bbb-graphql-server:"
-
-- name: Add env_file to each service in docker-compose.yml
-  blockinfile:
-    path: "{{ docker_compose_file_final }}"
-    insertafter: '^  {{ service }}:$'
-    marker: "# {mark} ANSIBLE MANAGED BLOCK FOR ENV_FILE"
-    block: |
-        env_file:
-          - "{{ docker_compose.files.env }}"
-  loop:
-    - bbb-web
-    - freeswitch
-    - nginx
-    - etherpad
-    - bbb-pads
-    - bbb-export-annotations
-    - redis
-    - webrtc-sfu
-    - fsesl-akka
-    - apps-akka
-    - bbb-graphql-server
-    - bbb-graphql-actions
-    - bbb-graphql-middleware
-    - collabora
-    - periodic
-    - coturn
-    - greenlight
-    - postgres
-  loop_control:
-    loop_var: service
+  notify:
+    - docker compose just up

@@ -35,15 +35,29 @@
 - name: "Setup docker-compose.yml file"
   include_tasks: "docker-compose.yml"
 
+- name: Ensure all containers in instance are running
+  include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/04_ensure_up.yml"
+
 - name: flush docker service
   meta: flush_handlers
 
-- name: Wait for BigBlueButton
-  wait_for:
-    host: "{{ domains | get_domain('web-app-bigbluebutton') }}"
-    port: 80
-    delay: 5
-    timeout: 300
+- name: "Get greenlight container name"
+  shell: |
+    docker compose ps -q greenlight
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  register: greenlight_id
+
+- name: "Wait until BigBlueButton (greenlight) is running"
+  shell: |
+    docker inspect --format='{{'{{'}}.State.Status{{'}}'}}' {{ greenlight_id.stdout }}
+  args:
+    chdir: "{{ docker_compose.directories.instance }}"
+  register: bbb_state
+  until: bbb_state.stdout.strip() == "running"
+  retries: 30
+  delay: 5
+  changed_when: false
 
 - name: create admin
   command:

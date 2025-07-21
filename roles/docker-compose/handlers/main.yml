@@ -9,6 +9,7 @@
   listen:
     - docker compose up
     - docker compose restart
+    - docker compose just up
 
 - name: Build docker 
   command:
@@ -19,21 +20,26 @@
     DOCKER_CLIENT_TIMEOUT: 600
   listen: 
     - docker compose build
-    - docker compose up     # This is just here because I didn't took the time to refactor
-                            # @todo go over all docker compose up implementations and check where it makes sense to user docker compose build and where docker compose up
 
 - name: docker compose up
-  shell: docker-compose -p {{ application_id | get_entity_name }} up -d --force-recreate --remove-orphans
+  shell: |
+    if [ -f "{{ docker_compose.files.env }}" ]; then
+      docker compose -p {{ application_id | get_entity_name }} --env-file "{{ docker_compose.files.env }} up -d --force-recreate --remove-orphans"
+    else
+      docker compose -p {{ application_id | get_entity_name }} up -d --force-recreate --remove-orphans
+    fi
   args:
     chdir: "{{ docker_compose.directories.instance }}"
     executable: /bin/bash
   environment:
     COMPOSE_HTTP_TIMEOUT: 600
     DOCKER_CLIENT_TIMEOUT: 600
-  listen: docker compose up
+  listen:
+    - docker compose up
+    - docker compose just up # @todo replace later just up by up when code is refactored, build atm is also listening to up
 
 - name: docker compose restart
   command:
-    cmd: "docker compose restart"
+    cmd: 'docker compose restart'
     chdir: "{{docker_compose.directories.instance}}"
   listen: docker compose restart
