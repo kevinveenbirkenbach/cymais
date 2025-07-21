@@ -23,7 +23,7 @@ def add_simpleicon_source(cards, domains, web_protocol='https'):
     :return: New list of cards with icon.source set when available
     """
     # Determine simpleicons service domain
-    simpleicons_domain = domains.get('simpleicons')
+    simpleicons_domain = domains.get('web-svc-simpleicons')
     if isinstance(simpleicons_domain, list):
         simpleicons_domain = simpleicons_domain[0]
     if not simpleicons_domain:

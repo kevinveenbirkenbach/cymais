@@ -65,7 +65,7 @@ ports:
       syncope: 8041
       collabora: 8042
       web-app-mobilizon: 8043
-      simpleicons: 8044
+      web-svc-simpleicons: 8044
       libretranslate: 8045
       pretix: 8046
       web-app-mig: 8047

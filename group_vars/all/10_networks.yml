@@ -86,7 +86,7 @@ defaults_networks:
       subnet: 192.168.103.80/28
     collabora:
       subnet: 192.168.103.96/28
-    simpleicons:
+    web-svc-simpleicons:
       subnet: 192.168.103.112/28
     libretranslate:
       subnet: 192.168.103.128/28
