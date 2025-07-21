@@ -1,4 +1,4 @@
 ---
-application_id:             "attendize"
+application_id:             "web-app-attendize"
 database_type:              "mariadb"
 docker_repository_address:  "https://github.com/Attendize/Attendize.git"

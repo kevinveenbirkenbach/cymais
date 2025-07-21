@@ -162,7 +162,7 @@ plugins:
     enabled: false
   integration_gitlab:
     # Nextcloud Integration GitLab: connects Nextcloud with GitLab repositories (https://apps.nextcloud.com/apps/integration_gitlab)
-    enabled: "{{ 'gitlab' in group_names | lower }}"
+    enabled: "{{ 'web-app-gitlab' in group_names | lower }}"
   integration_github:
     # Nextcloud Integration GitHub: integrates GitHub repositories with Nextcloud (https://apps.nextcloud.com/apps/integration_github)
     enabled: false

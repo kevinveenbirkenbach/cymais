@@ -1,3 +1,5 @@
-application_id:               "gitlab"
+application_id:               "web-app-gitlab"
 database_type:                "postgres"
 gitlab_initial_root_password: "{{ applications | get_app_conf(application_id, 'credentials.initial_root_password') }}"
+gitlab_version:               "{{ applications | get_app_conf(application_id, 'docker.services.gitlab.version', True) }}"
+gitlab_image:                 "{{ applications | get_app_conf(application_id, 'docker.services.gitlab.image', True) }}"

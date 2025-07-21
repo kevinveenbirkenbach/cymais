@@ -1,5 +1,3 @@
-images:
-  gitlab:             "gitlab/gitlab-ee:latest"
 features:
   matomo:             true
   css:                true
@@ -11,5 +9,8 @@ docker:
       enabled: true
     database: 
       enabled: true
+    gitlab: 
+      image:    "gitlab/gitlab-ee"
+      version:  "latest"
 credentials:
   initial_root_password: "{{ users.administrator.password }}"

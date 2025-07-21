@@ -36,7 +36,7 @@ ports:
       web-app-funkwhale: 8012
       web-app-roulette-wheel: 8013
       web-app-joomla: 8014
-      attendize: 8015
+      web-app-attendize: 8015
       web-app-pgadmin: 8016
       web-app-baserow: 8017
       web-app-matomo: 8018
@@ -45,7 +45,7 @@ ports:
       web-app-matrix_synapse: 8021
       web-app-matrix_element: 8022
       web-app-openproject: 8023
-      gitlab: 8024
+      web-app-gitlab: 8024
       web-app-akaunting: 8025
       web-app-moodle: 8026
       web-app-taiga: 8027
@@ -63,18 +63,18 @@ ports:
       web-app-navigator: 8039
       web-app-espocrm: 8040
       syncope: 8041
-      collabora: 8042
+      web-app-collabora: 8042
       web-app-mobilizon: 8043
       web-svc-simpleicons: 8044
-      libretranslate: 8045
-      pretix: 8046
+      web-app-libretranslate: 8045
+      web-app-pretix: 8046
       web-app-mig: 8047
       web-app-bigbluebutton: 48087    # This port is predefined by bbb. @todo Try to change this to a 8XXX port
   public:
     # The following ports should be changed to 22 on the subdomain via stream mapping
     ssh:
       web-app-gitea: 2201
-      gitlab: 2202
+      web-app-gitlab: 2202
     ldaps:
       svc-db-openldap: 636
     stun:
