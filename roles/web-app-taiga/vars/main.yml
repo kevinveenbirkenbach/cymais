@@ -1,4 +1,4 @@
-application_id:             "taiga"
+application_id:             "web-app-taiga"
 database_type:              "postgres"
 docker_repository_address:  "https://github.com/taigaio/taiga-docker"
 email_backend:              "smtp"                                      ## use an SMTP server or display the emails in the console (either "smtp" or "console")

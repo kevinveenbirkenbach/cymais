@@ -64,7 +64,7 @@ defaults_networks:
       subnet: 192.168.102.144/28
     web-app-snipe-it:
       subnet: 192.168.102.160/28
-    taiga:
+    web-app-taiga:
       subnet: 192.168.102.176/28
     web-app-yourls:
       subnet: 192.168.102.192/28
