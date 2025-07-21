@@ -70,7 +70,7 @@ defaults_networks:
       subnet: 192.168.102.192/28
     web-app-discourse:
       subnet: 192.168.102.208/28
-    sphinx:
+    web-app-sphinx:
       subnet: 192.168.102.224/28
     web-app-lam:
       subnet: 192.168.103.0/28

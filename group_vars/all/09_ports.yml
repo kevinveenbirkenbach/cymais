@@ -57,7 +57,7 @@ ports:
       web-app-lam: 8033
       web-app-phpmyadmin: 8034
       web-app-snipe-it: 8035
-      sphinx: 8036
+      web-app-sphinx: 8036
       phpldapadmin: 8037
       fusiondirectory: 8038
       presentation: 8039
