@@ -34,7 +34,7 @@ ports:
       web-app-pixelfed: 8010
       web-app-peertube: 8011
       funkwhale: 8012
-      roulette-wheel: 8013
+      web-app-roulette-wheel: 8013
       web-app-joomla: 8014
       attendize: 8015
       web-app-pgadmin: 8016
