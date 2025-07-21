@@ -13,7 +13,7 @@ ports:
       web-app-lam: 4182
       web-app-openproject: 4183
       web-app-yourls: 4184
-      pgadmin: 4185
+      web-app-pgadmin: 4185
       phpldapadmin: 4186
       fusiondirectory: 4187
       web-app-gitea: 4188
@@ -37,7 +37,7 @@ ports:
       roulette-wheel: 8013
       web-app-joomla: 8014
       attendize: 8015
-      pgadmin: 8016
+      web-app-pgadmin: 8016
       web-app-baserow: 8017
       web-app-matomo: 8018
       web-app-listmonk: 8019
