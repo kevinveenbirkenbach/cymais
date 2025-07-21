@@ -42,14 +42,52 @@ for app in $apps; do
 
   if [ "$rc" -eq 0 ]; then
     echo "✅ Credentials generated for $app"
-  else
-    if echo "$output" | grep -q "No such file or directory.*schema/main.yml" || \
-       echo "$output" | grep -q "No such file or directory.*config/main.yml"; then
-      echo "⚠️  Skipping $app (no schema/config)"
+  elif echo "$output" | grep -q "No such file or directory"; then
+    echo "⚠️  Skipping $app (no schema/config)"
+  elif echo "$output" | grep -q "Plain algorithm for"; then
+    # Collect all plain-algo keys
+    keys=( $(echo "$output" | grep -oP "Plain algorithm for '\K[^']+") )
+    overrides=()
+    for key in "${keys[@]}"; do
+      if [[ "$key" == *api_key ]]; then
+        val=$(python3 - << 'PY'
+import random, string
+print(''.join(random.choices(string.ascii_letters+string.digits, k=32)))
+PY
+)
+      elif [[ "$key" == *password ]]; then
+        val=$(python3 - << 'PY'
+import random, string
+print(''.join(random.choices(string.ascii_letters+string.digits, k=12)))
+PY
+)
+      else
+        val=$(python3 - << 'PY'
+import random, string
+print(''.join(random.choices(string.ascii_letters+string.digits, k=16)))
+PY
+)
+      fi
+      echo "  → Overriding $key=$val"
+      overrides+=("--set" "$key=$val")
+    done
+    # Retry with overrides
+    echo "🔄 Retrying with overrides..."
+    retry_out=$(python3 -m cli.create.credentials \
+      --role-path "/repo/roles/$app" \
+      --inventory-file "$ART/inventory.yml" \
+      --vault-password-file "$ART/vaultpw.txt" \
+      "${overrides[@]}" \
+      --force 2>&1) || retry_rc=$?; retry_rc=${retry_rc:-0}
+    if [ "$retry_rc" -eq 0 ]; then
+      echo "✅ Credentials generated for $app (with overrides)"
     else
-      echo "❌ Credential error for $app:" 
-      echo "$output"
+      echo "❌ Override failed for $app:"
+      echo "$retry_out"
     fi
+  else
+    echo "❌ Credential error for $app:"
+    echo "$output"
   fi
 done
 
