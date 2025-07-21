@@ -60,7 +60,7 @@ ports:
       web-app-sphinx: 8036
       phpldapadmin: 8037
       fusiondirectory: 8038
-      presentation: 8039
+      web-app-navigator: 8039
       web-app-espocrm: 8040
       syncope: 8041
       collabora: 8042

@@ -1,6 +1,6 @@
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "This Presentation Software is a powerful tool designed for showcasing the CyMaIS platform to various audiences, including Administrators, Developers, End-Users, Businesses, and Investors."
+  description: "An interactive presentation platform focused on guiding end-users through the practical use of the CyMaIS software. Designed to demonstrate features, workflows, and real-world applications for Administrators, Developers, End-Users, Businesses, and Investors."
   license: "CyMaIS NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
@@ -25,4 +25,4 @@ galaxy_info:
   issue_tracker_url: "https://s.veen.world/cymaisissues"
   documentation: "https://s.veen.world/cymais"
   logo:
-    class: "fas fa-chalkboard-teacher"
+    class: "fas fa-map"
