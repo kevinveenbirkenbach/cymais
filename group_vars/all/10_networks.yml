@@ -20,7 +20,7 @@ defaults_networks:
       subnet: 192.168.101.64/28
     web-app-friendica:
       subnet: 192.168.101.80/28
-    funkwhale:
+    web-app-funkwhale:
       subnet: 192.168.101.96/28
     web-app-gitea:
       subnet: 192.168.101.112/28
