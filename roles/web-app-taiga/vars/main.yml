@@ -14,3 +14,5 @@ docker_pull_git_repository:          true
 settings_files:
 - urls
 - local
+
+taiga_version:   "{{ applications | get_app_conf(application_id, 'docker.services.taiga.version', True) }}"

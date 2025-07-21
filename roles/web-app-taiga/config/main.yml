@@ -1,4 +1,3 @@
-version:              "latest"
 oidc: {}
     # Taiga doesn't have a functioning oidc support at the moment
     # See
@@ -9,13 +8,15 @@ flavor:               'taigaio' # Potential flavors: robrotheram, taigaio
 features:
   matomo:             true
   css:                false
-  port-ui-desktop:   true
+  port-ui-desktop:    true
   oidc:               false
   central_database:   true
 docker:
   services:
     database:
       enabled: true
+    taiga: 
+      version: "latest"
 csp:
   flags:
     script-src-elem:
