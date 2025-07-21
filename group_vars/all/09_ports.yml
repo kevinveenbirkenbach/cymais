@@ -51,8 +51,8 @@ ports:
       web-app-taiga: 8027
       web-app-friendica: 8028
       web-app-port-ui: 8029
-      bluesky_api: 8030
-      bluesky_web: 8031
+      web-app-bluesky_api: 8030
+      web-app-bluesky_web: 8031
       web-app-keycloak: 8032
       web-app-lam: 8033
       web-app-phpmyadmin: 8034
