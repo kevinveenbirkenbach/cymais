@@ -2,9 +2,9 @@
 # Better load the repositories into /opt/docker/[servicename]/services, build them there and then use a docker-compose file for customizing
 # @todo Refactor\Remove 
 # @deprecated
-- name: "Merge detached_files with applications | get_app_conf('oauth2-proxy','configuration_file')"
+- name: "Merge detached_files with applications | get_app_conf('web-app-oauth2-proxy','configuration_file')"
   set_fact:
-    merged_detached_files: "{{ detached_files + [applications | get_app_conf('oauth2-proxy','configuration_file')] }}"
+    merged_detached_files: "{{ detached_files + [applications | get_app_conf('web-app-oauth2-proxy','configuration_file')] }}"
   when: "{{ applications | get_app_conf(application_id,'features.oauth2')"
 
 - name: "backup detached files"

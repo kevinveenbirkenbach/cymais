@@ -76,7 +76,7 @@ defaults_networks:
       subnet: 192.168.103.0/28
     web-app-phpldapadmin:
       subnet: 192.168.103.16/28
-    fusiondirectory:
+    web-app-fusiondirectory:
       subnet: 192.168.103.32/28
     web-app-navigator:
       subnet: 192.168.103.48/28

@@ -15,7 +15,7 @@ ports:
       web-app-yourls: 4184
       web-app-pgadmin: 4185
       web-app-phpldapadmin: 4186
-      fusiondirectory: 4187
+      web-app-fusiondirectory: 4187
       web-app-gitea: 4188
       web-app-snipe-it: 4189
     ldap:
@@ -59,7 +59,7 @@ ports:
       web-app-snipe-it: 8035
       web-app-sphinx: 8036
       web-app-phpldapadmin: 8037
-      fusiondirectory: 8038
+      web-app-fusiondirectory: 8038
       web-app-navigator: 8039
       web-app-espocrm: 8040
       syncope: 8041
