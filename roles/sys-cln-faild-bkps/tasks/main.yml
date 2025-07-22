@@ -13,7 +13,7 @@
 
 - name: Set fact for backup_docker_to_local_cleanup_script
   set_fact:
-    backup_docker_to_local_cleanup_script: "{{ pkgmgr_output.stdout.rstrip('/') ~ '/sys-cln-all.sh' }}"
+    backup_docker_to_local_cleanup_script: "{{ pkgmgr_output.stdout.rstrip('/') ~ '/cleanup-all.sh' }}"
   changed_when: false
   when: run_once_cln_failed_docker_backups is not defined
 
