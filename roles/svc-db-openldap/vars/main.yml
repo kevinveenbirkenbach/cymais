@@ -12,7 +12,7 @@ openldap_ldif_host_path:        "{{docker_compose.directories.volumes}}ldif/"
 openldap_ldif_docker_path:      "/tmp/ldif/"
 openldap_ldif_types:
   - configuration
-  - data
+  - groups
   - schema                      # Don't know if this is still needed, it's now setup via tasks
 
 openldap_name:                  "{{ applications | get_app_conf(application_id, 'docker.services.openldap.name', True) }}"

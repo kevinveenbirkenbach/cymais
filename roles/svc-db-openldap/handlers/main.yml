@@ -45,11 +45,11 @@
 
 - name: "Import users, groups, etc. to LDAP"
   shell: >
-    docker exec -i {{ openldap_name }} ldapadd -x -D "{{ldap.dn.administrator.data}}" -w "{{ldap.bind_credential}}" -c -f "{{openldap_ldif_docker_path}}data/{{ item | basename | regex_replace('\.j2$', '') }}"
+    docker exec -i {{ openldap_name }} ldapadd -x -D "{{ldap.dn.administrator.data}}" -w "{{ldap.bind_credential}}" -c -f "{{openldap_ldif_docker_path}}groups/{{ item | basename | regex_replace('\.j2$', '') }}"
   register: ldapadd_result
   changed_when: "'adding new entry' in ldapadd_result.stdout"
   failed_when: ldapadd_result.rc not in [0, 20, 68, 65]
   listen:
     - "Import data LDIF files"
     - "Import all LDIF files"
-  loop: "{{ query('fileglob', role_path ~ '/templates/ldif/data/*.j2') | sort }}"
+  loop: "{{ query('fileglob', role_path ~ '/templates/ldif/groups/*.j2') | sort }}"
