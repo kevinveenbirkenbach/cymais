@@ -1,0 +1,38 @@
+(function() {
+  const logoutUrlBase = 'https://auth.cymais.cloud/realms/cymais.cloud/protocol/openid-connect/logout';
+  const redirectUri = encodeURIComponent('https://cymais.cloud');
+  const logoutUrl = `${logoutUrlBase}?redirect_uri=${redirectUri}`;
+
+  // Check if a string matches logout keywords
+  function matchesLogout(str) {
+    return str && /logout|log\s*out|abmelden/i.test(str);
+  }
+
+  // Check if any attribute name contains "logout" (case-insensitive)
+  function hasLogoutAttribute(el) {
+    for (let attr of el.attributes) {
+      if (/logout/i.test(attr.name)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // Find all elements
+  const allElements = document.querySelectorAll('*');
+  allElements.forEach(el => {
+    if (
+      matchesLogout(el.getAttribute('name')) ||
+      matchesLogout(el.id) ||
+      matchesLogout(el.className) ||
+      matchesLogout(el.innerText) ||
+      hasLogoutAttribute(el)
+    ) {
+      el.style.cursor = 'pointer';
+      el.addEventListener('click', function(event) {
+        event.preventDefault();
+        window.location.href = logoutUrl;
+      });
+    }
+  });
+})();

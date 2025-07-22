@@ -2,7 +2,7 @@ import unittest
 import yaml
 import subprocess
 from pathlib import Path
-from collections import Counter
+from collections import Counter, defaultdict
 
 class TestDomainUniqueness(unittest.TestCase):
     def test_no_duplicate_domains(self):
@@ -22,7 +22,8 @@ class TestDomainUniqueness(unittest.TestCase):
         cfg = yaml.safe_load(yaml_file.read_text(encoding='utf-8')) or {}
         apps = cfg.get('defaults_applications', {})
 
-        all_domains = []
+        domain_to_apps = defaultdict(set)
+
         for app_name, app_cfg in apps.items():
             domains_cfg = app_cfg.get('domains', {})
 
@@ -32,7 +33,10 @@ class TestDomainUniqueness(unittest.TestCase):
                 values = list(canonical.values())
             else:
                 values = canonical or []
-            all_domains.extend(values)
+
+            for d in values:
+                if isinstance(d, str) and d.strip():
+                    domain_to_apps[d].add(app_name)
 
             # aliases entries may be a list or a mapping
             aliases = domains_cfg.get('aliases', [])
@@ -40,16 +44,16 @@ class TestDomainUniqueness(unittest.TestCase):
                 values = list(aliases.values())
             else:
                 values = aliases or []
-            all_domains.extend(values)
 
-        # Filter out any empty or non-string entries
-        domain_list = [d for d in all_domains if isinstance(d, str) and d.strip()]
-        counts = Counter(domain_list)
+            for d in values:
+                if isinstance(d, str) and d.strip():
+                    domain_to_apps[d].add(app_name)
 
-        # Find duplicates
-        duplicates = [domain for domain, count in counts.items() if count > 1]
+        # Find duplicates: domains that appear in more than one app
+        duplicates = {domain: list(apps) for domain, apps in domain_to_apps.items() if len(apps) > 1}
         if duplicates:
-            self.fail(f"Duplicate domain entries found: {duplicates}\n (May 'make build' solves this issue.)")
+            details = "\n".join(f"Domain '{domain}' is used in applications: {apps}" for domain, apps in duplicates.items())
+            self.fail(f"Duplicate domain entries found:\n{details}\n(Maybe 'make build' solves this issue.)")
 
 if __name__ == "__main__":
     unittest.main()
