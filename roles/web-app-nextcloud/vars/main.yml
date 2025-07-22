@@ -42,7 +42,7 @@ nextcloud_cron_name:                            "{{ applications | get_app_conf(
 nextcloud_talk_name:                            "{{ applications | get_app_conf(application_id, 'docker.services.talk.name', True) }}"
 nextcloud_talk_image:                           "{{ applications | get_app_conf(application_id, 'docker.services.talk.image', True) }}"
 nextcloud_talk_version:                         "{{ applications | get_app_conf(application_id, 'docker.services.talk.version', True) }}"
-nextcloud_talk_enabled:                         "{{ applications | get_app_conf(application_id, 'docker.services.talk.enabled', True) }}"
+nextcloud_talk_enabled:                         "{{ applications | is_docker_service_enabled(application_id, 'talk') }}"
 nextcloud_talk_stun_port:                       "{{ ports.public.stun[application_id] }}"
 # nextcloud_talk_domain:                          "{{ domains[application_id].talk }}"
 

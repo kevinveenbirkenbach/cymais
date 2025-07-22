@@ -5,7 +5,7 @@ services:
 {% include 'roles/cmp-rdbms/templates/services/main.yml.j2' %}
 {% endif %}
 {# Load Redis #}
-{% if applications | is_docker_service_enabled(application_id, 'redis') %}
+{% if applications | is_docker_service_enabled(application_id, 'redis') or applications | get_app_conf(application_id, 'features.oauth2', False) %}
 {% include 'roles/svc-db-redis/templates/service.yml.j2' %}
 {% endif %}
 {# Load OAuth2 Proxy #}

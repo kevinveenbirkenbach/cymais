@@ -22,3 +22,6 @@ email_domains           =   ["*"]
 {% else %}
 email_domains           =   "{{ primary_domain }}"
 {% endif %}
+
+session_store_type       = "redis"
+redis_connection_url     = "redis://redis:6379"

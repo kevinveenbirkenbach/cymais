@@ -100,7 +100,7 @@
       - "{{docker_compose.directories.volumes}}overrides/rspamd:/overrides:ro"
     depends_on:
       - front
-      - redis 
+      - redis
       - antivirus
       - resolver
     dns:
@@ -181,8 +181,6 @@
     name: {{ mailu_dkim }}
   dovecot_mail:
     name: {{ mailu_dovecot_mail }}
-  redis:
-    name: {{ mailu_redis }}
 
 {% include 'roles/docker-compose/templates/networks.yml.j2' %}
   radicale:
