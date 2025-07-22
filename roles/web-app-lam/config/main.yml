@@ -11,7 +11,7 @@ features:
   port-ui-desktop:              true
   ldap:                         true
   central_database:             false
-  oauth2:                       false
+  oauth2:                       true
   universal_logout:             true
 csp:
   flags:
