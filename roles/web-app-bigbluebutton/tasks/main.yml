@@ -22,6 +22,7 @@
     docker_compose_file_final:    "{{ docker_compose.directories.instance }}docker-compose.yml"
 
 - name: deploy .env
+  # This seems redundant @todo Checkout if this is true and if so, delete it
   template: 
     src:  env.j2
     dest: "{{ bbb_env_file_origine }}"
