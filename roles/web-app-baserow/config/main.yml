@@ -18,3 +18,7 @@ docker:
       name:               "baserow"
     volumes:
       data:               "baserow_data"
+
+domains:
+  canonical:
+    - baserow.{{ primary_domain }}

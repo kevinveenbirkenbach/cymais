@@ -36,6 +36,8 @@ csp:
 domains:
   aliases:
     - "git.{{ primary_domain }}"
+  canonical:
+    - gitea.{{ primary_domain }}
 docker:
   services:
     database:

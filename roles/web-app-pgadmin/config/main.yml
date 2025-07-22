@@ -26,3 +26,7 @@ docker:
   services:
     database:
       enabled: true
+
+domains:
+  canonical:
+    - pgadmin.{{ primary_domain }}

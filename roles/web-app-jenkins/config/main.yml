@@ -1,2 +1,6 @@
 features:
   universal_logout: true # Same like with elk, anyhow not active atm
+
+domains:
+  canonical:
+    - jenkins.{{ primary_domain }}

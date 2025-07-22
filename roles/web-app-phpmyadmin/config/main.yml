@@ -22,6 +22,8 @@ domains:
   aliases:
     - "mysql.{{ primary_domain }}"
     - "mariadb.{{ primary_domain }}"
+  canonical:
+    - phpmyadmin.{{ primary_domain }}
 docker:
   services:
     database:

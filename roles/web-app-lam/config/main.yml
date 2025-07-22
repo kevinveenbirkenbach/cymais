@@ -25,4 +25,6 @@ csp:
 domains:
   aliases:
     - "ldap.{{primary_domain}}"
+  canonical:
+    - lam.{{ primary_domain }}
 

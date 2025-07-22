@@ -15,3 +15,7 @@ docker:
       version:  "latest"
 credentials:
   initial_root_password: "{{ users.administrator.password }}"
+
+domains:
+  canonical:
+    - gitlab.{{ primary_domain }}

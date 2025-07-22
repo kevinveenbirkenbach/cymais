@@ -6,3 +6,7 @@ features:
   css: true
   port-ui-desktop: false
   universal_logout: true
+
+domains:
+  canonical:
+    - oauth2-proxy.{{ primary_domain }}
