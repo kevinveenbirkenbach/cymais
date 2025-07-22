@@ -3,7 +3,7 @@ oauth2_proxy:
   port:               "80"
   application:        "application"
   allowed_groups:
-    - "web-app-phpmyadmin-administrator"
+    - "/roles/web-app-phpmyadmin-administrator"
 features:
   matomo:             true
   css:                false

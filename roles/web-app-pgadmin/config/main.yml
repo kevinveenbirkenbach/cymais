@@ -5,7 +5,7 @@ oauth2_proxy:
   application:            "application"
   port:                   "80"
   allowed_groups:
-    - "web-app-pgadmin-administrator"
+    - "/roles/web-app-pgadmin-administrator"
 features:
   matomo:                 true
   css:                    true

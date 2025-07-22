@@ -3,7 +3,7 @@ oauth2_proxy:
   application:        application  # Needs to be the same as webinterface
   port:               8080         # application port
   allowed_groups:
-    - "web-app-phpldapadmin-administrator"
+    - "/roles/web-app-phpldapadmin-administrator"
 features:
   matomo:             true
   css:                true
