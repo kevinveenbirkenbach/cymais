@@ -24,7 +24,7 @@
 - name: docker compose up
   shell: |
     if [ -f "{{ docker_compose.files.env }}" ]; then
-      docker compose -p {{ application_id | get_entity_name }} --env-file "{{ docker_compose.files.env }} up -d --force-recreate --remove-orphans"
+      docker compose -p {{ application_id | get_entity_name }} --env-file "{{ docker_compose.files.env }}" up -d --force-recreate --remove-orphans
     else
       docker compose -p {{ application_id | get_entity_name }} up -d --force-recreate --remove-orphans
     fi
