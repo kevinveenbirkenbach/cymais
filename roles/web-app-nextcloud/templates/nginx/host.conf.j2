@@ -20,6 +20,10 @@ server
 
   {% include 'roles/srv-proxy-7-4-core/templates/location/proxy_basic.conf.j2' %}
 
+  {% if applications | get_app_conf(application_id, 'features.universal_logout', False) %}
+    {% include 'roles/web-svc-logout/templates/logout-proxy.conf.j2' %}
+  {% endif %}
+
   location ^~ /.well-known {
     rewrite ^/\.well-known/host-meta\.json  /public.php?service=host-meta-json  last;
     rewrite ^/\.well-known/host-meta        /public.php?service=host-meta       last;

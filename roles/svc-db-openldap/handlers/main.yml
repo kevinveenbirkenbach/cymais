@@ -50,6 +50,6 @@
   changed_when: "'adding new entry' in ldapadd_result.stdout"
   failed_when: ldapadd_result.rc not in [0, 20, 68, 65]
   listen:
-    - "Import data LDIF files"
+    - "Import groups LDIF files"
     - "Import all LDIF files"
   loop: "{{ query('fileglob', role_path ~ '/templates/ldif/groups/*.j2') | sort }}"

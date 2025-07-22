@@ -26,6 +26,10 @@ server {
 
   {% include 'roles/srv-proxy-7-4-core/templates/location/proxy_basic.conf.j2' %}
 
+  {% if applications | get_app_conf(application_id, 'features.universal_logout', False) or domain == primary_domain %}
+    {% include 'roles/web-svc-logout/templates/logout-proxy.conf.j2' %}
+  {% endif %}
+
   {% if ws_path is defined %}
     location {{ ws_path }} {
     proxy_set_header Host              $host;
