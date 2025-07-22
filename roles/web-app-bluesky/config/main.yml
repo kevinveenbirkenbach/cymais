@@ -5,8 +5,9 @@ pds:
 features:
   matomo:           true
   css:              true
-  port-ui-desktop: true
+  port-ui-desktop:  true
   central_database: true
+  universal_logout: true
 domains:
   canonical:
     web:  "bskyweb.{{ primary_domain }}"

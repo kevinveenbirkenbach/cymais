@@ -1,1 +1,2 @@
-
+features:
+  universal_logout: false # Just deactivated to oppress warnings, elk is anyhow not running

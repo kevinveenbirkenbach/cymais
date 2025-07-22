@@ -8,6 +8,7 @@ features:
   port-ui-desktop:    false  # Didn't work in frame didn't have high priority @todo figure out pcause and solve it
   central_database:   true
   oauth2:             false
+  universal_logout:   true
 csp:
   whitelist:
     script-src-elem:

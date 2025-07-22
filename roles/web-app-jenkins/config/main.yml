@@ -1,0 +1,2 @@
+features:
+  universal_logout: true # Same like with elk, anyhow not active atm

@@ -17,6 +17,7 @@ features:
   recaptcha:        false   # Enable ReCaptcha
   oauth2:           false   # Enable the OAuth2-Proy
   javascript:       false   # Enables the custom JS in the javascript.js.j2 file   
+  universal_logout: true
 csp:                        
   whitelist:        {}      # URL's which should be whitelisted           
   flags:            {}      # Flags which should be set 

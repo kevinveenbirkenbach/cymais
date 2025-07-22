@@ -9,9 +9,10 @@ plugins:
 features:
   matomo:             true
   css:                false
-  port-ui-desktop:   true
+  port-ui-desktop:    true
   oidc:               true
   central_database:   true
+  universal_logout:   true
 csp:
   flags:
     style-src:

@@ -1,3 +1,6 @@
+
+features:
+  universal_logout: false # Role is not enabled until then keep it false
 #  syncope:
 #    version:         "latest"
 #    credentials:

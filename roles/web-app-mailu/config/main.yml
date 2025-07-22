@@ -5,9 +5,10 @@ domain:                   "{{primary_domain}}"              # The main domain fr
 features:
   matomo:                 true
   css:                    false
-  port-ui-desktop:       true                             # Deactivated mailu iframe loading until keycloak supports it
+  port-ui-desktop:        true                             # Deactivated mailu iframe loading until keycloak supports it
   oidc:                   true
   central_database:       false                             # Deactivate central database for mailu, I don't know why the database deactivation is necessary
+  universal_logout:       true
 domains:
   canonical:
     - "mail.{{ primary_domain }}"

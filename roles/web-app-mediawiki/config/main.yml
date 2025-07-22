@@ -11,3 +11,5 @@ docker:
       name:     mediawiki
     volumes:
       data:     mediawiki_data
+features:
+  universal_logout: true

@@ -1,0 +1,37 @@
+galaxy_info:
+  author: "Kevin Veen‑Birkenbach"
+  description: >
+    Deploys the universal logout service: a Dockerized Python container,
+    Nginx `/logout` proxies for `*.cymais.cloud`, and the `conductor.html.j2`
+    template for unified logout orchestration.
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen‑Birkenbach
+    Consulting & Coaching Solutions
+    https://www.veen.world
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Docker
+      versions:
+        - latest
+    - name: Debian
+      versions:
+        - buster
+        - bullseye
+    - name: Ubuntu
+      versions:
+        - focal
+        - jammy
+  galaxy_tags:
+    - ansible
+    - docker
+    - flask
+    - nginx
+    - cymais
+    - logout
+  repository: "https://github.com/kevinveenbirkenbach/universal-logout"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/universal-logout/issues"
+  documentation: "https://github.com/kevinveenbirkenbach/universal-logout#readme"
+  logo:
+    class: "fa fa-sign-out-alt"

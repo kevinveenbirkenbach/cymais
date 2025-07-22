@@ -15,6 +15,9 @@ server
 
   {% include 'roles/srv-web-7-7-letsencrypt/templates/ssl_header.j2' %}
 
+  {% if applications | get_app_conf(application_id, 'features.universal_logout', False) or domain == primary_domain %}
+    {% include 'roles/web-svc-logout/templates/logout-proxy.conf.j2' %}
+  {% endif %}
   {% if applications | get_app_conf(application_id, 'features.oauth2', False) %}
     {% set acl = applications | get_app_conf(application_id, 'oauth2_proxy.acl', False, {}) %}
 

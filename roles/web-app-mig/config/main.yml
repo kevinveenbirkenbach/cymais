@@ -8,6 +8,7 @@ features:
   matomo:             true  # activate tracking
   css:                true  # use custom cymais stile 
   port-ui-desktop:    true  # Enable in port-ui
+  universal_logout:   false
 csp:
   whitelist:
     script-src-elem:
@@ -24,8 +25,8 @@ csp:
       - https://cdn.jsdelivr.net
     connect-src:
       - https://ka-f.fontawesome.com
-    #frame-src:
-    #  - "{{ web_protocol }}://*.{{primary_domain}}"
+    frame-ancestors:
+      - "*" # No damage if it's used somewhere on other websites, it anyhow looks like art
   flags:
     style-src:
       unsafe-inline: true

@@ -2,9 +2,10 @@ titel:                "Pictures on {{primary_domain}}"
 features:
   matomo:             true
   css:                false # Needs to be reactivated
-  port-ui-desktop:   true
+  port-ui-desktop:    true
   central_database:   true
   oidc:               true
+  universal_logout:   true
 csp:
   flags:
     script-src:
@@ -15,6 +16,9 @@ csp:
       unsafe-eval:   true
     style-src:
       unsafe-inline: true
+  whitelist:
+    frame-ancestors:
+      - "*"
 domains:
   canonical:
     - "picture.{{ primary_domain }}"
@@ -27,7 +31,7 @@ docker:
     database: 
       enabled: true
     pixelfed:
-      image:           "zknt/pixelfed"
+      image:            "zknt/pixelfed"
       version:          "latest"
       name:             "pixelfed"
       backup:

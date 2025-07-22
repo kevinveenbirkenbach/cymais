@@ -59,6 +59,7 @@ features:
   ldap:                         true
   oidc:                         true
   central_database:             true
+  universal_logout:             true
 default_quota:                 '1000000000'                                     # Quota to assign if no quota is specified in the OIDC response (bytes)
 legacy_login_mask:   
   enabled:                      False                                           # If true, then legacy  login mask is shown. Otherwise just SSO

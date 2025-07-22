@@ -1,8 +1,8 @@
 features:
   matomo:             true
   css:                true
-  port-ui-desktop:   true
-
+  port-ui-desktop:    true
+  universal_logout:   false
 csp:
   whitelist:
     script-src-elem:
@@ -14,6 +14,8 @@ csp:
       - https://cdn.jsdelivr.net
     font-src:
       - https://cdnjs.cloudflare.com
+    frame-src:
+      - "{{ web_protocol }}://*.{{primary_domain}}" # Makes sense that all of the website content is available in the navigator
   flags:
     style-src:
       unsafe-inline: true

@@ -5,9 +5,9 @@ docker:
   versions: {}              # @todo Move under services
   services:
     redis:
-      enabled:      false   # Enable Redis 
+      enabled:      false   # Enable Redis
     database:
-      enabled:      false   # Enable the database 
+      enabled:      false   # Enable the database
 features:
   matomo:           true    # Enable Matomo Tracking
   css:              true    # Enable Global CSS Styling
@@ -16,10 +16,11 @@ features:
   central_database: false   # Enable Central Database Network
   recaptcha:        false   # Enable ReCaptcha
   oauth2:           false   # Enable the OAuth2-Proy
-  javascript:       false   # Enables the custom JS in the javascript.js.j2 file   
-csp:                        
-  whitelist:        {}      # URL's which should be whitelisted           
-  flags:            {}      # Flags which should be set 
+  javascript:       false   # Enables the custom JS in the javascript.js.j2 file
+  universal_logout: false   # With this app I assume that it's a service, so should be renamed and logging is unneccessary
+csp:
+  whitelist:        {}      # URL's which should be whitelisted
+  flags:            {}      # Flags which should be set
 domains:
   canonical:        {}      # Urls under which the domain should be directly accessible
   aliases:          []      # Alias redirections to the first element of the canonical domains

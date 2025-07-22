@@ -5,3 +5,4 @@ features:
   matomo: true
   css: true
   port-ui-desktop: false
+  universal_logout: true

@@ -122,15 +122,23 @@ class FilterModule(object):
                         tokens.append('https://www.gstatic.com')
                         tokens.append('https://www.google.com')
 
-                # Enable loading via ancestors
-                if (
-                    self.is_feature_enabled(applications, 'port-ui-desktop', application_id)
-                    and directive == 'frame-ancestors'
-                ):
-                    domain = domains.get('web-app-port-ui')[0]
-                    sld_tld = ".".join(domain.split(".")[-2:])  # yields "example.com"
-                    tokens.append(f"{sld_tld}")                 # yields "*.example.com"
-
+                if directive == 'frame-ancestors':
+                    # Enable loading via ancestors
+                    if self.is_feature_enabled(applications, 'port-ui-desktop', application_id):
+                        domain = domains.get('web-app-port-ui')[0]
+                        sld_tld = ".".join(domain.split(".")[-2:])  # yields "example.com"
+                        tokens.append(f"{sld_tld}")                 # yields "*.example.com"
+                
+                if self.is_feature_enabled(applications, 'universal_logout', application_id):
+                        
+                        # Allow logout via cymais logout proxy
+                        domain = domains.get('web-svc-logout')[0] 
+                        tokens.append(f"{domain}") 
+                        
+                        # Allow logout via keycloak app
+                        domain = domains.get('web-app-keycloak')[0]
+                        tokens.append(f"{domain}") 
+                        
                 # whitelist
                 tokens += self.get_csp_whitelist(applications, application_id, directive)
 

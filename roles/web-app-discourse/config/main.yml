@@ -6,6 +6,7 @@ features:
   oidc:               true
   central_database:   true
   ldap:               false         # @todo implement and activate
+  universal_logout:   true
 csp:
   flags:
     style-src:

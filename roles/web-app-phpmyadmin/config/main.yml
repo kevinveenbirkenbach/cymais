@@ -11,6 +11,7 @@ features:
                               # it's anyhow not so enduser relevant, so it can be kept like this
   central_database:   true
   oauth2:             true
+  universal_logout:   true
 csp:
   flags:
     style-src:

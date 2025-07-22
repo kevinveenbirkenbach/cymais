@@ -7,11 +7,12 @@ api_suffix:           "/bigbluebutton/"
 features:
   matomo:             true
   css:                true
-  port-ui-desktop:   false # Videos can't open in frame due to iframe restrictions
+  port-ui-desktop:     false # Videos can't open in frame due to iframe restrictions
                             # @todo fix this
   ldap:               false
   oidc:               true
   central_database:   false
+  universal_logout:   true
 domains:
   canonical:
     - "meet.{{ primary_domain }}"

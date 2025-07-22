@@ -1,0 +1,3 @@
+# xmpp is more a service then a app with ui interface. @todo Rename it 
+features:
+  universal_logout: false # Reactivated as soon as xmpp is fully implemented

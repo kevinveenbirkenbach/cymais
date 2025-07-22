@@ -4,6 +4,7 @@ features:
   port-ui-desktop:  false
   simpleicons:      true  # Activate Brand Icons for your groups
   javascript:       true  # Necessary for URL sync
+  universal_logout: false # Doesn't have own user data. Just a frame.
 csp:
   whitelist:
     script-src-elem:

@@ -2,8 +2,9 @@
 features:
   matomo:             true
   css:                true
-  port-ui-desktop:   true
+  port-ui-desktop:    true
   central_database:   true
+  universal_logout:   true
 docker:
   services:
     database:

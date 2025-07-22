@@ -9,9 +9,10 @@ oauth2_proxy:
 features:
   matomo:                 true
   css:                    true
-  port-ui-desktop:       true
+  port-ui-desktop:        true
   central_database:       true
   oauth2:                 true
+  universal_logout:       true
 csp:
   flags:
     style-src:

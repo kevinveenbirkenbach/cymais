@@ -6,6 +6,7 @@ features:
   ldap:               true
   central_database:   true
   recaptcha:          true
+  universal_logout:   true
 csp:
   flags:
     script-src-elem:
@@ -14,6 +15,9 @@ csp:
       unsafe-inline: true
     style-src:
       unsafe-inline: true
+  whitelist:
+    frame-src:
+      - "*" # For frontend channel logout it's necessary that iframes can be loaded
 domains:
   canonical:
     - "auth.{{ primary_domain }}"
