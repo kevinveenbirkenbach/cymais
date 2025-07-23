@@ -6,6 +6,6 @@ volumes:
 {% endif %}
 {% if applications | is_docker_service_enabled(application_id, 'redis') or applications | get_app_conf(application_id, 'features.oauth2', False)  %}
   redis:
-    name: {{ application_id | get_entity_name }}
+    name: {{ application_id | get_entity_name }}_redis
 {% endif %}
 {{ "\n" }}

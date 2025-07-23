@@ -1,7 +1,9 @@
 {# This template needs to be included in docker-compose.yml #}
 networks:
-{% if applications | get_app_conf(application_id, 'features.central_database', False) and database_type is defined %}
-
+{% if 
+  (applications | get_app_conf(application_id, 'features.central_database', False) and database_type is defined) or
+  application_id in ['svc-db-mariadb','svc-db-postgres']
+%}
   {{ applications | get_app_conf('svc-db-' ~ database_type, 'docker.network') }}:
     external: true
 {% endif %}
@@ -12,7 +14,7 @@ networks:
   {{ applications | get_app_conf('svc-db-openldap', 'docker.network') }}:
     external: true
 {% endif %}
-{% if application_id != 'svc-db-openldap' %}
+{% if not application_id.startswith('svc-db-') %}
   default:
 {% if
   application_id in networks.local and 

@@ -8,7 +8,7 @@
     domain:   "{{ domains | get_domain(application_id) }}"
     http_port:   "{{ ports.localhost.http[application_id] }}"
 
-- name: "For '{{ application_id }}': include docker-compose role"
-  include_role:
-    name: docker-compose
+- name: "For '{{ application_id }}': Load cmp-docker-oauth2"
+  include_role: 
+    name: cmp-docker-oauth2
 

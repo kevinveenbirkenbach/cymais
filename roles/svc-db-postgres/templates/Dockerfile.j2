@@ -1,0 +1,22 @@
+FROM {{ postgres_image }}:{{ postgres_version }}
+
+{% if postgres_pg_vector_enabled %}
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+      build-essential \
+      git \
+      postgresql-server-dev-all \
+ && git clone https://github.com/pgvector/pgvector.git /tmp/pgvector \
+ && cd /tmp/pgvector \
+ && make \
+ && make install \
+ && rm -rf /tmp/pgvector \
+ && apt-get purge -y --auto-remove git build-essential \
+ && rm -rf /var/lib/apt/lists/*
+{% endif %}
+
+HEALTHCHECK --interval=10s \
+            --timeout=5s \
+            --start-period=15m \
+            --retries=5 \
+  CMD pg_isready -U postgres || exit 1

@@ -1,6 +1,9 @@
 {# This template needs to be included in docker-compose.yml containers #}
     networks:
-{% if applications | get_app_conf(application_id, 'features.central_database', False) and database_type is defined %}
+{% if 
+  (applications | get_app_conf(application_id, 'features.central_database', False) and database_type is defined) or
+  application_id in ['svc-db-mariadb','svc-db-postgres']
+%}
       {{ applications | get_app_conf('svc-db-' ~ database_type, 'docker.network') }}:
 {% endif %}
 {% if applications | get_app_conf(application_id, 'features.ldap', False) and applications | get_app_conf('svc-db-openldap', 'network.docker') %}

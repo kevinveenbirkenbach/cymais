@@ -6,28 +6,9 @@
       - subnet: "{{ postgres_subnet }}"
   when: run_once_svc_db_postgres is not defined
 
-- name: Install PostgreSQL
-  docker_container:
-    name: "{{ postgres_name }}"
-    image: "{{ postgres_image }}:{{ postgres_version }}"
-    detach: yes
-    env:
-      POSTGRES_PASSWORD: "{{ postgres_password }}"
-      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C" # Necessary for web-app-matrix
-    networks:
-      - name: "{{ postgres_network_name }}"
-    published_ports:
-      - "127.0.0.1:{{ postgres_port }}:5432"
-    volumes:
-      - "{{ postgres_volume }}:/var/lib/postgresql/data"
-    restart_policy: "{{ docker_restart_policy }}"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-  register: setup_postgres_container_result
+- name: "include docker-compose role"
+  include_role: 
+    name: docker-compose
   when: run_once_svc_db_postgres is not defined
 
 - name: Wait for Postgres inside the container
@@ -37,8 +18,6 @@
   retries: 30
   delay: 5
   when:
-    - setup_postgres_container_result is defined
-    - setup_postgres_container_result.changed
     - run_once_svc_db_postgres is not defined
 
 - name: install python-psycopg2
