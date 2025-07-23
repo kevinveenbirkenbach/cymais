@@ -1,0 +1,4 @@
+---
+- name: reload virtualbox kernel modules
+  become: true
+  command: vboxreload
