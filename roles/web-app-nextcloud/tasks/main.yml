@@ -49,6 +49,7 @@
   vars:
     plugin_key:   "{{ plugin_item.key }}"
     plugin_value: "{{ plugin_item.value }}"
+  when: nextcloud_plugins_enabled
 
 - name: Load system configuration
   include_tasks: 03_system.yml

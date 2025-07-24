@@ -1,0 +1,9 @@
+{% set modifier_css_enabled = applications | get_app_conf(application_id, 'features.css', false) | bool %}
+{% if modifier_css_enabled %}
+{%- include 'roles/srv-web-7-7-inj-css/templates/location.conf.j2' -%}
+{% endif %}
+
+{% set modifier_logout_enabled = applications | get_app_conf(application_id, 'features.logout', False) or domain == primary_domain %}
+{% if modifier_logout_enabled %}
+{% include 'roles/web-svc-logout/templates/logout-proxy.conf.j2' %}
+{% endif %}

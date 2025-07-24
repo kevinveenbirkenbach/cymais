@@ -1,6 +1,9 @@
 # run_once_srv_proxy_6_6_domain: deactivated
+- name: Cleanup Domain
+  include_tasks: cleanup.yml
+  when: mode_cleanup | bool
 
-- name: "include role for {{domain}} to receive certificates and do the modification routines"
+- name: "include role for {{ domain }} to receive certificates and do the modification routines"
   include_role:
     name: srv-web-7-6-composer
     

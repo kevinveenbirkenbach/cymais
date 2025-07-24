@@ -1,0 +1,33 @@
+- name: "Lookup Cloudflare Zone ID for {{ domain }}"
+  vars:
+    cf_api_url: "https://api.cloudflare.com/client/v4/zones"
+  ansible.builtin.uri:
+    url: "{{ cf_api_url }}?name={{ domain | to_primary_domain }}"
+    method: GET
+    headers:
+      Authorization: "Bearer {{ certbot_dns_api_token }}"
+      Content-Type: "application/json"
+    return_content: yes
+  register: cf_zone_lookup
+  when: dns_provider == "cloudflare"
+
+- name: "Set fact cf_zone_id"
+  set_fact:
+    cf_zone_id: "{{ cf_zone_lookup.json.result[0].id }}"
+  when:
+    - dns_provider == "cloudflare"
+    - cf_zone_lookup.json.result | length > 0
+
+- name: "Purge everything from Cloudflare cache for domain {{ domain }}"
+  ansible.builtin.uri:
+    url: "https://api.cloudflare.com/client/v4/zones/{{ cf_zone_id }}/purge_cache"
+    method: POST
+    headers:
+      Authorization: "Bearer {{ certbot_dns_api_token }}"
+      Content-Type: "application/json"
+    body:
+      purge_everything: true
+    body_format: json
+    return_content: yes
+  register: cf_purge
+  when: dns_provider == "cloudflare"

@@ -21,13 +21,16 @@ location {{location | default("/")}}
   proxy_set_header Upgrade $http_upgrade;
   proxy_set_header Connection "upgrade";
 
-  # deactivate buffering
-  proxy_buffering off;
-  proxy_request_buffering off;
+  # Activate buffering
+  # Needs to be enabled, so that lua can do str replaces
+  proxy_buffering         on; 
+  proxy_request_buffering on;
 
   # timeouts
   proxy_connect_timeout       1s;
   proxy_send_timeout          900s;
   proxy_read_timeout          900s;
   send_timeout                900s;
+
+  {% include 'roles/srv-web-7-7-inj-compose/templates/location.lua.j2'%}
 }

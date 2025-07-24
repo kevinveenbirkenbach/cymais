@@ -85,7 +85,7 @@
 
   // Initial scan
   scanAndPatch(document.querySelectorAll('*'));
-
+{#
   // MutationObserver for dynamic content
   const observer = new MutationObserver(mutations => {
     mutations.forEach(mutation => {
@@ -97,4 +97,5 @@
   });
 
   observer.observe(document.body, { childList: true, subtree: true });
+#}
 })();

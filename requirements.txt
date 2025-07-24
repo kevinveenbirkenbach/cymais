@@ -2,3 +2,5 @@ colorscheme-generator @ https://github.com/kevinveenbirkenbach/colorscheme-gener
 numpy
 bcrypt
 ruamel.yaml
+tld
+passlib

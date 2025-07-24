@@ -1,6 +1,6 @@
 application_id:                 "web-app-espocrm"
 database_type:                  "mariadb"
-ws_path:                        "/ws"
+location_ws:                        "/ws"
 ws_port:                        "{{ ports.localhost.websocket[application_id] }}"
 client_max_body_size:           "100m"
 vhost_flavour:                  "ws_generic"

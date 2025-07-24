@@ -2,7 +2,7 @@
 
 - name: Create or update Cloudflare A-record for {{ item }}
   community.general.cloudflare_dns:
-    api_token: "{{ cloudflare_api_token }}"
+    api_token: "{{ certbot_dns_api_token }}"
     zone: "{{ item.split('.')[-2:] | join('.') }}"
     state: present
     type: A

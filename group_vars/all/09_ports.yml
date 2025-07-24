@@ -84,3 +84,5 @@ ports:
     turn:
       web-app-bigbluebutton: 5349    # Not sure if it's right placed here or if it should be moved to localhost section
       web-app-nextcloud: 5350        # Not used yet
+    federation:
+      web-app-matrix_synapse: 8448

@@ -1,12 +1,22 @@
-{% set modifier_css_enabled = applications | get_app_conf(application_id, 'features.css', false) | bool %}
-{% if modifier_css_enabled %}
-{%- include 'roles/srv-web-7-7-inj-css/templates/location.conf.j2' -%}
-{% endif %}
 
 lua_need_request_body on;
 
+header_filter_by_lua_block {
+    local ct = ngx.header.content_type or ""
+    if ct:lower():find("^text/html") then
+        ngx.ctx.is_html = true
+    else
+        ngx.ctx.is_html = false
+    end
+}
+
 body_filter_by_lua_block {
-    -- initialize buffer
+    -- only apply further processing if this is an HTML response
+    if not ngx.ctx.is_html then
+        return
+    end
+
+    -- initialize or reuse the buffer
     ngx.ctx.buf = ngx.ctx.buf or {}
     local chunk, eof = ngx.arg[1], ngx.arg[2]
 
@@ -15,18 +25,22 @@ body_filter_by_lua_block {
     end
 
     if not eof then
+        -- drop intermediate chunks; we’ll emit only on eof
         ngx.arg[1] = nil
         return
     end
 
-    -- on eof: concatenate and reset buffer
+    -- on eof: concatenate all buffered chunks
     local whole = table.concat(ngx.ctx.buf)
-    ngx.ctx.buf = nil
+    ngx.ctx.buf = nil  -- clear buffer
+{#    whole = string.gsub(whole, "</body>", "<!-- injected text2 -->\n</body>")
+    ngx.arg[1] = whole #}
 
-    -- build head-injection snippets
+    -- build a list of head-injection snippets
     local head_snippets = {}
 
-    {% for head_feature in ['css', 'matomo', 'port-ui-desktop', 'javascript', 'logout'] %}
+{# Deactivated 'logout' temporary due to chunk size. Needs an CDN. #}
+    {% for head_feature in ['css', 'matomo', 'port-ui-desktop', 'javascript' ] %}
     {% if applications | get_app_conf(application_id, 'features.' ~ head_feature, false) | bool %}
     head_snippets[#head_snippets + 1] = [=[
         {%- include "roles/srv-web-7-7-inj-" ~ head_feature ~ "/templates/head_sub.j2" -%}
@@ -34,19 +48,19 @@ body_filter_by_lua_block {
     {% endif %}
     {% endfor %}
 
-    -- inject into </head>
+    -- inject all collected snippets right before </head>
     local head_payload = table.concat(head_snippets, "\n") .. "</head>"
     whole = string.gsub(whole, "</head>", head_payload)
 
     {% if applications | get_app_conf(application_id, 'features.matomo', false) | bool %}
-    -- build Matomo noscript tracking for body
+    -- build Matomo noscript snippet for the body
     local body_matomo = [=[
         {%- include 'roles/srv-web-7-7-inj-matomo/templates/body_sub.j2' -%}
     ]=]
-
-    -- inject before </body>
+    -- inject it right before </body>
     whole = string.gsub(whole, "</body>", body_matomo)
     {% endif %}
 
+    -- finally send the modified HTML out
     ngx.arg[1] = whole
 }

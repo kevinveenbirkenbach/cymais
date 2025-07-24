@@ -8,6 +8,9 @@ events
 http
 {
   include mime.types;
+
+  {# default_type  application/octet-stream; If html filter does not work, this one needs to be used#}
+
   default_type text/html;
 
   {# caching #}
