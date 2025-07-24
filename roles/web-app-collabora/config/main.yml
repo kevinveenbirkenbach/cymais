@@ -8,4 +8,4 @@ docker:
     database: 
       enabled: false # May this is wrong. Just set during refactoring
 features:
-  universal_logout: false # I think collabora is more a service then a app. So no login neccessary  Propably it makes sense to rename it ;)
+  logout: false # I think collabora is more a service then a app. So no login neccessary  Propably it makes sense to rename it ;)

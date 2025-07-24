@@ -8,7 +8,7 @@ features:
   matomo:             true  # activate tracking
   css:                true  # use custom cymais stile 
   port-ui-desktop:    true  # Enable in port-ui
-  universal_logout:   false
+  logout:   false
 csp:
   whitelist:
     script-src-elem:

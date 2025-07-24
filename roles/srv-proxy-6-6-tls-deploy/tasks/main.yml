@@ -1,6 +1,6 @@
 - name: add srv-proxy-6-6-tls-deploy.sh
-  copy: 
-    src: "srv-proxy-6-6-tls-deploy.sh" 
+  template: 
+    src: "srv-proxy-6-6-tls-deploy.sh.j2" 
     dest: "{{nginx_docker_cert_deploy_script}}"
   when: run_once_nginx_docker_cert_deploy is not defined
   notify: restart srv-proxy-6-6-tls-deploy.cymais.service

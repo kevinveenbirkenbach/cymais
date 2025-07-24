@@ -34,23 +34,23 @@ class TestLogoutDomainsFilter(unittest.TestCase):
         applications = {
             "app1": {
                 "domains": {"canonical": "single.domain.com"},
-                "features": {"universal_logout": True},
+                "features": {"logout": True},
             },
             "app2": {
                 "domains": {"canonical": ["list1.com", "list2.com"]},
-                "features": {"universal_logout": True},
+                "features": {"logout": True},
             },
             "app3": {
                 "domains": {"canonical": {"k1": "dictA.com", "k2": "dictB.com"}},
-                "features": {"universal_logout": True},
+                "features": {"logout": True},
             },
             "app4": {
                 "domains": {"canonical": "no-logout.com"},
-                "features": {"universal_logout": False},
+                "features": {"logout": False},
             },
             "other": {
                 "domains": {"canonical": "ignored.com"},
-                "features": {"universal_logout": True},
+                "features": {"logout": True},
             },
         }
         group_names = ["app1", "app2", "app3", "app4"]
@@ -68,7 +68,7 @@ class TestLogoutDomainsFilter(unittest.TestCase):
         applications = {
             "app1": {
                 "domains": {},  # no 'canonical' key
-                "features": {"universal_logout": True},
+                "features": {"logout": True},
             }
         }
         group_names = ["app1"]
@@ -78,7 +78,7 @@ class TestLogoutDomainsFilter(unittest.TestCase):
         applications = {
             "app1": {
                 "domains": {"canonical": "domain.com"},
-                "features": {"universal_logout": True},
+                "features": {"logout": True},
             }
         }
         group_names = []
@@ -88,7 +88,7 @@ class TestLogoutDomainsFilter(unittest.TestCase):
         applications = {
             "app1": {
                 "domains": {"canonical": 123},
-                "features": {"universal_logout": True},
+                "features": {"logout": True},
             }
         }
         group_names = ["app1"]

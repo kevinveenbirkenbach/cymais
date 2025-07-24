@@ -1,7 +1,7 @@
 - name: "Check if certificate already exists for {{ domain }}"
   cert_check_exists:
     domain: "{{ domain }}"
-    cert_base_path: "{{ certbot_cert_path }}"
+    cert_base_path: "{{ letsencrypt_live_path }}"
   register: cert_check
 
 - name: "receive certificate for {{ domain }}"
@@ -16,7 +16,7 @@
     --dns-{{ certbot_acme_challenge_method }}-propagation-seconds {{ certbot_dns_propagation_wait_seconds }}
     {% else %}
     --webroot 
-    -w {{ certbot_webroot_path }}
+    -w {{ letsencrypt_webroot_path }}
     {% endif %}
     {% if wildcard_domain is defined and ( wildcard_domain | bool ) %}
     -d {{ primary_domain }} 

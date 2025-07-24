@@ -1,0 +1,15 @@
+{% include 'roles/docker-compose/templates/base.yml.j2' %}
+  openresty:
+    container_name: {{ openresty_container }}
+    image: {{ openresty_image }}:{{ openresty_version }}
+    network_mode: "host"
+    volumes:
+      - {{ nginx.files.configuration }}:/usr/local/openresty/nginx/conf/nginx.conf:ro
+      - {{ nginx.directories.configuration }}:/usr/local/openresty/nginx/conf/conf.d:ro
+      - {{ nginx.files.configuration }}:{{ nginx.files.configuration }}:ro
+      - {{ nginx.directories.configuration }}:{{ nginx.directories.configuration }}:ro
+      - {{ nginx.directories.data.www }}:{{ nginx.directories.data.www }}:ro
+      - {{ nginx.directories.data.well_known }}:{{ nginx.directories.data.well_known }}:ro
+      - {{ letsencrypt_webroot_path }}:{{ letsencrypt_webroot_path }}:ro
+      - {{ letsencrypt_base_path }}:{{ letsencrypt_base_path }}:ro
+    command: ["openresty", "-g", "daemon off;"]

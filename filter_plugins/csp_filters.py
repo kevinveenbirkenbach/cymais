@@ -129,7 +129,7 @@ class FilterModule(object):
                         sld_tld = ".".join(domain.split(".")[-2:])  # yields "example.com"
                         tokens.append(f"{sld_tld}")                 # yields "*.example.com"
                 
-                if self.is_feature_enabled(applications, 'universal_logout', application_id):
+                if self.is_feature_enabled(applications, 'logout', application_id):
                         
                         # Allow logout via cymais logout proxy
                         domain = domains.get('web-svc-logout')[0] 

@@ -1,13 +1,13 @@
-# run_once_srv_web_7_7_inj_javascript: deactivated
-- name: "Load JavaScript code for '{{ application_id }}'"
+# run_once_srv_web_7_7_inj_logout: deactivated
+- name: "Load logout code for '{{ application_id }}'"
   set_fact:
-    javascript_code: "{{ lookup('template', modifier_javascript_template_file) }}"
+    logout_code: "{{ lookup('template', 'logout.js.j2') }}"
 
-- name: "Collapse Javascript code into one-liner for '{{application_id}}'"
+- name: "Collapse logout code into one-liner for '{{application_id}}'"
   set_fact:
-    javascript_code_one_liner: "{{ javascript_code | to_one_liner }}"
+    logout_code_one_liner: "{{ logout_code | to_one_liner }}"
 
-- name: "Append Javascript CSP hash for '{{application_id}}'"
+- name: "Append logout CSP hash for '{{application_id}}'"
   set_fact:
-    applications: "{{ applications | append_csp_hash(application_id, javascript_code_one_liner) }}"
+    applications: "{{ applications | append_csp_hash(application_id, logout_code_one_liner) }}"
   changed_when: false

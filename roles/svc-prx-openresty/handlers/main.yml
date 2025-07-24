@@ -1,0 +1,12 @@
+---
+- name: Validate OpenResty configuration
+  command: >
+    docker exec {{ openresty_container }} openresty -t -q
+  register: openresty_test
+  changed_when: false
+  failed_when: openresty_test.rc != 0
+  listen: restart openresty
+
+- name: Restart OpenResty container
+  command: docker restart {{ openresty_container }}
+  listen: restart openresty

@@ -11,13 +11,13 @@
   template: 
     src:  "templates/proxy.conf.j2"
     dest: "{{nginx.directories.http.servers}}{{domain}}.conf"
-  notify: restart nginx
+  notify: restart openresty
 
 - name: configure {{domain}}.conf
   template: 
     src:  "templates/proxy.conf.j2"
     dest: "{{nginx.directories.http.servers}}{{domain}}.conf"
-  notify: restart nginx
+  notify: restart openresty
 
 - name: "create {{docker_compose.files.env}}"
   template: 

@@ -12,7 +12,7 @@ features:
   ldap:               false
   oidc:               true
   central_database:   false
-  universal_logout:   true
+  logout:   true
 domains:
   canonical:
     - "meet.{{ primary_domain }}"

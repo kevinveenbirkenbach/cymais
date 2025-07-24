@@ -16,7 +16,7 @@
     --certbot-credentials-file "{{ certbot_credentials_file }}"
     --certbot-dns-propagation-seconds "{{ certbot_dns_propagation_wait_seconds }}"
     {% else %}
-    --certbot-webroot-path "{{ certbot_webroot_path }}"
+    --certbot-webroot-path "{{ letsencrypt_webroot_path }}"
     {% endif %}
     {{ '--mode-test' if mode_test | bool else '' }}
   register: certbundle_result

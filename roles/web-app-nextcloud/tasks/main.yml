@@ -23,11 +23,11 @@
   include_role:
     name: srv-web-7-6-composer
 
-- name: create nextcloud nginx proxy configuration file
+- name: create nextcloud proxy configuration file
   template: 
     src:  "nginx/host.conf.j2" 
     dest: "{{nginx.directories.http.servers}}{{domains | get_domain(application_id)}}.conf"
-  notify: restart nginx
+  notify: restart openresty
 
 - name: create internal nextcloud nginx configuration
   template: 

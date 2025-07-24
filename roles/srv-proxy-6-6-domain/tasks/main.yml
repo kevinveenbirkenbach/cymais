@@ -9,7 +9,7 @@
     src: "{{ vhost_template_src }}"
     dest: "{{ configuration_destination }}"
   register: nginx_conf
-  notify: restart nginx
+  notify: restart openresty
 
 - name: "Check if {{ domains | get_domain(application_id) }} is reachable (only if config unchanged)"
   uri:
@@ -22,7 +22,7 @@
 - name: Restart nginx if site is down
   command:
     cmd: "true"
-  notify: restart nginx
+  notify: restart openresty
   when:
     - not nginx_conf.changed
     - site_check.status is defined

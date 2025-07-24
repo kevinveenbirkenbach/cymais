@@ -10,4 +10,4 @@
   template: 
     src:  "nginx.conf.j2" 
     dest: "{{nginx.directories.http.servers}}{{domains | get_domain(application_id)}}.conf"
-  notify: restart nginx
+  notify: restart openresty

@@ -1,0 +1,9 @@
+application_id:                 "svc-prx-openresty"
+
+# Openresty
+openresty_image:                "openresty/openresty"
+openresty_version:              "alpine"
+openresty_container:            "openresty"
+
+# Docker
+docker_compose_flush_handlers:  true

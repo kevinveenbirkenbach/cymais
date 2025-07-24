@@ -2,7 +2,7 @@
   template: 
     src:  "letsencrypt.conf.j2"
     dest: "{{nginx.directories.http.global}}letsencrypt.conf"
-  notify: restart nginx
+  notify: restart openresty
   when: run_once_letsencrypt is not defined
 
 - name: "Set CAA records for all base domains"

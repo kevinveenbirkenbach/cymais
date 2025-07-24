@@ -1,5 +1,5 @@
 features:
-  universal_logout: false
+  logout: false
 domains:
   canonical:
     - "wheel.{{ primary_domain }}"

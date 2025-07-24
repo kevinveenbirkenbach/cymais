@@ -12,7 +12,7 @@ features:
   port-ui-desktop:        true
   central_database:       true
   oauth2:                 true
-  universal_logout:       true
+  logout:       true
 csp:
   flags:
     style-src:

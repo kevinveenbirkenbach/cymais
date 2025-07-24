@@ -8,7 +8,7 @@
   template: 
     src:  "nginx.stream.conf.j2" 
     dest: "{{nginx.directories.streams}}{{domains | get_domain(application_id)}}.conf"
-  notify: restart nginx
+  notify: restart openresty
   when: applications | get_app_conf(application_id, 'network.public', True) | bool
 
 - name: Remove {{domains | get_domain(application_id)}}.conf if LDAP is not exposed to internet

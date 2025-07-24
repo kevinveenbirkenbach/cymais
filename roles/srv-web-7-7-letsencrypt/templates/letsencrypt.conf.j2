@@ -9,7 +9,7 @@ server
   #letsencrypt
   location ^~ /.well-known/acme-challenge/ {
     allow all;
-    root {{ certbot_webroot_path }};
+    root {{ letsencrypt_webroot_path }};
     default_type "text/plain";
     try_files $uri =404;
   }

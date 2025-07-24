@@ -22,7 +22,7 @@
 - name: "Find SSL cert folder for '{{ domain }}'"
   cert_folder_find:
     domain: "{{ domain }}"
-    cert_base_path: "{{ certbot_cert_path }}"
+    cert_base_path: "{{ letsencrypt_live_path }}"
     debug: "{{ enable_debug | default(false) }}"
   register: cert_folder_result
   delegate_to: "{{ inventory_hostname }}"

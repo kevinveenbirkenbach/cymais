@@ -8,7 +8,7 @@ features:
   central_database:   true
   ldap:               true
   oauth2:             false # No special login side which could be protected, use 2FA of Friendica instead
-  universal_logout:   true
+  logout:   true
 domains:
   canonical:
     - "social.{{ primary_domain }}"

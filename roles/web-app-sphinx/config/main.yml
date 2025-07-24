@@ -2,7 +2,7 @@ features:
   matomo:             true
   css:                true
   port-ui-desktop:    true
-  universal_logout:   false
+  logout:   false
 csp:
   flags:
     script-src:

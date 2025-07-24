@@ -1,38 +1,100 @@
-(function() {
-  const logoutUrlBase = 'https://auth.cymais.cloud/realms/cymais.cloud/protocol/openid-connect/logout';
-  const redirectUri = encodeURIComponent('https://cymais.cloud');
-  const logoutUrl = `${logoutUrlBase}?redirect_uri=${redirectUri}`;
+(function () {
+  const logoutUrlBase = '{{ oidc.client.logout_url }}';
+  const redirectUri = encodeURIComponent('{{ web_protocol }}://{{ primary_domain }}');
+  const logoutUrl = logoutUrlBase + '?redirect_uri=' + redirectUri;
 
-  // Check if a string matches logout keywords
   function matchesLogout(str) {
-    return str && /logout|log\s*out|abmelden/i.test(str);
+    return str && /(?:^|\W)log\s*out(?:\W|$)|logout/i.test(str);
   }
 
-  // Check if any attribute name contains "logout" (case-insensitive)
   function hasLogoutAttribute(el) {
-    for (let attr of el.attributes) {
-      if (/logout/i.test(attr.name)) {
+    for (const attr of el.attributes) {
+      if (/logout/i.test(attr.name) || /\/logout/i.test(attr.value)) {
         return true;
       }
     }
     return false;
   }
 
-  // Find all elements
-  const allElements = document.querySelectorAll('*');
-  allElements.forEach(el => {
-    if (
-      matchesLogout(el.getAttribute('name')) ||
-      matchesLogout(el.id) ||
-      matchesLogout(el.className) ||
-      matchesLogout(el.innerText) ||
-      hasLogoutAttribute(el)
-    ) {
-      el.style.cursor = 'pointer';
-      el.addEventListener('click', function(event) {
-        event.preventDefault();
-        window.location.href = logoutUrl;
-      });
+  function matchesTechnicalIndicators(el) {
+    const title = el.getAttribute('title');
+    const ariaLabel = el.getAttribute('aria-label');
+    const onclick = el.getAttribute('onclick');
+
+    if (matchesLogout(title) || matchesLogout(ariaLabel) || matchesLogout(onclick)) return true;
+
+    for (const attr of el.attributes) {
+      if (attr.name.startsWith('data-') && matchesLogout(attr.name + attr.value)) return true;
     }
+
+    if (typeof el.onclick === 'function' && matchesLogout(el.onclick.toString())) return true;
+
+    if (el.tagName.toLowerCase() === 'use') {
+      const href = el.getAttribute('xlink:href') || el.getAttribute('href');
+      if (matchesLogout(href)) return true;
+    }
+
+    return false;
+  }
+
+  function overrideLogout(el) {
+    if (el.dataset._logoutHandled) return; // Prevent duplicate handling
+    el.dataset._logoutHandled = "true";
+
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', function (event) {
+      event.preventDefault();
+      window.location.href = logoutUrl;
+    });
+
+    const tagName = el.tagName.toLowerCase();
+
+    if (tagName === 'a' && el.hasAttribute('href') && /\/logout/i.test(el.getAttribute('href'))) {
+      el.setAttribute('href', logoutUrl);
+    }
+
+    if ((tagName === 'button' || tagName === 'input') &&
+        el.hasAttribute('formaction') && /\/logout/i.test(el.getAttribute('formaction'))) {
+      el.setAttribute('formaction', logoutUrl);
+    }
+
+    if (tagName === 'form' && el.hasAttribute('action') && /\/logout/i.test(el.getAttribute('action'))) {
+      el.setAttribute('action', logoutUrl);
+    }
+  }
+
+  function scanAndPatch(elements) {
+    elements.forEach(el => {
+      const tagName = el.tagName.toLowerCase();
+      const isPotentialLogoutElement = ['a', 'button', 'input', 'form', 'use'].includes(tagName);
+
+      if (
+        isPotentialLogoutElement && (
+          matchesLogout(el.getAttribute('name')) ||
+          matchesLogout(el.id) ||
+          matchesLogout(el.className) ||
+          matchesLogout(el.innerText) ||
+          hasLogoutAttribute(el) ||
+          matchesTechnicalIndicators(el)
+        )
+      ) {
+        overrideLogout(el);
+      }
+    });
+  }
+
+  // Initial scan
+  scanAndPatch(document.querySelectorAll('*'));
+
+  // MutationObserver for dynamic content
+  const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+      mutation.addedNodes.forEach(node => {
+        if (!(node instanceof Element)) return;
+        scanAndPatch([node, ...node.querySelectorAll('*')]);
+      });
+    });
   });
+
+  observer.observe(document.body, { childList: true, subtree: true });
 })();

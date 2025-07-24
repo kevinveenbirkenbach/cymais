@@ -6,7 +6,7 @@ server
 
   {% include 'roles/srv-web-7-7-letsencrypt/templates/ssl_header.j2' %}
 
-  {% include 'roles/srv-web-7-7-inj-compose/templates/global.includes.conf.j2'%}
+  {% include 'roles/srv-web-7-7-inj-compose/templates/global.includes.lua.j2'%}
   # Remove X-Powered-By, which is an information leak
   fastcgi_hide_header X-Powered-By;
 
@@ -20,7 +20,7 @@ server
 
   {% include 'roles/srv-proxy-7-4-core/templates/location/proxy_basic.conf.j2' %}
 
-  {% if applications | get_app_conf(application_id, 'features.universal_logout', False) %}
+  {% if applications | get_app_conf(application_id, 'features.logout', False) %}
     {% include 'roles/web-svc-logout/templates/logout-proxy.conf.j2' %}
   {% endif %}
 

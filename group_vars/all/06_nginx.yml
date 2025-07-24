@@ -1,20 +1,25 @@
 # Webserver Configuration
 
+# Helper 
+_nginx_www_dir: /var/www/
 ## Nginx-Specific Path Configurations
 nginx:
+  files:
+    configuration:   "/etc/nginx/nginx.conf"
   directories:
-    configuration:    "/etc/nginx/conf.d/"              # Configuration directory
+    configuration:    "/etc/nginx/conf.d/"                  # Configuration directory
     http:                                               
-      global:         "/etc/nginx/conf.d/http/global/"  # Contains global configurations which will be loaded into the http block
-      servers:        "/etc/nginx/conf.d/http/servers/" # Contains one configuration per domain
-      maps:           "/etc/nginx/conf.d/http/maps/"    # Contains mappings
-    streams:          "/etc/nginx/conf.d/streams/"      # Contains streams configuration e.g. for ldaps
+      global:         "/etc/nginx/conf.d/http/global/"      # Contains global configurations which will be loaded into the http block
+      servers:        "/etc/nginx/conf.d/http/servers/"     # Contains one configuration per domain
+      maps:           "/etc/nginx/conf.d/http/maps/"        # Contains mappings
+    streams:          "/etc/nginx/conf.d/streams/"          # Contains streams configuration e.g. for ldaps
     data:
-      well_known:     "/usr/share/nginx/well-known/"    # Path where well-known files are stored
-      html:           "/var/www/public_html/"           # Path where the static homepage files are stored
-      files:          "/var/www/public_files/"          # Path where the web accessable files are stored
-      global:         "/var/www/global/"                # Directory containing files which will be globaly accessable
+      www:            "{{ _nginx_www_dir }}"
+      well_known:     "/usr/share/nginx/well-known/"        # Path where well-known files are stored
+      html:           "{{ _nginx_www_dir }}public_html/"    # Path where the static homepage files are stored
+      files:          "{{ _nginx_www_dir }}public_files/"   # Path where the web accessable files are stored
+      global:         "{{ _nginx_www_dir }}global/"         # Directory containing files which will be globaly accessable
     cache:
-      general:        "/tmp/cache_nginx_general/"       # Directory which nginx uses to cache general data
-      image:          "/tmp/cache_nginx_image/"         # Directory which nginx uses to cache images
-  user:               "http"                            # Default nginx user in ArchLinux
+      general:        "/tmp/cache_nginx_general/"           # Directory which nginx uses to cache general data
+      image:          "/tmp/cache_nginx_image/"             # Directory which nginx uses to cache images
+  user:               "http"                                # Default nginx user in ArchLinux

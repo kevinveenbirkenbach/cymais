@@ -1,4 +1,4 @@
-# run_once_srv_web_7_7_inj_iframe: deactivated
+# run_once_srv_web_7_7_inj_port_ui_desktop: deactivated
 - name: "Load iFrame handler JS template for '{{ application_id }}'"
   set_fact:
     iframe_code: "{{ lookup('template','iframe-handler.js.j2') }}"

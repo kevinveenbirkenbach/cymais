@@ -2,7 +2,6 @@
   
   coturn:
 {% include 'roles/docker-container/templates/base.yml.j2' %}
-{% include 'roles/docker-container/templates/networks.yml.j2' %}
     image: coturn/coturn
     restart: always
     network_mode: "host"  # Nutzt die Host-IP für externe Erreichbarkeit (optional)
@@ -42,8 +41,5 @@
       --denied-peer-ip=203.0.113.0-203.0.113.255
       --denied-peer-ip=240.0.0.0-255.255.255.255
 
-{% include 'roles/docker-compose/templates/networks.yml.j2' %}
-
 {% include 'roles/docker-compose/templates/volumes.yml.j2' %}
   coturn-config:
-

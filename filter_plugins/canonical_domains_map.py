@@ -18,7 +18,7 @@ class FilterModule(object):
         seen_domains = {}
 
         for app_id, cfg in apps.items():
-            if app_id.startswith(("web-","svc-")):
+            if app_id.startswith(("web-")):
                 if not isinstance(cfg, dict):
                     raise AnsibleFilterError(
                     f"Invalid configuration for application '{app_id}': "

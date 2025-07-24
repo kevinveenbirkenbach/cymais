@@ -1,3 +1,10 @@
+- name: "Fail if 'web-app-oauth2-proxy' matches current role name"
+  fail:
+    msg: >-
+      Don't call the 'web-app-oauth2-proxy' role directly via include_role or import_role.
+      It is a helper role only. Direct use would lead to confusion due to application_id mismatch.
+  when: role_name == "web-app-oauth2-proxy"
+
 - name: "Transfering oauth2-proxy-keycloak.cfg.j2 to {{( application_id | get_docker_paths(path_docker_compose_instances) ).directories.volumes }}"
   template:
     src:  "{{ playbook_dir }}/roles/web-app-oauth2-proxy/templates/oauth2-proxy-keycloak.cfg.j2"

@@ -37,7 +37,7 @@
   vars:
     domain:     "{{domains[application_id].synapse}}" # Didn't work in the past. May it works now. This does not seem to work @todo Check how to solve without declaring set_fact, seems a bug at templates
     http_port:  "{{ports.localhost.http['web-app-matrix_synapse']}}"
-  notify: restart nginx
+  notify: restart openresty
         
 - name: "include role srv-proxy-6-6-domain for {{application_id}}"
   include_role: 

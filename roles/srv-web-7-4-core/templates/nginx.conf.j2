@@ -1,4 +1,3 @@
-load_module /usr/lib/nginx/modules/ngx_stream_module.so;
 worker_processes auto;
 
 events
@@ -33,11 +32,11 @@ http
                   '"ConnRequests: $connection_requests" '
                   '"X-Forwarded-For: $http_x_forwarded_for" '
                   '"Scheme: $scheme" "Protocol: $server_protocol" "ServerName: $server_name"';
-  access_log syslog:server=unix:/dev/log debug;
+  access_log  /dev/stdout  debug;
 {% else %}
-  access_log syslog:server=unix:/dev/log;
+  access_log  /dev/stdout  debug;
 {% endif %}
-  error_log syslog:server=unix:/dev/log;
+  error_log  /dev/stderr  info;
 
   sendfile on;
   keepalive_timeout 65;

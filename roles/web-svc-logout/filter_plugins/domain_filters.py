@@ -6,7 +6,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..',
 from module_utils.config_utils import get_app_conf
 
 class FilterModule(object):
-    """Ansible filter plugin for generating logout domains based on universal_logout feature."""
+    """Ansible filter plugin for generating logout domains based on logout feature."""
 
     def filters(self):
         return {
@@ -15,7 +15,7 @@ class FilterModule(object):
 
     def logout_domains(self, applications, group_names):
         """
-        Return a list of domains for applications where features.universal_logout is true.
+        Return a list of domains for applications where features.logout is true.
 
         :param applications: dict of application configs
         :param group_names: list of application IDs to consider
@@ -27,7 +27,7 @@ class FilterModule(object):
                 if app_id not in group_names:
                     continue
 
-                if not get_app_conf(applications, app_id, 'features.universal_logout', False):
+                if not get_app_conf(applications, app_id, 'features.logout', False):
                     continue
 
                 # use canonical domains list if present

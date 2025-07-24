@@ -8,7 +8,7 @@ features:
   port-ui-desktop:        true                             # Deactivated mailu iframe loading until keycloak supports it
   oidc:                   true
   central_database:       false                             # Deactivate central database for mailu, I don't know why the database deactivation is necessary
-  universal_logout:       true
+  logout:       true
 domains:
   canonical:
     - "mail.{{ primary_domain }}"

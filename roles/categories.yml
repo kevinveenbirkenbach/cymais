@@ -118,6 +118,11 @@ roles:
       description: "Optimation Services to improve your system"
       icon: "fas fa-database"
       invokable: true
+    prx:
+      title: "Proxy Servers"
+      description: "Reverse‑proxy roles for routing and load‑balancing traffic to backend services"
+      icon: "fas fa-project-diagram"
+      invokable: true
 
   user:
     title: "Users & Access"

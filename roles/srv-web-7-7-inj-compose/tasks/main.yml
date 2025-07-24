@@ -10,12 +10,17 @@
     name: srv-web-7-7-inj-matomo
   when: applications | get_app_conf(application_id, 'features.matomo', False)
 
-- name: "Activate Portfolio iFrame Notifier for {{ domain }}"
+- name: "Activate Portfolio iFrame notifier for {{ domain }}"
   include_role:
-    name: srv-web-7-7-inj-iframe
+    name: srv-web-7-7-inj-port-ui-desktop
   when: applications | get_app_conf(application_id, 'features.port-ui-desktop', False)
 
 - name: "Activate Javascript for {{ domain }}"
   include_role:
     name: srv-web-7-7-inj-javascript
   when: applications | get_app_conf(application_id, 'features.javascript', False)
+
+- name: "Activate logout proxy for {{ domain }}"
+  include_role:
+    name: srv-web-7-7-inj-logout
+  when: applications | get_app_conf(application_id, 'features.logout', False)

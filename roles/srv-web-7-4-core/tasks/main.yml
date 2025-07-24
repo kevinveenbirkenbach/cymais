@@ -1,11 +1,18 @@
 ---
-- name: install nginx
-  pacman:
-    name:
-      - nginx
-      - nginx-mod-stream
-    state:  present
-  notify: restart nginx
+
+- name: "Store 'application_id' : {{ application_id }}"
+  set_fact:
+    original_application_id: "{{ application_id }}"
+  when: run_once_srv_web_core is not defined
+
+- name: Include openresty
+  include_role: 
+    name: svc-prx-openresty
+  when: run_once_srv_web_core is not defined
+
+- name: "Restore 'application_id':\n Current: {{ application_id }}\n Restored: {{ original_application_id }}"
+  set_fact:
+    application_id: "{{ original_application_id }}"
   when: run_once_srv_web_core is not defined
 
 - name: "reset (if enabled)"
@@ -46,8 +53,8 @@
 - name: create nginx config file
   template: 
     src:  nginx.conf.j2 
-    dest: /etc/nginx/nginx.conf
-  notify: restart nginx
+    dest: "{{ nginx.files.configuration }}"
+  notify: restart openresty
   when: run_once_srv_web_core is not defined
 
 - name: flush nginx service

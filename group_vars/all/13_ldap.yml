@@ -10,7 +10,7 @@ _ldap_docker_network_enabled:   "{{ applications | get_app_conf('svc-db-openldap
 _ldap_protocol:                 "{{ 'ldap' if _ldap_docker_network_enabled else 'ldaps' }}"
 _ldap_server_port:              "{{ ports.localhost[_ldap_protocol]['svc-db-openldap'] }}"
 _ldap_name:                     "{{ applications | get_app_conf('svc-db-openldap', 'docker.services.openldap.name') }}"
-_ldap_domain:                   "{{ domains | get_domain('svc-db-openldap') }}"
+_ldap_domain:                   "{{ primary_domain }}" # LDAP is jsut listening to a port not to a dedicated domain, so primary domain should be sufficient
 _ldap_user_id:                  "uid"
 _ldap_filters_users_all:        "(|(objectclass=inetOrgPerson))"
 

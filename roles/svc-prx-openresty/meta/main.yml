@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  author: "Kevin Veen‑Birkenbach"
+  description: >
+    Role to provision an OpenResty container via Docker Compose.
+  license: "CyMaIS NonCommercial License (CNCL)"
+  license_url: "https://s.veen.world/cncl"
+  company: |
+    Kevin Veen‑Birkenbach  
+    Consulting & Coaching Solutions  
+    https://www.veen.world
+  galaxy_tags:
+    - openresty
+    - nginx
+    - docker
+    - reverse_proxy
+  repository: "https://github.com/kevinveenbirkenbach/cymais"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
+  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/svc-prx-openresty"
+  min_ansible_version: "2.9"

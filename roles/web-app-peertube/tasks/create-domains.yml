@@ -6,4 +6,4 @@
   template: 
     src:  "templates/peertube.conf.j2"
     dest: "{{nginx.directories.http.servers}}{{domain}}.conf"
-  notify: restart nginx
+  notify: restart openresty

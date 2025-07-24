@@ -4,7 +4,7 @@ features:
   oidc:             true
   matomo:           true
   port-ui-desktop:  true
-  universal_logout: true
+  logout: true
 csp:
   flags:
     script-src-elem:

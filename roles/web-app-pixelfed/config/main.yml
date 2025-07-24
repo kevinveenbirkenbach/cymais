@@ -5,7 +5,7 @@ features:
   port-ui-desktop:    true
   central_database:   true
   oidc:               true
-  universal_logout:   true
+  logout:   true
 csp:
   flags:
     script-src:

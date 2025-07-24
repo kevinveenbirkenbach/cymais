@@ -18,7 +18,7 @@ It solves the common challenge of logging a user out from all connected apps wit
 
 ## Features
 
-- Automatic discovery of logout domains from applications with the `features.universal_logout` flag enabled.
+- Automatic discovery of logout domains from applications with the `features.logout` flag enabled.
 - Centralized logout proxy that clears cookies and sessions across all configured subdomains.
 - Status page with live feedback on logout progress for each domain.
 - Built-in support for Docker Compose deployment and integration with the CyMaIS ecosystem.

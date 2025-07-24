@@ -17,7 +17,7 @@ features:
   ldap:               true
   central_database:   true
   oauth2:             true
-  universal_logout:   true
+  logout:   true
 csp:
   flags:
     script-src-elem:

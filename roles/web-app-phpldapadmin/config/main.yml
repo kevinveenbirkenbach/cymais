@@ -10,7 +10,7 @@ features:
   port-ui-desktop:    true
   ldap:               true
   oauth2:             true
-  universal_logout:   true
+  logout:   true
 
 domains:
   canonical:

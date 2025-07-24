@@ -19,7 +19,7 @@ features:
   ldap:               true
   central_database:   true
   oauth2:             false # Doesn't make sense to activate it atm, because login is possible on homepage
-  universal_logout:   true
+  logout:   true
 domains:
   canonical:
     - "audio.{{ primary_domain }}"

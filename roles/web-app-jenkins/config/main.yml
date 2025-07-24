@@ -1,5 +1,5 @@
 features:
-  universal_logout: true # Same like with elk, anyhow not active atm
+  logout: true # Same like with elk, anyhow not active atm
 
 domains:
   canonical:

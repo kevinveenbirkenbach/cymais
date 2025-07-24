@@ -12,7 +12,7 @@
   copy: 
     src:  "websocket_upgrade.conf"
     dest: "{{nginx.directories.http.maps}}websocket_upgrade.conf"
-  notify: restart nginx
+  notify: restart openresty
 
 - name: "Set BBB Facts"
   set_fact:

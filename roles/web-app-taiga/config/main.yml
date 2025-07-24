@@ -11,7 +11,7 @@ features:
   port-ui-desktop:    true
   oidc:               false
   central_database:   true
-  universal_logout:   true
+  logout:   true
 docker:
   services:
     database:
