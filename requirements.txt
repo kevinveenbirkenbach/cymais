@@ -4,3 +4,4 @@ bcrypt
 ruamel.yaml
 tld
 passlib
+requests
