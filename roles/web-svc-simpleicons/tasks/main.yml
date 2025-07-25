@@ -10,7 +10,7 @@
     dest: "{{ item.target }}"
     mode: '0755'
   loop:
-    - { source: "server.js.j2",    target: "{{ simpleicons_host_server_file }}" }
+    - { source: "server.js.j2",     target: "{{ simpleicons_host_server_file }}" }
     - { source: "package.json.j2",  target: "{{ simpleicons_host_package_file }}" }
   notify:
     - docker compose up

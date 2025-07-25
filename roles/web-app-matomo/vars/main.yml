@@ -1,6 +1,9 @@
 ---
+# General
 application_id:       "web-app-matomo"
 database_type:        "mariadb"
+
+# Matomo
 matomo_excluded_ips:  "{{ applications | get_app_conf(application_id, 'excluded_ips', True) }}"
 matomo_index_php_url: "{{ domains | get_url(application_id, web_protocol) }}/index.php"
 matomo_auth_token:    "{{ applications | get_app_conf(application_id, 'credentials.auth_token', True) }}"
