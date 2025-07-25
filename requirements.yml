@@ -1,10 +1,5 @@
 collections:
   - name: kewlfft.aur
   - name: community.general
-pacman:
-# Propably it makes sense to move the following to the requirements.txt to just install it in the python venv
-  - ansible
-  - python-passlib
-  - python-pytest
 yay:
   - python-simpleaudio
