@@ -4,6 +4,9 @@ application_id:                 svc-db-postgres
 # Docker
 docker_compose_flush_handlers:  true
 
+# Docker Compose
+database_type:                  "{{ application_id | get_entity_name }}"
+
 ## Postgres
 postgres_volume:                "{{ applications | get_app_conf(application_id, 'docker.volumes.data', True) }}"
 postgres_name:                  "{{ applications | get_app_conf(application_id, 'docker.services.postgres.name', True) }}"
