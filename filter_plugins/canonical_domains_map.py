@@ -18,7 +18,10 @@ class FilterModule(object):
         seen_domains = {}
 
         for app_id, cfg in apps.items():
-            if app_id.startswith(("web-")):
+            if app_id.startswith((
+                    "web-",
+                    "svc-db-"   # Database services can also be exposed to the internet. It is just listening to the port, but the domain is used for port mapping
+                    )):
                 if not isinstance(cfg, dict):
                     raise AnsibleFilterError(
                     f"Invalid configuration for application '{app_id}': "
