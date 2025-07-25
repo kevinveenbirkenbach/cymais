@@ -1,12 +1,12 @@
 import_realm:         True                                # If True realm will be imported. If false skip.
 features:
   matomo:             true
-  css:                false
+  css:                true
   port-ui-desktop:    true
   ldap:               true
   central_database:   true
   recaptcha:          true
-  logout:   true
+  logout:             true
 csp:
   flags:
     script-src-elem:
