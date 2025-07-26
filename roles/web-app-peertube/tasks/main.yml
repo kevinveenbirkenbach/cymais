@@ -9,7 +9,9 @@
   loop_control:
     loop_var: domain
   vars:
-    http: "{{ ports.localhost.http[application_id] }}"
+    # Websockt and http listen to the same port
+    http_port:  "{{ ports.localhost.http[application_id] }}"
+    ws_port:    "{{ ports.localhost.http[application_id] }}"
 
 - name: "Install and activate auth-openid-connect plugin if OIDC is enabled"
   include_tasks: enable-oidc.yml

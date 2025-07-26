@@ -1,10 +1,12 @@
-location {{location | default("/")}}
+{% set location = location | default("/")%}
+
+location {{location}}
 {
   {% if oauth2_proxy_enabled | default(false) | bool %}
     {% include 'roles/web-app-oauth2-proxy/templates/following_directives.conf.j2'%}
   {% endif %}
 
-  proxy_pass http://127.0.0.1:{{ http_port }}{{ location | default("/") }};
+  proxy_pass http://127.0.0.1:{{ http_port }}{{ location if not location.startswith('@') else '' }};
 
   # headers
   proxy_set_header Host $host;

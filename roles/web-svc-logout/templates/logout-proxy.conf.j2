@@ -9,9 +9,9 @@ location = /logout {
 
     # CORS headers – allow your central page to call this
     add_header 'Access-Control-Allow-Origin'  '{{ domains | get_url('web-svc-logout', web_protocol) }}' always;
-    add_header 'Access-Control-Allow-Credentials' 'true'                     always;
-    add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS'               always;
-    add_header 'Access-Control-Allow-Headers' 'Accept, Authorization'     always;
+    add_header 'Access-Control-Allow-Credentials' 'true'                                                always;
+    add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS'                                            always;
+    add_header 'Access-Control-Allow-Headers' 'Accept, Authorization'                                   always;
 
     # Disable caching absolutely
     add_header Cache-Control "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" always;
