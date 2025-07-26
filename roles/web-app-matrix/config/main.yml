@@ -39,6 +39,7 @@ csp:
     script-src-elem:
       - "element.{{ primary_domain }}"
       - "https://cdn.jsdelivr.net"
+
 plugins:
 # You need to enable them in the inventory file
   chatgpt:    false
@@ -49,6 +50,8 @@ plugins:
   slack:      false
   telegram:   false
   whatsapp:   false
+
+client_max_body_size: "15M"
 
 domains:
   canonical:

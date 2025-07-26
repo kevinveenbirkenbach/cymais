@@ -1,4 +1,5 @@
-title:                "Blog"                                      # Wordpress titel
+title:                "Blog"  # Wordpress titel
+max_upload_size:      "15M"   # Low default upload size, because you should use Peertube for Videos and Funkwhale for Audio files
 plugins:
   wp-discourse:
     enabled:          "{{ 'web-app-discourse' in group_names | lower }}"

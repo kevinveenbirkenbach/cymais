@@ -15,4 +15,6 @@ server {
     {% include 'roles/srv-web-7-7-inj-compose/templates/server.conf.j2'%}
 
     {% include 'roles/srv-proxy-7-4-core/templates/location/html.conf.j2' %}
+
+    {% include 'roles/srv-proxy-7-4-core/templates/location/upload.conf.j2' %}
 }
