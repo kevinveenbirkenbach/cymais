@@ -2,7 +2,7 @@
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
   description: "Installs and configures components for sending email notifications. This role is part of the sys-alm-compose suite, providing automated alerts when services fail."
-  license: "CyMaIS NonCommercial License (CNCL)"
+  license: "Infinito.Nexus NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
     Kevin Veen-Birkenbach
@@ -19,9 +19,9 @@ galaxy_info:
     - notifications
     - automation
     - msmtp
-  repository: "https://s.veen.world/cymais"
-  issue_tracker_url: "https://s.veen.world/cymaisissues"
-  documentation: "https://s.veen.world/cymais"
+  repository: "https://github.com/kevinveenbirkenbach/infinito-nexus"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/infinito-nexus/issues"
+  documentation: "https://docs.infinito.nexus"
 dependencies:
   - sys-svc-msmtp
   - sys-rst-daemon

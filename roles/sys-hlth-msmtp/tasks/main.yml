@@ -10,11 +10,11 @@
     dest: "{{ health_msmtp_folder }}sys-hlth-msmtp.sh"
     mode: '0755'
 
-- name: create sys-hlth-msmtp.cymais.service
+- name: create sys-hlth-msmtp.infinito.service
   template:
     src: sys-hlth-msmtp.service.j2
-    dest: /etc/systemd/system/sys-hlth-msmtp.cymais.service
-  notify: reload sys-hlth-msmtp.cymais.service
+    dest: /etc/systemd/system/sys-hlth-msmtp.infinito.service
+  notify: reload sys-hlth-msmtp.infinito.service
 
 - name: "set 'service_name' to '{{ role_name }}'"
   set_fact:

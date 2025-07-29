@@ -16,7 +16,7 @@
            mailu_tokens_cli.stdout
            | default('[]')
            | from_json
-           | selectattr('comment','equalto', mailu_user_key ~ " - ansible.cymais")
+           | selectattr('comment','equalto', mailu_user_key ~ " - ansible.infinito")
            | list
          ).0 | default(None) }}
 
@@ -41,7 +41,7 @@
         -H "Authorization: Bearer {{ mailu_global_api_token }}" \
         -H "Content-Type: application/json" \
         -d '{{ {
-              "comment": mailu_user_key ~ " - ansible.cymais",
+              "comment": mailu_user_key ~ " - ansible.infinito",
               "email": users[mailu_user_key].email,
               "ip": mailu_token_ip
             } | to_json }}'

@@ -3,16 +3,16 @@
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
   description: "Deploys Pretix ticketing system via Docker Compose with basic service orchestration."
-  license: "CyMaIS NonCommercial License (CNCL)"
+  license: "Infinito.Nexus NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: | 
     Kevin Veen-Birkenbach
     Consulting & Coaching Solutions
     https://www.veen.world
   galaxy_tags: []
-  repository: "https://github.com/kevinveenbirkenbach/cymais"
-  issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
-  documentation: "https://github.com/kevinveenbirkenbach/cymais/"
+  repository: "https://github.com/kevinveenbirkenbach/infinito-nexus"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/infinito-nexus/issues"
+  documentation: "https://github.com/kevinveenbirkenbach/infinito-nexus/"
   logo:
     class: ""
   run_after: []

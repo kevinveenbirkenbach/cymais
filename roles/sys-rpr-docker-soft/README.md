@@ -17,12 +17,12 @@ The purpose of this role is to provide automated healing for Docker Compose envi
 - **Container Health Monitoring:** Detects unhealthy or exited containers.
 - **Automated Recovery:** Restarts failed containers and resolves port binding issues.
 - **Run-once Setup Logic:** Ensures idempotent execution by controlling task flow with internal flags.
-- **System Role Integration:** Seamlessly integrates with CyMaIS system maintenance logic.
+- **System Role Integration:** Seamlessly integrates with Infinito.Nexus system maintenance logic.
 
 ## Credits 📝
 
 Developed and maintained by **Kevin Veen-Birkenbach**.  
 Learn more at [www.veen.world](https://www.veen.world)
 
-Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
-License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)
+Part of the [Infinito.Nexus Project](https://github.com/kevinveenbirkenbach/infinito-nexus)  
+License: [Infinito.Nexus NonCommercial License (CNCL)](https://s.veen.world/cncl)

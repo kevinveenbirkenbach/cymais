@@ -5,7 +5,7 @@ class DummySound:
     @staticmethod
     def play_start_sound(): pass
     @staticmethod
-    def play_cymais_intro_sound(): pass
+    def play_infinito_intro_sound(): pass
     @staticmethod
     def play_finished_successfully_sound(): pass
     @staticmethod
@@ -69,7 +69,7 @@ else:
                 play_obj.wait_done()
 
             @classmethod
-            def play_cymais_intro_sound(cls):
+            def play_infinito_intro_sound(cls):
                 # Phase durations
                 build_time = 10.0
                 celebr_time = 12.0

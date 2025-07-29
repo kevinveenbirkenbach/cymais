@@ -1,6 +1,6 @@
-# Nextcloud Docs for CyMaIS
+# Nextcloud Docs for Infinito.Nexus
 
-This folder contains the Nextcloud Docs for CyMaIS.
+This folder contains the Nextcloud Docs for Infinito.Nexus.
 
 ## Index
 

@@ -1,9 +1,9 @@
 # License Agreement 
 
-## CyMaIS NonCommercial License (CNCL)
+## Infinito.Nexus NonCommercial License (CNCL)
 
 ### Definitions
-- **"Software":** Refers to *"[CyMaIS - Cyber Master Infrastructure Solution](https://cymais.cloud/)"* and its associated source code.
+- **"Software":** Refers to *"[Infinito.Nexus - Cyber Master Infrastructure Solution](https://infinito.nexus/)"* and its associated source code.
 - **"Commercial Use":** Any use of the Software intended for direct or indirect financial gain, including but not limited to sales, rentals, or provision of services.
 
 ### Provisions

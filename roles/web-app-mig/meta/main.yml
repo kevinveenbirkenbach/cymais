@@ -2,15 +2,15 @@
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
   description: >
-    The Meta Infinite Graph offers you an interactive, visual map of all CyMaIS roles and their dependencies—making it easy to explore, understand, and navigate the complete structure of your infrastructure.
-  license: "CyMaIS NonCommercial License (CNCL)"
+    The Meta Infinite Graph offers you an interactive, visual map of all Infinito.Nexus roles and their dependencies—making it easy to explore, understand, and navigate the complete structure of your infrastructure.
+  license: "Infinito.Nexus NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: | 
     Kevin Veen-Birkenbach
     Consulting & Coaching Solutions
     https://www.veen.world
   galaxy_tags:
-    - cymais
+    - infinito
     - meta
     - visualization
     - dependencies

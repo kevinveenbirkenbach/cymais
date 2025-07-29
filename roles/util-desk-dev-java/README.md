@@ -8,7 +8,7 @@ Learn more about [Java on Wikipedia](https://en.wikipedia.org/wiki/Java_(program
 
 ## Overview
 
-Part of the CyMaIS persona system, this role adds Java-specific tools and configurations on top of a general developer setup. It focuses on providing the foundation needed to develop, build, and run Java applications.
+Part of the Infinito.Nexus persona system, this role adds Java-specific tools and configurations on top of a general developer setup. It focuses on providing the foundation needed to develop, build, and run Java applications.
 
 ## Purpose
 
@@ -33,5 +33,5 @@ Just add packages or tasks based on your workflow.
 Developed and maintained by **Kevin Veen-Birkenbach**.  
 Learn more at [www.veen.world](https://www.veen.world)
 
-Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
-License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)
+Part of the [Infinito.Nexus Project](https://github.com/kevinveenbirkenbach/infinito-nexus)  
+License: [Infinito.Nexus NonCommercial License (CNCL)](https://s.veen.world/cncl)

@@ -1,4 +1,4 @@
-name: Build & Test CyMaIS CLI in Docker Container
+name: Build & Test Infinito.Nexus CLI in Docker Container
 
 on:
   push:
@@ -17,16 +17,16 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t cymais:latest .
+          docker build -t infinito:latest .
 
       - name: Clean build artifacts
         run: |
-          docker run --rm cymais:latest make clean
+          docker run --rm infinito:latest make clean
 
       - name: Generate project outputs
         run: |
-          docker run --rm cymais:latest make build
+          docker run --rm infinito:latest make build
 
       - name: Run tests
         run: |
-          docker run --rm cymais:latest make test
+          docker run --rm infinito:latest make test

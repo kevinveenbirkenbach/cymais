@@ -33,7 +33,7 @@ ENV PKGMGR_REPO=/opt/package-manager \
 RUN git clone https://github.com/kevinveenbirkenbach/package-manager.git $PKGMGR_REPO \
  && python -m venv $PKGMGR_VENV \
  && $PKGMGR_VENV/bin/pip install --upgrade pip \
- # install pkgmgr’s own deps + the ansible Python library so cymais import yaml & ansible.plugins.lookup work
+ # install pkgmgr’s own deps + the ansible Python library so infinito import yaml & ansible.plugins.lookup work
  && $PKGMGR_VENV/bin/pip install --no-cache-dir -r $PKGMGR_REPO/requirements.txt ansible \
  # drop a thin wrapper so `pkgmgr` always runs inside that venv
  && printf '#!/bin/sh\n. %s/bin/activate\nexec python %s/main.py "$@"\n' \
@@ -43,27 +43,27 @@ RUN git clone https://github.com/kevinveenbirkenbach/package-manager.git $PKGMGR
 # 5) Ensure pkgmgr venv bin and user-local bin are on PATH
 ENV PATH="$PKGMGR_VENV/bin:/root/.local/bin:${PATH}"
 
-# 6) Copy local CyMaIS source into the image for override
-COPY . /opt/cymais-src
+# 6) Copy local Infinito.Nexus source into the image for override
+COPY . /opt/infinito-src
 
-# 7) Install CyMaIS via pkgmgr (clone-mode https)
-RUN pkgmgr install cymais --clone-mode https
+# 7) Install Infinito.Nexus via pkgmgr (clone-mode https)
+RUN pkgmgr install infinito --clone-mode https
 
-# 8) Override installed CyMaIS with local source and clean ignored files
-RUN CMAIS_PATH=$(pkgmgr path cymais) && \
-    rm -rf "$CMAIS_PATH"/* && \
-    rsync -a --delete --exclude='.git' /opt/cymais-src/ "$CMAIS_PATH"/
+# 8) Override installed Infinito.Nexus with local source and clean ignored files
+RUN INFINITO_PATH=$(pkgmgr path infinito) && \
+    rm -rf "$INFINITO_PATH"/* && \
+    rsync -a --delete --exclude='.git' /opt/infinito-src/ "$INFINITO_PATH"/
 
-# 9) Symlink the cymais script into /usr/local/bin so ENTRYPOINT works
-RUN CMAIS_PATH=$(pkgmgr path cymais) && \
-    ln -sf "$CMAIS_PATH"/main.py /usr/local/bin/cymais && \
-    chmod +x /usr/local/bin/cymais
+# 9) Symlink the infinito script into /usr/local/bin so ENTRYPOINT works
+RUN INFINITO_PATH=$(pkgmgr path infinito) && \
+    ln -sf "$INFINITO_PATH"/main.py /usr/local/bin/infinito && \
+    chmod +x /usr/local/bin/infinito
 
 # 10) Run integration tests
 # This needed to be deactivated becaus it doesn't work with gitthub workflow
-#RUN CMAIS_PATH=$(pkgmgr path cymais) && \
-#    cd "$CMAIS_PATH" && \
+#RUN INFINITO_PATH=$(pkgmgr path infinito) && \
+#    cd "$INFINITO_PATH" && \
 #    make test
 
-ENTRYPOINT ["cymais"]
+ENTRYPOINT ["infinito"]
 CMD ["--help"]

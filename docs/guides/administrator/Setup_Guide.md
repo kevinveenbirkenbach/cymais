@@ -1,26 +1,26 @@
 # Setup Guide
 
-To setup CyMaIS follow this steps: 
+To setup Infinito.Nexus follow this steps: 
 
 ## Prerequisites
 
-Before you setup CyMaIS you need to install [Kevin's Package Manager](https://github.com/kevinveenbirkenbach/package-manager).
+Before you setup Infinito.Nexus you need to install [Kevin's Package Manager](https://github.com/kevinveenbirkenbach/package-manager).
 Follow the installation instruction descriped [here](https://github.com/kevinveenbirkenbach/package-manager)
 
-## Setup CyMaIS
+## Setup Infinito.Nexus
 
-To setup CyMaIS execute: 
+To setup Infinito.Nexus execute: 
 
 ```bash
-pkgmgr install cymais
+pkgmgr install infinito
 ```
 
-This command will setup CyMaIS on your system with the alias **cymais**.
+This command will setup Infinito.Nexus on your system with the alias **infinito**.
 
 ## Get Help 
 
-After you setuped CyMaIS you can receive more help by executing: 
+After you setuped Infinito.Nexus you can receive more help by executing: 
 
 ```bash
-cymais --help
+infinito --help
 ```

@@ -2,7 +2,7 @@
 
 ## Ansible Vault Basics
 
-CyMaIS uses Ansible Vault to protect sensitive data (e.g. passwords). Use these common commands:
+Infinito.Nexus uses Ansible Vault to protect sensitive data (e.g. passwords). Use these common commands:
 
 ### Edit an Encrypted File
 ```bash

@@ -30,5 +30,5 @@ The ELK Stack is primarily used for:
 ## Credits 📝
 Developed and maintained by **Kevin Veen-Birkenbach**.  
 For more information, visit [www.veen.world](https://www.veen.world).  
-Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais).  
-License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)
+Part of the [Infinito.Nexus Project](https://github.com/kevinveenbirkenbach/infinito-nexus).  
+License: [Infinito.Nexus NonCommercial License (CNCL)](https://s.veen.world/cncl)

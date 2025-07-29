@@ -1,7 +1,7 @@
 ---
-- name: "restart srv-proxy-6-6-tls-deploy.cymais.service"
+- name: "restart srv-proxy-6-6-tls-deploy.infinito.service"
   systemd:
-    name:           srv-proxy-6-6-tls-deploy.{{application_id}}.cymais.service
+    name:           srv-proxy-6-6-tls-deploy.{{application_id}}.infinito.service
     state:          restarted
     enabled:        yes
     daemon_reload:  yes

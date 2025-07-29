@@ -1,8 +1,8 @@
 ---
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
-  description: "PortUI provides CyMaIS users with a unified web interface to easily access all their applications in one place"
-  license: "CyMaIS NonCommercial License (CNCL)"
+  description: "PortUI provides Infinito.Nexus users with a unified web interface to easily access all their applications in one place"
+  license: "Infinito.Nexus NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: | 
     Kevin Veen-Birkenbach

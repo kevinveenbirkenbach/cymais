@@ -18,12 +18,12 @@ This role aims to streamline the configuration of a reliable administrative envi
 
 - **Installs Core Admin Tools:** Includes `base-devel`, `yay`, `cmake`, `fdupes`, and `p7zip`.
 - **Extensible via Dependencies:** Includes additional development tools (`git`, `make`, `gcc`) as dependencies.
-- **Persona Integration:** Part of the CyMaIS Persona system for user-centric workstation roles.
+- **Persona Integration:** Part of the Infinito.Nexus Persona system for user-centric workstation roles.
 
 ## Credits 📝
 
 Developed and maintained by **Kevin Veen-Birkenbach**.  
 Learn more at [www.veen.world](https://www.veen.world)
 
-Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
-License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)
+Part of the [Infinito.Nexus Project](https://github.com/kevinveenbirkenbach/infinito-nexus)  
+License: [Infinito.Nexus NonCommercial License (CNCL)](https://s.veen.world/cncl)

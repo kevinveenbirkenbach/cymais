@@ -33,5 +33,5 @@ Kevin Veen-Birkenbach
 
 ## License
 
-CyMaIS NonCommercial License (CNCL)  
+Infinito.Nexus NonCommercial License (CNCL)  
 <https://s.veen.world/cncl>

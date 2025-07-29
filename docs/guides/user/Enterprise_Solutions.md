@@ -1,8 +1,8 @@
 # Enterprise Solutions
 
-**CyMaIS** provides powerful **enterprise-grade IT infrastructure solutions**, enabling businesses to scale securely and efficiently.
+**Infinito.Nexus** provides powerful **enterprise-grade IT infrastructure solutions**, enabling businesses to scale securely and efficiently.
 
-## How CyMaIS Helps Enterprises 🔧
+## How Infinito.Nexus Helps Enterprises 🔧
 - **Automated Deployment** - Set up secure servers & workstations effortlessly
 - **Advanced Security** - Integrated 2FA, LDAP, encrypted storage
 - **High Availability** - Scalable infrastructure for growing enterprises

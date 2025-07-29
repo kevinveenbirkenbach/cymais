@@ -1,6 +1,6 @@
-# Custom Lookup Plugins for CyMaIS
+# Custom Lookup Plugins for Infinito.Nexus
 
-This directory contains custom **Ansible lookup plugins** used within the CyMaIS project.
+This directory contains custom **Ansible lookup plugins** used within the Infinito.Nexus project.
 
 ## When to Use a Lookup Plugin
 
@@ -15,7 +15,7 @@ This directory contains custom **Ansible lookup plugins** used within the CyMaIS
 my_secret: "{{ lookup('file', '/path/to/secret.txt') }}"
 
 # Retrieve a list of hostnames from an external source
-host_list: "{{ lookup('cymais_inventory_hosts', 'group_name') }}"
+host_list: "{{ lookup('infinito_inventory_hosts', 'group_name') }}"
 ````
 
 ## When *not* to Use a Lookup Plugin

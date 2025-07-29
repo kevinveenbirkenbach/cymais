@@ -2,7 +2,7 @@
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
   description: "Installs Git using the Pacman package manager on Arch Linux systems."
-  license: "CyMaIS NonCommercial License (CNCL)"
+  license: "Infinito.Nexus NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
     Kevin Veen-Birkenbach

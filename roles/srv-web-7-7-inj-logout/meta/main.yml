@@ -5,7 +5,7 @@ galaxy_info:
   description: >
     Injects a JavaScript snippet via Nginx sub_filter that intercepts all logout actions
     (links, buttons, forms) and redirects users to a centralized OIDC logout endpoint.
-  license: "CyMaIS NonCommercial License (CNCL)"
+  license: "Infinito.Nexus NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   min_ansible_version: "2.9"
   platforms:
@@ -22,8 +22,8 @@ galaxy_info:
     Kevin Veen‑Birkenbach  
     Consulting & Coaching Solutions  
     https://www.veen.world
-  repository: "https://github.com/kevinveenbirkenbach/cymais"
-  issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
-  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/srv-web-7-7-inj-logout"
+  repository: "https://github.com/kevinveenbirkenbach/infinito-nexus"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/infinito-nexus/issues"
+  documentation: "https://github.com/kevinveenbirkenbach/infinito-nexus/tree/main/roles/srv-web-7-7-inj-logout"
 dependencies:
   - srv-web-7-4-core

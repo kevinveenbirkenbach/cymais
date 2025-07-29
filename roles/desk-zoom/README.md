@@ -1,7 +1,7 @@
 # Zoom
 
 ## Overview
-Welcome to the `desk-zoom` role documentation, a part of the `cymais` repository. This role is focused on installing video conferencing software on Linux systems, specifically tailored for personal use and remote work requirements.
+Welcome to the `desk-zoom` role documentation, a part of the `infinito` repository. This role is focused on installing video conferencing software on Linux systems, specifically tailored for personal use and remote work requirements.
 
 ## Role Tasks
 The `main.yml` file in the `desk-zoom` role includes tasks for setting up video conferencing tools:
@@ -25,7 +25,7 @@ The `desk-zoom` role is particularly useful for professionals, educators, and an
 
 ## Running the Role
 To utilize this role:
-1. Clone the `cymais` repository.
+1. Clone the `infinito` repository.
 2. Navigate to the `roles/desk-zoom` directory.
 3. Run the role using Ansible, ensuring you have appropriate system permissions for software installation.
 
@@ -33,4 +33,4 @@ To utilize this role:
 You can customize this role by adding or modifying the video conferencing tools installed. For example, if there's a need for other applications like Skype or Google Meet, these can be included in the task list.
 
 ## Support and Contributions
-For support, feedback, or contributions, such as adding support for additional video conferencing tools or improving existing configurations, please open an issue or submit a pull request in the `cymais` repository. Contributions that enhance the role's functionality are highly welcome.
+For support, feedback, or contributions, such as adding support for additional video conferencing tools or improving existing configurations, please open an issue or submit a pull request in the `infinito` repository. Contributions that enhance the role's functionality are highly welcome.

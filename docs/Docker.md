@@ -1,6 +1,6 @@
 # Docker Build Guide 🚢
 
-This guide explains how to build the **CyMaIS** Docker image with advanced options to avoid common issues (e.g. mirror timeouts) and control build caching.
+This guide explains how to build the **Infinito.Nexus** Docker image with advanced options to avoid common issues (e.g. mirror timeouts) and control build caching.
 
 ---
 
@@ -47,7 +47,7 @@ export DOCKER_BUILDKIT=1
 docker build \
   --network=host \
   --no-cache \
-  -t cymais:latest \
+  -t infinito:latest \
   .
 ```
 
@@ -59,23 +59,23 @@ docker build \
 * `--no-cache`
   Guarantees that changes to package lists or dependencies are picked up immediately by rebuilding every layer.
 
-* `-t cymais:latest`
-  Tags the resulting image as `cymais:latest`.
+* `-t infinito:latest`
+  Tags the resulting image as `infinito:latest`.
 
 ---
 
 ## 4. Running the Container
 
-Once built, you can run CyMaIS as usual:
+Once built, you can run Infinito.Nexus as usual:
 
 ```bash
 docker run --rm -it \
-  -v "$(pwd)":/opt/cymais \
-  -w /opt/cymais \
-  cymais:latest --help
+  -v "$(pwd)":/opt/infinito \
+  -w /opt/infinito \
+  infinito:latest --help
 ```
 
-Mount any host directory into `/opt/cymais/logs` to persist logs across runs.
+Mount any host directory into `/opt/infinito/logs` to persist logs across runs.
 
 ---
 
@@ -89,35 +89,35 @@ Mount any host directory into `/opt/cymais/logs` to persist logs across runs.
 
 ## 6. Live Development via Volume Mount
 
-The CyMaIS installation inside the container always resides at:
+The Infinito.Nexus installation inside the container always resides at:
 
 ```
-/root/Repositories/github.com/kevinveenbirkenbach/cymais
+/root/Repositories/github.com/kevinveenbirkenbach/infinito
 ```
 
 To apply code changes without rebuilding the image, mount your local installation directory into that static path:
 
 ```bash
-# 1. Determine the CyMaIS install path on your host
-CMAIS_PATH=$(pkgmgr path cymais)
+# 1. Determine the Infinito.Nexus install path on your host
+INFINITO_PATH=$(pkgmgr path infinito)
 
 # 2. Launch the container with a bind mount:
 docker run --rm -it \
-  -v "${CMAIS_PATH}:/root/Repositories/github.com/kevinveenbirkenbach/cymais" \
-  -w "/root/Repositories/github.com/kevinveenbirkenbach/cymais" \
-  cymais:latest make build
+  -v "${INFINITO_PATH}:/root/Repositories/github.com/kevinveenbirkenbach/infinito" \
+  -w "/root/Repositories/github.com/kevinveenbirkenbach/infinito" \
+  infinito:latest make build
 ```
 
 Or, to test the CLI help interactively:
 
 ```bash
 docker run --rm -it \
-  -v "${CMAIS_PATH}:/root/Repositories/github.com/kevinveenbirkenbach/cymais" \
-  -w "/root/Repositories/github.com/kevinveenbirkenbach/cymais" \
-  cymais:latest --help
+  -v "${INFINITO_PATH}:/root/Repositories/github.com/kevinveenbirkenbach/infinito" \
+  -w "/root/Repositories/github.com/kevinveenbirkenbach/infinito" \
+  infinito:latest --help
 ```
 
-Any edits you make in `${CMAIS_PATH}` on your host are immediately reflected inside the container, eliminating the need for repeated `docker build` cycles.
+Any edits you make in `${INFINITO_PATH}` on your host are immediately reflected inside the container, eliminating the need for repeated `docker build` cycles.
 
 ---
 

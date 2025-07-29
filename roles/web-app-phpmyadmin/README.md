@@ -10,7 +10,7 @@ The role configures and deploys a containerized PhpMyAdmin instance using Docker
 
 ## Purpose
 
-The purpose of this role is to provide a reliable, configurable, and secure PhpMyAdmin deployment out-of-the-box. It minimizes the need for manual setup, and integrates smoothly with other CyMaIS infrastructure roles.
+The purpose of this role is to provide a reliable, configurable, and secure PhpMyAdmin deployment out-of-the-box. It minimizes the need for manual setup, and integrates smoothly with other Infinito.Nexus infrastructure roles.
 
 ## Features
 
@@ -25,5 +25,5 @@ The purpose of this role is to provide a reliable, configurable, and secure PhpM
 Developed and maintained by **Kevin Veen-Birkenbach**.  
 Learn more at [www.veen.world](https://www.veen.world)
 
-Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
-License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)
+Part of the [Infinito.Nexus Project](https://github.com/kevinveenbirkenbach/infinito-nexus)  
+License: [Infinito.Nexus NonCommercial License (CNCL)](https://s.veen.world/cncl)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-CLI wrapper for Makefile targets within CyMaIS.
+CLI wrapper for Makefile targets within Infinito.Nexus.
 Invokes `make` commands in the project root directory.
 """
 import argparse
@@ -11,8 +11,8 @@ import sys
 
 def main():
     parser = argparse.ArgumentParser(
-        prog='cymais make',
-        description='Run Makefile targets for CyMaIS project'
+        prog='infinito make',
+        description='Run Makefile targets for Infinito.Nexus project'
     )
     parser.add_argument(
         'targets',

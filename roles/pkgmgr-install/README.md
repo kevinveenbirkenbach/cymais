@@ -10,7 +10,7 @@ The role abstracts package management operations using `pkgmgr`. It ensures the 
 
 ## Purpose
 
-The purpose of this role is to automate the installation and update process for CyMaIS-related applications or other managed packages using `pkgmgr`. It simplifies package handling and enforces best practices for package deployment in automated environments.
+The purpose of this role is to automate the installation and update process for Infinito.Nexus-related applications or other managed packages using `pkgmgr`. It simplifies package handling and enforces best practices for package deployment in automated environments.
 
 ## Features
 
@@ -31,5 +31,5 @@ The purpose of this role is to automate the installation and update process for 
 Developed and maintained by **Kevin Veen-Birkenbach**.  
 Learn more at [www.veen.world](https://www.veen.world)
 
-Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
-License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)
+Part of the [Infinito.Nexus Project](https://github.com/kevinveenbirkenbach/infinito-nexus)  
+License: [Infinito.Nexus NonCommercial License (CNCL)](https://s.veen.world/cncl)

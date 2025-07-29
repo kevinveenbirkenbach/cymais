@@ -17,7 +17,7 @@ Designed for Archlinux systems, this role periodically checks whether web resour
 
 ## License
 
-CyMaIS NonCommercial License (CNCL)
+Infinito.Nexus NonCommercial License (CNCL)
 [https://s.veen.world/cncl](https://s.veen.world/cncl)
 
 ## Author

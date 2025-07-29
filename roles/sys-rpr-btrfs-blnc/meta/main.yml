@@ -2,7 +2,7 @@
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
   description: "Automates the balancing of Btrfs file systems by cloning the auto-btrfs-balancer repository and configuring a systemd service and timer for regular execution."
-  license: "CyMaIS NonCommercial License (CNCL)"
+  license: "Infinito.Nexus NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
     Kevin Veen-Birkenbach
@@ -18,8 +18,8 @@ galaxy_info:
     - balancing
     - filesystem
     - automation
-  repository: "https://s.veen.world/cymais"
-  issue_tracker_url: "https://s.veen.world/cymaisissues"
-  documentation: "https://s.veen.world/cymais"
+  repository: "https://github.com/kevinveenbirkenbach/infinito-nexus"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/infinito-nexus/issues"
+  documentation: "https://docs.infinito.nexus"
 dependencies:
   - sys-alm-compose

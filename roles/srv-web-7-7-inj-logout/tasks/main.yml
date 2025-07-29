@@ -1,7 +1,10 @@
-# run_once_srv_web_7_7_inj_logout: deactivated
+- name: "deploy the logout.js"
+  include_tasks: "deploy.yml"
+  when: run_once_srv_web_7_7_inj_logout is not defined
+
 - name: "Load logout code for '{{ application_id }}'"
   set_fact:
-    logout_code: "{{ lookup('template', 'logout.js.j2') }}"
+    logout_code: "{{ lookup('template', 'logout_one_liner.js.j2') }}"
 
 - name: "Collapse logout code into one-liner for '{{application_id}}'"
   set_fact:
@@ -11,3 +14,8 @@
   set_fact:
     applications: "{{ applications | append_csp_hash(application_id, logout_code_one_liner) }}"
   changed_when: false
+
+- name: mark js as deployed
+  set_fact:
+    run_once_srv_web_7_7_inj_logout: true
+  when: run_once_srv_web_7_7_inj_logout is not defined

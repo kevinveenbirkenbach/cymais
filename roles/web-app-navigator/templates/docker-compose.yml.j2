@@ -1,13 +1,13 @@
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
-  cymais-presentation:
+  infinito-presentation:
     build:
-      context:    {{ path_cymais_presentation_output.stdout }}
-      dockerfile: {{ path_cymais_presentation_output.stdout }}/Dockerfile
+      context:    {{ path_infinito_presentation_output.stdout }}
+      dockerfile: {{ path_infinito_presentation_output.stdout }}/Dockerfile
     ports:
       - "127.0.0.1:{{ports.localhost.http[application_id]}}:5000"
     volumes:
-      - {{ path_cymais_presentation_output.stdout }}:/app
-      - {{ path_cymais_output.stdout }}:/source
+      - {{ path_infinito_presentation_output.stdout }}:/app
+      - {{ path_infinito_output.stdout }}:/source
 {% include 'roles/docker-container/templates/base.yml.j2' %}
 {% include 'roles/docker-container/templates/networks.yml.j2' %}
 

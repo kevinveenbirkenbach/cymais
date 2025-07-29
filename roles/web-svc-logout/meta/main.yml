@@ -2,9 +2,9 @@ galaxy_info:
   author: "Kevin Veen‑Birkenbach"
   description: >
     Deploys the universal logout service: a Dockerized Python container,
-    Nginx `/logout` proxies for `*.cymais.cloud`, and the `conductor.html.j2`
+    Nginx `/logout` proxies for `*.infinito.nexus`, and the `conductor.html.j2`
     template for unified logout orchestration.
-  license: "CyMaIS NonCommercial License (CNCL)"
+  license: "Infinito.Nexus NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
     Kevin Veen‑Birkenbach
@@ -28,7 +28,7 @@ galaxy_info:
     - docker
     - flask
     - nginx
-    - cymais
+    - infinito
     - logout
   repository: "https://github.com/kevinveenbirkenbach/universal-logout"
   issue_tracker_url: "https://github.com/kevinveenbirkenbach/universal-logout/issues"

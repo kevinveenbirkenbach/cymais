@@ -2,7 +2,7 @@
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
   description: "Empower your decentralized social networking with Friendica, a platform designed to foster communication and community building with ease. Experience a robust, containerized deployment that streamlines installation, configuration, and maintenance for your Friendica instance."
-  license: "CyMaIS NonCommercial License (CNCL)"
+  license: "Infinito.Nexus NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
     Kevin Veen-Birkenbach
@@ -13,9 +13,9 @@ galaxy_info:
     - docker
     - social network
     - decentralized
-  repository: https://s.veen.world/cymais
-  issue_tracker_url: https://s.veen.world/cymaisissues
-  documentation: https://s.veen.world/cymais
+  repository: https://github.com/kevinveenbirkenbach/infinito-nexus
+  issue_tracker_url: https://github.com/kevinveenbirkenbach/infinito-nexus/issues
+  documentation: "https://docs.infinito.nexus/"
   logo:
     class: "fa-solid fa-users"
   run_after:

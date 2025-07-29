@@ -1,4 +1,4 @@
 - name: "reload svc-bkp-rmt-2-loc service"
   systemd:
-    name: svc-bkp-rmt-2-loc.cymais.service
+    name: svc-bkp-rmt-2-loc.infinito.service
     daemon_reload: yes

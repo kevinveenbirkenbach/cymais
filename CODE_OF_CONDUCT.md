@@ -1,6 +1,6 @@
 # Code of Conduct
 
-In order to foster a welcoming, open, and respectful community for everyone, we expect all contributors and participants in the CyMaIS project to abide by the following Code of Conduct.
+In order to foster a welcoming, open, and respectful community for everyone, we expect all contributors and participants in the Infinito.Nexus project to abide by the following Code of Conduct.
 
 ## Our Pledge
 
@@ -29,10 +29,10 @@ Our project maintainers and community leaders will review all reports and take a
 
 ## Scope
 
-This Code of Conduct applies to all spaces managed by the CyMaIS project, including GitHub repositories, mailing lists, chat rooms, and other communication channels.
+This Code of Conduct applies to all spaces managed by the Infinito.Nexus project, including GitHub repositories, mailing lists, chat rooms, and other communication channels.
 
 ## Acknowledgment
 
-By participating in the CyMaIS project, you agree to adhere to this Code of Conduct. We appreciate your cooperation in helping us build a positive and productive community.
+By participating in the Infinito.Nexus project, you agree to adhere to this Code of Conduct. We appreciate your cooperation in helping us build a positive and productive community.
 
-Thank you for contributing to a safe and inclusive CyMaIS community!
+Thank you for contributing to a safe and inclusive Infinito.Nexus community!

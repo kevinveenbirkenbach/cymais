@@ -1,5 +1,5 @@
-- name: "reload sys-hlth-journalctl.cymais.service"
+- name: "reload sys-hlth-journalctl.infinito.service"
   systemd:
-    name: sys-hlth-journalctl.cymais.service
+    name: sys-hlth-journalctl.infinito.service
     enabled: yes
     daemon_reload: yes

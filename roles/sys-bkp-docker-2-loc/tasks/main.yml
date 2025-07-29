@@ -21,18 +21,18 @@
   include_tasks: reset.yml 
   when: mode_reset | bool and run_once_bkp_docker_to_local is not defined
 
-- name: configure sys-bkp-docker-2-loc-everything.cymais.service
+- name: configure sys-bkp-docker-2-loc-everything.infinito.service
   template: 
     src: sys-bkp-docker-2-loc-everything.service.j2
-    dest: /etc/systemd/system/sys-bkp-docker-2-loc-everything.cymais.service
-  notify: reload sys-bkp-docker-2-loc-everything.cymais.service
+    dest: /etc/systemd/system/sys-bkp-docker-2-loc-everything.infinito.service
+  notify: reload sys-bkp-docker-2-loc-everything.infinito.service
   when: run_once_bkp_docker_to_local is not defined
 
-- name: configure sys-bkp-docker-2-loc.cymais.service
+- name: configure sys-bkp-docker-2-loc.infinito.service
   template: 
     src: sys-bkp-docker-2-loc.service.j2
-    dest: /etc/systemd/system/sys-bkp-docker-2-loc.cymais.service
-  notify: reload sys-bkp-docker-2-loc.cymais.service
+    dest: /etc/systemd/system/sys-bkp-docker-2-loc.infinito.service
+  notify: reload sys-bkp-docker-2-loc.infinito.service
   when: run_once_bkp_docker_to_local is not defined
 
 - name: "set 'service_name' to '{{ role_name }}'"

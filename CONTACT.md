@@ -2,13 +2,13 @@
 
 <img src="https://cybermaster.space/wp-content/uploads/sites/7/2023/11/FVG_8364BW-scaled.jpg" width="300" style="float: right; margin-left: 30px;">
 
-My name is Kevin Veen-Birkenbach and I'm the author and founder of CyMaIS.
+My name is Kevin Veen-Birkenbach and I'm the author and founder of Infinito.Nexus.
 
-I'm glad to assist you in the implementation of your secure and scalable IT infrastrucutre solution with CyMaIS.
+I'm glad to assist you in the implementation of your secure and scalable IT infrastrucutre solution with Infinito.Nexus.
 
 My expertise in server administration, digital corporate infrastructure, custom software, and information security, all underpinned by a commitment to Open Source solutions, guarantees that your IT setup meets the highest industry standards.
 
-Discover how CyMaIS can transform your IT landscape. 
+Discover how Infinito.Nexus can transform your IT landscape. 
 
 Contact me for more details:
 

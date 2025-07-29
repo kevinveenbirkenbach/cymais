@@ -103,7 +103,7 @@ def validate_application_ids(inventory, app_ids):
         for app_id, status in invalid.items():
             reasons = []
             if not status['in_roles']:
-                reasons.append("not defined in roles (cymais)")
+                reasons.append("not defined in roles (infinito)")
             if not status['in_inventory']:
                 reasons.append("not found in inventory file")
             print(f"  - {app_id}: " + ", ".join(reasons))
@@ -131,7 +131,7 @@ def main():
     )
     parser.add_argument(
         "-r", "--reset", action="store_true",
-        help="Reset all CyMaIS files and configurations, and run the entire playbook (not just individual roles)."
+        help="Reset all Infinito.Nexus files and configurations, and run the entire playbook (not just individual roles)."
     )
     parser.add_argument(
         "-t", "--test", action="store_true",

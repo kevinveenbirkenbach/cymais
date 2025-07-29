@@ -4,19 +4,19 @@
 
 *Automate the Provisioning of All Your Servers and Workstations with a Single Open‑Source Script!*
 
-![CyMaIS Logo](assets/img/logo.png)
+![Infinito.Nexus Logo](assets/img/logo.png)
 ---
 
-## What is CyMaIS? 📌
+## What is Infinito.Nexus? 📌
 
-**CyMaIS** is an **automated, modular infrastructure framework** built on **Docker**, **Linux**, and **Ansible**, equally suited for cloud services, local server management, and desktop workstations. At its core lies a **web-based desktop with single sign-on**—backed by an **LDAP directory** and **OIDC**—granting **seamless access** to an almost limitless portfolio of self-hosted applications. It fully supports **ActivityPub applications** and is **Fediverse-compatible**, while integrated **monitoring**, **alerting**, **cleanup**, **self-healing**, **automated updates**, and **backup solutions** provide everything an organization needs to run at scale.
+**Infinito.Nexus** is an **automated, modular infrastructure framework** built on **Docker**, **Linux**, and **Ansible**, equally suited for cloud services, local server management, and desktop workstations. At its core lies a **web-based desktop with single sign-on**—backed by an **LDAP directory** and **OIDC**—granting **seamless access** to an almost limitless portfolio of self-hosted applications. It fully supports **ActivityPub applications** and is **Fediverse-compatible**, while integrated **monitoring**, **alerting**, **cleanup**, **self-healing**, **automated updates**, and **backup solutions** provide everything an organization needs to run at scale.
 
 | 📚 | 🔗 |
 |---|---|
-| 🌐 Try It Live | [![CyMaIS.Cloud](https://img.shields.io/badge/CyMaIS-%2ECloud-000000?labelColor=004B8D&style=flat&borderRadius=8)](https://cymais.cloud) |
+| 🌐 Try It Live | [![Infinito.Nexus](https://img.shields.io/badge/Infinito.Nexus-%2ECloud-000000?labelColor=004B8D&style=flat&borderRadius=8)](https://infinito.nexus) |
 | 🔧 Request Your Setup       | [![CyberMaster.Space](https://img.shields.io/badge/CyberMaster-%2ESpace-000000?labelColor=004B8D&style=flat&borderRadius=8)](https://cybermaster.space) |
-| 📖 About This Project  | [![GitHub Sponsors](https://img.shields.io/badge/Sponsor-GitHub%20Sponsors-blue?logo=github)](https://github.com/sponsors/kevinveenbirkenbach) [![Build Status](https://github.com/kevinveenbirkenbach/cymais/actions/workflows/test-container.yml/badge.svg?branch=master)](https://github.com/kevinveenbirkenbach/cymais/actions/workflows/test-container.yml?query=branch%3Amaster) [![View Source](https://img.shields.io/badge/View_Source-Repository-000000?logo=github&labelColor=004B8D&style=flat&borderRadius=8)](https://github.com/kevinveenbirkenbach/cymais) |
-| ☕️ Support Us               |  [![Patreon](https://img.shields.io/badge/Support-Patreon-orange?logo=patreon)](https://www.patreon.com/c/kevinveenbirkenbach) [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20Coffee-Funding-yellow?logo=buymeacoffee)](https://buymeacoffee.com/kevinveenbirkenbach) [![PayPal](https://img.shields.io/badge/Donate-PayPal-blue?logo=paypal)](https://s.veen.world/paypaldonate) [![Sponsor CyMaIS](https://img.shields.io/badge/Donate–CyMaIS-000000?style=flat&labelColor=004B8D&logo=github-sponsors&logoColor=white&borderRadius=8)](https://github.com/sponsors/kevinveenbirkenbach) |
+| 📖 About This Project  | [![GitHub Sponsors](https://img.shields.io/badge/Sponsor-GitHub%20Sponsors-blue?logo=github)](https://github.com/sponsors/kevinveenbirkenbach) [![Build Status](https://github.com/kevinveenbirkenbach/infinito-nexus/actions/workflows/test-container.yml/badge.svg?branch=master)](https://github.com/kevinveenbirkenbach/infinito-nexus/actions/workflows/test-container.yml?query=branch%3Amaster) [![View Source](https://img.shields.io/badge/View_Source-Repository-000000?logo=github&labelColor=004B8D&style=flat&borderRadius=8)](https://github.com/kevinveenbirkenbach/infinito-nexus) |
+| ☕️ Support Us               |  [![Patreon](https://img.shields.io/badge/Support-Patreon-orange?logo=patreon)](https://www.patreon.com/c/kevinveenbirkenbach) [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20Coffee-Funding-yellow?logo=buymeacoffee)](https://buymeacoffee.com/kevinveenbirkenbach) [![PayPal](https://img.shields.io/badge/Donate-PayPal-blue?logo=paypal)](https://s.veen.world/paypaldonate) [![Sponsor Infinito.Nexus](https://img.shields.io/badge/Donate–Infinito.Nexus-000000?style=flat&labelColor=004B8D&logo=github-sponsors&logoColor=white&borderRadius=8)](https://github.com/sponsors/kevinveenbirkenbach) |
 
 ---
 
@@ -57,40 +57,40 @@ More informations about the features you will find [here](docs/overview/Features
 
 ### Use it online 🌐 
 
-Try [CyMaIS.Cloud](https://cymais.cloud) – sign up in seconds, explore the platform, and discover what our solution can do for you! 🚀🔧✨
+Try [Infinito.Nexus](https://infinito.nexus) – sign up in seconds, explore the platform, and discover what our solution can do for you! 🚀🔧✨
 
 ### Install locally 💻
-1. **Install CyMaIS** via [Kevin's Package Manager](https://github.com/kevinveenbirkenbach/package-manager)
-2. **Setup CyMaIS** using:
+1. **Install Infinito.Nexus** via [Kevin's Package Manager](https://github.com/kevinveenbirkenbach/package-manager)
+2. **Setup Infinito.Nexus** using:
    ```sh
-   pkgmgr install cymais
+   pkgmgr install infinito
    ```
 3. **Explore Commands** with:
    ```sh
-   cymais --help
+   infinito --help
    ```
 ---
 
 ### Setup with Docker🚢
 
-Get CyMaIS up and running inside Docker in just a few steps. For detailed build options and troubleshooting, see the [Docker Guide](docs/Docker.md).
+Get Infinito.Nexus up and running inside Docker in just a few steps. For detailed build options and troubleshooting, see the [Docker Guide](docs/Docker.md).
 
 ```bash
 # 1. Build the Docker image: the Docker image:
-docker build -t cymais:latest .
+docker build -t infinito:latest .
 
 # 2. Run the CLI interactively:
-docker run --rm -it cymais:latest cymais --help
+docker run --rm -it infinito:latest infinito --help
 ```
 
 ---
 
 ## License ⚖️
 
-CyMaIS is distributed under the **CyMaIS NonCommercial License**. Please see [LICENSE.md](LICENSE.md) for full terms.
+Infinito.Nexus is distributed under the **Infinito.Nexus NonCommercial License**. Please see [LICENSE.md](LICENSE.md) for full terms.
 
 ---
 
 ## Professional Setup & Support 💼
 
-For expert installation and configuration visit [cybermaster.space](https://cybermaster.space/) or write to us at **[contact@cymais.cloud](mailto:contact@cymais.cloud)**.
+For expert installation and configuration visit [cybermaster.space](https://cybermaster.space/) or write to us at **[contact@infinito.nexus](mailto:contact@infinito.nexus)**.

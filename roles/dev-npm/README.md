@@ -25,7 +25,7 @@ vars:
 
 ## License
 
-CyMaIS NonCommercial License (CNCL)
+Infinito.Nexus NonCommercial License (CNCL)
 [https://s.veen.world/cncl](https://s.veen.world/cncl)
 
 ## Author

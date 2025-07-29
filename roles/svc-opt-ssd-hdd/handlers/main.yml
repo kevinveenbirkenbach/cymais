@@ -1,5 +1,5 @@
-- name: "reload svc-opt-ssd-hdd.cymais.service"
+- name: "reload svc-opt-ssd-hdd.infinito.service"
   systemd:
-    name: svc-opt-ssd-hdd.cymais.service
+    name: svc-opt-ssd-hdd.infinito.service
     state: reloaded
     daemon_reload: yes

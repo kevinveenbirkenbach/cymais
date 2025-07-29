@@ -18,7 +18,7 @@ To provide a modular and reproducible way to deploy a full-featured Linux gaming
 - 🕹️ **Retro Support:** Emulators and themes via [RetroArch](https://www.retroarch.com/)
 - 🧩 **Core Stack:** Performance tools and runtimes (e.g. [GameMode](https://github.com/FeralInteractive/gamemode), [MangoHUD](https://github.com/flightlessmango/MangoHud))
 - 🎲 **Open Source Games:** Installed directly from official Arch repos
-- ⚙️ **System Integration:** Sets `gaming_ready` fact for other CyMaIS roles
+- ⚙️ **System Integration:** Sets `gaming_ready` fact for other Infinito.Nexus roles
 
 ## Sub-Roles
 
@@ -33,5 +33,5 @@ To provide a modular and reproducible way to deploy a full-featured Linux gaming
 Developed and maintained by **Kevin Veen-Birkenbach**  
 Learn more at [www.veen.world](https://www.veen.world)
 
-Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
-License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)
+Part of the [Infinito.Nexus Project](https://github.com/kevinveenbirkenbach/infinito-nexus)  
+License: [Infinito.Nexus NonCommercial License (CNCL)](https://s.veen.world/cncl)

@@ -1,0 +1,2 @@
+application_id: "web-svc-cdn"
+domain:         "{{ domains | get_domain(application_id) }}"

@@ -1,6 +1,6 @@
-## 📖 CyMaIS.Cloud Ansible & Python Directory Guide
+## 📖 Infinito.Nexus Ansible & Python Directory Guide
 
-This document provides a **decision matrix** for when to use each default Ansible plugin and module directory in the context of **CyMaIS.Cloud development** with Ansible and Python. It links to official docs, explains use-cases, and points back to our conversation.
+This document provides a **decision matrix** for when to use each default Ansible plugin and module directory in the context of **Infinito.Nexus development** with Ansible and Python. It links to official docs, explains use-cases, and points back to our conversation.
 
 ---
 
@@ -31,12 +31,12 @@ ansible-repo/
 
 ### 🎯 Decision Matrix: Which Folder for What?
 
-| Folder               | Type                 | Use-Case                                 | Example (CyMaIS.Cloud)                                | Emoji |
+| Folder               | Type                 | Use-Case                                 | Example (Infinito.Nexus)                                | Emoji |
 | -------------------- | -------------------- | ---------------------------------------- | ----------------------------------------------------- | ----- |
 | `library/`           | **Module**           | Write idempotent actions                 | `cloud_network.py`: manage VPCs, subnets              | 📦    |
 | `filter_plugins/`    | **Filter plugin**    | Jinja2 data transforms in templates/vars | `to_camel_case.py`: convert keys for API calls        | 🔍    |
-| `lookup_plugins/`    | **Lookup plugin**    | Fetch external/secure data at runtime    | `vault_lookup.py`: pull secrets from CyMaIS Vault     | 👉    |
-| `module_utils/`      | **Utility library**  | Shared Python code for modules           | `cymais_client.py`: common API client base class      | 🛠️   |
+| `lookup_plugins/`    | **Lookup plugin**    | Fetch external/secure data at runtime    | `vault_lookup.py`: pull secrets from Infinito.Nexus Vault     | 👉    |
+| `module_utils/`      | **Utility library**  | Shared Python code for modules           | `infinito_client.py`: common API client base class      | 🛠️   |
 | `action_plugins/`    | **Action plugin**    | Complex task orchestration wrappers      | `deploy_stack.py`: sequence Terraform + Ansible steps | ⚙️    |
 | `callback_plugins/`  | **Callback plugin**  | Customize log/report behavior            | `notify_slack.py`: send playbook status to Slack      | 📣    |
 | `inventory_plugins/` | **Inventory plugin** | Dynamic host/group sources               | `azure_inventory.py`: list hosts from Azure tags      | 🌐    |
@@ -96,15 +96,15 @@ ansible-repo/
 
 ---
 
-### 🚀 CyMaIS.Cloud Best Practices
+### 🚀 Infinito.Nexus Best Practices
 
 * **Organize modules** by service under `library/cloud/` (e.g., `vm`, `network`, `storage`).
-* **Shared client code** in `module_utils/cymais/` for authentication, request handling.
-* **Secrets lookup** via `lookup_plugins/vault_lookup.py` pointing to CyMaIS Vault.
+* **Shared client code** in `module_utils/infinito/` for authentication, request handling.
+* **Secrets lookup** via `lookup_plugins/vault_lookup.py` pointing to Infinito.Nexus Vault.
 * **Filters** to normalize data formats from cloud APIs (e.g., `snake_to_camel`).
-* **Callbacks** to stream playbook results into CyMaIS Monitoring.
+* **Callbacks** to stream playbook results into Infinito.Nexus Monitoring.
 
-Use this matrix as your **single source of truth** when extending Ansible for CyMaIS.Cloud! 👍 
+Use this matrix as your **single source of truth** when extending Ansible for Infinito.Nexus! 👍 
 
 --- 
 

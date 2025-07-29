@@ -1,7 +1,7 @@
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
   description: "Installs npm and runs optional 'npm ci' inside a project"
-  license: "CyMaIS NonCommercial License (CNCL)"
+  license: "Infinito.Nexus NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
     Kevin Veen-Birkenbach
@@ -18,7 +18,7 @@ galaxy_info:
     - nodejs
     - automation
     - javascript
-  repository: "https://s.veen.world/cymais"
-  issue_tracker_url: "https://s.veen.world/cymaisissues"
-  documentation: "https://s.veen.world/cymais"
+  repository: "https://github.com/kevinveenbirkenbach/infinito-nexus"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/infinito-nexus/issues"
+  documentation: "https://docs.infinito.nexus"
 dependencies: []

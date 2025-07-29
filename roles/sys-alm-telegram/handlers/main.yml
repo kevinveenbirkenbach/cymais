@@ -1,4 +1,4 @@
 - name: "restart sys-alm-telegram service"
   systemd:
-    name: sys-alm-telegram.cymais.service
+    name: sys-alm-telegram.infinito.service
     daemon_reload: yes

@@ -9,14 +9,14 @@
   copy:
     src: sys-rpr-docker-soft.py
     dest: "{{heal_docker}}sys-rpr-docker-soft.py"
-  notify: restart sys-rpr-docker-soft.cymais.service
+  notify: restart sys-rpr-docker-soft.infinito.service
   when: run_once_heal_docker is not defined
 
-- name: create sys-rpr-docker-soft.cymais.service
+- name: create sys-rpr-docker-soft.infinito.service
   template: 
     src: sys-rpr-docker-soft.service.j2 
-    dest: /etc/systemd/system/sys-rpr-docker-soft.cymais.service
-  notify: restart sys-rpr-docker-soft.cymais.service
+    dest: /etc/systemd/system/sys-rpr-docker-soft.infinito.service
+  notify: restart sys-rpr-docker-soft.infinito.service
   when: run_once_heal_docker is not defined
 
 - name: "set 'service_name' to '{{ role_name }}'"

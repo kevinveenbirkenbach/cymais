@@ -6,7 +6,7 @@ galaxy_info:
     Kevin Veen-Birkenbach  
     Consulting & Coaching Solutions  
     https://www.veen.world
-  license: "CyMaIS NonCommercial License (CNCL)"
+  license: "Infinito.Nexus NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   min_ansible_version: "2.9"
   platforms:
@@ -18,7 +18,7 @@ galaxy_info:
     - logs
     - health
     - systemd
-  repository: "https://s.veen.world/cymais"
-  documentation: "https://s.veen.world/cymais"
+  repository: "https://github.com/kevinveenbirkenbach/infinito-nexus"
+  documentation: "https://docs.infinito.nexus"
 dependencies:
   - sys-alm-compose

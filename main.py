@@ -93,7 +93,7 @@ def git_clean_repo():
 
 def play_start_intro():
     Sound.play_start_sound()
-    Sound.play_cymais_intro_sound()
+    Sound.play_infinito_intro_sound()
 
 
 import time
@@ -166,12 +166,12 @@ if __name__ == "__main__":
 
     # Global help
     if not args or args[0] in ('-h', '--help'):
-        print(color_text("CyMaIS CLI 🦫🌐🖥️", Fore.CYAN + Style.BRIGHT))
+        print(color_text("Infinito.Nexus CLI 🦫🌐🖥️", Fore.CYAN + Style.BRIGHT))
         print()
         print(color_text("Your Gateway to Automated IT Infrastructure Setup", Style.DIM))
         print()
         print(color_text(
-            "Usage: cymais [--sound] [--no-signal] [--log] [--git-clean] [--infinite] <command> [options]",
+            "Usage: infinito [--sound] [--no-signal] [--log] [--git-clean] [--infinite] <command> [options]",
             Fore.GREEN
         ))
         print()
@@ -205,7 +205,7 @@ if __name__ == "__main__":
             Fore.CYAN
         ))
         print(color_text(
-            "    e.g. `cymais build defaults users` →",
+            "    e.g. `infinito build defaults users` →",
             Fore.CYAN
         ))
         print(color_text(
@@ -214,11 +214,11 @@ if __name__ == "__main__":
         ))
         print()
         print(color_text(
-            "CyMaIS is a product of Kevin Veen-Birkenbach, https://cybermaster.space .\n",
+            "Infinito.Nexus is a product of Kevin Veen-Birkenbach, https://cybermaster.space .\n",
             Style.DIM
         ))
         print(color_text(
-            "Test and use productively on https://cymais.cloud .\n",
+            "Test and use productively on https://infinito.nexus .\n",
             Style.DIM
         ))
         print(color_text(

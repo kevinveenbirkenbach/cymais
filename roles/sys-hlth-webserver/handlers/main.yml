@@ -1,5 +1,5 @@
-- name: "reload sys-hlth-webserver.cymais.service"
+- name: "reload sys-hlth-webserver.infinito.service"
   systemd:
-    name: sys-hlth-webserver.cymais.service
+    name: sys-hlth-webserver.infinito.service
     enabled: yes
     daemon_reload: yes

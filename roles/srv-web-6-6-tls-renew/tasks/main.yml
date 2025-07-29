@@ -5,10 +5,10 @@
     state: present
   when: run_once_nginx_certbot is not defined
 
-- name: configure srv-web-6-6-tls-renew.cymais.service
+- name: configure srv-web-6-6-tls-renew.infinito.service
   template: 
     src:  srv-web-6-6-tls-renew.service.j2
-    dest: /etc/systemd/system/srv-web-6-6-tls-renew.cymais.service
+    dest: /etc/systemd/system/srv-web-6-6-tls-renew.infinito.service
   notify: reload certbot service
   when: run_once_nginx_certbot is not defined
 

@@ -11,11 +11,11 @@
     dest: "{{health_docker_container_folder}}sys-hlth-docker-container.sh"
   when: run_once_health_docker_container is not defined
 
-- name: create sys-hlth-docker-container.cymais.service
+- name: create sys-hlth-docker-container.infinito.service
   template: 
     src:  sys-hlth-docker-container.service.j2
-    dest: /etc/systemd/system/sys-hlth-docker-container.cymais.service
-  notify: reload sys-hlth-docker-container.cymais.service
+    dest: /etc/systemd/system/sys-hlth-docker-container.infinito.service
+  notify: reload sys-hlth-docker-container.infinito.service
   when: run_once_health_docker_container is not defined
 
 - name: "set 'service_name' to '{{ role_name }}'"

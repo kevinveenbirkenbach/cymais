@@ -1,4 +1,4 @@
-- name: Merge all files in cymais directory (container)
+- name: Merge all files in infinito directory (container)
   block:
     - name: Add dynamic config merging from Jinja template
       template:

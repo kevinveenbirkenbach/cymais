@@ -1,26 +1,51 @@
 # run_once_srv_web_7_7_inj_compose: deactivated
 
+- name: Set inj_enabled dictionary
+  set_fact:
+    inj_enabled:
+      javascript: "{{ applications | get_app_conf(application_id, 'features.javascript', False) }}"
+      logout:     "{{ (applications | get_app_conf(application_id, 'features.logout', False) or domain == primary_domain) }}"
+      css:        "{{ applications | get_app_conf(application_id, 'features.css', False) }}"
+      matomo:     "{{ applications | get_app_conf(application_id, 'features.matomo', False) }}"
+      port_ui:    "{{ applications | get_app_conf(application_id, 'features.port-ui-desktop', False) }}"
+
+- name: "Load CDN for {{domain}}"
+  include_role:
+    name: web-svc-cdn
+    public: false
+  # ATM just the Logout is using the CDN.
+  when: inj_enabled.logout and application_id != 'web-svc-cdn'
+
+- name: Set inj_enabled dictionary
+  set_fact:
+    inj_enabled:
+      javascript: "{{ applications | get_app_conf(application_id, 'features.javascript', False) }}"
+      logout:     "{{ (applications | get_app_conf(application_id, 'features.logout', False) or domain == primary_domain) }}"
+      css:        "{{ applications | get_app_conf(application_id, 'features.css', False) }}"
+      matomo:     "{{ applications | get_app_conf(application_id, 'features.matomo', False) }}"
+      port_ui:    "{{ applications | get_app_conf(application_id, 'features.port-ui-desktop', False) }}"
+
 - name: "Activate Global CSS for {{domain}}"
   include_role:
     name: srv-web-7-7-inj-css
-  when: applications | get_app_conf(application_id, 'features.css', False)
+  when: inj_enabled.css
 
 - name: "Activate Global Matomo Tracking for {{domain}}"
   include_role:
     name: srv-web-7-7-inj-matomo
-  when: applications | get_app_conf(application_id, 'features.matomo', False)
+  when: inj_enabled.matomo
 
 - name: "Activate Portfolio iFrame notifier for {{ domain }}"
   include_role:
     name: srv-web-7-7-inj-port-ui-desktop
-  when: applications | get_app_conf(application_id, 'features.port-ui-desktop', False)
+  when: inj_enabled.port_ui
 
 - name: "Activate Javascript for {{ domain }}"
   include_role:
     name: srv-web-7-7-inj-javascript
-  when: applications | get_app_conf(application_id, 'features.javascript', False)
+  when: inj_enabled.javascript
 
 - name: "Activate logout proxy for {{ domain }}"
   include_role:
     name: srv-web-7-7-inj-logout
-  when: applications | get_app_conf(application_id, 'features.logout', False)
+  when: inj_enabled.logout

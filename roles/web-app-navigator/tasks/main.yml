@@ -3,16 +3,16 @@
   include_role:
     name: pkgmgr-install
   vars:
-    package_name: cymais-presentation
+    package_name: infinito-presentation
     # package_notify: docker compose up
 
-- name: Get path of cymais-presentation using pkgmgr
-  command: pkgmgr path cymais-presentation
-  register: path_cymais_presentation_output
+- name: Get path of infinito-presentation using pkgmgr
+  command: pkgmgr path infinito-presentation
+  register: path_infinito_presentation_output
 
-- name: Get path of cymais using pkgmgrpull docker repository
-  command: pkgmgr path cymais
-  register: path_cymais_output
+- name: Get path of infinito using pkgmgrpull docker repository
+  command: pkgmgr path infinito
+  register: path_infinito_output
 
 - name: "include docker and reverse proxy for '{{ application_id }}'"
   include_role: 

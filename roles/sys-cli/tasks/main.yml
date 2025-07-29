@@ -1,10 +1,10 @@
-- name: "pkgmgr install cymais"
+- name: "pkgmgr install infinito"
   include_role:
     name: pkgmgr-install
   vars:
-    package_name: cymais
+    package_name: infinito
 
-- name: Get cymais base path
-  command: pkgmgr path cymais
-  register: cymais_path_cmd
+- name: Get infinito base path
+  command: pkgmgr path infinito
+  register: infinito_path_cmd
   changed_when: false

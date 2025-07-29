@@ -1,7 +1,7 @@
 # QBittorrent
 
 ## Overview
-This README is for the `desk-qbittorrent` role within the `cymais` repository. This role is specifically crafted for installing qBittorrent, a popular open-source torrent client, on personal computers.
+This README is for the `desk-qbittorrent` role within the `infinito` repository. This role is specifically crafted for installing qBittorrent, a popular open-source torrent client, on personal computers.
 
 ## Role Tasks
 The `main.yml` file in the `desk-qbittorrent` role includes the following task:
@@ -22,7 +22,7 @@ The `desk-qbittorrent` role is tailored for users who require a reliable and use
 
 ## Running the Role
 To utilize this role:
-1. Clone the `cymais` repository.
+1. Clone the `infinito` repository.
 2. Navigate to the `roles/desk-qbittorrent` directory.
 3. Execute the role using Ansible, ensuring you have the required system permissions for package installation.
 
@@ -30,4 +30,4 @@ To utilize this role:
 This role is primarily focused on installing qBittorrent, but it can be customized to include additional configurations or related software packages as needed.
 
 ## Support and Contributions
-For support, feedback, or contributions, such as enhancing the role or adding additional torrent-related functionality, please open an issue or submit a pull request in the `cymais` repository. Contributions that enhance the usability or features of qBittorrent within this role are highly appreciated.
+For support, feedback, or contributions, such as enhancing the role or adding additional torrent-related functionality, please open an issue or submit a pull request in the `infinito` repository. Contributions that enhance the usability or features of qBittorrent within this role are highly appreciated.

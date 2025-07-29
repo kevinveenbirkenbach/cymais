@@ -1,2 +1,2 @@
 # Tests
-This folder contains the tests for cymais
+This folder contains the tests for infinito

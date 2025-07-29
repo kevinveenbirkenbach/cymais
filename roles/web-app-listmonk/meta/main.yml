@@ -2,7 +2,7 @@
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
   description: "Elevate your email marketing with Listmonk, a high-performance, self-hosted newsletter and mailing list manager featuring a modern dashboard, advanced analytics, and flexible configuration options."
-  license: "CyMaIS NonCommercial License (CNCL)"
+  license: "Infinito.Nexus NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
     Kevin Veen-Birkenbach
@@ -14,9 +14,9 @@ galaxy_info:
     - newsletter
     - email marketing
     - self-hosted
-  repository: "https://s.veen.world/cymais"
-  issue_tracker_url: "https://s.veen.world/cymaisissues"
-  documentation: "https://s.veen.world/cymais"
+  repository: "https://github.com/kevinveenbirkenbach/infinito-nexus"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/infinito-nexus/issues"
+  documentation: "https://docs.infinito.nexus"
   logo:
     class: "fa-solid fa-list"
   run_after:

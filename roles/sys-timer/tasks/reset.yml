@@ -1,23 +1,23 @@
-- name: Find all cymais.timer units
+- name: Find all infinito.timer units
   find:
     paths: /etc/systemd/system
-    patterns: '*.cymais.timer'
-  register: cymais_timers
+    patterns: '*.infinito.timer'
+  register: infinito_timers
 
-- name: Disable and stop each cymais timer
+- name: Disable and stop each infinito timer
   systemd:
     name: "{{ item.path | basename }}"
     enabled: no
     state: stopped
-  loop: "{{ cymais_timers.files }}"
+  loop: "{{ infinito_timers.files }}"
   loop_control:
     label: "{{ item.path | basename }}"
 
-- name: Remove all cymais.timer files
+- name: Remove all infinito.timer files
   file:
     path: "{{ item.path }}"
     state: absent
-  loop: "{{ cymais_timers.files }}"
+  loop: "{{ infinito_timers.files }}"
   loop_control:
     label: "{{ item.path | basename }}"
 

@@ -33,14 +33,11 @@ body_filter_by_lua_block {
     -- on eof: concatenate all buffered chunks
     local whole = table.concat(ngx.ctx.buf)
     ngx.ctx.buf = nil  -- clear buffer
-{#    whole = string.gsub(whole, "</body>", "<!-- injected text2 -->\n</body>")
-    ngx.arg[1] = whole #}
 
     -- build a list of head-injection snippets
     local head_snippets = {}
 
-{# Deactivated 'logout' temporary due to chunk size. Needs an CDN. #}
-    {% for head_feature in ['css', 'matomo', 'port-ui-desktop', 'javascript' ] %}
+    {% for head_feature in ['css', 'matomo', 'port-ui-desktop', 'javascript', 'logout' ] %}
     {% if applications | get_app_conf(application_id, 'features.' ~ head_feature, false) | bool %}
     head_snippets[#head_snippets + 1] = [=[
         {%- include "roles/srv-web-7-7-inj-" ~ head_feature ~ "/templates/head_sub.j2" -%}
@@ -52,7 +49,7 @@ body_filter_by_lua_block {
     local head_payload = table.concat(head_snippets, "\n") .. "</head>"
     whole = string.gsub(whole, "</head>", head_payload)
 
-    {% if applications | get_app_conf(application_id, 'features.matomo', false) | bool %}
+    {% if inj_enabled.matomo | bool %}
     -- build Matomo noscript snippet for the body
     local body_matomo = [=[
         {%- include 'roles/srv-web-7-7-inj-matomo/templates/body_sub.j2' -%}

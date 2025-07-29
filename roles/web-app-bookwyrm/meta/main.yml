@@ -2,7 +2,7 @@
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
   description: "Deploys BookWyrm social reading server via Docker Compose, with basic domain and port wiring."
-  license: "CyMaIS NonCommercial License (CNCL)"
+  license: "Infinito.Nexus NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
     Kevin Veen-Birkenbach
@@ -12,9 +12,9 @@ galaxy_info:
     - bookwyrm
     - social
     - docker
-  repository: "https://github.com/kevinveenbirkenbach/cymais"
-  issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
-  documentation: "https://github.com/kevinveenbirkenbach/cymais/tree/main/roles/web-app-bookwyrm"
+  repository: "https://github.com/kevinveenbirkenbach/infinito-nexus"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/infinito-nexus/issues"
+  documentation: "https://github.com/kevinveenbirkenbach/infinito-nexus/tree/main/roles/web-app-bookwyrm"
   min_ansible_version: "2.9"
   platforms:
     - name: Any

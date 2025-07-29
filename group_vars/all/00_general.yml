@@ -1,4 +1,4 @@
-CYMAIS_ENVIRONMENT:       "production"
+INFINITO_ENVIRONMENT:       "production"
 
 HOST_CURRENCY:            "EUR"
 HOST_TIMEZONE:            "UTC"
@@ -21,7 +21,7 @@ WEB_PORT:               "{{ 443 if web_protocol == 'https' else 80 }}"  # Defaul
 
 ## Domain
 primary_domain_tld:     "localhost"                                     # Top Level Domain of the server
-primary_domain_sld:     "cymais"                                        # Second Level Domain of the server
+primary_domain_sld:     "infinito"                                        # Second Level Domain of the server
 primary_domain:         "{{primary_domain_sld}}.{{primary_domain_tld}}" # Primary Domain of the server
 
 # Server Tact Variables 

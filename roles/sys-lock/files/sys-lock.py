@@ -65,7 +65,7 @@ def wait_for_all_services_to_stop(filtered_services, max_attempts, attempt):
 def get_max_attempts(timeout_sec):
     return timeout_sec // BREAK_TIME_SECONDS
 
-def append_suffix_to_services(services, suffix=".cymais"):
+def append_suffix_to_services(services, suffix=".infinito"):
     """
     Append a specified suffix to each service name in the list.
     """

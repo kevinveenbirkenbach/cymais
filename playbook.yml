@@ -1,4 +1,4 @@
-- name: Execute CyMaIS Play
+- name: Execute Infinito.Nexus Play
   hosts: all
   tasks:
   - name: "Load 'constructor' tasks"

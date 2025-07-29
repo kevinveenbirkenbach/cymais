@@ -1,5 +1,5 @@
-- name: "reload sys-hlth-disc-space.cymais.service"
+- name: "reload sys-hlth-disc-space.infinito.service"
   systemd:
-    name: sys-hlth-disc-space.cymais.service
+    name: sys-hlth-disc-space.infinito.service
     enabled: yes
     daemon_reload: yes

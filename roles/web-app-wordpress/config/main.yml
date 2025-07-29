@@ -36,7 +36,7 @@ csp:
       - "https://fonts.bunny.net"
     frame-src:
       - "blob:"
-      - "*.{{ primary_domain }}"
+      - "*"
 domains:
   canonical:
     - "blog.{{ primary_domain }}"

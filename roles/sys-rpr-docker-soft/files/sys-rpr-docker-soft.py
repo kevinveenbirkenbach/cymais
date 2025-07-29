@@ -40,8 +40,8 @@ def main(base_directory):
     
     while blocker_running:
         try: 
-            bash("systemctl is-active --quiet sys-bkp-docker-2-loc.cymais.service")
-            bash("systemctl is-active --quiet update-docker.cymais.service")
+            bash("systemctl is-active --quiet sys-bkp-docker-2-loc.infinito.service")
+            bash("systemctl is-active --quiet update-docker.infinito.service")
             print("Backup is running.")
             print(f"Trying again in {waiting_time} seconds.")
             time.sleep(waiting_time)

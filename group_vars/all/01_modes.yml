@@ -1,7 +1,7 @@
 # Mode
 
 # The following modes can be combined with each other
-mode_reset:   false # Cleans up all CyMaIS files. It's necessary to run to whole playbook and not particial roles when using this function.
+mode_reset:   false # Cleans up all Infinito.Nexus files. It's necessary to run to whole playbook and not particial roles when using this function.
 mode_test:    false # Executes test routines instead of productive routines
 mode_update:  true  # Executes updates
 mode_backup:  true  # Activates the backup before the update procedure

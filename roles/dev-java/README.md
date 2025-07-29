@@ -1,7 +1,7 @@
 # Java
 
 ## Overview
-This README file is for the Java role, which is part of the `cymais`. The role is specifically designed to automate the installation of Java on a system, focusing on the OpenJDK 11 version.
+This README file is for the Java role, which is part of the `infinito`. The role is specifically designed to automate the installation of Java on a system, focusing on the OpenJDK 11 version.
 
 ## Contents of the role
 The `main.yml` file within the `java` role consists of a single, but crucial task:
@@ -25,4 +25,4 @@ To run this role:
 This role is focused on installing JDK 11, but it can be easily modified to install different versions of the JDK or additional Java-related tools as per your requirements.
 
 ## Support and Contribution
-For support, feedback, or contributions to the role, please open an issue or submit a pull request in the `cymais` repository. Contributions that enhance the role or broaden its applicability are greatly appreciated.
+For support, feedback, or contributions to the role, please open an issue or submit a pull request in the `infinito` repository. Contributions that enhance the role or broaden its applicability are greatly appreciated.

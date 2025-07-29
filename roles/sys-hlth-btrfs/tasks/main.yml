@@ -9,11 +9,11 @@
     src: sys-hlth-btrfs.sh
     dest: "{{docker_health_btrfs_folder}}sys-hlth-btrfs.sh"
 
-- name: create sys-hlth-btrfs.cymais.service
+- name: create sys-hlth-btrfs.infinito.service
   template: 
     src: sys-hlth-btrfs.service.j2
-    dest: /etc/systemd/system/sys-hlth-btrfs.cymais.service
-  notify: reload sys-hlth-btrfs.cymais.service
+    dest: /etc/systemd/system/sys-hlth-btrfs.infinito.service
+  notify: reload sys-hlth-btrfs.infinito.service
 
 - name: "set 'service_name' to '{{ role_name }}'"
   set_fact:

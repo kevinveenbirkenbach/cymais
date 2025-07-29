@@ -1,6 +1,6 @@
-- name: "restart set-mtu.cymais.service"
+- name: "restart set-mtu.infinito.service"
   systemd:
-    name: set-mtu.cymais.service
+    name: set-mtu.infinito.service
     state: restarted
     enabled: yes
     daemon_reload: yes

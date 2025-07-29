@@ -1,8 +1,8 @@
-# Product Vision — CyMaIS Platform
+# Product Vision — Infinito.Nexus Platform
 
 ## The Universal Automation Platform for Self-Hosted IT Infrastructure.
 
-CyMaIS provides a modular, Open Source infrastructure automation platform that enables secure and scalable IT environments — for individuals, SMEs, NGOs, and enterprises.
+Infinito.Nexus provides a modular, Open Source infrastructure automation platform that enables secure and scalable IT environments — for individuals, SMEs, NGOs, and enterprises.
 
 ### Key Product Goals
 - Enterprise-grade infrastructure automation for everyone  
@@ -15,7 +15,7 @@ CyMaIS provides a modular, Open Source infrastructure automation platform that e
 - Support for decentralized protocols like ActivityPub, Matrix, Email  
 
 ### Long-Term Product Vision
-CyMaIS will become the central platform for:
+Infinito.Nexus will become the central platform for:
 
 - Automating any self-hosted infrastructure within minutes  
 - Maintaining full data control and regulatory compliance  
@@ -24,5 +24,5 @@ CyMaIS will become the central platform for:
 
 ---
 
-> *CyMaIS — The Future of Self-Hosted Infrastructure.*  
+> *Infinito.Nexus — The Future of Self-Hosted Infrastructure.*  
 > *Secure. Automated. Sovereign.*

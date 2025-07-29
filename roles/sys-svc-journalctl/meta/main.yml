@@ -2,7 +2,7 @@
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
   description: "Configure and manage systemd-journald settings"
-  license: "CyMaIS NonCommercial License (CNCL)"
+  license: "Infinito.Nexus NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
     Kevin Veen-Birkenbach
@@ -12,9 +12,9 @@ galaxy_info:
     - system
     - logging
     - journald
-  repository: "https://github.com/kevinveenbirkenbach/cymais"
-  issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
-  documentation: "https://github.com/kevinveenbirkenbach/cymais/roles/sys-svc-journalctl"
+  repository: "https://github.com/kevinveenbirkenbach/infinito-nexus"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/infinito-nexus/issues"
+  documentation: "https://github.com/kevinveenbirkenbach/infinito-nexus/roles/sys-svc-journalctl"
   run_after: []
 dependencies:
   - sys-hlth-journalctl

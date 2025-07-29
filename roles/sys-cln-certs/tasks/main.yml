@@ -5,11 +5,11 @@
     package_name: certreap
   when: run_once_cleanup_certs is not defined
 
-- name: configure sys-cln-certs.cymais.service
+- name: configure sys-cln-certs.infinito.service
   template:
     src: sys-cln-certs.service.j2
-    dest: /etc/systemd/system/sys-cln-certs.cymais.service
-  notify: Reload and restart sys-cln-certs.cymais.service
+    dest: /etc/systemd/system/sys-cln-certs.infinito.service
+  notify: Reload and restart sys-cln-certs.infinito.service
   when: run_once_cleanup_certs is not defined
 
 - name: "set 'service_name' to '{{ role_name }}'"

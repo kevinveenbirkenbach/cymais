@@ -15,7 +15,7 @@ Optimized for Archlinux and Debian-based systems, this role ensures the presence
 
 ## License
 
-CyMaIS NonCommercial License (CNCL)
+Infinito.Nexus NonCommercial License (CNCL)
 [https://s.veen.world/cncl](https://s.veen.world/cncl)
 
 ## Author

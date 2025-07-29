@@ -18,10 +18,10 @@
     group: root
   notify: reload sysctl configuration
 
-- name: create /etc/wireguard/wg0.cymais.conf
+- name: create /etc/wireguard/wg0.infinito.conf
   copy:
     src: "{{ inventory_dir }}/files/{{ inventory_hostname }}/etc/wireguard/wg0.conf"
-    dest: /etc/wireguard/wg0.cymais.conf
+    dest: /etc/wireguard/wg0.infinito.conf
     owner: root
     group: root
   notify: restart wireguard

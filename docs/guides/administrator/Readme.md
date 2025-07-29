@@ -1,9 +1,9 @@
 # Administrator Guide
 
-This guide is for **system administrators** who are deploying and managing CyMaIS infrastructure.
+This guide is for **system administrators** who are deploying and managing Infinito.Nexus infrastructure.
 
-## Setting Up CyMaIS 🏗️
-Follow these guides to install and configure CyMaIS:
+## Setting Up Infinito.Nexus 🏗️
+Follow these guides to install and configure Infinito.Nexus:
 - [Setup Guide](SETUP_GUIDE.md)
 - [Configuration Guide](CONFIGURATION.md)
 - [Deployment Guide](DEPLOY.md)
@@ -14,7 +14,7 @@ Follow these guides to install and configure CyMaIS:
 - **Application Hosting** - Deploy services like `Nextcloud`, `Matrix`, `Gitea`, and more.
 - **Networking & VPN** - Configure `WireGuard`, `OpenVPN`, and `Nginx Reverse Proxy`.
 
-## Managing & Updating CyMaIS 🔄
+## Managing & Updating Infinito.Nexus 🔄
 - Regularly update services using `update-docker`, `update-pacman`, or `update-apt`.
 - Monitor system health with `sys-hlth-btrfs`, `sys-hlth-webserver`, and `sys-hlth-docker-container`.
 - Automate system maintenance with `sys-lock`, `sys-cln-bkps-service`, and `sys-rpr-docker-hard`.

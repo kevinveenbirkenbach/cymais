@@ -23,8 +23,8 @@
 - name: Copy systemd service to systemd directory
   template:
     src: svc-bkp-loc-2-usb.service.j2
-    dest: /etc/systemd/system/svc-bkp-loc-2-usb.cymais.service
+    dest: /etc/systemd/system/svc-bkp-loc-2-usb.infinito.service
     owner: root
     group: root
     mode: '0644'
-  notify: reload svc-bkp-loc-2-usb.cymais.service
+  notify: reload svc-bkp-loc-2-usb.infinito.service

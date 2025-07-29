@@ -21,15 +21,15 @@ It solves the common challenge of logging a user out from all connected apps wit
 - Automatic discovery of logout domains from applications with the `features.logout` flag enabled.
 - Centralized logout proxy that clears cookies and sessions across all configured subdomains.
 - Status page with live feedback on logout progress for each domain.
-- Built-in support for Docker Compose deployment and integration with the CyMaIS ecosystem.
+- Built-in support for Docker Compose deployment and integration with the Infinito.Nexus ecosystem.
 - Includes security-conscious headers (CORS, CSP) for smooth cross-domain logout operations.
 
 ## Further Resources
 
 - [Universal Logout GitHub Repository](https://github.com/kevinveenbirkenbach/universal-logout)  
-- [CyMaIS Project](https://cymais.cloud)  
+- [Infinito.Nexus Project](https://infinito.nexus)  
 - [Author: Kevin Veen-Birkenbach](https://veen.world)  
 
 ---
 
-*This role is licensed under the [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl).*
+*This role is licensed under the [Infinito.Nexus NonCommercial License (CNCL)](https://s.veen.world/cncl).*

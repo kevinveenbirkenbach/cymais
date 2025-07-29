@@ -32,7 +32,7 @@ def merge_with_defaults(defaults, customs):
     return merged
 
 class FilterModule(object):
-    '''Custom merge filter for CyMaIS: merge_with_defaults'''
+    '''Custom merge filter for Infinito.Nexus: merge_with_defaults'''
     def filters(self):
         return {
             'merge_with_defaults': merge_with_defaults,

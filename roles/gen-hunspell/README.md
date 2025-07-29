@@ -1,7 +1,7 @@
 # Hunspell
 
 ## Overview
-This README accompanies the Hunspell Playbook, located within the `cymais` repository. The playbook is focused on installing Hunspell, a widely-used spell checker, along with various language packages to enhance its functionality.
+This README accompanies the Hunspell Playbook, located within the `infinito` repository. The playbook is focused on installing Hunspell, a widely-used spell checker, along with various language packages to enhance its functionality.
 
 ## Playbook Contents
 The `main.yml` file in the `hunspell` role includes two primary tasks:
@@ -19,7 +19,7 @@ This playbook is tailored for users who need a powerful and flexible spell-check
 
 ## How to Run the Playbook
 To utilize this playbook:
-1. Ensure you have cloned the `cymais` repository.
+1. Ensure you have cloned the `infinito` repository.
 2. Navigate to the `roles/hunspell` directory within the repository.
 3. Execute the playbook using Ansible, ensuring you provide a list of language codes to the `{{hunspell_languages}}` variable.
 
@@ -27,4 +27,4 @@ To utilize this playbook:
 Users are encouraged to customize the `{{hunspell_languages}}` variable based on their specific language requirements. This variable accepts a list of language codes (e.g., 'en_US', 'de_DE').
 
 ## Support and Contributions
-For any support requests, suggestions, or contributions, please open an issue or a pull request in the `cymais` repository. Contributions, especially those that enhance the playbook's functionality or extend its language support, are highly welcomed.
+For any support requests, suggestions, or contributions, please open an issue or a pull request in the `infinito` repository. Contributions, especially those that enhance the playbook's functionality or extend its language support, are highly welcomed.

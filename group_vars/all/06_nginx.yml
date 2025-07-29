@@ -18,6 +18,7 @@ nginx:
       well_known:     "/usr/share/nginx/well-known/"        # Path where well-known files are stored
       html:           "{{ _nginx_www_dir }}public_html/"    # Path where the static homepage files are stored
       files:          "{{ _nginx_www_dir }}public_files/"   # Path where the web accessable files are stored
+      cdn:            "{{ _nginx_www_dir }}public_cdn/"     # Contains files which will be accessable via the content delivery network
       global:         "{{ _nginx_www_dir }}global/"         # Directory containing files which will be globaly accessable
     cache:
       general:        "/tmp/cache_nginx_general/"           # Directory which nginx uses to cache general data

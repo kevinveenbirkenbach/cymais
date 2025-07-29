@@ -7,10 +7,10 @@ galaxy_info:
     Kevin Veen-Birkenbach  
     Consulting & Coaching Solutions  
     https://www.veen.world
-  license: "CyMaIS NonCommercial License (CNCL)"
-  repository: https://s.veen.world/cymais
-  issue_tracker_url: https://s.veen.world/cymaisissues
-  documentation: https://s.veen.world/cymais
+  license: "Infinito.Nexus NonCommercial License (CNCL)"
+  repository: https://github.com/kevinveenbirkenbach/infinito-nexus
+  issue_tracker_url: https://github.com/kevinveenbirkenbach/infinito-nexus/issues
+  documentation: "https://docs.infinito.nexus/"
   license_url: "https://s.veen.world/cncl"
   min_ansible_version: "2.9"
   platforms:

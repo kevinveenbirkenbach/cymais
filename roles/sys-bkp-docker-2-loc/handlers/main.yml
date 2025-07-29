@@ -1,9 +1,9 @@
-- name: "reload sys-bkp-docker-2-loc-everything.cymais.service"
+- name: "reload sys-bkp-docker-2-loc-everything.infinito.service"
   systemd:
-    name: sys-bkp-docker-2-loc-everything.cymais.service
+    name: sys-bkp-docker-2-loc-everything.infinito.service
     daemon_reload: yes
 
-- name: "reload sys-bkp-docker-2-loc.cymais.service"
+- name: "reload sys-bkp-docker-2-loc.infinito.service"
   systemd:
-    name: sys-bkp-docker-2-loc.cymais.service
+    name: sys-bkp-docker-2-loc.infinito.service
     daemon_reload: yes

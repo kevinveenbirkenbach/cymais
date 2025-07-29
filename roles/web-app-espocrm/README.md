@@ -29,11 +29,11 @@ With this role, you'll have a production-ready CRM environment that's secure, sc
 
 - [EspoCRM Official Website](https://www.espocrm.com/) 🌍  
 - [EspoCRM Documentation](https://docs.espocrm.com/) 📖  
-- [CyMaIS Project Repository](https://github.com/kevinveenbirkenbach/cymais) 🔗  
+- [Infinito.Nexus Project Repository](https://github.com/kevinveenbirkenbach/infinito-nexus) 🔗  
 
 ## Credits
 
 Developed and maintained by **Kevin Veen-Birkenbach**.  
 Consulting & Coaching Solutions: [veen.world](https://www.veen.world) 🌟  
-Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais) 📂  
-License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl) ⚖️  
+Part of the [Infinito.Nexus Project](https://github.com/kevinveenbirkenbach/infinito-nexus) 📂  
+License: [Infinito.Nexus NonCommercial License (CNCL)](https://s.veen.world/cncl) ⚖️  

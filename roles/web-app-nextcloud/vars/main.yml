@@ -21,7 +21,7 @@ nextcloud_control_node_plugin_tasks_directory:  "{{role_path}}/tasks/plugins/"  
 # Host 
 
 ## Host Paths
-nextcloud_host_config_additives_directory:      "{{ docker_compose.directories.volumes }}cymais/"               # This folder is the path to which the additive configurations will be copied
+nextcloud_host_config_additives_directory:      "{{ docker_compose.directories.volumes }}infinito/"               # This folder is the path to which the additive configurations will be copied
 nextcloud_host_include_instructions_file:       "{{ docker_compose.directories.volumes }}includes.php"          # Path to the instruction file on the host. Responsible for loading the additional configurations
 
 # Docker
@@ -55,7 +55,7 @@ nextcloud_docker_user:                          "www-data"                      
 nextcloud_docker_work_directory:                "/var/www/html/"                                              # Name of the workdir in which the application is stored
 nextcloud_docker_config_directory:              "{{nextcloud_docker_work_directory}}config/"                  # Folder in which the Nextcloud configurations are stored     
 nextcloud_docker_config_file:                   "{{nextcloud_docker_config_directory}}config.php"             # Path to the Nextcloud configuration file
-nextcloud_docker_config_additives_directory:    "{{nextcloud_docker_config_directory}}cymais/"                # Path to the folder which contains additional configurations
+nextcloud_docker_config_additives_directory:    "{{nextcloud_docker_config_directory}}infinito/"                # Path to the folder which contains additional configurations
 nextcloud_docker_include_instructions_file:     "/tmp/includes.php"                                           # Path to the temporary file which will be included to the config.php to load the additional configurations
 
 ## Execution

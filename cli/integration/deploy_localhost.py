@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Run the full localhost integration flow entirely inside the cymais Docker container,
+Run the full localhost integration flow entirely inside the infinito Docker container,
 without writing any artifacts to the host filesystem.
 Catches missing schema/config errors during credential vaulting and skips those apps.
 """
@@ -115,7 +115,7 @@ python3 -m cli.deploy \
         "-v", f"{repo}:/repo",
         "-w", "/repo",
         "--entrypoint", "bash",
-        "cymais:latest",
+        "infinito:latest",
         "-c", bash_script
     ]
     print(f"\033[96m> {' '.join(cmd)}\033[0m")

@@ -1,6 +1,6 @@
 # Change Distinguished Name (DN) in OpenLDAP Docker
 
-This document provides a step-by-step guide on how to rename the Distinguished Name (DN) from `cn=administrator,dc=flock,dc=town` to `cn=administrator,dc=cymais,dc=cloud` in an **OpenLDAP Docker** environment.
+This document provides a step-by-step guide on how to rename the Distinguished Name (DN) from `cn=administrator,dc=flock,dc=town` to `cn=administrator,dc=infinito,dc=cloud` in an **OpenLDAP Docker** environment.
 
 **Reference:** [Conversation Link](https://chatgpt.com/share/67d9a2f7-4e04-800f-9a0f-1673194f276c)
 
@@ -23,11 +23,11 @@ If your ***LDAP_ADMIN_DN*** and ***LDAP_ROOT***  are not accured pass them via `
 Open `all_entries.ldif` and update the DN (`dn:` line) and `dc` attributes.
 
 - Open the file in an editor (`nano`, `vim`, `sed`).
-- Replace **all occurrences** of `dc=flock,dc=town` with `dc=cymais,dc=cloud`.
+- Replace **all occurrences** of `dc=flock,dc=town` with `dc=infinito,dc=cloud`.
 
 **Using `sed` to modify automatically:**
 ```sh
-sed -i 's/dc=flock,dc=town/dc=cymais,dc=cloud/g' all_entries.ldif
+sed -i 's/dc=flock,dc=town/dc=infinito,dc=cloud/g' all_entries.ldif
 ```
 
 **Before:**
@@ -41,7 +41,7 @@ userPassword: {SSHA}...
 
 **After:**
 ```ldif
-dn: cn=administrator,dc=cymais,dc=cloud
+dn: cn=administrator,dc=infinito,dc=cloud
 cn: administrator
 objectClass: organizationalRole
 objectClass: simpleSecurityObject
@@ -96,7 +96,7 @@ docker exec -i ldap ldapadd -Y EXTERNAL -H ldapi:/// -f /dev/stdin < new_databas
 Now, upload the modified `all_entries.ldif`:
 
 ```sh
-cat all_entries.ldif | docker exec -i ldap sh -c 'ldapadd -x -D "cn=admin,dc=cymais,dc=cloud" -w "$LDAP_ADMIN_PASSWORD"'
+cat all_entries.ldif | docker exec -i ldap sh -c 'ldapadd -x -D "cn=admin,dc=infinito,dc=cloud" -w "$LDAP_ADMIN_PASSWORD"'
 ```
 
 ---
@@ -111,7 +111,7 @@ olcRootDN: cn=administrator,dc=flock,dc=town
 ```
 Replace with:
 ```ldif
-olcRootDN: cn=administrator,dc=cymais,dc=cloud
+olcRootDN: cn=administrator,dc=infinito,dc=cloud
 ```
 
 Save the change and apply it:
@@ -130,4 +130,4 @@ Restart the OpenLDAP container if necessary:
 docker restart ldap
 ```
 
-Now, `cn=administrator,dc=cymais,dc=cloud` should be active as the new administrator account.
+Now, `cn=administrator,dc=infinito,dc=cloud` should be active as the new administrator account.

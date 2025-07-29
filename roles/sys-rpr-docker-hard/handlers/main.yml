@@ -1,5 +1,5 @@
-- name: "reload sys-rpr-docker-hard.cymais.service"
+- name: "reload sys-rpr-docker-hard.infinito.service"
   systemd:
-    name: sys-rpr-docker-hard.cymais.service
+    name: sys-rpr-docker-hard.infinito.service
     enabled: yes
     daemon_reload: yes

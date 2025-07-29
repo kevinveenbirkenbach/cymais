@@ -1,5 +1,5 @@
-- name: "reload svc-bkp-loc-2-usb.cymais.service"
+- name: "reload svc-bkp-loc-2-usb.infinito.service"
   systemd:
-    name: svc-bkp-loc-2-usb.cymais.service
+    name: svc-bkp-loc-2-usb.infinito.service
     state: reloaded
     daemon_reload: yes

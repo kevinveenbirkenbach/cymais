@@ -1,6 +1,6 @@
-# Custom Modules (`library/`) for CyMaIS
+# Custom Modules (`library/`) for Infinito.Nexus
 
-This directory contains **custom Ansible modules** developed specifically for the CyMaIS project.
+This directory contains **custom Ansible modules** developed specifically for the Infinito.Nexus project.
 
 ## When to Use the `library/` Directory
 
@@ -21,8 +21,8 @@ This directory contains **custom Ansible modules** developed specifically for th
 
 In your playbook, call your custom module as you would any other Ansible module:
 ```yaml
-- name: Use custom CyMaIS module
-  cymais_my_custom_module:
+- name: Use custom Infinito.Nexus module
+  infinito_my_custom_module:
     option1: value1
     option2: value2
 ````

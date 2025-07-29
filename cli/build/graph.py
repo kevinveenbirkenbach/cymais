@@ -71,8 +71,8 @@ def build_single_graph(
             meta = load_meta(find_role_meta(roles_dir, role))
             node = {'id': role}
             node.update(meta['galaxy_info'])
-            node['doc_url'] = f"https://docs.cymais.cloud/roles/{role}/README.html"
-            node['source_url'] = f"https://github.com/kevinveenbirkenbach/cymais/tree/master/roles/{role}"
+            node['doc_url'] = f"https://docs.infinito.nexus/roles/{role}/README.html"
+            node['source_url'] = f"https://github.com/kevinveenbirkenbach/infinito-nexus/tree/master/roles/{role}"
             nodes[role] = node
 
         if max_depth > 0 and depth >= max_depth:

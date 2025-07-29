@@ -1,5 +1,5 @@
-- name: reload sys-hlth-msmtp.cymais.service
+- name: reload sys-hlth-msmtp.infinito.service
   systemd:
-    name: sys-hlth-msmtp.cymais.service
+    name: sys-hlth-msmtp.infinito.service
     enabled: yes
     daemon_reload: yes

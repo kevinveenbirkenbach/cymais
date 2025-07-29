@@ -11,11 +11,11 @@
     dest: "{{health_journalctl_folder}}sys-hlth-journalctl.sh"
   when: run_once_health_journalctl is not defined
 
-- name: create sys-hlth-journalctl.cymais.service
+- name: create sys-hlth-journalctl.infinito.service
   template: 
     src: sys-hlth-journalctl.service.j2
-    dest: /etc/systemd/system/sys-hlth-journalctl.cymais.service
-  notify: reload sys-hlth-journalctl.cymais.service
+    dest: /etc/systemd/system/sys-hlth-journalctl.infinito.service
+  notify: reload sys-hlth-journalctl.infinito.service
   when: run_once_health_journalctl is not defined
 
 - name: "set 'service_name' to '{{ role_name }}'"

@@ -1,5 +1,5 @@
-- name: "reload sys-hlth-docker-volumes.cymais.service"
+- name: "reload sys-hlth-docker-volumes.infinito.service"
   systemd:
-    name: sys-hlth-docker-volumes.cymais.service
+    name: sys-hlth-docker-volumes.infinito.service
     enabled: yes
     daemon_reload: yes

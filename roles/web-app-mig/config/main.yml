@@ -6,7 +6,7 @@ docker:
       enabled:        false   # No database needed
 features:
   matomo:             true  # activate tracking
-  css:                true  # use custom cymais stile 
+  css:                true  # use custom infinito stile 
   port-ui-desktop:    true  # Enable in port-ui
   logout:   false
 csp:

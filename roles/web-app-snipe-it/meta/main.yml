@@ -2,7 +2,7 @@
 galaxy_info:
   author: "Kevin Veen-Birkenbach"
   description: "Snipe‑IT is an open‑source asset management system providing a containerized deployment with centralized MariaDB integration, configurable SMTP settings, and pending SAML authentication enhancements for secure asset tracking and management."
-  license: "CyMaIS NonCommercial License (CNCL)"
+  license: "Infinito.Nexus NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   company: |
     Kevin Veen-Birkenbach  
@@ -21,9 +21,9 @@ galaxy_info:
     - smtp
     - saml
     - automation
-  repository: "https://s.veen.world/cymais"
-  issue_tracker_url: "https://s.veen.world/cymaisissues"
-  documentation: "https://s.veen.world/cymais"
+  repository: "https://github.com/kevinveenbirkenbach/infinito-nexus"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/infinito-nexus/issues"
+  documentation: "https://docs.infinito.nexus"
   logo:
     class: "fa-solid fa-box"
   run_after:

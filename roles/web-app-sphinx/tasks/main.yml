@@ -4,12 +4,12 @@
   include_role:
     name: pkgmgr-install
   vars:
-    package_name: cymais-sphinx
+    package_name: infinito-sphinx
     # package_notify: docker compose up
 
-- name: Get path of cymais-sphinx using pkgmgr
-  command: pkgmgr path cymais-sphinx
-  register: path_cymais_sphinx_output
+- name: Get path of infinito-sphinx using pkgmgr
+  command: pkgmgr path infinito-sphinx
+  register: path_infinito_sphinx_output
 
 - name: "include docker and reverse proxy for '{{ application_id }}'"
   include_role: 

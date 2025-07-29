@@ -1,6 +1,6 @@
 # 🚀 Deployment Guide
 
-This section explains how to deploy and manage the **Cyber Master Infrastructure Solution (CyMaIS)** using Ansible. CyMaIS uses a collection of Ansible tasks, which are controlled via different **"modes"** — such as **updates**, **backups**, **resets**, and **cleanup** operations.
+This section explains how to deploy and manage the **Cyber Master Infrastructure Solution (Infinito.Nexus)** using Ansible. Infinito.Nexus uses a collection of Ansible tasks, which are controlled via different **"modes"** — such as **updates**, **backups**, **resets**, and **cleanup** operations.
 
 ---
 
@@ -9,27 +9,27 @@ This section explains how to deploy and manage the **Cyber Master Infrastructure
 Before deploying, ensure the following are in place:
 
 - **🧭 Inventory File:** A valid Ansible inventory file that defines your target systems (servers, personal computers, etc.). Adjust example paths to your environment.
-- **📦 CyMaIS Installed:** Install via [Kevin's Package-Manager](https://github.com/kevinveenbirkenbach/package-manager).
+- **📦 Infinito.Nexus Installed:** Install via [Kevin's Package-Manager](https://github.com/kevinveenbirkenbach/package-manager).
 - **🔐 (Optional) Vault Password File:** If you don't want to enter your vault password interactively, create a password file.
 
 ---
 
-## 📘 Show CyMaIS Help
+## 📘 Show Infinito.Nexus Help
 
 To get a full overview of available options and usage instructions, run:
 
 ```bash
-cymais --help
+infinito --help
 ```
 
 ---
 
 ## 💡 Example Deploy Command
 
-To deploy CyMaIS on a personal computer (e.g., a laptop), you can run:
+To deploy Infinito.Nexus on a personal computer (e.g., a laptop), you can run:
 
 ```bash
-cymais playbook \
+infinito playbook \
   --limit hp-spectre-x360 \
   --host-type personal-computer \
   --update \
@@ -41,7 +41,7 @@ cymais playbook \
 
 | Parameter | Description |
 |----------|-------------|
-| `playbook` | Executes the playbook subcommand of CyMaIS. |
+| `playbook` | Executes the playbook subcommand of Infinito.Nexus. |
 | `--limit hp-spectre-x360` | Limits execution to a specific host (`hp-spectre-x360`). |
 | `--host-type personal-computer` | Defines the host type. Default is `server`; here it is set to `personal-computer`. |
 | `--update` | Enables update mode to apply software or configuration updates. |
@@ -64,7 +64,7 @@ To avoid typing your vault password interactively, you can provide a file:
 
 ## 🔍 Full Command-Line Reference
 
-Here’s a breakdown of all available parameters from `cymais playbook --help`:
+Here’s a breakdown of all available parameters from `infinito playbook --help`:
 
 | Argument | Description |
 |----------|-------------|
@@ -87,7 +87,7 @@ Here’s a breakdown of all available parameters from `cymais playbook --help`:
 You can mix and match modes like this:
 
 ```bash
-cymais playbook --update --backup --cleanup pcs.yml
+infinito playbook --update --backup --cleanup pcs.yml
 ```
 
 This will update the system, create a backup, and clean up unnecessary files in one run.

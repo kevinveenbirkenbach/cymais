@@ -1,9 +1,9 @@
 # User Guide
 
-Welcome to **CyMaIS**! This guide is designed for **end-users** who want to use cloud services, email, and collaboration tools securely and efficiently. Whether you're an **enterprise user** or an **individual**, CyMaIS provides a wide range of services tailored to your needs.
+Welcome to **Infinito.Nexus**! This guide is designed for **end-users** who want to use cloud services, email, and collaboration tools securely and efficiently. Whether you're an **enterprise user** or an **individual**, Infinito.Nexus provides a wide range of services tailored to your needs.
 
-## What Can CyMaIS Do for You? 💡
-CyMaIS enables you to securely and efficiently use a variety of **cloud-based applications**, including:
+## What Can Infinito.Nexus Do for You? 💡
+Infinito.Nexus enables you to securely and efficiently use a variety of **cloud-based applications**, including:
 
 ### 📂 Cloud Storage & File Sharing
 - **Nextcloud** – Securely store, sync, and share files across devices.
@@ -44,23 +44,23 @@ CyMaIS enables you to securely and efficiently use a variety of **cloud-based ap
 
 ## 🏢 Enterprise Users
 ### How to Get Started 🏁
-If your organization provides CyMaIS services, follow these steps:
+If your organization provides Infinito.Nexus services, follow these steps:
 - Your **administrator** will provide login credentials.
 - Access **cloud services** via a web browser or mobile apps.
 - For support, contact your **system administrator**.
 
 ## 🏠 Private Users
 ### How to Get Started 🏁
-If you're an **individual user**, you can sign up for CyMaIS services:
-- **Register an account** at [cymais.cloud](https://cymais.cloud).
+If you're an **individual user**, you can sign up for Infinito.Nexus services:
+- **Register an account** at [infinito.nexus](https://infinito.nexus).
 - Choose the applications and services you need.
-- Follow the setup guide and start using CyMaIS services immediately.
+- Follow the setup guide and start using Infinito.Nexus services immediately.
 
 ## 📚 Learn More
-Discover more about CyMaIS applications:
+Discover more about Infinito.Nexus applications:
 - :doc:`roles/application_glosar`
 - :doc:`roles/application_categories`
 
-For further information, visit our **[Information Hub](https://hub.cymais.cloud)** for tutorials, FAQs, and community support.
+For further information, visit our **[Information Hub](https://hub.infinito.nexus)** for tutorials, FAQs, and community support.
 
 You can also register for updates and support from our community.

@@ -1,4 +1,4 @@
 - name: "restart sys-alm-email service"
   systemd:
-    name: sys-alm-email.cymais.service
+    name: sys-alm-email.infinito.service
     daemon_reload: yes

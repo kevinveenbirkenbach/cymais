@@ -1,6 +1,6 @@
 - name: "restart sys-alm-compose service"
   systemd:
-    name: sys-alm-compose.cymais.service
+    name: sys-alm-compose.infinito.service
     daemon_reload: yes
   when: run_once_systemd_notifier_service is not defined
 

@@ -1,5 +1,5 @@
-- name: "reload sys-cln-backups.cymais.service"
+- name: "reload sys-cln-backups.infinito.service"
   systemd:
-    name: sys-cln-backups.cymais.service
+    name: sys-cln-backups.infinito.service
     enabled: yes
     daemon_reload: yes

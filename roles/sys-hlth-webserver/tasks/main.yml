@@ -17,11 +17,11 @@
     dest: "{{ health_nginx_folder }}sys-hlth-webserver.py"
   when: run_once_health_nginx is not defined
 
-- name: create sys-hlth-webserver.cymais.service
+- name: create sys-hlth-webserver.infinito.service
   template: 
     src: sys-hlth-webserver.service.j2
-    dest: /etc/systemd/system/sys-hlth-webserver.cymais.service
-  notify: reload sys-hlth-webserver.cymais.service
+    dest: /etc/systemd/system/sys-hlth-webserver.infinito.service
+  notify: reload sys-hlth-webserver.infinito.service
   when: run_once_health_nginx is not defined
 
 - name: "set 'service_name' to '{{ role_name }}'"

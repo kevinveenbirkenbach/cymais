@@ -1,6 +1,6 @@
-# Custom Filter Plugins for CyMaIS
+# Custom Filter Plugins for Infinito.Nexus
 
-This directory contains custom **Ansible filter plugins** used within the CyMaIS project.
+This directory contains custom **Ansible filter plugins** used within the Infinito.Nexus project.
 
 ## When to Use a Filter Plugin
 

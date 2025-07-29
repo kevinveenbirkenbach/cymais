@@ -5,7 +5,7 @@ galaxy_info:
     Kevin Veen-Birkenbach
     Consulting & Coaching Solutions
     https://www.veen.world
-  license: "CyMaIS NonCommercial License (CNCL)"
+  license: "Infinito.Nexus NonCommercial License (CNCL)"
   license_url: "https://s.veen.world/cncl"
   min_ansible_version: "2.9"
   galaxy_tags:
@@ -16,9 +16,9 @@ galaxy_info:
     - compression
     - security
     - performance
-  repository: "https://github.com/kevinveenbirkenbach/cymais"
-  issue_tracker_url: "https://github.com/kevinveenbirkenbach/cymais/issues"
-  documentation: "https://github.com/kevinveenbirkenbach/cymais/roles/srv-web-7-4-core"
+  repository: "https://github.com/kevinveenbirkenbach/infinito-nexus"
+  issue_tracker_url: "https://github.com/kevinveenbirkenbach/infinito-nexus/issues"
+  documentation: "https://github.com/kevinveenbirkenbach/infinito-nexus/roles/srv-web-7-4-core"
 dependencies:
   - sys-hlth-webserver
   - sys-hlth-csp

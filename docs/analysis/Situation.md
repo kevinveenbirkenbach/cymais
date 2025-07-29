@@ -1,6 +1,6 @@
 # Situation Analysis
 
-This is the Situation Analysis for [CyMaIS](https://cymais.cloud), highlighting the challenges we aim to address.
+This is the Situation Analysis for [Infinito.Nexus](https://infinito.nexus), highlighting the challenges we aim to address.
 
 ## Short
 

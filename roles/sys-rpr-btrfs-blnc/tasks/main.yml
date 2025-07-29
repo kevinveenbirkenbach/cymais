@@ -5,11 +5,11 @@
     package_name: btrfs-auto-balancer
   when: run_once_system_btrfs_auto_balancer is not defined
 
-- name: configure sys-rpr-btrfs-blnc.cymais.service
+- name: configure sys-rpr-btrfs-blnc.infinito.service
   template: 
     src: sys-rpr-btrfs-blnc.service.j2
-    dest: /etc/systemd/system/sys-rpr-btrfs-blnc.cymais.service
-  notify: reload sys-rpr-btrfs-blnc.cymais.service
+    dest: /etc/systemd/system/sys-rpr-btrfs-blnc.infinito.service
+  notify: reload sys-rpr-btrfs-blnc.infinito.service
   when: run_once_system_btrfs_auto_balancer is not defined
 
 - name: "set 'service_name' to '{{ role_name }}'"

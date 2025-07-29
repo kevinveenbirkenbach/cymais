@@ -7,7 +7,7 @@ Checks the health of all mounted Btrfs filesystems by inspecting device error co
 - Iterates over every Btrfs filesystem.
 - Runs `btrfs device stats` and alerts if any error counters are non-zero.
 - Hooks into systemd and a timer for regular checks.
-- On failure, calls `sys-alm-compose.cymais@…` for notification.
+- On failure, calls `sys-alm-compose.infinito@…` for notification.
 
 ## Usage
 Just include this role in your playbook; it will:

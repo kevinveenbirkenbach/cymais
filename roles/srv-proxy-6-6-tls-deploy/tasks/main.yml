@@ -3,20 +3,20 @@
     src: "srv-proxy-6-6-tls-deploy.sh.j2" 
     dest: "{{nginx_docker_cert_deploy_script}}"
   when: run_once_nginx_docker_cert_deploy is not defined
-  notify: restart srv-proxy-6-6-tls-deploy.cymais.service
+  notify: restart srv-proxy-6-6-tls-deploy.infinito.service
 
 - name: "create {{cert_mount_directory}}"
   file:
     path:     "{{cert_mount_directory}}"
     state:    directory
     mode:     0755
-  notify: restart srv-proxy-6-6-tls-deploy.cymais.service
+  notify: restart srv-proxy-6-6-tls-deploy.infinito.service
 
-- name: configure srv-proxy-6-6-tls-deploy.cymais.service
+- name: configure srv-proxy-6-6-tls-deploy.infinito.service
   template: 
     src:  "srv-proxy-6-6-tls-deploy.service.j2"
-    dest: "/etc/systemd/system/srv-proxy-6-6-tls-deploy.{{application_id}}.cymais.service"
-  notify: restart srv-proxy-6-6-tls-deploy.cymais.service
+    dest: "/etc/systemd/system/srv-proxy-6-6-tls-deploy.{{application_id}}.infinito.service"
+  notify: restart srv-proxy-6-6-tls-deploy.infinito.service
 
 - name: "include role for sys-timer for {{service_name}}"
   include_role:

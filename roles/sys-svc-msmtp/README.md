@@ -18,12 +18,12 @@ The purpose of this role is to automate the setup of a lightweight SMTP client t
 - **Customizable SMTP Configuration:** Deploys a customizable msmtprc configuration file with parameters for TLS, authentication, and server details.
 - **Drop-in sendmail Replacement:** Configures msmtp to serve as the default sendmail command.
 - **Idempotent Setup:** Ensures the tasks run only once with internal flagging.
-- **Integration Ready:** Easily integrates with other system roles within the CyMaIS environment for automated notifications.
+- **Integration Ready:** Easily integrates with other system roles within the Infinito.Nexus environment for automated notifications.
 
 ## Credits 📝
 
 Developed and maintained by **Kevin Veen-Birkenbach**.  
 Learn more at [www.veen.world](https://www.veen.world)
 
-Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
-License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)
+Part of the [Infinito.Nexus Project](https://github.com/kevinveenbirkenbach/infinito-nexus)  
+License: [Infinito.Nexus NonCommercial License (CNCL)](https://s.veen.world/cncl)

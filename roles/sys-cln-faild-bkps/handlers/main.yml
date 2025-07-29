@@ -1,5 +1,5 @@
-- name: "Reload sys-cln-faild-bkps.cymais.service"
+- name: "Reload sys-cln-faild-bkps.infinito.service"
   systemd:
-    name: sys-cln-faild-bkps.cymais.service
+    name: sys-cln-faild-bkps.infinito.service
     enabled: yes
     daemon_reload: yes

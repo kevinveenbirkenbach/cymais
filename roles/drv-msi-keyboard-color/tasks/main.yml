@@ -11,10 +11,10 @@
     dest: /opt/keyboard_color.py
     mode: 0755
 
-- name: Copy keyboard-color.cymais.service file
+- name: Copy keyboard-color.infinito.service file
   template:
     src: keyboard-color.service.j2
-    dest: /etc/systemd/system/keyboard-color.cymais.service
+    dest: /etc/systemd/system/keyboard-color.infinito.service
     mode: 0644
 
 - name: Reload systemd daemon

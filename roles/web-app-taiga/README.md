@@ -40,7 +40,7 @@ By using this role, teams can set up Taiga in minutes on Arch Linux systems — 
 - 📨 **Email Backend:** Supports SMTP and console backends for development.
 - 🔁 **Async & Realtime Events:** Includes RabbitMQ and support for Taiga’s event system.
 - 🌐 **Reverse Proxy Ready:** Integrates with Nginx using the `srv-proxy-6-6-domain` role.
-- 🧩 **Composable Design:** Integrates cleanly with other CyMaIS infrastructure roles.
+- 🧩 **Composable Design:** Integrates cleanly with other Infinito.Nexus infrastructure roles.
 
 ---
 
@@ -50,5 +50,5 @@ Developed and maintained by **Kevin Veen-Birkenbach**
 Email: [kevin@veen.world](mailto:kevin@veen.world)  
 Website: [veen.world](https://www.veen.world)
 
-Part of the [CyMaIS Project](https://github.com/kevinveenbirkenbach/cymais)  
-License: [CyMaIS NonCommercial License (CNCL)](https://s.veen.world/cncl)
+Part of the [Infinito.Nexus Project](https://github.com/kevinveenbirkenbach/infinito-nexus)  
+License: [Infinito.Nexus NonCommercial License (CNCL)](https://s.veen.world/cncl)

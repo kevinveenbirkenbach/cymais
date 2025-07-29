@@ -1,5 +1,5 @@
-- name: "reload sys-hlth-csp.cymais.service"
+- name: "reload sys-hlth-csp.infinito.service"
   systemd:
-    name: sys-hlth-csp.cymais.service
+    name: sys-hlth-csp.infinito.service
     enabled: yes
     daemon_reload: yes
