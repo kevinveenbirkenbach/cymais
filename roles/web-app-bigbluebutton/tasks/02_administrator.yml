@@ -1,0 +1,16 @@
+- block:
+    - name: "Create default admin"
+      command:
+        cmd: docker compose exec greenlight \
+             bundle exec rake admin:create['{{ users.administrator.username | upper }}','{{ users.administrator.email }}','{{ users.administrator.password }}']
+        chdir: "{{ docker_compose.directories.instance }}"
+      register: admin_creation_result
+      # Treat exit codes 0 (created) and 2 (already exists) as success
+      failed_when: admin_creation_result.rc not in [0,2]
+  rescue:
+    - name: "Make existing user administrator"
+      command:
+        cmd: >
+          docker compose exec greenlight
+          bundle exec rake user:set_admin_role['{{ users.administrator.email }}']
+        chdir: "{{ docker_compose.directories.instance }}"

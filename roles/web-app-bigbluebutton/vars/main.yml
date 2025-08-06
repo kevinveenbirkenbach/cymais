@@ -13,6 +13,3 @@ docker_compose_skipp_file_creation:       true # Handled in this role
 docker_repository_address:                "https://github.com/bigbluebutton/docker.git"
 docker_pull_git_repository:               true
 docker_compose_flush_handlers:            false
-
-# Setup 
-bbb_setup:                                "{{ applications | get_app_conf(application_id, 'setup') }}"

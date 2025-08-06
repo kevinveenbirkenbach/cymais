@@ -34,7 +34,7 @@
     state:  link
 
 - name: "Setup docker-compose.yml file"
-  include_tasks: "docker-compose.yml"
+  include_tasks: "01_docker-compose.yml"
 
 - name: Ensure all containers in instance are running
   include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/04_ensure_up.yml"
@@ -60,10 +60,7 @@
   delay: 5
   changed_when: false
 
-- name: create admin
-  command:
-    cmd: docker compose exec greenlight bundle exec rake admin:create
-    chdir: "{{ docker_compose.directories.instance }}"
-  when: bbb_setup
-  ignore_errors: true
-  register: admin_creation_result
+- name: "Setup administrator"
+  include_tasks: "02_administrator.yml"
+
+
