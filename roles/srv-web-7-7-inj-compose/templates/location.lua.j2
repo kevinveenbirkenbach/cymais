@@ -34,6 +34,12 @@ body_filter_by_lua_block {
     local whole = table.concat(ngx.ctx.buf)
     ngx.ctx.buf = nil  -- clear buffer
 
+    -- remove html CSP, due to management via infinito nexus policies
+    whole = whole:gsub(
+        '<meta[^>]-http%-equiv=["\']Content%-Security%-Policy["\'][^>]->%s*',
+        ''
+    )
+
     -- build a list of head-injection snippets
     local head_snippets = {}
 
