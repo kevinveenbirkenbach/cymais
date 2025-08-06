@@ -5,7 +5,9 @@
     name: pkgmgr-install
   vars:
     package_name: infinito-sphinx
-    # package_notify: docker compose up
+    package_notify: 
+      - docker compose up
+      - docker compose build
 
 - name: Get path of infinito-sphinx using pkgmgr
   command: pkgmgr path infinito-sphinx
