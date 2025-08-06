@@ -6,4 +6,4 @@
   vars:
     domain: "{{ item.source }}"
     target: "{{ item.target }}"
-  loop: "{{domain_mappings}}"
+  loop: "{{ redirect_domain_mappings }}"
