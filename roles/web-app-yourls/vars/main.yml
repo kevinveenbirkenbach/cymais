@@ -9,7 +9,7 @@ yourls_version:                 "{{ applications | get_app_conf(application_id, 
 yourls_image:                   "{{ applications | get_app_conf(application_id, 'docker.services.yourls.image', True) }}"
 yourls_container:               "{{ applications | get_app_conf(application_id, 'docker.services.yourls.name', True) }}"
 yourls_admin_location:          "{{ applications | get_app_conf(application_id, 'server.locations.admin', True) }}"
-yourls_landingpage_status_code: "{{ applications | get_app_conf(application_id, 'server.status_code.landingpage', True) }}"
+yourls_landingpage_status_code: "{{ applications | get_app_conf(application_id, 'server.status_codes.landingpage', True) }}"
 
 # Nginx Specific
 proxy_extra_configuration:      "{{ lookup('template', 'redirect.conf.j2') }}"

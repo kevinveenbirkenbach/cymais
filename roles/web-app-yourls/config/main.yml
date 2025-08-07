@@ -29,7 +29,7 @@ server:
         unsafe-inline:  true
   locations:
     admin:  "/admin/"
-  status_code:
+  status_codes:
     landingpage: 301
 docker:
   services:
