@@ -13,7 +13,8 @@ def append_csp_hash(applications, application_id, code_one_liner):
 
     apps = copy.deepcopy(applications)
     app = apps[application_id]
-    csp = app.setdefault('csp', {})
+    server = app.setdefault('server', {})
+    csp = server.setdefault('csp', {})
     hashes = csp.setdefault('hashes', {})
 
     existing = hashes.get('script-src-elem', [])

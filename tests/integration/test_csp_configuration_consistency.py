@@ -62,7 +62,7 @@ class TestCspConfigurationConsistency(unittest.TestCase):
                 errors.append(f"{role_path.name}: YAML parse error: {e}")
                 continue
 
-            csp = cfg.get('csp')
+            csp = cfg.get('server',{}).get('csp')
             if csp is None:
                 continue  # nothing to check
 

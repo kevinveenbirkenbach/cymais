@@ -22,28 +22,30 @@ class TestCspFilters(unittest.TestCase):
                     'oauth2': True,
                     'matomo': True,
                 },
-                'csp': {
-                    'whitelist': {
-                        'script-src-elem': ['https://cdn.example.com'],
-                        'connect-src': 'https://api.example.com',
-                    },
-                    'flags': {
-                        'script-src': {
-                            'unsafe-eval': True,
-                            'unsafe-inline': False,
+                'server':{
+                    'csp': {
+                        'whitelist': {
+                            'script-src-elem': ['https://cdn.example.com'],
+                            'connect-src': 'https://api.example.com',
                         },
-                        'style-src': {
-                            'unsafe-inline': True,
+                        'flags': {
+                            'script-src': {
+                                'unsafe-eval': True,
+                                'unsafe-inline': False,
+                            },
+                            'style-src': {
+                                'unsafe-inline': True,
+                            },
                         },
-                    },
-                    'hashes': {
-                        'script-src': [
-                            "console.log('hello');",
-                        ],
-                        'style-src': [
-                            "body { background: #fff; }",
-                        ]
-                    }
+                        'hashes': {
+                            'script-src': [
+                                "console.log('hello');",
+                            ],
+                            'style-src': [
+                                "body { background: #fff; }",
+                            ]
+                        }
+                        }
                 },
             },
             'app2': {}
@@ -114,7 +116,7 @@ class TestCspFilters(unittest.TestCase):
 
     def test_get_csp_inline_content_string(self):
         # simulate single string instead of list
-        self.apps['app1']['csp']['hashes']['style-src'] = "body { color: red; }"
+        self.apps['app1']['server']['csp']['hashes']['style-src'] = "body { color: red; }"
         snippets = self.filter.get_csp_inline_content(self.apps, 'app1', 'style-src')
         self.assertEqual(snippets, ["body { color: red; }"])
 

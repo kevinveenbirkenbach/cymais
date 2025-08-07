@@ -23,7 +23,7 @@ class FilterModule(object):
     @staticmethod
     def get_csp_whitelist(applications, application_id, directive):
         app = applications.get(application_id, {})
-        wl = app.get('csp', {}).get('whitelist', {}).get(directive, [])
+        wl = app.get('server',{}).get('csp', {}).get('whitelist', {}).get(directive, [])
         if isinstance(wl, list):
             return wl
         if wl:
@@ -37,7 +37,7 @@ class FilterModule(object):
         e.g., "'unsafe-eval'", "'unsafe-inline'", etc.
         """
         app = applications.get(application_id, {})
-        flags = app.get('csp', {}).get('flags', {}).get(directive, {})
+        flags = app.get('server',{}).get('csp', {}).get('flags', {}).get(directive, {})
         tokens = []
 
         for flag_name, enabled in flags.items():
@@ -52,7 +52,7 @@ class FilterModule(object):
         Return inline script/style snippets to hash for a given CSP directive.
         """
         app = applications.get(application_id, {})
-        snippets = app.get('csp', {}).get('hashes', {}).get(directive, [])
+        snippets = app.get('server',{}).get('csp', {}).get('hashes', {}).get(directive, [])
         if isinstance(snippets, list):
             return snippets
         if snippets:
