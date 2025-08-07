@@ -1,0 +1,18 @@
+- name: Assert that each web-app- or web-svc- port-ui-desktop app uses the correct domain suffix
+  assert:
+    that:
+      - >
+        (
+          not (item.value.features['port-ui-desktop'] | default(false) | bool)
+        )
+        or (domains | get_domain(item.key)).endswith(domains | get_domain('web-app-port-ui'))
+    fail_msg: >
+      Application {{ item.key }}
+      has domain {{ domains | get_domain(item.key) }}
+      but it does not end with {{ domains | get_domain('web-app-port-ui') }}!
+  loop: "{{ applications 
+             | dict2items 
+             | selectattr('key', 'match', '^(web-app-|web-svc-)') 
+             | list }}"
+  loop_control:
+    label: "{{ item.key }}"
