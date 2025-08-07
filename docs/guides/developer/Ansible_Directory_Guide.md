@@ -106,6 +106,6 @@ ansible-repo/
 
 Use this matrix as your **single source of truth** when extending Ansible for Infinito.Nexus! 👍 
 
---- 
+---
 
 This matrix was created with the help of ChatGPT 🤖—see our conversation [here](https://chatgpt.com/canvas/shared/682b1a62d6dc819184ecdc696c51290a).
