@@ -1,7 +1,4 @@
 enable_greenlight:    "true"
-database:
-  name:               "multiple_databases"
-  username:           "postgres2"
 api_suffix:           "/bigbluebutton/"
 features:
   matomo:             true

@@ -5,10 +5,10 @@ _database_consumer_entity_name:   "{{ database_application_id | get_entity_name 
 _database_central_enabled:        "{{ applications | get_app_conf(database_application_id, 'features.central_database', False) }}"
 
 # Definition
-database_name:      "{{ applications | get_app_conf( database_application_id, 'database.name', false, _database_consumer_entity_name ) }}"                      # The overwritte configuration is needed by bigbluebutton
-database_instance:  "{{ _database_central_name if _database_central_enabled else database_name }}"                                                              # This could lead to bugs at dedicated database @todo cleanup
-database_host:      "{{ _database_central_name if _database_central_enabled else 'database' }}"                                                                 # This could lead to bugs at dedicated database @todo cleanup
-database_username:  "{{ applications | get_app_conf(database_application_id, 'database.username', false, _database_consumer_entity_name)}}"                     # The overwritte configuration is needed by bigbluebutton
+database_name:      "{{ _database_consumer_entity_name }}"
+database_instance:  "{{ _database_central_name if _database_central_enabled else database_name }}" # This could lead to bugs at dedicated database @todo cleanup
+database_host:      "{{ _database_central_name if _database_central_enabled else 'database' }}"    # This could lead to bugs at dedicated database @todo cleanup
+database_username:  "{{ _database_consumer_entity_name }}"
 database_password:  "{{ applications | get_app_conf(database_application_id, 'credentials.database_password', true) }}"
 database_port:      "{{ ports.localhost.database[ _database_id ] }}"
 database_env:       "{{docker_compose.directories.env}}{{database_type}}.env"
