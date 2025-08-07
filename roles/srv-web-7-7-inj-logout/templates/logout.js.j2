@@ -14,9 +14,16 @@
       return str && /(?:^|\W)log\s*out(?:\W|$)|logout/i.test(str);
     }
 
-    function hasLogoutAttribute(el) {
-      for (const attr of el.attributes) {
-        if (/logout/i.test(attr.name) || /\/logout/i.test(attr.value)) {
+    /**
+    * Returns true if any attribute name or value on the given element
+    * contains the substring "logout" (case-insensitive).
+    *
+    * @param {Element} element – The DOM element to inspect.
+    * @returns {boolean} – True if "logout" appears in any attribute name or value.
+    */
+    function containsLogoutAttribute(element) {
+      for (const attribute of element.attributes) {
+        if (/logout/i.test(attribute.name) || /logout/i.test(attribute.value)) {
           return true;
         }
       }
@@ -43,23 +50,41 @@
       return false;
     }
 
-    function overrideLogout(el) {
+    /**
+    * Apply logout redirect behavior to a matching element:
+    * – Installs a capturing click‐handler to force navigation to logoutUrl
+    * – Always sets href/formaction/action to logoutUrl
+    * – Marks the element as patched to avoid double‐binding
+    *
+    * @param {Element} el – The element to override (e.g. <a>, <button>, <form>, <input>)
+    * @param {string} logoutUrl – The full logout URL including redirect params
+    */
+    function overrideLogout(el, logoutUrl) {
+      // avoid patching the same element twice
       if (el.dataset._logoutHandled) return;
       el.dataset._logoutHandled = "true";
-      el.style.cursor = 'pointer';
-      el.addEventListener('click', function(event) {
-        event.preventDefault();
-        window.location.href = logoutUrl;
-      });
 
-      const tagName = el.tagName.toLowerCase();
-      if (tagName === 'a' && el.hasAttribute('href') && /\/logout/i.test(el.getAttribute('href'))) {
+      // show pointer cursor
+      el.style.cursor = 'pointer';
+
+      // capture‐phase listener so it fires before any framework handlers
+      el.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.location.href = logoutUrl;
+      }, { capture: true });
+
+      const tag = el.tagName.toLowerCase();
+
+      // always set the link target on <a>
+      if (tag === 'a') {
         el.setAttribute('href', logoutUrl);
       }
-      if ((tagName === 'button' || tagName === 'input') && el.hasAttribute('formaction') && /\/logout/i.test(el.getAttribute('formaction'))) {
+      // always set the formaction on <button> or <input>
+      else if ((tag === 'button' || tag === 'input') && el.hasAttribute('formaction')) {
         el.setAttribute('formaction', logoutUrl);
       }
-      if (tagName === 'form' && el.hasAttribute('action') && /\/logout/i.test(el.getAttribute('action'))) {
+      // always set the form action on <form>
+      else if (tag === 'form') {
         el.setAttribute('action', logoutUrl);
       }
     }
@@ -74,10 +99,10 @@
           matchesLogout(el.id) ||
           matchesLogout(el.className) ||
           matchesLogout(el.innerText) ||
-          hasLogoutAttribute(el) ||
+          containsLogoutAttribute(el) ||
           matchesTechnicalIndicators(el)
         ) {
-          overrideLogout(el);
+          overrideLogout(el, logoutUrl);
         }
       });
     }
