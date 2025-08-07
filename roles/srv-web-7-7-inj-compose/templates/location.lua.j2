@@ -55,14 +55,20 @@ body_filter_by_lua_block {
     local head_payload = table.concat(head_snippets, "\n") .. "</head>"
     whole = string.gsub(whole, "</head>", head_payload)
 
-    {% if inj_enabled.matomo | bool %}
-    -- build Matomo noscript snippet for the body
-    local body_matomo = [=[
-        {%- include 'roles/srv-web-7-7-inj-matomo/templates/body_sub.j2' -%}
+    -- build a list of body-injection snippets
+    local body_snippets = {}
+
+    {% for body_feature in ['matomo', 'logout' ] %}
+    {% if applications | get_app_conf(application_id, 'features.' ~ body_feature, false) | bool %}
+    body_snippets[#body_snippets + 1] = [=[
+        {%- include "roles/srv-web-7-7-inj-" ~ body_feature ~ "/templates/body_sub.j2" -%}
     ]=]
-    -- inject it right before </body>
-    whole = string.gsub(whole, "</body>", body_matomo)
     {% endif %}
+    {% endfor %}
+
+    -- inject all collected snippets right before </body>
+    local body_payload = table.concat(body_snippets, "\n") .. "</body>"
+    whole = string.gsub(whole, "</body>", body_payload)
 
     -- finally send the modified HTML out
     ngx.arg[1] = whole
