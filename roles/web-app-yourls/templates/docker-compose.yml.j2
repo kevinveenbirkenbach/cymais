@@ -2,7 +2,7 @@
 
   application:
 {% set container_port = 80 %}
-{% set container_healthcheck = 'http://127.0.0.1/admin/' %}
+{% set container_healthcheck = 'http://127.0.0.1' ~ yourls_admin_location %}
     image: "{{ yourls_image }}:{{ yourls_version }}"
     container_name: "{{ yourls_container }}"
 {% include 'roles/docker-container/templates/base.yml.j2' %}

@@ -5,7 +5,7 @@ oauth2_proxy:
     - "/roles/web-app-yourls-administrator"
   acl:
     blacklist:
-      - "/admin/"     # Protects the admin area
+      - "<< defaults_applications[web-app-yourls].server.locations.admin >>" # Protects the admin area
 features:
   matomo:             true
   css:                true
@@ -27,6 +27,8 @@ server:
         unsafe-inline:  true
       script-src:
         unsafe-inline:  true
+  locations:
+    admin:  "/admin/"
 docker:
   services:
     database:
