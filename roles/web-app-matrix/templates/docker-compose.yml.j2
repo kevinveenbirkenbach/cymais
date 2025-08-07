@@ -81,7 +81,7 @@
       KEYV_URL: ''
       KEYV_BOT_ENCRYPTION: 'false'
       KEYV_BOT_STORAGE: 'true'
-      MATRIX_HOMESERVER_URL: '{{ web_protocol }}://{{ domains[application_id].synapse }}'
+      MATRIX_HOMESERVER_URL: '{{ WEB_PROTOCOL }}://{{ domains[application_id].synapse }}'
       MATRIX_BOT_USERNAME: '@chatgptbot:{{applications | get_app_conf(application_id, 'server_name', True)}}'
       MATRIX_ACCESS_TOKEN: '{{ applications | get_app_conf(application_id, 'credentials.chatgpt_bridge_access_token', True) | default('') }}'
       MATRIX_BOT_PASSWORD: '{{applications | get_app_conf(application_id, 'credentials.chatgpt_bridge_user_password', True)}}'

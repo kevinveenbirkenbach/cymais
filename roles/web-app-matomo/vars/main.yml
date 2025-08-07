@@ -5,7 +5,7 @@ database_type:        "mariadb"
 
 # Matomo
 matomo_excluded_ips:  "{{ applications | get_app_conf(application_id, 'excluded_ips', True) }}"
-matomo_index_php_url: "{{ domains | get_url(application_id, web_protocol) }}/index.php"
+matomo_index_php_url: "{{ domains | get_url(application_id, WEB_PROTOCOL) }}/index.php"
 matomo_auth_token:    "{{ applications | get_app_conf(application_id, 'credentials.auth_token', True) }}"
 matomo_version:       "{{ applications | get_app_conf(application_id, 'docker.services.matomo.version', True) }}"
 matomo_image:         "{{ applications | get_app_conf(application_id, 'docker.services.matomo.image', True) }}"

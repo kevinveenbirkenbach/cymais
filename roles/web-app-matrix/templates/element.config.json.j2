@@ -1,11 +1,11 @@
 {
     "default_server_config": {
         "m.homeserver": {
-            "base_url": "{{ web_protocol }}://{{domains[application_id].synapse}}",
+            "base_url": "{{ WEB_PROTOCOL }}://{{domains[application_id].synapse}}",
             "server_name": "{{domains[application_id].synapse}}"
         },
         "m.identity_server": {
-            "base_url": "{{ web_protocol }}://{{primary_domain}}"
+            "base_url": "{{ WEB_PROTOCOL }}://{{primary_domain}}"
         }
     },
     "brand": "Element",

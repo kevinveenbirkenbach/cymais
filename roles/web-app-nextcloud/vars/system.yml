@@ -18,4 +18,4 @@ nextcloud_system_config:
     value: "{{domains | get_domain(application_id)}}"
 
   - parameter: "overwrite.cli.url"
-    value: "{{ domains | get_url(application_id, web_protocol) }}"
+    value: "{{ domains | get_url(application_id, WEB_PROTOCOL) }}"

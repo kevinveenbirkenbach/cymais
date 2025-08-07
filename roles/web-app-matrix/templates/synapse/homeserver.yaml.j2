@@ -25,8 +25,8 @@ report_stats:                   true
 macaroon_secret_key:            "{{applications | get_app_conf(application_id, 'credentials.macaroon_secret_key', True)}}"
 form_secret:                    "{{applications | get_app_conf(application_id, 'credentials.form_secret', True)}}"
 signing_key_path:               "/data/{{domains[application_id].synapse}}.signing.key"
-web_client_location:            "{{ web_protocol }}://{{domains[application_id].element}}"
-public_baseurl:                 "{{ web_protocol }}://{{domains[application_id].synapse}}"
+web_client_location:            "{{ WEB_PROTOCOL }}://{{domains[application_id].element}}"
+public_baseurl:                 "{{ WEB_PROTOCOL }}://{{domains[application_id].synapse}}"
 trusted_key_servers:
   - server_name: "matrix.org"
 admin_contact: 'mailto:{{ users.administrator.email }}'

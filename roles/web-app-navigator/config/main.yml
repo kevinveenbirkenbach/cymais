@@ -16,7 +16,7 @@ server:
       font-src:
         - https://cdnjs.cloudflare.com
       frame-src:
-        - "{{ web_protocol }}://*.{{primary_domain}}" # Makes sense that all of the website content is available in the navigator
+        - "{{ WEB_PROTOCOL }}://*.{{primary_domain}}" # Makes sense that all of the website content is available in the navigator
     flags:
       style-src:
         unsafe-inline: true

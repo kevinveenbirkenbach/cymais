@@ -16,12 +16,12 @@ server:
         unsafe-inline: true
     whitelist:
       connect-src:
-        - "{{ web_protocol }}://*.{{ primary_domain }}"
-        - "{{ web_protocol }}://{{ primary_domain }}"
+        - "{{ WEB_PROTOCOL }}://*.{{ primary_domain }}"
+        - "{{ WEB_PROTOCOL }}://{{ primary_domain }}"
       script-src-elem:
         - https://cdn.jsdelivr.net
       style-src:
         - https://cdn.jsdelivr.net
       frame-ancestors:
-        - "{{ web_protocol }}://<< defaults_applications[web-app-keycloak].server.domains.canonical[0] >>"
+        - "{{ WEB_PROTOCOL }}://<< defaults_applications[web-app-keycloak].server.domains.canonical[0] >>"
 

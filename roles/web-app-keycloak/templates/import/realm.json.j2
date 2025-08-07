@@ -517,7 +517,7 @@
         "/realms/{{ keycloak_realm }}/account/*"
       ],
       "webOrigins": [
-        "{{ domains | get_url('web-app-keycloak', web_protocol) }}"
+        "{{ domains | get_url('web-app-keycloak', WEB_PROTOCOL) }}"
       ],
       "notBefore": 0,
       "bearerOnly": false,
@@ -825,9 +825,9 @@
       "clientId": "{{ keycloak_realm }}",
       "name": "",
       "description": "",
-      "rootUrl":  "{{ web_protocol }}://{{ keycloak_realm }}/",
-      "adminUrl": "{{ web_protocol }}://{{ keycloak_realm }}/",
-      "baseUrl":  "{{ web_protocol }}://{{ keycloak_realm }}/",
+      "rootUrl":  "{{ WEB_PROTOCOL }}://{{ keycloak_realm }}/",
+      "adminUrl": "{{ WEB_PROTOCOL }}://{{ keycloak_realm }}/",
+      "baseUrl":  "{{ WEB_PROTOCOL }}://{{ keycloak_realm }}/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
@@ -837,10 +837,10 @@
       {%- for domain_application_id, domain in domains.items() %}
         {%- if applications | get_app_conf(domain_application_id, 'features.oauth2', False) or applications | get_app_conf(domain_application_id, 'features.oidc', False) %}
           {%- if domain is string %}
-            {%- set _ = redirect_uris.append(web_protocol ~ '://' ~ domain ~ '/*') %}
+            {%- set _ = redirect_uris.append(WEB_PROTOCOL ~ '://' ~ domain ~ '/*') %}
           {%- else %}
             {%- for d in domain %}
-              {%- set _ = redirect_uris.append(web_protocol ~ '://' ~ d ~ '/*') %}
+              {%- set _ = redirect_uris.append(WEB_PROTOCOL ~ '://' ~ d ~ '/*') %}
             {%- endfor %}
           {%- endif %}
         {%- endif %}
@@ -848,7 +848,7 @@
       
       "redirectUris": {{ redirect_uris | tojson }},
       "webOrigins": [
-        "{{ web_protocol }}://*.{{primary_domain}}"
+        "{{ WEB_PROTOCOL }}://*.{{primary_domain}}"
       ],
       "notBefore": 0,
       "bearerOnly": false,
@@ -865,7 +865,7 @@
         "oidc.ciba.grant.enabled": "false",
         "client.secret.creation.time": "0",
         "backchannel.logout.session.required": "true",
-        "post.logout.redirect.uris": "{{ web_protocol }}://{{primary_domain}}/*##+",
+        "post.logout.redirect.uris": "{{ WEB_PROTOCOL }}://{{primary_domain}}/*##+",
         "frontchannel.logout.session.required": "true",
         "oauth2.device.authorization.grant.enabled": "false",
         "display.on.consent.screen": "false",

@@ -25,7 +25,7 @@
 
 - name: "Load images for applications feature simpleicons is enabled "
   set_fact:
-    portfolio_cards: "{{ portfolio_cards | add_simpleicon_source(domains, web_protocol) }}"
+    portfolio_cards: "{{ portfolio_cards | add_simpleicon_source(domains, WEB_PROTOCOL) }}"
   when:
     - (applications | get_app_conf(application_id, 'features.simpleicons', False))
     - run_once_docker_portfolio is not defined

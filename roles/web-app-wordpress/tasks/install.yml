@@ -2,7 +2,7 @@
   command: >
     docker-compose exec -T -u www-data application
     wp core install
-      --url="{{ domains | get_url(application_id, web_protocol) }}"
+      --url="{{ domains | get_url(application_id, WEB_PROTOCOL) }}"
       --title="{{ applications | get_app_conf(application_id, 'title', True) }}"
       --admin_user="{{ applications | get_app_conf(application_id, 'users.administrator.username', True) }}"
       --admin_password="{{ applications | get_app_conf(application_id, 'credentials.administrator_password', True) }}"

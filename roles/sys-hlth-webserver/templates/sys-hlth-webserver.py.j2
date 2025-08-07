@@ -40,7 +40,7 @@ for filename in os.listdir(config_path):
         parts = domain.split('.')
         
         # Prepare the URL and expected status codes
-        url = f"{{ web_protocol }}://{domain}"
+        url = f"{{ WEB_PROTOCOL }}://{domain}"
         
         redirected_domains = [domain['source'] for domain in {{ current_play_domain_mappings_redirect}}]
         redirected_domains.append("{{domains | get_domain('web-app-mailu')}}")

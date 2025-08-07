@@ -16,7 +16,7 @@
 
 - name: "Check if {{ domains | get_domain(application_id) }} is reachable (only if config unchanged)"
   uri:
-    url: "{{ domains | get_url(application_id, web_protocol) }}"
+    url: "{{ domains | get_url(application_id, WEB_PROTOCOL) }}"
   register: site_check
   failed_when: false
   changed_when: false

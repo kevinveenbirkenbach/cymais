@@ -8,7 +8,7 @@ listmonk_name:    "{{ applications | get_app_conf(application_id, 'docker.servic
 
 listmonk_settings:
   - key: "app.root_url"
-    value: '"{{ domains | get_url(application_id, web_protocol) }}"'
+    value: '"{{ domains | get_url(application_id, WEB_PROTOCOL) }}"'
 
   - key: "app.notify_emails"
     value: "{{ [ users.administrator.email ] | to_json }}"

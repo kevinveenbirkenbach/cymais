@@ -10,7 +10,7 @@ followus:
       description: Follow {{ 'our' if service_provider.type == 'legal' else 'my' }} updates on Mastodon.
       icon:
         class: fa-brands fa-mastodon
-      url: "{{ web_protocol }}://{{ service_provider.contact.mastodon.split('@')[2] }}/@{{ service_provider.contact.mastodon.split('@')[1] }}"
+      url: "{{ WEB_PROTOCOL }}://{{ service_provider.contact.mastodon.split('@')[2] }}/@{{ service_provider.contact.mastodon.split('@')[1] }}"
       identifier: "{{service_provider.contact.mastodon}}"
       iframe: {{ applications | get_app_conf('web-app-mastodon','features.port-ui-desktop',True) }}
 {% endif %}
@@ -30,7 +30,7 @@ followus:
       icon:
           class: fa-solid fa-camera
       identifier: "{{service_provider.contact.pixelfed}}"
-      url: "{{ web_protocol }}://{{ service_provider.contact.pixelfed.split('@')[2] }}/@{{ service_provider.contact.pixelfed.split('@')[1] }}"
+      url: "{{ WEB_PROTOCOL }}://{{ service_provider.contact.pixelfed.split('@')[2] }}/@{{ service_provider.contact.pixelfed.split('@')[1] }}"
       iframe: {{ applications | get_app_conf('web-app-pixelfed','features.port-ui-desktop',True) }}
 {% endif %}
 {% if service_provider.contact.peertube  is defined and service_provider.contact.peertube  != "" %}
@@ -39,7 +39,7 @@ followus:
       icon:
         class: fa-solid fa-video
       identifier: "{{service_provider.contact.peertube}}"
-      url: "{{ web_protocol }}://{{ service_provider.contact.peertube.split('@')[2] }}/@{{ service_provider.contact.peertube.split('@')[1] }}"
+      url: "{{ WEB_PROTOCOL }}://{{ service_provider.contact.peertube.split('@')[2] }}/@{{ service_provider.contact.peertube.split('@')[1] }}"
       iframe: {{ applications | get_app_conf('web-app-peertube','features.port-ui-desktop',True) }}
 {% endif %}
 {% if service_provider.contact.wordpress is defined and service_provider.contact.wordpress != "" %}
@@ -48,7 +48,7 @@ followus:
       icon:
         class: fa-solid fa-blog
       identifier: "{{service_provider.contact.wordpress}}"
-      url: "{{ web_protocol }}://{{ service_provider.contact.wordpress.split('@')[2] }}/@{{ service_provider.contact.wordpress.split('@')[1] }}"
+      url: "{{ WEB_PROTOCOL }}://{{ service_provider.contact.wordpress.split('@')[2] }}/@{{ service_provider.contact.wordpress.split('@')[1] }}"
       iframe: {{ applications | get_app_conf('web-app-wordpress','features.port-ui-desktop',True) }}
 {% endif %}
 {% if service_provider.contact.friendica is defined and service_provider.contact.friendica != "" %}
@@ -57,6 +57,6 @@ followus:
       icon:
         class: fas fa-net-wired
       identifier: "{{service_provider.contact.friendica}}"
-      url: "{{ web_protocol }}://{{ service_provider.contact.friendica.split('@')[2] }}/@{{ service_provider.contact.friendica.split('@')[1] }}"
+      url: "{{ WEB_PROTOCOL }}://{{ service_provider.contact.friendica.split('@')[2] }}/@{{ service_provider.contact.friendica.split('@')[1] }}"
       iframe: {{ applications | get_app_conf('web-app-friendica','features.port-ui-desktop',True) }}
 {% endif %}
