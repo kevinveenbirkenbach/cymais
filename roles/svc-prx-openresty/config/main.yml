@@ -1,0 +1,4 @@
+docker:
+  services:
+    openresty:
+      name: "openresty"

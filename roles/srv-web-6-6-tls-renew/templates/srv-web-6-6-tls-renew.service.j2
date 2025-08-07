@@ -5,4 +5,4 @@ OnFailure=sys-alm-compose.infinito@%n.service
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/certbot renew --quiet --agree-tos
-ExecStartPost=/bin/systemctl reload nginx.service
+ExecStartPost=/usr/bin/docker restart {{ applications | get_app_conf('svc-prx-openresty', 'docker.services.openresty.name', True) }}
