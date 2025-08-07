@@ -8,8 +8,5 @@ container_port:               8000
 # @todo implement the calling of also dependency domains (propably the easiest to write a script which adds all dependencies to group_names)
 logout_domains: >-
   {{
-    (
-      [primary_domain] +
-      (applications | logout_domains(group_names))
-    ) | unique | join(',')
+    (applications | logout_domains(group_names)) | unique | join(',')
   }}

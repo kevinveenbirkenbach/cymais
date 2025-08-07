@@ -3,12 +3,14 @@
   var allowedOrigin = "https://{{ domains | get_domain('web-app-port-ui') }}";
 
   function notifyParent() {
-    try {
-      window.parent.postMessage({
-        type: "iframeLocationChange",
-        href: window.location.href
-      }, allowedOrigin);
-    } catch (e) {}
+    if (window.self !== window.top) {
+      try {
+        window.parent.postMessage({
+          type: "iframeLocationChange",
+          href: window.location.href
+        }, allowedOrigin);
+      } catch (e) {}
+    }
   }
 
   function forceExternalLinks() {

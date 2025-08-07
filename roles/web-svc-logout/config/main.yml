@@ -3,6 +3,7 @@ features:
   css:              true
   port-ui-desktop:  true
   javascript:       false
+  logout:           false
 domains:
   canonical:
     - "logout.{{ primary_domain }}"
