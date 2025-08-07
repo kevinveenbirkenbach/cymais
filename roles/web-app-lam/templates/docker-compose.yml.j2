@@ -1,7 +1,7 @@
 {% include 'roles/docker-compose/templates/base.yml.j2' %}
 
   application:
-    container_name: {{ application_id }}
+    container_name: {{ application_id | get_entity_name }}
     image: "{{ applications | get_app_conf(application_id, 'images.lam', True) }}"
     ports:
       - 127.0.0.1:{{ports.localhost.http[application_id]}}:80 
