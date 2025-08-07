@@ -39,7 +39,7 @@ class FilterModule(object):
         # 1) Precompute canonical domains per app (fallback to default)
         canonical_map = {}
         for app_id, cfg in apps.items():
-            domains_cfg = cfg.get('domains') or {}
+            domains_cfg = cfg.get('server',{}).get('domains',{})
             entry = domains_cfg.get('canonical')
             if entry is None:
                 canonical_map[app_id] = [default_domain(app_id, primary_domain)]
@@ -49,13 +49,13 @@ class FilterModule(object):
                 canonical_map[app_id] = list(entry)
             else:
                 raise AnsibleFilterError(
-                    f"Unexpected type for 'domains.canonical' in application '{app_id}': {type(entry).__name__}"
+                    f"Unexpected type for 'server.domains.canonical' in application '{app_id}': {type(entry).__name__}"
                 )
 
         # 2) Build alias list per app
         result = {}
         for app_id, cfg in apps.items():
-            domains_cfg = cfg.get('domains')
+            domains_cfg = cfg.get('server',{}).get('domains')
 
             # no domains key → no aliases
             if domains_cfg is None:

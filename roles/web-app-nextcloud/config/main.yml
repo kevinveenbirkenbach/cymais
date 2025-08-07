@@ -1,18 +1,19 @@
-version:                      "production"                                      # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
-csp:
-  flags:
-    style-src:
-      unsafe-inline: true
-    script-src-elem:
-      unsafe-inline: true
-  whitelist:
-    font-src:
-      - "data:"
-domains:
-  canonical:
-    - "cloud.{{ primary_domain }}"
-    # nextcloud:  "cloud.{{ primary_domain }}"
-    # talk:       "talk.{{ primary_domain }}" @todo needs to be activated
+version:                      "production" # @see https://nextcloud.com/blog/nextcloud-release-channels-and-how-to-track-them/
+server:
+  csp:
+    flags:
+      style-src:
+        unsafe-inline: true
+      script-src-elem:
+        unsafe-inline: true
+    whitelist:
+      font-src:
+        - "data:"
+  domains:
+    canonical:
+      - "cloud.{{ primary_domain }}"
+      # nextcloud:  "cloud.{{ primary_domain }}"
+      # talk:       "talk.{{ primary_domain }}" @todo needs to be activated
 docker:
   volumes:
     data: nextcloud_data

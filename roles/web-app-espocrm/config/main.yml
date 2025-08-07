@@ -6,26 +6,27 @@ features:
   oidc:               true
   central_database:   true
   logout:   true
-csp:
-  flags:
-    script-src-elem:
-      unsafe-inline:  true
-      unsafe-eval:    true
-    style-src:
-      unsafe-inline:  true
-    script-src:
-      unsafe-eval:    true
-  whitelist:
-    connect-src:
-      - wss://espocrm.{{ primary_domain }}
-      - "data:"
-    frame-src:
-      - https://s.espocrm.com/
-domains:
-  aliases:
-    - "crm.{{ primary_domain }}"
-  canonical:
-    - espocrm.{{ primary_domain }}
+server:
+  csp:
+    flags:
+      script-src-elem:
+        unsafe-inline:  true
+        unsafe-eval:    true
+      style-src:
+        unsafe-inline:  true
+      script-src:
+        unsafe-eval:    true
+    whitelist:
+      connect-src:
+        - wss://espocrm.{{ primary_domain }}
+        - "data:"
+      frame-src:
+        - https://s.espocrm.com/
+  domains:
+    aliases:
+      - "crm.{{ primary_domain }}"
+    canonical:
+      - espocrm.{{ primary_domain }}
 email:
   from_name: "Customer Relationship Management ({{ primary_domain }})"
 docker:

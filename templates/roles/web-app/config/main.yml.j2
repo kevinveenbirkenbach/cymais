@@ -24,24 +24,24 @@ features:
   recaptcha:        false   # Enable ReCaptcha
   oauth2:           false   # Enable the OAuth2-Proy
   javascript:       false   # Enable the custom JS in the javascript.js.j2 file  
-  logout: true    # Enable the logout via the central logout mechanism (deleting all cookies)  
-csp:
-  whitelist:                # URL's which should be whitelisted           
-    script-src-elem:  []
-    style-src:        []
-    font-src:         []
-    connect-src:      []
-    frame-src:        []
-  flags:                    # Flags which should be set
-    style-src:
-      unsafe-inline:  false
-    script-src:
-      unsafe-inline:  false
-    script-src-elem:
-      unsafe-inline:  false
-domains:
-domains:
-  canonical:        {}      # Urls under which the domain should be directly accessible
-  aliases:          []      # Alias redirections to the first element of the canonical domains
+  logout:           true    # Enable the logout via the central logout mechanism (deleting all cookies)  
+server:
+  csp:
+    whitelist:                # URL's which should be whitelisted           
+      script-src-elem:  []
+      style-src:        []
+      font-src:         []
+      connect-src:      []
+      frame-src:        []
+    flags:                    # Flags which should be set
+      style-src:
+        unsafe-inline:  false
+      script-src:
+        unsafe-inline:  false
+      script-src-elem:
+        unsafe-inline:  false
+  domains:
+    canonical:        {}      # Urls under which the domain should be directly accessible
+    aliases:          []      # Alias redirections to the first element of the canonical domains
 rbac:
   roles: {}

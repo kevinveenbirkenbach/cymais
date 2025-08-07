@@ -9,18 +9,19 @@ features:
   ldap:               true
   oauth2:             false # No special login side which could be protected, use 2FA of Friendica instead
   logout:   true
-domains:
-  canonical:
-    - "social.{{ primary_domain }}"
-csp:
-  flags:
-    script-src-elem:
-      unsafe-inline:  true
-    script-src:
-      unsafe-inline:  true
-      unsafe-eval:    true
-    style-src:
-      unsafe-inline:  true
+server:
+  domains:
+    canonical:
+      - "social.{{ primary_domain }}"
+  csp:
+    flags:
+      script-src-elem:
+        unsafe-inline:  true
+      script-src:
+        unsafe-inline:  true
+        unsafe-eval:    true
+      style-src:
+        unsafe-inline:  true
 oauth2_proxy:  
   application:        "application"
   port:               "80"

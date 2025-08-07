@@ -13,11 +13,20 @@ features:
   central_database:   true
   oauth2:             true
   logout:             true
-domains:
-  canonical:
-    - "s.{{ primary_domain }}"
-  aliases:
-    - "short.{{ primary_domain }}"
+server:
+  domains:
+    canonical:
+      - "s.{{ primary_domain }}"
+    aliases:
+      - "short.{{ primary_domain }}"
+  csp:
+    flags:
+      style-src:
+        unsafe-inline:  true
+      script-src-elem:
+        unsafe-inline:  true
+      script-src:
+        unsafe-inline:  true
 docker:
   services:
     database:
@@ -26,11 +35,3 @@ docker:
       version:    "latest"
       name:       "yourls"
       image:      "yourls"
-csp:
-  flags:
-    style-src:
-      unsafe-inline:  true
-    script-src-elem:
-      unsafe-inline:  true
-    script-src:
-      unsafe-inline:  true

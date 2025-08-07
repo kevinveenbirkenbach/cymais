@@ -5,26 +5,27 @@ features:
   port-ui-desktop:    true
   central_database:   true
   oidc:               true
-  logout:   true
-csp:
-  flags:
-    script-src-elem:
-      unsafe-inline:  true
-      unsafe-eval:    true
-    script-src:
-      unsafe-eval:    true
-    style-src:
-      unsafe-inline:  true
-      unsafe-eval:    true
-  whitelist:
-    font-src:
-      - "data:"
-      - "blob:"
-    script-src-elem:
-      - "https://cdn.jsdelivr.net"
-domains:
-  canonical:
-    - "academy.{{ primary_domain }}"
+  logout:             true
+server:
+  csp:
+    flags:
+      script-src-elem:
+        unsafe-inline:  true
+        unsafe-eval:    true
+      script-src:
+        unsafe-eval:    true
+      style-src:
+        unsafe-inline:  true
+        unsafe-eval:    true
+    whitelist:
+      font-src:
+        - "data:"
+        - "blob:"
+      script-src-elem:
+        - "https://cdn.jsdelivr.net"
+  domains:
+    canonical:
+      - "academy.{{ primary_domain }}"
 docker:
   services:
     database:

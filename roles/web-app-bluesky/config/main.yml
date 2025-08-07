@@ -7,11 +7,12 @@ features:
   css:              true
   port-ui-desktop:  true
   central_database: true
-  logout: true
-domains:
-  canonical:
-    web:  "bskyweb.{{ primary_domain }}"
-    api:  "bluesky.{{ primary_domain }}"
+  logout:           true
+server:
+  domains:
+    canonical:
+      web:  "bskyweb.{{ primary_domain }}"
+      api:  "bluesky.{{ primary_domain }}"
 docker:
   services:
     database:

@@ -7,18 +7,19 @@ features:
   central_database:   true
   ldap:               false         # @todo implement and activate
   logout:   true
-csp:
-  flags:
-    style-src:
-      unsafe-inline: true
-    script-src-elem:
-      unsafe-inline: true
-  whitelist:
-    font-src:
-      - "http://*.{{primary_domain}}"
-domains:
-  canonical:
-    - "forum.{{ primary_domain }}"
+server:
+  csp:
+    flags:
+      style-src:
+        unsafe-inline: true
+      script-src-elem:
+        unsafe-inline: true
+    whitelist:
+      font-src:
+        - "http://*.{{primary_domain}}"
+  domains:
+    canonical:
+      - "forum.{{ primary_domain }}"
 docker:
   services:
     database:

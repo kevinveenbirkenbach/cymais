@@ -16,10 +16,11 @@ features:
   central_database: false   # Enable Central Database Network
   recaptcha:        false   # Enable ReCaptcha
   oauth2:           false   # Enable the OAuth2-Proy
-csp: {}      
-domains:
-  canonical:
-    - "icons.{{ primary_domain }}"
+server:
+  csp: {}      
+  domains:
+    canonical:
+      - "icons.{{ primary_domain }}"
 rbac:
   roles:
     mail-bot:

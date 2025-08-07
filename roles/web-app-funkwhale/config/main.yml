@@ -20,19 +20,20 @@ features:
   central_database:   true
   oauth2:             false # Doesn't make sense to activate it atm, because login is possible on homepage
   logout:   true
-domains:
-  canonical:
-    - "audio.{{ primary_domain }}"
-  aliases:
-    - "music.{{ primary_domain }}"
-    - "sound.{{ primary_domain }}"
-csp:  
-  flags:
-    style-src:
-      unsafe-inline:  true
-  whitelist:
-    font-src:
-      -  "data:"
+server:
+  domains:
+    canonical:
+      - "audio.{{ primary_domain }}"
+    aliases:
+      - "music.{{ primary_domain }}"
+      - "sound.{{ primary_domain }}"
+  csp:  
+    flags:
+      style-src:
+        unsafe-inline:  true
+    whitelist:
+      font-src:
+        -  "data:"
 oauth2_proxy:  
   application:        "front"
   port:               "80"

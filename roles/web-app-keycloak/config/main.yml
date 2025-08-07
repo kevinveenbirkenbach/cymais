@@ -7,20 +7,21 @@ features:
   central_database:   true
   recaptcha:          true
   logout:             true
-csp:
-  flags:
-    script-src-elem:
-      unsafe-inline: true
-    script-src:
-      unsafe-inline: true
-    style-src:
-      unsafe-inline: true
-  whitelist:
-    frame-src:
-      - "*" # For frontend channel logout it's necessary that iframes can be loaded
-domains:
-  canonical:
-    - "auth.{{ primary_domain }}"
+server:
+  csp:
+    flags:
+      script-src-elem:
+        unsafe-inline: true
+      script-src:
+        unsafe-inline: true
+      style-src:
+        unsafe-inline: true
+    whitelist:
+      frame-src:
+        - "*" # For frontend channel logout it's necessary that iframes can be loaded
+  domains:
+    canonical:
+      - "auth.{{ primary_domain }}"
 scopes:
   rbac_roles: rbac_roles
   nextcloud:  nextcloud

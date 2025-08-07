@@ -6,7 +6,7 @@
 - name: "Include role srv-proxy-6-6-domain for {{ application_id }}"
   include_role:
     name: srv-proxy-6-6-domain
-  loop: "{{ applications | get_app_conf(application_id, 'domains.canonical', True) }}"
+  loop: "{{ applications | get_app_conf(application_id, 'server.domains.canonical', True) }}"
   loop_control:
     loop_var: domain
   vars:

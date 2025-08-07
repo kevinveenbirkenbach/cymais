@@ -11,7 +11,7 @@ features:
   ldap:               true
   oauth2:             true
   logout:   true
-
-domains:
-  canonical:
-    - phpldapadmin.{{ primary_domain }}
+server:
+  domains:
+    canonical:
+      - phpldapadmin.{{ primary_domain }}

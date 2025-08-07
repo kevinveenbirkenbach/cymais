@@ -6,14 +6,15 @@ features:
   port-ui-desktop:    true
   oidc:               true
   central_database:   true
-  logout:   true
-domains:
-  canonical:
-    - "microblog.{{ primary_domain }}"
-csp:
-  whitelist:
-    frame-src:
-      - "*"
+  logout:             true
+server:
+  domains:
+    canonical:
+      - "microblog.{{ primary_domain }}"
+  csp:
+    whitelist:
+      frame-src:
+        - "*"
 docker:
   services:
     redis:

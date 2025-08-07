@@ -6,7 +6,7 @@ features:
   css: true
   port-ui-desktop: false
   logout: true
-
-domains:
-  canonical:
-    - oauth2-proxy.{{ primary_domain }}
+server:
+  domains:
+    canonical:
+      - oauth2-proxy.{{ primary_domain }}

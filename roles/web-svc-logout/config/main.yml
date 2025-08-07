@@ -4,23 +4,24 @@ features:
   port-ui-desktop:  true
   javascript:       false
   logout:           false
-domains:
-  canonical:
-    - "logout.{{ primary_domain }}"
-csp:
-  flags:
-    style-src:
-      unsafe-inline: true
-    script-src-elem:
-      unsafe-inline: true
-  whitelist:
-    connect-src:
-      - "{{ web_protocol }}://*.{{ primary_domain }}"
-      - "{{ web_protocol }}://{{ primary_domain }}"
-    script-src-elem:
-      - https://cdn.jsdelivr.net
-    style-src:
-      - https://cdn.jsdelivr.net
-    frame-ancestors:
-      - "{{ web_protocol }}://<< defaults_applications[web-app-keycloak].domains.canonical[0] >>"
+server:
+  domains:
+    canonical:
+      - "logout.{{ primary_domain }}"
+  csp:
+    flags:
+      style-src:
+        unsafe-inline: true
+      script-src-elem:
+        unsafe-inline: true
+    whitelist:
+      connect-src:
+        - "{{ web_protocol }}://*.{{ primary_domain }}"
+        - "{{ web_protocol }}://{{ primary_domain }}"
+      script-src-elem:
+        - https://cdn.jsdelivr.net
+      style-src:
+        - https://cdn.jsdelivr.net
+      frame-ancestors:
+        - "{{ web_protocol }}://<< defaults_applications[web-app-keycloak].server.domains.canonical[0] >>"
 

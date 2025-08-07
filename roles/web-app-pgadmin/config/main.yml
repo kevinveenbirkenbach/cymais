@@ -13,20 +13,20 @@ features:
   central_database:       true
   oauth2:                 true
   logout:       true
-csp:
-  flags:
-    style-src:
-      unsafe-inline: true
-    script-src-elem:
-      unsafe-inline: true
-  whitelist:
-    font-src:
-      - "data:"
+server:
+  csp:
+    flags:
+      style-src:
+        unsafe-inline: true
+      script-src-elem:
+        unsafe-inline: true
+    whitelist:
+      font-src:
+        - "data:"
+  domains:
+    canonical:
+      - pgadmin.{{ primary_domain }}
 docker:
   services:
     database:
       enabled: true
-
-domains:
-  canonical:
-    - pgadmin.{{ primary_domain }}

@@ -1,9 +1,10 @@
 features:
-  matomo:             true
-  css:                true
-  port-ui-desktop:   true
-domains:
-  canonical:
-    - "file.{{ primary_domain }}"
-  alias:
-    - "files.{{ primary_domain }}"
+  matomo:           true
+  css:              true
+  port-ui-desktop:  true
+server:
+  domains:
+    canonical:
+      - "file.{{ primary_domain }}"
+    alias:
+      - "files.{{ primary_domain }}"

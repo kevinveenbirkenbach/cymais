@@ -11,19 +11,20 @@ features:
                               # it's anyhow not so enduser relevant, so it can be kept like this
   central_database:   true
   oauth2:             true
-  logout:   true
-csp:
-  flags:
-    style-src:
-      unsafe-inline: true
-    script-src-elem:
-      unsafe-inline: true
-domains:
-  aliases:
-    - "mysql.{{ primary_domain }}"
-    - "mariadb.{{ primary_domain }}"
-  canonical:
-    - phpmyadmin.{{ primary_domain }}
+  logout:             true
+server:
+  csp:
+    flags:
+      style-src:
+        unsafe-inline: true
+      script-src-elem:
+        unsafe-inline: true
+  domains:
+    aliases:
+      - "mysql.{{ primary_domain }}"
+      - "mariadb.{{ primary_domain }}"
+    canonical:
+      - phpmyadmin.{{ primary_domain }}
 docker:
   services:
     database:

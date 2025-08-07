@@ -33,7 +33,9 @@ class TestDomainFilters(unittest.TestCase):
     def test_alias_with_explicit_aliases(self):
         apps = {
             'app1': {
-                'domains': {'aliases': ['alias.com']}
+                'server':{
+                    'domains': {'aliases': ['alias.com']}
+                }
             }
         }
         # canonical defaults to ['app1.example.com'], so alias should include alias.com and default
@@ -44,7 +46,7 @@ class TestDomainFilters(unittest.TestCase):
     def test_alias_with_canonical_not_default(self):
         apps = {
             'app1': {
-                'domains': {'canonical': ['foo.com']}
+                'server':{'domains': {'canonical': ['foo.com']}}
             }
         }
         # foo.com is canonical, default not in canonical so added as alias
@@ -55,9 +57,11 @@ class TestDomainFilters(unittest.TestCase):
     def test_alias_with_existing_default(self):
         apps = {
             'app1': {
-                'domains': {
-                    'canonical': ['foo.com'],
-                    'aliases': ['app1.example.com']
+                'server':{
+                    'domains': {
+                        'canonical': ['foo.com'],
+                        'aliases': ['app1.example.com']
+                    }
                 }
             }
         }
@@ -68,7 +72,7 @@ class TestDomainFilters(unittest.TestCase):
 
     def test_invalid_aliases_type(self):
         apps = {
-            'app1': {'domains': {'aliases': 123}}
+            'app1': {'server':{'domains': {'aliases': 123}}}
         }
         with self.assertRaises(AnsibleFilterError):
             self.filter_module.alias_domains_map(apps, self.primary)
@@ -76,7 +80,9 @@ class TestDomainFilters(unittest.TestCase):
     def test_alias_with_empty_domains_cfg(self):
         apps = {
             'app1': {
-                'domains': {}
+                'server':{
+                    'domains': {}
+                }
             }
         }
         expected = apps
@@ -86,10 +92,12 @@ class TestDomainFilters(unittest.TestCase):
     def test_alias_with_canonical_dict_not_default(self):
         apps = {
             'app1': {
-                'domains': {
-                    'canonical': {
-                        'one': 'one.com',
-                        'two': 'two.com'
+                'server':{
+                    'domains': {
+                        'canonical': {
+                            'one': 'one.com',
+                            'two': 'two.com'
+                        }
                     }
                 }
             }

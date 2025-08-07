@@ -1,28 +1,29 @@
 features:
-  matomo:             true
-  css:                true
-  port-ui-desktop:    true
-  logout:   false
-csp:
-  whitelist:
-    script-src-elem:
-      - https://cdnjs.cloudflare.com
-      - https://code.jquery.com
-      - https://cdn.jsdelivr.net
-    style-src:
-      - https://cdnjs.cloudflare.com
-      - https://cdn.jsdelivr.net
-    font-src:
-      - https://cdnjs.cloudflare.com
-    frame-src:
-      - "{{ web_protocol }}://*.{{primary_domain}}" # Makes sense that all of the website content is available in the navigator
-  flags:
-    style-src:
-      unsafe-inline: true
-    script-src:
-      unsafe-eval:  true
-    script-src-elem:
-      unsafe-inline: true
-domains:
-  canonical:
-    - "slides.{{ primary_domain }}"
+  matomo:           true
+  css:              true
+  port-ui-desktop:  true
+  logout:           false
+server:
+  csp:
+    whitelist:
+      script-src-elem:
+        - https://cdnjs.cloudflare.com
+        - https://code.jquery.com
+        - https://cdn.jsdelivr.net
+      style-src:
+        - https://cdnjs.cloudflare.com
+        - https://cdn.jsdelivr.net
+      font-src:
+        - https://cdnjs.cloudflare.com
+      frame-src:
+        - "{{ web_protocol }}://*.{{primary_domain}}" # Makes sense that all of the website content is available in the navigator
+    flags:
+      style-src:
+        unsafe-inline: true
+      script-src:
+        unsafe-eval:  true
+      script-src-elem:
+        unsafe-inline: true
+  domains:
+    canonical:
+      - "slides.{{ primary_domain }}"

@@ -1,6 +1,6 @@
 features:
   logout: false # Just deactivated to oppress warnings, elk is anyhow not running
-
-domains:
-  canonical:
-    - elk.{{ primary_domain }}
+server:
+  domains:
+    canonical:
+      - elk.{{ primary_domain }}

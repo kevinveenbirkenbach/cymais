@@ -32,7 +32,9 @@ class TestDomainFilters(unittest.TestCase):
     def test_canonical_with_list(self):
         apps = {
             'web-app-app1': {
-                'domains': {'canonical': ['foo.com', 'bar.com']}
+                'server':{
+                    'domains': {'canonical': ['foo.com', 'bar.com']}
+                }
             }
         }
         result = self.filter_module.canonical_domains_map(apps, self.primary)
@@ -44,7 +46,9 @@ class TestDomainFilters(unittest.TestCase):
     def test_canonical_with_dict(self):
         apps = {
             'web-app-app1': {
-                'domains': {'canonical': {'one': 'one.com', 'two': 'two.com'}}
+                'server':{
+                    'domains': {'canonical': {'one': 'one.com', 'two': 'two.com'}}
+                }
             }
         }
         result = self.filter_module.canonical_domains_map(apps, self.primary)
@@ -55,8 +59,14 @@ class TestDomainFilters(unittest.TestCase):
 
     def test_canonical_duplicate_raises(self):
         apps = {
-            'web-app-app1': {'domains': {'canonical': ['dup.com']}},
-            'web-app-app2': {'domains': {'canonical': ['dup.com']}},
+            'web-app-app1':{
+                'server':{'domains': {'canonical': ['dup.com']}},
+            },
+            'web-app-app2':{ 
+                'server':{
+                    'domains': {'canonical': ['dup.com']}
+                },
+            },
         }
         with self.assertRaises(AnsibleFilterError) as cm:
             self.filter_module.canonical_domains_map(apps, self.primary)
@@ -65,7 +75,7 @@ class TestDomainFilters(unittest.TestCase):
 
     def test_invalid_canonical_type(self):
         apps = {
-            'web-app-app1': {'domains': {'canonical': 123}}
+            'web-app-app1': {'server':{'domains': {'canonical': 123}}}
         }
         with self.assertRaises(AnsibleFilterError):
             self.filter_module.canonical_domains_map(apps, self.primary)
@@ -76,7 +86,7 @@ class TestDomainFilters(unittest.TestCase):
         resulting in an empty mapping when only non-web apps are provided.
         """
         apps = {
-            'db-app-app1': {'domains': {'canonical': ['db.example.com']}},
+            'db-app-app1': {'server':{'domains': {'canonical': ['db.example.com']}}},
             'service-app-app2': {}
         }
         result = self.filter_module.canonical_domains_map(apps, self.primary)
@@ -88,7 +98,7 @@ class TestDomainFilters(unittest.TestCase):
         non-web apps should be ignored alongside valid web apps.
         """
         apps = {
-            'db-app-app1': {'domains': {'canonical': ['db.example.com']}},
+            'db-app-app1': {'server':{'domains': {'canonical': ['db.example.com']}}},
             'web-app-app1': {}
         }
         expected = {'web-app-app1': ['app1.example.com']}

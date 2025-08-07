@@ -11,22 +11,23 @@ features:
   port-ui-desktop:    true
   oidc:               false
   central_database:   true
-  logout:   true
+  logout:             true
 docker:
   services:
     database:
       enabled: true
     taiga: 
       version: "latest"
-csp:
-  flags:
-    script-src-elem:
-      unsafe-inline: true
-      unsafe-eval:   true
-    style-src:
-      unsafe-inline: true
-    script-src:
-      unsafe-eval:   true
-domains:
-  canonical:
-    - "kanban.{{ primary_domain }}"
+server:
+  csp:
+    flags:
+      script-src-elem:
+        unsafe-inline: true
+        unsafe-eval:   true
+      style-src:
+        unsafe-inline: true
+      script-src:
+        unsafe-eval:   true
+  domains:
+    canonical:
+      - "kanban.{{ primary_domain }}"

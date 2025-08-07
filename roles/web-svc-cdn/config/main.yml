@@ -1,7 +1,8 @@
 features:
-  matomo:             true
-  css:                true
-  port-ui-desktop:   true
-domains:
-  canonical:
-    - "cdn.{{ primary_domain }}"
+  matomo:           true
+  css:              true
+  port-ui-desktop:  true
+server:
+  domains:
+    canonical:
+      - "cdn.{{ primary_domain }}"

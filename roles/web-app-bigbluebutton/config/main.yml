@@ -12,13 +12,14 @@ features:
   oidc:               true
   central_database:   false
   logout:             true
-domains:
-  canonical:
-    - "meet.{{ primary_domain }}"
-csp:  
-  flags:
-    script-src-elem:
-      unsafe-inline:  true
-    style-src:
-      unsafe-inline:  true
+server:
+  csp:
+    flags:
+      script-src-elem:
+        unsafe-inline:  true
+      style-src:
+        unsafe-inline:  true
+  domains:
+    canonical:
+      - "meet.{{ primary_domain }}"
 credentials: {}

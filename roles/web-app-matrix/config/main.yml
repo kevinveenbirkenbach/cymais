@@ -23,22 +23,28 @@ features:
   port-ui-desktop:    true
   oidc:               true                               # Deactivated OIDC due to this issue https://github.com/matrix-org/synapse/issues/10492
   central_database:   true
-  logout:   true
-csp:
-  flags:
-    script-src:
-      unsafe-eval:   true
-    script-src-elem:
-      unsafe-inline: true
-      unsafe-eval:   true
-    style-src:
-      unsafe-inline: true
-  whitelist:
-    connect-src:
-      - "*"
-    script-src-elem:
-      - "element.{{ primary_domain }}"
-      - "https://cdn.jsdelivr.net"
+  logout:             true
+server:
+  csp:
+    flags:
+      script-src:
+        unsafe-eval:   true
+      script-src-elem:
+        unsafe-inline: true
+        unsafe-eval:   true
+      style-src:
+        unsafe-inline: true
+    whitelist:
+      connect-src:
+        - "*"
+      script-src-elem:
+        - "element.{{ primary_domain }}"
+        - "https://cdn.jsdelivr.net"
+  domains:
+    canonical:
+      synapse: "matrix.{{ primary_domain }}"
+      element: "element.{{ primary_domain }}"
+  client_max_body_size: "15M"
 
 plugins:
 # You need to enable them in the inventory file
@@ -50,10 +56,3 @@ plugins:
   slack:      false
   telegram:   false
   whatsapp:   false
-
-client_max_body_size: "15M"
-
-domains:
-  canonical:
-    synapse: "matrix.{{ primary_domain }}"
-    element: "element.{{ primary_domain }}"

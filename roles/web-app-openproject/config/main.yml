@@ -17,16 +17,17 @@ features:
   ldap:               true
   central_database:   true
   oauth2:             true
-  logout:   true
-csp:
-  flags:
-    script-src-elem:
-      unsafe-inline: true
-    style-src:
-      unsafe-inline: true  
-domains:
-  canonical:
-    - "project.{{ primary_domain }}"
+  logout:             true
+server:
+  csp:
+    flags:
+      script-src-elem:
+        unsafe-inline: true
+      style-src:
+        unsafe-inline: true  
+  domains:
+    canonical:
+      - "project.{{ primary_domain }}"
 
 docker:
   services:

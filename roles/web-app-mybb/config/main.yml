@@ -15,7 +15,7 @@ docker:
       name:     "mybb"
   volumes:
     data:       "mybb_data"
-
-domains:
-  canonical:
-    - mybb.{{ primary_domain }}
+server:
+  domains:
+    canonical:
+      - mybb.{{ primary_domain }}

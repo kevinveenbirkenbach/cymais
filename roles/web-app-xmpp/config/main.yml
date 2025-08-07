@@ -1,7 +1,7 @@
 # xmpp is more a service then a app with ui interface. @todo Rename it 
 features:
   logout: false # Reactivated as soon as xmpp is fully implemented
-
-domains:
-  canonical:
-    - xmpp.{{ primary_domain }}
+server:
+  domains:
+    canonical:
+      - xmpp.{{ primary_domain }}

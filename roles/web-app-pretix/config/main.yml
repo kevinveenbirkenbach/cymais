@@ -11,20 +11,21 @@ docker:
 features:
   matomo:           true    # Enable Matomo Tracking
   css:              true    # Enable Global CSS Styling
-  port-ui-desktop: true    # Enable loading of app in iframe
+  port-ui-desktop:  true    # Enable loading of app in iframe
   ldap:             false   # Enable LDAP Network
   central_database: false   # Enable Central Database Network
   recaptcha:        false   # Enable ReCaptcha
   oauth2:           false   # Enable the OAuth2-Proy
   javascript:       false   # Enables the custom JS in the javascript.js.j2 file   
-  logout: true
-csp:
-  whitelist:        {}      # URL's which should be whitelisted
-  flags:            {}      # Flags which should be set
-domains:
-  canonical:
-     - "pretix.{{ primary_domain }}"
-  aliases:          []      # Alias redirections to the first element of the canonical domains
+  logout:           true
+server:
+  csp:
+    whitelist:        {}      # URL's which should be whitelisted
+    flags:            {}      # Flags which should be set
+  domains:
+    canonical:
+      - "pretix.{{ primary_domain }}"
+    aliases:          []      # Alias redirections to the first element of the canonical domains
 rbac:
   roles: {}
 

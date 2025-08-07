@@ -19,25 +19,26 @@ oauth2_proxy:
   acl:
     blacklist:
       - "/user/login"
-csp:
-  flags:
-    script-src-elem:
-      unsafe-inline:              true
-    style-src:
-      unsafe-inline:              true
-  whitelist:
-    font-src:
-      - "data:"
-      - "blob:"
-    worker-src:
-      - "blob:"
-    manifest-src:
-      - "data:"
-domains:
-  aliases:
-    - "git.{{ primary_domain }}"
-  canonical:
-    - gitea.{{ primary_domain }}
+server:
+  csp:
+    flags:
+      script-src-elem:
+        unsafe-inline:              true
+      style-src:
+        unsafe-inline:              true
+    whitelist:
+      font-src:
+        - "data:"
+        - "blob:"
+      worker-src:
+        - "blob:"
+      manifest-src:
+        - "data:"
+  domains:
+    aliases:
+      - "git.{{ primary_domain }}"
+    canonical:
+      - gitea.{{ primary_domain }}
 docker:
   services:
     database:

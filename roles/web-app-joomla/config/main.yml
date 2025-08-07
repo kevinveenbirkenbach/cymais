@@ -6,9 +6,10 @@ features:
   port-ui-desktop:    true
   central_database:   true
   logout:   true
-domains:
-  canonical:
-    - "cms.{{ primary_domain }}"
+server:
+  domains:
+    canonical:
+      - "cms.{{ primary_domain }}"
 docker:
   services:
     database:

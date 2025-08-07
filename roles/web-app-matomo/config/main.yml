@@ -8,27 +8,28 @@ features:
   port-ui-desktop:    false  # Didn't work in frame didn't have high priority @todo figure out pcause and solve it
   central_database:   true
   oauth2:             false
-  logout:   true
-csp:
-  whitelist:
-    script-src-elem:
-      - https://cdn.matomo.cloud
-    style-src:
-      - https://fonts.googleapis.com
-  flags:
-    script-src:
-      unsafe-eval:   true
-    script-src-elem:
-      unsafe-inline: true
-      unsafe-eval:   true
-    style-src:
-      unsafe-inline: true
-      unsafe-eval:   true
-domains:
-  aliases:
-    - "analytics.{{ primary_domain }}"
-  canonical:
-    - "matomo.{{ primary_domain }}"
+  logout:             true
+server:
+  csp:
+    whitelist:
+      script-src-elem:
+        - https://cdn.matomo.cloud
+      style-src:
+        - https://fonts.googleapis.com
+    flags:
+      script-src:
+        unsafe-eval:   true
+      script-src-elem:
+        unsafe-inline: true
+        unsafe-eval:   true
+      style-src:
+        unsafe-inline: true
+        unsafe-eval:   true
+  domains:
+    aliases:
+      - "analytics.{{ primary_domain }}"
+    canonical:
+      - "matomo.{{ primary_domain }}"
 excluded_ips: "{{ networks.internet.values() | list }}"
 
 docker:

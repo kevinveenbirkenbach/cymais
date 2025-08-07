@@ -5,25 +5,26 @@ features:
   port-ui-desktop:    true
   central_database:   true
   oidc:               true
-  logout:   true
-csp:
-  flags:
-    script-src:
-      unsafe-eval:   true
-      unsafe-inline: true
-    script-src-elem:
-      unsafe-inline: true
-      unsafe-eval:   true
-    style-src:
-      unsafe-inline: true
-  whitelist:
-    frame-ancestors:
-      - "*"
-domains:
-  canonical:
-    - "picture.{{ primary_domain }}"
-  aliases:
-    - "pictures.{{ primary_domain }}"
+  logout:             true
+server:
+  csp:
+    flags:
+      script-src:
+        unsafe-eval:   true
+        unsafe-inline: true
+      script-src-elem:
+        unsafe-inline: true
+        unsafe-eval:   true
+      style-src:
+        unsafe-inline: true
+    whitelist:
+      frame-ancestors:
+        - "*"
+  domains:
+    canonical:
+      - "picture.{{ primary_domain }}"
+    aliases:
+      - "pictures.{{ primary_domain }}"
 docker:
   services:
     redis:

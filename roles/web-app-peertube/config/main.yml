@@ -4,27 +4,28 @@ features:
   port-ui-desktop:    true
   central_database:   true
   oidc:               true
-  logout:   true
-csp:
-  flags:
-    script-src-elem:
-      unsafe-inline:  true
-    script-src:
-      unsafe-inline:  true
-    style-src:
-      unsafe-inline:  true
-  whitelist:
-    frame-ancestors:
-      - "*"
-    media-src:
-      - "blob:"
-    font-src:
-      - "data:"
-domains:
-  canonical:
-    - "video.{{ primary_domain }}"
-  aliases:
-    - "videos.{{ primary_domain }}"
+  logout:             true
+server:
+  csp:
+    flags:
+      script-src-elem:
+        unsafe-inline:  true
+      script-src:
+        unsafe-inline:  true
+      style-src:
+        unsafe-inline:  true
+    whitelist:
+      frame-ancestors:
+        - "*"
+      media-src:
+        - "blob:"
+      font-src:
+        - "data:"
+  domains:
+    canonical:
+      - "video.{{ primary_domain }}"
+    aliases:
+      - "videos.{{ primary_domain }}"
 docker:
   services:
     redis:

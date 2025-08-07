@@ -28,7 +28,7 @@ class FilterModule(object):
                     f"expected a dict, got {cfg!r}"
                 )
                 
-                domains_cfg = cfg.get('domains')
+                domains_cfg = cfg.get('server',{}).get('domains',{})
                 if not domains_cfg or 'canonical' not in domains_cfg:
                     self._add_default_domain(app_id, primary_domain, seen_domains, result)
                     continue
@@ -64,7 +64,7 @@ class FilterModule(object):
             self._process_canonical_domains_list(app_id, canonical_domains, seen_domains, result)
         else:
             raise AnsibleFilterError(
-                f"Unexpected type for 'domains.canonical' in application '{app_id}': "
+                f"Unexpected type for 'server.domains.canonical' in application '{app_id}': "
                 f"{type(canonical_domains).__name__}"
             )
 

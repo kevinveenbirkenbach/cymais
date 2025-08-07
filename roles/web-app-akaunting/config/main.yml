@@ -7,10 +7,11 @@ features:
   css:              true
   port-ui-desktop:  true
   central_database: true
-  logout: true
-domains:
-  canonical:
-    - "accounting.{{ primary_domain }}"
+  logout:           true 
+server:
+  domains:
+    canonical:
+      - "accounting.{{ primary_domain }}"
 docker:
   services:
     database:

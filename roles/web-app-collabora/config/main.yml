@@ -1,6 +1,7 @@
-domains:
-  canonical:
-    - "collabora.{{ primary_domain }}"
+server:
+  domains:
+    canonical:
+      - "collabora.{{ primary_domain }}"
 docker:
   services:
     redis:

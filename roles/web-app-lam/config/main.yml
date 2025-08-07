@@ -12,19 +12,20 @@ features:
   ldap:                         true
   central_database:             false
   oauth2:                       true
-  logout:             true
-csp:
-  flags:
-    style-src:
-      unsafe-inline:            true
-    script-src-elem:
-      unsafe-inline:            true
-      unsafe-eval:              true
-    script-src:
-      unsafe-inline:            true
-domains:
-  aliases:
-    - "ldap.{{primary_domain}}"
-  canonical:
-    - lam.{{ primary_domain }}
+  logout:                       true
+server:
+  csp:
+    flags:
+      style-src:
+        unsafe-inline:            true
+      script-src-elem:
+        unsafe-inline:            true
+        unsafe-eval:              true
+      script-src:
+        unsafe-inline:            true
+  domains:
+    aliases:
+      - "ldap.{{primary_domain}}"
+    canonical:
+      - lam.{{ primary_domain }}
 

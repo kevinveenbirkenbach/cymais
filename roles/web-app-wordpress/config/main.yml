@@ -14,32 +14,33 @@ features:
   oidc:               true
   central_database:   true
   logout:   true
-csp:
-  flags:
-    style-src:
-      unsafe-inline:  true
-    script-src-elem:
-      unsafe-inline:  true
-    script-src:
-      unsafe-eval:    true
-  whitelist:
-    worker-src:
-      - "blob:"
-    font-src:
-      - "data:"
-      - "https://fonts.bunny.net"
-    script-src-elem:
-      - "https://cdn.gtranslate.net"    # Necessary for translation plugins
-      - "https://translate.google.com"  # Necessary for translation plugins
+server:
+  csp:
+    flags:
+      style-src:
+        unsafe-inline:  true
+      script-src-elem:
+        unsafe-inline:  true
+      script-src:
+        unsafe-eval:    true
+    whitelist:
+      worker-src:
+        - "blob:"
+      font-src:
+        - "data:"
+        - "https://fonts.bunny.net"
+      script-src-elem:
+        - "https://cdn.gtranslate.net"    # Necessary for translation plugins
+        - "https://translate.google.com"  # Necessary for translation plugins
+        - "blog.{{ primary_domain }}"
+      style-src:
+        - "https://fonts.bunny.net"
+      frame-src:
+        - "blob:"
+        - "*"
+  domains:
+    canonical:
       - "blog.{{ primary_domain }}"
-    style-src:
-      - "https://fonts.bunny.net"
-    frame-src:
-      - "blob:"
-      - "*"
-domains:
-  canonical:
-    - "blog.{{ primary_domain }}"
 docker:
   services:
     database:

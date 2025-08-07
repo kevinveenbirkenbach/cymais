@@ -6,13 +6,14 @@ features:
   css:              true
   port-ui-desktop:  true
   central_database: true
-  logout: true
+  logout:           true
 docker:
   services:
     redis:
       enabled: true
     database: 
       enabled: true
-domains:
-  canonical:
-    - "tickets.{{ primary_domain }}"
+server:
+  domains:
+    canonical:
+      - "tickets.{{ primary_domain }}"

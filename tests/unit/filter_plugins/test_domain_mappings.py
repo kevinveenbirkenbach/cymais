@@ -37,7 +37,9 @@ class TestDomainMappings(unittest.TestCase):
     def test_explicit_aliases(self):
         apps = {
             'app1': {
-                'domains': {'aliases': ['alias.com']}
+                'server':{
+                    'domains': {'aliases': ['alias.com']}
+                }
             }
         }
         default = 'app1.example.com'
@@ -51,7 +53,9 @@ class TestDomainMappings(unittest.TestCase):
     def test_canonical_not_default(self):
         apps = {
             'app1': {
-                'domains': {'canonical': ['foo.com']}
+                'server':{
+                    'domains': {'canonical': ['foo.com']}
+                }
             }
         }
         expected = [
@@ -63,8 +67,10 @@ class TestDomainMappings(unittest.TestCase):
     def test_canonical_dict(self):
         apps = {
             'app1': {
-                'domains': {
-                    'canonical': {'one': 'one.com', 'two': 'two.com'}
+                'server':{
+                    'domains': {
+                        'canonical': {'one': 'one.com', 'two': 'two.com'}
+                    }
                 }
             }
         }
@@ -77,8 +83,12 @@ class TestDomainMappings(unittest.TestCase):
 
     def test_multiple_apps(self):
         apps = {
-            'app1': {'domains': {'aliases': ['a1.com']}},
-            'app2': {'domains': {'canonical': ['c2.com']}},
+            'app1': {
+                'server':{'domains': {'aliases': ['a1.com']}}
+            },
+            'app2': {
+                'server':{'domains': {'canonical': ['c2.com']}}
+            },
         }
         expected = [
             {'source': 'a1.com',              'target': 'app1.example.com'},
@@ -89,7 +99,10 @@ class TestDomainMappings(unittest.TestCase):
         
     def test_multiple_aliases(self):
         apps = {
-            'app1': {'domains': {'aliases': ['a1.com','a2.com']}}
+            'app1': {
+                'server':{'domains': {'aliases': ['a1.com','a2.com']}
+                }
+            }
         }
         expected = [
             {'source': 'a1.com', 'target': 'app1.example.com'},
@@ -100,7 +113,7 @@ class TestDomainMappings(unittest.TestCase):
 
     def test_invalid_aliases_type(self):
         apps = {
-            'app1': {'domains': {'aliases': 123}}
+            'app1': {'server':{'domains': {'aliases': 123}}}
         }
         with self.assertRaises(AnsibleFilterError):
             self.filter.domain_mappings(apps, self.primary)

@@ -19,12 +19,14 @@ class TestLoadConfigurationFilter(unittest.TestCase):
         self.nested_cfg = {
             'html': {
                 'features': {'matomo': True},
-                'domains': {'canonical': ['html.example.com']}
+                'server': {
+                    'domains':{'canonical': ['html.example.com']}
+                }
             }
         }
         self.flat_cfg = {
             'features': {'matomo': False},
-            'domains': {'canonical': ['flat.example.com']}
+            'server': {'domains':{'canonical': ['flat.example.com']}}
         }
 
     def test_invalid_key(self):
@@ -69,7 +71,7 @@ class TestLoadConfigurationFilter(unittest.TestCase):
         self.assertIn(self.app, _cfg_cache)
         mock_yaml.reset_mock()
         # from cache
-        self.assertEqual(self.f(self.app, 'domains.canonical'),
+        self.assertEqual(self.f(self.app, 'server.domains.canonical'),
                          ['html.example.com'])
         mock_yaml.assert_not_called()
 
@@ -92,7 +94,7 @@ class TestLoadConfigurationFilter(unittest.TestCase):
         mock_yaml.return_value = self.nested_cfg
         # nested fallback must work
         self.assertTrue(self.f(self.app, 'features.matomo'))
-        self.assertEqual(self.f(self.app, 'domains.canonical'),
+        self.assertEqual(self.f(self.app, 'server.domains.canonical'),
                          ['html.example.com'])
 
     @patch('load_configuration.os.listdir', return_value=['r4'])
@@ -105,13 +107,15 @@ class TestLoadConfigurationFilter(unittest.TestCase):
         mock_exists.side_effect = lambda p: p.endswith('config/main.yml')
         mock_yaml.return_value = {
             'file': {
-                'domains': {
-                    'canonical': ['files.example.com', 'extra.example.com']
+                'server': {
+                    'domains':{
+                        'canonical': ['files.example.com', 'extra.example.com']
+                    }
                 }
             }
         }
         # should get the first element of the canonical domains list
-        self.assertEqual(self.f('file', 'domains.canonical[0]'),
+        self.assertEqual(self.f('file', 'server.domains.canonical[0]'),
                          'files.example.com')
 
 if __name__ == '__main__':

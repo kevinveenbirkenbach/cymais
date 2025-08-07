@@ -13,7 +13,7 @@ features:
 #     users:
 #       administrator:
 #         username:     "{{ users.administrator.username }}"
-
-domains:
-  canonical:
-    - syncope.{{ primary_domain }}
+server:
+  domains:
+    canonical:
+      - syncope.{{ primary_domain }}

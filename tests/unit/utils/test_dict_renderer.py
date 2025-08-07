@@ -64,11 +64,13 @@ class TestDictRenderer(unittest.TestCase):
         # Combine quoted key, dot access and numeric index
         data = {
             "web-svc-file": {
-                "domains": {
-                    "canonical": ["file.example.com"]
+                'server':{
+                    "domains": {
+                        "canonical": ["file.example.com"]
+                    }
                 }
             },
-            "url": '<<[\'web-svc-file\'].domains.canonical[0]>>'
+            "url": '<<[\'web-svc-file\'].server.domains.canonical[0]>>'
         }
         rendered = self.renderer.render(data)
         self.assertEqual(rendered["url"], "file.example.com")

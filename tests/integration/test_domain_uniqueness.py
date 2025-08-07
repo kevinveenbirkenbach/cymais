@@ -25,7 +25,7 @@ class TestDomainUniqueness(unittest.TestCase):
         domain_to_apps = defaultdict(set)
 
         for app_name, app_cfg in apps.items():
-            domains_cfg = app_cfg.get('domains', {})
+            domains_cfg = app_cfg.get('server',{}).get('domains',{})
 
             # canonical entries may be a list or a mapping
             canonical = domains_cfg.get('canonical', [])

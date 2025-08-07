@@ -5,10 +5,11 @@ features:
   port-ui-desktop:          true
   central_database:         true
   oidc:                     true
-  logout:         true
-domains:
-  canonical:
-    - "newsletter.{{ primary_domain }}"
+  logout:                   true
+server:
+  domains:
+    canonical:
+      - "newsletter.{{ primary_domain }}"
 docker:
   services:
     database:

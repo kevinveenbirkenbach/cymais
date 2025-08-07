@@ -5,17 +5,18 @@ features:
   matomo:           true
   port-ui-desktop:  true
   logout: true
-csp:
-  flags:
-    script-src-elem:
-      unsafe-inline:  true
-    script-src:
-      unsafe-eval:  true
-domains:
-  canonical:
-    - "event.{{ primary_domain }}"
-  aliases:
-    - "events.{{ primary_domain }}"
+server:
+  csp:
+    flags:
+      script-src-elem:
+        unsafe-inline:  true
+      script-src:
+        unsafe-eval:  true
+  domains:
+    canonical:
+      - "event.{{ primary_domain }}"
+    aliases:
+      - "events.{{ primary_domain }}"
 docker:
   services:
     database:

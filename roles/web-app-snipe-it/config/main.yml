@@ -5,22 +5,23 @@ features:
   central_database:   true
   ldap:               true
   oauth2:             true
-  logout:   true
-domains:
-  canonical:
-    - "inventory.{{ primary_domain }}"
-csp:
-  flags:
-    script-src:
-      unsafe-inline:  true
-      unsafe-eval:    true
-    script-src-elem:
-      unsafe-inline:  true
-    style-src:
-      unsafe-inline:  true
-  whitelist:
-    font-src:
-      - "data:"
+  logout:             true
+server:
+  domains:
+    canonical:
+      - "inventory.{{ primary_domain }}"
+  csp:
+    flags:
+      script-src:
+        unsafe-inline:  true
+        unsafe-eval:    true
+      script-src-elem:
+        unsafe-inline:  true
+      style-src:
+        unsafe-inline:  true
+    whitelist:
+      font-src:
+        - "data:"
 oauth2_proxy:
   application:  "application"
   port:         "80"

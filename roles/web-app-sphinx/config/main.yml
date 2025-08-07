@@ -1,17 +1,18 @@
 features:
-  matomo:             true
-  css:                true
-  port-ui-desktop:    true
-  logout:   false
-csp:
-  flags:
-    script-src:
-      unsafe-eval:    true
-    script-src-elem:
-      unsafe-inline:  true
-      unsafe-eval:    true
-    style-src:
-      unsafe-inline:  true
-domains:
-  canonical:
-    - "docs.{{ primary_domain }}"
+  matomo:           true
+  css:              true
+  port-ui-desktop:  true
+  logout:           false
+server:
+  csp:
+    flags:
+      script-src:
+        unsafe-eval:    true
+      script-src-elem:
+        unsafe-inline:  true
+        unsafe-eval:    true
+      style-src:
+        unsafe-inline:  true
+  domains:
+    canonical:
+      - "docs.{{ primary_domain }}"

@@ -1,6 +1,6 @@
 features:
   logout: true # Same like with elk, anyhow not active atm
-
-domains:
-  canonical:
-    - jenkins.{{ primary_domain }}
+server:
+  domains:
+    canonical:
+      - jenkins.{{ primary_domain }}

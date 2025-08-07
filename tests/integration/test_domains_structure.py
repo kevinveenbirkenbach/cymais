@@ -33,7 +33,7 @@ class TestDomainsStructure(unittest.TestCase):
                 if 'domains' not in data:
                     continue
 
-                domains = data['domains']
+                domains = data.get('server',{}).get('domains')
                 if not isinstance(domains, dict):
                     failed_roles.append((role_path.name, vars_file.name, "'domains' should be a dict"))
                     continue

@@ -18,13 +18,14 @@ features:
   oauth2:           false   # Enable the OAuth2-Proy
   javascript:       false   # Enables the custom JS in the javascript.js.j2 file
   logout: false   # With this app I assume that it's a service, so should be renamed and logging is unneccessary
-csp:
-  whitelist:        {}      # URL's which should be whitelisted
-  flags:            {}      # Flags which should be set
-domains:
-  canonical:
-    - "libretranslate.{{ primary_domain }}"
-  aliases:          []      # Alias redirections to the first element of the canonical domains
+server:
+  csp:
+    whitelist:        {}      # URL's which should be whitelisted
+    flags:            {}      # Flags which should be set
+  domains:
+    canonical:
+      - "libretranslate.{{ primary_domain }}"
+    aliases:          []      # Alias redirections to the first element of the canonical domains
 rbac:
   roles: {}
 

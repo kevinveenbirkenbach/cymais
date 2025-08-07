@@ -20,17 +20,17 @@ class TestWebRolesDomains(unittest.TestCase):
 
                 self.assertIsInstance(data, dict, f"YAML root is not a dict in {path}")
 
-                domains = data.get("domains")
+                domains = data.get('server',{}).get('domains',{})
                 self.assertIsNotNone(domains, f"'domains' section missing in {path}")
                 self.assertIsInstance(domains, dict, f"'domains' must be a dict in {path}")
 
                 canonical = domains.get("canonical")
-                self.assertIsNotNone(canonical, f"'domains.canonical' missing in {path}")
+                self.assertIsNotNone(canonical, f"'server.domains.canonical' missing in {path}")
 
                 # Check for emptiness
                 empty_values = [{}, [], ""]
                 self.assertNotIn(canonical, empty_values,
-                    f"'domains.canonical' in {path} must not be empty dict, list, or empty string")
+                    f"'server.domains.canonical' in {path} must not be empty dict, list, or empty string")
 
 if __name__ == "__main__":
     unittest.main()

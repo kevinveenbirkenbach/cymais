@@ -31,7 +31,7 @@ class FilterModule(object):
                     continue
 
                 # use canonical domains list if present
-                domains_entry = config.get('domains', {}).get('canonical', [])
+                domains_entry = config.get('server', {}).get('domains', {}).get('canonical', [])
 
                 # normalize to a list of strings
                 if isinstance(domains_entry, dict):
