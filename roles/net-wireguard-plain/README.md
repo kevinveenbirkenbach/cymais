@@ -2,7 +2,7 @@
 
 ## Description
 
-This role manages WireGuard on a client system. It sets up essential services and scripts to configure and optimize WireGuard connectivity. Additionally, it provides a link to an Administration document for creating client keys.
+This role manages WireGuard on a client system. It sets up essential services and scripts to configure and optimize WireGuard connectivity.
 
 ## Overview
 
