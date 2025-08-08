@@ -46,7 +46,7 @@ certbot_acme_challenge_method:            "cloudflare"
 certbot_credentials_dir:                  /etc/certbot
 certbot_credentials_file:                 "{{ certbot_credentials_dir }}/{{ certbot_acme_challenge_method }}.ini"
 certbot_dns_api_token:                    ""                      # Define in inventory file: More information here: group_vars/all/docs/CLOUDFLARE_API_TOKEN.md
-certbot_dns_propagation_wait_seconds:     40                      # How long should the script wait for DNS propagation before continuing
+certbot_dns_propagation_wait_seconds:     300                     # How long should the script wait for DNS propagation before continuing
 certbot_flavor:                           san                     # Possible options: san (recommended, with a dns flavor like cloudflare, or hetzner), wildcard(doesn't function with www redirect), dedicated
 
 # Path where Certbot stores challenge webroot files
