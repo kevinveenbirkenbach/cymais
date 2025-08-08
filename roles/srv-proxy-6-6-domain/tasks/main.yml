@@ -3,6 +3,10 @@
   include_tasks: cleanup.yml
   when: mode_cleanup | bool
 
+- include_tasks: "{{ playbook_dir }}/tasks/utils/load_handlers.yml"
+  vars:
+    handler_role_name: "svc-prx-openresty"
+
 - name: "include role for {{ domain }} to receive certificates and do the modification routines"
   include_role:
     name: srv-web-7-6-composer
@@ -18,7 +22,7 @@
   uri:
     url: "{{ domains | get_url(application_id, WEB_PROTOCOL) }}"
   register: site_check
-  failed_when: false
+  failed_when:  false
   changed_when: false
   when: not nginx_conf.changed
 
