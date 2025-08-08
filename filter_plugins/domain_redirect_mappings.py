@@ -1,4 +1,7 @@
 from ansible.errors import AnsibleFilterError
+import sys, os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from module_utils.entity_name_utils import get_entity_name
 
 class FilterModule(object):
     def filters(self):
@@ -30,8 +33,9 @@ class FilterModule(object):
                     )
             return values
 
-        def default_domain(app_id, primary):
-            return f"{app_id}.{primary}"
+        def default_domain(app_id:str, primary:str):
+            subdomain = get_entity_name(app_id)
+            return f"{subdomain}.{primary}"
 
         # 1) Compute canonical domains per app (always as a list)
         canonical_map = {}

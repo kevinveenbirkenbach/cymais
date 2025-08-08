@@ -22,27 +22,27 @@ class TestDomainMappings(unittest.TestCase):
         self.assertEqual(result, [])
 
     def test_app_without_domains(self):
-        apps = {'app1': {}}
+        apps = {'web-app-port-ui': {}}
         # no domains key → no mappings
         result = self.filter.domain_mappings(apps, self.primary)
         self.assertEqual(result, [])
 
     def test_empty_domains_cfg(self):
-        apps = {'app1': {'domains': {}}}
-        default = 'app1.example.com'
+        apps = {'web-app-port-ui': {'domains': {}}}
+        default = 'port-ui.example.com'
         expected = []
         result = self.filter.domain_mappings(apps, self.primary)
         self.assertEqual(result, expected)
 
     def test_explicit_aliases(self):
         apps = {
-            'app1': {
+            'web-app-port-ui': {
                 'server':{
                     'domains': {'aliases': ['alias.com']}
                 }
             }
         }
-        default = 'app1.example.com'
+        default = 'port-ui.example.com'
         expected = [
             {'source': 'alias.com',    'target': default},
         ]
@@ -52,21 +52,21 @@ class TestDomainMappings(unittest.TestCase):
 
     def test_canonical_not_default(self):
         apps = {
-            'app1': {
+            'web-app-port-ui': {
                 'server':{
                     'domains': {'canonical': ['foo.com']}
                 }
             }
         }
         expected = [
-            {'source': 'app1.example.com', 'target': 'foo.com'}
+            {'source': 'port-ui.example.com', 'target': 'foo.com'}
         ]
         result = self.filter.domain_mappings(apps, self.primary)
         self.assertEqual(result, expected)
 
     def test_canonical_dict(self):
         apps = {
-            'app1': {
+            'web-app-port-ui': {
                 'server':{
                     'domains': {
                         'canonical': {'one': 'one.com', 'two': 'two.com'}
@@ -76,44 +76,44 @@ class TestDomainMappings(unittest.TestCase):
         }
         # first canonical key 'one' → one.com
         expected = [
-            {'source': 'app1.example.com', 'target': 'one.com'}
+            {'source': 'port-ui.example.com', 'target': 'one.com'}
         ]
         result = self.filter.domain_mappings(apps, self.primary)
         self.assertEqual(result, expected)
 
     def test_multiple_apps(self):
         apps = {
-            'app1': {
+            'web-app-port-ui': {
                 'server':{'domains': {'aliases': ['a1.com']}}
             },
-            'app2': {
+            'web-app-mastodon': {
                 'server':{'domains': {'canonical': ['c2.com']}}
             },
         }
         expected = [
-            {'source': 'a1.com',              'target': 'app1.example.com'},
-            {'source': 'app2.example.com',    'target': 'c2.com'},
+            {'source': 'a1.com',              'target': 'port-ui.example.com'},
+            {'source': 'mastodon.example.com',    'target': 'c2.com'},
         ]
         result = self.filter.domain_mappings(apps, self.primary)
         self.assertCountEqual(result, expected)
         
     def test_multiple_aliases(self):
         apps = {
-            'app1': {
+            'web-app-port-ui': {
                 'server':{'domains': {'aliases': ['a1.com','a2.com']}
                 }
             }
         }
         expected = [
-            {'source': 'a1.com', 'target': 'app1.example.com'},
-            {'source': 'a2.com', 'target': 'app1.example.com'}
+            {'source': 'a1.com', 'target': 'port-ui.example.com'},
+            {'source': 'a2.com', 'target': 'port-ui.example.com'}
         ]
         result = self.filter.domain_mappings(apps, self.primary)
         self.assertCountEqual(result, expected)
 
     def test_invalid_aliases_type(self):
         apps = {
-            'app1': {'server':{'domains': {'aliases': 123}}}
+            'web-app-port-ui': {'server':{'domains': {'aliases': 123}}}
         }
         with self.assertRaises(AnsibleFilterError):
             self.filter.domain_mappings(apps, self.primary)
