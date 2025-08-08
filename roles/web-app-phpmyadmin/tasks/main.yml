@@ -1,4 +1,4 @@
 ---
-- name: "include docker and reverse proxy for '{{ application_id }}'"
-  include_role: 
+- name: "load docker, proxy for '{{application_id}}'"
+  include_role:
     name: cmp-docker-proxy

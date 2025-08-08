@@ -14,7 +14,7 @@
       mig_roles_meta_list:    "{{ mig_roles_meta_volume }}list.json"
 
   - name: "load docker, proxy for '{{application_id}}'"
-    include_role: 
+    include_role:
       name: cmp-docker-proxy
 
   - name: Create tree

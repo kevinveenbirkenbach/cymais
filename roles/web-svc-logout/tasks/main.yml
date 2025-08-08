@@ -1,18 +1,16 @@
 ---
+- block:
+  - name: "load docker, proxy for '{{application_id}}'"
+    include_role:
+      name: cmp-docker-proxy
 
-- name: "include docker and reverse proxy for '{{ application_id }}'"
-  include_role: 
-    name: cmp-docker-proxy
-  when: run_once_web_svc_logout is not defined
+  - name: Create symbolic link from .env file to repository
+    file:
+      src:    "{{ docker_compose.files.env }}"
+      dest:   "{{ [ docker_repository_path, '.env' ] | path_join  }}"
+      state:  link
 
-- name: Create symbolic link from .env file to repository
-  file:
-    src:    "{{ docker_compose.files.env }}"
-    dest:   "{{ [ docker_repository_path, '.env' ] | path_join  }}"
-    state:  link
-  when: run_once_web_svc_logout is not defined
-
-- name: run the web svc logout tasks once
-  set_fact:
-    run_once_web_svc_logout: true
+  - name: run the web svc logout tasks once
+    set_fact:
+      run_once_web_svc_logout: true
   when: run_once_web_svc_logout is not defined

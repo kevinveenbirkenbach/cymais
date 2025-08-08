@@ -1,5 +1,5 @@
 ---
-- name: "For '{{ application_id }}': include docker-compose role"
+- name: "load docker, proxy for '{{application_id}}'"
   include_role:
     name: cmp-docker-proxy
 
