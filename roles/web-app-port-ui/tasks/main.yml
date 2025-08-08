@@ -63,5 +63,5 @@
   
   - name: run the portfolio tasks once
     set_fact:
-      run_once_docker_portfolio: true
-  when: run_once_docker_portfolio is not defined
+      run_once_web_app_port_ui: true
+  when: run_once_web_app_port_ui is not defined
