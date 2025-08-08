@@ -12,7 +12,8 @@
       but it does not end with {{ domains | get_domain('web-app-port-ui') }}!
   loop: "{{ applications 
              | dict2items 
-             | selectattr('key', 'match', '^(web-app-|web-svc-)') 
+             | selectattr('key', 'match', '^(web-app-|web-svc-)')
+             | selectattr('key', 'in', group_names)
              | list }}"
   loop_control:
     label: "{{ item.key }}"
