@@ -1,5 +1,0 @@
-- name: "Load handlers without when condition. to guaranty that they are executed"
-  import_role:
-    name: docker-compose
-    tasks_from: helpers/none
-    handlers_from: main

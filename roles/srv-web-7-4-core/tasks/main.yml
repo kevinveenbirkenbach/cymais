@@ -49,10 +49,5 @@
       dest: "{{ nginx.files.configuration }}"
     notify: restart openresty
   
-  - name: flush nginx service
-    meta: flush_handlers
-  
-  - name: run {{ role_name }} once
-    set_fact:
-      run_once_srv_web_7_4_core: true
+  - include_tasks: utils/run_once.yml
   when: run_once_srv_web_7_4_core is not defined

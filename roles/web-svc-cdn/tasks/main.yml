@@ -1,23 +1,22 @@
 ---
-- name: "include role for {{application_id}} to receive certs & do modification routines"
-  include_role:
-    name: srv-web-7-6-composer
+- block:
+  
+  - name: "include role for {{application_id}} to receive certs & do modification routines"
+    include_role:
+      name: srv-web-7-6-composer
+    vars:
+      domain:     "{{ domains | get_domain(application_id) }}"
+      http_port:  "{{ ports.localhost.http[application_id] }}"
+
+  - name: "generate {{domains | get_domain(application_id)}}.conf"
+    template: 
+      src:  "nginx.conf.j2" 
+      dest: "{{ nginx.directories.http.servers }}{{ domains | get_domain(application_id) }}.conf"
+    notify: restart openresty
+  
+  - include_tasks: utils/run_once.yml
+  when: run_once_web_svc_cdn is not defined
+
+- include_tasks: "{{ playbook_dir }}/tasks/utils/load_handlers.yml"
   vars:
-    domain:     "{{ domains | get_domain(application_id) }}"
-    http_port:  "{{ ports.localhost.http[application_id] }}"
-  when: run_once_web_svc_cdn is not defined
-
-- name: "generate {{domains | get_domain(application_id)}}.conf"
-  template: 
-    src:  "nginx.conf.j2" 
-    dest: "{{ nginx.directories.http.servers }}{{ domains | get_domain(application_id) }}.conf"
-  notify: restart openresty
-  when: run_once_web_svc_cdn is not defined
-
-- name: run the web svc cdn tasks once
-  set_fact:
-    run_once_web_svc_cdn: true
-  when: run_once_web_svc_cdn is not defined
-
-- name: "Ensure that {{ docker_compose.directories.instance }} is up"
-  include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/helpers/ensure.yml"
+    handler_role_name: "docker-compose"

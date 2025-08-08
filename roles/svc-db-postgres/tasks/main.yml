@@ -25,8 +25,9 @@
   - include_tasks: utils/run_once.yml
   when: run_once_svc_db_postgres is not defined
 
-- name: "Ensure that {{ docker_compose.directories.instance }} is up"
-  include_tasks: "{{ playbook_dir }}/roles/docker-compose/tasks/helpers/ensure.yml"
+- include_tasks: "{{ playbook_dir }}/tasks/utils/load_handlers.yml"
+  vars:
+    handler_role_name: "docker-compose"
 
 - name: "Initialize database for '{{ database_name }}'"
   include_tasks: init.yml
