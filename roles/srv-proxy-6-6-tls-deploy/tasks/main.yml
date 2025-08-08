@@ -2,7 +2,7 @@
   template: 
     src: "srv-proxy-6-6-tls-deploy.sh.j2" 
     dest: "{{nginx_docker_cert_deploy_script}}"
-  when: run_once_nginx_docker_cert_deploy is not defined
+  when: run_once_srv_proxy_6_6_tls_deploy is not defined
   notify: restart srv-proxy-6-6-tls-deploy.infinito.service
 
 - name: "create {{cert_mount_directory}}"
@@ -28,5 +28,5 @@
 
 - name: run the run_once_srv_proxy_6_6_tls_deploy tasks once
   set_fact:
-    run_once_backup_directory_validator: true
-  when: run_once_nginx_docker_cert_deploy is not defined
+    run_once_srv_proxy_6_6_tls_deploy: true
+  when: run_once_srv_proxy_6_6_tls_deploy is not defined

@@ -14,5 +14,4 @@
     state: present
     ipam_config:
       - subnet: "{{ networks.local[application_id].subnet }}"
-  when: run_once_docker_mariadb is not defined
 

@@ -14,8 +14,5 @@
       - { source: "package.json.j2",  target: "{{ simpleicons_host_package_file }}" }
     notify:
       - docker compose up
-  
-  - name: run the simpleicons tasks once
-    set_fact:
-      run_once_docker_simpleicon: true
-  when: run_once_docker_simpleicons is not defined
+  - include_tasks: utils/run_once.yml
+  when: run_once_web_svc_simpleicons is not defined

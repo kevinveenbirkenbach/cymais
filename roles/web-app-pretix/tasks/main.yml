@@ -2,9 +2,9 @@
 - name: "load docker and db for {{application_id}}"
   include_role: 
     name: cmp-db-docker
-  when: run_once_docker_pretix is not defined
+  when: run_once_web_app_pretix is not defined
 
 - name: run the pretix tasks once
   set_fact:
-    run_once_docker_pretix: true
-  when: run_once_docker_pretix is not defined
+    run_once_web_app_pretix: true
+  when: run_once_web_app_pretix is not defined

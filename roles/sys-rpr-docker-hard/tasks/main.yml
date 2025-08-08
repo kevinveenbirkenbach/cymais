@@ -26,8 +26,5 @@
     vars:
       on_calendar:  "{{on_calendar_restart_docker}}"
 
-  - name: run the restart_docker_volumes tasks once
-    set_fact:
-      run_once_restart_docker: true
-      
-  when: run_once_restart_docker is not defined
+  - include_tasks: utils/run_once.yml
+  when: run_once_sys_rpr_docker_hard is not defined

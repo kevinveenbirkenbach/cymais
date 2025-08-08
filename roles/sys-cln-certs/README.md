@@ -10,7 +10,7 @@ This Ansible role automates the detection, revocation and deletion of unused Let
 - Deploys and configures a `sys-cln-certs.infinito.service` systemd unit
 - (Optionally) Sets up a recurring cleanup via a systemd timer using the `sys-timer` role
 - Integrates with `sys-alm-compose` to send failure notifications
-- Ensures idempotent execution with a `run_once_cleanup_certs` flag
+- Ensures idempotent execution with a `run_once_sys_cln_certs` flag
 
 ## Features
 
@@ -24,7 +24,7 @@ This Ansible role automates the detection, revocation and deletion of unused Let
   Optionally wires in a timer via the `sys-timer` role, controlled by the `on_calendar_cleanup_certs` variable.
 
 - **Smart Execution Logic**  
-  Prevents multiple runs in one play by setting a `run_once_cleanup_certs` fact.
+  Prevents multiple runs in one play by setting a `run_once_sys_cln_certs` fact.
 
 - **Failure Notification**  
   Triggers `sys-alm-compose.infinito@sys-cln-certs.infinito.service` on failure.

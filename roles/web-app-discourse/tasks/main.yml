@@ -78,7 +78,4 @@
     when:
       - applications | get_app_conf(application_id, 'features.central_database', False)
 
-  - name: run the docker_discourse tasks once
-    set_fact:
-      run_once_web_app_discourse: true
-    when: run_once_web_app_discourse is not defined
+  - include_tasks: utils/run_once.yml

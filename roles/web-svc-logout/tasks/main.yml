@@ -10,7 +10,5 @@
       dest:   "{{ [ docker_repository_path, '.env' ] | path_join  }}"
       state:  link
 
-  - name: run the web svc logout tasks once
-    set_fact:
-      run_once_web_svc_logout: true
+  - include_tasks: utils/run_once.yml
   when: run_once_web_svc_logout is not defined

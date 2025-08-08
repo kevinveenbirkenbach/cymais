@@ -12,7 +12,7 @@
     state: directory
     mode: '0755'
   become: yes
-  when: run_once_package_manager is not defined
+  when: run_once_pkgmgr is not defined
 
 - name: Clone Kevin's Package Manager repository
   git:
@@ -21,21 +21,21 @@
     version: "HEAD"
     force: yes
   become: yes
-  when: run_once_package_manager is not defined
+  when: run_once_pkgmgr is not defined
 
 - name: Ensure main.py is executable
   file:
     path: "{{ pkgmgr_install_path }}/main.py"
     mode: '0755'
   become: yes
-  when: run_once_package_manager is not defined
+  when: run_once_pkgmgr is not defined
 
 - name: create config.yaml
   template: 
     src: config.yaml.j2
     dest: "{{pkgmgr_config_path}}"
   become: yes
-  when: run_once_package_manager is not defined
+  when: run_once_pkgmgr is not defined
 
 - name: Run the Package Manager install command to create an alias for Kevins package manager
   shell: |
@@ -45,9 +45,9 @@
     chdir: "{{ pkgmgr_install_path }}"
     executable: /bin/bash
   become: yes
-  when: run_once_package_manager is not defined
+  when: run_once_pkgmgr is not defined
 
-- name: run run_once_package_manager tasks once
+- name: run run_once_pkgmgr tasks once
   set_fact:
-    run_once_package_managerr: true
-  when: run_once_package_manager is not defined
+    run_once_pkgmgr: true
+  when: run_once_pkgmgr is not defined

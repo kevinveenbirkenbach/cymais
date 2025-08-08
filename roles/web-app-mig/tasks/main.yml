@@ -26,10 +26,7 @@
     command: "infinito build roles_list --no-signal --alarm-timeout 0 -o {{ mig_roles_meta_list }}"
     when: 
       - mig_build_data
-
-  - name: run the web-app-mig tasks once
-    set_fact:
-      run_once_docker_web_app_mig: true
+  - include_tasks: utils/run_once.yml
   name: "Setup Meta Infinite Graph"
-  when: run_once_docker_web_app_mig is not defined
+  when: run_once_web_app_mig is not defined
   

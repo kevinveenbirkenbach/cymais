@@ -6,9 +6,9 @@
     group: root
     mode: '0644'
   notify: sshd restart
-  when: run_once_sshd is not defined
+  when: run_once_sys_svc_sshd is not defined
 
 - name: run the sshd tasks once
   set_fact:
-    run_once_sshd: true
-  when: run_once_sshd is not defined
+    run_once_sys_svc_sshd: true
+  when: run_once_sys_svc_sshd is not defined

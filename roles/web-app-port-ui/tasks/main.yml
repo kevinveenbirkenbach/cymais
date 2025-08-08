@@ -60,8 +60,6 @@
       src:  docker-compose.yml.j2 
       dest: "{docker_compose.directories.instance}}docker-compose.yml"
     notify: docker compose up
-  
-  - name: run the portfolio tasks once
-    set_fact:
-      run_once_web_app_port_ui: true
+
+  - include_tasks: utils/run_once.yml
   when: run_once_web_app_port_ui is not defined

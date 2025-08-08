@@ -2,7 +2,7 @@
   user:
     name: backup
     create_home: yes
-  when: run_once_backups_provider_user is not defined
+  when: run_once_sys_bkp_provider_user is not defined
 
 - name: create .ssh directory
   file:
@@ -11,7 +11,7 @@
     owner: backup
     group: backup
     mode: '0700'
-  when: run_once_backups_provider_user is not defined
+  when: run_once_sys_bkp_provider_user is not defined
 
 - name: create /home/backup/.ssh/authorized_keys
   template:
@@ -20,7 +20,7 @@
     owner: backup
     group: backup
     mode: '0644'
-  when: run_once_backups_provider_user is not defined
+  when: run_once_sys_bkp_provider_user is not defined
 
 - name: create /home/backup/ssh-wrapper.sh
   copy:
@@ -29,7 +29,7 @@
     owner: backup
     group: backup
     mode: '0700'
-  when: run_once_backups_provider_user is not defined
+  when: run_once_sys_bkp_provider_user is not defined
 
 - name: grant backup sudo rights
   copy:
@@ -39,9 +39,9 @@
     owner: root
     group: root
   notify: sshd restart
-  when: run_once_backups_provider_user is not defined
+  when: run_once_sys_bkp_provider_user is not defined
   
 - name: run the backups_provider_user tasks once
   set_fact:
-    run_once_backups_provider_user: true
-  when: run_once_backups_provider_user is not defined
+    run_once_sys_bkp_provider_user: true
+  when: run_once_sys_bkp_provider_user is not defined

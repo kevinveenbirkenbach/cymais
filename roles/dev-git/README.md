@@ -6,7 +6,7 @@ This Ansible role installs Git on the target system using the Pacman package man
 
 ## Overview
 
-Designed for Arch Linux systems, this role leverages the `pacman` module to install Git. It uses a fact (`run_once_git`) to control task execution, ensuring that the Git installation is performed only once per run.
+Designed for Arch Linux systems, this role leverages the `pacman` module to install Git. It uses a fact (`run_once_dev_git`) to control task execution, ensuring that the Git installation is performed only once per run.
 
 ## Purpose
 

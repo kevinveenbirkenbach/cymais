@@ -3,19 +3,19 @@
     src:  "letsencrypt.conf.j2"
     dest: "{{nginx.directories.http.global}}letsencrypt.conf"
   notify: restart openresty
-  when: run_once_letsencrypt is not defined
+  when: run_once_srv_web_7_7_letsencrypt is not defined
 
 - name: "Set CAA records for all base domains"
   include_tasks: set-caa-records.yml
   when:
     - dns_provider == 'cloudflare'
-    - run_once_letsencrypt is not defined
+    - run_once_srv_web_7_7_letsencrypt is not defined
 
 - name: flush nginx service
   meta: flush_handlers
-  when: run_once_letsencrypt is not defined
+  when: run_once_srv_web_7_7_letsencrypt is not defined
 
 - name: run the letsencrypt logic just once
   set_fact:
-    run_once_letsencrypt: true
-  when: run_once_letsencrypt is not defined
+    run_once_srv_web_7_7_letsencrypt: true
+  when: run_once_srv_web_7_7_letsencrypt is not defined

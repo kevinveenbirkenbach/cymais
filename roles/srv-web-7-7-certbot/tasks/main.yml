@@ -2,14 +2,14 @@
   pacman:
     name: certbot
     state: present
-  when: run_once_certbot is not defined
+  when: run_once_srv_web_7_7_certbot is not defined
 
 - name: install certbot DNS plugin
   pacman:
     name: "certbot-dns-{{ certbot_acme_challenge_method }}"
     state: present
   when:
-    - run_once_certbot is not defined
+    - run_once_srv_web_7_7_certbot is not defined
     - certbot_acme_challenge_method != 'webroot'
 
 - name: Ensure /etc/certbot directory exists
@@ -20,7 +20,7 @@
     group:  root
     mode:   '0755'
   when:
-    - run_once_certbot is not defined
+    - run_once_srv_web_7_7_certbot is not defined
     - certbot_acme_challenge_method != 'webroot'
 
 - name: Install plugin credentials file
@@ -32,10 +32,10 @@
     group: root
     mode: '0600'
   when:
-    - run_once_certbot is not defined
+    - run_once_srv_web_7_7_certbot is not defined
     - certbot_acme_challenge_method != 'webroot'
 
 - name: run the certbot role once
   set_fact:
-    run_once_certbot: true
-  when: run_once_certbot is not defined
+    run_once_srv_web_7_7_certbot: true
+  when: run_once_srv_web_7_7_certbot is not defined

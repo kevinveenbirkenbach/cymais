@@ -3,9 +3,9 @@
   pacman:
     name: fakeroot
     state: present
-  when: run_once_fakeroot is not defined
+  when: run_once_dev_fakeroot is not defined
 
 - name: run the fakeroot tasks once
   set_fact:
-    run_once_fakeroot: true
-  when: run_once_fakeroot is not defined
+    run_once_dev_fakeroot: true
+  when: run_once_dev_fakeroot is not defined

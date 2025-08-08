@@ -43,10 +43,10 @@
 
     - name: run the backup_docker_to_local tasks once
       set_fact:
-        run_once_bkp_docker_to_local: true
+        run_once_sys_bkp_docker_2_loc: true
   
   when: 
-    - run_once_bkp_docker_to_local is not defined
+    - run_once_sys_bkp_docker_2_loc is not defined
     - database_type is defined and database_type
 
 - name: "include seed-database-to-backup.yml"

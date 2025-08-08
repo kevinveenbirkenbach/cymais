@@ -2,9 +2,4 @@
   systemd:
     name: sys-alm-compose.infinito.service
     daemon_reload: yes
-  when: run_once_systemd_notifier_service is not defined
-
-- name: run the systemd_notifier_service tasks once
-  set_fact:
-    run_once_systemd_notifier_service: true
-  when: run_once_systemd_notifier_service is not defined
+  when: run_once_sys_alm_compose is not defined

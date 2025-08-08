@@ -3,9 +3,9 @@
     name: pkgmgr-install
   vars:
     package_name: directory-validator
-  when: run_once_backup_directory_validator is not defined
+  when: run_once_sys_bkp_directory_validator is not defined
 
 - name: run the backup_directory_validator tasks once
   set_fact:
-    run_once_backup_directory_validator: true
-  when: run_once_backup_directory_validator is not defined
+    run_once_sys_bkp_directory_validator: true
+  when: run_once_sys_bkp_directory_validator is not defined

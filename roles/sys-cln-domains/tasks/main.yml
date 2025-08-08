@@ -8,7 +8,7 @@
     domain: "{{ item }}"
   when:
     - mode_cleanup | bool
-    - run_once_nginx_domains_cleanup is not defined
+    - run_once_sys_cln_domains is not defined
 
 ## The revoking just works for the base domain
 #- name: "Revoke Certbot certificate for {{ item }}"
@@ -20,7 +20,7 @@
 #    label: "{{ item }}"
 #  when:
 #    - mode_cleanup | bool
-#    - run_once_nginx_domains_cleanup is not defined
+#    - run_once_sys_cln_domains is not defined
 #  register: certbot_revoke_result
 #  failed_when: >
 #    certbot_revoke_result.rc != 0 and
@@ -38,7 +38,7 @@
 #    label: "{{ item }}"
 #  when:
 #    - mode_cleanup | bool
-#    - run_once_nginx_domains_cleanup is not defined
+#    - run_once_sys_cln_domains is not defined
 #  register: certbot_delete_result
 #  failed_when: >
 #    certbot_delete_result.rc != 0 and
@@ -48,5 +48,5 @@
 
 - name: run the nginx_domains_cleanup role once
   set_fact:
-    run_once_nginx_domains_cleanup: true
-  when: run_once_nginx_domains_cleanup is not defined
+    run_once_sys_cln_domains: true
+  when: run_once_sys_cln_domains is not defined

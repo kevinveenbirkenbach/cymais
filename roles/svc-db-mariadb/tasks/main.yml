@@ -4,7 +4,7 @@
     state: present
     ipam_config:
       - subnet: "{{ mariadb_subnet }}"
-  when: run_once_docker_mariadb is not defined
+  when: run_once_svc_db_mariadb is not defined
 
 - name: install MariaDB
   docker_container:
@@ -27,14 +27,14 @@
       interval: 10s
       timeout: 5s
       retries: 18
-  when: run_once_docker_mariadb is not defined
+  when: run_once_svc_db_mariadb is not defined
   register: setup_mariadb_container_result
 
 - name: install python-mysqlclient
   pacman: 
     name: python-mysqlclient
     state: present
-  when: run_once_docker_mariadb is not defined
+  when: run_once_svc_db_mariadb is not defined
 
 - name: "Wait until the MariaDB container with hostname '{{ mariadb_name }}' is healthy"
   community.docker.docker_container_info:
@@ -48,7 +48,7 @@
   when:
     - setup_mariadb_container_result is defined
     - setup_mariadb_container_result.changed
-    - run_once_docker_mariadb is not defined
+    - run_once_svc_db_mariadb is not defined
 
 - name: "Initialize database for '{{ database_name }}'"
   include_tasks: init.yml
@@ -56,5 +56,5 @@
 
 - name: run the docker_mariadb tasks once
   set_fact:
-    run_once_docker_mariadb: true
-  when: run_once_docker_mariadb is not defined
+    run_once_svc_db_mariadb: true
+  when: run_once_svc_db_mariadb is not defined

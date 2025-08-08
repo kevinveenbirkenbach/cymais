@@ -18,10 +18,5 @@
     set_fact:
       docker_enabled: true
 
-  - name: flush docker service
-    meta: flush_handlers
-
-  - name: run the docker tasks once
-    set_fact:
-      run_once_docker: true
-  when: run_once_docker is not defined
+  - include_tasks: utils/run_once.yml
+  when: run_once_docker_core is not defined

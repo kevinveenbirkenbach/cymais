@@ -9,7 +9,7 @@ This Ansible role configures the OpenSSH daemon (`sshd`) by deploying a template
 - Renders `sshd_config.j2` into `/etc/ssh/sshd_config` with customizable options  
 - Sets file ownership (`root:root`) and permissions (`0644`)  
 - Automatically reloads and restarts the SSH service via a Systemd handler  
-- Uses a `run_once_sshd` fact to ensure idempotent execution  
+- Uses a `run_once_sys_svc_sshd` fact to ensure idempotent execution  
 
 ## Features
 
@@ -25,7 +25,7 @@ This Ansible role configures the OpenSSH daemon (`sshd`) by deploying a template
   Handles daemon reload and service restart seamlessly on configuration changes.
 
 - **Idempotency**  
-  Ensures tasks run only once per play by setting the `run_once_sshd` fact.
+  Ensures tasks run only once per play by setting the `run_once_sys_svc_sshd` fact.
 
 ## Further Resources
 

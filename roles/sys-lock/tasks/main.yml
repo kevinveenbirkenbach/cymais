@@ -3,11 +3,11 @@
   copy:
     src: sys-lock.py
     dest: "{{path_system_lock_script}}"
-  when: run_once_system_maintenance_lock is not defined
+  when: run_once_sys_lock is not defined
 
 ## Runtime Variable Setting
 
 - name: run the system_maintenance_service_freezer tasks once
   set_fact:
-    run_once_system_maintenance_lock: true
-  when: run_once_system_maintenance_lock is not defined
+    run_once_sys_lock: true
+  when: run_once_sys_lock is not defined

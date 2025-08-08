@@ -4,9 +4,9 @@
     src: sys-alm-compose@.service.j2 
     dest: "/etc/systemd/system/sys-alm-compose.infinito@.service"
   notify: "restart sys-alm-compose service"
-  when: run_once_systemd_notifier_service is not defined
+  when: run_once_sys_alm_compose is not defined
 
 - name: run the systemd_notifier_service tasks once
   set_fact:
-    run_once_systemd_notifier_service: true
-  when: run_once_systemd_notifier_service is not defined
+    run_once_sys_alm_compose: true
+  when: run_once_sys_alm_compose is not defined

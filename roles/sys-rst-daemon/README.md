@@ -6,7 +6,7 @@ This Ansible role handles resetting and cleaning up “Infinito.Nexus” systemd
 
 When enabled via the `mode_reset` flag, this role will:
 
-1. Run its reset tasks exactly once per play (`run_once_core_daemon` guard).  
+1. Run its reset tasks exactly once per play (`run_once_sys_rst_daemon` guard).  
 2. Find all `/etc/systemd/system/*.infinito.service` units.  
 3. Stop and disable each unit.  
 4. Remove the unit files.  
