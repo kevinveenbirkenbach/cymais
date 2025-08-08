@@ -1,5 +1,8 @@
+# General
 application_id:                 "web-app-friendica"
 database_type:                  "mariadb"
+
+# Friendica Specific
 friendica_container:            "friendica"
 friendica_no_validation:        "{{ applications | get_app_conf(application_id, 'features.oidc', True) }}" # Email validation is not neccessary if OIDC is active
 friendica_application_base:     "/var/www/html"

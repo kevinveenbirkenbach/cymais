@@ -42,7 +42,7 @@ for filename in os.listdir(config_path):
         # Prepare the URL and expected status codes
         url = f"{{ WEB_PROTOCOL }}://{domain}"
         
-        redirected_domains = [domain['source'] for domain in {{ current_play_domain_mappings_redirect}}]
+        redirected_domains = [domain['source'] for domain in {{ redirect_domain_mappings }}]
         redirected_domains.append("{{domains | get_domain('web-app-mailu')}}")
 
         expected_statuses = get_expected_statuses(domain, parts, redirected_domains)

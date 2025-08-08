@@ -42,7 +42,6 @@
           canonical_domains_map(primary_domain) | 
           combine(current_play_domains, recursive=True) 
         }}
-
   - name: Merge redirect_domain_mappings
     set_fact:
       # The following mapping is necessary to define the exceptions for domains which are created, but which aren't used
@@ -54,7 +53,7 @@
 
   - name: Set current play redirect domain mappings 
     set_fact:
-      current_play_domain_mappings_redirect: >-
+      redirect_domain_mappings: >-
         {{ 
           current_play_applications |
           domain_mappings(primary_domain) | 
@@ -67,7 +66,7 @@
         {{
           (current_play_domains |
           combine(
-            current_play_domain_mappings_redirect | 
+            redirect_domain_mappings | default([]) | 
             items2dict(key_name='source', value_name='source'),
             recursive=True
           )) |
