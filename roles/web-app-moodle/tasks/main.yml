@@ -4,7 +4,7 @@
     name: cmp-db-docker-proxy
 
 - name: "Update database credentials"
-  include_tasks: 01_database.yml 
+  include_tasks: 01_patch_config.yml
 
 - name: flush docker service
   meta: flush_handlers
