@@ -25,7 +25,7 @@ Include this snippet in your top-level `docker-compose.yml.j2` where you want Re
   Sets container name (`{{ application_id }}-redis`).
 
 - **Restart policy**  
-  Controlled by `docker_restart_policy`.
+  Controlled by `DOCKER_RESTART_POLICY`.
 
 - **Journald logging**  
   Ensures logs are captured by systemd’s journal.

@@ -3,7 +3,7 @@
 {% set container_port = 8008 %}
     image: "{{ matrix_synapse_image }}:{{ matrix_synapse_version }}"
     container_name: {{ matrix_synapse_name }}
-    restart: {{docker_restart_policy}}
+    restart: {{DOCKER_RESTART_POLICY}}
     logging:
       driver: journald
     volumes:
@@ -32,7 +32,7 @@
 {% set container_port = 80 %}
     image: "{{ matrix_element_image }}:{{ matrix_element_version }}"
     container_name: {{ matrix_element_name }}
-    restart: {{docker_restart_policy}}
+    restart: {{DOCKER_RESTART_POLICY}}
     volumes:
       - ./element-config.json:/app/config.json
     ports:
@@ -44,7 +44,7 @@
   mautrix-{{item.bridge_name}}:
     container_name: matrix-{{item.bridge_name}}
     image: dock.mau.dev/mautrix/{{ item.bridge_name }}:latest
-    restart: {{docker_restart_policy}}
+    restart: {{DOCKER_RESTART_POLICY}}
     volumes:
       - ./mautrix/{{item.bridge_name}}:/data
     healthcheck:
@@ -56,7 +56,7 @@
 {% endfor %}
 {% if applications | get_app_conf(application_id, 'plugins.chatgpt', True) | bool %}
   matrix-chatgpt-bot:
-    restart: {{docker_restart_policy}}
+    restart: {{DOCKER_RESTART_POLICY}}
     container_name: matrix-chatgpt
     image: ghcr.io/matrixgpt/matrix-chatgpt-bot:latest
     volumes:

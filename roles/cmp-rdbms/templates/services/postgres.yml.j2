@@ -6,7 +6,7 @@
     container_name: {{ application_id | get_entity_name }}-database
     env_file:
       - {{database_env}}
-    restart: {{docker_restart_policy}}
+    restart: {{DOCKER_RESTART_POLICY}}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U {{database_name}}"]
       interval: 10s

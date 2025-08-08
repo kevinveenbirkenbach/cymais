@@ -16,7 +16,7 @@
     mode: '0755'
   with_dict: "{{ docker_compose.directories }}"
 
-- name: "Include routines to set up a git repository based installaion for '{{application_id}}'."
+- name: "Include routines to set up a git repository based installation for '{{application_id}}'."
   include_tasks: "02_repository.yml"
   when: docker_pull_git_repository | bool
 

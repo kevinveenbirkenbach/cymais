@@ -50,16 +50,17 @@ certbot_dns_propagation_wait_seconds:     300                     # How long sho
 certbot_flavor:                           san                     # Possible options: san (recommended, with a dns flavor like cloudflare, or hetzner), wildcard(doesn't function with www redirect), dedicated
 
 # Path where Certbot stores challenge webroot files
-letsencrypt_webroot_path: "/var/lib/letsencrypt/"
+letsencrypt_webroot_path:                 "/var/lib/letsencrypt/"
 
 # Base directory containing Certbot configuration, account data, and archives
-letsencrypt_base_path: "/etc/letsencrypt/"
+letsencrypt_base_path:                    "/etc/letsencrypt/"
 
 # Symlink directory for the current active certificate and private key
-letsencrypt_live_path: "{{ letsencrypt_base_path }}live/"
+letsencrypt_live_path:                    "{{ letsencrypt_base_path }}live/"
 
 ## Docker Role Specific Parameters
-docker_restart_policy:                    "unless-stopped"
+DOCKER_RESTART_POLICY:                    "unless-stopped"
+DOCKER_VARS_FILE:                         "{{ playbook_dir }}/roles/docker-compose/vars/docker-compose.yml"
 
 # default value if not set via CLI (-e) or in playbook vars
 allowed_applications: []
