@@ -4,23 +4,23 @@
     name: cmp-db-docker-proxy
 
 - name: "Update database credentials"
-  include_tasks: database.yml 
+  include_tasks: 01_database.yml 
 
 - name: flush docker service
   meta: flush_handlers
 
 - name: Wait until the Moodle container is healthy
-  shell: docker inspect --format '{% raw %}{{.State.Health.Status}}{% endraw %}' {{ moodle_container }}
+  shell:    docker inspect --format '{% raw %}{{.State.Health.Status}}{% endraw %}' {{ moodle_container }}
   register: health_check
-  until: health_check.stdout.strip() == "healthy"
-  retries: 120
-  delay: 5
+  until:    health_check.stdout.strip() == "healthy"
+  retries:  120
+  delay:    5
 
 - name: "Include ownership settings tasks for moodle"
-  include_tasks: ownership.yml
+  include_tasks: 02_ownership.yml
 
 - name: "Configure OIDC login for Moodle if enabled"
-  include_tasks: oidc.yml
+  include_tasks: 03_oidc.yml
   when: applications | get_app_conf(application_id, 'features.oidc', False)
 
 # Deactivated because it doesn't give helpfull warnings back
