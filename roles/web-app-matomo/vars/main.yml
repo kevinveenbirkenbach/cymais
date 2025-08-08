@@ -1,17 +1,20 @@
 ---
 # General
-application_id:       "web-app-matomo"
-database_type:        "mariadb"
+application_id:                 "web-app-matomo"
+database_type:                  "mariadb"
 
 # Matomo
-matomo_excluded_ips:  "{{ applications | get_app_conf(application_id, 'excluded_ips', True) }}"
-matomo_index_php_url: "{{ domains | get_url(application_id, WEB_PROTOCOL) }}/index.php"
-matomo_auth_token:    "{{ applications | get_app_conf(application_id, 'credentials.auth_token', True) }}"
-matomo_version:       "{{ applications | get_app_conf(application_id, 'docker.services.matomo.version', True) }}"
-matomo_image:         "{{ applications | get_app_conf(application_id, 'docker.services.matomo.image', True) }}"
-matomo_name:          "{{ applications | get_app_conf(application_id, 'docker.services.matomo.name', True) }}"
-matomo_data:          "{{ applications | get_app_conf(application_id, 'docker.volumes.data', True) }}"
-matomo_config:        "/var/www/html/config/config.ini.php"
+matomo_excluded_ips:            "{{ applications | get_app_conf(application_id, 'excluded_ips', True) }}"
+matomo_index_php_url:           "{{ domains | get_url(application_id, WEB_PROTOCOL) }}/index.php"
+matomo_auth_token:              "{{ applications | get_app_conf(application_id, 'credentials.auth_token', True) }}"
+matomo_version:                 "{{ applications | get_app_conf(application_id, 'docker.services.matomo.version', True) }}"
+matomo_image:                   "{{ applications | get_app_conf(application_id, 'docker.services.matomo.image', True) }}"
+matomo_name:                    "{{ applications | get_app_conf(application_id, 'docker.services.matomo.name', True) }}"
+matomo_data:                    "{{ applications | get_app_conf(application_id, 'docker.volumes.data', True) }}"
+matomo_config:                  "/var/www/html/config/config.ini.php"
+
+# Docker
+docker_compose_flush_handlers:  true
 
 # I don't know if this is still necessary
-domain:               "{{ domains | get_domain(application_id) }}"
+domain:                         "{{ domains | get_domain(application_id) }}"
