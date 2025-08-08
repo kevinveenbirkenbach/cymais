@@ -1,5 +1,8 @@
-application_id:                   "web-app-keycloak"                                                                                      # Internal Infinito.Nexus application id 
+# General
+application_id:                   "web-app-keycloak"                                                                              # Internal Infinito.Nexus application id 
 database_type:                    "postgres"                                                                                      # Database which will be used
+
+# Keycloak Specific
 keycloak_container:               "{{ applications | get_app_conf(application_id, 'docker.services.keycloak.name', True) }}"      # Name of the keycloack docker container
 keycloak_host_import_directory:   "{{ docker_compose.directories.volumes }}import/"                                               # Directory in which keycloack import files are placed on the host
 keycloak_docker_import_directory: "/opt/keycloak/data/import/"                                                                    # Directory in which keycloack import files are placed in the running docker container
@@ -15,3 +18,6 @@ keycloak_image:                   "{{ applications | get_app_conf(application_id
 keycloak_version:                 "{{ applications | get_app_conf(application_id, 'docker.services.keycloak.version', True) }}"   # Keyloak docker version
 keycloak_import_realm:            "{{ applications | get_app_conf(application_id, 'import_realm', True, True) }}"                 # Activate realm import
 keycloak_debug_enabled:           "{{ enable_debug }}"
+
+# Docker 
+docker_compose_flush_handlers:    false                                                                                           # Copy realm import etc. before flush
