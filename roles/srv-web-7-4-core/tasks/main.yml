@@ -1,59 +1,55 @@
 ---
-- name: Include openresty
-  include_role: 
-    name: svc-prx-openresty
-    public: false 
-    # Explicit set to guaranty that application_id will not be overwritten. 
-    # Should be anyhow the default case
-  when: run_once_srv_web_core is not defined
-
-- name: "reset (if enabled)"
-  include_tasks: reset.yml 
-  when: mode_reset | bool and run_once_srv_web_core is not defined
+- block:
+  - name: Include openresty
+    include_role:
+      name: svc-prx-openresty
+      public: false
+      # Explicit set to guaranty that application_id will not be overwritten.
+      # Should be anyhow the default case
   
-- name: Ensure nginx configuration directories are present
-  file:
-    path: "{{ item }}"
-    state: directory
-    owner: "{{nginx.user}}"
-    group: "{{nginx.user}}"
-    mode: '0755'
-    recurse: yes
-  loop: >
-    {{
-      [ nginx.directories.configuration ] +
-      (nginx.directories.http.values() | list) +
-      [ nginx.directories.streams ] 
-    }}
-  when: run_once_srv_web_core is not defined
-
-- name: Ensure nginx data storage directories are present
-  file:
-    path: "{{ item }}"
-    state: directory
-    recurse: yes
-    owner: "{{nginx.user}}"
-    group: "{{nginx.user}}"
-    mode:  '0755'
-  loop: >
-    {{ nginx.directories.data.values() | list }}
-  when: run_once_srv_web_core is not defined
-
-- name: "Include tasks to create cache directories"
-  include_tasks: cache_directories.yml
-
-- name: create nginx config file
-  template: 
-    src:  nginx.conf.j2 
-    dest: "{{ nginx.files.configuration }}"
-  notify: restart openresty
-  when: run_once_srv_web_core is not defined
-
-- name: flush nginx service
-  meta: flush_handlers
-  when: run_once_srv_web_core is not defined
-
-- name: run {{ role_name }} once
-  set_fact:
-    run_once_srv_web_core: true
+  - name: "reset (if enabled)"
+    include_tasks: 01_reset.yml
+    when: mode_reset | bool
+    
+  - name: Ensure nginx configuration directories are present
+    file:
+      path: "{{ item }}"
+      state: directory
+      owner: "{{nginx.user}}"
+      group: "{{nginx.user}}"
+      mode: '0755'
+      recurse: yes
+    loop: >
+      {{
+        [ nginx.directories.configuration ] +
+        ( nginx.directories.http.values() | list ) +
+        [ nginx.directories.streams ] 
+      }}
+  
+  - name: Ensure nginx data storage directories are present
+    file:
+      path: "{{ item }}"
+      state: directory
+      recurse: yes
+      owner: "{{nginx.user}}"
+      group: "{{nginx.user}}"
+      mode:  '0755'
+    loop: >
+      {{ nginx.directories.data.values() | list }}
+    
+  - name: "Include tasks to create cache directories"
+    include_tasks: 02_cache_directories.yml
+  
+  - name: create nginx config file
+    template: 
+      src:  nginx.conf.j2 
+      dest: "{{ nginx.files.configuration }}"
+    notify: restart openresty
+  
+  - name: flush nginx service
+    meta: flush_handlers
+  
+  - name: run {{ role_name }} once
+    set_fact:
+      run_once_srv_web_core: true
   when: run_once_srv_web_core is not defined
